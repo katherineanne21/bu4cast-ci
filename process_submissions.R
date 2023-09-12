@@ -3,7 +3,7 @@ library(score4cast)
 library(arrow)
 library(glue)
 
-source("https://raw.githubusercontent.com/eco4cast/tern4cast/main/R/forecast_output_validator.R")
+source("https://raw.githubusercontent.com/ltreb-reservoirs/vera4cast/main/R/forecast_output_validator.R")
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 AWS_DEFAULT_REGION <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]

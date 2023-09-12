@@ -11,15 +11,15 @@
 submit <- function(forecast_file, 
                    metadata = NULL, 
                    ask = interactive(), 
-                   s3_region = "data",
-                   s3_endpoint = "ecoforecast.org" 
+                   s3_region = "submit",
+                   s3_endpoint = "ltreb-reservoirs.org" 
 ){
   if(file.exists("~/.aws")){
     warning(paste("Detected existing AWS credentials file in ~/.aws,",
                   "Consider renaming these so that automated upload will work"))
   }
   message("validating that file matches required standard")
-  source("https://raw.githubusercontent.com/eco4cast/tern4cast/main/R/forecast_output_validator.R")
+  source("https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/R/forecast_output_validator.R")
   go <- forecast_output_validator(forecast_file)
   if(!go){
     
@@ -36,7 +36,7 @@ submit <- function(forecast_file,
   #GENERALIZATION:  Here are specific AWS INFO
   exists <- aws.s3::put_object(file = forecast_file, 
                      object = basename(forecast_file),
-                     bucket = "tern4cast-submissions",
+                     bucket = "vera4cast-submissions",
                      region= s3_region,
                      base_url = s3_endpoint)
   
@@ -45,16 +45,13 @@ submit <- function(forecast_file,
   }else{
     warning("Forecasts was not sucessfully submitted to server")
   }
-  
-  
-  
-  
+
   if(!is.null(metadata)){
     if(tools::file_ext(metadata) == "xml"){
       EFIstandards::forecast_validator(metadata)
       aws.s3::put_object(file = metadata, 
                          object = basename(metadata),
-                         bucket = "tern4cast-submissions",
+                         bucket = "vera4cast-submissions",
                          region= s3_region,
                          base_url = s3_endpoint)
     }else{
@@ -71,38 +68,23 @@ submit <- function(forecast_file,
 #' @param s3_endpoint root domain (leave as is for EFI challenge)
 #' @export
 check_submission <- function(forecast_file,
-                             s3_region = "data",
-                             s3_endpoint = "ecoforecast.org"){
+                             s3_region = "submit",
+                             s3_endpoint = "ltreb-reservoirs.org"){
   
   theme <- stringr::str_split_fixed(basename(forecast_file), "-", n = 2)
-  
-  #All forecats are converted into a common file format when they are processed.  This generates that name.
-  #if (grepl("[.]nc$", forecast_file)) {
-  #  base_name <- paste0(tools::file_path_sans_ext(basename(forecast_file)), 
-  #                      ".csv.gz")
-  #}else if (grepl("[.]csv$", forecast_file)) {
-  #  base_name <- paste0(tools::file_path_sans_ext(basename(forecast_file)), 
-  #                      ".csv.gz")
-  #}else if (grepl("[.]csv\\.gz$", forecast_file)) {
-  #  base_name <- basename(forecast_file)
-  #}else {
-  #  message("File is not a .nc, .cvs, or .csv.gz file")
-  #  base_name <- forecast_file
-  #}
-  
+    
   base_name <- forecast_file
   
   exists <- suppressMessages(aws.s3::object_exists(object = file.path("raw", theme[,1], base_name), 
-                                                   bucket = "tern4cast-forecasts",
+                                                   bucket = "vera4cast-forecasts",
                                                    region= s3_region,
                                                    base_url = s3_endpoint))
-  
   
   if(exists){
     message("Submission was successfully processed")
   }else{
     not_in_standard <- suppressMessages(aws.s3::object_exists(object = file.path("not_in_standard", basename(forecast_file)), 
-                                                              bucket = "tern4cast-forecasts",
+                                                              bucket = "vera4cast-forecasts",
                                                               region= s3_region,
                                                               base_url = s3_endpoint))
     if(not_in_standard){

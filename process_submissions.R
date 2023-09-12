@@ -6,10 +6,15 @@ library(glue)
 source("https://raw.githubusercontent.com/ltreb-reservoirs/vera4cast/main/R/forecast_output_validator.R")
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-AWS_DEFAULT_REGION <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-region <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-AWS_S3_ENDPOINT <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,2]
-endpoint_override <- config$endpoint
+AWS_DEFAULT_REGION_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
+region_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
+AWS_S3_ENDPOINT_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,2]
+
+AWS_DEFAULT_REGION_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
+region_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
+AWS_S3_ENDPOINT_forecasts <- stringr::str_split_fixed(config$submissions,"\\.", 2)[,2]
+endpoint_override_forecasts <- config$endpoint
+
 
 message(paste0("Starting Processing Submissions ", Sys.time()))
 
@@ -19,8 +24,10 @@ fs::dir_create(local_dir)
 
 # cannot  set region="" using environmental variables!!
 
-Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION,
-           "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
+Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
+           "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions)
+
+Sys.unsetenv("AWS_SECRET_ACCESS_KEY")
 
 message("Downloading forecasts ...")
 
@@ -38,7 +45,7 @@ if(length(submissions) > 0){
   Sys.unsetenv("AWS_DEFAULT_REGION")
   Sys.unsetenv("AWS_S3_ENDPOINT")
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
-  s3 <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint_override)
+  s3 <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint_override_forecasts)
 
   for(i in 1:length(submissions)){
 
@@ -52,7 +59,7 @@ if(length(submissions) > 0){
 
     example <- stringr::str_detect(curr_submission, pattern = config$example_model_id)
 
-    if((tools::file_ext(curr_submission) %in% c("nc", "gz", "csv")) & !is.na(submission_date) & !example){
+    if((tools::file_ext(curr_submission) %in% c("gz", "csv")) & !is.na(submission_date) & !example){
 
       if(theme %in% themes){
 
@@ -60,7 +67,8 @@ if(length(submissions) > 0){
 
         if(valid){
 
-            fc <- read4cast::read_forecast(submissions[i])
+            fc <- readr::read_csv(submissions[i]) |> mutate(reference_datetime = Sys.time())
+
             reference_datetime_format <- config$theme_datetime_format[which(themes == theme)]
 
             pubDate <- strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
@@ -75,63 +83,67 @@ if(length(submissions) > 0){
             fc |> write_dataset(path, format = 'parquet',
                                 partitioning=c("model_id", "reference_datetime", "date"))
 
-          Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION,
-                     "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
 
-          aws.s3::copy_object(from_object = submissions_bucket[i],
-                              from_bucket = config$submissions_bucket,
-                              to_object = paste0("raw/", theme,"/",basename(submissions[i])),
-                              to_bucket = config$forecasts_bucket,
-                              region=region)
 
-          if(aws.s3::object_exists(object = paste0("raw/", theme,"/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region)){
+          aws.s3::put_object(submissions_bucket[i],
+                              object = paste0("raw/", theme,"/",basename(submissions[i])),
+                              bucket = config$forecasts_bucket,
+                              region=region_forecasts)
 
-            aws.s3::delete_object(object = submissions_bucket[i], bucket = config$submissions_bucket, region=region)
+          if(aws.s3::object_exists(object = paste0("raw/", theme,"/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region_forecasts)){
+
+            Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
+                       "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions)
+            aws.s3::delete_object(object = submissions_bucket[i], bucket = config$submissions_bucket, region=region_forecasts)
 
           }
         } else {
-          Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION,
-                     "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
+          Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_forecasts,
+                     "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_forecasts)
 
-          aws.s3::copy_object(from_object = submissions_bucket[i],
-                              to_object = paste0("not_in_standard/", basename(submissions[i])),
-                              from_bucket = config$submissions_bucket,
-                              to_bucket = config$forecasts_bucket, region=region)
-          if(aws.s3::object_exists(object = paste0("not_in_standard/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region)){
+          aws.s3::put_object(submissions_bucket[i],
+                             object = paste0("not_in_standard/", theme,"/",basename(submissions[i])),
+                             bucket = config$forecasts_bucket,
+                             region=region_forecasts)
+          if(aws.s3::object_exists(object = paste0("not_in_standard/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region_forecasts)){
 
-            aws.s3::delete_object(object = submissions_bucket[i], bucket = config$submissions_bucket, region=region)
+            Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
+                       "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions)
+
+            aws.s3::delete_object(object = submissions_bucket[i], bucket = config$submissions_bucket, region=region_submissions)
 
           }
         }
       } else if(!(theme %in% themes)){
-        Sys.setenv("AWS_DEFAULT_REGION" =AWS_DEFAULT_REGION,
-                   "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
+        Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_forecasts,
+                   "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_forecasts)
 
-        aws.s3::copy_object(from_object = submissions_bucket[i],
-                            to_object = paste0("not_in_standard/",basename(submissions[i])),
-                            from_bucket = config$submissions_bucket,
-                            to_bucket = config$forecasts_bucket, region=region)
+        aws.s3::put_object(submissions_bucket[i],
+                           object = paste0("not_in_standard/", theme,"/",basename(submissions[i])),
+                           bucket = config$forecasts_bucket,
+                           region=region_forecasts)
 
-        if(aws.s3::object_exists(object = paste0("not_in_standard/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region)){
+        if(aws.s3::object_exists(object = paste0("not_in_standard/",basename(submissions[i])), bucket = config$forecasts_bucket, region = region_forecasts)){
 
 
-          Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION,
-                     "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
-          aws.s3::delete_object(object = submissions_bucket[i],
-                                bucket = config$submissions_bucket, region = region)
+          Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
+                     "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions)
+
+          aws.s3::delete_object(object = submissions_bucket[i], bucket = config$submissions_bucket, region=region_submissions)
 
         }
       }else{
         #Don't do anything because the date hasn't occur yet
       }
     }else{
-      Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION,
-                 "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT)
+      Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_forecasts,
+                 "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_forecasts)
 
-      aws.s3::copy_object(from_object = submissions_bucket[i],
-                          to_object = paste0("not_in_standard/", basename(submissions[i])),
-                          from_bucket = config$submissions_bucket,
-                          to_bucket = config$forecasts_bucket, region = region)
+      aws.s3::put_object(submissions_bucket[i],
+                         object = paste0("not_in_standard/", theme,"/",basename(submissions[i])),
+                         bucket = config$forecasts_bucket,
+                         region=region_forecasts)
+
     }
   }
 }

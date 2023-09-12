@@ -1,6 +1,7 @@
 library(tidyverse)
 library(score4cast)
 library(arrow)
+library(googlesheets4)
 library(glue)
 
 source("https://raw.githubusercontent.com/ltreb-reservoirs/vera4cast/main/R/forecast_output_validator.R")
@@ -33,12 +34,16 @@ message("Downloading forecasts ...")
 
 ## Note: s3sync stupidly also requires auth credentials even to download from public bucket
 
-aws.s3::s3sync(local_dir, bucket = config$submissions_bucket,  direction= "download", verbose = FALSE, region = region)
+aws.s3::s3sync(local_dir, bucket = config$submissions_bucket,  direction= "download", verbose = FALSE, region = region_submissions)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions_bucket <- basename(submissions)
 
 themes <- config$themes
+
+googlesheets4::gs4_deauth()
+message("Accessing registered model_ids")
+registered_model_id <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/17DNtk2uSxaIKkuj4Dhbs39kdT7NCQ01Tk9qzhMWev9k/edit?usp=sharing')
 
 if(length(submissions) > 0){
 
@@ -67,7 +72,7 @@ if(length(submissions) > 0){
 
         if(valid){
 
-            fc <- readr::read_csv(submissions[i]) |> mutate(reference_datetime = Sys.time())
+            fc <- readr::read_csv(submissions[i])
 
             reference_datetime_format <- config$theme_datetime_format[which(themes == theme)]
 

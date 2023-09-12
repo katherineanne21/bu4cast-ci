@@ -2,7 +2,7 @@ endpoint: sdsc.osn.xsede.org
 submissions_endpoint: submit.ltreb-reservoirs.org
 scores_bucket: bio230121-bucket01/vera4cast-scores
 forecasts_bucket: bio230121-bucket01/vera4cast-forecasts
-submissions_bucket: bio230121-bucket01/vera4cast-submissions
+submissions_bucket: vera4cast-submissions
 inventory_bucket: bio230121-bucket01/vera4cast-inventory
 prov_bucket: bio230121-bucket01/vera4cast-prov
 targets_bucket: bio230121-bucket01/vera4cast-targets

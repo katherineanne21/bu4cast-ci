@@ -91,6 +91,6 @@ flux_target_30m <- tern_flux_target_30m
 
 flux_target_daily <- tern_flux_target_daily
 
-s3 <- arrow::s3_bucket("vera4cast-targets/aquatics", endpoint_override = "sdsc.osn.xsede.org")
-arrow::write_csv_arrow(flux_target_daily, sink = s3$path("terrestrial_daily-targets.csv.gz"))
+s3 <- arrow::s3_bucket("vera4cast-targets/aquatics_daily", endpoint_override = "sdsc.osn.xsede.org")
+arrow::write_csv_arrow(flux_target_daily, sink = s3$path("aquatics_daily-targets.csv.gz"))
 

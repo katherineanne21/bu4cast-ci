@@ -3,8 +3,8 @@ library(score4cast)
 library(arrow)
 library(googlesheets4)
 library(glue)
+library(ver4castHelpers)
 
-source("https://raw.githubusercontent.com/ltreb-reservoirs/vera4cast/main/R/forecast_output_validator.R")
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 AWS_DEFAULT_REGION_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
@@ -40,10 +40,6 @@ submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions_bucket <- basename(submissions)
 
 themes <- config$themes
-
-googlesheets4::gs4_deauth()
-message("Accessing registered model_ids")
-registered_model_id <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/17DNtk2uSxaIKkuj4Dhbs39kdT7NCQ01Tk9qzhMWev9k/edit?usp=sharing')
 
 if(length(submissions) > 0){
 

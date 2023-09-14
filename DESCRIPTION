@@ -15,7 +15,6 @@ Encoding: UTF-8
 Language: en-US
 Imports: 
     score4cast,
-    gefs4cast,
     minioclient,
     rmarkdown,
     glue,
@@ -31,5 +30,4 @@ Imports:
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,
-    github::eco4cast/gefs4cast,
-    github::cboettig/aws.s3
+    github::LTREB-reservoirs/ver4castHelpers

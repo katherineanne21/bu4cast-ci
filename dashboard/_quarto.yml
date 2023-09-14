@@ -3,27 +3,38 @@ project:
   output-dir: docs
 
 website:
-  title: "EFI-TERN Challenge"
+  title: "VERA Forecast Challenge"
   page-navigation: true
-  repo-url: https://github.com/eco4cast/tern4cast
+  repo-url: https://github.com/LTREB-reservoirs/vera4cast
   repo-actions: [edit, issue]
 
   navbar:
     background: primary
     search: true
     left:
-      - href: instructions.qmd
-        icon: info-square
-      - href: terrestrial.qmd
-        icon: tree-fill
-      - href: catalog.qmd
-        icon: book
+      - href: http://ltreb-reservoirs.org/
+        text: About
+        icon: cpu
+      # - href: wvwa.qmd
+      #   icon: droplet
+      # - href: sunp.qmd
+      #   icon: droplet
+      # - href: alex.qmd
+      #   icon: droplet
+      # - href: neon.qmd
+      #   icon: droplet
+      # - href: ntl.qmd
+      #   icon: droplet
+      # - href: feea.qmd
+      #   icon: droplet
+      # - href: status.qmd
+      #   icon: clipboard-pulse
 
   page-footer:
     left: "CC-BY"
     right:
       - icon: github
-        href: https://github.com/eco4cast/tern4cast
+        href: https://github.com/LTREB-reservoirs/vera4cast
 
 format:
   html:

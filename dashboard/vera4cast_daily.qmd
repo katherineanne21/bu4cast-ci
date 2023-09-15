@@ -20,7 +20,7 @@ score4cast::ignore_sigpipe()
 
 ```{r include=FALSE}
 cutoff <- as.character(Sys.Date() - 30)
-combined <- arrow::open_dataset("cache/parquet/aquatics") |>
+combined <- arrow::open_dataset("cache/parquet/vera4cast_daily") |>
   filter(reference_datetime >= cutoff) |> collect()
 
 ```
@@ -28,44 +28,44 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 This map shows the NEON sites with and their CRPS score relative to the climatology model for the seven day ahead forecast, indicated by color. The size of each bubble shows the percent of models which are more skilled than climatology. Included in each site description is the site name, site type, number of models submitted, and the number of models that are more skilled than climatology. We define a skillful model as having a lower CRPS forecast score than the climatology model.  
 
 ```{r}
-source("R/overview_map_test.R")
-tmap_mode("view")
-tm_shape(us_sf) +
-  tm_bubbles(col ="crps_median", size = 'perc_skilled', id = 'field_site_name', title.col = 'CRPS skill relative to climatology',
-             alpha = 0.8, xmod = 1, palette = 'RdBu',
-             popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))
+# source("R/overview_map_test.R")
+# tmap_mode("view")
+# tm_shape(us_sf) +
+#   tm_bubbles(col ="crps_median", size = 'perc_skilled', id = 'field_site_name', title.col = 'CRPS skill relative to climatology',
+#              alpha = 0.8, xmod = 1, palette = 'RdBu',
+#              popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))
 ```
 
 These plots show the percent of skillful water temperature forecasts over the thirty day forecast horizon. The first plot shows the percent of skillful forecasts over for NEON lake sites and river sites separately.
 
 ```{r}
-source("R/test_synth_plots.R")
-
-
-# plotting lakes and rivers
-  ggplot(lakes_rivers_plot,aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
-  geom_line(linewidth = 1.2) +
-  theme_bw(base_size = 20) +
-  scale_colour_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
-  scale_fill_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
-  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
-  theme(legend.position = 'right') +
-  guides(color = guide_legend(nrow = 5))
+# source("R/test_synth_plots.R")
+# 
+# 
+# # plotting lakes and rivers
+#   ggplot(lakes_rivers_plot,aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
+#   geom_line(linewidth = 1.2) +
+#   theme_bw(base_size = 20) +
+#   scale_colour_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
+#   scale_fill_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
+#   labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+#   theme(legend.position = 'right') +
+#   guides(color = guide_legend(nrow = 5))
 ```
     
 The second plot shows the percent of skillful forecasts for each NEON lake site. 
     
 ```{r}
 # plotting lakes 
-  ggplot(lake_plot, aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
-  geom_line(linewidth = 1.2) +
-  theme_bw(base_size = 20) +
-  scale_colour_viridis_d(option = 'turbo', name = 'Site') +
-  #scale_fill_viridis_d(option = 'turbo', name = 'Site') +
-  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
-  theme(legend.position = 'right') +
-  guides(color = guide_legend(nrow = 5)) +
-  facet_wrap(~Type)
+  # ggplot(lake_plot, aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
+  # geom_line(linewidth = 1.2) +
+  # theme_bw(base_size = 20) +
+  # scale_colour_viridis_d(option = 'turbo', name = 'Site') +
+  # #scale_fill_viridis_d(option = 'turbo', name = 'Site') +
+  # labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  # theme(legend.position = 'right') +
+  # guides(color = guide_legend(nrow = 5)) +
+  # facet_wrap(~Type)
 ```
 
 ## Forecasts
@@ -86,19 +86,19 @@ ex <- combined |> filter(reference_datetime == ref, site_id %in% sites)
 ## Oxygen
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "oxygen") |> forecast_plots()
+#ex |> filter(reference_datetime == ref, variable == "oxygen") |> forecast_plots()
 ```
 
 ## Temperature
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_plots()
+#ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_plots()
 ```
 
 ## Chlorophyll-A
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "chla") |> forecast_plots()
+#ex |> filter(reference_datetime == ref, variable == "chla") |> forecast_plots()
 ```
 :::
 
@@ -110,13 +110,13 @@ Average skill scores of each model across all sites. Scores are shown by referen
 ## Oxygen
 
 ```{r}
-leaderboard_plots(combined, "oxygen")
+#leaderboard_plots(combined, "oxygen")
 ```
 
 ## Temperature
 
 ```{r}
-leaderboard_plots(combined, "temperature")
+#leaderboard_plots(combined, "temperature")
 ```
 
 ## Chlorophyll-A
@@ -158,22 +158,22 @@ combined |>
 Here we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties.
 
 ```{r}
-annual <- arrow::open_dataset("cache/parquet/aquatics") |>
+annual <- arrow::open_dataset("cache/parquet/vera4cast_daily") |>
   mutate(month = lubridate::month(datetime, label=TRUE)) |>
   group_by(month) |>
-  summarise(crps = median(crps,na.rm=TRUE), 
-            logs = median(logs, na.rm=TRUE))  |> 
+  summarise(crps = median(crps,na.rm=TRUE),
+            logs = median(logs, na.rm=TRUE))  |>
   collect() |>
   pivot_longer(c(crps,logs), names_to="metric", values_to="score")
 
-gg <- ggplot(annual) + 
+gg <- ggplot(annual) +
   geom_col(aes(month, score, fill=metric), position="dodge") + theme_bw()
 
 girafe(gg)
 ```
 
 ```{r}
-sites <- arrow::open_dataset("cache/parquet/aquatics") |>
+sites <- arrow::open_dataset("cache/parquet/vera4cast_daily") |>
   group_by(site_id) |>
   summarise(crps = median(crps,na.rm=TRUE), 
             logs = median(logs, na.rm=TRUE))  |> 

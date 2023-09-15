@@ -15,8 +15,8 @@ website:
       - href: http://ltreb-reservoirs.org/
         text: About
         icon: cpu
-      # - href: wvwa.qmd
-      #   icon: droplet
+      - href: vera4cast_daily.qmd
+        icon: droplet
       # - href: sunp.qmd
       #   icon: droplet
       # - href: alex.qmd

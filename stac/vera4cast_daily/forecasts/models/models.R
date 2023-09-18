@@ -12,7 +12,7 @@ source('R/stac_functions.R')
 #get model ids
 #s3 <- s3_bucket("neon4cast-inventory", endpoint_override="sdsc.osn.xsede.org", anonymous = TRUE)
 #paths <- open_dataset(s3$path("neon4cast-forecasts")) |> collect()
-pahts <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=sdsc.osn.xsede.org")) |>
+paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=sdsc.osn.xsede.org")) |>
   collect()
 
 models_df <- paths |> filter(...1 == "parquet", ...2 == "aquatics") |> distinct(...3)
@@ -150,7 +150,7 @@ for (m in aquatic_models$model.id[1:2]){
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_var_site_info <- generate_vars_sites(m_id = m, theme = 'aquatics')
+  model_var_site_info <- generate_vars_sites(m_id = m, theme = 'vera4cast_daily')
   # print(model_var_site_info[[1]])
   # print(model_var_site_info[[2]])
 

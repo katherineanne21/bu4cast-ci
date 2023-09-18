@@ -36,7 +36,7 @@ theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-forecast
 ## identify model ids from bucket -- used in generate model items function
 #s3 <- s3_bucket("neon4cast-inventory", endpoint_override="data.ecoforecast.org", anonymous = TRUE)
 paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=sdsc.osn.xsede.org")) |> collect()
-models_df <- paths |> filter(...1 == "parquet", ...2 == "aquatics") |> distinct(...3)
+models_df <- paths |> filter(...1 == "parquet", ...2 == "vera4cast_daily") |> distinct(...3)
 aquatic_models <- models_df |>
   tidyr::separate(...3, c('name','model.id'), "=")
 
@@ -46,7 +46,6 @@ s3_df <- s3_df |> filter(model_id != 'null')
 
 forecast_max_date <- max(s3_df$date)
 forecast_min_date <- min(s3_df$date)
-
 
 build_description <- "The catalog contains forecasts for the VERA Forecasting Challenge Daily theme. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model."
 

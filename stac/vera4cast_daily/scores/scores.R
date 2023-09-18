@@ -23,8 +23,8 @@ description_create <- data.frame(reference_datetime ='ISO 8601(ISO 2019) datetim
                                  date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.')
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
-theme <- 'aquatics'
-reference_date <- '2023-05-01'
+theme <- 'vera4cast_daily'
+reference_datetime <- '2023-05-01'
 site_id <- 'BARC'
 model_id <- 'flareGLM'
 variable_name <- 'temperature'
@@ -34,13 +34,7 @@ theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-scores/p
   filter(variable == variable_name, site_id == site_id)
 
 ## identify model ids from bucket
-s3 <- s3_bucket("neon4cast-inventory", endpoint_override="data.ecoforecast.org", anonymous = TRUE)
-paths <- open_dataset(s3$path("neon4cast-scores")) |> collect()
-models_df <- paths |> filter(...1 == "parquet", ...2 == "aquatics") |> distinct(...3)
-aquatic_models <- models_df |>
-  tidyr::separate(...3, c('name','model.id'), "=")
-
-## identify model ids from bucket -- used in generate model items function
+#s3 <- s3_bucket("neon4cast-inventory", endpoint_override="data.ecoforecast.org", anonymous = TRUE)
 paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-scores?endpoint_override=sdsc.osn.xsede.org")) |> collect()
 models_df <- paths |> filter(...1 == "parquet", ...2 == "aquatics") |> distinct(...3)
 aquatic_models <- models_df |>
@@ -49,9 +43,6 @@ aquatic_models <- models_df |>
 ## use s3_inventory to access min and max dates
 s3_df <- get_grouping(inv_bucket = 'neon4cast-scores', theme = "vera4cast_daily") # inv_bucket will need to change
 s3_df <- s3_df |> filter(model_id != 'null')
-
-forecast_max_date <- max(s3_df$date)
-forecast_min_date <- min(s3_df$date)
 
 forecast_max_date <- max(s3_df$date)
 forecast_min_date <- min(s3_df$date)

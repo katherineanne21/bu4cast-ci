@@ -1,14 +1,12 @@
-endpoint: sdsc.osn.xsede.org
+endpoint: renc.osn.xsede.org
 submissions_endpoint: submit.ltreb-reservoirs.org
-scores_bucket: bio230121-bucket01/vera4cast-scores
-forecasts_bucket: bio230121-bucket01/vera4cast-forecasts
+scores_bucket: bio230121-bucket01/vera4cast/scores
+forecasts_bucket: bio230121-bucket01/vera4cast/forecasts
 submissions_bucket: vera4cast-submissions
-inventory_bucket: bio230121-bucket01/vera4cast-inventory
-prov_bucket: bio230121-bucket01/vera4cast-prov
-targets_bucket: bio230121-bucket01/vera4cast-targets
-themes: aquatics
-theme_datetime_format: "%Y-%m-%d"
+inventory_bucket: bio230121-bucket01/vera4cast/inventory
+prov_bucket: bio230121-bucket01/vera4cast/prov
+targets_bucket: bio230121-bucket01/vera4cast/targets
+themes: [daily, hourly]
+theme_datetime_format: ["%Y-%m-%d", "%Y-%m-%d %H:%M:%S"]
 example_model_id: test
 site_table: vera_field_site_metadata.csv
-
-

@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.OSN_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.OSN_SECRET }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v3

@@ -28,7 +28,7 @@ fs::dir_create(local_dir)
 Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
            "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions,
            "AWS_SECRET_ACCESS_KEY_SUBMISSIONS" = Sys.getenv("AWS_SECRET_ACCESS_KEY"),
-           "AWS_ACCESS_KEY_SUBMISSIONS" =  Sys.getenv("AWS_ACCESS_KEY"))
+           "AWS_ACCESS_KEY_SUBMISSIONS" =  Sys.getenv("AWS_ACCESS_KEY_ID"))
 
 Sys.unsetenv("AWS_SECRET_ACCESS_KEY")
 
@@ -106,6 +106,7 @@ if(length(submissions) > 0){
 
             Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_submissions,
                        "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_submissions)
+                     
             aws.s3::delete_object(object = submissions_bucket[i], 
                                   bucket = config$submissions_bucket, 
                                   region=region_forecasts,
@@ -114,6 +115,7 @@ if(length(submissions) > 0){
 
           }
         } else {
+                   
           Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_forecasts,
                      "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_forecasts)
                    
@@ -141,8 +143,11 @@ if(length(submissions) > 0){
                                   secret = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
           }
+                   
         }
+                 
       } else if(!(theme %in% themes)){
+                 
         Sys.setenv("AWS_DEFAULT_REGION" = AWS_DEFAULT_REGION_forecasts,
                    "AWS_S3_ENDPOINT" = AWS_S3_ENDPOINT_forecasts)
 

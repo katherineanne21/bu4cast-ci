@@ -14,11 +14,10 @@ library(bslib)
 library(bsicons)
 library(leaflet)
 config <- yaml::read_yaml("../challenge_configuration.yaml")
+sites <- suppressMessages(sf::st_read("sites.json"))
 ```
 
-```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, }
-sites <- sf::st_read("sites.json")
-
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
 leaflet() %>%
   #setView(lat = 37.2296, lng = -100, zoom=2) %>%
   addTiles(group="OSM") %>%
@@ -29,7 +28,6 @@ leaflet() %>%
 ```
 
 ```{r}
-c
 s3_inventory <- arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()

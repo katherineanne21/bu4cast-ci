@@ -89,13 +89,13 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-## CO2 flux
+## Chla_ugL
 
 ```{r}
 leaderboard_plots(combined, "Chla_ugL")
 ```
 
-## Latent evaporation
+## temp_C
 
 ```{r}
 leaderboard_plots(combined, "temp_C")

@@ -53,7 +53,7 @@ for(i in 1:length(config$themes)){
   bucket <- config$forecasts_bucket
   target <- score4cast:::get_target(theme, s3_targets)
 
-  inventory <- arrow::open_dataset(s3_inv) |> dplyr::filter(theme == {theme}) |> dplyr::collect() |> distinct(model_id, date, path, endpoint)
+  inventory <- arrow::open_dataset(s3_inv) |> dplyr::filter(theme == {theme}) |> dplyr::collect() |> dplyr::distinct(model_id, date, path, endpoint)
 
   for(j in 1:nrow(inventory)){
 
@@ -81,7 +81,7 @@ for(i in 1:length(config$themes)){
        arrow::write_dataset(s3_scores_path,
                             partitioning = c("model_id", "date"))
      new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
-     prov_df <- bind_rows(prov_df, new_prov)
+     prov_df <- dplyr::bind_rows(prov_df, new_prov)
    }
   }
 

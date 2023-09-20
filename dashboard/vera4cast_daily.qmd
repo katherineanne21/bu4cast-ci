@@ -13,14 +13,14 @@ library(score4cast)
 library(vis4cast)
 library(glue)
 source("R/plot-utils.R")
-source("R/flare_plots.R")
+source("R/flare-plots.R")
 score4cast::ignore_sigpipe()
 
 ```
 
 ```{r include=FALSE}
 cutoff <- as.character(Sys.Date() - 30)
-combined <- arrow::open_dataset("cache/parquet/vera4cast_daily") |>
+combined <- arrow::open_dataset("cache/daily") |>
   filter(reference_datetime >= cutoff) |> collect()
 
 ```
@@ -173,7 +173,7 @@ girafe(gg)
 ```
 
 ```{r}
-sites <- arrow::open_dataset("cache/parquet/vera4cast_daily") |>
+sites <- arrow::open_dataset("cache/parquet/daily") |>
   group_by(site_id) |>
   summarise(crps = median(crps,na.rm=TRUE), 
             logs = median(logs, na.rm=TRUE))  |> 

@@ -62,10 +62,10 @@ build_model <- function(model_id,
   variables_reformat <- paste(var_values, collapse = ", ")
   site_reformat <- paste(site_values, collapse = ", ")
 
-  aws_asset_link <- paste0("s3://anonymous@bio230014-bucket01/",
+  aws_asset_link <- paste0("s3://anonymous@bio230121-bucket01/",
                            aws_download_path,
                            "/model_id=", model_id,
-                           "?endpoint_override=sdsc.osn.xsede.org")
+                           "?endpoint_override=renc.osn.xsede.org")
 
   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")

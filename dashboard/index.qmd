@@ -13,6 +13,7 @@ library(arrow)
 library(bslib)
 library(bsicons)
 library(leaflet)
+config <- yaml::read_yaml("../challenge_configuration.yaml")
 ```
 
 ```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, }
@@ -28,10 +29,13 @@ leaflet() %>%
 ```
 
 ```{r}
-combined <- arrow::open_dataset("../cache/parquet/")
+c
+s3_inventory <- arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
+n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
+n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 
-n_forecasts <- combined |> distinct(model_id, reference_datetime) |> collect() |> nrow()
-n_models <- combined |> distinct(model_id) |> collect() |> nrow()
+#n_forecasts <- combined |> distinct(model_id, reference_datetime) |> collect() |> nrow()
+#n_models <- combined |> distinct(model_id) |> collect() |> nrow()
 
 last_updated <- Sys.Date()
 

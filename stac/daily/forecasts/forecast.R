@@ -14,7 +14,7 @@ description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the fore
                                  date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5 of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.')
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
-theme <- 'vera4cast_daily'
+theme <- 'daily'
 reference_datetime <- '2023-05-01'
 site_id <- 'BARC'
 model_id <- 'flareGLM'
@@ -29,13 +29,13 @@ variable_name <- 'temperature'
 # theme_df <- arrow::open_dataset(s3_schema) %>%
 #   filter(variable == variable_name, site_id == site_id)
 
-theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-forecasts/parquet/{theme}/
-                                               model_id={model_id}/reference_datetime={reference_datetime}?endpoint_override=sdsc.osn.xsede.org")) |>
+theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@bio230121-bucket01vera4cast/forecasts/parquet/{theme}/
+                                               model_id={model_id}/reference_date={reference_date}?endpoint_override=renc.osn.xsede.org")) |>
   filter(variable == variable_name, site_id == site_id)
 
 ## identify model ids from bucket -- used in generate model items function
 #s3 <- s3_bucket("neon4cast-inventory", endpoint_override="data.ecoforecast.org", anonymous = TRUE)
-paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=sdsc.osn.xsede.org")) |> collect()
+paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=renc.osn.xsede.org")) |> collect()
 models_df <- paths |> filter(...1 == "parquet", ...2 == "vera4cast_daily") |> distinct(...3)
 aquatic_models <- models_df |>
   tidyr::separate(...3, c('name','model.id'), "=")
@@ -61,4 +61,4 @@ build_forecast_scores(table_schema = theme_df,
                       theme_title = "Forecasts",
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                       destination_path = "stac/vera4cast-daily/forecasts/",
-                      aws_download_path = 'neon4cast-scores/forecasts/vera4cast-daily')
+                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily')

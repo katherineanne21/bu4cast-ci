@@ -2,8 +2,8 @@ source('R/stac_functions.R')
 
 
 ## READ S3 INVENTORY FOR DATES
-s3_inventory <- arrow::s3_bucket("neon4cast-inventory",
-                                 endpoint_override = "sdsc.osn.xsede.org", #this will likely need to change
+s3_inventory <- arrow::s3_bucket("neon4cast-inventory", #THIS WILL NEED TO BE UPDATED
+                                 endpoint_override = "renc.osn.xsede.org",
                                  anonymous = TRUE)
 
 s3_df <- get_grouping(inv_bucket = 'neon4cast-forecasts', "vera4cast-daily") # inv_bucket will need to change
@@ -19,7 +19,7 @@ build_theme(start_date = theme_min_date,
             end_date = theme_max_date,
             id_value = 'vera-daily',
             theme_description = build_description,
-            theme_title = 'vera4cast_daily',
-            destination_path = "stac/vera4cast_daily/",
+            theme_title = 'daily',
+            destination_path = "stac/daily/",
             thumbnail_link = 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg',
             thumbnail_title = 'NEON Aquatics Buoy')

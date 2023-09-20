@@ -1,6 +1,4 @@
-print(paste0("Running Creating Terrestrial baselines at ", Sys.time()))
-
-print(paste0("Running Creating Daily Terrestrial Forecasts at ", Sys.time()))
+print(paste0("Running Creating baselines at ", Sys.time()))
 
 library(tidyverse)
 library(lubridate)
@@ -19,16 +17,15 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 team_name <- "climatology"
 
 
+targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/daily/exo_daily-targets.csv.gz"), guess_max = 10000)
 
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/terrestrial_daily/terrestrial_daily-targets.csv.gz"), guess_max = 10000)
 
-
-sites <- read_csv(config$site_table, show_col_types = FALSE) |>
-  dplyr::filter(!is.na(data_url))
+sites <- read_csv(config$site_table, show_col_types = FALSE)
 
 site_names <- sites$site_id
 
 target_clim <- targets %>%
+  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
   mutate(doy = yday(datetime)) %>%
   group_by(doy, site_id, variable) %>%
   summarise(clim_mean = mean(observation, na.rm = TRUE),
@@ -65,15 +62,15 @@ for(i in 1:length(subseted_site_names)){
 
 forecast_tibble1 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "nee")
+                           variable = "Chla_ugL")
 
 forecast_tibble2 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "nee")
+                           variable = "Temp_C")
 
 forecast_tibble <- bind_rows(forecast_tibble1, forecast_tibble2)
 
-foreast <- right_join(forecast, forecast_tibble)
+foreast <- right_join(forecast, forecast_tibble, by = join_by("site_id", "variable", "datetime"))
 
 site_count <- forecast %>%
   select(datetime, site_id, variable, clim_mean, clim_sd) %>%
@@ -92,6 +89,7 @@ combined <- forecast %>%
   group_by(site_id, variable) %>%
   mutate(mu = imputeTS::na_interpolation(x = mean),
          sigma = median(sd, na.rm = TRUE))
+
 combined <- combined %>%
   pivot_longer(c("mu", "sigma"),names_to = "parameter", values_to = "prediction") |>
   mutate(family = "normal") |>
@@ -100,7 +98,7 @@ combined <- combined %>%
   select(model_id, datetime, reference_datetime, site_id, variable, family, parameter, prediction)
 
 combined %>%
-  filter(variable == "nee") |>
+  filter(variable == "Chla_ugL") |>
   pivot_wider(names_from = parameter, values_from = prediction) %>%
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin=mu - sigma*1.96, ymax=mu + sigma*1.96), alpha = 0.1) +
@@ -109,34 +107,32 @@ combined %>%
 
 file_date <- combined$reference_datetime[1]
 
-forecast_file <- paste("terrestrial_daily", file_date, "climatology.csv.gz", sep = "-")
+forecast_file <- paste("daily", file_date, "climatology.csv.gz", sep = "-")
 
 write_csv(combined, forecast_file)
 
-source("https://raw.githubusercontent.com/eco4cast/tern4cast/main/R/submit.R")
 
-submit(forecast_file = forecast_file,
+
+vera4castHelpers::submit(forecast_file = forecast_file,
                   metadata = NULL,
                   ask = FALSE)
+
+
 
 unlink(forecast_file)
 
 source('R/fablePersistenceModelFunction.R')
-# 1.Read in the targets data
-# We are not doing a peristence for le right now.
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/terrestrial_daily/terrestrial_daily-targets.csv.gz"), guess_max = 10000)
-#targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/terrestrial_daily/terrestrial_daily-targets.csv.gz"), guess_max = 10000) %>%
-#  filter(variable == 'nee')
 
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
+  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
   as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())
 
 # 3. Run through each via map
 site_var_combinations <- expand.grid(site = unique(targets$site_id),
-                                     var = unique(targets$variable)) %>%
+                                     var = unique(targets_ts$variable)) %>%
   # assign the transformation depending on the variable. le is logged
   mutate(transformation = 'none') %>%
   mutate(boot_number = 200,
@@ -159,22 +155,14 @@ RW_forecasts_EFI <- RW_forecasts %>%
          model_id = "persistenceRW") %>%
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
-#RW_forecasts_EFI |>
-#  filter(site_id %in% unique(RW_forecasts_EFI$site_id)[1:24]) |>
-#  ggplot(aes(x = time, y = prediction, group = ensemble)) +
-#  geom_line() +
-#  facet_wrap(~site_id)
-
 # 4. Write forecast file
 file_date <- RW_forecasts_EFI$reference_datetime[1]
 
-forecast_file <- paste("terrestrial_daily", file_date, "persistenceRW.csv.gz", sep = "-")
+forecast_file <- paste("daily", file_date, "persistenceRW.csv.gz", sep = "-")
 
 write_csv(RW_forecasts_EFI, forecast_file)
 
-source("https://raw.githubusercontent.com/eco4cast/tern4cast/main/R/submit.R")
-
-submit(forecast_file = forecast_file,
+vera4castHelpers::submit(forecast_file = forecast_file,
                   metadata = NULL,
                  ask = FALSE)
 

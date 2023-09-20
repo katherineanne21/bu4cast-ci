@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.OSN_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.OSN_SECRET }}
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v3
@@ -23,11 +23,6 @@ jobs:
         run: |
           remotes::install_github("eco4cast/score4cast", ref = "duckdb")
           install.packages(c("bench"))
-
-      - name: Build inventory
-        shell: Rscript {0}
-        run: |
-          score4cast::efi_update_inventory(bucket_name = "tern4cast-forecasts")
 
       - name: Generate scores
         shell: Rscript {0}

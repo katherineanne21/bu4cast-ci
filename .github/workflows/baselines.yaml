@@ -23,9 +23,10 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_github("cboettig/aws.s3")
+          remotes::install_github("LTREB-reservoirs/ver4castHelpers")
           install.packages(c("imputeTS", "tsibble", "fable"))
 
       - name: Generate forecasts
         shell: Rscript {0}
         run: |
-          source("models/run_terrestrial_baselines.R")
+          source("models/run_exo_baselines.R")

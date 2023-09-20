@@ -2,7 +2,7 @@ library(tidyverse)
 library(arrow)
 library(googlesheets4)
 library(glue)
-library(ver4castHelpers)
+library(vera4castHelpers)
 library(here)
 
 config <- yaml::read_yaml("challenge_configuration.yaml")

@@ -2,7 +2,7 @@
 title: "Home"
 ---
 
-Welcome the Terrestrial Ecosystem Research Network ([TERN](https://www.tern.org.au)) Ecological Forecasting Challenge dashboard, hosted by the Ecological Forecasting Initiative ([EFI](https://ecoforecast.org))
+Welcome the Virginia Ecoforecasting Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge dashboard, hosted by the Ecological Forecasting Project ([EFP](https://www.ecoforecastprojectvt.org/))
 
 This site provides instructions for participation, visualizations of forecast submissions, and a catalog of all submitted forecasts. It is rendered daily using GitHub Actions.
 
@@ -12,6 +12,19 @@ library(dplyr)
 library(arrow)
 library(bslib)
 library(bsicons)
+library(leaflet)
+```
+
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, }
+sites <- sf::st_read("sites.json")
+
+leaflet() %>%
+  #setView(lat = 37.2296, lng = -100, zoom=2) %>%
+  addTiles(group="OSM") %>%
+  addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
+  addLayersControl(baseGroups=c('OSM', 'Topo Map','Imagery')) |> 
+  addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
 ```
 
 ```{r}
@@ -31,13 +44,13 @@ Page last updated on `r Sys.Date()`
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the EFI TERN Challenge", 
+    title = "Total forecasts submitted to the EFP VERA Challenge", 
     value = n_forecasts,
     showcase = bs_icon("graph-up"),
     theme_color = "success" 
   ),
   value_box(
-    title = "Unique models submitted to the EFI TERN Challenge", 
+    title = "Unique models submitted to the EFP VERA Challenge", 
     value = n_models,
     showcase = bs_icon("pie-chart")
   )
@@ -47,10 +60,10 @@ layout_column_wrap(
 
 ## Submit a forecast!
 
-EFI-TERN Challenge currently has one open challenge theme! Browse the current forecasts or submit your own.
+VERA Challenge currently has one open challenge theme! Browse the current forecasts or submit your own.
 
 ------------------------------------------------------------------------
 
-Data was sourced from Terrestrial Ecosystem Research Network (TERN) infrastructure, which is enabled by the Australian Government\'s *National Collaborative Research Infrastructure Strategy* (NCRIS).
+Data was sourced from EFP infrastructure, which is enabled by Virginia Tech and the *National Science Foundation* (NSF).
 
 This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.

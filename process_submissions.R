@@ -206,9 +206,10 @@ if(length(submissions) > 0){
 
     }
   }
+  arrow::write_dataset(inventory_df, path = s3_inventory)
 }
 
-arrow::write_dataset(inventory_df, path = s3_inventory)
+
 
 unlink(local_dir, recursive = TRUE)
 

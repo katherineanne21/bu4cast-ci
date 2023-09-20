@@ -1,6 +1,5 @@
 library(tidyverse)
 library(arrow)
-library(googlesheets4)
 library(glue)
 library(vera4castHelpers)
 library(here)
@@ -51,6 +50,21 @@ if(length(submissions) > 0){
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
+  s3_inventory <- arrow::s3_bucket("bio230121-bucket01/vera4cast",
+                                   endpoint_override = endpoint_override_forecasts,
+                                   access_key = Sys.getenv("OSN_KEY"),
+                                   secret_key = Sys.getenv("OSN_SECRET"))
+
+  s3_inventory$CreateDir("inventory")
+
+
+  s3_inventory <- arrow::s3_bucket(config$inventory_bucket,
+                         endpoint_override = endpoint_override_forecasts,
+                         access_key = Sys.getenv("OSN_KEY"),
+                         secret_key = Sys.getenv("OSN_SECRET"))
+
+  inventory_df <- arrow::open_dataset(s3_inventory) |> collect()
+
   for(i in 1:length(submissions)){
 
     curr_submission <- basename(submissions[i])
@@ -88,7 +102,18 @@ if(length(submissions) > 0){
             fc |> write_dataset(path, format = 'parquet',
                                 partitioning=c("model_id", "reference_date"))
 
+            model_id <- fc$model_id[1]
+            bucket <- config$forecasts_bucket
+            reference_date <- fc$reference_date[1]
+            endpoint <- config$endpoint
+            curr_inventory <- fc |>
+              mutate(theme = theme,
+                     date = lubridate::as_date(datetime),
+                     path = glue::glue("{bucket}/parquet/{theme}"),
+                     endpoint =config$endpoint) |>
+              distinct(theme, model_id, site_id, reference_date, variable, date, path, endpoint)
 
+            inventory_df <- bind_rows(inventory_df, curr_inventory)
 
             aws.s3::put_object(submissions_bucket[i],
                               object = paste0("raw/", theme,"/",basename(submissions[i])),
@@ -182,6 +207,8 @@ if(length(submissions) > 0){
     }
   }
 }
+
+arrow::write_dataset(inventory_df, path = s3_inventory)
 
 unlink(local_dir, recursive = TRUE)
 

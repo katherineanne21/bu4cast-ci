@@ -12,7 +12,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 endpoint <- config$endpoint
 
 s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast",
-                      endpoint_override = endpoint,
+                       endpoint_override = endpoint,
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
@@ -39,11 +39,11 @@ for(i in 1:length(config$themes)){
   local_prov <- paste0(theme,"-scoring_provenance.csv")
 
   if (!(local_prov %in% s3_prov$ls())) {
-    arrow::write_csv_arrow(dplyr::tibble(prov = NA), local_prov)
+    arrow::write_csv_arrow(dplyr::tibble(prov = NA, new_id = NA), local_prov)
   }else{
-  path <- s3_prov$path(paste0(local_prov))
-  prov <- arrow::read_csv_arrow(path)
-  arrow::write_csv_arrow(prov, local_prov)
+    path <- s3_prov$path(paste0(local_prov))
+    prov <- arrow::read_csv_arrow(path)
+    arrow::write_csv_arrow(prov, local_prov)
   }
 
   prov_df <- readr::read_csv(local_prov, col_types = "ic")
@@ -55,39 +55,43 @@ for(i in 1:length(config$themes)){
 
   inventory <- arrow::open_dataset(s3_inv) |> dplyr::filter(theme == {theme}) |> dplyr::collect() |> dplyr::distinct(model_id, date, path, endpoint)
 
-  for(j in 1:nrow(inventory)){
+  new_prov <- purrr::map_dfr(1:nrow(inventory), function(j, inventory, prov_df, s3_scores_path){
 
     ref <- inventory$date[j]
 
-   # NOTE: we cannot 'prefilter' grouping by prov, since once we have tg
-   # we want to use it to score, not access it twice...
-   tg <- target |>
-     dplyr::filter(datetime >= ref, datetime < ref+lubridate::days(1))
+    # NOTE: we cannot 'prefilter' grouping by prov, since once we have tg
+    # we want to use it to score, not access it twice...
+    tg <- target |>
+      dplyr::filter(datetime >= ref, datetime < ref+lubridate::days(1))
 
-   id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
-   new_id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
+    id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
+    new_id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
 
-   if (!(score4cast:::prov_has(id, prov_df, "new_id")))
-   {
-     fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
-       dplyr::mutate(date = as.Date(datetime)) |>
-       dplyr::filter(date == inventory$date[j]) |>
-       dplyr::collect()
+    if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
 
-     fc |>
-       score4cast::crps_logs_score(tg) |>
-       dplyr::mutate(date = inventory$date[j],
-              model_id = inventory$model_id[j]) |>
-       arrow::write_dataset(s3_scores_path,
-                            partitioning = c("model_id", "date"))
-     new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
-     prov_df <- dplyr::bind_rows(prov_df, new_prov)
-   }
-  }
+      fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
+        dplyr::mutate(date = as.Date(datetime)) |>
+        dplyr::filter(date == inventory$date[j]) |>
+        dplyr::collect()
 
+      fc |>
+        score4cast::crps_logs_score(tg) |>
+        dplyr::mutate(date = inventory$date[j],
+                      model_id = inventory$model_id[j]) |>
+        arrow::write_dataset(s3_scores_path,
+                             partitioning = c("model_id", "date"))
+      new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
+    }else{
+      new_prov <- NULL
+    }
+  },
+  inventory, prov_df, s3_scores_path
+  )
+
+  prov_df <- dplyr::bind_rows(prov_df, new_prov)
   #prov <- arrow::open_dataset(local_prov, format = "csv",)
   #path <- s3_prov$path(local_prov)
-  prov <- arrow::write_csv_arrow(prov_df, s3_prov$path(paste0(theme, "-", local_prov)))
+  prov <- arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 
   #message(paste(config$themes[i]," done in", time[["real"]]))
 }

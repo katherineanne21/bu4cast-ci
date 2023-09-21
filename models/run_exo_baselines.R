@@ -112,7 +112,6 @@ forecast_file <- paste("daily", file_date, "climatology.csv.gz", sep = "-")
 write_csv(combined, forecast_file)
 
 vera4castHelpers::submit(forecast_file = forecast_file,
-                  metadata = NULL,
                   ask = FALSE)
 
 unlink(forecast_file)
@@ -159,7 +158,6 @@ forecast_file <- paste("daily", file_date, "persistenceRW.csv.gz", sep = "-")
 write_csv(RW_forecasts_EFI, forecast_file)
 
 vera4castHelpers::submit(forecast_file = forecast_file,
-                  metadata = NULL,
                  ask = FALSE)
 
 unlink(forecast_file)

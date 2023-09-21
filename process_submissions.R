@@ -206,7 +206,12 @@ if(length(submissions) > 0){
 
     }
   }
-  arrow::write_dataset(inventory_df, path = s3_inventory$path("catalog"))
+  arrow::write_dataset(inventory_df, path = s3_inventory)
+
+  s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket),
+                                   endpoint_override = endpoint_override_forecasts,
+                                   access_key = Sys.getenv("OSN_KEY"),
+                                   secret_key = Sys.getenv("OSN_SECRET"))
 
   inventory_df |> distinct(model_id, theme) |>
     arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-theme-inventory.csv"))

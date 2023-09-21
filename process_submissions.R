@@ -206,8 +206,14 @@ if(length(submissions) > 0){
 
     }
   }
-  arrow::write_dataset(inventory_df, path = s3_inventory)
+  arrow::write_dataset(inventory_df, path = s3_inventory$path("catalog"))
+
+  inventory_df |> distinct(model_id, theme) |>
+    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-theme-inventory.csv"))
 }
+
+
+
 
 
 

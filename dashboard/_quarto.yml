@@ -15,8 +15,12 @@ website:
       - href: http://ltreb-reservoirs.org/
         text: About
         icon: cpu
+      - href: instructions.qmd
+        icon: info-square
       - href: daily.qmd
         icon: droplet
+      - href: catalog.qmd
+        icon: book
 
   page-footer:
     left: "CC-BY"
@@ -29,7 +33,7 @@ format:
     theme: [yeti, custom.scss]
     css: styles.css
     title-block-style: default
-    title-block-banner: "img/tern_header.png"
+    title-block-banner: "img/banner.jpg"
     title-block-banner-color: white
     page-layout: full
     toc: true

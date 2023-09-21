@@ -1,8 +1,8 @@
 {
   "type": "Catalog",
   "id": "efi-stac",
-  "title": "EFI-TERN Ecological Forecasting Challenge Catalog",
-  "description": "Searchable spatiotemporal metadata describing forecasts of data at Australia's Terrestrial Ecosystem Research Network (TERN), hosted by the Ecological Forecasting Initiative (EFI)",
+  "title": "Virginia Ecoforecasting Reservoir Analysis (VERA) Forecasting Challenge Catalog",
+  "description": "Searchable spatiotemporal metadata describing forecasts of data at the NSF-funded Virginia Reservoirs Long-Term Research in Environmental Biology (LTREB) site",
   "stac_version": "1.0.0",
   "conformsTo": [
     "https=//api.stacspec.org/v1.0.0-rc.1/collections",
@@ -22,8 +22,8 @@
     {
       "rel": "child",
       "type": "application/json",
-      "title": "Terrestrial Carbon and Water Fluxes",
-      "href": "terrestrial/collection.json"
+      "title": "Daily Forecasted Variables",
+      "href": "daily/collection.json"
     }
   ]
 }

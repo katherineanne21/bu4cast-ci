@@ -21,9 +21,9 @@ sites <- suppressMessages(sf::st_read("sites.json"))
 leaflet() %>%
   #setView(lat = 37.2296, lng = -100, zoom=2) %>%
   addTiles(group="OSM") %>%
-  addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
   addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
-  addLayersControl(baseGroups=c('OSM', 'Topo Map','Imagery')) |> 
+  addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
+  addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
   addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
 ```
 

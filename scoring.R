@@ -28,7 +28,7 @@ s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = en
 s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = endpoint)
 s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
 s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
-s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog", endpoint_override = endpoint)
+s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
 
 for(i in 1:length(config$themes)){
 

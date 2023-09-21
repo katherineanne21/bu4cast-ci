@@ -50,10 +50,10 @@
       "type": "text/html"
     }
   ],
-  "title": "TERN Terrestrial Fluxes",
+  "title": "Daily variables",
   "assets": {
     "thumbnail": {
-      "href": "https://calperumchowilla.files.wordpress.com/2016/07/dsc01304-copy.jpeg",
+      "href": "https://github.com/FLARE-forecast/flare-forecast.github.io/blob/d5b61ecd6f34d091100761f579910aa19c4cf5a5/assets/images/banner.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"

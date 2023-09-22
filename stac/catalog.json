@@ -1,13 +1,10 @@
 {
   "type": "Catalog",
-  "id": "efi-stac",
-  "title": "Virginia Ecoforecasting Reservoir Analysis (VERA) Forecasting Challenge Catalog",
-  "description": "Searchable spatiotemporal metadata describing forecasts of data at the NSF-funded Virginia Reservoirs Long-Term Research in Environmental Biology (LTREB) site",
+  "id": "vera-stac",
+  "title": "Virginia Ecoforecasting Reservoir Analysis STAC API",
+  "description": "Searchable spatiotemporal metadata describing forecasts and forecast scores for the VERA Forecasting Challenge",
   "stac_version": "1.0.0",
-  "conformsTo": [
-    "https=//api.stacspec.org/v1.0.0-rc.1/collections",
-    "https=//api.stacspec.org/v1.0.0-rc.1/core"
-  ],
+  "conformsTo": "conformsTo",
   "links": [
     {
       "rel": "self",
@@ -22,7 +19,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "title": "Daily Forecasted Variables",
+      "title": "VERA Daily Forecast Challenge",
       "href": "daily/collection.json"
     }
   ]

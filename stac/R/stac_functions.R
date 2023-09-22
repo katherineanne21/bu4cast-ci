@@ -1,39 +1,49 @@
 ## MODEL level functions
 
-generate_authors <- function(metadata_available, model_docs){
-  if (metadata_available == TRUE){
-    f_name_cols <- c('first.name.one','first.name.two','first.name.three','first.name.four','first.name.five','first.name.six','first.name.seven',
-                     'first.name.eight','first.name.nine','first.name.ten')
-    l_name_cols <- c('last.name.one','last.name.two','last.name.three','last.name.four','last.name.five','last.name.six','last.name.seven',
-                     'last.name.eight','last.name.nine','last.name.ten')
+generate_authors <- function(metadata_table, index){
 
-    model_first_names <- unlist(model_docs[idx, names(model_docs) %in% f_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% f_name_cols])]
-    model_last_names <- unlist(model_docs[idx, names(model_docs) %in% l_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% l_name_cols])]
-
-    x <- purrr::map(seq.int(1:length(model_first_names)), function(i)
-      list(
-        "url" = 'not provided',
-        'name'= paste(model_first_names[i], model_last_names[i]),
-        'roles' = list("producer")
-      )
-    )
-    ## SET FIRST AUTHOR INFO
-    x[[1]]$url <- unlist(model_docs[idx,'email.one'], use.names = FALSE)
-    x[[1]]$roles <- list(
-      "producer",
-      "processor",
-      "licensor"
-    )
-  } else{
-    x <- list(list('url' = 'pending',
-                   'name' = 'pending',
-                   'roles' = list("producer",
-                                  "processor",
-                                  "licensor"))
-    )
-  }
-  return(x)
+  x <- list(list('url' = metadata_table$`Contact email (or course instructor's email)`[index],
+                 'name' = metadata_table$`Contact name (or course instructor's name)`[index],
+                 'roles' = list("producer",
+                                "processor",
+                                "licensor"))
+  )
 }
+
+# generate_authors <- function(metadata_available, model_docs){
+#   if (metadata_available == TRUE){
+#     f_name_cols <- c('first.name.one','first.name.two','first.name.three','first.name.four','first.name.five','first.name.six','first.name.seven',
+#                      'first.name.eight','first.name.nine','first.name.ten')
+#     l_name_cols <- c('last.name.one','last.name.two','last.name.three','last.name.four','last.name.five','last.name.six','last.name.seven',
+#                      'last.name.eight','last.name.nine','last.name.ten')
+#
+#     model_first_names <- unlist(model_docs[idx, names(model_docs) %in% f_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% f_name_cols])]
+#     model_last_names <- unlist(model_docs[idx, names(model_docs) %in% l_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% l_name_cols])]
+#
+#     x <- purrr::map(seq.int(1:length(model_first_names)), function(i)
+#       list(
+#         "url" = 'not provided',
+#         'name'= paste(model_first_names[i], model_last_names[i]),
+#         'roles' = list("producer")
+#       )
+#     )
+#     ## SET FIRST AUTHOR INFO
+#     x[[1]]$url <- unlist(model_docs[idx,'email.one'], use.names = FALSE)
+#     x[[1]]$roles <- list(
+#       "producer",
+#       "processor",
+#       "licensor"
+#     )
+#   } else{
+#     x <- list(list('url' = 'pending',
+#                    'name' = 'pending',
+#                    'roles' = list("producer",
+#                                   "processor",
+#                                   "licensor"))
+#     )
+#   }
+#   return(x)
+# }
 
 
 
@@ -45,7 +55,6 @@ build_model <- function(model_id,
                         end_date,
                         use_metadata,
                         var_values,
-                        var_keys,
                         site_values,
                         model_documentation,
                         destination_path,
@@ -79,7 +88,7 @@ build_model <- function(model_id,
       list(-156.6194, 17.9696, -66.7987,  71.2824),
     "geometry"= list(
       "type"= "MultiPoint",
-      "coordinates"= get_site_coords(theme_id, bucket = NULL, model_id)[[1]]
+      "coordinates"=  get_site_coords(sites = site_values)
     ),
     "properties"= list(
       #'description' = model_description,
@@ -93,7 +102,7 @@ build_model <- function(model_id,
 '),
       "start_datetime" = start_date,
       "end_datetime" = end_date,
-      "providers"= c(generate_authors(metadata_available = use_metadata, model_docs = model_documentation),list(
+      "providers"= c(generate_authors(metadata_table = model_documentation, index = idx),list(
         list(
           "url"= "https://ecoforecast.org",
           "name"= "Ecoforecast Challenge",
@@ -104,7 +113,7 @@ build_model <- function(model_id,
       )
       ),
       "license"= "CC0-1.0",
-      "keywords"= c(preset_keywords, var_keys),
+      "keywords"= c(preset_keywords, variables_reformat),
       "table:columns" = stac4cast::build_table_columns(table_schema, table_description)
     ),
     "collection"= collection_name,
@@ -140,8 +149,8 @@ build_model <- function(model_id,
         "title"= 'Database Access',
         "description"= aws_asset_description
       )
-    ),
-    pull_images(theme_id,model_id,thumbnail_image_name)
+    )#,
+    #pull_images(theme_id,model_id,thumbnail_image_name)
     )
   )
 
@@ -162,7 +171,7 @@ get_grouping <- function(inv_bucket,
                          theme,
                          collapse=TRUE) {
 
-  groups <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/{inv_bucket}?endpoint_override=sdsc.osn.xsede.org")) |>
+  groups <- duckdbfs::open_dataset(glue::glue("s3://anonymous@{inv_bucket}/catalog?endpoint_override=sdsc.osn.xsede.org")) |>
   #groups <- arrow::open_dataset(s3_inv$path("neon4cast-forecasts")) |>
     dplyr::filter(...1 == "parquet", ...2 == {theme}) |>
     dplyr::select(model_id = ...3, reference_datetime = ...4, date = ...5) |>
@@ -216,7 +225,7 @@ generate_vars_sites <- function(m_id, theme){
 generate_model_items <- function(){
 
 
-  model_list <- theme_models$model.id
+  model_list <- theme_models$model_id
 
   x <- purrr::map(model_list, function(i)
     list(
@@ -269,66 +278,18 @@ pull_images <- function(theme, m_id, image_name){
 
 }
 
-get_site_coords <- function(theme, bucket, m_id){
 
-  theme_select <- glue::glue('{theme}')
+get_site_coords <- function(sites){
 
-  theme_sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", col_types = cols()) |>
-    dplyr::filter(UQ(sym(theme_select)) == 1)
+  site_df <- data.frame(site_id = c('fcre', 'bvre', 'ccre'),
+                        site_lon = c(-79.837217, -79.815936, -79.95856),
+                        site_lat = c(37.303153, 37.312909, 37.370259))
 
-  if (is.null(m_id)){
+  site_lat_lon <- lapply(sites, function(i) c(site_df$site_lon[which(site_df[,1] == i)], site_df$site_lat[which(site_df[,1] == i)]))
 
-    if (bucket == 'Forecasts'){
-      bucket_sites <- read_csv(glue::glue('stac/{theme}/forecasts/all_forecast_sites.csv'))
-    } else if (bucket == 'Scores'){
-      bucket_sites <- read_csv(glue::glue('stac/{theme}/scores/all_scores_sites.csv'))
-    } else {
-      stop("Bucket name error. Must be 'Forecasts' or 'Scores'")
-    }
-
-    site_coords <- theme_sites |>
-      filter(field_site_id %in% bucket_sites$site_id) |>
-      distinct(field_site_id, field_longitude, field_latitude)
-
-    #site_coords$site_lat_lon <- lapply(1:nrow(site_coords), function(i) c(site_coords$field_longitude[i], site_coords$field_latitude[i]))
-
-    bbox_object <- c(min(site_coords$field_longitude), min(site_coords$field_latitude), max(site_coords$field_longitude), max(site_coords$field_latitude))
-
-    return(bbox_object)
-
-  }else{
-    model_sites <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-scores/parquet/{theme}/
-                                               model_id={model_id}?endpoint_override=sdsc.osn.xsede.org"))
-    if (theme == 'ticks'){
-      # model_sites <- arrow::open_dataset(info_extract$path(glue::glue("{theme}/model_id={m_id}/"))) |>
-      #   collect()
-
-      if('siteID' %in% names(model_sites)){
-        model_sites <- model_sites |>
-          distinct(Site_ID) |>
-          collect() |>
-          rename(site_id = siteID)
-        }else{
-        model_sites <- model_sites |>
-          distinct(site_id) |>
-          collect()
-      }
-    }else{
-      model_sites <- model_sites |>
-        distinct(site_id) |>
-        collect()
-    }
-
-    site_coords <- theme_sites |>
-      filter(field_site_id %in% model_sites$site_id) |>
-      distinct(field_site_id, field_longitude, field_latitude)
-
-    site_coords$site_lat_lon <- lapply(1:nrow(site_coords), function(i) c(site_coords$field_longitude[i], site_coords$field_latitude[i]))
-
-    return(list(site_coords$site_lat_lon, model_sites$site_id))
-  }
-
+  return(site_lat_lon)
 }
+
 
 build_forecast_scores <- function(table_schema,
                                   theme_id,
@@ -389,15 +350,18 @@ build_forecast_scores <- function(table_schema,
                   ),
                   list(
                     "rel" = "describedby",
-                    "href" = "https://projects.ecoforecast.org/neon4cast-dashboard/",
-                    "title" = "NEON Ecological Forecast Challenge Dashboard",
+                    "href" = "https://ltreb-reservoirs.github.io/vera4cast/",
+                    "title" = "VERA Forecast Challenge Dashboard",
                     "type" = "text/html"
                   )
                 )),
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(get_site_coords(theme_id, theme_title, m_id = NULL))),
+        'bbox' = list(c(-80.0471,
+                       37.2706,
+                       -79.7958,
+                       37.4374))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -478,14 +442,14 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
       ),
       list(
         "rel"= "about",
-        "href"= "https://projects.ecoforecast.org/neon4cast-docs/",
+        "href"= "http://ltreb-reservoirs.org/",
         "type"= "text/html",
-        "title"= "NEON Forecast Challenge Documentation"
+        "title"= "VERA Forecast Challenge Documentation"
       ),
       list(
         "rel"= "describedby",
-        "href"= "https://projects.ecoforecast.org/neon4cast-dashboard/",
-        "title"= "NEON Forecast Challenge Dashboard",
+        "href"= "https://ltreb-reservoirs.github.io/vera4cast/",
+        "title"= "VERA Forecast Challenge Dashboard",
         "type"= "text/html"
       )
     ),
@@ -500,10 +464,10 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
     ),
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(list(-149.6106,
-                           18.1135,
-                           -66.7987,
-                           68.6698))
+        'bbox' = list(list(-80.0471,
+                           37.2706,
+                           -79.7958,
+                           37.4374))
       ),
       "temporal" = list(
         'interval' = list(list(

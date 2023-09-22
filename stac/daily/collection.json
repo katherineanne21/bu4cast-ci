@@ -1,5 +1,5 @@
 {
-  "id": "vera4cast-daily",
+  "id": "vera-daily",
   "type": "Collection",
   "links": [
     {
@@ -39,44 +39,39 @@
     },
     {
       "rel": "about",
-      "href": "https://projects.ecoforecast.org/tern4cast/terrestrial.html",
+      "href": "http://ltreb-reservoirs.org/",
       "type": "text/html",
-      "title": "Terrestrial Flux Forecast Challenge"
+      "title": "VERA Forecast Challenge Documentation"
     },
     {
       "rel": "describedby",
-      "href": "https://projects.ecoforecast.org/tern4cast/instructions.html",
-      "title": "Organization Landing Page",
+      "href": "https://ltreb-reservoirs.github.io/vera4cast/",
+      "title": "VERA Forecast Challenge Dashboard",
       "type": "text/html"
     }
   ],
-  "title": "Daily variables",
+  "title": "daily",
   "assets": {
     "thumbnail": {
-      "href": "https://github.com/FLARE-forecast/flare-forecast.github.io/blob/d5b61ecd6f34d091100761f579910aa19c4cf5a5/assets/images/banner.jpg",
+      "href": "https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "TERN Calperum flux site"
+      "title": "NEON Aquatics Buoy"
     }
   },
   "extent": {
     "spatial": {
       "bbox": [
-        [
-          116.9386,
-          -34.0027,
-          140.5877,
-          -32.4771
-        ]
+        [-80.0471, 37.2706, -79.7958, 37.4374]
       ]
     },
     "temporal": {
       "interval": [
         [
-          "2023-07-19T00:00:00Z",
-          "2023-05-01T00:00:00Z"
+          "2023-10-27T00:00:00Z",
+          "2023-09-21T00:00:00Z"
         ]
       ]
     }
@@ -85,8 +80,7 @@
   "keywords": [
     "Forecasting",
     "Data",
-    "Ecology",
-    "TERN"
+    "Ecology"
   ],
   "providers": [
     {
@@ -104,17 +98,9 @@
       "roles": [
         "host"
       ]
-    },
-    {
-      "url": "https://www.tern.org.au",
-      "name": "Terrestrial Ecosystem Research Network",
-      "roles": [
-        "host",
-        "producer"
-      ]
     }
   ],
-  "description": "This page contains raw forecasts and forecast scores, which are summarized forecasts with evaluation metrics",
+  "description": "The catalog contains forecasts and scores for the VERA Forecasting daily theme. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  The scores are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). Due to the size of the raw forecasts, we recommend accessing the scores to analyze forecasts (unless you need the individual ensemble members).\nYou can access the forecasts or the scores at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available.  The code to access the entire dataset is provided as an asset in the forecast or scores catalog. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level.  For quicker access to the forecasts and scores for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.",
   "stac_version": "1.0.0",
   "stac_extensions": [
     "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
@@ -123,6 +109,6 @@
   ],
   "publications": {
     "doi": "https://doi.org/10.1002/fee.2616",
-    "citation": "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113"
+    "citation": "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
   }
 }

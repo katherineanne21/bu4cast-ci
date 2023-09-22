@@ -1,17 +1,21 @@
 source('R/stac_functions.R')
+config <- yaml::read_yaml('challenge_configuration.yaml')
 
 
 ## READ S3 INVENTORY FOR DATES
-s3_inventory <- arrow::s3_bucket("neon4cast-inventory", #THIS WILL NEED TO BE UPDATED
-                                 endpoint_override = "renc.osn.xsede.org",
-                                 anonymous = TRUE)
+# s3_inventory <- arrow::s3_bucket("neon4cast-inventory", #THIS WILL NEED TO BE UPDATED
+#                                  endpoint_override = "renc.osn.xsede.org",
+#                                  anonymous = TRUE)
+#
+# s3_df <- get_grouping(inv_bucket = 'neon4cast-forecasts', "vera4cast-daily") # inv_bucket will need to change
 
-s3_df <- get_grouping(inv_bucket = 'neon4cast-forecasts', "vera4cast-daily") # inv_bucket will need to change
+data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
+                                  s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
+  collect()
 
-s3_df <- s3_df |> filter(model_id != 'null')
-
-theme_max_date <- max(s3_df$date)
-theme_min_date <- min(s3_df$date)
+theme_date_range <- data_df |> dplyr::summarise(min(date),max(date))
+theme_max_date <- theme_date_range$`min(date)`
+theme_min_date <- theme_date_range$`max(date)`
 
 build_description <- "The catalog contains forecasts and scores for the VERA Forecasting daily theme. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  The scores are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). Due to the size of the raw forecasts, we recommend accessing the scores to analyze forecasts (unless you need the individual ensemble members).\nYou can access the forecasts or the scores at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available.  The code to access the entire dataset is provided as an asset in the forecast or scores catalog. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level.  For quicker access to the forecasts and scores for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model."
 

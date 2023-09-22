@@ -1,7 +1,8 @@
 library(arrow)
 library(dplyr)
 
-source('R/stac_functions.R')
+source('stac/R/stac_functions.R')
+config <- yaml::read_yaml('challenge_configuration.yaml')
 
 ## CREATE table for column descriptions
 description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the forecast starts from (a.k.a. issue time); Only needed if more than one reference_datetime is stored in a single file. Forecast lead time is thus datetime-reference_datetime. In a hindcast the reference_datetime will be earlier than the time the hindcast was actually produced (see pubDate in Section3). Date times are allowed to be earlier than the reference_datetime if a reanalysis/reforecast is run before the start of the forecast period. This variable was called start_time before v0.5 of the EFI standard.',
@@ -10,42 +11,36 @@ description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the fore
                                  parameter = 'ensemble member',
                                  variable = 'VERA forecast variable',
                                  prediction = 'predicted forecast value',
-                                 pubDate = 'date of publication',
-                                 date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5 of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.')
+                                 pub_datetime = 'date of publication',
+                                 #date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5 of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.',
+                                 reference_datetime = 'datetime that the forecast is run',
+                                 model_id = 'unique model identifier',
+                                 reference_date = 'date that the forecast is run')
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
 theme <- 'daily'
-reference_datetime <- '2023-05-01'
-site_id <- 'BARC'
-model_id <- 'flareGLM'
-variable_name <- 'temperature'
+reference_datetime <- '2023-09-01'
+site_id <- 'fcre'
+model_id <- 'climatology'
 
-# s3_schema <- arrow::s3_bucket(
-#   bucket = glue::glue("neon4cast-forecasts/parquet/{theme}/",
-#                       "model_id={model_id}/",
-#                       "reference_datetime={reference_datetime}/"),
-#   endpoint_override = "data.ecoforecast.org",
-#   anonymous = TRUE)
-# theme_df <- arrow::open_dataset(s3_schema) %>%
-#   filter(variable == variable_name, site_id == site_id)
-
-theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@bio230121-bucket01vera4cast/forecasts/parquet/{theme}/
-                                               model_id={model_id}/reference_date={reference_date}?endpoint_override=renc.osn.xsede.org")) |>
-  filter(variable == variable_name, site_id == site_id)
+theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = "renc.osn.xsede.org", anonymous = TRUE)) |>
+  filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
-#s3 <- s3_bucket("neon4cast-inventory", endpoint_override="data.ecoforecast.org", anonymous = TRUE)
-paths <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-inventory/neon4cast-forecasts?endpoint_override=renc.osn.xsede.org")) |> collect()
-models_df <- paths |> filter(...1 == "parquet", ...2 == "vera4cast_daily") |> distinct(...3)
-aquatic_models <- models_df |>
-  tidyr::separate(...3, c('name','model.id'), "=")
+data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
+                                  s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
+  collect()
+
+theme_models <- data_df |>
+  distinct(model_id)
 
 ## use s3_inventory to access min and max dates
-s3_df <- get_grouping(inv_bucket = 'neon4cast-forecasts', theme = "vera4cast-daily") # inv_bucket will need to change
-s3_df <- s3_df |> filter(model_id != 'null')
+# s3_df <- get_grouping(inv_bucket = 'neon4cast-forecasts', theme = "vera4cast-daily") # inv_bucket will need to change
+# s3_df <- s3_df |> filter(model_id != 'null')
 
-forecast_max_date <- max(s3_df$date)
-forecast_min_date <- min(s3_df$date)
+forecast_date_range <- data_df |> dplyr::summarise(min(date),max(date))
+forecast_max_date <- forecast_date_range$`min(date)`
+forecast_min_date <- forecast_date_range$`max(date)`
 
 build_description <- "The catalog contains forecasts for the VERA Forecasting Challenge Daily theme. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model."
 
@@ -60,5 +55,5 @@ build_forecast_scores(table_schema = theme_df,
                       about_title = "VERA Forecasting Challenge Documentation",
                       theme_title = "Forecasts",
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                      destination_path = "stac/vera4cast-daily/forecasts/",
+                      destination_path = "stac/daily/forecasts/",
                       aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily')

@@ -114,7 +114,7 @@ build_model <- function(model_id,
       ),
       "license"= "CC0-1.0",
       "keywords"= c(preset_keywords, variables_reformat),
-      "table:columns" = '1,2,3,4,5'#stac4cast::build_table_columns(table_schema, table_description)
+      "table:columns" = stac4cast::build_table_columns(table_schema, table_description)
     ),
     "collection"= collection_name,
     "links"= list(
@@ -225,7 +225,7 @@ generate_vars_sites <- function(m_id, theme){
 generate_model_items <- function(){
 
 
-  model_list <- theme_models$model.id
+  model_list <- theme_models$model_id
 
   x <- purrr::map(model_list, function(i)
     list(
@@ -290,66 +290,6 @@ get_site_coords <- function(sites){
   return(site_lat_lon)
 }
 
-# get_site_coords <- function(theme, bucket, m_id){
-#
-#   theme_select <- glue::glue('{theme}')
-#
-#   theme_sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", col_types = cols()) |>
-#     dplyr::filter(UQ(sym(theme_select)) == 1)
-#
-#   if (is.null(m_id)){
-#
-#     if (bucket == 'Forecasts'){
-#       bucket_sites <- read_csv(glue::glue('stac/{theme}/forecasts/all_forecast_sites.csv'))
-#     } else if (bucket == 'Scores'){
-#       bucket_sites <- read_csv(glue::glue('stac/{theme}/scores/all_scores_sites.csv'))
-#     } else {
-#       stop("Bucket name error. Must be 'Forecasts' or 'Scores'")
-#     }
-#
-#     site_coords <- theme_sites |>
-#       filter(field_site_id %in% bucket_sites$site_id) |>
-#       distinct(field_site_id, field_longitude, field_latitude)
-#
-#     #site_coords$site_lat_lon <- lapply(1:nrow(site_coords), function(i) c(site_coords$field_longitude[i], site_coords$field_latitude[i]))
-#
-#     bbox_object <- c(min(site_coords$field_longitude), min(site_coords$field_latitude), max(site_coords$field_longitude), max(site_coords$field_latitude))
-#
-#     return(bbox_object)
-#
-#   }else{
-#     model_sites <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-scores/parquet/{theme}/
-#                                                model_id={model_id}?endpoint_override=sdsc.osn.xsede.org"))
-#     if (theme == 'ticks'){
-#       # model_sites <- arrow::open_dataset(info_extract$path(glue::glue("{theme}/model_id={m_id}/"))) |>
-#       #   collect()
-#
-#       if('siteID' %in% names(model_sites)){
-#         model_sites <- model_sites |>
-#           distinct(Site_ID) |>
-#           collect() |>
-#           rename(site_id = siteID)
-#         }else{
-#         model_sites <- model_sites |>
-#           distinct(site_id) |>
-#           collect()
-#       }
-#     }else{
-#       model_sites <- model_sites |>
-#         distinct(site_id) |>
-#         collect()
-#     }
-#
-#     site_coords <- theme_sites |>
-#       filter(field_site_id %in% model_sites$site_id) |>
-#       distinct(field_site_id, field_longitude, field_latitude)
-#
-#     site_coords$site_lat_lon <- lapply(1:nrow(site_coords), function(i) c(site_coords$field_longitude[i], site_coords$field_latitude[i]))
-#
-#     return(list(site_coords$site_lat_lon, model_sites$site_id))
-# #   }
-#
-# }
 
 build_forecast_scores <- function(table_schema,
                                   theme_id,
@@ -410,15 +350,18 @@ build_forecast_scores <- function(table_schema,
                   ),
                   list(
                     "rel" = "describedby",
-                    "href" = "https://projects.ecoforecast.org/neon4cast-dashboard/",
-                    "title" = "NEON Ecological Forecast Challenge Dashboard",
+                    "href" = "https://ltreb-reservoirs.github.io/vera4cast/",
+                    "title" = "VERA Forecast Challenge Dashboard",
                     "type" = "text/html"
                   )
                 )),
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(get_site_coords(theme_id, theme_title, m_id = NULL))),
+        'bbox' = list(c(-80.0471,
+                       37.2706,
+                       -79.7958,
+                       37.4374))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -499,14 +442,14 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
       ),
       list(
         "rel"= "about",
-        "href"= "https://projects.ecoforecast.org/neon4cast-docs/",
+        "href"= "http://ltreb-reservoirs.org/",
         "type"= "text/html",
-        "title"= "NEON Forecast Challenge Documentation"
+        "title"= "VERA Forecast Challenge Documentation"
       ),
       list(
         "rel"= "describedby",
-        "href"= "https://projects.ecoforecast.org/neon4cast-dashboard/",
-        "title"= "NEON Forecast Challenge Dashboard",
+        "href"= "https://ltreb-reservoirs.github.io/vera4cast/",
+        "title"= "VERA Forecast Challenge Dashboard",
         "type"= "text/html"
       )
     ),
@@ -521,10 +464,10 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
     ),
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(list(-149.6106,
-                           18.1135,
-                           -66.7987,
-                           68.6698))
+        'bbox' = list(list(-80.0471,
+                           37.2706,
+                           -79.7958,
+                           37.4374))
       ),
       "temporal" = list(
         'interval' = list(list(

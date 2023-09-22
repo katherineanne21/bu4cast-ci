@@ -21,45 +21,17 @@ theme_models <- data_df |>
   distinct(model_id)
 
 
-## just read in example forecast to extract schema information -- ask about better ways of doing this
-# theme <- 'aquatics'
-# reference_datetime <- '2023-05-01'
-# site_id <- 'BARC'
-# model_id <- 'flareGLM'
-# variable_name <- 'temperature'
+theme <- 'daily'
+reference_datetime <- '2023-09-01'
+site_id <- 'fcre'
+model_id <- 'climatology'
 
-# s3_schema <- arrow::s3_bucket(
-#   bucket = glue::glue("neon4cast-forecasts/parquet/{theme}/",
-#                       "model_id={model_id}/",
-#                       "reference_datetime={reference_datetime}/"),
-#   endpoint_override = "data.ecoforecast.org",
-#   anonymous = TRUE)
-# theme_df <- arrow::open_dataset(s3_schema) %>%
-#   filter(variable == variable_name, site_id == site_id)
-#
-# theme <- 'daily'
-# reference_datetime <- '2023-05-01'
-# site_id <- 'BARC'
-# model_id <- 'flareGLM'
-# variable_name <- 'temperature'
+# theme_df <- duckdbfs::open_dataset(glue::glue("s3://{config$forecasts_bucket}/parquet"),
+#                                    s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
+#   filter(model_id == 'climatology')
 
-# s3_schema <- arrow::s3_bucket(
-#   bucket = glue::glue("neon4cast-forecasts/parquet/{theme}/",
-#                       "model_id={model_id}/",
-#                       "reference_datetime={reference_datetime}/"),
-#   endpoint_override = "data.ecoforecast.org",
-#   anonymous = TRUE)
-# theme_df <- arrow::open_dataset(s3_schema) %>%
-#   filter(variable == variable_name, site_id == site_id)
-
-# theme_df <- duckdbfs::open_dataset(glue::glue("s3://anonymous@neon4cast-forecasts/parquet/{theme}/
-#                                                model_id={model_id}/reference_datetime={reference_datetime}?endpoint_override=sdsc.osn.xsede.org")) |>
-#   filter(variable == variable_name, site_id == site_id)
-
-theme_df <- duckdbfs::open_dataset(glue::glue("s3://{config$forecasts_bucket}/parquet"),
-                                   s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
-  filter(model_id == 'climatology') #|>
-  #collect()
+theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = "renc.osn.xsede.org", anonymous = TRUE)) |>
+  filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## CREATE table for column descriptions
 description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the forecast starts from (a.k.a. issue time); Only needed if more than one reference_datetime is stored in a single file. Forecast lead time is thus datetime-reference_datetime. In a hindcast the reference_datetime will be earlier than the time the hindcast was actually produced (see pubDate in Section3). Date times are allowed to be earlier than the reference_datetime if a reanalysis/reforecast is run before the start of the forecast period. This variable was called start_time before v0.5 of the EFI standard.',
@@ -86,7 +58,7 @@ forecast_sites <- c()
 
 #test_models <- c(aquatic_models$model.id[1:2], 'tg_arima')
 ## loop over model ids and extract components if present in metadata table
-for (m in theme_models$model_id[1]){
+for (m in theme_models$model_id){
   print(m)
   model_date_range <- data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
   model_min_date <- model_date_range$`min(date)`
@@ -123,58 +95,4 @@ for (m in theme_models$model_id[1]){
               thumbnail_image_name = NULL,
               table_schema = theme_df,
               table_description = description_create)
-
-  # if (m %in% neon_docs$model.id){
-  #   print('has metadata')
-  #
-  #   idx = which(neon_docs$model.id == m)
-  #
-  #   build_model(model_id = neon_docs$model.id[idx],
-  #               theme_id = 'vera4cast_daily',
-  #               team_name = neon_docs$team.name[idx],
-  #               model_description = neon_docs[idx,'model.description'][[1]],
-  #               start_date = model_min_date,
-  #               end_date = model_max_date,
-  #               use_metadata = TRUE,
-  #               var_values = model_var_site_info[[1]],
-  #               var_keys = model_var_site_info[[3]][[1]],
-  #               site_values = model_var_site_info[[2]],
-  #               model_documentation = neon_docs,
-  #               destination_path = "stac/vera4cast_daily/forecasts/models/",
-  #               description_path = "stac/vera4cast_daily/forecasts/models/asset-description.Rmd", # MIGHT REMOVE THIS
-  #               aws_download_path = 'neon4cast-forecasts/parquet/vera4cast_daily', # CHANGE THIS BUCKET NAME
-  #               theme_title = "Forecasts",
-  #               collection_name = 'forecasts',
-  #               thumbnail_image_name = 'latest_forecast.png',
-  #               table_schema = theme_df,
-  #               table_description = description_create)
-  # } else{
-  #
-  #   build_model(model_id = m,
-  #               theme_id = 'vera4cast_daily',
-  #               team_name = 'pending',
-  #               model_description = 'pending',
-  #               start_date = model_min_date,
-  #               end_date = model_max_date,
-  #               use_metadata = FALSE,
-  #               var_values = model_var_site_info[[1]],
-  #               var_keys = model_var_site_info[[3]][[1]],
-  #               site_values = model_var_site_info[[2]],
-  #               model_documentation = neon_docs,
-  #               destination_path = "stac/vera4cast_daily/forecasts/models/",
-  #               description_path = "stac/vera4cast_daily/forecasts/asset-description.Rmd",
-  #               aws_download_path = 'neon4cast-forecasts/parquet/vera4cast_daily',
-  #               theme_title = "Forecasts",
-  #               collection_name = 'forecasts',
-  #               thumbnail_image_name = 'latest_forecast.png',
-  #               table_schema = theme_df,
-  #               table_description = description_create)
-  # }
-
-  #rm(model_var_site_info)
 }
-
- #forecast_sites <- unique(forecast_sites)
-#forecast_sites_df <- data.frame(site_id = forecast_sites)
-
-#write.csv(forecast_sites_df, 'stac/daily/forecasts/all_forecast_sites.csv', row.names = FALSE)

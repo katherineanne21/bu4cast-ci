@@ -1,49 +1,31 @@
 {
   "stac_version": "1.0.0",
-  "stac_extensions": [],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
   "type": "Feature",
   "id": "persistenceRW",
   "bbox": [
-    116.9386,
-    -34.0027,
-    140.5877,
-    -32.4771
+    -156.6194,
+    17.9696,
+    -66.7987,
+    71.2824
   ],
   "geometry": {
-    "type": "Polygon",
+    "type": "MultiPoint",
     "coordinates": [
-      [
-        [
-          116.9386,
-          -34.0027
-        ],
-        [
-          140.5877,
-          -34.0027
-        ],
-        [
-          140.5877,
-          -32.4771
-        ],
-        [
-          116.9386,
-          -32.4771
-        ],
-        [
-          116.9386,
-          -34.0027
-        ]
-      ]
+      [-79.8159, 37.3129],
+      [-79.8372, 37.3032]
     ]
   },
   "properties": {
-    "description": "Persistence forecast as modeled using a random walk",
-    "start_datetime": "2023-05-25",
-    "end_datetime": "2023-10-16",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: bvre, fcre\n\nVariables: Chla_ugL, Temp_C",
+    "start_datetime": "2023-09-21",
+    "end_datetime": "2023-10-27",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "rqthomas@vt.edu",
+        "name": "Quinn Thomas",
         "roles": [
           "producer",
           "processor",
@@ -61,30 +43,81 @@
     "license": "CC0-1.0",
     "keywords": [
       "Forecasting",
-      "Net Ecosystem Exchange",
-      "Latent Heat Flux",
-      "TERN"
+      "VERA",
+      "Chla_ugL, Temp_C"
+    ],
+    "table:columns": [
+      {
+        "name": "datetime",
+        "type": "date32[day]",
+        "description": "ISO 8601(ISO 2019)datetime the forecast starts from (a.k.a. issue time); Only needed if more than one reference_datetime is stored in a single file. Forecast lead time is thus datetime-reference_datetime. In a hindcast the reference_datetime will be earlier than the time the hindcast was actually produced (see pubDate in Section3). Date times are allowed to be earlier than the reference_datetime if a reanalysis/reforecast is run before the start of the forecast period. This variable was called start_time before v0.5 of the EFI standard."
+      },
+      {
+        "name": "reference_datetime",
+        "type": "string",
+        "description": "datetime that the forecast is run"
+      },
+      {
+        "name": "site_id",
+        "type": "string",
+        "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat); however in netCDF this could be handled by the CF Discrete Sampling Geometry data model."
+      },
+      {
+        "name": "variable",
+        "type": "string",
+        "description": "VERA forecast variable"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as avariable attribute if the file format being used supports this (e.g.,netCDF)."
+      },
+      {
+        "name": "parameter",
+        "type": "string",
+        "description": "ensemble member"
+      },
+      {
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted forecast value"
+      },
+      {
+        "name": "pub_datetime",
+        "type": "string",
+        "description": "date of publication"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
+      },
+      {
+        "name": "reference_date",
+        "type": "string",
+        "description": "date that the forecast is run"
+      }
     ]
   },
-  "collection": "forecast",
+  "collection": "forecasts",
   "links": [
     {
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "Terrestrial Flux Forecasts"
+      "title": "Forecasts"
     },
     {
       "rel": "root",
       "href": "../../../catalog.json",
       "type": "application/json",
-      "title": "EFI-TERN Forecast Catalog"
+      "title": "EFI Forecast Catalog"
     },
     {
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "Terrestrial Flux Forecasts"
+      "title": "Forecasts"
     },
     {
       "rel": "self",
@@ -94,11 +127,11 @@
     }
   ],
   "assets": {
-    "parquet_items": {
-      "href": "s3://anonymous@tern4cast-forecasts/parquet/terrestrial_daily/model_id=persistenceRW?endpoint_override=data.ecoforecast.org",
+    "1": {
+      "href": "s3://anonymous@bio230121-bucket01/bio230121-bucket01/vera4cast/forecasts/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
-      "description": "Use `arrow` for remote access to the database.\n\n### R\n\n```{r}\n# Copy URL from \"URL for Amazon S3\" button above and save as object named \"url_for_s3\" \n# Use in code below\n\nfcst <- arrow::open_dataset(url_for_s3)\ndf <- fcst |> dplyr::collect()\n\n```\n\nNow use dplyr operations to summarise or subset (if necessary), followed by `dplyr::collect()` to bring this data into R as a `data.frame`.\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/bio230121-bucket01/vera4cast/forecasts/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

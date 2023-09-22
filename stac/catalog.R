@@ -29,7 +29,7 @@ build_catalog <- function(){
         "rel"= "child",
         "type"= "application/json",
         "title"= "VERA Subdaily Forecasting Challenge",
-        "href" = 'sites/collection.json')
+        "href" = 'subdaily/collection.json')
     )
   )
 

@@ -21,12 +21,6 @@
       "type": "application/json",
       "title": "VERA Daily Forecast Challenge",
       "href": "daily/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "title": "VERA Subdaily Forecasting Challenge",
-      "href": "subdaily/collection.json"
     }
   ]
 }

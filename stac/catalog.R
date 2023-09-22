@@ -1,6 +1,8 @@
 source("stac/R/catalog-common.R")
 source('stac/R/stac_functions.R')
 
+config <- yaml::read_yaml('challenge_configuration.yaml')
+
 build_catalog <- function(){
   catalog <- list(
     "type"= "Catalog",
@@ -24,12 +26,12 @@ build_catalog <- function(){
         "rel"= "child",
         "type"= "application/json",
         "title"= "VERA Daily Forecast Challenge",
-        "href" = 'daily/collection.json'),
-      list(
-        "rel"= "child",
-        "type"= "application/json",
-        "title"= "VERA Subdaily Forecasting Challenge",
-        "href" = 'subdaily/collection.json')
+        "href" = 'daily/collection.json')#,
+      # list(
+      #   "rel"= "child",
+      #   "type"= "application/json",
+      #   "title"= "VERA Subdaily Forecasting Challenge",
+      #   "href" = 'subdaily/collection.json')
     )
   )
 

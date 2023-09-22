@@ -28,7 +28,7 @@ leaflet() %>%
 ```
 
 ```{r}
-s3_inventory <- arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
+s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), endpoint_override = config$endpoint, anonymous = TRUE)
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 

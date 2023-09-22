@@ -88,7 +88,7 @@ build_model <- function(model_id,
       list(-156.6194, 17.9696, -66.7987,  71.2824),
     "geometry"= list(
       "type"= "MultiPoint",
-      "coordinates"= get_site_coords(theme_id, bucket = NULL, model_id)[[1]]
+      "coordinates"=  get_site_coords(sites = site_values)
     ),
     "properties"= list(
       #'description' = model_description,
@@ -114,7 +114,7 @@ build_model <- function(model_id,
       ),
       "license"= "CC0-1.0",
       "keywords"= c(preset_keywords, variables_reformat),
-      "table:columns" = stac4cast::build_table_columns(table_schema, table_description)
+      "table:columns" = '1,2,3,4,5'#stac4cast::build_table_columns(table_schema, table_description)
     ),
     "collection"= collection_name,
     "links"= list(

@@ -7,7 +7,9 @@ library(reticulate)
 library(rlang)
 library(RCurl)
 
-source('R/stac_functions.R')
+source('stac/R/stac_functions.R')
+
+config <- yaml::read_yaml('challenge_configuration.yaml')
 
 #get model ids
 
@@ -84,13 +86,13 @@ forecast_sites <- c()
 
 #test_models <- c(aquatic_models$model.id[1:2], 'tg_arima')
 ## loop over model ids and extract components if present in metadata table
-for (m in theme_models$model.id[1]){
+for (m in theme_models$model_id[1]){
   print(m)
   model_date_range <- data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_var_site_info <- generate_vars_sites(m_id = m, theme = 'vera4cast_daily')
+  #model_var_site_info <- generate_vars_sites(m_id = m, theme = 'vera4cast_daily')
 
   model_sites <- data_df |> filter(model_id == m) |> distinct(site_id)
   model_vars <- data_df |> filter(model_id == m) |> distinct(variable)
@@ -113,8 +115,8 @@ for (m in theme_models$model.id[1]){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = "stac/vera4cast_daily/forecasts/models/",
-              description_path = "stac/vera4cast_daily/forecasts/models/asset-description.Rmd", # MIGHT REMOVE THIS
+              destination_path = "stac/daily/forecasts/models/",
+              description_path = "stac/daily/forecasts/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
               theme_title = "Forecasts",
               collection_name = 'forecasts',
@@ -169,10 +171,10 @@ for (m in theme_models$model.id[1]){
   #               table_description = description_create)
   # }
 
-  rm(model_var_site_info)
+  #rm(model_var_site_info)
 }
 
-#forecast_sites <- unique(forecast_sites)
+ #forecast_sites <- unique(forecast_sites)
 #forecast_sites_df <- data.frame(site_id = forecast_sites)
 
 #write.csv(forecast_sites_df, 'stac/daily/forecasts/all_forecast_sites.csv', row.names = FALSE)

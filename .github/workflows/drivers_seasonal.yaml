@@ -4,9 +4,9 @@ on:
   #schedule:
   #  - cron: '0 4 * * *'
   workflow_dispatch:
-
-name: seasonal_forecast_download
   
+name: seasonal_forecast_download
+jobs:
   seasonal:
     runs-on: ubuntu-latest
     env:

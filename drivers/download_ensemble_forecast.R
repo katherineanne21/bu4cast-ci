@@ -15,7 +15,7 @@ download_ensemble_forecast <- function(model){
   
   site_list <- readr::read_csv("https://raw.githubusercontent.com/FLARE-forecast/aws_noaa/master/site_list_v2.csv", show_col_types = FALSE)
   
-  for(i in 1:nrow(site_list){
+  for(i in 1:nrow(site_list)){
     
     print(site_list$site_id[i])
     

@@ -28,6 +28,7 @@ jobs:
         run: |
           source("drivers/gfs_seamless.R")
   gfs05:
+    needs: gfs_seamless
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

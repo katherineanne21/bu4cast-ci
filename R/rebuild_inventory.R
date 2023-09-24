@@ -8,6 +8,7 @@ for(i in 1:length(config$themes)){
 
   df <- arrow::open_dataset(s3) |>
     mutate(theme = theme,
+           reference_date = lubridate::as_date(reference_datetime),
            date = lubridate::as_date(datetime)) |>
     distinct(theme, model_id, site_id, reference_date, variable, date) |>
     collect() |>
@@ -18,11 +19,16 @@ for(i in 1:length(config$themes)){
 }
 
 s3_inventory <- arrow::s3_bucket(config$inventory_bucket,
-                                 endpoint_override = endpoint_override_forecasts,
+                                 endpoint_override = config$endpoint,
                                  access_key = Sys.getenv("OSN_KEY"),
                                  secret_key = Sys.getenv("OSN_SECRET"))
 
 arrow::write_dataset(inventory_df, path = s3_inventory$path("catalog"))
+
+s3_inventory <- arrow::s3_bucket(config$inventory_bucket,
+                                 endpoint_override = config$endpoint,
+                                 access_key = Sys.getenv("OSN_KEY"),
+                                 secret_key = Sys.getenv("OSN_SECRET"))
 
 inventory_df |> distinct(model_id, theme) |>
   arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-theme-inventory.csv"))

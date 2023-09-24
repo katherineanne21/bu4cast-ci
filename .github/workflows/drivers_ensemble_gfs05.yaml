@@ -7,6 +7,7 @@ on:
 
 name: ensemble_forecast_download_gfs05
 
+jobs:
   gfs05:
     runs-on: ubuntu-latest
     env:

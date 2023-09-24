@@ -15,9 +15,9 @@ download_ensemble_forecast <- function(model){
   
   site_list <- readr::read_csv("https://raw.githubusercontent.com/FLARE-forecast/aws_noaa/master/site_list_v2.csv", show_col_types = FALSE)
   
-  for(i in 1:4){
+  for(i in 1:nrow(site_list){
     
-    print(i)
+    print(site_list$site_id[i])
     
     RopenMeteo::get_ensemble_forecast(
       latitude = site_list$latitude[i],

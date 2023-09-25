@@ -16,7 +16,7 @@ download_seasonal_forecast <- function(){
   site_list <- readr::read_csv("https://raw.githubusercontent.com/FLARE-forecast/aws_noaa/master/site_list_v2.csv", show_col_types = FALSE)
 
   site_list <- site_list |>
-    dplyr::filter(site_id %in% c("BARC", "CRAM", "LIRO", "PRLA", "PRPO", "SUGG", "TOOK", "fcre", "bvre", "ccre"))
+    dplyr::filter(site_id %in% c("BARC", "CRAM", "LIRO", "PRLA", "PRPO", "SUGG", "TOOK", "fcre", "bvre", "ccre", "sunp"))
 
    for(i in 1:nrow(site_list)){
 

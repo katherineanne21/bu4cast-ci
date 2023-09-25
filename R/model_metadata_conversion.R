@@ -22,8 +22,8 @@ metadata_binary <- registered_model_id[,binary_cols]
 metadata_binary[metadata_binary == 'Yes'] = '1'
 metadata_binary[metadata_binary == 'No'] = '0'
 metadata_binary[metadata_binary == 'Not sure'] = NA
-binary_var_names <- c('dynamic_model', 'workshop_or_tutorial', 'instructor_contact', 'init_condition_uncertainty', 'time_varying_met_driver', 'driver_uncertainty',
-                      'process_uncertainty', 'multi_model_forecast_output', 'parameter_uncertainty')
+binary_var_names <- c('dynamic_model', 'workshop_or_tutorial', 'instructor_contact', 'initial_conditions', 'time_varying_met_driver', 'drivers',
+                      'process_error', 'multi_model_forecast_output', 'parameters')
 names(metadata_binary) <- binary_var_names
 
 # multiple choice values

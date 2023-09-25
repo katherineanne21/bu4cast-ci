@@ -148,6 +148,12 @@ build_model <- function(model_id,
         "type"= "application/x-parquet",
         "title"= 'Database Access',
         "description"= aws_asset_description
+      ),
+      "2" = list(
+        "href"= 'https://raw.githubusercontent.com/addelany/vera4cast/main/model_metadata.csv',
+        "type"= "text/plain",
+        "title"= 'Model Metadata',
+        "description"= 'Model metadata provided in csv format'
       )
     )#,
     #pull_images(theme_id,model_id,thumbnail_image_name)

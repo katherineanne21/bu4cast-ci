@@ -12,7 +12,7 @@ for(i in 1:length(config$themes)){
            date = lubridate::as_date(datetime)) |>
     distinct(theme, model_id, site_id, reference_date, variable, date) |>
     collect() |>
-    mutate(path = glue::glue("{bucket}/parquet/{theme}"),
+    mutate(path = glue::glue("{bucket}/parquet/{theme}/variable={variable}"),
            endpoint =config$endpoint)
 
   inventory_df <- bind_rows(inventory_df, df)

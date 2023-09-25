@@ -5,11 +5,10 @@ on:
   #  - cron: '0 4 * * *'
   workflow_dispatch:
 
-
-name: gefs-download
+name: ensemble_forecast_download_gfs05
 
 jobs:
-  docker:
+  gfs05:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -22,11 +21,9 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          remotes::install_github("eco4cast/gefs4cast")
-          install.packages(c("bench","decor"))
+          remotes::install_github("FLARE-forecast/RopenMeteo")
 
-      - name: Update GEFS
+      - name: Download
         shell: Rscript {0}
         run: |
-          source("drivers/gefs_download.R")
-
+          source("drivers/gfs05.R")

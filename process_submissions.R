@@ -100,7 +100,7 @@ if(length(submissions) > 0){
             s3$CreateDir(paste0("parquet/", theme))
             path <- s3$path(paste0("parquet/", theme))
             fc |> write_dataset(path, format = 'parquet',
-                                partitioning=c("model_id", "reference_date"))
+                                partitioning=c("variable","model_id", "reference_date"))
 
             model_id <- fc$model_id[1]
             bucket <- config$forecasts_bucket
@@ -109,7 +109,7 @@ if(length(submissions) > 0){
             curr_inventory <- fc |>
               mutate(theme = theme,
                      date = lubridate::as_date(datetime),
-                     path = glue::glue("{bucket}/parquet/{theme}"),
+                     path = glue::glue("{bucket}/parquet/{theme}/variable={variable}"),
                      endpoint =config$endpoint) |>
               distinct(theme, model_id, site_id, reference_date, variable, date, path, endpoint)
 

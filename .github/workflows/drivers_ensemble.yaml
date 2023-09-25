@@ -1,0 +1,49 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  #schedule:
+  #  - cron: '0 4 * * *'
+  workflow_dispatch:
+
+name: ensemble_forecast_download
+
+jobs:
+  gfs_seamless:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    container: rocker/geospatial:latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install
+        shell: Rscript {0}
+        run: |
+          remotes::install_github("FLARE-forecast/RopenMeteo")
+
+      - name: Download
+        shell: Rscript {0}
+        run: |
+          source("drivers/gfs_seamless.R")
+  gfs05:
+    needs: gfs_seamless
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    container: rocker/geospatial:latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install
+        shell: Rscript {0}
+        run: |
+          remotes::install_github("FLARE-forecast/RopenMeteo")
+
+      - name: Download
+        shell: Rscript {0}
+        run: |
+          source("drivers/gfs05.R")

@@ -26,4 +26,4 @@ build_theme(start_date = theme_min_date,
             theme_title = 'daily',
             destination_path = "stac/daily/",
             thumbnail_link = 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg',
-            thumbnail_title = 'NEON Aquatics Buoy')
+            thumbnail_title = 'Falling Creek Reservior Banner')

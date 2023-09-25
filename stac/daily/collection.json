@@ -53,24 +53,29 @@
   "title": "daily",
   "assets": {
     "thumbnail": {
-      "href": "https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg",
+      "href": "https://github.com/addelany/vera4cast/blob/main/thumbnails/banner-2.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "NEON Aquatics Buoy"
+      "title": "Falling Creek Reservior Banner"
     }
   },
   "extent": {
     "spatial": {
       "bbox": [
-        [-80.0471, 37.2706, -79.7958, 37.4374]
+        [
+          -80.0471,
+          37.2706,
+          -79.7958,
+          37.4374
+        ]
       ]
     },
     "temporal": {
       "interval": [
         [
-          "2023-10-27T00:00:00Z",
+          "2023-10-30T00:00:00Z",
           "2023-09-21T00:00:00Z"
         ]
       ]

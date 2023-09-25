@@ -1,4 +1,4 @@
-source('R/stac_functions.R')
+source('stac/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 
 
@@ -25,5 +25,5 @@ build_theme(start_date = theme_min_date,
             theme_description = build_description,
             theme_title = 'daily',
             destination_path = "stac/daily/",
-            thumbnail_link = 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg',
+            thumbnail_link = 'https://github.com/addelany/vera4cast/blob/main/thumbnails/banner-2.jpg',
             thumbnail_title = 'Falling Creek Reservior Banner')

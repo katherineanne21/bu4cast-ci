@@ -154,6 +154,6 @@ if(registered_models$`Does your forecast include uncertainty from parameter rand
 }
 
 
-jsonlite::write_json(uncertainty, path = "~/Downloads/test.json")
+jsonlite::write_json(metadata, path = "~/Downloads/test.json")
 
 

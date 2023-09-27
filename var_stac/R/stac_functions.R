@@ -417,7 +417,7 @@ generate_group_variable_items <- function(variables){
     list(
       "rel" = 'item',
       'type'= 'application/json',
-      'href' = paste0(i,'/',i,'.json'))
+      'href' = paste0(i,'/collection.json'))
   )
 
   return(x)

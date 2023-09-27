@@ -13,12 +13,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "Chla_ugL/Chla_ugL.json"
+      "href": "Chla_ugL/collection.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "Temp_C/Temp_C.json"
+      "href": "Temp_C/collection.json"
     },
     {
       "rel": "parent",

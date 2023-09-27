@@ -15,7 +15,7 @@ metadata$model_id <- registered_models$model_id[i]
 metadata$model_description$intellectualRights <- "https://creativecommons.org/licenses/by/4.0/"
 metadata$model_description$name <- registered_models$`Long name of the model`[i]
 metadata$model_description$type <- registered_models$`Which category best matches your modeling approach?`[i]
-metadata$model_description$repository <- registered_models$`Link to GitHub repository that contains model code.`[i]
+metadata$model_description$repository <- registered_models$`Web link to model code`[i]
 
 # Initial Conditions
 
@@ -38,8 +38,8 @@ if(registered_models$`Do your forecasts include uncertainty from initial conditi
   metadata$uncertainty$initial_conditions$present <- "Unknown"
 }
 
-if(registered_models$`Do you update your initial conditions or parameters between forecast submissions using newly available data (i.e., data assimilation)`[i] %in%
-   c("initial conditions", "Both initial conditions and parameters")){
+if(registered_models$`Do you update your initial conditions or parameters between forecast submissions using newly available data (i.e., data assimilation)?`[i] %in%
+   c("Initial conditions", "Both initial conditions and parameters")){
   metadata$uncertainty$initial_conditions$assimilation$type = registered_models$`What method did you use if you updated your initial conditions or parameters using data assimilation?`[i]
 }
 
@@ -49,7 +49,7 @@ if(registered_models$`Does your forecast include uncertainty from the model para
   metadata$uncertainty$parameters$present <- TRUE
   metadata$uncertainty$parameters$data_driven <- TRUE
   metadata$uncertainty$parameters$progagates$type <- progagates_method
-}else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and are not estimated from data"){
+}else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and they are not estimated from data"){
   metadata$uncertainty$parameters$present <- TRUE
   metadata$uncertainty$parameters$data_driven <- FALSE
   metadata$uncertainty$parameters$progagates$type <- progagates_method
@@ -64,8 +64,8 @@ if(registered_models$`Does your forecast include uncertainty from the model para
   metadata$uncertainty$parameters$present <- "Unknown"
 }
 
-if(registered_models$`Do you update your initial conditions or parameters between forecast submissions using newly available data (i.e., data assimilation)`[i] %in%
-   c("parameter", "Both initial conditions and parameters")){
+if(registered_models$`Do you update your initial conditions or parameters between forecast submissions using newly available data (i.e., data assimilation)?`[i] %in%
+   c("Parameter", "Both initial conditions and parameters")){
   metadata$uncertainty$parameter$assimilation$type = registered_models$`What method did you use if you updated your initial conditions or parameters using data assimilation?`[i]
 }
 
@@ -109,7 +109,7 @@ if(registered_models$`Does your forecast include uncertainty from the model (pro
 
 # Measurement error
 
-if(registered_models$`Does your forecast uncertainty from measurement noise?`[i] == "Yes and the noise was estimated from data"){
+if(registered_models$`Does your forecast include uncertainty from measurement noise?`[i] == "Yes and the noise was estimated from data"){
   metadata$uncertainty$obs_error$present <- TRUE
   metadata$uncertainty$obs_error$data_driven <- TRUE
   metadata$uncertainty$obs_error$progagates$type <- progagates_method
@@ -154,6 +154,6 @@ if(registered_models$`Does your forecast include uncertainty from parameter rand
 }
 
 
-jsonlite::write_json(metadata, path = "~/Downloads/test.json")
+jsonlite::write_json(metadata, path = "stac/test.json",pretty = TRUE)
 
 

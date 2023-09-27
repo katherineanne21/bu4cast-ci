@@ -110,7 +110,7 @@ if(length(submissions) > 0){
 
         inventory_df <- bind_rows(inventory_df, curr_inventory)
 
-        time_stamp <- paste(format(t, format = "%Y%m%d%H%M%S"))
+        time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
         aws.s3::put_object(submissions_bucket[i],
                            object = paste0("raw/", theme,"/",time_stamp,"_",basename(submissions[i])),

@@ -13,22 +13,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/TESTclimatology.json"
+      "href": "../../models/model_items/TESTclimatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/climatology.json"
+      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/persistenceRW.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/persistenceFO.json"
+      "href": "../../models/model_items/persistenceFO.json"
     },
     {
       "rel": "parent",

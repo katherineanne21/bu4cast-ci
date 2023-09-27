@@ -59,6 +59,25 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       link_items = generate_group_values(group_values = variable_group))
 
 
+
+
+## create separate JSON for model landing page
+
+build_group_variables(table_schema = forecast_theme_df,
+                      theme_id = 'models',
+                      table_description = forecast_description_create,
+                      start_date = forecast_min_date,
+                      end_date = forecast_max_date,
+                      id_value = "models",
+                      description_string = build_description,
+                      about_string = 'https://projects.ecoforecast.org/neon4cast-docs/',
+                      about_title = "VERA Forecasting Challenge Documentation",
+                      theme_title = "Models",
+                      model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
+                      destination_path = "var_stac/forecasts/models",
+                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily',
+                      group_var_items = generate_model_items(model_list = theme_models$model_id))
+
 ## create models
 
 ## READ IN MODEL METADATA
@@ -86,7 +105,7 @@ for (m in theme_models$model_id){
 
 # STILL WORKING ON GETTING DATA ASSETS INTO CORRECT FORMAT
   build_model(model_id = m,
-              theme_id = 'Forecasts',
+              theme_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
@@ -94,10 +113,10 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = "var_stac/forecasts/models/",
+              destination_path = "var_stac/forecasts/models/model_items",
               description_path = "stac/daily/forecasts/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
-              theme_title = "Forecasts",
+              theme_title = m,
               collection_name = 'forecasts',
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,

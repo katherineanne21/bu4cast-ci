@@ -213,16 +213,13 @@ generate_vars_sites <- function(m_id, theme){
 
 
 ## FORECAST LEVEL FUNCTIONS
-generate_model_items <- function(){
-
-
-  model_list <- theme_models$model_id
+generate_model_items <- function(model_list){
 
   x <- purrr::map(model_list, function(i)
     list(
       "rel" = 'item',
       'type'= 'application/json',
-      'href' = paste0('models/',i,'.json'))
+      'href' = paste0('model_items/',i,'.json'))
   )
 
   return(x)
@@ -316,7 +313,7 @@ build_forecast_scores <- function(table_schema,
                            aws_download_path,
                            "?endpoint_override=sdsc.osn.xsede.org")
 
-  aws_asset_description <-   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
+  aws_asset_description <-   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
   forecast_score <- list(
     "id" = id_value,
@@ -330,14 +327,20 @@ build_forecast_scores <- function(table_schema,
     'links' = c(link_items, #generate_model_items()
                 list(
                   list(
+                    "rel" = "child",
+                    "type" = "application/json",
+                    "href" = "models/collection.json",
+                    "title" = "group item"
+                  ),
+                  list(
                     "rel" = "parent",
                     "type"= "application/json",
-                    "href" = '../collection.json'
+                    "href" = '../catalog.json'
                   ),
                   list(
                     "rel" = "root",
                     "type" = "application/json",
-                    "href" = '../collection.json'
+                    "href" = '../catalog.json'
                   ),
                   list(
                     "rel" = "self",
@@ -429,7 +432,7 @@ generate_variable_model_items <- function(model_list){
     list(
       "rel" = 'item',
       'type'= 'application/json',
-      'href' = paste0('../../models/',i,'.json'))
+      'href' = paste0('../../models/model_items/',i,'.json'))
   )
 
   return(x)

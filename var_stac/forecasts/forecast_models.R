@@ -40,6 +40,9 @@ forecast_min_date <- forecast_date_range$`max(date)`
 
 build_description <- "The catalog contains forecasts for the VERA Forecasting Challenge Daily theme. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model."
 
+variable_group <- c('test_daily')
+
+
 build_forecast_scores(table_schema = forecast_theme_df,
                       theme_id = 'Forecasts',
                       table_description = forecast_description_create,
@@ -52,7 +55,8 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       theme_title = "Forecasts",
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                       destination_path = "var_stac/forecasts/",
-                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily')
+                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily',
+                      link_items = generate_group_values(group_values = variable_group))
 
 
 ## create models

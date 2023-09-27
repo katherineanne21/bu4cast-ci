@@ -18,7 +18,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "DO/DO.json"
+      "href": "Temp_C/Temp_C.json"
     },
     {
       "rel": "parent",

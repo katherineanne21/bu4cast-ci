@@ -11,24 +11,10 @@
   "type": "Collection",
   "links": [
     {
-      "rel": "item",
+      "rel": "child",
       "type": "application/json",
-      "href": "models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "models/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "models/TESTclimatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "models/persistenceFO.json"
+      "href": "test_daily/collection.json",
+      "title": "group item"
     },
     {
       "rel": "parent",

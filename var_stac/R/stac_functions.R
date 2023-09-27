@@ -282,6 +282,20 @@ get_site_coords <- function(sites){
 }
 
 
+generate_group_values <- function(group_values){
+
+  x <- purrr::map(group_values, function(i)
+    list(
+      "rel" = "child",
+      "type" = "application/json",
+      "href" = paste0(i,"/collection.json"),
+      "title" = "group item")
+  )
+
+  return(x)
+}
+
+
 build_forecast_scores <- function(table_schema,
                                   theme_id,
                                   table_description,
@@ -294,7 +308,8 @@ build_forecast_scores <- function(table_schema,
                                   theme_title,
                                   model_documentation,
                                   destination_path,
-                                  aws_download_path
+                                  aws_download_path,
+                                  link_items
 ){
 
   aws_asset_link <- paste0("s3://anonymous@bio230014-bucket01/",
@@ -312,7 +327,7 @@ build_forecast_scores <- function(table_schema,
                             "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
                             "https://stac-extensions.github.io/table/v1.2.0/schema.json"),
     'type' = 'Collection',
-    'links' = c(generate_model_items(),
+    'links' = c(link_items, #generate_model_items()
                 list(
                   list(
                     "rel" = "parent",

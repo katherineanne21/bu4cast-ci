@@ -20,7 +20,7 @@
       "rel": "child",
       "type": "application/json",
       "title": "VERA Daily Forecast Challenge",
-      "href": "daily/collection.json"
+      "href": "forecasts/collection.json"
     }
   ]
 }

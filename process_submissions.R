@@ -81,7 +81,7 @@ if(length(submissions) > 0){
 
         pub_datetime <- strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
 
-        if(stringr::str_detect(datetime, ":")){
+        if(stringr::str_detect(fc$datetime[1], ":")){
           theme <- "subdaily"
         }else{
           theme <- "daily"

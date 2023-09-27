@@ -306,7 +306,9 @@ build_forecast_scores <- function(table_schema,
                                   model_documentation,
                                   destination_path,
                                   aws_download_path,
-                                  link_items
+                                  link_items,
+                                  thumbnail_link,
+                                  thumbnail_title
 ){
 
   aws_asset_link <- paste0("s3://anonymous@bio230014-bucket01/",
@@ -392,6 +394,12 @@ build_forecast_scores <- function(table_schema,
         "title"= 'Database Access',
         "roles" = list('data'),
         "description"= aws_asset_description
+      ),
+      'thumbnail' = list(
+        "href"= thumbnail_link,
+        "type"= "image/JPEG",
+        "roles" = list('thumbnail'),
+        "title"= thumbnail_title
       )
     )
   )

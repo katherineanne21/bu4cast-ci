@@ -56,7 +56,9 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                       destination_path = "var_stac/forecasts/",
                       aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily',
-                      link_items = generate_group_values(group_values = variable_group))
+                      link_items = generate_group_values(group_values = variable_group),
+                      thumbnail_link = "https://raw.githubusercontent.com/addelany/vera4cast/main/thumbnails/banner-2.jpg",
+                      thumbnail_title = 'Falling Creek Reservoir')
 
 
 

@@ -286,7 +286,7 @@ generate_group_values <- function(group_values){
       "rel" = "child",
       "type" = "application/json",
       "href" = paste0(i,"/collection.json"),
-      "title" = "group item")
+      "title" = i)
   )
 
   return(x)

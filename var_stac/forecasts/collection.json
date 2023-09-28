@@ -13,8 +13,14 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "test_daily/collection.json",
-      "title": "group item"
+      "href": "Biological/collection.json",
+      "title": "Biological"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Physical/collection.json",
+      "title": "Physical"
     },
     {
       "rel": "child",

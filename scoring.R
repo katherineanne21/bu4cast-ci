@@ -94,7 +94,7 @@ for(i in 1:length(config$themes)){
 
         fc |>
           dplyr::mutate(variable = variable) |>
-          score4cast::crps_logs_score(tg) |>
+          score4cast::crps_logs_score(tg, extra_groups = "depth") |>
           dplyr::mutate(date = inventory$date[j],
                         model_id = inventory$model_id[j]) |>
           dplyr::select(-variable) |>

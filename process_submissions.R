@@ -15,14 +15,11 @@ region_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
 AWS_S3_ENDPOINT_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,2]
 endpoint_override_forecasts <- config$endpoint
 
-
 message(paste0("Starting Processing Submissions ", Sys.time()))
 
 local_dir <- file.path(here::here(), "submissions")
 unlink(local_dir, recursive = TRUE)
 fs::dir_create(local_dir)
-
-#Sys.unsetenv("AWS_SECRET_ACCESS_KEY")
 
 message("Downloading forecasts ...")
 
@@ -36,8 +33,6 @@ aws.s3::s3sync(local_dir, bucket = config$submissions_bucket,
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions_bucket <- basename(submissions)
-
-themes <- config$themes
 
 if(length(submissions) > 0){
 
@@ -57,7 +52,6 @@ if(length(submissions) > 0){
 
   s3_inventory$CreateDir("inventory")
 
-
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"),
                                    endpoint_override = endpoint_override_forecasts,
                                    access_key = Sys.getenv("OSN_KEY"),
@@ -69,7 +63,6 @@ if(length(submissions) > 0){
 
     curr_submission <- basename(submissions[i])
     print(curr_submission)
-    print(theme)
 
     if((tools::file_ext(curr_submission) %in% c("gz", "csv"))){
 
@@ -90,6 +83,11 @@ if(length(submissions) > 0){
         fc <- fc |>
           mutate(pub_datetime = pub_datetime,
                  reference_date = lubridate::as_date(reference_datetime))
+
+        if(!("depth" %in% names(fc))){
+          fc <- fc |>
+            mutate(depth = NA)
+        }
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/", theme))
@@ -121,11 +119,11 @@ if(length(submissions) > 0){
                            secret = Sys.getenv("OSN_SECRET"))
 
         if(aws.s3::object_exists( object = paste0("raw/", theme,"/",time_stamp,"_",basename(submissions[i])),
-                                 bucket = config$forecasts_bucket,
-                                 region = region_forecasts,
-                                 base_url = AWS_S3_ENDPOINT_forecasts,
-                                 key = Sys.getenv("OSN_KEY"),
-                                 secret = Sys.getenv("OSN_SECRET"))){
+                                  bucket = config$forecasts_bucket,
+                                  region = region_forecasts,
+                                  base_url = AWS_S3_ENDPOINT_forecasts,
+                                  key = Sys.getenv("OSN_KEY"),
+                                  secret = Sys.getenv("OSN_SECRET"))){
 
           aws.s3::delete_object(object = submissions_bucket[i],
                                 bucket = config$submissions_bucket,
@@ -160,9 +158,7 @@ if(length(submissions) > 0){
                                 secret = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
         }
-
       }
-
     }
   }
 

@@ -139,13 +139,15 @@ for (i in 1:length(variable_groups)){
     dir.create(paste0("var_stac/forecasts/",variable_groups[i]))
   }
 
+  group_description <- paste0('This page includes variables for the ',variable_groups[i],' group.')
+
   build_group_variables(table_schema = forecast_theme_df,
                         theme_id = variable_groups[i],
                         table_description = forecast_description_create,
                         start_date = forecast_min_date,
                         end_date = forecast_max_date,
                         id_value = variable_groups[i],
-                        description_string = build_description,
+                        description_string = group_description,
                         about_string = 'https://projects.ecoforecast.org/neon4cast-docs/',
                         about_title = "VERA Forecasting Challenge Documentation",
                         theme_title = variable_groups[i],
@@ -170,13 +172,15 @@ for (i in 1:length(variable_groups)){
 
     var_models <- var_data |> distinct(model_id)
 
+    var_description <- paste0('This page includes all models for the ',v,' variable.')
+
     build_group_variables(table_schema = forecast_theme_df,
                           theme_id = v,
                           table_description = forecast_description_create,
                           start_date = var_min_date,
                           end_date = var_max_date,
                           id_value = v,
-                          description_string = build_description,
+                          description_string = var_description,
                           about_string = 'https://projects.ecoforecast.org/neon4cast-docs/',
                           about_title = "VERA Forecasting Challenge Documentation",
                           theme_title = v,

@@ -27,11 +27,9 @@ download_seasonal_forecast <- function(){
       longitude = site_list$longitude[i],
       site_id = site_list$site_id[i],
       forecast_days = 274,
-      past_days = 0,
+      past_days = 60,
       variables = RopenMeteo::glm_variables(product = "seasonal_forecast",
                                             time_step = "6hourly")) |>
-      RopenMeteo::add_longwave() |>
-      RopenMeteo::convert_to_efi_standard() |>
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
       arrow::write_dataset(s3, format = 'parquet',
                            partitioning = c("model_id", "reference_date", "site_id"))

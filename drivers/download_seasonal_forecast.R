@@ -35,7 +35,7 @@ download_seasonal_forecast <- function(){
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
       arrow::write_dataset(s3, format = 'parquet',
                            partitioning = c("model_id", "reference_date", "site_id"))
-    Sys.sleep(30)
+    Sys.sleep(10)
 
   }
 }

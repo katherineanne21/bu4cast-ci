@@ -181,7 +181,7 @@ for (i in 1:length(variable_groups)){
                           about_title = "VERA Forecasting Challenge Documentation",
                           theme_title = v,
                           model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                          destination_path = file.path("var_stac/forecasts/",i,v),
+                          destination_path = file.path("var_stac/forecasts",variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

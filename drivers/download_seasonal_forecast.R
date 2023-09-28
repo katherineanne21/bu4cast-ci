@@ -27,7 +27,7 @@ download_seasonal_forecast <- function(){
       longitude = site_list$longitude[i],
       site_id = site_list$site_id[i],
       forecast_days = 274,
-      past_days = 60,
+      past_days = 92,
       variables = RopenMeteo::glm_variables(product = "seasonal_forecast",
                                             time_step = "6hourly")) |>
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>

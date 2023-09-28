@@ -25,7 +25,7 @@ generate_model_assets <- function(m_vars, aws_path){
   model_assets <- list(
     "1"= list(
       'type'= 'application/x-parquet',
-      'title' = 'Database Access',
+      'title' = paste0('Database Access for ',m_vars[1]),
       'href' = paste0("s3://anonymous@",
                       aws_path,
                       "parquet/daily/variable=", m_vars[1],
@@ -45,7 +45,7 @@ generate_model_assets <- function(m_vars, aws_path){
     model_assets_initial <- list(
       "1"= list(
         'type'= 'application/x-parquet',
-        'title' = 'Database Access',
+        'title' = paste0('Database Access for ',m_vars[1]),
         'href' = paste0("s3://anonymous@",
                         aws_path,
                         "parquet/daily/variable=", m_vars[1],
@@ -63,7 +63,7 @@ generate_model_assets <- function(m_vars, aws_path){
     model_assets_extra <- purrr::map(iterator_list[2:length(iterator_list)], function(i)
       list(
         'type'= 'application/x-parquet',
-        'title' = 'Database Access',
+        'title' = paste0('Database Access for ',m_vars[i]),
         'href' = paste0("s3://anonymous@",
                         aws_path,
                         "parquet/daily/variable=", m_vars[i],

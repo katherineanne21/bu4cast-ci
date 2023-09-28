@@ -11,7 +11,7 @@
   "type": "Collection",
   "links": [
     {
-      "rel": "item",
+      "rel": "child",
       "type": "application/json",
       "href": "Temp_C/collection.json"
     },

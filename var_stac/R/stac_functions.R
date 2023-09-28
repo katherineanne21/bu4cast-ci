@@ -463,7 +463,7 @@ generate_group_variable_items <- function(variables){
 
   x <- purrr::map(var_values, function(i)
     list(
-      "rel" = 'item',
+      "rel" = 'child',
       'type'= 'application/json',
       'href' = paste0(i,'/collection.json'))
   )

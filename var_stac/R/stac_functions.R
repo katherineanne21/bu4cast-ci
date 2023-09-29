@@ -16,74 +16,110 @@ generate_authors <- function(metadata_table, index){
   )
 }
 
+# generate_model_assets <- function(m_vars, aws_path){
+#
+#   iterator_list <- 1:length(m_vars)
+#
+#   if (length(iterator_list) == 1){
+#
+#     model_assets <- list(
+#       "1"= list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[1]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[1],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[1],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+#       )
+#     )
+#
+#   } else{
+#
+#     model_assets_initial <- list(
+#       "1"= list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[1]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[1],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[1],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+#       )
+#     )
+#
+#     model_assets_extra <- purrr::map(iterator_list[2:length(iterator_list)], function(i)
+#       list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[i]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[i],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[i],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+#       )
+#     )
+#
+#     model_assets <- c(model_assets_initial, model_assets_extra)
+#   }
+#
+#   return(model_assets)
+# }
+
 generate_model_assets <- function(m_vars, aws_path){
+
+  metadata_json_asset <- list(
+    "1"= list(
+      'type'= 'application/json',
+      'title' = 'Database Access for Model Metadata JSON File',
+      'href' = paste0(config$model_metadata_http,'/',m,'.json'),
+      'description' = paste0("Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.
+      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(",paste0(config$model_metadata_http,'/',m,'.json'),")``` \n\n\n")
+    )
+  )
 
   iterator_list <- 1:length(m_vars)
 
-  if (length(iterator_list) == 1){
-
-  model_assets <- list(
-    "1"= list(
+  model_data_assets <- purrr::map(iterator_list, function(i)
+    list(
       'type'= 'application/x-parquet',
-      'title' = paste0('Database Access for ',m_vars[1]),
+      'title' = paste0('Database Access for ',m_vars[i]),
       'href' = paste0("s3://anonymous@",
                       aws_path,
-                      "parquet/daily/variable=", m_vars[1],
+                      "parquet/daily/variable=", m_vars[i],
                       "/model_id=", m,
                       "?endpoint_override=renc.osn.xsede.org"),
       'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
                                                                                                                                                                                                                                                                        aws_path,
-                                                                                                                                                                                                                                                                       "parquet/daily/variable=", m_vars[1],
+                                                                                                                                                                                                                                                                       "parquet/daily/variable=", m_vars[i],
                                                                                                                                                                                                                                                                        "/model_id=", m,
                                                                                                                                                                                                                                                                        "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
     )
   )
 
-  } else{
-
-    model_assets_initial <- list(
-      "1"= list(
-        'type'= 'application/x-parquet',
-        'title' = paste0('Database Access for ',m_vars[1]),
-        'href' = paste0("s3://anonymous@",
-                        aws_path,
-                        "parquet/daily/variable=", m_vars[1],
-                        "/model_id=", m,
-                        "?endpoint_override=renc.osn.xsede.org"),
-        'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
-                                                                                                                                                                                                                                                                         aws_path,
-                                                                                                                                                                                                                                                                         "parquet/daily/variable=", m_vars[1],
-                                                                                                                                                                                                                                                                         "/model_id=", m,
-                                                                                                                                                                                                                                                                         "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
-       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
-      )
-    )
-
-    model_assets_extra <- purrr::map(iterator_list[2:length(iterator_list)], function(i)
-      list(
-        'type'= 'application/x-parquet',
-        'title' = paste0('Database Access for ',m_vars[i]),
-        'href' = paste0("s3://anonymous@",
-                        aws_path,
-                        "parquet/daily/variable=", m_vars[i],
-                        "/model_id=", m,
-                        "?endpoint_override=renc.osn.xsede.org"),
-        'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
-                                                                                                                                                                                                                                                                         aws_path,
-                                                                                                                                                                                                                                                                         "parquet/daily/variable=", m_vars[i],
-                                                                                                                                                                                                                                                                         "/model_id=", m,
-                                                                                                                                                                                                                                                                         "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
-       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
-      )
-    )
-
-    model_assets <- c(model_assets_initial, model_assets_extra)
-  }
+  model_assets <- c(metadata_json_asset, model_data_assets)
 
   return(model_assets)
 }
-
 
 
 build_model <- function(model_id,
@@ -203,7 +239,7 @@ get_grouping <- function(inv_bucket,
                          collapse=TRUE) {
 
   groups <- duckdbfs::open_dataset(glue::glue("s3://anonymous@{inv_bucket}/catalog?endpoint_override=sdsc.osn.xsede.org")) |>
-  #groups <- arrow::open_dataset(s3_inv$path("neon4cast-forecasts")) |>
+    #groups <- arrow::open_dataset(s3_inv$path("neon4cast-forecasts")) |>
     dplyr::filter(...1 == "parquet", ...2 == {theme}) |>
     dplyr::select(model_id = ...3, reference_datetime = ...4, date = ...5) |>
     dplyr::mutate(model_id = gsub("model_id=", "", model_id),
@@ -410,9 +446,9 @@ build_forecast_scores <- function(table_schema,
     "extent" = list(
       "spatial" = list(
         'bbox' = list(c(-80.0471,
-                       37.2706,
-                       -79.7958,
-                       37.4374))),
+                        37.2706,
+                        -79.7958,
+                        37.4374))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),

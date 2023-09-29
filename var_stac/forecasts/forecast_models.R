@@ -19,7 +19,10 @@ forecast_description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime
                                  #date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5 of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.',
                                  reference_datetime = 'datetime that the forecast is run',
                                  model_id = 'unique model identifier',
-                                 reference_date = 'date that the forecast is run')
+                                 reference_date = 'date that the forecast is run',
+                                 project_id = 'unique identifier for the forecast project',
+                                 depth_m = 'depths included in forecast',
+                                 duration = 'temporal duration of forecast (hourly, daily, etc.)')
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
 theme <- 'daily'
@@ -109,7 +112,6 @@ for (m in theme_models$model_id){
 
   idx = which(registered_model_id$model_id == m)
 
-# STILL WORKING ON GETTING DATA ASSETS INTO CORRECT FORMAT
   build_model(model_id = m,
               theme_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],

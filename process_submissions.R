@@ -108,7 +108,7 @@ if(length(submissions) > 0){
                  date = lubridate::as_date(datetime),
                  path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
                  endpoint =config$endpoint) |>
-          distinct(theme, model_id, site_id, reference_date, variable, date, path, endpoint)
+          distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
 
         inventory_df <- bind_rows(inventory_df, curr_inventory)
 
@@ -174,7 +174,7 @@ if(length(submissions) > 0){
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
   inventory_df |> distinct(model_id, project_id) |>
-    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project_id-inventory.csv"))
+    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project-inventory.csv"))
 
 }
 

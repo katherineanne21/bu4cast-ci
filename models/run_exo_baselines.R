@@ -148,11 +148,12 @@ site_var_combinations <- expand.grid(site = unique(targets$site_id),
 RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast)
 
 # convert the output into EFI standard
-RW_forecasts_EFI <- RW_forecasts %>%
+RW_forecasts_EFI <- as_tibble(RW_forecasts) %>%
   rename(parameter = .rep,
          prediction = .sim) %>%
   # For the EFI challenge we only want the forecast for future
   filter(datetime > Sys.Date()) %>%
+  mutate(datetime = lubridate::as_datetime(datetime)) |>
   group_by(site_id, variable) %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
@@ -162,8 +163,7 @@ RW_forecasts_EFI <- RW_forecasts %>%
 RW_forecasts_EFI <- RW_forecasts_EFI |>
   mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
          project_id = "vera4cast",
-         duration = "P1D",
-         datetime = lubridate::as_datetime(paste0(datetime, " 00:00:00")))
+         duration = "P1D")
 
 # 4. Write forecast file
 file_date <- RW_forecasts_EFI$reference_datetime[1]

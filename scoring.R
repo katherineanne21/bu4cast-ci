@@ -67,7 +67,7 @@ for(i in 1:length(config$themes)){
                                                 theme = theme))
     bucket <- config$forecasts_bucket
     target <- score4cast:::get_target(theme, s3_targets) |> dplyr::filter(variable == {variable})
-    target <- target |> mutate(depth = NA)
+
     inventory <- arrow::open_dataset(s3_inv) |>
       dplyr::filter(theme == {theme} & variable == {variable}) |>
       dplyr::collect() |>

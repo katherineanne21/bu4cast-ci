@@ -82,9 +82,10 @@ if(length(submissions) > 0){
           }
         }
 
-        if(!("depth" %in% names(fc))){
+        if(!("depth_m" %in% names(fc))){
           fc <- fc |>
-            mutate(depth = NA)
+            mutate(depth_m = NA,
+                   depth_m = as.numeric(depth_m))
         }
 
         fc <- fc |>

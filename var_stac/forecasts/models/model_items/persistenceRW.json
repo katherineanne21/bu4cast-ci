@@ -144,7 +144,7 @@
   "assets": {
     "1": {
       "type": "application/json",
-      "title": "Database Access for Model Metadata JSON File",
+      "title": "Model Metadata",
       "href": "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/metadata/model_id/persistenceRW.json",
       "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/metadata/model_id/persistenceRW.json)\n\n"
     },

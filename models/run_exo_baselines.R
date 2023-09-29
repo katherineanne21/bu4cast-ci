@@ -25,7 +25,7 @@ sites <- read_csv(config$site_table, show_col_types = FALSE)
 site_names <- sites$site_id
 
 target_clim <- targets %>%
-  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
+  filter(variable %in% c("Chla_ugL_mean","Temp_C_mean")) %>%
   mutate(doy = yday(datetime)) %>%
   group_by(doy, site_id, variable) %>%
   summarise(clim_mean = mean(observation, na.rm = TRUE),
@@ -62,11 +62,11 @@ for(i in 1:length(subseted_site_names)){
 
 forecast_tibble1 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "Chla_ugL")
+                           variable = "Chla_ugL_mean")
 
 forecast_tibble2 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "Temp_C")
+                           variable = "Temp_C_mean")
 
 forecast_tibble <- bind_rows(forecast_tibble1, forecast_tibble2)
 
@@ -98,12 +98,17 @@ combined <- combined %>%
   select(model_id, datetime, reference_datetime, site_id, variable, family, parameter, prediction)
 
 combined %>%
-  filter(variable == "Chla_ugL") |>
+  filter(variable == "Chla_ugL_mean") |>
   pivot_wider(names_from = parameter, values_from = prediction) %>%
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin=mu - sigma*1.96, ymax=mu + sigma*1.96), alpha = 0.1) +
   geom_point(aes(y = mu)) +
   facet_wrap(~site_id)
+
+combined <- combined |>
+  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+         project_id = "vera4cast",
+         duration = "P1D")
 
 file_date <- combined$reference_datetime[1]
 
@@ -150,6 +155,12 @@ RW_forecasts_EFI <- RW_forecasts %>%
          family = "ensemble",
          model_id = "persistenceRW") %>%
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
+
+RW_forecasts_EFI <- RW_forecasts_EFI |>
+  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+         project_id = "vera4cast",
+         duration = "P1D")
+
 
 # 4. Write forecast file
 file_date <- RW_forecasts_EFI$reference_datetime[1]

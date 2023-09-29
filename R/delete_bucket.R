@@ -1,5 +1,5 @@
 df <- aws.s3::get_bucket_df(bucket = "bio230121-bucket01",
-                            prefix = "flare/drivers/met/seasonal_forecast/model_id=cfs",
+                            prefix = "vera4cast/metadata",
                             region =  "renc",
                             base_url = "osn.xsede.org",
                    key = Sys.getenv("OSN_KEY"),

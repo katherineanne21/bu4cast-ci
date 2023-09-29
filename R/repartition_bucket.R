@@ -22,12 +22,16 @@ for(i in 1:nrow(df)){
                         secret = Sys.getenv("OSN_SECRET"))
 }
 
-s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/vera4cast/forecasts/parquet/daily",
+s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/vera4cast/forecasts/parquet",
                        endpoint_override = "renc.osn.xsede.org",
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::open_dataset("part-0.parquet") |> arrow::write_dataset(s3, partitioning = c("variable","model_id","reference_date"))
+arrow::open_dataset("part-0.parquet") |>
+  mutate(datetime = lubridate::as_datetime(datetime),
+         duration = "P1D",
+         project_id = "vera4cast") |>
+  arrow::write_dataset(s3, partitioning = c("duration","variable","model_id","reference_date"))
 
 
 ###
@@ -56,12 +60,16 @@ for(i in 1:nrow(df)){
                         secret = Sys.getenv("OSN_SECRET"))
 }
 
-s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/vera4cast/scores/parquet/daily",
+s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/vera4cast/scores/parquet",
                        endpoint_override = "renc.osn.xsede.org",
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::open_dataset("part-0.parquet") |> arrow::write_dataset(s3, partitioning = c("variable","model_id","date"))
+arrow::open_dataset("part-0.parquet") |>
+  mutate(datetime = lubridate::as_datetime(datetime),
+         duration = "P1D",
+         project_id = "vera4cast") |>
+  arrow::write_dataset(s3, partitioning = c("duration", "variable","model_id","date"))
 
 
 

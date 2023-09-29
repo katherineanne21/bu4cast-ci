@@ -74,35 +74,38 @@ if(length(submissions) > 0){
 
         pub_datetime <- strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
 
-        if(stringr::str_detect(fc$datetime[1], ":")){
-          theme <- "subdaily"
-        }else{
-          theme <- "daily"
+        if(!"duration" %in% names(fc)){
+          if(stringr::str_detect(fc$datetime[1], ":")){
+            fc <- fc |> mutate(duration = "P1H")
+          }else{
+            fc <- fc |> mutate(duration = "P1D")
+          }
         }
-
-        fc <- fc |>
-          mutate(pub_datetime = pub_datetime,
-                 reference_date = lubridate::as_date(reference_datetime))
 
         if(!("depth" %in% names(fc))){
           fc <- fc |>
             mutate(depth = NA)
         }
 
+        fc <- fc |>
+          mutate(pub_datetime = pub_datetime,
+                 reference_date = lubridate::as_date(reference_datetime))
+
         print(head(fc))
-        s3$CreateDir(paste0("parquet/", theme))
-        path <- s3$path(paste0("parquet/", theme))
+        s3$CreateDir(paste0("parquet/"))
+        path <- s3$path(paste0("parquet/"))
         fc |> write_dataset(path, format = 'parquet',
-                            partitioning=c("variable","model_id", "reference_date"))
+                            partitioning=c("duration","variable","model_id", "reference_date"))
 
         model_id <- fc$model_id[1]
         bucket <- config$forecasts_bucket
         reference_date <- fc$reference_date[1]
+        duration <- fc$duration[1]
         endpoint <- config$endpoint
         curr_inventory <- fc |>
-          mutate(theme = theme,
+          mutate(project_id = "vera4cast",
                  date = lubridate::as_date(datetime),
-                 path = glue::glue("{bucket}/parquet/{theme}/variable={variable}"),
+                 path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
                  endpoint =config$endpoint) |>
           distinct(theme, model_id, site_id, reference_date, variable, date, path, endpoint)
 
@@ -111,14 +114,14 @@ if(length(submissions) > 0){
         time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
         aws.s3::put_object(submissions_bucket[i],
-                           object = paste0("raw/", theme,"/",time_stamp,"_",basename(submissions[i])),
+                           object = paste0("raw/",time_stamp,"_",basename(submissions[i])),
                            bucket = config$forecasts_bucket,
                            region= region_forecasts,
                            base_url = AWS_S3_ENDPOINT_forecasts,
                            key = Sys.getenv("OSN_KEY"),
                            secret = Sys.getenv("OSN_SECRET"))
 
-        if(aws.s3::object_exists( object = paste0("raw/", theme,"/",time_stamp,"_",basename(submissions[i])),
+        if(aws.s3::object_exists( object = paste0("raw/",time_stamp,"_",basename(submissions[i])),
                                   bucket = config$forecasts_bucket,
                                   region = region_forecasts,
                                   base_url = AWS_S3_ENDPOINT_forecasts,
@@ -169,8 +172,8 @@ if(length(submissions) > 0){
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  inventory_df |> distinct(model_id, theme) |>
-    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-theme-inventory.csv"))
+  inventory_df |> distinct(model_id, project_id) |>
+    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project_id-inventory.csv"))
 
 }
 

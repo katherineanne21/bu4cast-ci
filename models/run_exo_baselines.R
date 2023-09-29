@@ -126,7 +126,7 @@ source('R/fablePersistenceModelFunction.R')
 
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
-  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
+  filter(variable %in% c("Chla_ug_mean","Temp_C_mean")) %>%
   as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())
@@ -160,7 +160,6 @@ RW_forecasts_EFI <- RW_forecasts_EFI |>
   mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
          project_id = "vera4cast",
          duration = "P1D")
-
 
 # 4. Write forecast file
 file_date <- RW_forecasts_EFI$reference_datetime[1]

@@ -23,7 +23,7 @@ source("R/plot-utils.R")
 ```{r}
 theme <- "daily"
 cutoff <- as.character(Sys.Date() - 30)
-combined <- arrow::open_dataset("../cache/daily") |> 
+combined <- arrow::open_dataset("../cache/duration=P1D") |> 
   filter(date >= cutoff) |> collect()
 
 

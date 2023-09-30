@@ -37,18 +37,20 @@ target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types =
 
 ```{r echo = FALSE}
 targets |> 
-  filter(class = "physical") |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "physical") |> 
+  select(-class) |> 
   knitr::kable()
 ```
 #### Chemical variables
 
 ```{r echo = FALSE}
 targets |> 
-  filter(class = "chemical") |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "chemical") |> 
+  select(-class) |> 
   knitr::kable()
 ```
 
@@ -56,9 +58,10 @@ targets |>
 
 ```{r echo = FALSE}
 targets |> 
-  filter(class = "chemical") |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "biological") |> 
+  select(-class) |> 
   knitr::kable()
 ```
 

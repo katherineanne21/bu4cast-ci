@@ -13,7 +13,7 @@ website:
     search: true
     left:
       - href: http://ltreb-reservoirs.org/
-        text: About
+        text: Home
         icon: cpu
       - href: instructions.qmd
         icon: info-square

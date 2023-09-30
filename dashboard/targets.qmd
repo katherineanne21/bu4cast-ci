@@ -33,17 +33,40 @@ glimpse(targets)
 target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types = FALSE)
 ```
 
-```{r}
+#### Physical variables
+
+```{r echo = FALSE}
 targets |> 
+  filter(class = "physical") |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
   knitr::kable()
 ```
+#### Chemical variables
+
+```{r echo = FALSE}
+targets |> 
+  filter(class = "chemical") |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  knitr::kable()
+```
+
+#### Biological variables
+
+```{r echo = FALSE}
+targets |> 
+  filter(class = "chemical") |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  knitr::kable()
+```
+
 ## Site
 ```{r}
 site_list <- read_csv("https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/vera4cast_field_site_metadata.csv", show_col_types = FALSE)
 ```
 
-```{r}
+```{r echo = FALSE}
 site_list |> knitr::kable()
 ```

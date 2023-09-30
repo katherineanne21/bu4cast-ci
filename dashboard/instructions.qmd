@@ -1,5 +1,5 @@
 ---
-title: "Instructions"
+title: "How to forecast"
 editor: 
   markdown: 
     wrap: sentence

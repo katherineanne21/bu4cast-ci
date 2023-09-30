@@ -1,5 +1,5 @@
 ---
-title: "Submitted forecasts"
+title: "What has been forecasted"
 ---
 
 ```{r, include=FALSE}

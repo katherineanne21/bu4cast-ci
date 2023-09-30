@@ -16,9 +16,9 @@ website:
         text: Home
         icon: house-door
       - href: instructions.qmd
-        icon: bullseye
-      - href: targets.qmd
         icon: info-square
+      - href: targets.qmd
+        icon: bullseye
       - href: daily.qmd
         icon: droplet
       - href: catalog.qmd

@@ -114,15 +114,15 @@ if(length(submissions) > 0){
 
         time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
-        aws.s3::put_object(submissions_bucket[i],
-                           object = paste0("raw/",time_stamp,"_",basename(submissions[i])),
+        aws.s3::put_object(file = submissions_bucket[i],
+                           object = paste0("raw/T",time_stamp,"_",basename(submissions[i])),
                            bucket = config$forecasts_bucket,
                            region= region_forecasts,
                            base_url = AWS_S3_ENDPOINT_forecasts,
                            key = Sys.getenv("OSN_KEY"),
                            secret = Sys.getenv("OSN_SECRET"))
 
-        if(aws.s3::object_exists( object = paste0("raw/",time_stamp,"_",basename(submissions[i])),
+        if(aws.s3::object_exists( object = paste0("raw/T",time_stamp,"_",basename(submissions[i])),
                                   bucket = config$forecasts_bucket,
                                   region = region_forecasts,
                                   base_url = AWS_S3_ENDPOINT_forecasts,
@@ -139,15 +139,15 @@ if(length(submissions) > 0){
         }
       } else {
 
-        aws.s3::put_object(submissions_bucket[i],
-                           object = paste0("not_in_standard/",time_stamp,"_",basename(submissions[i])),
+        aws.s3::put_object(file =  submissions_bucket[i],
+                           object = paste0("not_in_standard/T",time_stamp,"_",basename(submissions[i])),
                            bucket = config$forecasts_bucket,
                            region = region_forecasts,
                            base_url = AWS_S3_ENDPOINT_forecasts,
                            key = Sys.getenv("OSN_KEY"),
                            secret = Sys.getenv("OSN_SECRET"))
 
-        if(aws.s3::object_exists(object = paste0("not_in_standard/",time_stamp,"_",basename(submissions[i])),
+        if(aws.s3::object_exists(object = paste0("not_in_standard/T",time_stamp,"_",basename(submissions[i])),
                                  bucket = config$forecasts_bucket,
                                  region = region_forecasts,
                                  base_url = AWS_S3_ENDPOINT_forecasts,

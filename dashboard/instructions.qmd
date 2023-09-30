@@ -18,6 +18,8 @@ We provide an overview of the steps for submitting with the details below:
 
 The file is a csv format with the following columns:
 
+-   `project_id`: use `vera4cast`
+
 -   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your metadata.
     The model_id should have no spaces.
 
@@ -29,18 +31,22 @@ The file is a csv format with the following columns:
     Format is `%Y-%m-%d %H:%M:%S` with UTC as the time zone
 
 -   `duration`: the time-step of the forecast.
-    A daily forecast is `P1D` and an hourly forecast is `PT1H`.
+    Use the value of `P1D` for a daily forecast and `PT1H` for an hourly forecast.
+    This value should match the duration of the target variable that you are forecasting.
 
 -   `site_id`: code for site (`bvre` or `fcre`) - `depth_m`: the depth (meters) for the forecasted variable.
     Use `NA` for variables without a specified depth.
 
 -   `family` name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution).
     An ensemble forecast as a family of `ensemble`.
+    See note below about family
 
 -   `parameter` the parameters for the distribution (see note below about parameter column) or the number of the ensemble member.
     For example the parameters for normal are `mu` and `sigma`.
 
--   `variable`: standardized variable name - `prediction`: forecasted value for the parameter in the parameter column
+-   `variable`: standardized variable name
+
+-   `prediction`: forecasted value for the parameter in the parameter column
 
 #### Family - Parameter Columns
 
@@ -52,7 +58,7 @@ If you are submitting a forecast that is not in the supported list we recommend 
 
 ##### Supported distributions
 
-The following names and parameterization of the distribution are supported
+The following names and parameterization of the distribution are supported (family: parameters):
 
 -   `lognormal`: `mu`, `sigma`
 -   `normal`: `mu`,`sigma`

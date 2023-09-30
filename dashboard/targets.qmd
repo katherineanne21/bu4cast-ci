@@ -7,16 +7,27 @@ editor:
 
 ## Targets
 
-```{r}
+```{r message=FALSE}
 library(tidyverse)
-targets <- read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz", show_col_types = FALSE)
 ```
 
-````{r}
+### Targets file
+
+The targets file is at 
+
+```{r}
+url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
+```
+
+```{r}
+targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
 glimpse(targets)
 ```
 
-The current variables are:
+### Variable list 
 
 ```{r}
 targets |> distinct(variable, duration)

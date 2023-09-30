@@ -34,7 +34,9 @@ The file is a csv format with the following columns:
     Use the value of `P1D` for a daily forecast and `PT1H` for an hourly forecast.
     This value should match the duration of the target variable that you are forecasting. Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
--   `site_id`: code for site (`bvre` or `fcre`) - `depth_m`: the depth (meters) for the forecasted variable.
+-   `site_id`: code for site (`bvre` or `fcre`) 
+
+- `depth_m`: the depth (meters) for the forecasted variable.
     Use `NA` for variables without a specified depth.
 
 -   `family` name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution).

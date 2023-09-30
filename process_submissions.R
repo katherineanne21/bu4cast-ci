@@ -114,7 +114,7 @@ if(length(submissions) > 0){
 
         time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
-        aws.s3::put_object(file = submissions_bucket[i],
+        aws.s3::put_object(file = submissions[i],
                            object = paste0("raw/T",time_stamp,"_",basename(submissions[i])),
                            bucket = config$forecasts_bucket,
                            region= region_forecasts,
@@ -139,7 +139,7 @@ if(length(submissions) > 0){
         }
       } else {
 
-        aws.s3::put_object(file =  submissions_bucket[i],
+        aws.s3::put_object(file =  submissions[i],
                            object = paste0("not_in_standard/T",time_stamp,"_",basename(submissions[i])),
                            bucket = config$forecasts_bucket,
                            region = region_forecasts,

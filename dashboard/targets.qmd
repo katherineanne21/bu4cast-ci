@@ -39,3 +39,11 @@ targets |>
   left_join(target_metadata, by = c("variable","duration")) |> 
   knitr::kable()
 ```
+## Site
+```{r}
+site_list <- read_csv("https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/vera4cast_field_site_metadata.csv", show_col_types = FALSE)
+```
+
+```{r}
+site_list |> knitr::kable()
+```

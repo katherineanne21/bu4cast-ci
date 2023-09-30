@@ -42,6 +42,6 @@ target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types =
 ```{r}
 targets |> 
   distinct(variable, duration) |> 
-  left_join(target_metadata, by = "variable") |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
   knitr::kable()
 ```

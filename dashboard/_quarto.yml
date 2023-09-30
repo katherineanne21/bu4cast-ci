@@ -14,8 +14,10 @@ website:
     left:
       - href: http://ltreb-reservoirs.org/
         text: Home
-        icon: cpu
+        icon: house-door
       - href: instructions.qmd
+        icon: bullseye
+      - href: targets.qmd
         icon: info-square
       - href: daily.qmd
         icon: droplet

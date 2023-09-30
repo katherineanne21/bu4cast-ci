@@ -12,7 +12,7 @@ website:
     background: primary
     search: true
     left:
-      - href: https://www.ltreb-reservoirs.org/
+      - href: https://www.ltreb-reservoirs.org
         text: Home
         icon: house-door
       - href: targets.qmd

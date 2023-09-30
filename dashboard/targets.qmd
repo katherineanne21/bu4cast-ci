@@ -1,8 +1,25 @@
 ---
-title: "Targets"
+title: "What to forecast"
 editor: 
   markdown: 
     wrap: sentence
 ---
 
 ## Targets
+
+```{r}
+library(tidyverse)
+targets <- read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz", show_col_types = FALSE)
+```
+
+````{r}
+glimpse(targets)
+```
+
+The current variables are:
+
+```{r}
+targets |> distinct(variable, duration)
+```
+
+### Definations of variables

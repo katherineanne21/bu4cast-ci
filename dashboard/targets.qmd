@@ -30,12 +30,6 @@ glimpse(targets)
 ### Variable list 
 
 ```{r}
-targets |> distinct(variable, duration)
-```
-
-### Definitions of variables
-
-```{r}
 target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types = FALSE)
 ```
 

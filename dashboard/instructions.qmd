@@ -9,7 +9,7 @@ editor:
 
 We provide an overview of the steps for submitting with the details below:
 
-1)  Register
+1)  Register at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in analyses.
 2)  Generate forecast with required columns
 3)  Write the forecast to a file that follows the standardized naming format.
 4)  Submit forecast using a provided function

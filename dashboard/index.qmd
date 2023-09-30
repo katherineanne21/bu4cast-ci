@@ -1,8 +1,8 @@
 ---
-title: "Home"
+title: "Forecasting Challenge"
 ---
 
-Welcome the Virginia Ecoforecasting Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge dashboard, hosted by the Ecological Forecasting Project ([EFP](https://www.ecoforecastprojectvt.org/))
+Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge dashboard, hosted by the Ecological Forecasting Project ([EFP](https://www.ecoforecastprojectvt.org/))
 
 This site provides instructions for participation, visualizations of forecast submissions, and a catalog of all submitted forecasts. It is rendered daily using GitHub Actions.
 
@@ -41,6 +41,7 @@ last_updated <- Sys.Date()
 
 Page last updated on `r Sys.Date()`
 
+
 ```{r eval = FALSE}
 
 layout_column_wrap(
@@ -60,12 +61,14 @@ layout_column_wrap(
 
 ```
 
+
 ## Submit a forecast!
 
-VERA Challenge currently has one open challenge theme! Browse the current forecasts or submit your own.
+Browse the current forecasts or submit your own.
 
 ------------------------------------------------------------------------
 
 Data was sourced from EFP infrastructure, which is enabled by Virginia Tech and the *National Science Foundation* (NSF).
+
 
 This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.

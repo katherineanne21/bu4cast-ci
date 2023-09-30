@@ -44,13 +44,13 @@ last_updated <- Sys.Date()
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the EFP VERA Challenge", 
+    title = "Total forecasts submitted to the VERA Challenge", 
     value = n_forecasts,
     showcase = bs_icon("graph-up"),
     theme_color = "success" 
   ),
   value_box(
-    title = "Unique models submitted to the EFP VERA Challenge", 
+    title = "Unique models submitted to the VERA Challenge", 
     value = n_models,
     showcase = bs_icon("pie-chart")
   )

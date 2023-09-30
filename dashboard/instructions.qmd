@@ -14,29 +14,33 @@ We provide an overview of the steps for submitting with the details below:
 3)  Write the forecast to a file that follows the standardized naming format.
 4)  Submit forecast using a provided function
 
-### Forecast file format
+## Forecast file format
 
 The file is a csv format with the following columns:
 
 -   `project_id`: use `vera4cast`
 
--   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your metadata.
+-   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your registration.
     The model_id should have no spaces.
+    model_id should reflect a method to forecast one or a set of target variables and must be unique to the vera4cast Challenge
 
 -   `datetime`: forecast timestamp.
-    Format `%Y-%m-%d %H:%M:%S` with UTC as the time zone. Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
+    Format `%Y-%m-%d %H:%M:%S` with UTC as the time zone.
+    Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
 
 -   `reference_datetime`: The start of the forecast; this should be 0 times steps in the future.
     There should only be one value of `reference_datetime` in the file.
-    Format is `%Y-%m-%d %H:%M:%S` with UTC as the time zone. Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
+    Format is `%Y-%m-%d %H:%M:%S` with UTC as the time zone.
+    Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
 
 -   `duration`: the time-step of the forecast.
     Use the value of `P1D` for a daily forecast and `PT1H` for an hourly forecast.
-    This value should match the duration of the target variable that you are forecasting. Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
+    This value should match the duration of the target variable that you are forecasting.
+    Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
--   `site_id`: code for site (`bvre` or `fcre`) 
+-   `site_id`: code for site (`bvre` or `fcre`)
 
-- `depth_m`: the depth (meters) for the forecasted variable.
+-   `depth_m`: the depth (meters) for the forecasted variable.
     Use `NA` for variables without a specified depth.
 
 -   `family` name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution).
@@ -50,7 +54,7 @@ The file is a csv format with the following columns:
 
 -   `prediction`: forecasted value for the parameter in the parameter column
 
-#### Family - Parameter Columns
+### Family - Parameter Columns
 
 For example, For a parametric forecast with the normal distribution, the `family` column uses the word `normal` to designate a normal distribution and the parameter column must have values of `mu` and `sigma` for each forecasted variable, site_id, depth and time combination.
 
@@ -58,7 +62,7 @@ Parameteric forecasts for binary variables should use `bernoulli` as the distrib
 
 If you are submitting a forecast that is not in the supported list we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your distribution.
 
-##### Supported distributions
+### Supported distributions
 
 The following names and parameterization of the distribution are supported (family: parameters):
 
@@ -72,7 +76,7 @@ The following names and parameterization of the distribution are supported (fami
 -   `exponential`: `rate`
 -   `poisson`: `lambda`
 
-#### Example forecasts
+### Example forecasts
 
 Here is an example of a forecast that uses a normal distribution:
 
@@ -80,13 +84,13 @@ Here is an example of a forecast that uses a normal distribution:
 readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/20230929203557_daily-2023-09-29-persistenceRW.csv.gz", show_col_types = FALSE)
 ```
 
-For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to design that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
+For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
 readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/20230929203552_daily-2023-09-29-climatology.csv.gz")
 ```
 
-### Submission process
+## Submission process
 
 Individual forecast files can be uploaded any time.
 
@@ -111,3 +115,11 @@ If you will be submitting multiple forecasts using the same model_id, use the fo
 vera4castHelpers::submit(forecast_file = "your_file.csv",
                          first_submission = FALSE)
 ```
+
+## Post submission
+
+After submission, our servers will process uploaded files by converting to a parquet on our public s3 storage.  A `pub_datetime` column will be added that denotes when a forecast was submitted.  
+
+All forecasts are scored daily using new data until the full horizon of the forecast has been scored.  
+
+Information for accessing the forecasts and scores can be found on our @sec-stac.

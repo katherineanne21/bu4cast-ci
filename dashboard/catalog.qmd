@@ -2,6 +2,8 @@
 title: "What has been forecasted"
 ---
 
+# SpatioTemporal Asset Catalog {#sec-stac}
+
 The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the [SpatioTemporal Asset Catalogs browser](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json)
 <br />
 <br />

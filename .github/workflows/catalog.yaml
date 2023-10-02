@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: rocker/geospatial:latest
+    #container: rocker/geospatial:latest
+    container: rocker/ml-verse
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -24,7 +25,6 @@ jobs:
         run: |
           remotes::install_deps(".", dep=TRUE)
           reticulate::install_python(version = '3.11.5')
-          reticulate::install_miniconda()
 
       - name: install validator
         run: |

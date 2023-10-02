@@ -5,8 +5,8 @@ source('var_stac/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 
 variable_groups <- c('Biological', 'Physical')
-variable_list <- list(c('Chla_ugL'),
-                      c('Temp_C'))
+variable_list <- list(c('Chla_ugL_mean'),
+                      c('Temp_C_mean'))
 
 ## CREATE table for column descriptions
 forecast_description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the forecast starts from (a.k.a. issue time); Only needed if more than one reference_datetime is stored in a single file. Forecast lead time is thus datetime-reference_datetime. In a hindcast the reference_datetime will be earlier than the time the hindcast was actually produced (see pubDate in Section3). Date times are allowed to be earlier than the reference_datetime if a reanalysis/reforecast is run before the start of the forecast period. This variable was called start_time before v0.5 of the EFI standard.',

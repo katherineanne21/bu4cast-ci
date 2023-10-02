@@ -18,7 +18,7 @@ source("R/plot-utils.R")
 
 ```
 
-# Most recent forecasts
+## Most recent forecasts
 
 ```{r}
 theme <- "daily"
@@ -62,19 +62,19 @@ ex <- combined |> filter(reference_datetime == ref, site_id %in% sites)
 
 ```
 
-# Forecast analysis
+## Forecast analysis
 
 Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
 
-## Chrophyll-a 
+### Chrophyll-a 
 
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "Chla_ugL_mean") |> forecast_plots()
 ```
 
-## Temperature
+### Temperature
 
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "Temp_C_mean") |> forecast_plots()

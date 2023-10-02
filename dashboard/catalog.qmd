@@ -2,10 +2,10 @@
 title: "What has been forecasted"
 ---
 
-# What has been forecasted {#sec-spatiotemporal-asset-catalog}
+## Catalog of forecast submissions and evaluations {#sec-spatiotemporal-asset-catalog}
 
 The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the [SpatioTemporal Asset Catalogs browser](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json) <br /> <br />
 
 ```{=html}
-<iframe width="900" height="500" src="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json" title="Webpage example"></iframe>
+<iframe width="910" height="1000" src="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json" title="Webpage example"></iframe>
 ```

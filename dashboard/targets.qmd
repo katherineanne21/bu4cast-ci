@@ -1,18 +1,11 @@
 ---
 title: "What to forecast"
-number-sections: true
 editor: 
   markdown: 
     wrap: sentence
 ---
 
-# What to forecast
-
-```{r message=FALSE}
-library(tidyverse)
-```
-
-### Targets file
+## Targets file
 
 The targets file is at 
 
@@ -20,7 +13,8 @@ The targets file is at
 url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
 ```
 
-```{r}
+```{r message=FALSE}
+library(tidyverse)
 targets <- read_csv(url, show_col_types = FALSE)
 ```
 

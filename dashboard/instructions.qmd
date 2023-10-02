@@ -6,7 +6,7 @@ editor:
     wrap: sentence
 ---
 
-# How to submit a forecast
+## How to submit a forecast
 
 We provide an overview of the steps for submitting with the details below:
 
@@ -126,4 +126,4 @@ A `pub_datetime` column will be added that denotes when a forecast was submitted
 
 All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
 
-Information for accessing the forecasts and scores can be found on our "What has been forecasted" page.
+Information for accessing the forecasts and scores can be found on our [What has been forecasted](catalog.qmd#sec-spatiotemporal-asset-catalog) page. 

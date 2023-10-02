@@ -1,6 +1,5 @@
 ---
 title: "Forecasting Challenge"
-number-sections: true
 ---
 
 # Forecasting Challenge

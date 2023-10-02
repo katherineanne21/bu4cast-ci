@@ -1,6 +1,5 @@
 ---
 title: "What has been forecasted"
-number-sections: true
 ---
 
 # What has been forecasted {#sec-spatiotemporal-asset-catalog}

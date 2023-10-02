@@ -27,7 +27,8 @@ Imports:
     patchwork,
     pak,
     jsonlite,
-    stac4cast
+    stac4cast,
+    reticulate
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

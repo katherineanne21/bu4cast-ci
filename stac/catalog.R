@@ -35,7 +35,7 @@ build_catalog <- function(){
     )
   )
 
-  dest <- "var_stac/"
+  dest <- "stac/"
   jsonlite::write_json(catalog, file.path(dest, "catalog.json"),
                        pretty=TRUE, auto_unbox=TRUE)
   stac4cast::stac_validate(file.path(dest, "catalog.json"))

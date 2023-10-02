@@ -25,7 +25,7 @@ sites <- suppressMessages(sf::st_read("sites.json"))
 
 ```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
 leaflet() %>%
-  setView(lat = 37.31, lng = -79.818, zoom= 15) %>%
+  setView(lat = 37.31, lng = -79.819, zoom= 15) %>%
   addTiles(group="OSM") %>%
   addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%

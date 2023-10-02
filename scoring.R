@@ -66,6 +66,7 @@ for(k in 1:nrow(variable_duration)){
   new_prov <- purrr::map_dfr(1:nrow(inventory), function(j, inventory, prov_df, s3_scores_path, variable ,duration){
 
     ref <- inventory$date[j]
+    print(inventory[j, ])
 
     # NOTE: we cannot 'prefilter' grouping by prov, since once we have tg
     # we want to use it to score, not access it twice...
@@ -76,6 +77,8 @@ for(k in 1:nrow(variable_duration)){
     new_id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
 
     if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+
+      print("here")
 
       fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
         dplyr::mutate(date = as.Date(datetime)) |>

@@ -129,7 +129,7 @@ for (m in theme_models$model_id){
               model_documentation = registered_model_id,
               destination_path = "var_stac/scores/models/model_items",
               description_path = "stac/daily/scores/models/asset-description.Rmd", # MIGHT REMOVE THIS
-              aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
+              aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,
               collection_name = 'scores',
               thumbnail_image_name = NULL,
@@ -160,7 +160,7 @@ for (i in 1:length(variable_groups)){
                         about_title = "VERA Forecasting Challenge Documentation",
                         theme_title = variable_groups[i],
                         model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                        destination_path = paste0("var_stac/forecasts/",variable_groups[i]),
+                        destination_path = paste0("var_stac/scores/",variable_groups[i]),
                         aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily',
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
 

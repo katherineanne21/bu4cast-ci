@@ -104,7 +104,7 @@ generate_model_assets <- function(m_vars, aws_path){
       'title' = paste0('Database Access for ',m_vars[i]),
       'href' = paste0("s3://anonymous@",
                       aws_path,
-                      "parquet/daily/variable=", m_vars[i],
+                      "/parquet/daily/variable=", m_vars[i],
                       "/model_id=", m,
                       "?endpoint_override=renc.osn.xsede.org"),
       'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",

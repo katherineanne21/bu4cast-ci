@@ -28,7 +28,8 @@ Imports:
     pak,
     jsonlite,
     stac4cast,
-    reticulate
+    reticulate, 
+    duckdbfs
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

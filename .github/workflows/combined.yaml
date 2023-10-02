@@ -48,10 +48,10 @@ jobs:
           remotes::install_github("eco4cast/score4cast")
           install.packages(c("bench"))
 
-      - name: Generate scores
-        shell: Rscript {0}
-        run: |
-          source("scoring.R")
+      #- name: Generate scores
+      #  shell: Rscript {0}
+      #  run: |
+      #    source("scoring.R")
   dashboard:
     needs: scores
     runs-on: ubuntu-latest

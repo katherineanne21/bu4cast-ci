@@ -1,5 +1,6 @@
 ---
 title: "What has been forecasted"
+number-sections: true
 ---
 
 # SpatioTemporal Asset Catalog {#sec-stac}

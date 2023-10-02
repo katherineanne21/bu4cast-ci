@@ -1,5 +1,6 @@
 ---
 title: "How to forecast"
+number-sections: true
 editor: 
   markdown: 
     wrap: sentence

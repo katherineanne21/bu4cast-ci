@@ -1,5 +1,6 @@
 ---
 title: "Forecasting Challenge"
+number-sections: true
 ---
 
 Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project ([EFP](https://www.ecoforecastprojectvt.org/))

@@ -81,13 +81,15 @@ The following names and parameterization of the distribution are supported (fami
 Here is an example of a forecast that uses a normal distribution:
 
 ```{r}
-#readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/20230929203557_daily-2023-09-29-persistenceRW.csv.gz", show_col_types = FALSE)
+df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231345_daily-2023-10-01-climatology.csv.gz", show_col_types = FALSE)
+glimpse(df)
 ```
 
 For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
-#readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/20230929203552_daily-2023-09-29-climatology.csv.gz")
+df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231348_daily-2023-10-01-persistenceRW.csv.gz", show_col_types = FALSE)
+glimpse(df)
 ```
 
 ## Submission process

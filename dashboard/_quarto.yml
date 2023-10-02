@@ -6,7 +6,7 @@ website:
   title: "VERA Forecast Challenge"
   page-navigation: true
   repo-url: https://github.com/LTREB-reservoirs/vera4cast
-  repo-actions: [edit, issue]
+  repo-actions: [source, issue]
 
   navbar:
     background: primary

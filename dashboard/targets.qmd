@@ -6,7 +6,7 @@ editor:
     wrap: sentence
 ---
 
-## Targets
+# What to forecast
 
 ```{r message=FALSE}
 library(tidyverse)

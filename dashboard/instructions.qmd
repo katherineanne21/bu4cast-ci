@@ -6,7 +6,7 @@ editor:
     wrap: sentence
 ---
 
-## How to submit a forecast
+# How to submit a forecast
 
 We provide an overview of the steps for submitting with the details below:
 
@@ -121,8 +121,9 @@ vera4castHelpers::submit(forecast_file = "your_file.csv",
 
 ## Post submission
 
-After submission, our servers will process uploaded files by converting to a parquet on our public s3 storage.  A `pub_datetime` column will be added that denotes when a forecast was submitted.  
+After submission, our servers will process uploaded files by converting to a parquet on our public s3 storage.
+A `pub_datetime` column will be added that denotes when a forecast was submitted.
 
-All forecasts are scored daily using new data until the full horizon of the forecast has been scored.  
+All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
 
-Information for accessing the forecasts and scores can be found on our @sec-stac.
+Information for accessing the forecasts and scores can be found on our "What has been forecasted" page.

@@ -25,17 +25,17 @@ build_catalog <- function(){
       list(
         "rel"= "child",
         "type"= "application/json",
-        "title"= "VERA Daily Forecast Challenge",
-        "href" = 'daily/collection.json')#,
-      # list(
-      #   "rel"= "child",
-      #   "type"= "application/json",
-      #   "title"= "VERA Subdaily Forecasting Challenge",
-      #   "href" = 'subdaily/collection.json')
+        "title"= "VERA Forecasts",
+        "href" = 'forecasts/collection.json'),
+      list(
+        "rel"= "child",
+        "type"= "application/json",
+        "title"= "VERA Scores",
+        "href" = 'scores/collection.json')
     )
   )
 
-  dest <- "stac/"
+  dest <- "var_stac/"
   jsonlite::write_json(catalog, file.path(dest, "catalog.json"),
                        pretty=TRUE, auto_unbox=TRUE)
   stac4cast::stac_validate(file.path(dest, "catalog.json"))

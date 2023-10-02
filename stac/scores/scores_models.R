@@ -1,7 +1,7 @@
 library(arrow)
 library(dplyr)
 
-source('var_stac/R/stac_functions.R')
+source('stac/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 
 variable_groups <- c('Biological', 'Physical')
@@ -67,7 +67,7 @@ build_forecast_scores(table_schema = scores_theme_df,
                       about_title = "VERA Forecasting Challenge Documentation",
                       theme_title = "Scores",
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                      destination_path = "var_stac/scores/",
+                      destination_path = "stac/scores/",
                       aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/daily',
                       link_items = generate_group_values(group_values = variable_groups),
                       thumbnail_link = "https://raw.githubusercontent.com/addelany/vera4cast/main/thumbnails/banner-2.jpg",
@@ -89,7 +89,7 @@ build_group_variables(table_schema = scores_theme_df,
                       about_title = "VERA Forecasting Challenge Documentation",
                       theme_title = "Models",
                       model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                      destination_path = "var_stac/scores/models",
+                      destination_path = "stac/scores/models",
                       aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/daily',
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
 
@@ -127,7 +127,7 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = "var_stac/scores/models/model_items",
+              destination_path = "stac/scores/models/model_items",
               description_path = "stac/daily/scores/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,
@@ -143,8 +143,8 @@ for (m in theme_models$model_id){
 for (i in 1:length(variable_groups)){
   print(variable_groups[i])
 
-  if (!dir.exists(paste0("var_stac/scores/",variable_groups[i]))){
-    dir.create(paste0("var_stac/scores/",variable_groups[i]))
+  if (!dir.exists(paste0("stac/scores/",variable_groups[i]))){
+    dir.create(paste0("stac/scores/",variable_groups[i]))
   }
 
   group_description <- paste0('This page includes variables for the ',variable_groups[i],' group.')
@@ -160,15 +160,15 @@ for (i in 1:length(variable_groups)){
                         about_title = "VERA Forecasting Challenge Documentation",
                         theme_title = variable_groups[i],
                         model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                        destination_path = paste0("var_stac/scores/",variable_groups[i]),
+                        destination_path = paste0("stac/scores/",variable_groups[i]),
                         aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/daily',
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
 
   for (v in variable_list[[i]]){ # Make variable JSONS within each group
     print(v)
 
-    if (!dir.exists(paste0("var_stac/scores/",variable_groups[i],'/',v))){
-      dir.create(paste0("var_stac/scores/",variable_groups[i],'/',v))
+    if (!dir.exists(paste0("stac/scores/",variable_groups[i],'/',v))){
+      dir.create(paste0("stac/scores/",variable_groups[i],'/',v))
     }
 
     var_data <- scores_data_df |>
@@ -193,7 +193,7 @@ for (i in 1:length(variable_groups)){
                           about_title = "VERA Forecasting Challenge Documentation",
                           theme_title = v,
                           model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                          destination_path = file.path("var_stac/scores",variable_groups[i],v),
+                          destination_path = file.path("stac/scores",variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

@@ -1,6 +1,6 @@
 {
-  "id": "Biological",
-  "description": "This page includes variables for the Biological group.",
+  "id": "Physical",
+  "description": "This page includes variables for the Physical group.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -13,7 +13,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Chla_ugL_mean/collection.json"
+      "href": "Temp_C_mean/collection.json"
     },
     {
       "rel": "parent",
@@ -47,7 +47,7 @@
       "type": "text/html"
     }
   ],
-  "title": "Biological",
+  "title": "Physical",
   "extent": {
     "spatial": {
       "bbox": [
@@ -162,13 +162,13 @@
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@bio230014-bucket01/bio230121-bucket01/vera4cast/forecasts/parquet/daily?endpoint_override=sdsc.osn.xsede.org",
+      "href": "s3://anonymous@bio230014-bucket01/bio230121-bucket01/vera4cast/scores/parquet/daily?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/bio230121-bucket01/vera4cast/forecasts/parquet/daily?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/bio230121-bucket01/vera4cast/scores/parquet/daily?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

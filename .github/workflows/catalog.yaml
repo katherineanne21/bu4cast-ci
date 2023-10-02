@@ -24,6 +24,10 @@ jobs:
         run: |
           remotes::install_deps(".", dep=TRUE)
           reticulate::install_python(version = '3.11.5')
+
+      - name: install validator
+        run: |
+          pip install stac-validator
         
 
       - name: Render

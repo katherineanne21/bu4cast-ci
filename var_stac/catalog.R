@@ -25,13 +25,13 @@ build_catalog <- function(){
       list(
         "rel"= "child",
         "type"= "application/json",
-        "title"= "VERA Daily Forecast Challenge",
-        "href" = 'forecasts/collection.json')#,
-      # list(
-      #   "rel"= "child",
-      #   "type"= "application/json",
-      #   "title"= "VERA Subdaily Forecasting Challenge",
-      #   "href" = 'subdaily/collection.json')
+        "title"= "VERA Forecasts",
+        "href" = 'forecasts/collection.json'),
+      list(
+        "rel"= "child",
+        "type"= "application/json",
+        "title"= "VERA Scores",
+        "href" = 'scores/collection.json')
     )
   )
 

@@ -161,7 +161,7 @@ for (i in 1:length(variable_groups)){
                         theme_title = variable_groups[i],
                         model_documentation ="https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                         destination_path = paste0("var_stac/scores/",variable_groups[i]),
-                        aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/daily',
+                        aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/daily',
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
 
   for (v in variable_list[[i]]){ # Make variable JSONS within each group

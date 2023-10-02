@@ -19,8 +19,14 @@
     {
       "rel": "child",
       "type": "application/json",
-      "title": "VERA Daily Forecast Challenge",
-      "href": "daily/collection.json"
+      "title": "VERA Forecasts",
+      "href": "forecasts/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "title": "VERA Scores",
+      "href": "scores/collection.json"
     }
   ]
 }

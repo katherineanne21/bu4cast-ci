@@ -2,49 +2,124 @@
 
 generate_authors <- function(metadata_table, index){
 
-  x <- list(list('url' = metadata_table$`Contact email (or course instructor's email)`[index],
-                 'name' = metadata_table$`Contact name (or course instructor's name)`[index],
+  # x <- list(list('url' = metadata_table$`Contact email (or course instructor's email)`[index],
+  #                'name' = metadata_table$`Contact name (or course instructor's name)`[index],
+  #                'roles' = list("producer",
+  #                               "processor",
+  #                               "licensor"))
+
+  x <- list(list('url' = 'pending',
+                 'name' = 'pending',
                  'roles' = list("producer",
                                 "processor",
                                 "licensor"))
   )
 }
 
-# generate_authors <- function(metadata_available, model_docs){
-#   if (metadata_available == TRUE){
-#     f_name_cols <- c('first.name.one','first.name.two','first.name.three','first.name.four','first.name.five','first.name.six','first.name.seven',
-#                      'first.name.eight','first.name.nine','first.name.ten')
-#     l_name_cols <- c('last.name.one','last.name.two','last.name.three','last.name.four','last.name.five','last.name.six','last.name.seven',
-#                      'last.name.eight','last.name.nine','last.name.ten')
+# generate_model_assets <- function(m_vars, aws_path){
 #
-#     model_first_names <- unlist(model_docs[idx, names(model_docs) %in% f_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% f_name_cols])]
-#     model_last_names <- unlist(model_docs[idx, names(model_docs) %in% l_name_cols], use.names = FALSE)[!is.na(model_docs[idx, names(model_docs) %in% l_name_cols])]
+#   iterator_list <- 1:length(m_vars)
 #
-#     x <- purrr::map(seq.int(1:length(model_first_names)), function(i)
-#       list(
-#         "url" = 'not provided',
-#         'name'= paste(model_first_names[i], model_last_names[i]),
-#         'roles' = list("producer")
+#   if (length(iterator_list) == 1){
+#
+#     model_assets <- list(
+#       "1"= list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[1]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[1],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[1],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
 #       )
 #     )
-#     ## SET FIRST AUTHOR INFO
-#     x[[1]]$url <- unlist(model_docs[idx,'email.one'], use.names = FALSE)
-#     x[[1]]$roles <- list(
-#       "producer",
-#       "processor",
-#       "licensor"
-#     )
+#
 #   } else{
-#     x <- list(list('url' = 'pending',
-#                    'name' = 'pending',
-#                    'roles' = list("producer",
-#                                   "processor",
-#                                   "licensor"))
+#
+#     model_assets_initial <- list(
+#       "1"= list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[1]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[1],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[1],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+#       )
 #     )
+#
+#     model_assets_extra <- purrr::map(iterator_list[2:length(iterator_list)], function(i)
+#       list(
+#         'type'= 'application/x-parquet',
+#         'title' = paste0('Database Access for ',m_vars[i]),
+#         'href' = paste0("s3://anonymous@",
+#                         aws_path,
+#                         "parquet/daily/variable=", m_vars[i],
+#                         "/model_id=", m,
+#                         "?endpoint_override=renc.osn.xsede.org"),
+#         'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+#                                                                                                                                                                                                                                                                          aws_path,
+#                                                                                                                                                                                                                                                                          "parquet/daily/variable=", m_vars[i],
+#                                                                                                                                                                                                                                                                          "/model_id=", m,
+#                                                                                                                                                                                                                                                                          "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+#        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+#       )
+#     )
+#
+#     model_assets <- c(model_assets_initial, model_assets_extra)
 #   }
-#   return(x)
+#
+#   return(model_assets)
 # }
 
+generate_model_assets <- function(m_vars, aws_path){
+
+  metadata_json_asset <- list(
+    "1"= list(
+      'type'= 'application/json',
+      'title' = 'Model Metadata',
+      'href' = paste0(config$model_metadata_http,'/',m,'.json'),
+      'description' = paste0("Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.
+      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(",paste0('"',config$model_metadata_http,'/',m,'.json"'),")\n\n")
+    )
+  )
+
+  iterator_list <- 1:length(m_vars)
+
+  model_data_assets <- purrr::map(iterator_list, function(i)
+    list(
+      'type'= 'application/x-parquet',
+      'title' = paste0('Database Access for ',m_vars[i]),
+      'href' = paste0("s3://anonymous@",
+                      aws_path,
+                      "/parquet/daily/variable=", m_vars[i],
+                      "/model_id=", m,
+                      "?endpoint_override=renc.osn.xsede.org"),
+      'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+                                                                                                                                                                                                                                                                       aws_path,
+                                                                                                                                                                                                                                                                       "/parquet/daily/variable=", m_vars[i],
+                                                                                                                                                                                                                                                                       "/model_id=", m,
+                                                                                                                                                                                                                                                                       "?endpoint_override=renc.osn.xsede.org"),")\ndf <- all_results |> dplyr::collect()\n\n```
+       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+    )
+  )
+
+  model_assets <- c(metadata_json_asset, model_data_assets)
+
+  return(model_assets)
+}
 
 
 build_model <- function(model_id,
@@ -142,16 +217,8 @@ build_model <- function(model_id,
         "type"= "application/json",
         "title"= "Model Forecast"
       )),
-    "assets"= c(list(
-      "1"= list(
-        "href"= aws_asset_link,
-        "type"= "application/x-parquet",
-        "title"= 'Database Access',
-        "description"= aws_asset_description
-      )
-    )#,
+    "assets"= generate_model_assets(var_values, aws_download_path)#,
     #pull_images(theme_id,model_id,thumbnail_image_name)
-    )
   )
 
 
@@ -172,7 +239,7 @@ get_grouping <- function(inv_bucket,
                          collapse=TRUE) {
 
   groups <- duckdbfs::open_dataset(glue::glue("s3://anonymous@{inv_bucket}/catalog?endpoint_override=sdsc.osn.xsede.org")) |>
-  #groups <- arrow::open_dataset(s3_inv$path("neon4cast-forecasts")) |>
+    #groups <- arrow::open_dataset(s3_inv$path("neon4cast-forecasts")) |>
     dplyr::filter(...1 == "parquet", ...2 == {theme}) |>
     dplyr::select(model_id = ...3, reference_datetime = ...4, date = ...5) |>
     dplyr::mutate(model_id = gsub("model_id=", "", model_id),
@@ -222,16 +289,13 @@ generate_vars_sites <- function(m_id, theme){
 
 
 ## FORECAST LEVEL FUNCTIONS
-generate_model_items <- function(){
-
-
-  model_list <- theme_models$model_id
+generate_model_items <- function(model_list){
 
   x <- purrr::map(model_list, function(i)
     list(
       "rel" = 'item',
       'type'= 'application/json',
-      'href' = paste0('models/',i,'.json'))
+      'href' = paste0('model_items/',i,'.json'))
   )
 
   return(x)
@@ -291,6 +355,20 @@ get_site_coords <- function(sites){
 }
 
 
+generate_group_values <- function(group_values){
+
+  x <- purrr::map(group_values, function(i)
+    list(
+      "rel" = "child",
+      "type" = "application/json",
+      "href" = paste0(i,"/collection.json"),
+      "title" = i)
+  )
+
+  return(x)
+}
+
+
 build_forecast_scores <- function(table_schema,
                                   theme_id,
                                   table_description,
@@ -303,7 +381,161 @@ build_forecast_scores <- function(table_schema,
                                   theme_title,
                                   model_documentation,
                                   destination_path,
-                                  aws_download_path
+                                  aws_download_path,
+                                  link_items,
+                                  thumbnail_link,
+                                  thumbnail_title
+){
+
+  aws_asset_link <- paste0("s3://anonymous@bio230014-bucket01/",
+                           aws_download_path,
+                           "?endpoint_override=sdsc.osn.xsede.org")
+
+  aws_asset_description <-   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
+       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
+  forecast_score <- list(
+    "id" = id_value,
+    "description" = description_string,
+    "stac_version"= "1.0.0",
+    "license"= "CC0-1.0",
+    "stac_extensions"= list("https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
+                            "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
+                            "https://stac-extensions.github.io/table/v1.2.0/schema.json"),
+    'type' = 'Collection',
+    'links' = c(link_items, #generate_model_items()
+                list(
+                  list(
+                    "rel" = "child",
+                    "type" = "application/json",
+                    "href" = "models/collection.json",
+                    "title" = "group item"
+                  ),
+                  list(
+                    "rel" = "parent",
+                    "type"= "application/json",
+                    "href" = '../catalog.json'
+                  ),
+                  list(
+                    "rel" = "root",
+                    "type" = "application/json",
+                    "href" = '../catalog.json'
+                  ),
+                  list(
+                    "rel" = "self",
+                    "type" = "application/json",
+                    "href" = 'collection.json'
+                  ),
+                  list(
+                    "rel" = "cite-as",
+                    "href" = "https://doi.org/10.1002/fee.2616"
+                  ),
+                  list(
+                    "rel" = "about",
+                    "href" = about_string,
+                    "type" = "text/html",
+                    "title" = about_title
+                  ),
+                  list(
+                    "rel" = "describedby",
+                    "href" = "https://ltreb-reservoirs.github.io/vera4cast/",
+                    "title" = "VERA Forecast Challenge Dashboard",
+                    "type" = "text/html"
+                  )
+                )),
+    "title" = theme_title,
+    "extent" = list(
+      "spatial" = list(
+        'bbox' = list(c(-80.0471,
+                        37.2706,
+                        -79.7958,
+                        37.4374))),
+      "temporal" = list(
+        'interval' = list(list(
+          paste0(start_date,"T00:00:00Z"),
+          paste0(end_date,"T00:00:00Z"))
+        ))
+    ),
+    "table:columns" = stac4cast::build_table_columns(table_schema, table_description),
+    'assets' = list(
+      # 'data' = list(
+      #   "href"= model_documentation,
+      #   "type"= "text/csv",
+      #   "roles" = list('data'),
+      #   "title"= "NEON Field Site Metadata",
+      #   "description"= readr::read_file(model_metadata_path)
+      # ),
+      'data' = list(
+        "href" = aws_asset_link,
+        "type"= "application/x-parquet",
+        "title"= 'Database Access',
+        "roles" = list('data'),
+        "description"= aws_asset_description
+      ),
+      'thumbnail' = list(
+        "href"= thumbnail_link,
+        "type"= "image/JPEG",
+        "roles" = list('thumbnail'),
+        "title"= thumbnail_title
+      )
+    )
+  )
+
+
+  dest <- destination_path
+  json <- file.path(dest, "collection.json")
+
+  jsonlite::write_json(forecast_score,
+                       json,
+                       pretty=TRUE,
+                       auto_unbox=TRUE)
+  stac4cast::stac_validate(json)
+}
+
+
+generate_group_variable_items <- function(variables){
+
+
+  var_values <- variables
+
+  x <- purrr::map(var_values, function(i)
+    list(
+      "rel" = 'child',
+      'type'= 'application/json',
+      'href' = paste0(i,'/collection.json'))
+  )
+
+  return(x)
+}
+
+generate_variable_model_items <- function(model_list){
+
+
+  #var_values <- variables
+
+  x <- purrr::map(model_list, function(i)
+    list(
+      "rel" = 'item',
+      'type'= 'application/json',
+      'href' = paste0('../../models/model_items/',i,'.json'))
+  )
+
+  return(x)
+}
+
+build_group_variables <- function(table_schema,
+                                  theme_id,
+                                  table_description,
+                                  start_date,
+                                  end_date,
+                                  id_value,
+                                  description_string,
+                                  about_string,
+                                  about_title,
+                                  theme_title,
+                                  model_documentation,
+                                  destination_path,
+                                  aws_download_path,
+                                  group_var_items
 ){
 
   aws_asset_link <- paste0("s3://anonymous@bio230014-bucket01/",
@@ -321,7 +553,7 @@ build_forecast_scores <- function(table_schema,
                             "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
                             "https://stac-extensions.github.io/table/v1.2.0/schema.json"),
     'type' = 'Collection',
-    'links' = c(generate_model_items(),
+    'links' = c(group_var_items,#generate_group_variable_items(variables = group_var_values)
                 list(
                   list(
                     "rel" = "parent",
@@ -359,9 +591,9 @@ build_forecast_scores <- function(table_schema,
     "extent" = list(
       "spatial" = list(
         'bbox' = list(c(-80.0471,
-                       37.2706,
-                       -79.7958,
-                       37.4374))),
+                        37.2706,
+                        -79.7958,
+                        37.4374))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -389,7 +621,7 @@ build_forecast_scores <- function(table_schema,
 
 
   dest <- destination_path
-  json <- file.path(dest, "collection.json")
+  json <- file.path(dest, 'collection.json')
 
   jsonlite::write_json(forecast_score,
                        json,
@@ -397,7 +629,6 @@ build_forecast_scores <- function(table_schema,
                        auto_unbox=TRUE)
   stac4cast::stac_validate(json)
 }
-
 
 build_theme <- function(start_date,end_date, id_value, theme_description, theme_title, destination_path, thumbnail_link, thumbnail_title){
 

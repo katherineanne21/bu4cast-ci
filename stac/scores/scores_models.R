@@ -27,7 +27,8 @@ scores_description_create <- data.frame(reference_datetime ='ISO 8601(ISO 2019) 
                                  duration = 'temporal duration of forecast (hourly, daily, etc.)',
                                  depth_m = 'depths included in forecast',
                                  model_id = 'unique model identifier',
-                                 date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.')
+                                 date = 'ISO 8601 (ISO 2019) datetime being predicted; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.',
+                                 pub_datetime = 'datetime of the published forecast')
 
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this

@@ -76,7 +76,7 @@ for(k in 1:nrow(variable_duration)){
     id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
     new_id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
 
-    if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+    #if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
 
       fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
         dplyr::mutate(date = as.Date(datetime)) |>
@@ -93,9 +93,9 @@ for(k in 1:nrow(variable_duration)){
                              partitioning = c("model_id", "date"))
 
       new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
-    }else{
-      new_prov <- NULL
-    }
+    #}else{
+    #  new_prov <- NULL
+    #}
   },
   inventory, prov_df, s3_scores_path, variable, duration
   )

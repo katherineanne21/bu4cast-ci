@@ -1,5 +1,5 @@
 ---
-title: "Submitted forecasts"
+title: "How are forecasts performing"
 ---
 
 ```{r, include=FALSE}
@@ -18,12 +18,12 @@ source("R/plot-utils.R")
 
 ```
 
-# Most recent forecasts
+## Most recent forecasts
 
 ```{r}
 theme <- "daily"
 cutoff <- as.character(Sys.Date() - 30)
-combined <- arrow::open_dataset("../cache/daily") |> 
+combined <- arrow::open_dataset("../cache/duration=P1D") |> 
   filter(date >= cutoff) |> collect()
 
 
@@ -35,7 +35,8 @@ sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALS
 df <- combined |> 
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id) |> 
-  mutate(reference_datetime = lubridate::as_datetime(reference_datetime))
+  mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
+         datetime = lubridate::as_datetime(datetime))
        
 df |> 
   filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(combined$reference_datetime))) |> 
@@ -61,22 +62,22 @@ ex <- combined |> filter(reference_datetime == ref, site_id %in% sites)
 
 ```
 
-# Forecast analysis
+## Forecast analysis
 
 Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
 
-## Chrophyll-a 
+### Chrophyll-a 
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "Chla_ugL") |> forecast_plots()
+ex |> filter(reference_datetime == ref, variable == "Chla_ugL_mean") |> forecast_plots()
 ```
 
-## Temperature
+### Temperature
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "temp_C") |> forecast_plots()
+ex |> filter(reference_datetime == ref, variable == "Temp_C_mean") |> forecast_plots()
 ```
 :::
 
@@ -92,13 +93,13 @@ Scores are averaged across all submissions of the model with a given horizon or 
 ## Chla_ugL
 
 ```{r}
-leaderboard_plots(combined, "Chla_ugL")
+leaderboard_plots(combined, "Chla_ugL_mean")
 ```
 
 ## temp_C
 
 ```{r}
-leaderboard_plots(combined, "temp_C")
+leaderboard_plots(combined, "Temp_C_mean")
 ```
 
 :::

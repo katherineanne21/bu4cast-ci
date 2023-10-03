@@ -17,7 +17,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 team_name <- "climatology"
 
 
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/daily/exo_daily-targets.csv.gz"), guess_max = 10000)
+targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/duration=P1D/P1D-targets.csv.gz"), guess_max = 10000)
 
 
 sites <- read_csv(config$site_table, show_col_types = FALSE)
@@ -25,7 +25,7 @@ sites <- read_csv(config$site_table, show_col_types = FALSE)
 site_names <- sites$site_id
 
 target_clim <- targets %>%
-  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
+  filter(variable %in% c("Chla_ugL_mean","Temp_C_mean")) %>%
   mutate(doy = yday(datetime)) %>%
   group_by(doy, site_id, variable) %>%
   summarise(clim_mean = mean(observation, na.rm = TRUE),
@@ -62,11 +62,11 @@ for(i in 1:length(subseted_site_names)){
 
 forecast_tibble1 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "Chla_ugL")
+                           variable = "Chla_ugL_mean")
 
 forecast_tibble2 <- tibble(datetime = rep(forecast_dates, length(subseted_site_names)),
                            site_id = site_vector,
-                           variable = "Temp_C")
+                           variable = "Temp_C_mean")
 
 forecast_tibble <- bind_rows(forecast_tibble1, forecast_tibble2)
 
@@ -98,12 +98,17 @@ combined <- combined %>%
   select(model_id, datetime, reference_datetime, site_id, variable, family, parameter, prediction)
 
 combined %>%
-  filter(variable == "Chla_ugL") |>
+  filter(variable == "Chla_ugL_mean") |>
   pivot_wider(names_from = parameter, values_from = prediction) %>%
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin=mu - sigma*1.96, ymax=mu + sigma*1.96), alpha = 0.1) +
   geom_point(aes(y = mu)) +
   facet_wrap(~site_id)
+
+combined <- combined |>
+  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+         project_id = "vera4cast",
+         duration = "P1D")
 
 file_date <- combined$reference_datetime[1]
 
@@ -119,10 +124,13 @@ unlink(forecast_file)
 
 source('R/fablePersistenceModelFunction.R')
 
+targets <- targets |> mutate(datetime = lubridate::as_date(datetime))
+
+
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
-  filter(variable %in% c("Chla_ugL","Temp_C")) %>%
-  as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%
+  filter(variable %in% c("Chla_ugL_mean","Temp_C_mean")) %>%
+  as_tsibble(key = c('variable', 'site_id', 'depth_m', 'duration', 'project_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())
 
@@ -140,16 +148,22 @@ site_var_combinations <- expand.grid(site = unique(targets$site_id),
 RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast)
 
 # convert the output into EFI standard
-RW_forecasts_EFI <- RW_forecasts %>%
+RW_forecasts_EFI <- as_tibble(RW_forecasts) %>%
   rename(parameter = .rep,
          prediction = .sim) %>%
   # For the EFI challenge we only want the forecast for future
   filter(datetime > Sys.Date()) %>%
+  mutate(datetime = lubridate::as_datetime(datetime)) |>
   group_by(site_id, variable) %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
          model_id = "persistenceRW") %>%
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
+
+RW_forecasts_EFI <- RW_forecasts_EFI |>
+  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+         project_id = "vera4cast",
+         duration = "P1D")
 
 # 4. Write forecast file
 file_date <- RW_forecasts_EFI$reference_datetime[1]

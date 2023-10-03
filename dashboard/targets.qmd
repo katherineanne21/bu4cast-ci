@@ -1,0 +1,70 @@
+---
+title: "What to forecast"
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+## Targets file
+
+The targets file is at 
+
+```{r}
+url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
+```
+
+```{r message=FALSE}
+library(tidyverse)
+targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(targets)
+```
+
+### Variable list 
+
+```{r}
+target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types = FALSE)
+```
+
+#### Physical variables
+
+```{r echo = FALSE}
+targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "physical") |> 
+  select(-class) |> 
+  knitr::kable()
+```
+#### Chemical variables
+
+```{r echo = FALSE}
+targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "chemical") |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+#### Biological variables
+
+```{r echo = FALSE}
+targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "biological") |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+## Site
+```{r}
+site_list <- read_csv("https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/vera4cast_field_site_metadata.csv", show_col_types = FALSE)
+```
+
+```{r echo = FALSE}
+site_list |> knitr::kable()
+```

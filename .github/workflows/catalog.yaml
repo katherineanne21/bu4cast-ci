@@ -1,6 +1,6 @@
 on:
-  #schedule:
-  #  - cron: '0 23 * * *'
+  schedule:
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 name: catalog
@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: rocker/geospatial:latest
+    #container: rocker/geospatial:latest
+    container: rocker/ml-verse
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -21,7 +22,14 @@ jobs:
 
       - name: install deps
         shell: Rscript {0}
-        run: remotes::install_deps(".", dep=TRUE)
+        run: |
+          remotes::install_deps(".", dep=TRUE)
+          reticulate::install_python(version = '3.11.5')
+
+      - name: install validator
+        run: |
+          pip install stac-validator
+        
 
       - name: Render
         shell: Rscript {0}

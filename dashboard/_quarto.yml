@@ -6,15 +6,17 @@ website:
   title: "VERA Forecast Challenge"
   page-navigation: true
   repo-url: https://github.com/LTREB-reservoirs/vera4cast
-  repo-actions: [edit, issue]
+  repo-actions: [source, issue]
 
   navbar:
     background: primary
     search: true
     left:
-      - href: http://ltreb-reservoirs.org/
-        text: About
-        icon: cpu
+      - href: https://www.ltreb-reservoirs.org
+        text: Home
+        icon: house-door
+      - href: targets.qmd
+        icon: bullseye
       - href: instructions.qmd
         icon: info-square
       - href: daily.qmd

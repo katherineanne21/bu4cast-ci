@@ -1,11 +1,17 @@
 ---
-title: "Home"
+title: "Forecasting Challenge"
 ---
 
-Welcome the Virginia Ecoforecasting Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge dashboard, hosted by the Ecological Forecasting Project ([EFP](https://www.ecoforecastprojectvt.org/))
+Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech. ([EFP](https://www.ecoforecastprojectvt.org/))
 
 This site provides instructions for participation, visualizations of forecast submissions, and a catalog of all submitted forecasts. It is rendered daily using GitHub Actions.
 
+## Why a forecasting challenge? 
+
+We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
+
+<br />
+<br />
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 library(dplyr)
@@ -19,7 +25,7 @@ sites <- suppressMessages(sf::st_read("sites.json"))
 
 ```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
 leaflet() %>%
-  #setView(lat = 37.2296, lng = -100, zoom=2) %>%
+  setView(lat = 37.310922, lng = -79.828854, zoom= 15) %>%
   addTiles(group="OSM") %>%
   addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
@@ -32,40 +38,31 @@ s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), en
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 
-#n_forecasts <- combined |> distinct(model_id, reference_datetime) |> collect() |> nrow()
-#n_models <- combined |> distinct(model_id) |> collect() |> nrow()
-
 last_updated <- Sys.Date()
-
 ```
-
-Page last updated on `r Sys.Date()`
-
-```{r eval = FALSE}
+<br />
+<br />
+```{r}
 
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the EFP VERA Challenge", 
+    title = "Total forecasts submitted to the VERA Challenge", 
     value = n_forecasts,
     showcase = bs_icon("graph-up"),
     theme_color = "success" 
   ),
   value_box(
-    title = "Unique models submitted to the EFP VERA Challenge", 
+    title = "Unique models submitted to the VERA Challenge", 
     value = n_models,
     showcase = bs_icon("pie-chart")
   )
 )
 
 ```
-
-## Submit a forecast!
-
-VERA Challenge currently has one open challenge theme! Browse the current forecasts or submit your own.
-
-------------------------------------------------------------------------
-
-Data was sourced from EFP infrastructure, which is enabled by Virginia Tech and the *National Science Foundation* (NSF).
-
+<br />
+<br />
 This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+<br />
+<br />
+Page last updated on `r Sys.Date()`

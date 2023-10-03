@@ -1,4 +1,4 @@
-# EFI-TERN Ecological Forecasting Challenge
+# Virginia Ecoforecast Reservoir Analysis (VERA) Ecological Forecasting Challenge
 
 The following elements of a forecasting challenge workflow are included in this repo.  The GitHub Action is the automation configuration.
 

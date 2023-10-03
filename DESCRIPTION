@@ -26,8 +26,12 @@ Imports:
     ggiraph,
     patchwork,
     pak,
-    jsonlite
+    jsonlite,
+    stac4cast,
+    reticulate, 
+    duckdbfs
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,
-    github::LTREB-reservoirs/ver4castHelpers
+    github::LTREB-reservoirs/ver4castHelpers,
+    github::eco4cast/stac4cast

@@ -16,7 +16,7 @@ download_seasonal_forecast <- function(){
   site_list <- readr::read_csv("https://raw.githubusercontent.com/FLARE-forecast/aws_noaa/master/site_list_v2.csv", show_col_types = FALSE)
 
   site_list <- site_list |>
-    dplyr::filter(site_id %in% c("BARC", "CRAM", "LIRO", "PRLA", "PRPO", "SUGG", "TOOK", "fcre", "bvre", "ccre", "sunp"))
+    dplyr::filter(site_id %in% c("BARC", "CRAM", "LIRO", "PRLA", "PRPO", "SUGG", "TOOK", "fcre", "bvre", "ccre", "sunp", "ALEX"))
 
    for(i in 1:nrow(site_list)){
 
@@ -27,15 +27,13 @@ download_seasonal_forecast <- function(){
       longitude = site_list$longitude[i],
       site_id = site_list$site_id[i],
       forecast_days = 274,
-      past_days = 0,
+      past_days = 92,
       variables = RopenMeteo::glm_variables(product = "seasonal_forecast",
                                             time_step = "6hourly")) |>
-      RopenMeteo::add_longwave() |>
-      RopenMeteo::convert_to_efi_standard() |>
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
       arrow::write_dataset(s3, format = 'parquet',
                            partitioning = c("model_id", "reference_date", "site_id"))
-    Sys.sleep(30)
+    Sys.sleep(10)
 
   }
 }

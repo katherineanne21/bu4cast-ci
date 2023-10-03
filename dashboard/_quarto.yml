@@ -32,7 +32,7 @@ website:
 
 format:
   html:
-    theme: [yeti, custom.scss]
+    theme: [journal, custom.scss]
     css: styles.css
     title-block-style: default
     title-block-banner: "img/banner.jpg"

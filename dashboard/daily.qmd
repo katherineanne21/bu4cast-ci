@@ -1,5 +1,5 @@
 ---
-title: "How are forecasts performing"
+title: "Forecast performance"
 ---
 
 ```{r, include=FALSE}
@@ -21,7 +21,6 @@ source("R/plot-utils.R")
 ## Most recent forecasts
 
 ```{r}
-theme <- "daily"
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("../cache/duration=P1D") |> 
   filter(date >= cutoff) |> collect()
@@ -37,14 +36,16 @@ df <- combined |>
   filter(site_id %in% sites$site_id) |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime))
+
+refererence_date <- max(lubridate::as_date(df$reference_datetime))
        
 df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(combined$reference_datetime))) |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1)) |> 
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin = quantile10, ymax = quantile90, fill = model_id), alpha = 0.5) + 
   geom_line(aes(y = median, color = model_id)) +
   facet_grid(variable~site, scales = "free_y") +
-  labs(y = "forecast") +
+  labs(y = "forecast", title = paste0("Forecasts submitted on ", refererence_date)) +
   theme_bw()
 ```
 
@@ -90,13 +91,13 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-## Chla_ugL
+## Chla_ugL_mean
 
 ```{r}
 leaderboard_plots(combined, "Chla_ugL_mean")
 ```
 
-## temp_C
+## temp_C_mean
 
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")

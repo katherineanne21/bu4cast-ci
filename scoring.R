@@ -44,64 +44,80 @@ for(k in 1:nrow(variable_duration)){
   local_prov <- paste0(duration,"-",variable, "-scoring_provenance.csv")
 
   if (!(local_prov %in% s3_prov$ls())) {
-    arrow::write_csv_arrow(dplyr::tibble(prov = NA, new_id = NA), local_prov)
+    arrow::write_csv_arrow(dplyr::tibble(new_id = "start") |> dplyr::mutate(new_id = as.character(new_id)), local_prov)
   }else{
     path <- s3_prov$path(paste0(local_prov))
     prov <- arrow::read_csv_arrow(path)
     arrow::write_csv_arrow(prov, local_prov)
   }
 
-  prov_df <- readr::read_csv(local_prov, col_types = "ic")
+  prov_df <- readr::read_csv(local_prov, col_types = "c")
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
-  bucket <- config$forecasts_bucket
+  #bucket <- config$forecasts_bucket
   target <- readr::read_csv(glue::glue("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration={duration}/{duration}-targets.csv.gz"), show_col_types = FALSE) |>
     dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k])
 
-  inventory <- arrow::open_dataset(s3_inv) |>
-    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k]) |>
+  curr_variable <- variable
+  curr_duration <- duration
+
+  groupings <- arrow::open_dataset(s3_inv) |>
+    dplyr::filter(variable == curr_variable, duration == curr_duration) |>
+    dplyr::select(-site_id) |>
     dplyr::collect() |>
-    dplyr::distinct(model_id, date, path, endpoint)
+    dplyr::distinct() |>
+    dplyr::group_by(model_id, date, duration, path, endpoint) |>
+    dplyr::summarise(reference_date =
+                       paste(reference_date, collapse=","),
+                     .groups = "drop")
 
-  new_prov <- purrr::map_dfr(1:nrow(inventory), function(j, inventory, prov_df, s3_scores_path, variable ,duration){
 
-    ref <- inventory$date[j]
-    print(inventory[j, ])
+  new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
-    # NOTE: we cannot 'prefilter' grouping by prov, since once we have tg
-    # we want to use it to score, not access it twice...
+    group <- groupings[j,]
+    ref <- group$date
+    #print(group)
+
     tg <- target |>
-      dplyr::filter(lubridate::as_date(datetime) >= ref, lubridate::as_date(datetime) < ref+lubridate::days(1))
+      dplyr::filter(lubridate::as_date(datetime) >= ref,
+                    lubridate::as_date(datetime) < ref+lubridate::days(1))
 
-    id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
-    new_id <- rlang::hash(list(inventory[j, c("model_id", "date")],  tg))
+    id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
-    #if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+    print(j)
+    #print(score4cast:::prov_has(id, prov_df, "new_id"))
+    if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+      print(j)
+      #print(group)
+      #print(group$reference_date)
 
-      fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
-        dplyr::mutate(date = as.Date(datetime)) |>
-        dplyr::filter(date == inventory$date[j]) |>
-        dplyr::collect()
+      reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
+
+      fc <-  arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
+        dplyr::filter(reference_date %in% reference_dates) |>
+        dplyr::collect() |>
+        dplyr::filter(lubridate::as_date(datetime) >= ref,
+                      lubridate::as_date(datetime) < ref+lubridate::days(1))
 
       fc |>
-        dplyr::mutate(variable = variable) |>
+        dplyr::mutate(variable = curr_variable) |>
         score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |>
-        dplyr::mutate(date = inventory$date[j],
-                      model_id = inventory$model_id[j]) |>
+        dplyr::mutate(date = group$date,
+                      model_id = group$model_id) |>
         dplyr::select(-variable) |>
         arrow::write_dataset(s3_scores_path,
                              partitioning = c("model_id", "date"))
 
-      new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
-    #}else{
-    #  new_prov <- NULL
-    #}
+      curr_prov <- dplyr::tibble(new_id = id)
+    }else{
+      curr_prov <- NULL
+    }
   },
-  inventory, prov_df, s3_scores_path, variable, duration
+  groupings, prov_df, s3_scores_path,curr_variable
   )
 
   prov_df <- dplyr::bind_rows(prov_df, new_prov)
-  prov <- arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
+  arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 
   #message(paste(config$themes[i]," done in", time[["real"]]))
 }

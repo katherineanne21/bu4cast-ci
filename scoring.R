@@ -78,8 +78,6 @@ for(k in 1:nrow(variable_duration)){
 
     if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
 
-      print("here")
-
       fc <-  arrow::open_dataset(paste0("s3://anonymous@",inventory$path[j],"/model_id=",inventory$model_id[j],"?endpoint_override=",inventory$endpoint[j])) |>
         dplyr::mutate(date = as.Date(datetime)) |>
         dplyr::filter(date == inventory$date[j]) |>
@@ -93,6 +91,7 @@ for(k in 1:nrow(variable_duration)){
         dplyr::select(-variable) |>
         arrow::write_dataset(s3_scores_path,
                              partitioning = c("model_id", "date"))
+
       new_prov <- dplyr::tibble(prov = NA_integer_, new_id = id)
     }else{
       new_prov <- NULL

@@ -23,9 +23,10 @@ for(i in 1:nrow(df)){
 }
 
 arrow::open_dataset("part-0.parquet") |>
-  mutate(depth_m = ifelse(site_id == "bvre", 1.5, depth_m)) |>
+  collect() |>
+  mutate(reference_datetime = stringr::str_sub(reference_datetime, start = 1, end = 10),
+         reference_datetime = lubridate::as_datetime(reference_datetime)) |>
   arrow::write_dataset(s3, partitioning = c("duration","variable","model_id","reference_date"))
-
 
 ###
 
@@ -54,7 +55,9 @@ for(i in 1:nrow(df)){
 }
 
 arrow::open_dataset("part-0.parquet") |>
-  mutate(depth_m = ifelse(site_id == "bvre", 1.5, depth_m)) |>
+  collect() |>
+  mutate(reference_datetime = stringr::str_sub(reference_datetime, start = 1, end = 10),
+         reference_datetime = lubridate::as_datetime(reference_datetime)) |>
   arrow::write_dataset(s3, partitioning = c("duration", "variable","model_id","date"))
 
 

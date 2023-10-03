@@ -90,6 +90,7 @@ if(length(submissions) > 0){
 
         fc <- fc |>
           mutate(pub_datetime = pub_datetime,
+                 reference_datetime = lubridate::as_datetime(reference_datetime),
                  reference_date = lubridate::as_date(reference_datetime))
 
         print(head(fc))

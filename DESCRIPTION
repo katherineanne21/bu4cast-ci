@@ -28,7 +28,8 @@ Imports:
     reticulate, 
     duckdbfs,
     furrr,
-    future
+    future,
+    googlesheets4
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

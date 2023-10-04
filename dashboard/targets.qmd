@@ -25,8 +25,13 @@ glimpse(targets)
 ### Variable list 
 
 ```{r}
-target_metadata <- read_csv("../vera4cast_target_metadata.csv", show_col_types = FALSE)
+googlesheets4::gs4_deauth()
+target_metadata <- suppressMessages(googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")) |> 
+  rename(variable = `"official" targets name`,
+         ) |> 
+  select(variable, duration, class, `Variable name`, Description)
 ```
+
 
 #### Physical variables
 

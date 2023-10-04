@@ -70,7 +70,11 @@
       {
         "name": "pub_datetime",
         "type": "string",
+<<<<<<< HEAD
+        "description": "datetime of the published forecast"
+=======
         "description": {}
+>>>>>>> ac8aedd7255b86efc74652593c32434c2145bfb2
       },
       {
         "name": "depth_m",

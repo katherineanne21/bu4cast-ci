@@ -19,15 +19,6 @@ mc_alias_set("submit",
              Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
              Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
-AWS_DEFAULT_REGION_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
-region_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
-AWS_S3_ENDPOINT_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,2]
-
-AWS_DEFAULT_REGION_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-region_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-AWS_S3_ENDPOINT_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,2]
-endpoint_override_forecasts <- config$endpoint
-
 message(paste0("Starting Processing Submissions ", Sys.time()))
 
 local_dir <- file.path(here::here(), "submissions")
@@ -155,7 +146,7 @@ if(length(submissions) > 0){
   arrow::write_dataset(inventory_df, path = s3_inventory)
 
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket),
-                                   endpoint_override = endpoint_override_forecasts,
+                                   endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 

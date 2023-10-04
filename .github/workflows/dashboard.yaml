@@ -21,11 +21,11 @@ jobs:
         with:
            fetch-depth: 0
            set-safe-directory: '*'
-   
+
       - name: install deps
         shell: Rscript {0}
         run: remotes::install_deps(".", dep=TRUE)
-        
+
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.4.146
@@ -44,6 +44,10 @@ jobs:
       - name: Render
         run: |
           quarto render dashboard
+
+      - name: Build site map
+        shell: Rscript {0}
+        run: source("dashboard/build_site_map.R")
 
       - name: Publish
         run: |

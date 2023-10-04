@@ -5,6 +5,8 @@ library(vera4castHelpers)
 library(here)
 library(minioclient)
 
+install_mc()
+
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 mc_alias_set("osn",

@@ -29,5 +29,4 @@ map_links <- function(l) {
 
 links <- lapply(links, map_links)
 
-sink(file = "dashboard/docs/sitemap.xml")
-cat(whisker.render(tpl))
+cat(whisker.render(tpl), file = "dashboard/docs/sitemap.xml")

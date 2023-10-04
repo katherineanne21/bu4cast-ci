@@ -24,14 +24,16 @@ glimpse(targets)
 
 ### Variable list 
 
-```{r}
+```{r message=FALSE}
 googlesheets4::gs4_deauth()
-target_metadata <- suppressMessages(googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")) |> 
-  rename(variable = `"official" targets name`,
-         ) |> 
-  select(variable, duration, class, `Variable name`, Description)
+target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")
 ```
 
+```{r echo = FALSE}
+  target_metadata <- target_metadata |> 
+  rename(variable = `"official" targets name`) |> 
+  select(variable, duration, class, `Variable name`, Description)
+```
 
 #### Physical variables
 

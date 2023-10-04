@@ -26,7 +26,7 @@ jobs:
         run: |
           remotes::install_github("LTREB-reservoirs/vera4castHelpers")
           install.packages("here")
-          install.packages("minioclient")
+          remotes::install_github("cboettig/minioclient")
 
       - name: Process submissions
         shell: Rscript {0}

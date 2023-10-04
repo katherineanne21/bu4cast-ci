@@ -1,6 +1,8 @@
 library(score4cast)
 library(arrow)
-library(bench)
+
+past_days <- 365
+n_cores <- 2
 
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
            AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
@@ -22,22 +24,28 @@ s3$CreateDir("scores")
 
 Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
 Sys.unsetenv("AWS_DEFAULT_REGION")
-options(mc.cores=4L)
 
-s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint)
-s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = endpoint)
-s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
-s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
 s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
 
 variable_duration <- arrow::open_dataset(s3_inv) |>
   dplyr::distinct(variable, duration) |>
   dplyr::collect()
 
-for(k in 1:nrow(variable_duration)){
+future::plan("future::multisession", workers = n_cores)
+
+furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
+
+  Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
+             AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
 
   variable <- variable_duration$variable[k]
   duration <- variable_duration$duration[k]
+
+  s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint)
+  s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = endpoint)
+  s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
+  s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
+  s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
 
   print(variable_duration[k,])
 
@@ -54,7 +62,7 @@ for(k in 1:nrow(variable_duration)){
   prov_df <- readr::read_csv(local_prov, col_types = "c")
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
-  #bucket <- config$forecasts_bucket
+
   target <- readr::read_csv(glue::glue("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration={duration}/{duration}-targets.csv.gz"), show_col_types = FALSE) |>
     dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k])
 
@@ -66,7 +74,8 @@ for(k in 1:nrow(variable_duration)){
     dplyr::select(-site_id) |>
     dplyr::collect() |>
     dplyr::distinct() |>
-    dplyr::group_by(model_id, date, duration, path, endpoint) |>
+    dplyr::filter(date > Sys.Date() - lubridate::days(past_days)) |>
+  dplyr::group_by(model_id, date, duration, path, endpoint) |>
     dplyr::summarise(reference_date =
                        paste(reference_date, collapse=","),
                      .groups = "drop")
@@ -76,7 +85,6 @@ for(k in 1:nrow(variable_duration)){
 
     group <- groupings[j,]
     ref <- group$date
-    #print(group)
 
     tg <- target |>
       dplyr::filter(lubridate::as_date(datetime) >= ref,
@@ -85,11 +93,8 @@ for(k in 1:nrow(variable_duration)){
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
     print(j)
-    #print(score4cast:::prov_has(id, prov_df, "new_id"))
     if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
       print(j)
-      #print(group)
-      #print(group$reference_date)
 
       reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 
@@ -120,4 +125,6 @@ for(k in 1:nrow(variable_duration)){
   arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 
   #message(paste(config$themes[i]," done in", time[["real"]]))
-}
+},
+variable_duration,  config, endpoint
+)

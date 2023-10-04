@@ -3,17 +3,21 @@ library(arrow)
 library(glue)
 library(vera4castHelpers)
 library(here)
+library(minioclient)
+
+install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-AWS_DEFAULT_REGION_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
-region_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,1]
-AWS_S3_ENDPOINT_submissions <- stringr::str_split_fixed(config$submissions_endpoint,"\\.", 2)[,2]
+mc_alias_set("osn",
+             config$endpoint,
+             Sys.getenv("OSN_KEY"),
+             Sys.getenv("OSN_SECRET"))
 
-AWS_DEFAULT_REGION_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-region_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,1]
-AWS_S3_ENDPOINT_forecasts <- stringr::str_split_fixed(config$endpoint,"\\.", 2)[,2]
-endpoint_override_forecasts <- config$endpoint
+mc_alias_set("submit",
+             config$submissions_endpoint,
+             Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
+             Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
 message(paste0("Starting Processing Submissions ", Sys.time()))
 
@@ -25,14 +29,10 @@ message("Downloading forecasts ...")
 
 ## Note: s3sync stupidly also requires auth credentials even to download from public bucket
 
-aws.s3::s3sync(local_dir, bucket = config$submissions_bucket,
-               direction= "download",
-               verbose = FALSE,
-               base_url = AWS_S3_ENDPOINT_submissions,
-               region = region_submissions)
+mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
-submissions_bucket <- basename(submissions)
+submissions_filenames <- basename(submissions)
 
 if(length(submissions) > 0){
 
@@ -41,27 +41,30 @@ if(length(submissions) > 0){
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
   s3 <- arrow::s3_bucket(config$forecasts_bucket,
-                         endpoint_override = endpoint_override_forecasts,
+                         endpoint_override = config$endpoint,
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
   s3_inventory <- arrow::s3_bucket("bio230121-bucket01/vera4cast",
-                                   endpoint_override = endpoint_override_forecasts,
+                                   endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
   s3_inventory$CreateDir("inventory")
 
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"),
-                                   endpoint_override = endpoint_override_forecasts,
+                                   endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  inventory_df <- arrow::open_dataset(s3_inventory) |> collect()
+  inventory_df <- arrow::open_dataset(s3_inventory) |> dplyr::collect()
+
+  time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
   for(i in 1:length(submissions)){
 
     curr_submission <- basename(submissions[i])
+    submission_dir <- dirname(submissions[i])
     print(curr_submission)
 
     if((tools::file_ext(curr_submission) %in% c("gz", "csv"))){
@@ -89,14 +92,14 @@ if(length(submissions) > 0){
         }
 
         fc <- fc |>
-          mutate(pub_datetime = pub_datetime,
+          dplyr::mutate(pub_datetime = pub_datetime,
                  reference_datetime = lubridate::as_datetime(reference_datetime),
                  reference_date = lubridate::as_date(reference_datetime))
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/"))
         path <- s3$path(paste0("parquet/"))
-        fc |> write_dataset(path, format = 'parquet',
+        fc |> arrow::write_dataset(path, format = 'parquet',
                             partitioning=c("duration","variable","model_id", "reference_date"))
 
         model_id <- fc$model_id[1]
@@ -105,64 +108,37 @@ if(length(submissions) > 0){
         duration <- fc$duration[1]
         endpoint <- config$endpoint
         curr_inventory <- fc |>
-          mutate(project_id = "vera4cast",
+          dplyr::mutate(project_id = "vera4cast",
                  date = lubridate::as_date(datetime),
                  path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
                  endpoint =config$endpoint) |>
-          distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
+          dplyr::distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
 
-        inventory_df <- bind_rows(inventory_df, curr_inventory)
+        inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
 
-        time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
+        submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
+        fs::file_copy(submissions[i], submission_timestamp)
+        raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-        aws.s3::put_object(file = submissions[i],
-                           object = paste0("raw/T",time_stamp,"_",basename(submissions[i])),
-                           bucket = config$forecasts_bucket,
-                           region= region_forecasts,
-                           base_url = AWS_S3_ENDPOINT_forecasts,
-                           key = Sys.getenv("OSN_KEY"),
-                           secret = Sys.getenv("OSN_SECRET"))
+        mc_cp(submission_timestamp, dirname(raw_bucket_object))
 
-        if(aws.s3::object_exists( object = paste0("raw/T",time_stamp,"_",basename(submissions[i])),
-                                  bucket = config$forecasts_bucket,
-                                  region = region_forecasts,
-                                  base_url = AWS_S3_ENDPOINT_forecasts,
-                                  key = Sys.getenv("OSN_KEY"),
-                                  secret = Sys.getenv("OSN_SECRET"))){
 
-          aws.s3::delete_object(object = submissions_bucket[i],
-                                bucket = config$submissions_bucket,
-                                region=AWS_DEFAULT_REGION_submissions,
-                                base_url = AWS_S3_ENDPOINT_submissions,
-                                key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                                secret = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
+        if(length(mc_ls(raw_bucket_object)) > 0){
+          mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
       } else {
 
-        aws.s3::put_object(file =  submissions[i],
-                           object = paste0("not_in_standard/T",time_stamp,"_",basename(submissions[i])),
-                           bucket = config$forecasts_bucket,
-                           region = region_forecasts,
-                           base_url = AWS_S3_ENDPOINT_forecasts,
-                           key = Sys.getenv("OSN_KEY"),
-                           secret = Sys.getenv("OSN_SECRET"))
 
-        if(aws.s3::object_exists(object = paste0("not_in_standard/T",time_stamp,"_",basename(submissions[i])),
-                                 bucket = config$forecasts_bucket,
-                                 region = region_forecasts,
-                                 base_url = AWS_S3_ENDPOINT_forecasts,
-                                 key = Sys.getenv("OSN_KEY"),
-                                 secret = Sys.getenv("OSN_SECRET"))){
+        submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
+        fs::file_copy(submissions[i], submission_timestamp)
+        raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-          aws.s3::delete_object(object = submissions_bucket[i],
-                                bucket = config$submissions_bucket,
-                                region=AWS_DEFAULT_REGION_submissions,
-                                base_url = AWS_S3_ENDPOINT_submissions,
-                                key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                                secret = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
+        mc_cp(submission_timestamp, dirname(raw_bucket_object))
 
+        if(length(mc_ls(raw_bucket_object)) > 0){
+          mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
+
       }
     }
   }
@@ -170,7 +146,7 @@ if(length(submissions) > 0){
   arrow::write_dataset(inventory_df, path = s3_inventory)
 
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket),
-                                   endpoint_override = endpoint_override_forecasts,
+                                   endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 

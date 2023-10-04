@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 23 * * *'
   workflow_dispatch:
-  
+
 name: submissions-score-dashboard
 
 jobs:
@@ -24,8 +24,8 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-          remotes::install_github("cboettig/aws.s3")
           install.packages("here")
+          install.packages("minioclient")
 
       - name: Process submissions
         shell: Rscript {0}
@@ -45,8 +45,7 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          remotes::install_github("eco4cast/score4cast")
-          install.packages(c("bench"))
+          remotes::install_deps(".", dep=TRUE)
 
       #- name: Generate scores
       #  shell: Rscript {0}
@@ -65,11 +64,11 @@ jobs:
         with:
            fetch-depth: 0
            set-safe-directory: '*'
-   
+
       - name: install deps
         shell: Rscript {0}
         run: remotes::install_deps(".", dep=TRUE)
-        
+
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.4.146
@@ -77,7 +76,7 @@ jobs:
       - name: pull scores cache
         shell: Rscript {0}
         run: source("dashboard/cache.R")
-        
+
       - name: Render
         run: |
           quarto render dashboard

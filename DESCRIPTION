@@ -1,14 +1,11 @@
-Package: tern4cast
-Title: TERN Forecast Competition in a Box
-Version: 0.0.0.9000
+Package: vera4cast
+Title: Cyberinfrastructure for the VERA Forecasting Challenge
+Version: 0.1
 Authors@R: c(person(
-              "Carl", "Boettiger", 
-              email = "cboettig@gmail.com", 
+              "Quinn", "Thomas", 
+              email = "rqthomas@vt.edu", 
               role = c("aut", "cre"),
-              comment = c(ORCID = "0000-0002-1642-628X")),
-            person("Quinn", "Thomas", role = "aut",
-                   comment = c(ORCID = "0000-0003-1282-7825"))
-            )
+              comment = c(ORCID = "0000-0003-1282-7825")))
 Description: Helper utilities for scoring forecasts.
 License: MIT
 Encoding: UTF-8
@@ -29,7 +26,10 @@ Imports:
     jsonlite,
     stac4cast,
     reticulate, 
-    duckdbfs
+    duckdbfs,
+    furrr,
+    future,
+    googlesheets4
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

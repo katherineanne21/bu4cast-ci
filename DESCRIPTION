@@ -30,7 +30,8 @@ Imports:
     stac4cast,
     reticulate, 
     duckdbfs,
-    furrr
+    furrr,
+    future
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

@@ -1,5 +1,5 @@
-source("stac/R/catalog-common.R")
-source('stac/R/stac_functions.R')
+source("catalog/R/catalog-common.R")
+source('catalog/R/stac_functions.R')
 
 config <- yaml::read_yaml('challenge_configuration.yaml')
 
@@ -35,7 +35,7 @@ build_catalog <- function(){
     )
   )
 
-  dest <- "stac/"
+  dest <- "catalog/"
   jsonlite::write_json(catalog, file.path(dest, "catalog.json"),
                        pretty=TRUE, auto_unbox=TRUE)
   stac4cast::stac_validate(file.path(dest, "catalog.json"))

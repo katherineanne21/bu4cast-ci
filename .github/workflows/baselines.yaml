@@ -29,4 +29,4 @@ jobs:
       - name: Generate forecasts
         shell: Rscript {0}
         run: |
-          source("models/run_exo_baselines.R")
+          source("baseline_models/run_exo_baselines.R")

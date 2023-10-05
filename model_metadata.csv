@@ -1,4 +1,0 @@
-"model_id","contact_name","contact_email","Institution","dynamic_model","workshop_or_tutorial","instructor_contact","initial_conditions","time_varying_met_driver","drivers","process_error","multi_model_forecast_output","parameters","modeling_approach","data_assimilation_method","min_date","max_date"
-"climatology","Quinn Thomas","rqthomas@vt.edu","Virginia Tech","0",NA,NA,"0","0","0","1","0","0","empirical (a statistical model)","Not sure",2023-09-21,2023-10-30
-"persistenceRW","Quinn Thomas","rqthomas@vt.edu","Virginia Tech","1",NA,NA,"0","0","0","1","0","0","empirical (a statistical model)","initial conditions",2023-09-21,2023-10-30
-"TESTclimatology",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2023-09-22,2023-10-27

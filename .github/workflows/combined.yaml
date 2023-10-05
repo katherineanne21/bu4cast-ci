@@ -20,12 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-          install.packages("here")
-          install.packages("minioclient")
+      #- name: Install
+      #  shell: Rscript {0}
+      #  run: |
+      #    remotes::install_github("LTREB-reservoirs/vera4castHelpers")
+      #    install.packages("here")
+      #    install.packages("minioclient")
 
       - name: Process submissions
         shell: Rscript {0}
@@ -44,10 +44,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE)
+      #- name: Install
+      #  shell: Rscript {0}
+      #  run: |
+      #    remotes::install_deps(".", dep=TRUE)
 
       - name: Generate scores
         shell: Rscript {0}
@@ -105,9 +105,9 @@ jobs:
            fetch-depth: 0
            set-safe-directory: '*'
 
-      - name: install deps
-        shell: Rscript {0}
-        run: remotes::install_deps(".", dep=TRUE)
+      #- name: install deps
+      #  shell: Rscript {0}
+      #  run: remotes::install_deps(".", dep=TRUE)
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:

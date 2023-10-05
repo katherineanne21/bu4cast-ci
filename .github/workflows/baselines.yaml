@@ -11,7 +11,7 @@ name: baseline-forecasts
 jobs:
   docker:
     runs-on: ubuntu-latest
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

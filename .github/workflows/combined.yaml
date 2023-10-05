@@ -55,6 +55,7 @@ jobs:
           source("scoring/scoring.R")
           
   catalog:
+    needs: scores
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

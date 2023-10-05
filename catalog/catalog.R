@@ -7,8 +7,8 @@ build_catalog <- function(){
   catalog <- list(
     "type"= "Catalog",
     "id"= "vera-stac",
-    "title"= "Virginia Ecoforecasting Reservoir Analysis STAC API",
-    "description"= "Searchable spatiotemporal metadata describing forecasts and forecast scores for the VERA Forecasting Challenge",
+    "title"= "Virginia Ecoforecast Reservoir Analysis Catalog",
+    "description"= "A STAC (Spatiotemporal Asset Catalog) describing forecasts and forecast scores for the VERA Forecasting Challenge",
     "stac_version"= "1.0.0",
     "conformsTo"= 'conformsTo',
     "links"= list(

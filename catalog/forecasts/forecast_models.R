@@ -9,19 +9,19 @@ variable_list <- list(c('Chla_ugL_mean'),
                       c('Temp_C_mean'))
 
 ## CREATE table for column descriptions
-forecast_description_create <- data.frame(datetime = 'ISO 8601(ISO 2019)datetime the forecast starts from (a.k.a. issue time); Only needed if more than one reference_datetime is stored in a single file. Forecast lead time is thus datetime-reference_datetime. In a hindcast the reference_datetime will be earlier than the time the hindcast was actually produced (see pubDate in Section3). Date times are allowed to be earlier than the reference_datetime if a reanalysis/reforecast is run before the start of the forecast period',
-                                 site_id = 'For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)',
-                                 family = 'For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”',
-                                 parameter = 'ensemble member',
-                                 variable = 'VERA forecast variable',
-                                 prediction = 'predicted forecast value',
-                                 pub_datetime = 'date of publication',
-                                 reference_datetime = 'datetime that the forecast is run',
-                                 model_id = 'unique model identifier',
-                                 reference_date = 'date that the forecast is run',
-                                 project_id = 'unique identifier for the forecast project',
-                                 depth_m = 'depths included in forecast',
-                                 duration = 'temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention')
+forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',
+                                          site_id = 'For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)',
+                                          family = 'For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”',
+                                          parameter = 'ensemble member or distribution parameter',
+                                          variable = 'name of forecasted variable',
+                                          prediction = 'predicted value for variable',
+                                          pub_datetime = 'datetime that forecast was submitted',
+                                          reference_datetime = 'datetime that the forecast was initiated (horizon = 0)',
+                                          model_id = 'unique model identifier',
+                                          reference_date = 'date that the forecast was initiated',
+                                          project_id = 'unique identifier for the forecast project',
+                                          depth_m = 'depth (meters) in water column of prediction',
+                                          duration = 'temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention')
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
 theme <- 'daily'

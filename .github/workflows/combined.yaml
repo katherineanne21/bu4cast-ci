@@ -5,7 +5,7 @@ on:
     - cron: '0 23 * * *'
   workflow_dispatch:
 
-name: submissions-score-dashboard
+name: submissions-score-dashboard-catalog
 
 jobs:
   submissions:
@@ -31,6 +31,8 @@ jobs:
         shell: Rscript {0}
         run: |
           source("submission_processing/process_submissions.R")
+
+          
   scores:
     needs: submissions
     runs-on: ubuntu-latest
@@ -51,6 +53,43 @@ jobs:
         shell: Rscript {0}
         run: |
           source("scoring/scoring.R")
+          
+  catalog:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    #container: rocker/geospatial:latest
+    container: rocker/ml-verse
+    steps:
+      - run: git config --system --add safe.directory '*'
+
+      - uses: actions/checkout@v3
+        with:
+           fetch-depth: 0
+           set-safe-directory: '*'
+
+      - name: install deps
+        shell: Rscript {0}
+        run: |
+          remotes::install_deps(".", dep=TRUE)
+          reticulate::install_python(version = '3.11.5')
+
+      - name: install validator
+        run: |
+          pip install stac-validator
+
+      - name: Render
+        shell: Rscript {0}
+        run: source("catalog/update_stac.R")
+
+      - name: Commit and Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add stac/* .
+          git commit -a -m "update catalog" || echo "nothing to commit"
+          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
+
   dashboard:
     needs: scores
     runs-on: ubuntu-latest

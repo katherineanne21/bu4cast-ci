@@ -30,7 +30,7 @@ jobs:
       - name: Process submissions
         shell: Rscript {0}
         run: |
-          source("process_submissions.R")
+          source("submission_processing/process_submissions.R")
   scores:
     needs: submissions
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
       - name: Generate scores
         shell: Rscript {0}
         run: |
-          source("scoring.R")
+          source("scoring/scoring.R")
   dashboard:
     needs: scores
     runs-on: ubuntu-latest

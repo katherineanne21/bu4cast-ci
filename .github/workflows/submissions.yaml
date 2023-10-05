@@ -31,4 +31,4 @@ jobs:
       - name: Process submissions
         shell: Rscript {0}
         run: |
-          source("process_submissions.R")
+          source("submission_processing/process_submissions.R")

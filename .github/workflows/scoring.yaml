@@ -26,4 +26,4 @@ jobs:
       - name: Generate scores
         shell: Rscript {0}
         run: |
-          source("scoring.R")
+          source("scoring/scoring.R")

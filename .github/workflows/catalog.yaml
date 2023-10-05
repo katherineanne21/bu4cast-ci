@@ -29,11 +29,11 @@ jobs:
       - name: install validator
         run: |
           pip install stac-validator
-        
+
 
       - name: Render
         shell: Rscript {0}
-        run: source("stac/update_stac.R")
+        run: source("catalog/update_stac.R")
 
       - name: Commit and Push
         run: |

@@ -1,6 +1,7 @@
 library(tidyverse)
 
 source('targets/target_functions/target_generation_exo_daily.R')
+source('targets/target_functions/target_generation_FluoroProbe.R')
 
 fcr_files <- c("https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f",
                "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv")

@@ -69,13 +69,13 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 
 ::: panel-tabset
 
-### Chrophyll-a 
+### Chla_ugL_mean 
 
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "Chla_ugL_mean") |> forecast_plots()
 ```
 
-### Temperature
+### Temp_C_mean
 
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "Temp_C_mean") |> forecast_plots()
@@ -97,7 +97,7 @@ Scores are averaged across all submissions of the model with a given horizon or 
 leaderboard_plots(combined, "Chla_ugL_mean")
 ```
 
-## temp_C_mean
+## Temp_C_mean
 
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")

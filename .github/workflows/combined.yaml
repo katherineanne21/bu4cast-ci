@@ -92,7 +92,7 @@ jobs:
           git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
 
   dashboard:
-    needs: scores
+    needs: catalog
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

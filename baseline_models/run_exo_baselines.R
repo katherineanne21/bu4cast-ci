@@ -172,6 +172,12 @@ forecast_file <- paste("daily", file_date, "persistenceRW.csv.gz", sep = "-")
 
 write_csv(RW_forecasts_EFI, forecast_file)
 
+RW_forecasts_EFI %>%
+  filter(variable == "Chla_ugL_mean") |>
+  ggplot(aes(x = datetime, y = prediction, group = parameter)) +
+  geom_line() +
+  facet_wrap(~site_id)
+
 vera4castHelpers::submit(forecast_file = forecast_file,
                  ask = FALSE,
                  first_submission = FALSE)

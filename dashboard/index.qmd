@@ -32,6 +32,10 @@ most_recent_targets <- readr::read_csv(url, show_col_types = FALSE) |>
   mutate(max = lubridate::as_date(max)) |> 
   pull(max)
 
+unique_targets <- readr::read_csv(url, show_col_types = FALSE) |> 
+  dplyr::distinct(variable) |> count() |> 
+  pull(n)
+
 last_updated <- Sys.Date()
 ```
 
@@ -49,12 +53,20 @@ layout_column_wrap(
     title = "Most recent data for model training", 
     value = most_recent_targets,
     showcase = bs_icon("bullseye")
+  ),
+    value_box(
+    title = "How may different variables are being forecasted", 
+    value = unique_targets,
+    showcase = bs_icon("clipboard-data"),
+    theme_color = "success" 
   )
 )
 
 ```
 <br />
 <br />
+
+## What sites are being forecasted?
 
 ```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
 leaflet() %>%

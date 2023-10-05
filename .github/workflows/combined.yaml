@@ -47,10 +47,10 @@ jobs:
         run: |
           remotes::install_deps(".", dep=TRUE)
 
-      #- name: Generate scores
-      #  shell: Rscript {0}
-      #  run: |
-      #    source("scoring.R")
+      - name: Generate scores
+        shell: Rscript {0}
+        run: |
+          source("scoring.R")
   dashboard:
     needs: scores
     runs-on: ubuntu-latest

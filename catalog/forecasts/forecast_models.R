@@ -63,7 +63,7 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       destination_path = "catalog/forecasts/",
                       aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D',
                       link_items = generate_group_values(group_values = variable_groups),
-                      thumbnail_link = "https://raw.githubusercontent.com/addelany/vera4cast/main/dashboard/img/banner-2.jpg",
+                      thumbnail_link = "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg",
                       thumbnail_title = 'Falling Creek Reservoir')
 
 

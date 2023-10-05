@@ -47,7 +47,7 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-minioclient::mc_mirror(from = paste0("osn/",config$targets_bucket), to = local_dir)
+minioclient::mc_mirror(from = paste0("osn/",config$targets_bucket), to = "archive/targets")
 
 ######
 message("Archive catalog and metadata")
@@ -70,4 +70,4 @@ readr::write_csv(target_metadata, file.path(curr_dir, "archive/catalog/target_me
 setwd(file.path(curr_dir, "archive"))
 files2zip <- fs::dir_ls(recurse = TRUE)
 files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
-utils::zip(zipfile = file.path(curr_dir, "archive"), files = files2zip)
+utils::zip(zipfile = file.path(curr_dir, paste0("archive_", Sys.Date())), files = files2zip)

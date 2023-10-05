@@ -21,7 +21,9 @@ current_data <- "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/
 fluoro_daily <- target_generation_FluoroProbe(current_file = current_data, historic_file = historic_data)
 
 
-combined_targets <- bind_rows(exo_daily, fluoro_daily)
+combined_targets <- bind_rows(exo_daily, fluoro_daily) |>
+  dplyr::mutate(project_id = "vera4cast",
+                 duration = "P1D")
 
 
 s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede.org")

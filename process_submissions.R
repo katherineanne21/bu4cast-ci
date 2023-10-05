@@ -1,20 +1,25 @@
-library(tidyverse)
+library(readr)
+library(dplyr)
 library(arrow)
 library(glue)
 library(vera4castHelpers)
 library(here)
 library(minioclient)
+library(tools)
+library(fs)
+library(stringr)
+library(lubridate)
 
 install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-mc_alias_set("osn",
+minioclient::mc_alias_set("osn",
              config$endpoint,
              Sys.getenv("OSN_KEY"),
              Sys.getenv("OSN_SECRET"))
 
-mc_alias_set("submit",
+minioclient::mc_alias_set("submit",
              config$submissions_endpoint,
              Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
              Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
@@ -27,9 +32,7 @@ fs::dir_create(local_dir)
 
 message("Downloading forecasts ...")
 
-## Note: s3sync stupidly also requires auth credentials even to download from public bucket
-
-mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
+minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions_filenames <- basename(submissions)
@@ -79,9 +82,9 @@ if(length(submissions) > 0){
 
         if(!"duration" %in% names(fc)){
           if(stringr::str_detect(fc$datetime[1], ":")){
-            fc <- fc |> mutate(duration = "P1H")
+            fc <- fc |> dplyr::mutate(duration = "P1H")
           }else{
-            fc <- fc |> mutate(duration = "P1D")
+            fc <- fc |> dplyr::mutate(duration = "P1D")
           }
         }
 
@@ -100,7 +103,7 @@ if(length(submissions) > 0){
         s3$CreateDir(paste0("parquet/"))
         path <- s3$path(paste0("parquet/"))
         fc |> arrow::write_dataset(path, format = 'parquet',
-                            partitioning=c("duration","variable","model_id", "reference_date"))
+                            partitioning = c("duration","variable","model_id", "reference_date"))
 
         model_id <- fc$model_id[1]
         bucket <- config$forecasts_bucket
@@ -111,7 +114,7 @@ if(length(submissions) > 0){
           dplyr::mutate(project_id = "vera4cast",
                  date = lubridate::as_date(datetime),
                  path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
-                 endpoint =config$endpoint) |>
+                 endpoint = config$endpoint) |>
           dplyr::distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
 
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
@@ -120,23 +123,21 @@ if(length(submissions) > 0){
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-        mc_cp(submission_timestamp, dirname(raw_bucket_object))
+        minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
 
-
-        if(length(mc_ls(raw_bucket_object)) > 0){
-          mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+        if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
+          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
       } else {
-
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-        mc_cp(submission_timestamp, dirname(raw_bucket_object))
+        minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
 
-        if(length(mc_ls(raw_bucket_object)) > 0){
-          mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+        if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
+          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
 
       }
@@ -150,7 +151,7 @@ if(length(submissions) > 0){
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  inventory_df |> distinct(model_id, project_id) |>
+  inventory_df |> dplyr::distinct(model_id, project_id) |>
     arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project-inventory.csv"))
 
 }

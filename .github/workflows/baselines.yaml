@@ -19,12 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("cboettig/aws.s3")
-          remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-          install.packages(c("imputeTS", "tsibble", "fable"))
+      #- name: Install
+      #  shell: Rscript {0}
+      #  run: |
+      #    remotes::install_github("cboettig/aws.s3")
+      #    remotes::install_github("LTREB-reservoirs/vera4castHelpers")
+      #    install.packages(c("imputeTS", "tsibble", "fable"))
 
       - name: Generate forecasts
         shell: Rscript {0}

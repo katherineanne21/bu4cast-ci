@@ -76,4 +76,10 @@ message("Catalog")
 setwd(here::here())
 jsons <- fs::dir_ls(path ="catalog", glob="*.json", recurse=TRUE)
 
-fs::dir_copy()
+local_dir <- file.path(curr_dir, "archive/catalog")
+fs::dir_create(local_dir)
+
+for(i in 1:length(jsons)){
+#fs::dir_create(file.path(curr_dir, "archive/catalog",dirname(jsons[i])))
+fs::file_copy(file.path(curr_dir, jsons[i]), dirname(file.path(curr_dir, "archive/catalog",jsons[i])), overwrite = TRUE, recursive = TRUE)
+}

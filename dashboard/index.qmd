@@ -4,8 +4,6 @@ title: "Forecasting Challenge"
 
 Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech. ([EFP](https://www.ecoforecastprojectvt.org/))
 
-This site provides instructions for participation, visualizations of forecast submissions, and a catalog of all submitted forecasts. It is rendered daily using GitHub Actions.
-
 ## Why a forecasting challenge? 
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
@@ -19,11 +17,18 @@ library(arrow)
 library(bslib)
 library(bsicons)
 library(leaflet)
+library(tidyverse)
 config <- yaml::read_yaml("../challenge_configuration.yaml")
 sites <- suppressMessages(sf::st_read("sites.json"))
 s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), endpoint_override = config$endpoint, anonymous = TRUE)
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
+
+url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
+most_recent_targets <- readr::read_csv(url, show_col_types = FALSE) |> 
+  summarize(max = max(datetime)) |> 
+  mutate(max = lubridate::as_date(max)) |> 
+  pull(max)
 
 last_updated <- Sys.Date()
 ```
@@ -39,9 +44,9 @@ layout_column_wrap(
     theme_color = "success" 
   ),
   value_box(
-    title = "Unique models submitted to the VERA Challenge", 
-    value = n_models,
-    showcase = bs_icon("pie-chart")
+    title = "Most recent data for model training", 
+    value = most_recent_targets,
+    showcase = bs_icon("bullseye")
   )
 )
 

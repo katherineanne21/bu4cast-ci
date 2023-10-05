@@ -55,7 +55,7 @@ layout_column_wrap(
     showcase = bs_icon("bullseye")
   ),
     value_box(
-    title = "How may different variables are being forecasted", 
+    title = "Number of variables being forecasted", 
     value = unique_targets,
     showcase = bs_icon("clipboard-data"),
     theme_color = "success" 

@@ -15,7 +15,7 @@ links <- c("https://LTREB-reservoirs.github.io/vera4cast/catalog.html",
            "https://LTREB-reservoirs.github.io/vera4cast/daily.html",
            "https://LTREB-reservoirs.github.io/vera4cast/index.html")
 
-links <- c(links, paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/",fs::dir_ls(path = 'stac', glob="*.json", recurse=TRUE)))
+links <- c(links, paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/",fs::dir_ls(path = 'stac', glob="*.json", recurse=TRUE)))
 
 
 map_links <- function(l) {

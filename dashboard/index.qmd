@@ -4,6 +4,8 @@ title: "Forecasting Challenge"
 
 Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech. ([EFP](https://www.ecoforecastprojectvt.org/))
 
+We invite you to submit forecasts!
+
 ## Why a forecasting challenge? 
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.

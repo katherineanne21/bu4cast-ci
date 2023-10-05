@@ -4,6 +4,7 @@
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "site_id": "Falling Creek\nWVWA","Partner": "WVWA", "n": 5 }, "geometry": { "type": "Point", "coordinates": [ -79.837217, 37.303153 ] } },
-{ "type": "Feature", "properties": { "site_id": "Beaver Dam", "Partner": "WVWA","n": 5 }, "geometry": { "type": "Point", "coordinates": [ -79.815936, 37.312909 ] } }
+{ "type": "Feature", "properties": { "site_id": "Beaver Dam", "Partner": "WVWA","n": 5 }, "geometry": { "type": "Point", "coordinates": [ -79.815936, 37.312909 ] } },
+{ "type": "Feature", "properties": { "site_id": "Tunnel Branch", "Partner": "WVWA","n": 5 }, "geometry": { "type": "Point", "coordinates": [ -79.835685, 37.307817 ] } }
 ]
 }

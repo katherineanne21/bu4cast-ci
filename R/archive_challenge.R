@@ -1,21 +1,19 @@
-start_date
-end_date
-
 library(arrow)
 library(tidyverse)
+
+start_date <- "2023-01-01"
+end_date <- "2024-01-01"
 
 curr_dir <- here::here()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-fs::dir_create(file.path(curr_dir, "archive"))
-
-
-start_date <- "2023-01-01"
-end_date <- "2024-01-01"
-
-######
-message("Archiving forecast parquets")
+fs::dir_create(file.path(curr_dir, "archive/scores"), recurse = TRUE)
+fs::dir_create(file.path(curr_dir, "archive/forecasts"), recurse = TRUE)
+fs::dir_create(file.path(curr_dir, "archive/targets"), recurse = TRUE)
+fs::dir_create(file.path(curr_dir, "archive/catalog"), recurse = TRUE)
+#######
+message("Archiving forecasts")
 
 s3_forecasts <- arrow::s3_bucket(file.path(config$forecasts_bucket,"parquet"),
                                  endpoint_override = config$endpoint,
@@ -25,31 +23,21 @@ s3_forecasts <- arrow::s3_bucket(file.path(config$forecasts_bucket,"parquet"),
 df <- open_dataset(s3_forecasts) |>
   filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date)) |> collect()
 
-write_dataset(df, path = file.path(curr_dir, "archive/forecasts/forecasts/"),
+write_dataset(df, path = file.path(curr_dir, "archive/forecasts"),
               hive_style = TRUE,
               partitioning = c("duration","variable", "model_id"))
 
-setwd(file.path(curr_dir, "archive/forecasts"))
-files2zip <- fs::dir_ls(recurse = TRUE)
-files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
-utils::zip(zipfile = file.path(curr_dir, "archive/forecasts"), files = files2zip)
-
 #######
-message("Archiving score parquets")
+message("Archiving scores")
 
 s3_scores <- arrow::s3_bucket(config$scores_bucket,
                                  endpoint_override = config$endpoint,
                                  anonymous = TRUE)
 
 df_scores <- open_dataset(s3_scores) |>
-  filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(start_date))
+  filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date))
 
-write_dataset(df_scores, path = file.path("archive/scores/scores"), hive_style = TRUE, partitioning = c("duration","variable","model_id"))
-
-setwd(file.path(lake_directory, "archive/scores"))
-files2zip <- fs::dir_ls(recurse = TRUE)
-files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
-utils::zip(zipfile = file.path(lake_directory, "archive/scores"), files = files2zip)
+write_dataset(df_scores, path = file.path("archive/scores"), hive_style = TRUE, partitioning = c("duration","variable","model_id"))
 
 #######
 message("Archiving targets")
@@ -59,27 +47,27 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-local_dir <- file.path(curr_dir, "archive/targets")
-fs::dir_create(local_dir)
-
 minioclient::mc_mirror(from = paste0("osn/",config$targets_bucket), to = local_dir)
 
-
-setwd(file.path(curr_dir, "archive/targets"))
-files2zip <- fs::dir_ls(recurse = TRUE)
-files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
-utils::zip(zipfile = file.path(lake_directory, "archive/targets"), files = files2zip)
-
 ######
-message("Catalog")
+message("Archive catalog and metadata")
 
 setwd(here::here())
 jsons <- fs::dir_ls(path ="catalog", glob="*.json", recurse=TRUE)
 
-local_dir <- file.path(curr_dir, "archive/catalog")
-fs::dir_create(local_dir)
-
 for(i in 1:length(jsons)){
-#fs::dir_create(file.path(curr_dir, "archive/catalog",dirname(jsons[i])))
-fs::file_copy(file.path(curr_dir, jsons[i]), dirname(file.path(curr_dir, "archive/catalog",jsons[i])), overwrite = TRUE, recursive = TRUE)
+  dir.create(file.path(curr_dir, "archive/catalog",dirname(jsons[i])),recursive = TRUE, showWarnings = FALSE)
+  fs::file_copy(file.path(curr_dir, jsons[i]), dirname(file.path(curr_dir, "archive/catalog",jsons[i])), overwrite = TRUE)
 }
+
+# Archive variable descriptions
+googlesheets4::gs4_deauth()
+target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")
+
+readr::write_csv(target_metadata, file.path(curr_dir, "archive/catalog/target_metadata.csv"))
+
+###
+setwd(file.path(curr_dir, "archive"))
+files2zip <- fs::dir_ls(recurse = TRUE)
+files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
+utils::zip(zipfile = file.path(curr_dir, "archive"), files = files2zip)

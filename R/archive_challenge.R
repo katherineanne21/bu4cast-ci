@@ -3,6 +3,7 @@ library(tidyverse)
 
 start_date <- "2023-01-01"
 end_date <- "2024-01-01"
+archive_format <- "parquet"
 
 curr_dir <- here::here()
 
@@ -21,23 +22,31 @@ s3_forecasts <- arrow::s3_bucket(file.path(config$forecasts_bucket,"parquet"),
 
 
 df <- open_dataset(s3_forecasts) |>
-  filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date)) |> collect()
+  filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date))
 
-write_dataset(df, path = file.path(curr_dir, "archive/forecasts"),
-              hive_style = TRUE,
-              partitioning = c("duration","variable", "model_id"))
+if(archive_format == "parquet"){
+  write_dataset(df, path = file.path(curr_dir, "archive/forecasts"),
+                hive_style = TRUE,
+                partitioning = c("duration","variable", "model_id"))
+}else if(archive_format == "csv"){
+  write_csv_arrow(df, sink = file.path("archive/forecasts.csv.gz"))
+}
 
 #######
 message("Archiving scores")
 
 s3_scores <- arrow::s3_bucket(config$scores_bucket,
-                                 endpoint_override = config$endpoint,
-                                 anonymous = TRUE)
+                              endpoint_override = config$endpoint,
+                              anonymous = TRUE)
 
 df_scores <- open_dataset(s3_scores) |>
   filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date))
 
-write_dataset(df_scores, path = file.path("archive/scores"), hive_style = TRUE, partitioning = c("duration","variable","model_id"))
+if(archive_format == "parquet"){
+  write_dataset(df_scores, path = file.path("archive/scores"), hive_style = TRUE, partitioning = c("duration","variable","model_id"))
+}else if(archive_format == "csv"){
+  write_csv_arrow(df, sink = file.path("archive/scores.csv.gz"))
+}
 
 #######
 message("Archiving targets")
@@ -62,12 +71,25 @@ for(i in 1:length(jsons)){
 
 # Archive variable descriptions
 googlesheets4::gs4_deauth()
-target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")
+target_metadata <- googlesheets4::read_sheet(config$target_metadata)
 
-readr::write_csv(target_metadata, file.path(curr_dir, "archive/catalog/target_metadata.csv"))
+if(archive_format == "parquet"){
+  readr::write_csv(target_metadata, file.path(curr_dir, "archive/catalog/target_metadata.csv"))
+}else if(archive_format == "csv"){
+  readr::write_csv(target_metadata, file.path(curr_dir, "archive/target_metadata.csv"))
+}
 
 ###
 setwd(file.path(curr_dir, "archive"))
 files2zip <- fs::dir_ls(recurse = TRUE)
+file_name <- paste0("archive_", Sys.Date())
 files2zip <- files2zip[stringr::str_detect(files2zip, pattern = "DS_Store", negate = TRUE)][-1]
-utils::zip(zipfile = file.path(curr_dir, paste0("archive_", Sys.Date())), files = files2zip)
+utils::zip(zipfile = file.path(curr_dir, file_name), files = files2zip)
+
+# TO DO
+
+# generate EDI EML
+
+### Copy archive to bucket
+minioclient::mc_cp(from = file.path(curr_dir, paste0(file_name,".zip")),
+                   to = paste0("osn/",config$archive_bucket,"/",paste0(file_name,".zip")))

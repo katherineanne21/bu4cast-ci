@@ -58,3 +58,6 @@ dashboard/docs
 cache/
 
 archive/
+*.zip
+.DS_Store
+*.gz

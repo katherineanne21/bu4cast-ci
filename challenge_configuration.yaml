@@ -6,9 +6,9 @@ submissions_bucket: vera4cast-submissions
 inventory_bucket: bio230121-bucket01/vera4cast/inventory
 prov_bucket: bio230121-bucket01/vera4cast/prov
 targets_bucket: bio230121-bucket01/vera4cast/targets
+archive_bucket: bio230121-bucket01/vera4cast/archive
 model_metadata_bucket: bio230121-bucket01/vera4cast/metadata/model_id
 model_metadata_http: https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/metadata/model_id
-themes: daily
-theme_datetime_format: ["%Y-%m-%d", "%Y-%m-%d %H:%M:%S"]
 example_model_id: example
 site_table: vera4cast_field_site_metadata.csv
+target_metadata: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing

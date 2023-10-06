@@ -122,6 +122,19 @@ vera4castHelpers::submit(forecast_file = forecast_file,
 
 unlink(forecast_file)
 
+forecast_file <- paste("daily", file_date, "climatology2.csv.gz", sep = "-")
+
+
+combined2 <- combined  |> mutate(model_id = "climatology2")
+
+write_csv(combined2, forecast_file)
+
+vera4castHelpers::submit(forecast_file = forecast_file,
+                 ask = FALSE,
+                 first_submission = FALSE)
+
+unlink(forecast_file)
+
 source('R/fablePersistenceModelFunction.R')
 
 targets <- targets |> mutate(datetime = lubridate::as_date(datetime))

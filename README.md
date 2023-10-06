@@ -1,29 +1,17 @@
 # Virginia Ecoforecast Reservoir Analysis (VERA) Ecological Forecasting Challenge
 
-The following elements of a forecasting challenge workflow are included in this repo.  The GitHub Action is the automation configuration.
+The following elements of a forecasting challenge workflow are included in this repo.  The GitHub Actions are the tool for automating the tasks.
 
 1) Generation of targets
-  - R script: `targets/terrestrial_targets.R`
-  - GitHub Action: `.github/workflows/targets.yaml`
-3) Processing of submissions:
-  - R script: `process_submissions.R`
-  - GitHub Action: `.github/workflows/submissions.yaml`
-4) Download of NOAA Global Ensemble Forecasting System for sites
-  - R script: `drivers/gefs_download.R`
-  - GitHub Action: `.github/workflows/gefs.yaml`
+3) Processing of submissions
+4) Download of weather drivers for forecasts
 5) Generation of baseline forecasts
-  - R script: `models/run_terrestrial_baselines.R`
-  - GitHub Action: `.github/workflows/baselines.yaml`
-6) Evaluation (scoring) of submitted forecasts:
-  - R script: `scoring.R`
-  - GitHub Action: `.github/workflows/scoring.yaml`
-7) Generation of dashboard:
-  - Quarto files: `dashboard/`
-  - GitHub Action: `.github/workflows/dashboard.yaml`
-8) Generation of catalog:
-  - R script: `stac/update_stac.R`
-  - GitHub Action: `.github/workflows/catalog.yaml`
+6) Evaluation (scoring) of submitted forecasts
+7) Generation of dashboard
+8) Generation of catalog
+9) Creation of Docker containers with supporting software
+10) Creation of archive/snapshots of challenge submissions and targets.
 
+See [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616) for more information on the structure of a forecasting challenge.
 
-
-See [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616) for more information.
+Supported by the U.S. National Science Foundation Long Term Research in Environmental Biology program (DEB-2327030)

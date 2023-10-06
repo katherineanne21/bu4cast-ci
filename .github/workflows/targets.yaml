@@ -22,4 +22,4 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          source("targets/target_generation/exo_targets.R")
+          source("targets/target_generation/daily_targets.R")

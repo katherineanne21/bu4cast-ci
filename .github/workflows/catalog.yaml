@@ -1,6 +1,6 @@
 on:
-  schedule:
-    - cron: '0 23 * * *'
+  #schedule:
+  #  - cron: '0 23 * * *'
   workflow_dispatch:
 
 name: catalog
@@ -24,22 +24,22 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_deps(".", dep=TRUE)
-          reticulate::install_python(version = '3.11.5')
+          #reticulate::install_python(version = '3.11.5')
 
       - name: install validator
         run: |
           pip install stac-validator
-        
+
 
       - name: Render
         shell: Rscript {0}
-        run: source("stac/update_stac.R")
+        run: source("catalog/update_stac.R")
 
       - name: Commit and Push
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add stac/* .
+          git add catalog/* .
           git commit -a -m "update catalog" || echo "nothing to commit"
           git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
 

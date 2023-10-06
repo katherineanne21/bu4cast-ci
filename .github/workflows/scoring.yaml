@@ -14,7 +14,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     steps:
       - uses: actions/checkout@v3
 
@@ -26,4 +26,4 @@ jobs:
       - name: Generate scores
         shell: Rscript {0}
         run: |
-          source("scoring.R")
+          source("scoring/scoring.R")

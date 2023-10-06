@@ -17,7 +17,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     steps:
       - uses: actions/checkout@v3
 
@@ -31,4 +31,4 @@ jobs:
       - name: Process submissions
         shell: Rscript {0}
         run: |
-          source("process_submissions.R")
+          source("submission_processing/process_submissions.R")

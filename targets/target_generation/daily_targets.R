@@ -1,6 +1,7 @@
 library(tidyverse)
 
 source('targets/target_functions/target_generation_exo_daily.R')
+source('targets/target_functions/target_generation_FluoroProbe.R')
 
 fcr_files <- c("https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f",
                "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv")
@@ -20,11 +21,12 @@ current_data <- "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/
 fluoro_daily <- target_generation_FluoroProbe(current_file = current_data, historic_file = historic_data)
 
 
-combined_targets <- bind_rows(exo_daily, fluoro_daily)
-
+combined_targets <- bind_rows(exo_daily, fluoro_daily) |>
+  dplyr::mutate(project_id = "vera4cast",
+                 duration = "P1D")
 
 s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede.org")
-s3$CreateDir("vera4cast/targets/daily")
+s3$CreateDir("vera4cast/targets/duration=P1D")
 
-s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/daily", endpoint_override = "renc.osn.xsede.org")
-arrow::write_csv_arrow(exo_daily, sink = s3$path("daily-targets.csv.gz"))
+s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
+arrow::write_csv_arrow(combined_targets, sink = s3$path("P1D-targets.csv.gz"))

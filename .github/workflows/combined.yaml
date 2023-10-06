@@ -5,7 +5,7 @@ on:
     - cron: '0 23 * * *'
   workflow_dispatch:
 
-name: submissions-score-dashboard
+name: submissions-score-dashboard-catalog
 
 jobs:
   submissions:
@@ -16,21 +16,23 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-          install.packages("here")
-          install.packages("minioclient")
+      #- name: Install
+      #  shell: Rscript {0}
+      #  run: |
+      #    remotes::install_github("LTREB-reservoirs/vera4castHelpers")
+      #    install.packages("here")
+      #    install.packages("minioclient")
 
       - name: Process submissions
         shell: Rscript {0}
         run: |
-          source("process_submissions.R")
+          source("submission_processing/process_submissions.R")
+
+
   scores:
     needs: submissions
     runs-on: ubuntu-latest
@@ -38,25 +40,27 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE)
-
-      #- name: Generate scores
+      #- name: Install
       #  shell: Rscript {0}
       #  run: |
-      #    source("scoring.R")
-  dashboard:
+      #    remotes::install_deps(".", dep=TRUE)
+
+      - name: Generate scores
+        shell: Rscript {0}
+        run: |
+          source("scoring/scoring.R")
+
+  catalog:
     needs: scores
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: rocker/geospatial:latest
+    #container: rocker/geospatial:latest
+    container: rocker/ml-verse
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -67,7 +71,43 @@ jobs:
 
       - name: install deps
         shell: Rscript {0}
-        run: remotes::install_deps(".", dep=TRUE)
+        run: |
+          remotes::install_deps(".", dep=TRUE)
+          #reticulate::install_python(version = '3.11.5')
+
+      - name: install validator
+        run: |
+          pip install stac-validator
+
+      - name: Render
+        shell: Rscript {0}
+        run: source("catalog/update_stac.R")
+
+      - name: Commit and Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add catalog/* .
+          git commit -a -m "update catalog" || echo "nothing to commit"
+          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
+
+  dashboard:
+    needs: catalog
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    container: rqthomas/vera-rocker:latest
+    steps:
+      - run: git config --system --add safe.directory '*'
+
+      - uses: actions/checkout@v3
+        with:
+           fetch-depth: 0
+           set-safe-directory: '*'
+
+      #- name: install deps
+      #  shell: Rscript {0}
+      #  run: remotes::install_deps(".", dep=TRUE)
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
@@ -80,6 +120,10 @@ jobs:
       - name: Render
         run: |
           quarto render dashboard
+
+      - name: Build site map
+        shell: Rscript {0}
+        run: source("dashboard/build_site_map.R")
 
       - name: Publish
         run: |

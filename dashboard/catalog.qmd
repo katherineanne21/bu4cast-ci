@@ -4,10 +4,10 @@ title: "Forecast catalog"
 
 ## Catalog of forecast submissions and evaluations {#sec-spatiotemporal-asset-catalog}
 
-The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below).  A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json) 
+The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below).  A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/catalog/catalog.json) 
 
 <br /> <br />
 
 ```{=html}
-<iframe width="910" height="1000" src="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/stac/catalog.json" title="Webpage example"></iframe>
+<iframe width="910" height="1000" src="https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/catalog/catalog.json" title="Webpage example"></iframe>
 ```

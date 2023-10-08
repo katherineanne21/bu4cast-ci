@@ -28,12 +28,10 @@ download_ensemble_forecast <- function(model){
       model = model,
       variables = RopenMeteo::glm_variables(product = "ensemble_forecast",
                                             time_step = "hourly")) |>
-      RopenMeteo::add_longwave() |>
-      RopenMeteo::convert_to_efi_standard() |>
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
       arrow::write_dataset(s3, format = 'parquet',
                            partitioning = c("model_id", "reference_date", "site_id"))
-    Sys.sleep(60)
+    Sys.sleep(30)
     
   }
 }

@@ -1,5 +1,5 @@
 
-download_ensemble_forecast <- function(model){
+download_ensemble_forecast <- function(model, forecast_horizon){
 
   s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare",
                          endpoint_override = "renc.osn.xsede.org",
@@ -23,7 +23,7 @@ download_ensemble_forecast <- function(model){
       latitude = site_list$latitude[i],
       longitude = site_list$longitude[i],
       site_id = site_list$site_id[i],
-      forecast_days = 35,
+      forecast_days = forecast_horizon,
       past_days = 0,
       model = model,
       variables = RopenMeteo::glm_variables(product = "ensemble_forecast",

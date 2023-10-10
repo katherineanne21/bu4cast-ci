@@ -1,5 +1,5 @@
 
-download_ensemble_forecast <- function(model, forecast_horizon){
+download_ensemble_forecast <- function(model, forecast_horizon = 35){
 
   s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare",
                          endpoint_override = "renc.osn.xsede.org",

@@ -114,7 +114,7 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
   df_inflow_targets_final$site_id <- 'tubr'
   df_inflow_targets_final$depth_m <- NA
   df_inflow_targets_final$duration <- 'P1D'
-  df_inflow_targets_final$project_id <- 'vera'
+  df_inflow_targets_final$project_id <- 'vera4cast'
 
   ## FINAL DUPLICATE CHECK
   inflow_dup_check <- df_inflow_targets_final  %>%

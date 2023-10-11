@@ -71,21 +71,26 @@
       "interval": [
         [
           "2023-09-21T00:00:00Z",
-          "2023-11-15T00:00:00Z"
+          "2023-11-16T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
     {
-      "name": "datetime",
-      "type": "timestamp[us, tz=UTC]",
-      "description": "datetime of the forecasted value (ISO 8601)"
-    },
-    {
       "name": "site_id",
       "type": "string",
       "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
+    },
+    {
+      "name": "datetime",
+      "type": "date32[day]",
+      "description": "datetime of the forecasted value (ISO 8601)"
+    },
+    {
+      "name": "reference_datetime",
+      "type": "timestamp[us, tz=UTC]",
+      "description": "datetime that the forecast was initiated (horizon = 0)"
     },
     {
       "name": "family",
@@ -93,8 +98,18 @@
       "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
     },
     {
-      "name": "parameter",
+      "name": "project_id",
       "type": "string",
+      "description": "unique identifier for the forecast project"
+    },
+    {
+      "name": "depth_m",
+      "type": "double",
+      "description": "depth (meters) in water column of prediction"
+    },
+    {
+      "name": "parameter",
+      "type": "double",
       "description": "ensemble member or distribution parameter"
     },
     {
@@ -106,21 +121,6 @@
       "name": "pub_datetime",
       "type": "string",
       "description": "datetime that forecast was submitted"
-    },
-    {
-      "name": "reference_datetime",
-      "type": "timestamp[us, tz=UTC]",
-      "description": "datetime that the forecast was initiated (horizon = 0)"
-    },
-    {
-      "name": "project_id",
-      "type": "string",
-      "description": "unique identifier for the forecast project"
-    },
-    {
-      "name": "depth_m",
-      "type": "double",
-      "description": "depth (meters) in water column of prediction"
     },
     {
       "name": "duration",

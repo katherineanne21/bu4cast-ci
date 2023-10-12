@@ -87,7 +87,11 @@
     {
       "name": "pub_datetime",
       "type": "string",
+<<<<<<< HEAD:stac/scores/Physical/collection.json
+      "description": "datetime of the published forecast"
+=======
       "description": "datetime that forecast was submitted"
+>>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/Physical/collection.json
     },
     {
       "name": "depth_m",

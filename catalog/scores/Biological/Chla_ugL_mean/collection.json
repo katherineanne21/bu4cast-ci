@@ -107,7 +107,11 @@
     {
       "name": "pub_datetime",
       "type": "string",
+<<<<<<< HEAD:stac/scores/Biological/Chla_ugL_mean/collection.json
+      "description": "datetime of the published forecast"
+=======
       "description": "datetime that forecast was submitted"
+>>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/Biological/Chla_ugL_mean/collection.json
     },
     {
       "name": "depth_m",

@@ -56,7 +56,7 @@ historic_ghg <- "https://pasta.lternet.edu/package/data/eml/edi/551/7/38d7267329
 inflow_daily <- target_generation_inflows(historic_inflow = historic_inflow,
                                           current_inflow = current_inflow,
                                           historic_nutrients = historic_nutrients,
-                                          historic_silica = silica_df,
+                                          historic_silica = historic_silica,
                                           historic_ghg = historic_ghg)
 
 arrow::write_csv_arrow(inflow_daily, sink = s3_daily$path("daily-inflow-targets.csv.gz"))

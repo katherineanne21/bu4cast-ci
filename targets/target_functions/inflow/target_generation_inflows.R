@@ -5,15 +5,15 @@
 library(tidyverse)
 ## files used in function
 
-current_inflow <- 'https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-weir-data-qaqc/FCRWeir_L1.csv'
-
-historic_inflow <- "https://pasta.lternet.edu/package/data/eml/edi/202/10/c065ff822e73c747f378efe47f5af12b"
-
-historic_silica <- 'https://pasta.lternet.edu/package/data/eml/edi/542/1/791ec9ca0f1cb9361fa6a03fae8dfc95'
-
-historic_nutrients <- "https://pasta.lternet.edu/package/data/eml/edi/199/11/509f39850b6f95628d10889d66885b76"
-
-historic_ghg <- "https://pasta.lternet.edu/package/data/eml/edi/551/7/38d72673295864956cccd6bbba99a1a3"
+# current_inflow <- 'https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-weir-data-qaqc/FCRWeir_L1.csv'
+#
+# historic_inflow <- "https://pasta.lternet.edu/package/data/eml/edi/202/10/c065ff822e73c747f378efe47f5af12b"
+#
+# historic_silica <- 'https://pasta.lternet.edu/package/data/eml/edi/542/1/791ec9ca0f1cb9361fa6a03fae8dfc95'
+#
+# historic_nutrients <- "https://pasta.lternet.edu/package/data/eml/edi/199/11/509f39850b6f95628d10889d66885b76"
+#
+# historic_ghg <- "https://pasta.lternet.edu/package/data/eml/edi/551/7/38d72673295864956cccd6bbba99a1a3"
 
 
 target_generation_inflows <- function(historic_inflow, current_inflow, historic_nutrients, historic_silica, historic_ghg){
@@ -41,8 +41,8 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
     select(sampledate, Flow_cms_mean, Temp_C_mean) #|>
     #pivot_longer(!date , names_to = 'variable' , values_to = 'observation')
 
-  df_inflow$flow_cms_mean <- ifelse(is.nan(df_inflow$flow_cms_mean), NA, df_inflow$flow_cms_mean)
-  df_inflow$temp_c_mean <- ifelse(is.nan(df_inflow$temp_c_mean), NA, df_inflow$temp_c_mean)
+  df_inflow$Flow_cms_mean <- ifelse(is.nan(df_inflow$Flow_cms_mean), NA, df_inflow$Flow_cms_mean)
+  df_inflow$Temp_C_mean <- ifelse(is.nan(df_inflow$Temp_C_mean), NA, df_inflow$Temp_C_mean)
 
 
 
@@ -131,8 +131,8 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
 
 }
 
-t <- target_generation_inflows(historic_inflow = historic_inflow,
-                       current_inflow = current_inflow,
-                       historic_nutrients = historic_nutrients,
-                       historic_silica = historic_silica,
-                       historic_ghg = historic_ghg)
+# t <- target_generation_inflows(historic_inflow = historic_inflow,
+#                        current_inflow = current_inflow,
+#                        historic_nutrients = historic_nutrients,
+#                        historic_silica = historic_silica,
+#                        historic_ghg = historic_ghg)

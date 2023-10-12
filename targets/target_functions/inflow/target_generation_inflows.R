@@ -34,11 +34,11 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
     mutate(inflow = ifelse(is.na(VT_Flow_cms), WVWA_Flow_cms, VT_Flow_cms)) |>
     mutate(inflow_temp = ifelse(is.na(VT_Temp_C), WVWA_Temp_C, VT_Temp_C)) |>
     group_by(sampledate) |>
-    mutate(flow_cms_mean = mean(inflow, na.rm = TRUE)) |>
-    mutate(temp_c_mean = mean(inflow_temp, na.rm = TRUE)) |>
+    mutate(Flow_cms_mean = mean(inflow, na.rm = TRUE)) |>
+    mutate(Temp_C_mean = mean(inflow_temp, na.rm = TRUE)) |>
     ungroup() |>
     distinct(sampledate, .keep_all = TRUE) |>
-    select(sampledate, flow_cms_mean, temp_c_mean) #|>
+    select(sampledate, Flow_cms_mean, Temp_C_mean) #|>
     #pivot_longer(!date , names_to = 'variable' , values_to = 'observation')
 
   df_inflow$flow_cms_mean <- ifelse(is.nan(df_inflow$flow_cms_mean), NA, df_inflow$flow_cms_mean)

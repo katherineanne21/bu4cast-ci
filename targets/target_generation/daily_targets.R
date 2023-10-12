@@ -1,5 +1,14 @@
 library(tidyverse)
 
+## set destination s3 paths
+s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede.org")
+s3$CreateDir("vera4cast/targets/duration=PID")
+s3$CreateDir("vera4cast/targets/duration=P21H")
+
+s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
+s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
+
+
 
 ## EXO
 source('targets/target_functions/target_generation_exo_daily.R')
@@ -26,6 +35,10 @@ fluoro_daily$duration <- 'P1D'
 fluoro_daily$project_id <- 'vera'
 
 
+combined_targets <- bind_rows(exo_daily, fluoro_daily)
+arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-targets.csv.gz"))
+
+
 ## INFLOWS
 source('targets/target_functions/inflow/target_generation_inflows.R')
 
@@ -46,11 +59,17 @@ inflow_daily <- target_generation_inflows(historic_inflow = historic_inflow,
                                           historic_silica = silica_df,
                                           historic_ghg = historic_ghg)
 
-combined_targets <- bind_rows(exo_daily, fluoro_daily, inflow_daily)
+arrow::write_csv_arrow(inflow_daily, sink = s3_daily$path("daily-inflow-targets.csv.gz"))
 
 
-s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede.org")
-s3$CreateDir("vera4cast/targets/daily")
+# MET TARGETS
+current_met <- 'https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-metstation-data-qaqc/FCRmet_L1.csv'
+historic_met <- 'https://pasta.lternet.edu/package/data/eml/edi/389/7/02d36541de9088f2dd99d79dc3a7a853'
 
-s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/daily", endpoint_override = "renc.osn.xsede.org")
-arrow::write_csv_arrow(exo_daily, sink = s3$path("daily-targets.csv.gz"))
+source('targets/target_functions/meteorology/target_generation_met.R')
+
+met_daily <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
+arrow::write_csv_arrow(met_daily, sink = s3_daily$path("daily-met-targets.csv.gz"))
+
+met_hourly <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')
+arrow::write_csv_arrow(met_hourly, sink = s3_hourly$path("houly-met-targets.csv.gz"))

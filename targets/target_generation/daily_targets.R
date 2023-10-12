@@ -72,4 +72,4 @@ met_daily <- target_generation_met(current_met = current_met, historic_met = his
 arrow::write_csv_arrow(met_daily, sink = s3_daily$path("daily-met-targets.csv.gz"))
 
 met_hourly <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')
-arrow::write_csv_arrow(met_hourly, sink = s3_hourly$path("houly-met-targets.csv.gz"))
+arrow::write_csv_arrow(met_hourly, sink = s3_hourly$path("hourly-met-targets.csv.gz"))

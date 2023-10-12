@@ -1,7 +1,7 @@
 library(tidyverse)
 
-current_met <- 'https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-metstation-data-qaqc/FCRmet_L1.csv'
-historic_met <- 'https://pasta.lternet.edu/package/data/eml/edi/389/7/02d36541de9088f2dd99d79dc3a7a853'
+# current_met <- 'https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-metstation-data-qaqc/FCRmet_L1.csv'
+# historic_met <- 'https://pasta.lternet.edu/package/data/eml/edi/389/7/02d36541de9088f2dd99d79dc3a7a853'
 
 target_generation_met <- function(current_met, historic_met, time_interval){
 
@@ -96,5 +96,5 @@ target_generation_met <- function(current_met, historic_met, time_interval){
 }
 
 
-a <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
-b <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')
+# a <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
+# b <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')

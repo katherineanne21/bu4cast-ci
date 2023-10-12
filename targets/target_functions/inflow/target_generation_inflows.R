@@ -41,8 +41,8 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
     select(sampledate, Flow_cms_mean, Temp_C_mean) #|>
     #pivot_longer(!date , names_to = 'variable' , values_to = 'observation')
 
-  df_inflow$flow_cms_mean <- ifelse(is.nan(df_inflow$flow_cms_mean), NA, df_inflow$flow_cms_mean)
-  df_inflow$temp_c_mean <- ifelse(is.nan(df_inflow$temp_c_mean), NA, df_inflow$temp_c_mean)
+  df_inflow$Flow_cms_mean <- ifelse(is.nan(df_inflow$Flow_cms_mean), NA, df_inflow$Flow_cms_mean)
+  df_inflow$Temp_C_mean <- ifelse(is.nan(df_inflow$Temp_C_mean), NA, df_inflow$Temp_C_mean)
 
 
 

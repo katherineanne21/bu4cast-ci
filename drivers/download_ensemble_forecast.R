@@ -1,5 +1,5 @@
 
-download_ensemble_forecast <- function(model){
+download_ensemble_forecast <- function(model, forecast_horizon = 35){
 
   s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare",
                          endpoint_override = "renc.osn.xsede.org",
@@ -23,17 +23,15 @@ download_ensemble_forecast <- function(model){
       latitude = site_list$latitude[i],
       longitude = site_list$longitude[i],
       site_id = site_list$site_id[i],
-      forecast_days = 35,
+      forecast_days = forecast_horizon,
       past_days = 0,
       model = model,
       variables = RopenMeteo::glm_variables(product = "ensemble_forecast",
                                             time_step = "hourly")) |>
-      RopenMeteo::add_longwave() |>
-      RopenMeteo::convert_to_efi_standard() |>
       dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
       arrow::write_dataset(s3, format = 'parquet',
                            partitioning = c("model_id", "reference_date", "site_id"))
-    Sys.sleep(60)
+    Sys.sleep(30)
     
   }
 }

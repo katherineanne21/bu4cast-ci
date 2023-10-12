@@ -36,6 +36,11 @@
       "href": "model_items/persistenceFO.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/climatology2.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -78,7 +83,7 @@
       "interval": [
         [
           "2023-09-21T00:00:00Z",
-          "2023-11-10T00:00:00Z"
+          "2023-11-16T00:00:00Z"
         ]
       ]
     }

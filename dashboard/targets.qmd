@@ -7,15 +7,26 @@ editor:
 
 ## Targets file
 
-The targets file is at 
+The targets files are at
 
+Daily time-step variables measured within the reservoirs:
 ```{r}
-url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
+url1 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-insitu-targets.csv.gz"
+```
+
+Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)
+```{r}
+url2 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz"
+```
+
+Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
+```{r}
+url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz"
 ```
 
 ```{r message=FALSE}
 library(tidyverse)
-targets <- read_csv(url, show_col_types = FALSE)
+targets <- read_csv(c(url1,url2,url3, show_col_types = FALSE)
 ```
 
 ```{r}

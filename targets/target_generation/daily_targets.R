@@ -6,7 +6,7 @@ s3$CreateDir("vera4cast/targets/duration=P1D")
 s3$CreateDir("vera4cast/targets/duration=PT1H")
 
 s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
-s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
+s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=PT1H", endpoint_override = "renc.osn.xsede.org")
 
 
 
@@ -36,7 +36,7 @@ fluoro_daily$project_id <- 'vera4cast'
 
 
 combined_targets <- bind_rows(exo_daily, fluoro_daily)
-arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-targets.csv.gz"))
+arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 
 
 ## INFLOWS

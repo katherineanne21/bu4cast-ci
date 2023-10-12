@@ -2,7 +2,7 @@ library(tidyverse)
 
 ## set destination s3 paths
 s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede.org")
-s3$CreateDir("vera4cast/targets/duration=PID")
+s3$CreateDir("vera4cast/targets/duration=P1D")
 s3$CreateDir("vera4cast/targets/duration=P21H")
 
 s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")

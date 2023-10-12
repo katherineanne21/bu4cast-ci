@@ -20,8 +20,8 @@ bvr_files <- c("https://raw.githubusercontent.com/FLARE-forecast/BVRE-data/bvre-
 
 exo_daily <- target_generation_exo_daily(fcr_files, bvr_files)
 
-exo_daily$duration <- 'PID'
-exo_daily$project_id <- 'vera'
+exo_daily$duration <- 'P1D'
+exo_daily$project_id <- 'vera4cast'
 
 
 ## FLUOROPROBE
@@ -32,7 +32,7 @@ current_data <- "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/
 
 fluoro_daily <- target_generation_FluoroProbe(current_file = current_data, historic_file = historic_data)
 fluoro_daily$duration <- 'P1D'
-fluoro_daily$project_id <- 'vera'
+fluoro_daily$project_id <- 'vera4cast'
 
 
 combined_targets <- bind_rows(exo_daily, fluoro_daily)

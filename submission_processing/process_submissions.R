@@ -152,7 +152,7 @@ if(length(submissions) > 0){
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
   inventory_df |> dplyr::distinct(model_id, project_id) |>
-    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project-inventory.csv"))
+    arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project_id-inventory.csv"))
 
 }
 

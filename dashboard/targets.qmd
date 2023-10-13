@@ -79,6 +79,8 @@ site_list |> knitr::kable()
 
 ## Additional target variables
 
+### Stream inflow to Falling Creek Reservoir
+
 Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)
 
 ```{r}
@@ -86,6 +88,14 @@ url2 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duratio
 inflow_targets <- read_csv(url2, show_col_types = FALSE)
 glimpse(inflow_targets)
 ```
+```{r echo = FALSE}
+inflow_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+### Falling Creek Reservoir meteorology
 
 Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
 
@@ -95,11 +105,16 @@ met_targets <- read_csv(url3, show_col_types = FALSE)
 glimpse(met_targets)
 ```
 
+```{r echo = FALSE}
+met_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
 Hourly time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
 
 ```{r}
 url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=PT1H/hourly-met-targets.csv.gz"
-met_targets <- read_csv(url3, show_col_types = FALSE)
-glimpse(met_targets)
 ```
-

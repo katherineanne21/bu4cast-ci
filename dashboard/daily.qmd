@@ -40,7 +40,8 @@ df <- combined |>
 refererence_date <- max(lubridate::as_date(df$reference_datetime))
        
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1)) |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         variable %in% c("Chla_ugL_mean","Temp_C_mean","AirTemp_C_mean")) |> 
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin = quantile10, ymax = quantile90, fill = model_id), alpha = 0.5) + 
   geom_line(aes(y = median, color = model_id)) +
@@ -80,6 +81,11 @@ ex |> filter(reference_datetime == ref, variable == "Chla_ugL_mean") |> forecast
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "Temp_C_mean") |> forecast_plots()
 ```
+### AirTemp_C_mean
+
+```{r}
+ex |> filter(reference_datetime == ref, variable == "AirTemp_C_mean") |> forecast_plots()
+```
 :::
 
 ## Leaderboard
@@ -91,6 +97,7 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
+
 ## Chla_ugL_mean
 
 ```{r}

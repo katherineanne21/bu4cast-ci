@@ -4,6 +4,8 @@ library(arrow)
 past_days <- 365
 n_cores <- 2
 
+setwd(here::here())
+
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
            AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
 
@@ -75,12 +77,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                                     skip = 1,
                                     partitioning = "duration") |>
     dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k]) |>
-    collect()
+    dplyr::collect()
 
-
-  target <- readr::read_csv(target_files, show_col_types = FALSE) |>
-
-    curr_variable <- variable
+  curr_variable <- variable
   curr_duration <- duration
 
   groupings <- arrow::open_dataset(s3_inv) |>

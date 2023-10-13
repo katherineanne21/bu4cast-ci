@@ -36,7 +36,7 @@ fluoro_daily$project_id <- 'vera4cast'
 
 
 combined_targets <- bind_rows(exo_daily, fluoro_daily) |>
-  select(column_names)
+  select(all_of(column_names))
 arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 
 
@@ -74,13 +74,13 @@ source('targets/target_functions/meteorology/target_generation_met.R')
 met_daily <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
 
 met_daily <- met_daily |>
-  select(column_names)
+  select(all_of(column_names))
 
 arrow::write_csv_arrow(met_daily, sink = s3_daily$path("daily-met-targets.csv.gz"))
 
 met_hourly <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')
 
 met_hourly <- met_hourly |>
-  select(column_names)
+  select(all_of(column_names))
 
 arrow::write_csv_arrow(met_hourly, sink = s3_hourly$path("hourly-met-targets.csv.gz"))

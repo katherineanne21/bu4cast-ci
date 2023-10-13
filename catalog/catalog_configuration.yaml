@@ -1,0 +1,6 @@
+about_string: 'www.ltreb-reservoirs.org/vera4cast'
+about_title: 'VERA Forecasting Challenge Documentation'
+fcr_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
+forecast_path: 'catalog/forecasts/'
+scores_path: 'catalog/forecasts/'
+aws_download_path: 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D'

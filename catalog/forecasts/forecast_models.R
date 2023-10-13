@@ -3,6 +3,7 @@ library(dplyr)
 
 source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
+catalog_config <- yaml::read_yaml("catalog/catalog_configuration.yaml")
 
 variable_groups <- c('Biological', 'Physical')
 variable_list <- list(c('Chla_ugL_mean'),
@@ -29,12 +30,12 @@ reference_datetime <- '2023-09-01'
 site_id <- 'fcre'
 model_id <- 'climatology'
 
-forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = "renc.osn.xsede.org", anonymous = TRUE)) |>
+forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) |>
   filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
 forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-                                  s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
+                                  s3_endpoint = config$endpoint, anonymous=TRUE) |>
   collect()
 
 theme_models <- forecast_data_df |>
@@ -56,14 +57,14 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       end_date = forecast_max_date,
                       id_value = "daily-forecasts",
                       description_string = build_description,
-                      about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                      about_title = "VERA Forecasting Challenge Documentation",
+                      about_string = catalog_config$about_string,
+                      about_title = catalog_config$about_title,
                       theme_title = "Forecasts",
                       model_documentation = NULL,
-                      destination_path = "catalog/forecasts/",
-                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D',
+                      destination_path = catalog_config$forecast_path,
+                      aws_download_path = catalog_config$aws_download_path,
                       link_items = generate_group_values(group_values = variable_groups),
-                      thumbnail_link = "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg",
+                      thumbnail_link = catalog_config$fcr_thumbnail,
                       thumbnail_title = 'Falling Creek Reservoir')
 
 
@@ -78,12 +79,12 @@ build_group_variables(table_schema = forecast_theme_df,
                       end_date = forecast_max_date,
                       id_value = "models",
                       description_string = build_description,
-                      about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                      about_title = "VERA Forecasting Challenge Documentation",
+                      about_string = catalog_config$about_string,
+                      about_title = catalog_config$about_title,
                       theme_title = "Models",
                       model_documentation = NULL,
-                      destination_path = "catalog/forecasts/models",
-                      aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D',
+                      destination_path = paste0(catalog_config$forecast_path,"models"),
+                      aws_download_path = catalog_config$aws_download_path,
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
 
 ## create models
@@ -120,8 +121,7 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = "catalog/forecasts/models/model_items",
-              description_path = NULL, #"catalog/daily/forecasts/models/asset-description.Rmd", # MIGHT REMOVE THIS
+              destination_path = path0(catalog_config$forecast_path,"models/model_items"),
               aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,
               collection_name = 'forecasts',
@@ -149,19 +149,19 @@ for (i in 1:length(variable_groups)){
                         end_date = forecast_max_date,
                         id_value = variable_groups[i],
                         description_string = group_description,
-                        about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                        about_title = "VERA Forecasting Challenge Documentation",
+                        about_string = catalog_config$about_string,
+                        about_title = catalog_config$about_title,
                         theme_title = variable_groups[i],
                         model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                        destination_path = paste0("catalog/forecasts/",variable_groups[i]),
-                        aws_download_path = 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D',
+                        destination_path = paste0(catalog_config$forecast_path,variable_groups[i]),
+                        aws_download_path = catalog_config$aws_download_path,
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
 
   for (v in variable_list[[i]]){ # Make variable JSONS within each group
     print(v)
 
-    if (!dir.exists(paste0("catalog/forecasts/",variable_groups[i],'/',v))){
-      dir.create(paste0("catalog/forecasts/",variable_groups[i],'/',v))
+    if (!dir.exists(paste0(catalog_config$forecast_path,variable_groups[i],'/',v))){
+      dir.create(paste0(catalog_config$forecast_path,variable_groups[i],'/',v))
     }
 
     var_data <- forecast_data_df |>
@@ -182,11 +182,11 @@ for (i in 1:length(variable_groups)){
                           end_date = var_max_date,
                           id_value = v,
                           description_string = var_description,
-                          about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                          about_title = "VERA Forecasting Challenge Documentation",
+                          about_string = catalog_config$about_string,
+                          about_title = catalog_config$about_title,
                           theme_title = v,
                           model_documentation = NULL,
-                          destination_path = file.path("catalog/forecasts",variable_groups[i],v),
+                          destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

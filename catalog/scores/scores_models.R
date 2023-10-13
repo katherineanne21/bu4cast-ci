@@ -3,24 +3,11 @@ library(dplyr)
 
 source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
+catalog_config <- yaml::read_yaml("catalog/catalog_configuration.yaml")
 
 variable_groups <- c('Biological', 'Physical')
 variable_list <- list(c('Chla_ugL_mean'),
                       c('Temp_C_mean'))
-
-forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',
-                                          site_id = 'For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)',
-                                          family = 'For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”',
-                                          parameter = 'ensemble member or distribution parameter',
-                                          variable = 'name of forecasted variable',
-                                          prediction = 'predicted value for variable',
-                                          pub_datetime = 'datetime that forecast was submitted',
-                                          reference_datetime = 'datetime that the forecast was initiated (horizon = 0)',
-                                          model_id = 'unique model identifier',
-                                          reference_date = 'date that the forecast was initiated',
-                                          project_id = 'unique identifier for the forecast project',
-                                          depth_m = 'depth (meters) in water column of prediction',
-                                          duration = 'temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention')
 
 ## CREATE table for column descriptions
 scores_description_create <- data.frame(reference_datetime ='datetime that the forecast was initiated (horizon = 0)',
@@ -51,12 +38,12 @@ reference_datetime <- '2023-09-01'
 site_id <- 'fcre'
 model_id <- 'climatology'
 
-scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, endpoint_override = "renc.osn.xsede.org", anonymous = TRUE)) |>
+scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) |>
   filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
 scores_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-                                  s3_endpoint = "renc.osn.xsede.org", anonymous=TRUE) |>
+                                  s3_endpoint = config$endpoint, anonymous=TRUE) |>
   collect()
 
 theme_models <- scores_data_df |>
@@ -78,14 +65,14 @@ build_forecast_scores(table_schema = scores_theme_df,
                       end_date = scores_max_date,
                       id_value = "daily-scores",
                       description_string = build_description,
-                      about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                      about_title = "VERA Forecasting Challenge Documentation",
+                      about_string = catalog_config$about_string,
+                      about_title = catalog_config$about_title,
                       theme_title = "Scores",
                       model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                      destination_path = "catalog/scores/",
-                      aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/duration=P1D',
+                      destination_path = catalog_config$scores_path,
+                      aws_download_path = catalog_config$aws_download_path,
                       link_items = generate_group_values(group_values = variable_groups),
-                      thumbnail_link = "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg",
+                      thumbnail_link = catalog_config$fcr_thumbnail,
                       thumbnail_title = 'Falling Creek Reservoir')
 
 
@@ -100,12 +87,12 @@ build_group_variables(table_schema = scores_theme_df,
                       end_date = scores_max_date,
                       id_value = "models",
                       description_string = build_description,
-                      about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                      about_title = "VERA Forecasting Challenge Documentation",
+                      about_string = catalog_config$about_string,
+                      about_title = catalog_config$about_title,
                       theme_title = "Models",
                       model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                      destination_path = "catalog/scores/models",
-                      aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/duration=P1D',
+                      destination_path = paste0(catalog_config$scores_path,"models"),
+                      aws_download_path = catalog_config$aws_download_path,
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
 
 ## create models
@@ -142,7 +129,7 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = "catalog/scores/models/model_items",
+              destination_path = path0(catalog_config$scores_path,"models/model_items"),
               description_path = NULL, #"catalog/daily/scores/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,
@@ -171,12 +158,12 @@ for (i in 1:length(variable_groups)){
                         end_date = scores_max_date,
                         id_value = variable_groups[i],
                         description_string = group_description,
-                        about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                        about_title = "VERA Forecasting Challenge Documentation",
+                        about_string = catalog_config$about_string,
+                        about_title = catalog_config$about_title,
                         theme_title = variable_groups[i],
                         model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                        destination_path = paste0("catalog/scores/",variable_groups[i]),
-                        aws_download_path = 'bio230121-bucket01/vera4cast/scores/parquet/duration=P1D',
+                        destination_path = paste0(catalog_config$scores_path,variable_groups[i]),
+                        aws_download_path = catalog_config$aws_download_path,
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
 
   for (v in variable_list[[i]]){ # Make variable JSONS within each group
@@ -204,11 +191,11 @@ for (i in 1:length(variable_groups)){
                           end_date = var_max_date,
                           id_value = v,
                           description_string = var_description,
-                          about_string = 'www.ltreb-reservoirs.org/vera4cast',
-                          about_title = "VERA Forecasting Challenge Documentation",
+                          about_string = catalog_config$about_string,
+                          about_title = catalog_config$about_title,
                           theme_title = v,
                           model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
-                          destination_path = file.path("catalog/scores",variable_groups[i],v),
+                          destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

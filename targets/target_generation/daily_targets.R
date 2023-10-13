@@ -35,8 +35,11 @@ fluoro_daily$duration <- 'P1D'
 fluoro_daily$project_id <- 'vera4cast'
 
 
+## combine the data and perform final adjustments (depth, etc.)
 combined_targets <- bind_rows(exo_daily, fluoro_daily)
-arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
+
+
+arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"), na = NA)
 
 
 ## INFLOWS

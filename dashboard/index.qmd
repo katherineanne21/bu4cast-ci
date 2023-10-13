@@ -26,7 +26,7 @@ s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), en
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 
-s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = endpoint)
+s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint)
 
 most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                     schema = arrow::schema(

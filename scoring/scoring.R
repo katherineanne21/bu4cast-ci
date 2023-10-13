@@ -63,19 +63,24 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
 
-  urls <- c("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-insitu-targets.csv.gz",
-           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz",
-           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-met-targets.csv.gz",
-           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=PT1H/hourly-met-targets.csv.gz")
+  target <- arrow::open_csv_dataset(s3_targets,
+                                    schema = arrow::schema(
+                                      project_id = arrow::string(),
+                                      site_id = arrow::string(),
+                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
+                                      duration = arrow::string(),
+                                      depth_m = arrow::float(),
+                                      variable = arrow::string(),
+                                      observation = arrow::float()),
+                                    skip = 1,
+                                    partitioning = "duration") |>
+    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k]) |>
+    collect()
 
-  target_files <- tibble(url = urls) |>
-    filter(stringr::str_detect(url, glue::glue("{duration}"), negate = TRUE)) |>
-    pull(url)
 
   target <- readr::read_csv(target_files, show_col_types = FALSE) |>
-    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k])
 
-  curr_variable <- variable
+    curr_variable <- variable
   curr_duration <- duration
 
   groupings <- arrow::open_dataset(s3_inv) |>
@@ -84,7 +89,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     dplyr::collect() |>
     dplyr::distinct() |>
     dplyr::filter(date > Sys.Date() - lubridate::days(past_days)) |>
-  dplyr::group_by(model_id, date, duration, path, endpoint) |>
+    dplyr::group_by(model_id, date, duration, path, endpoint) |>
     dplyr::summarise(reference_date =
                        paste(reference_date, collapse=","),
                      .groups = "drop")

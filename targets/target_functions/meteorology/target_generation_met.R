@@ -60,6 +60,12 @@ target_generation_met <- function(current_met, historic_met, time_interval){
     df_long_conversion$duration <- 'P1D'
     df_long_conversion$project_id <- 'vera4cast'
 
+    ## check rounding for observations
+    non_rounded_vars <- c('')
+    df_long_conversion$observation <- ifelse(!(df_long_conversion$variable %in% non_rounded_vars),
+                                             round(df_long_conversion$observation, digits = 2),
+                                             df_long_conversion$observation)
+
     ## FINAL DUPLICATE CHECK
     met_dup_check <- df_long_conversion  %>%
       dplyr::group_by(datetime, site_id, depth_m, duration, project_id, variable) %>%
@@ -103,6 +109,12 @@ target_generation_met <- function(current_met, historic_met, time_interval){
   df_long_conversion$depth_m <- NA
   df_long_conversion$duration <- 'PT1H'
   df_long_conversion$project_id <- 'vera4cast'
+
+  ## check rounding for observations
+  non_rounded_vars <- c('')
+  df_long_conversion$observation <- ifelse(!(df_long_conversion$variable %in% non_rounded_vars),
+                                           round(df_long_conversion$observation, digits = 2),
+                                           df_long_conversion$observation)
 
   ## FINAL DUPLICATE CHECK
   met_dup_check <- df_long_conversion  %>%

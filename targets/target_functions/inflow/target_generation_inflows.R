@@ -116,6 +116,12 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
   df_inflow_targets_final$duration <- 'P1D'
   df_inflow_targets_final$project_id <- 'vera4cast'
 
+  ## check rounding for observations
+  non_rounded_vars <- c('Flow_cms_mean')
+  df_inflow_targets_final$observation <- ifelse(!(df_inflow_targets_final$variable %in% non_rounded_vars),
+                                           round(df_inflow_targets_final$observation, digits = 2),
+                                           df_inflow_targets_final$observation)
+
   ## FINAL DUPLICATE CHECK
   inflow_dup_check <- df_inflow_targets_final  %>%
     dplyr::group_by(datetime, site_id, depth_m, duration, project_id, variable) %>%

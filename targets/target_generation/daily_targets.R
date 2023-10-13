@@ -8,7 +8,7 @@ s3$CreateDir("vera4cast/targets/duration=PT1H")
 s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
 s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=PT1H", endpoint_override = "renc.osn.xsede.org")
 
-
+column_names <- c("project_id", "site_id","datetime","duration", "depth_m","variable","observation")
 
 ## EXO
 source('targets/target_functions/target_generation_exo_daily.R')
@@ -35,11 +35,17 @@ fluoro_daily$duration <- 'P1D'
 fluoro_daily$project_id <- 'vera4cast'
 
 
+<<<<<<< HEAD
 ## combine the data and perform final adjustments (depth, etc.)
 combined_targets <- bind_rows(exo_daily, fluoro_daily)
 
 
 arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"), na = NA)
+=======
+combined_targets <- bind_rows(exo_daily, fluoro_daily) |>
+  select(all_of(column_names))
+arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
+>>>>>>> f3d6265e364196d3f91de3f84d6063251d007479
 
 
 ## INFLOWS
@@ -62,6 +68,8 @@ inflow_daily <- target_generation_inflows(historic_inflow = historic_inflow,
                                           historic_silica = historic_silica,
                                           historic_ghg = historic_ghg)
 
+inflow_daily <- inflow_daily |> select(column_names)
+
 arrow::write_csv_arrow(inflow_daily, sink = s3_daily$path("daily-inflow-targets.csv.gz"))
 
 
@@ -72,7 +80,15 @@ historic_met <- 'https://pasta.lternet.edu/package/data/eml/edi/389/7/02d36541de
 source('targets/target_functions/meteorology/target_generation_met.R')
 
 met_daily <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
+
+met_daily <- met_daily |>
+  select(all_of(column_names))
+
 arrow::write_csv_arrow(met_daily, sink = s3_daily$path("daily-met-targets.csv.gz"))
 
 met_hourly <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')
+
+met_hourly <- met_hourly |>
+  select(all_of(column_names))
+
 arrow::write_csv_arrow(met_hourly, sink = s3_hourly$path("hourly-met-targets.csv.gz"))

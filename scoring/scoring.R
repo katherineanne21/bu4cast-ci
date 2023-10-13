@@ -101,7 +101,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     tg <- target |>
       dplyr::filter(lubridate::as_date(datetime) >= ref,
-                    lubridate::as_date(datetime) < ref+lubridate::days(1))
+                    lubridate::as_date(datetime) < ref+lubridate::days(1)) |>
+      dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m))
+
 
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
@@ -118,6 +120,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                       lubridate::as_date(datetime) < ref+lubridate::days(1))
 
       fc |>
+        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>
         dplyr::mutate(variable = curr_variable) |>
         score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |>
         dplyr::mutate(date = group$date,

@@ -41,7 +41,7 @@ refererence_date <- max(lubridate::as_date(df$reference_datetime))
        
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
-         variable %in% c("Chla_ugL_mean","Temp_C_mean","AirTemp_C_mean")) |> 
+         variable %in% c("Chla_ugL_mean","Temp_C_mean","AirTemp_C_mean", "Flow_cms_mean")) |> 
   ggplot(aes(x = datetime)) +
   geom_ribbon(aes(ymin = quantile10, ymax = quantile90, fill = model_id), alpha = 0.5) + 
   geom_line(aes(y = median, color = model_id)) +

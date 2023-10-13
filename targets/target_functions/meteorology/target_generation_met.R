@@ -22,10 +22,24 @@ target_generation_met <- function(current_met, historic_met, time_interval){
            ShortwaveRadiationUp_Wm2_mean = ShortwaveRadiationUp_Average_W_m2, InfraredRadiationUp_Wm2_mean = InfraredRadiationUp_Average_W_m2,
            Albedo_Wm2_mean = Albedo_Average_W_m2)
 
+  rain_total_df <- df_combined |> select(sampledatetime_utc, Rain_mm_sum) # save rain total separately so it can get averaged
+
+  df_combined <- df_combined |> select(-Rain_mm_sum) # remove rain total value so it doesn't get averaged
+
   # remove the large files that we don't need to use anymore
   rm(df_current, df_historic)
 
   if (time_interval == 'daily'){
+
+    df_rain_long <- rain_total_df |>
+      pivot_longer(!sampledatetime_utc, names_to = 'variable', values_to = 'observation') |>
+      mutate(sampledate = as.Date(sampledatetime_utc)) |>
+      group_by(sampledate) |>
+      mutate(obs_sum = sum(observation, na.rm = TRUE)) |>
+      ungroup() |>
+      distinct(sampledate, .keep_all = TRUE) |>
+      mutate(datetime = as.POSIXct(format(as.POSIXct(paste(as.character(sampledate), '00:00:00'), tz = "UTC"), "%Y-%m-%d %H:%M:%S"), tz = 'UTC')) |>
+      select(datetime, variable, observation = obs_sum)
 
     df_long_conversion <- df_combined |>
       pivot_longer(!sampledatetime_utc, names_to = 'variable', values_to = 'observation') |>
@@ -35,12 +49,13 @@ target_generation_met <- function(current_met, historic_met, time_interval){
       ungroup() |>
       distinct(sampledate, variable, .keep_all = TRUE) |>
       mutate(datetime = as.POSIXct(format(as.POSIXct(paste(as.character(sampledate), '00:00:00'), tz = "UTC"), "%Y-%m-%d %H:%M:%S"), tz = 'UTC')) |>
-      select(datetime, variable, observation = obs_averaged)
+      select(datetime, variable, observation = obs_averaged) |>
+      bind_rows(df_rain_long) ## last thing is to append rain total values
 
     df_long_conversion$observation <- ifelse(is.nan(df_long_conversion$observation), NA, df_long_conversion$observation)
 
 
-    df_long_conversion$site_id <- 'tubr'
+    df_long_conversion$site_id <- 'fcre'
     df_long_conversion$depth_m <- NA
     df_long_conversion$duration <- 'P1D'
     df_long_conversion$project_id <- 'vera4cast'
@@ -59,6 +74,17 @@ target_generation_met <- function(current_met, historic_met, time_interval){
 
   } else if(time_interval == 'hourly'){
 
+    df_rain_long <- rain_total_df |>
+      pivot_longer(!sampledatetime_utc, names_to = 'variable', values_to = 'observation') |>
+      mutate(sample_hour = format(as.POSIXct(sampledatetime_utc), format = "%H")) |>
+      mutate(sampledate = as.Date(sampledatetime_utc)) |>
+      group_by(sampledate, sample_hour) |>
+      mutate(obs_sum = sum(observation, na.rm = TRUE)) |>
+      ungroup() |>
+      distinct(sampledate, sample_hour, .keep_all = TRUE) |>
+      mutate(datetime = as.POSIXct(format(as.POSIXct(paste0(as.character(sampledate),' ', sample_hour,':00:00'), tz = "UTC"), "%Y-%m-%d %H:%M:%S"), tz = 'UTC')) |>
+      select(datetime, variable, observation = obs_sum)
+
   df_long_conversion <- df_combined |>
     pivot_longer(!sampledatetime_utc, names_to = 'variable', values_to = 'observation') |>
     mutate(sample_hour = format(as.POSIXct(sampledatetime_utc), format = "%H")) |>
@@ -68,7 +94,8 @@ target_generation_met <- function(current_met, historic_met, time_interval){
     ungroup() |>
     distinct(sampledate, sample_hour, variable, .keep_all = TRUE) |>
     mutate(datetime = as.POSIXct(format(as.POSIXct(paste0(as.character(sampledate),' ', sample_hour,':00:00'), tz = "UTC"), "%Y-%m-%d %H:%M:%S"), tz = 'UTC')) |>
-    select(datetime, variable, observation = obs_averaged)
+    select(datetime, variable, observation = obs_averaged) |>
+    bind_rows(df_rain_long) ## last thing is to append rain total values
 
   df_long_conversion$observation <- ifelse(is.nan(df_long_conversion$observation), NA, df_long_conversion$observation)
 

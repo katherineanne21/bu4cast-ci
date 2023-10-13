@@ -106,7 +106,7 @@ combined %>%
   facet_wrap(~site_id)
 
 combined <- combined |>
-  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+  mutate(depth_m = ifelse(site_id == "fcre", 1.6, 1.5),
          project_id = "vera4cast",
          duration = "P1D")
 
@@ -161,7 +161,7 @@ RW_forecasts_EFI <- as_tibble(RW_forecasts) %>%
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
 RW_forecasts_EFI <- RW_forecasts_EFI |>
-  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+  mutate(depth_m = ifelse(site_id == "fcre", 1.6, 1.5),
          project_id = "vera4cast",
          duration = "P1D")
 

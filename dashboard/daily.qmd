@@ -28,27 +28,55 @@ combined <- arrow::open_dataset("../cache/duration=P1D") |>
 
 config <- yaml::read_yaml("../challenge_configuration.yaml")
 sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALSE)
-```
 
-```{r}
 df <- combined |> 
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id) |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime))
 
-refererence_date <- max(lubridate::as_date(df$reference_datetime))
-       
+reference_date <- max(lubridate::as_date(df$reference_datetime))
+```
+
+Forecasts submitted on `r reference_date`
+
+#### Chlorophyll-a
+
+```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
-         variable %in% c("Chla_ugL_mean","Temp_C_mean","AirTemp_C_mean", "Flow_cms_mean")) |> 
-  ggplot(aes(x = datetime)) +
-  geom_ribbon(aes(ymin = quantile10, ymax = quantile90, fill = model_id), alpha = 0.5) + 
-  geom_line(aes(y = median, color = model_id)) +
-  facet_grid(variable~site, scales = "free_y") +
-  labs(y = "forecast", title = paste0("Forecasts submitted on ", refererence_date)) +
-  theme_bw()
+         variable == c("Chla_ugL_mean")) |> 
+  forecast_plots()
 ```
+
+#### Water temperature
+
+```{r}
+df |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         variable == c("Temp_C_mean")) |> 
+  forecast_plots()
+```
+
+#### Air temperature
+
+```{r}
+df |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         variable == c("AirTemp_C_mean")) |> 
+  forecast_plots()
+```
+
+#### Inflow discharge
+
+```{r}
+df |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         variable == c("Flow_cms_mean")) |> 
+  forecast_plots()
+```
+
+## Forecast analysis
 
 ```{r}
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
@@ -64,27 +92,25 @@ ex <- combined |> filter(reference_datetime == ref, site_id %in% sites)
 
 ```
 
-## Forecast analysis
-
 Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
-
-### Chla_ugL_mean 
+### Chla_ugL_mean
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "Chla_ugL_mean") |> forecast_plots()
+ex |> filter(variable == "Chla_ugL_mean") |> forecast_plots()
 ```
 
 ### Temp_C_mean
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "Temp_C_mean") |> forecast_plots()
+ex |> filter(variable == "Temp_C_mean") |> forecast_plots()
 ```
+
 ### AirTemp_C_mean
 
 ```{r}
-ex |> filter(reference_datetime == ref, variable == "AirTemp_C_mean") |> forecast_plots()
+ex |> filter(variable == "AirTemp_C_mean") |> forecast_plots()
 ```
 :::
 
@@ -97,7 +123,6 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-
 ## Chla_ugL_mean
 
 ```{r}
@@ -109,5 +134,4 @@ leaderboard_plots(combined, "Chla_ugL_mean")
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")
 ```
-
 :::

@@ -7,28 +7,15 @@ editor:
 
 ## Targets file
 
-The targets files are at
-
 Daily time-step variables measured within the reservoirs:
-```{r}
-url1 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-insitu-targets.csv.gz"
-```
-
-Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)
 
 ```{r}
-url2 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz"
-```
-
-Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
-
-```{r}
-url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz"
+url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-insitu-targets.csv.gz"
 ```
 
 ```{r message=FALSE}
 library(tidyverse)
-targets <- read_csv(c(url3), show_col_types = FALSE)
+targets <- read_csv(url, show_col_types = FALSE)
 ```
 
 ```{r}
@@ -89,3 +76,30 @@ site_list <- read_csv("https://raw.githubusercontent.com/LTREB-reservoirs/vera4c
 ```{r echo = FALSE}
 site_list |> knitr::kable()
 ```
+
+## Additional target variables
+
+Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)
+
+```{r}
+url2 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz"
+inflow_targets <- read_csv(url2, show_col_types = FALSE)
+glimpse(inflow_targets)
+```
+
+Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
+
+```{r}
+url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-met-targets.csv.gz"
+met_targets <- read_csv(url3, show_col_types = FALSE)
+glimpse(met_targets)
+```
+
+Hourly time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
+
+```{r}
+url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=PT1H/hourly-met-targets.csv.gz"
+met_targets <- read_csv(url3, show_col_types = FALSE)
+glimpse(met_targets)
+```
+

@@ -72,7 +72,7 @@ target_generation_met <- function(current_met, historic_met, time_interval){
 
   df_long_conversion$observation <- ifelse(is.nan(df_long_conversion$observation), NA, df_long_conversion$observation)
 
-  df_long_conversion$site_id <- 'tubr'
+  df_long_conversion$site_id <- 'fcre'
   df_long_conversion$depth_m <- NA
   df_long_conversion$duration <- 'PT1H'
   df_long_conversion$project_id <- 'vera4cast'

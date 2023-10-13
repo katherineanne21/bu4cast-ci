@@ -72,6 +72,10 @@ historic_met <- 'https://pasta.lternet.edu/package/data/eml/edi/389/7/02d36541de
 source('targets/target_functions/meteorology/target_generation_met.R')
 
 met_daily <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'daily')
+
+met_daily <- met_daily |>
+  select(column_names)
+
 arrow::write_csv_arrow(met_daily, sink = s3_daily$path("daily-met-targets.csv.gz"))
 
 met_hourly <- target_generation_met(current_met = current_met, historic_met = historic_met, time_interval = 'hourly')

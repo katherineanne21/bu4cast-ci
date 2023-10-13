@@ -63,7 +63,16 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
 
-  target <- readr::read_csv(glue::glue("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration={duration}/{duration}-targets.csv.gz"), show_col_types = FALSE) |>
+  urls <- c("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-insitu-targets.csv.gz",
+           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-inflow-targets.csv.gz",
+           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/daily-met-targets.csv.gz",
+           "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=PT1H/hourly-met-targets.csv.gz")
+
+  target_files <- tibble(url = urls) |>
+    filter(stringr::str_detect(url, glue::glue("{duration}"), negate = TRUE)) |>
+    pull(url)
+
+  target <- readr::read_csv(target_files, show_col_types = FALSE) |>
     dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k])
 
   curr_variable <- variable

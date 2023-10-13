@@ -26,15 +26,38 @@ s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), en
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 
-url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=P1D/P1D-targets.csv.gz"
-most_recent_targets <- readr::read_csv(url, show_col_types = FALSE) |> 
-  summarize(max = max(datetime)) |> 
-  mutate(max = lubridate::as_date(max)) |> 
-  pull(max)
+s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint)
 
-unique_targets <- readr::read_csv(url, show_col_types = FALSE) |> 
+most_recent_targets <- arrow::open_csv_dataset(s3_targets,
+                                    schema = arrow::schema(
+                                      project_id = arrow::string(),
+                                      site_id = arrow::string(),
+                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
+                                      duration = arrow::string(),
+                                      depth_m = arrow::float(),
+                                      variable = arrow::string(),
+                                      observation = arrow::float()),
+                                    skip = 1,
+                                    partitioning = "duration") |>
+    summarize(max = max(datetime)) |> 
+    mutate(max = lubridate::as_date(max)) |> 
+    dplyr::collect() |> 
+    pull(max)
+
+unique_targets <- arrow::open_csv_dataset(s3_targets,
+                                    schema = arrow::schema(
+                                      project_id = arrow::string(),
+                                      site_id = arrow::string(),
+                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
+                                      duration = arrow::string(),
+                                      depth_m = arrow::float(),
+                                      variable = arrow::string(),
+                                      observation = arrow::float()),
+                                    skip = 1,
+                                    partitioning = "duration") |>
   dplyr::distinct(variable) |> count() |> 
-  pull(n)
+    dplyr::collect() |> 
+    pull(n)
 
 last_updated <- Sys.Date()
 ```

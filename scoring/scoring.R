@@ -4,6 +4,8 @@ library(arrow)
 past_days <- 365
 n_cores <- 2
 
+setwd(here::here())
+
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
            AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
 
@@ -63,8 +65,19 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
 
-  target <- readr::read_csv(glue::glue("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration={duration}/{duration}-targets.csv.gz"), show_col_types = FALSE) |>
-    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k])
+  target <- arrow::open_csv_dataset(s3_targets,
+                                    schema = arrow::schema(
+                                      project_id = arrow::string(),
+                                      site_id = arrow::string(),
+                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
+                                      duration = arrow::string(),
+                                      depth_m = arrow::float(),
+                                      variable = arrow::string(),
+                                      observation = arrow::float()),
+                                    skip = 1,
+                                    partitioning = "duration") |>
+    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k]) |>
+    dplyr::collect()
 
   curr_variable <- variable
   curr_duration <- duration
@@ -75,7 +88,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     dplyr::collect() |>
     dplyr::distinct() |>
     dplyr::filter(date > Sys.Date() - lubridate::days(past_days)) |>
-  dplyr::group_by(model_id, date, duration, path, endpoint) |>
+    dplyr::group_by(model_id, date, duration, path, endpoint) |>
     dplyr::summarise(reference_date =
                        paste(reference_date, collapse=","),
                      .groups = "drop")
@@ -88,7 +101,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     tg <- target |>
       dplyr::filter(lubridate::as_date(datetime) >= ref,
-                    lubridate::as_date(datetime) < ref+lubridate::days(1))
+                    lubridate::as_date(datetime) < ref+lubridate::days(1)) |>
+      dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m))
+
 
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
@@ -105,6 +120,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                       lubridate::as_date(datetime) < ref+lubridate::days(1))
 
       fc |>
+        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>
         dplyr::mutate(variable = curr_variable) |>
         score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |>
         dplyr::mutate(date = group$date,

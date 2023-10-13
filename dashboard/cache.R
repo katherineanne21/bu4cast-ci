@@ -7,5 +7,3 @@ mc_alias_set("mc_bucket",  endpoint = config$endpoint,
              access_key = "", secret_key = "")
 
 mc(paste0("mirror --overwrite mc_bucket/",config$scores_bucket,"/parquet cache/"))
-
-

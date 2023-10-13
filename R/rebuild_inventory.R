@@ -3,6 +3,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 
 s3 <- arrow::s3_bucket(paste0(config$forecasts_bucket, "/parquet"), endpoint_override = config$endpoint, anonymous = TRUE)
 
+bucket <- config$forecasts_bucket
 inventory_df <- arrow::open_dataset(s3) |>
     mutate(reference_date = lubridate::as_date(reference_datetime),
            date = lubridate::as_date(datetime)) |>

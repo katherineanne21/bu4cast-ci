@@ -17,7 +17,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 team_name <- "climatology"
 
 
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/duration=P1D/P1D-targets.csv.gz"), guess_max = 10000)
+targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/duration=P1D/daily-insitu-targets.csv.gz"), guess_max = 10000)
 
 
 sites <- read_csv(config$site_table, show_col_types = FALSE)
@@ -106,7 +106,7 @@ combined %>%
   facet_wrap(~site_id)
 
 combined <- combined |>
-  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+  mutate(depth_m = ifelse(site_id == "fcre", 1.6, 1.5),
          project_id = "vera4cast",
          duration = "P1D")
 
@@ -161,7 +161,7 @@ RW_forecasts_EFI <- as_tibble(RW_forecasts) %>%
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
 RW_forecasts_EFI <- RW_forecasts_EFI |>
-  mutate(depth_m = ifelse(site_id == "frce", 1.6, 1.5),
+  mutate(depth_m = ifelse(site_id == "fcre", 1.6, 1.5),
          project_id = "vera4cast",
          duration = "P1D")
 

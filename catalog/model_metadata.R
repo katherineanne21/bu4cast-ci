@@ -169,9 +169,9 @@ for(i in 1:nrow(registered_models)){
   }
 
   file_name <- paste0(metadata$model_id, ".json")
-  jsonlite::write_json(metadata, path = file.path("stac",file_name), pretty = TRUE)
+  jsonlite::write_json(metadata, path = file.path("catalog",file_name), pretty = TRUE)
 
-  aws.s3::put_object(file = file.path("stac",file_name),
+  aws.s3::put_object(file = file.path("catalog",file_name),
                      object = paste0("vera4cast/metadata/model_id/",file_name),
                      bucket = "bio230121-bucket01",
                      region=  "renc",

@@ -18,11 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("FLARE-forecast/RopenMeteo")
-
       - name: Download
         shell: Rscript {0}
         run: |

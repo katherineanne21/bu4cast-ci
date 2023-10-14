@@ -10,18 +10,28 @@ submit_met_forecast <- function(model_id){
   max_reference_date <- max(df$reference_date)
 
   filename <- paste0("drivers/", model_id, "-",max_reference_date,".csv.gz")
-  df |> dplyr::filter(reference_date == max_reference_date) |>
+  df <- df |> dplyr::filter(reference_date == max_reference_date) |>
     dplyr::mutate(date = lubridate::as_date(datetime)) |>
     dplyr::select(-unit) |>
-    tidyr::pivot_wider(names_from = variable, values_from = prediction) |>
-    dplyr::summarize(RH_percent_mean = mean(relativehumidity_2m, na.rm = TRUE),
+    tidyr::pivot_wider(names_from = variable, values_from = prediction)
+
+  if(model_id == "ecmwf_ifs04"){
+  df <- df |>  dplyr::summarize(RH_percent_mean = mean(relativehumidity_2m, na.rm = TRUE),
               Rain_mm_sum = sum(precipitation, na.rm = TRUE),
               WindSpeed_ms_mean = mean(windspeed_10m, na.rm = TRUE),
               AirTemp_C_mean = mean(temperature_2m, na.rm = TRUE),
-              ShortwaveRadiationUp_Wm2_mean = mean(shortwave_radiation, na.rm = TRUE),
               BP_kPa_mean = mean(surface_pressure * 0.1, na.rm = TRUE),
-              .by = c("date","ensemble")) |>
-    tidyr::pivot_longer(-c(date, ensemble), names_to = "variable", values_to = "prediction") |>
+              .by = c("date","ensemble"))
+  }else{
+    df <- df |>  dplyr::summarize(RH_percent_mean = mean(relativehumidity_2m, na.rm = TRUE),
+                                  Rain_mm_sum = sum(precipitation, na.rm = TRUE),
+                                  WindSpeed_ms_mean = mean(windspeed_10m, na.rm = TRUE),
+                                  AirTemp_C_mean = mean(temperature_2m, na.rm = TRUE),
+                                  ShortwaveRadiationUp_Wm2_mean = mean(shortwave_radiation, na.rm = TRUE),
+                                  BP_kPa_mean = mean(surface_pressure * 0.1, na.rm = TRUE),
+                                  .by = c("date","ensemble"))
+  }
+    df |> tidyr::pivot_longer(-c(date, ensemble), names_to = "variable", values_to = "prediction") |>
     dplyr::mutate(datetime = lubridate::as_datetime(date),
            reference_datetime = lubridate::as_datetime(max_reference_date),
            site_id = "fcre",

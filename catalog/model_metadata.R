@@ -178,6 +178,8 @@ for(i in 1:nrow(registered_models)){
                      base_url = "osn.xsede.org",
                      key = Sys.getenv("OSN_KEY"),
                      secret = Sys.getenv("OSN_SECRET"))
+
+  unlink(file.path("catalog",file_name))
 }
 
 

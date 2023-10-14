@@ -21,7 +21,7 @@
   "properties": {
     "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: bvre, fcre\n\nVariables: Temp_C_mean, Chla_ugL_mean",
     "start_datetime": "2023-09-21",
-    "end_datetime": "2023-11-16",
+    "end_datetime": "2023-11-18",
     "providers": [
       {
         "url": "pending",
@@ -70,11 +70,7 @@
       {
         "name": "pub_datetime",
         "type": "string",
-<<<<<<< HEAD:stac/scores/models/model_items/climatology.json
-        "description": "datetime of the published forecast"
-=======
         "description": "datetime that forecast was submitted"
->>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/models/model_items/climatology.json
       },
       {
         "name": "depth_m",

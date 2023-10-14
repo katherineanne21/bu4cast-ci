@@ -1,0 +1,37 @@
+{
+  "creator": {
+    "individual_name": ["Pending"],
+    "electronicMailAddress": ["Pending"],
+    "organizationName": ["Pending"]
+  },
+  "model_id": ["climatology"],
+  "model_description": {
+    "intellectualRights": ["https://creativecommons.org/licenses/by/4.0/"],
+    "name": ["DOY climatology"],
+    "type": ["empirical (a statistical model)"],
+    "repository": ["https://github.com/LTREB-reservoirs/vera4cast/blob/main/models/run_terrestrial_baselines.R"]
+  },
+  "uncertainty": {
+    "initial_conditions": {
+      "present": [false]
+    },
+    "parameters": {
+      "present": [false]
+    },
+    "drivers": {
+      "present": [false]
+    },
+    "process": {
+      "present": ["Unknown"]
+    },
+    "obs_error": {
+      "present": [false]
+    },
+    "structural_error": {
+      "present": [false]
+    },
+    "random_effects": {
+      "present": [false]
+    }
+  }
+}

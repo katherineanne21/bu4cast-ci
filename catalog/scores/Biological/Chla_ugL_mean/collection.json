@@ -13,7 +13,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/TESTclimatology.json"
+      "href": "../../models/model_items/fableARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fableETS.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fableNNETAR.json"
     },
     {
       "rel": "item",
@@ -24,11 +34,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fableETS.json"
     },
     {
       "rel": "item",
@@ -77,8 +82,8 @@
     "temporal": {
       "interval": [
         [
-          "2023-09-21T00:00:00Z",
-          "2023-11-16T00:00:00Z"
+          "2023-10-01T00:00:00Z",
+          "2023-11-18T00:00:00Z"
         ]
       ]
     }
@@ -107,11 +112,7 @@
     {
       "name": "pub_datetime",
       "type": "string",
-<<<<<<< HEAD:stac/scores/Biological/Chla_ugL_mean/collection.json
-      "description": "datetime of the published forecast"
-=======
       "description": "datetime that forecast was submitted"
->>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/Biological/Chla_ugL_mean/collection.json
     },
     {
       "name": "depth_m",

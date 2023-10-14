@@ -21,7 +21,7 @@
   "properties": {
     "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: bvre, fcre\n\nVariables: Temp_C_mean, Chla_ugL_mean",
     "start_datetime": "2023-09-21",
-    "end_datetime": "2023-11-16",
+    "end_datetime": "2023-11-18",
     "providers": [
       {
         "url": "pending",
@@ -48,14 +48,14 @@
     ],
     "table:columns": [
       {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique identifier for the forecast project"
+      },
+      {
         "name": "site_id",
         "type": "string",
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
-      },
-      {
-        "name": "datetime",
-        "type": "date32[day]",
-        "description": "datetime of the forecasted value (ISO 8601)"
       },
       {
         "name": "reference_datetime",
@@ -63,19 +63,19 @@
         "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-      },
-      {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique identifier for the forecast project"
+        "name": "datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime of the forecasted value (ISO 8601)"
       },
       {
         "name": "depth_m",
-        "type": "double",
+        "type": "bool",
         "description": "depth (meters) in water column of prediction"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
       },
       {
         "name": "parameter",

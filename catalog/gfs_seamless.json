@@ -1,0 +1,44 @@
+{
+  "creator": {
+    "individual_name": ["Pending"],
+    "electronicMailAddress": ["Pending"],
+    "organizationName": ["Pending"]
+  },
+  "model_id": ["gfs_seamless"],
+  "model_description": {
+    "intellectualRights": ["https://creativecommons.org/licenses/by/4.0/"],
+    "name": ["GFS Seamless ensemble forecast from openmeteo"],
+    "type": ["Process based"],
+    "repository": ["https://github.com/addelany/vera4cast/blob/main/drivers/gfs_seamless.R"]
+  },
+  "uncertainty": {
+    "initial_conditions": {
+      "present": [true],
+      "data_driven": [true],
+      "progagates": {
+        "type": ["ensemble"]
+      },
+      "assimilation": {
+        "type": ["Kalman filter (ensemble, etc.)"]
+      }
+    },
+    "parameters": {
+      "present": [false]
+    },
+    "drivers": {
+      "present": ["Unknown"]
+    },
+    "process_error": {
+      "present": [false]
+    },
+    "obs_error": {
+      "present": [false]
+    },
+    "structural_error": {
+      "present": [false]
+    },
+    "random_effects": {
+      "present": [false]
+    }
+  }
+}

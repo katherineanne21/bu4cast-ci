@@ -19,9 +19,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: bvre, fcre\n\nVariables: Chla_ugL_mean, Temp_C_mean",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: bvre, fcre\n\nVariables: Temp_C_mean, Chla_ugL_mean",
     "start_datetime": "2023-09-21",
-    "end_datetime": "2023-11-16",
+    "end_datetime": "2023-11-18",
     "providers": [
       {
         "url": "pending",
@@ -44,18 +44,18 @@
     "keywords": [
       "Forecasting",
       "VERA",
-      "Chla_ugL_mean, Temp_C_mean"
+      "Temp_C_mean, Chla_ugL_mean"
     ],
     "table:columns": [
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique identifier for the forecast project"
+      },
       {
         "name": "site_id",
         "type": "string",
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
-      },
-      {
-        "name": "datetime",
-        "type": "date32[day]",
-        "description": "datetime of the forecasted value (ISO 8601)"
       },
       {
         "name": "reference_datetime",
@@ -63,19 +63,19 @@
         "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-      },
-      {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique identifier for the forecast project"
+        "name": "datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime of the forecasted value (ISO 8601)"
       },
       {
         "name": "depth_m",
-        "type": "double",
+        "type": "bool",
         "description": "depth (meters) in water column of prediction"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
       },
       {
         "name": "parameter",
@@ -150,15 +150,15 @@
     },
     "2": {
       "type": "application/x-parquet",
-      "title": "Database Access for Chla_ugL_mean",
-      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "3": {
-      "type": "application/x-parquet",
       "title": "Database Access for Temp_C_mean",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Temp_C_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Temp_C_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Chla_ugL_mean",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

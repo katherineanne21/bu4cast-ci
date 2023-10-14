@@ -10,7 +10,7 @@ ENV GITHUB_PAT=$GITHUB_PAT
 
 # COPY --chown=${NB_USER} . ${HOME}
 
-RUN install2.r arrow bslib bsicons ggiraph patchwork pak jsonlite reticulate duckdbfs furrr future googlesheets4 here imputeTS tsibble fable
+RUN install2.r arrow bslib bsicons ggiraph patchwork pak jsonlite reticulate duckdbfs furrr future googlesheets4 here imputeTS tsibble fable RcppRoll
 RUN R -e "devtools::install_github('eco4cast/score4cast')"
 RUN R -e "devtools::install_github('cboettig/minioclient')"
 RUN R -e "devtools::install_github('LTREB-reservoirs/ver4castHelpers')"

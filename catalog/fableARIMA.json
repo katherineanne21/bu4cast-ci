@@ -1,0 +1,51 @@
+{
+  "creator": {
+    "individual_name": ["Pending"],
+    "electronicMailAddress": ["Pending"],
+    "organizationName": ["Pending"]
+  },
+  "model_id": ["fableARIMA"],
+  "model_description": {
+    "intellectualRights": ["https://creativecommons.org/licenses/by/4.0/"],
+    "name": ["fableARIMA"],
+    "type": ["Empirical (a statistical model)"],
+    "repository": ["https://github.com/melofton/vera4casts/blob/main/code/function_library/predict/fableARIMA.R"]
+  },
+  "uncertainty": {
+    "initial_conditions": {
+      "present": [true],
+      "data_driven": [false],
+      "assimilation": {
+        "type": ["Model refitting"]
+      }
+    },
+    "parameters": {
+      "present": [false]
+    },
+    "parameter": {
+      "present": [false],
+      "assimilation": {
+        "type": ["Model refitting"]
+      }
+    },
+    "drivers": {
+      "present": [false]
+    },
+    "process_error": {
+      "present": [true],
+      "data_driven": [true],
+      "progagates": {
+        "type": ["ensemble"]
+      }
+    },
+    "obs_error": {
+      "present": [false]
+    },
+    "structural_error": {
+      "present": [false]
+    },
+    "random_effects": {
+      "present": [false]
+    }
+  }
+}

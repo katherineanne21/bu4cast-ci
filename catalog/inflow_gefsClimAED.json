@@ -1,0 +1,41 @@
+{
+  "creator": {
+    "individual_name": ["Pending"],
+    "electronicMailAddress": ["Pending"],
+    "organizationName": ["Pending"]
+  },
+  "model_id": ["inflow_gefsClimAED"],
+  "model_description": {
+    "intellectualRights": ["https://creativecommons.org/licenses/by/4.0/"],
+    "name": ["Inflow forecast using NOAA GEFS and nutrient climatology"],
+    "type": ["Empirical (a statistical model)"],
+    "repository": ["https://github.com/LTREB-reservoirs/vera4cast_models/blob/main/inflow_aed.R"]
+  },
+  "uncertainty": {
+    "initial_conditions": {
+      "present": [false]
+    },
+    "parameters": {
+      "present": [false]
+    },
+    "drivers": {
+      "present": [true],
+      "data_driven": [true],
+      "progagates": {
+        "type": ["ensemble"]
+      }
+    },
+    "process_error": {
+      "present": [false]
+    },
+    "obs_error": {
+      "present": [false]
+    },
+    "structural_error": {
+      "present": [false]
+    },
+    "random_effects": {
+      "present": [false]
+    }
+  }
+}

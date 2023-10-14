@@ -66,6 +66,21 @@
       "href": "model_items/fableNNETAR.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/gem_global.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/icon_seamless.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/ecmwf_ifs04.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

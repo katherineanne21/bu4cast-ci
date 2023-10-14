@@ -11,6 +11,7 @@ df <- arrow::open_dataset(s3) |> filter(site_id == "fcre") |> collect()
 
 max_reference_date <- max(df$reference_date)
 
+library(tidyverse)
 filename <- paste0("drivers/gfs_seamless-",max_reference_date,".csv.gz")
 df |> filter(reference_date == max_reference_date) |>
   mutate(date = lubridate::as_date(datetime)) |>

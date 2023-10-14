@@ -2,7 +2,7 @@
 title: "Forecasting Challenge"
 ---
 
-Welcome the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech. ([EFP](https://www.ecoforecastprojectvt.org/))
+Welcome to the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech ([EFP](https://www.ecoforecastprojectvt.org/)).
 
 We invite you to submit forecasts!
 
@@ -26,7 +26,7 @@ s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket, "/catalog"), en
 n_forecasts <- arrow::open_dataset(s3_inventory) |> distinct(model_id, reference_date) |> collect() |> nrow()
 n_models <- arrow::open_dataset(s3_inventory) |> distinct(model_id) |> collect() |> nrow()
 
-s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint)
+s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
 
 most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                     schema = arrow::schema(
@@ -39,10 +39,11 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                       observation = arrow::float()),
                                     skip = 1,
                                     partitioning = "duration") |>
-    summarize(max = max(datetime)) |> 
-    mutate(max = lubridate::as_date(max)) |> 
-    dplyr::collect() |> 
-    pull(max)
+    summarize(max = max(datetime),
+              min = min(datetime)) |> 
+    mutate(max = lubridate::as_date(max),
+           min = lubridate::as_date(min)) |> 
+    dplyr::collect()
 
 unique_targets <- arrow::open_csv_dataset(s3_targets,
                                     schema = arrow::schema(
@@ -74,7 +75,12 @@ layout_column_wrap(
   ),
   value_box(
     title = "Most recent data for model training", 
-    value = most_recent_targets,
+    value = most_recent_targets$max,
+    showcase = bs_icon("bullseye")
+  ),
+    value_box(
+    title = "Number of years of data for model training", 
+    value = round(as.numeric(most_recent_targets$max - most_recent_targets$min) /365, 2),
     showcase = bs_icon("bullseye")
   ),
     value_box(

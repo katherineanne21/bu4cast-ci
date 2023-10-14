@@ -1,4 +1,5 @@
 source("drivers/download_seasonal_forecast.R")
+library(tidyverse)
 
 download_seasonal_forecast()
 
@@ -9,7 +10,7 @@ s3 <- arrow::s3_bucket("bio230121-bucket01/flare/drivers/met/seasonal_forecast/m
 
 df <- arrow::open_dataset(s3) |> filter(site_id == "fcre") |> collect()
 
-library(tidyverse)
+
 
 max_reference_date <- max(df$reference_date)
 

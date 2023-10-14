@@ -26,4 +26,4 @@ jobs:
       - name: Download
         shell: Rscript {0}
         run: |
-          source("drivers/gfs_seamless.R")
+          source("drivers/ensemble_forecasts.R")

@@ -2,7 +2,7 @@ source("drivers/download_ensemble_forecast.R")
 source("drivers/submit_met_forecast.R")
 
 model_id <- "gfs_seamless"
-download_ensemble_forecast(model_id = model_id)
+download_ensemble_forecast(model = model_id)
 submit_met_forecast(model_id)
 
 model_id <- "icon_seamless"

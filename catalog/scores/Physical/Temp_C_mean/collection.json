@@ -23,6 +23,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/climatology2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/TESTclimatology.json"
     },
     {
@@ -33,7 +38,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/climatology2.json"
+      "href": "../../models/model_items/inflow_gefsClimAED.json"
     },
     {
       "rel": "parent",
@@ -78,7 +83,7 @@
       "interval": [
         [
           "2023-09-21T00:00:00Z",
-          "2023-11-16T00:00:00Z"
+          "2023-11-20T00:00:00Z"
         ]
       ]
     }
@@ -107,11 +112,7 @@
     {
       "name": "pub_datetime",
       "type": "string",
-<<<<<<< HEAD:stac/scores/Physical/Temp_C_mean/collection.json
-      "description": "datetime of the published forecast"
-=======
       "description": "datetime that forecast was submitted"
->>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/Physical/Temp_C_mean/collection.json
     },
     {
       "name": "depth_m",

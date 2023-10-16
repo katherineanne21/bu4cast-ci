@@ -13,12 +13,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/TESTclimatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
+      "href": "model_items/gfs_seamless.json"
     },
     {
       "rel": "item",
@@ -28,7 +23,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fableETS.json"
+      "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/cfs.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/climatology2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/TESTclimatology.json"
     },
     {
       "rel": "item",
@@ -38,7 +48,37 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/climatology2.json"
+      "href": "model_items/inflow_gefsClimAED.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fableARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fableETS.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fableNNETAR.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/gem_global.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/icon_seamless.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/ecmwf_ifs04.json"
     },
     {
       "rel": "parent",
@@ -83,21 +123,21 @@
       "interval": [
         [
           "2023-09-21T00:00:00Z",
-          "2023-11-16T00:00:00Z"
+          "2024-02-01T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
     {
+      "name": "project_id",
+      "type": "string",
+      "description": "unique identifier for the forecast project"
+    },
+    {
       "name": "site_id",
       "type": "string",
       "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
-    },
-    {
-      "name": "datetime",
-      "type": "date32[day]",
-      "description": "datetime of the forecasted value (ISO 8601)"
     },
     {
       "name": "reference_datetime",
@@ -105,19 +145,19 @@
       "description": "datetime that the forecast was initiated (horizon = 0)"
     },
     {
-      "name": "family",
-      "type": "string",
-      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-    },
-    {
-      "name": "project_id",
-      "type": "string",
-      "description": "unique identifier for the forecast project"
+      "name": "datetime",
+      "type": "timestamp[us, tz=UTC]",
+      "description": "datetime of the forecasted value (ISO 8601)"
     },
     {
       "name": "depth_m",
-      "type": "double",
+      "type": "bool",
       "description": "depth (meters) in water column of prediction"
+    },
+    {
+      "name": "family",
+      "type": "string",
+      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
     },
     {
       "name": "parameter",

@@ -19,9 +19,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: bvre, fcre\n\nVariables: Chla_ugL_mean, Temp_C_mean",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: bvre, fcre\n\nVariables: Temp_C_mean, Chla_ugL_mean",
     "start_datetime": "2023-09-21",
-    "end_datetime": "2023-11-16",
+    "end_datetime": "2023-11-20",
     "providers": [
       {
         "url": "pending",
@@ -44,7 +44,7 @@
     "keywords": [
       "Forecasting",
       "VERA",
-      "Chla_ugL_mean, Temp_C_mean"
+      "Temp_C_mean, Chla_ugL_mean"
     ],
     "table:columns": [
       {
@@ -70,11 +70,7 @@
       {
         "name": "pub_datetime",
         "type": "string",
-<<<<<<< HEAD:stac/scores/models/model_items/persistenceRW.json
-        "description": "datetime of the published forecast"
-=======
         "description": "datetime that forecast was submitted"
->>>>>>> 675a7e28580773c3db7085064c9f3ea548f7e4f6:catalog/scores/models/model_items/persistenceRW.json
       },
       {
         "name": "depth_m",
@@ -189,15 +185,15 @@
     },
     "2": {
       "type": "application/x-parquet",
-      "title": "Database Access for Chla_ugL_mean",
-      "href": "s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "3": {
-      "type": "application/x-parquet",
       "title": "Database Access for Temp_C_mean",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Temp_C_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Temp_C_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Chla_ugL_mean",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=persistenceRW?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

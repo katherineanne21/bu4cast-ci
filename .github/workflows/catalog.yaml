@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
     #container: rocker/geospatial:latest
     container: rocker/ml-verse
     steps:
@@ -24,6 +26,8 @@ jobs:
         shell: Rscript {0}
         run: |
           remotes::install_deps(".", dep=TRUE)
+          install.packages("bench")
+          install.packages("aws.s3")
           #reticulate::install_python(version = '3.11.5')
 
       - name: install validator

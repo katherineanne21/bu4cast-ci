@@ -14,16 +14,11 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: rqthomas/vera-rocker:latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("FLARE-forecast/RopenMeteo")
 
       - name: Download
         shell: Rscript {0}
         run: |
-          source("drivers/gfs_seamless.R")
+          source("drivers/ensemble_forecasts.R")

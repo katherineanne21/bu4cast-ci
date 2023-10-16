@@ -24,6 +24,9 @@ exo_daily$duration <- 'P1D'
 exo_daily$project_id <- 'vera4cast'
 
 
+### NOTE : RDO DO DATA IS INCLUDED IN THE EXO TARGET GENERATION SCRIPT
+
+
 ## FLUOROPROBE
 source('targets/target_functions/target_generation_FluoroProbe.R')
 historic_data <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.272.7&entityid=001cb516ad3e8cbabe1fdcf6826a0a45"

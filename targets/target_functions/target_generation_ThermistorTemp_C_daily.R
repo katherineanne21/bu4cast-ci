@@ -2,7 +2,7 @@ latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwa
 edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
 
 target_generation_ThermistorTemp_C_daily <- function(current_file, historic_file){
-  source('R/find_depths.R')
+  source('targets/target_functions/find_depths.R')
   ## read in current data file
   # Github, Googlesheet, etc.
   current_df <- readr::read_csv(current_file, show_col_types = F) |>
@@ -140,7 +140,7 @@ target_generation_ThermistorTemp_C_daily <- function(current_file, historic_file
 
   ## bind the two files using row.bind()
   final_df <- dplyr::bind_rows(historic_df_1, current_df_1) |>
-    dplyr::mutate(variable = 'ThermistorTemp_C',
+    dplyr::mutate(variable = 'Temp_C_mean',
                   depth = as.numeric(ifelse(depth == "surface", 0.1, depth)))
   ## Match data to flare targets file
   # Use pivot_longer to create a long-format table

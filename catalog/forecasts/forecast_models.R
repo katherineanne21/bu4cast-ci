@@ -92,7 +92,7 @@ build_group_variables(table_schema = forecast_theme_df,
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
 
-registered_model_id <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing")
+registered_model_id <- googlesheets4::read_sheet(catalog_config$model_metadata_url)
 
 
 forecast_sites <- c()
@@ -136,8 +136,8 @@ for (m in theme_models$model_id){
 for (i in 1:length(variable_groups)){
   print(variable_groups[i])
 
-  if (!dir.exists(paste0("catalog/forecasts/",variable_groups[i]))){
-    dir.create(paste0("catalog/forecasts/",variable_groups[i]))
+  if (!dir.exists(paste0(catalog_config$scores_path,variable_groups[i]))){
+    dir.create(paste0(catalog_config$scores_path,variable_groups[i]))
   }
 
   group_description <- paste0('This page includes variables for the ',variable_groups[i],' group.')
@@ -152,7 +152,6 @@ for (i in 1:length(variable_groups)){
                         about_string = catalog_config$about_string,
                         about_title = catalog_config$about_title,
                         theme_title = variable_groups[i],
-                        model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                         destination_path = paste0(catalog_config$forecast_path,variable_groups[i]),
                         aws_download_path = catalog_config$aws_download_path,
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
@@ -185,7 +184,6 @@ for (i in 1:length(variable_groups)){
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
                           theme_title = v,
-                          model_documentation = NULL,
                           destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))

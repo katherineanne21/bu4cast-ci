@@ -68,7 +68,6 @@ build_forecast_scores(table_schema = scores_theme_df,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
                       theme_title = "Scores",
-                      model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                       destination_path = catalog_config$scores_path,
                       aws_download_path = catalog_config$aws_download_path,
                       link_items = generate_group_values(group_values = variable_groups),
@@ -90,7 +89,6 @@ build_group_variables(table_schema = scores_theme_df,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
                       theme_title = "Models",
-                      model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                       destination_path = paste0(catalog_config$scores_path,"models"),
                       aws_download_path = catalog_config$aws_download_path,
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
@@ -100,7 +98,7 @@ build_group_variables(table_schema = scores_theme_df,
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
 
-registered_model_id <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing")
+registered_model_id <- googlesheets4::read_sheet(catalog_config$model_metadata_url)
 
 
 scores_sites <- c()
@@ -161,7 +159,6 @@ for (i in 1:length(variable_groups)){
                         about_string = catalog_config$about_string,
                         about_title = catalog_config$about_title,
                         theme_title = variable_groups[i],
-                        model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                         destination_path = paste0(catalog_config$scores_path,variable_groups[i]),
                         aws_download_path = catalog_config$aws_download_path,
                         group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
@@ -169,8 +166,8 @@ for (i in 1:length(variable_groups)){
   for (v in variable_list[[i]]){ # Make variable JSONS within each group
     print(v)
 
-    if (!dir.exists(paste0("catalog/scores/",variable_groups[i],'/',v))){
-      dir.create(paste0("catalog/scores/",variable_groups[i],'/',v))
+    if (!dir.exists(paste0(catalog_config$scores_path,variable_groups[i],'/',v))){
+      dir.create(paste0(catalog_config$scores_path,variable_groups[i],'/',v))
     }
 
     var_data <- scores_data_df |>
@@ -194,7 +191,6 @@ for (i in 1:length(variable_groups)){
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
                           theme_title = v,
-                          model_documentation = NULL, #"https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv",
                           destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))

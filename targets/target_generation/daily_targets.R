@@ -41,7 +41,8 @@ latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwa
 edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
 
 thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_file = latest, historic_file = edi)
-
+thermistor_temp_daily$duration <- 'P1D'
+thermistor_temp_daily$project_id <- 'vera4cast'
 
 ## combine the data and perform final adjustments (depth, etc.)
 #combined_targets <- bind_rows(exo_daily, fluoro_daily)

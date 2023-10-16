@@ -27,6 +27,8 @@ target_generation_exo_daily <- function (fcr_files,
                   DateTime = lubridate::with_tz(DateTime, tzone = "UTC"),
                   Date = as.Date(DateTime))
 
+  names(fcr_df |> select(starts_with('RDO_mgL' | 'EXODO') & ends_with('adjusted')))
+
   # Load BVR data
   bvr_df <- readr::read_csv(bvr_files) |>
     dplyr::mutate(site_id = "bvre",
@@ -42,8 +44,8 @@ target_generation_exo_daily <- function (fcr_files,
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1, na.rm = T),
-                     DOsat_percent_mean = mean(EXODOsat_percent_1, na.rm = T),
-                     DO_mgL_mean = mean(EXODO_mgL_1, na.rm = T),
+                     #DOsat_percent_mean = mean(EXODOsat_percent_1, na.rm = T),
+                     #DO_mgL_mean = mean(EXODO_mgL_1, na.rm = T),
                      Chla_ugL_mean = mean(EXOChla_ugL_1, na.rm = T),
                      fDOM_QSU_mean = mean(EXOfDOM_QSU_1, na.rm = T),
                      Turbidity_FNU_mean = mean(EXOTurbidity_FNU_1, na.rm = T),
@@ -57,8 +59,8 @@ target_generation_exo_daily <- function (fcr_files,
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1.5, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1.5, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1.5, na.rm = T),
-                     DOsat_percent_mean = mean(EXODOsat_percent_1.5, na.rm = T),
-                     DO_mgL_mean = mean(EXODO_mgL_1.5, na.rm = T),
+                     #DOsat_percent_mean = mean(EXODOsat_percent_1.5, na.rm = T), # These are removed by Austin.
+                     #DO_mgL_mean = mean(EXODO_mgL_1.5, na.rm = T),               # We buid full DO df below to include all depths
                      Chla_ugL_mean = mean(EXOChla_ugL_1.5, na.rm = T),
                      fDOM_QSU_mean = mean(EXOfDOM_QSU_1.5, na.rm = T),
                      Turbidity_FNU_mean = mean(EXOTurbidity_FNU_1.5, na.rm = T),
@@ -66,9 +68,46 @@ target_generation_exo_daily <- function (fcr_files,
                      #EXODepth_m = mean(EXODepth_m, na.rm = T)
     )
 
+
+  ## build DO for each site separately and then combine
+  fcr_DO <- fcr_df |>
+    select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
+    pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
+    mutate(Date = as.Date(DateTime)) |>
+    mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
+    mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
+    mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
+    mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>
+    mutate(variable = ifelse(grepl('EXODOsat', variable), 'DOsat_percent_mean', variable)) |>
+    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('Date', 'variable', 'depth_m')) |>
+    mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
+    select(datetime, depth_m, observation = obs_avg, variable)
+
+  fcr_DO$site_id <- 'fcr'
+
+
+  bvr_DO <- bvr_df |>
+    select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
+    pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
+    mutate(Date = as.Date(DateTime)) |>
+    mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
+    mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
+    mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
+    mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>
+    mutate(variable = ifelse(grepl('EXODOsat', variable), 'DOsat_percent_mean', variable)) |>
+    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('Date', 'variable', 'depth_m')) |>
+    mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
+    select(datetime, depth_m, observation = obs_avg, variable, observation = obs_avg)
+
+  bvr_DO$site_id <- 'bvr'
+
+
+  combined_DO <- bind_rows(fcr_DO, bvr_DO) |>
+    mutate(observation = ifelse(is.nan(observation), NA, observation))
+
   #depth is 1.5 at BVR and 1.6 and FCR
 
-  #Combine and format
+  #Combine all and format
   comb_sum <- fcr_sum |>
     dplyr::bind_rows(bvr_sum) |>
     dplyr::rename(datetime = Date) |>
@@ -78,7 +117,8 @@ target_generation_exo_daily <- function (fcr_files,
                   depth_m = ifelse(site_id == "bvre", 1.5, depth_m)) |>
     #dplyr::rename(depth_m = EXODepth_m) |>
     dplyr::select(datetime, site_id, depth_m, observation, variable) |>
-    dplyr::mutate(observation = ifelse(!is.finite(observation),NA,observation))
+    dplyr::mutate(observation = ifelse(!is.finite(observation),NA,observation)) |>
+    bind_rows(combined_DO) # append DO data
 
   return(comb_sum)
 }

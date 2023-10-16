@@ -27,8 +27,6 @@ target_generation_exo_daily <- function (fcr_files,
                   DateTime = lubridate::with_tz(DateTime, tzone = "UTC"),
                   Date = as.Date(DateTime))
 
-  names(fcr_df |> select(starts_with('RDO_mgL' | 'EXODO') & ends_with('adjusted')))
-
   # Load BVR data
   bvr_df <- readr::read_csv(bvr_files) |>
     dplyr::mutate(site_id = "bvre",

@@ -35,7 +35,19 @@ fluoro_daily$duration <- 'P1D'
 fluoro_daily$project_id <- 'vera4cast'
 
 
-combined_targets <- bind_rows(exo_daily, fluoro_daily) |>
+### TEMP STRING
+source('targets/target_functions/target_generation_ThermistorTemp_C_daily.R')
+latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
+edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
+
+thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_file = latest, historic_file = edi)
+
+
+## combine the data and perform final adjustments (depth, etc.)
+#combined_targets <- bind_rows(exo_daily, fluoro_daily)
+
+
+combined_targets <- bind_rows(exo_daily, fluoro_daily, thermistor_temp_daily) |>
   select(all_of(column_names))
 arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 

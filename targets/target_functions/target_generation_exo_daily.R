@@ -39,8 +39,8 @@ target_generation_exo_daily <- function (fcr_files,
   # FCR
   fcr_sum <- fcr_df |>
     dplyr::group_by(Date, site_id) |>
-    dplyr::summarise(Temp_C_mean = mean(EXOTemp_C_1, na.rm = T),
-                     Cond_uScm_mean = mean(EXOCond_uScm_1, na.rm = T),
+    dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1, na.rm = T),
+                     Temp_C_mean = mean(EXOTemp_C_1, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1, na.rm = T),
                      DOsat_percent_mean = mean(EXODOsat_percent_1, na.rm = T),
                      DO_mgL_mean = mean(EXODO_mgL_1, na.rm = T),
@@ -54,8 +54,8 @@ target_generation_exo_daily <- function (fcr_files,
   # BVR
   bvr_sum <- bvr_df |>
     dplyr::group_by(Date, site_id) |> #daily mean
-    dplyr::summarise(Temp_C_mean = mean(EXOTemp_C_1.5, na.rm = T),
-                     Cond_uScm_mean = mean(EXOCond_uScm_1.5, na.rm = T),
+    dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1.5, na.rm = T),
+                     Temp_C_mean = mean(EXOTemp_C_1.5, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1.5, na.rm = T),
                      DOsat_percent_mean = mean(EXODOsat_percent_1.5, na.rm = T),
                      DO_mgL_mean = mean(EXODO_mgL_1.5, na.rm = T),

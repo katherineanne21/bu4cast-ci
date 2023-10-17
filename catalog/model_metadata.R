@@ -90,7 +90,7 @@ for(i in 1:nrow(registered_models)){
     metadata$uncertainty$drivers$present <- TRUE
     metadata$uncertainty$drivers$data_driven <- TRUE
     metadata$uncertainty$drivers$progagates$type <- progagates_method
-  }else if(registered_models$`Do your forecasts include uncertainty from initial conditions?`[i] == "No"){
+  }else if(registered_models$`Does your forecast include uncertainty from drivers (i.e., ensemble weather forecasts)?`[i] == "No"){
     if(registered_models$`Does the forecast use drivers?`[i] == "Yes"){
       metadata$uncertainty$drivers$present <- TRUE
       metadata$uncertainty$drivers$data_driven <- TRUE

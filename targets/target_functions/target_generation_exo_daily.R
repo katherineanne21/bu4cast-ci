@@ -81,7 +81,7 @@ target_generation_exo_daily <- function (fcr_files,
     mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
     select(datetime, depth_m, observation = obs_avg, variable)
 
-  fcr_DO$site_id <- 'fcr'
+  fcr_DO$site_id <- 'fcre'
 
 
   bvr_DO <- bvr_df |>
@@ -97,7 +97,7 @@ target_generation_exo_daily <- function (fcr_files,
     mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
     select(datetime, depth_m, observation = obs_avg, variable, observation = obs_avg)
 
-  bvr_DO$site_id <- 'bvr'
+  bvr_DO$site_id <- 'bvre'
 
 
   combined_DO <- bind_rows(fcr_DO, bvr_DO) |>

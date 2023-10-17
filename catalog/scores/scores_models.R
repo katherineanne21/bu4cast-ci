@@ -127,7 +127,7 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
-              destination_path = path0(catalog_config$scores_path,"models/model_items"),
+              destination_path = paste0(catalog_config$scores_path,"models/model_items"),
               description_path = NULL, #"catalog/daily/scores/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,

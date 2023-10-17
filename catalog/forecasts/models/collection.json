@@ -81,6 +81,11 @@
       "href": "model_items/ecmwf_ifs04.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/glm_aed_v1.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

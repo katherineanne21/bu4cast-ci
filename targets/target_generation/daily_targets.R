@@ -40,18 +40,28 @@ fluoro_daily$project_id <- 'vera4cast'
 
 ### TEMP STRING
 source('targets/target_functions/target_generation_ThermistorTemp_C_daily.R')
-latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
-edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
 
-thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_file = latest, historic_file = edi)
-thermistor_temp_daily$duration <- 'P1D'
-thermistor_temp_daily$project_id <- 'vera4cast'
+# FCR
+fcr_latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
+fcr_edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
+
+fcr_thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_file = fcr_latest, historic_file = fcr_edi)
+fcr_thermistor_temp_daily$duration <- 'P1D'
+fcr_thermistor_temp_daily$project_id <- 'vera4cast'
+
+# BVR
+bvr_latest <- "https://raw.githubusercontent.com/FLARE-forecast/BVRE-data/bvre-platform-data-qaqc/bvre-waterquality_L1.csv"
+bvr_edi <- "https://pasta.lternet.edu/package/data/eml/edi/725/3/a9a7ff6fe8dc20f7a8f89447d4dc2038"
+
+bvr_thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_file = bvr_latest, historic_file = bvr_edi)
+bvr_thermistor_temp_daily$duration <- 'P1D'
+bvr_thermistor_temp_daily$project_id <- 'vera4cast'
 
 ## combine the data and perform final adjustments (depth, etc.)
 #combined_targets <- bind_rows(exo_daily, fluoro_daily)
 
 
-combined_targets <- bind_rows(exo_daily, fluoro_daily, thermistor_temp_daily) |>
+combined_targets <- bind_rows(exo_daily, fluoro_daily, fcr_thermistor_temp_daily, bvr_thermistor_temp_daily) |>
   select(all_of(column_names))
 arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 

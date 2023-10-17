@@ -1,5 +1,10 @@
-latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
-edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
+# # fcr
+# latest <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
+# edi <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
+#
+# # bvr
+# latest <- "https://raw.githubusercontent.com/FLARE-forecast/BVRE-data/bvre-platform-data-qaqc/bvre-waterquality_L1.csv"
+# edi <-  "https://pasta.lternet.edu/package/data/eml/edi/725/3/a9a7ff6fe8dc20f7a8f89447d4dc2038"
 
 target_generation_ThermistorTemp_C_daily <- function(current_file, historic_file){
   source('targets/target_functions/find_depths.R')
@@ -143,6 +148,10 @@ target_generation_ThermistorTemp_C_daily <- function(current_file, historic_file
     dplyr::mutate(variable = 'Temp_C_mean',
                   depth = as.numeric(ifelse(depth == "surface", 0.1, depth))) |>
     rename(depth_m = depth)
+
+  final_df <- final_df |>
+    mutate(observation = ifelse(is.nan(observation), NA, observation)) |>
+    drop_na(depth_m)
   ## Match data to flare targets file
   # Use pivot_longer to create a long-format table
   # for time specific - use midnight UTC values for daily

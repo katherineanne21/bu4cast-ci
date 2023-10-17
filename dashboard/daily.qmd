@@ -45,6 +45,7 @@ Forecasts submitted on `r reference_date`
 ```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+        lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Chla_ugL_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
   forecast_plots()
@@ -56,6 +57,7 @@ df |>
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          variable == c("Temp_C_mean"),
+         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
   forecast_plots()
 ```
@@ -65,6 +67,7 @@ df |>
 ```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("AirTemp_C_mean")) |> 
   forecast_plots()
 ```
@@ -74,6 +77,7 @@ df |>
 ```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Flow_cms_mean")) |> 
   forecast_plots()
 ```

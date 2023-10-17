@@ -18,7 +18,7 @@ We provide an overview of the steps for submitting with the details below:
 
 ## Generating a forecast
 
-### Any approach but be sure in include uncertainty
+### Any approach but be sure to include uncertainty
 
 You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  We require that predictions include uncertainty that is either represented using a distribution or numerically using an ensemble (or sample) of predictions. 
 

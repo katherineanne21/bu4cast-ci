@@ -35,9 +35,22 @@ target_generation_exo_daily <- function (fcr_files,
                   Date = as.Date(DateTime))
 
 
+  ## only use complete days (remove only partially sampled days) # 144 sample events per day (6*24)
+  fcr_complete_days <- fcr_df |>
+    group_by(Date) |>
+    summarize(n_samples = n_distinct(DateTime)) |>
+    filter(n_samples == 144)
+
+  bvr_complete_days <- bvr_df |>
+    group_by(Date) |>
+    summarize(n_samples = n_distinct(DateTime))|>
+    filter(n_samples == 144)
+
+
   # Format data to combine
   # FCR
   fcr_sum <- fcr_df |>
+    filter(Date %in% fcr_complete_days$Date) # filter for complete days
     dplyr::group_by(Date, site_id) |>
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1, na.rm = T),
@@ -53,6 +66,7 @@ target_generation_exo_daily <- function (fcr_files,
 
   # BVR
   bvr_sum <- bvr_df |>
+    filter(Date %in% fcr_complete_days$Date) # filter for complete days
     dplyr::group_by(Date, site_id) |> #daily mean
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1.5, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1.5, na.rm = T),
@@ -69,6 +83,7 @@ target_generation_exo_daily <- function (fcr_files,
 
   ## build DO for each site separately and then combine
   fcr_DO <- fcr_df |>
+    filter(Date %in% fcr_complete_days$Date) # filter for complete days
     select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
     mutate(Date = as.Date(DateTime)) |>
@@ -85,6 +100,7 @@ target_generation_exo_daily <- function (fcr_files,
 
 
   bvr_DO <- bvr_df |>
+    filter(Date %in% fcr_complete_days$Date) # filter for complete days
     select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
     mutate(Date = as.Date(DateTime)) |>

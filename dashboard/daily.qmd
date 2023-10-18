@@ -70,6 +70,7 @@ ggplot(aes(x = datetime, y = mean, color = model_id)) +
                               tooltip = model_id, data_id = model_id),
                         show.legend=FALSE) +
   facet_wrap(~site_id) +
+  ylim(0,1) +
   labs(y = "Predicted probability") +
   theme_bw()
 

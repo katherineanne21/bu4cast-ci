@@ -25,36 +25,36 @@ target_generation_exo_daily <- function (fcr_files,
     dplyr::mutate(site_id = "fcre",
                   DateTime = lubridate::force_tz(DateTime, tzone = "EST"),
                   DateTime = lubridate::with_tz(DateTime, tzone = "UTC"),
-                  Date = as.Date(DateTime))
+                  sampledate = as.Date(DateTime))
 
   # Load BVR data
   bvr_df <- readr::read_csv(bvr_files, show_col_types = FALSE) |>
     dplyr::mutate(site_id = "bvre",
                   DateTime = lubridate::force_tz(DateTime, tzone = "EST"),
                   DateTime = lubridate::with_tz(DateTime, tzone = "UTC"),
-                  Date = as.Date(DateTime))
+                  sampledate = as.Date(DateTime))
 
 
   ## only use complete days (remove only partially sampled days) # 144 sample events per day (6*24)
   fcr_remove_days <- fcr_df |>
-    group_by(Date) |>
+    group_by(sampledate) |>
     summarize(n_samples = n_distinct(DateTime)) |>
     filter(n_samples < 144) |>
-    filter(Date == Sys.Date() | n_samples < 144/2)
+    filter(sampledate == Sys.Date() | n_samples < 144/2)
 
 
   bvr_remove_days <- bvr_df |>
-    group_by(Date) |>
+    group_by(sampledate) |>
     summarize(n_samples = n_distinct(DateTime)) |>
     filter(n_samples < 144) |>
-    filter(Date == Sys.Date() | n_samples < 144/2)
+    filter(sampledate == Sys.Date() | n_samples < 144/2)
 
 
   # Format data to combine
   # FCR
   fcr_sum <- fcr_df |>
-    filter(!Date %in% fcr_remove_days$Date) |>  # filter for complete days
-    dplyr::group_by(Date, site_id) |>
+    filter(!sampledate %in% fcr_remove_days$sampledate) |>  # filter for complete days
+    dplyr::group_by(sampledate, site_id) |>
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1, na.rm = T),
@@ -69,8 +69,8 @@ target_generation_exo_daily <- function (fcr_files,
 
   # BVR
   bvr_sum <- bvr_df |>
-    filter(!Date %in% bvr_remove_days$Date) |> # filter for complete days
-    dplyr::group_by(Date, site_id) |> #daily mean
+    filter(!sampledate %in% bvr_remove_days$sampledate) |> # filter for complete days
+    dplyr::group_by(sampledate, site_id) |> #daily mean
     dplyr::summarise(Cond_uScm_mean = mean(EXOCond_uScm_1.5, na.rm = T),
                      Temp_C_mean = mean(EXOTemp_C_1.5, na.rm = T),
                      SpCond_uScm_mean = mean(EXOSpCond_uScm_1.5, na.rm = T),
@@ -86,34 +86,34 @@ target_generation_exo_daily <- function (fcr_files,
 
   ## build DO for each site separately and then combine
   fcr_DO <- fcr_df |>
-    filter(!Date %in% fcr_remove_days$Date) |>  # filter for complete days
+    filter(!sampledate %in% fcr_remove_days$sampledate) |>  # filter for complete days
     select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
-    mutate(Date = as.Date(DateTime)) |>
+    mutate(sampledate = as.Date(DateTime)) |>
     mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
     mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODOsat', variable), 'DOsat_percent_mean', variable)) |>
-    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('Date', 'variable', 'depth_m')) |>
-    mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
+    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('sampledate', 'variable', 'depth_m')) |>
+    mutate(datetime=ymd_hms(paste0(sampledate,"","00:00:00"))) |>
     select(datetime, depth_m, observation = obs_avg, variable)
 
   fcr_DO$site_id <- 'fcre'
 
 
   bvr_DO <- bvr_df |>
-    filter(!Date %in% bvr_remove_days$Date) |> # filter for complete days
+    filter(!sampledate %in% bvr_remove_days$sampledate) |> # filter for complete days
     select(DateTime, (starts_with('RDO') & ends_with('adjusted')) | (starts_with('EXODO'))) |>
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
-    mutate(Date = as.Date(DateTime)) |>
+    mutate(sampledate = as.Date(DateTime)) |>
     mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
     mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODOsat', variable), 'DOsat_percent_mean', variable)) |>
-    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('Date', 'variable', 'depth_m')) |>
-    mutate(datetime=ymd_hms(paste0(Date,"","00:00:00"))) |>
+    summarise(obs_avg = mean(observation, na.rm = TRUE), .by = c('sampledate', 'variable', 'depth_m')) |>
+    mutate(datetime=ymd_hms(paste0(sampledate,"","00:00:00"))) |>
     select(datetime, depth_m, observation = obs_avg, variable, observation = obs_avg)
 
   bvr_DO$site_id <- 'bvre'
@@ -127,7 +127,7 @@ target_generation_exo_daily <- function (fcr_files,
   #Combine all and format
   comb_sum <- fcr_sum |>
     dplyr::bind_rows(bvr_sum) |>
-    dplyr::rename(datetime = Date) |>
+    dplyr::rename(datetime = sampledate) |>
     tidyr::pivot_longer(cols = Temp_C_mean:Bloom_binary_mean, names_to = "variable", values_to = "observation") |>
     dplyr::mutate(depth_m = NA,
                   depth_m = ifelse(site_id == "fcre", 1.6, depth_m),
@@ -137,5 +137,18 @@ target_generation_exo_daily <- function (fcr_files,
     dplyr::mutate(observation = ifelse(!is.finite(observation),NA,observation)) |>
     bind_rows(combined_DO) # append DO data
 
-  return(comb_sum)
+
+  exo_dup_check <- comb_sum  %>%
+    dplyr::group_by(datetime, site_id, variable, depth_m) %>%
+    dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+    dplyr::filter(n > 1)
+
+  if (nrow(exo_dup_check) == 0){
+    return(comb_sum)
+  }else{
+    print('MOM binary duplicates found...please fix')
+    stop()
+  }
+
+  #return(comb_sum)
 }

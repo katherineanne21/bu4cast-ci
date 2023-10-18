@@ -91,6 +91,7 @@ target_generation_exo_daily <- function (fcr_files,
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
     mutate(sampledate = as.Date(DateTime)) |>
     mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
+    mutate(depth_m = ifelse((grepl('EXODO_mgL', variable) | grepl('EXODOsat', variable)), 1.6, depth_m)) |>
     mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>
@@ -108,6 +109,7 @@ target_generation_exo_daily <- function (fcr_files,
     pivot_longer(-DateTime, names_to = 'variable', values_to = 'observation') |>
     mutate(sampledate = as.Date(DateTime)) |>
     mutate(depth_m = as.numeric(sapply(stringr::str_split(variable, "_"), function(x) x[3]))) |>
+    mutate(depth_m = ifelse((grepl('EXODO_mgL', variable) | grepl('EXODOsat', variable)), 1.5, depth_m)) |>
     mutate(variable = ifelse(grepl('RDO_mgL', variable), 'DO_mgL_mean', variable)) |>
     mutate(variable = ifelse(grepl('RDOsat', variable), 'DOsat_percent_mean', variable)) |>
     mutate(variable = ifelse(grepl('EXODO_mgL', variable), 'DO_mgL_mean', variable)) |>

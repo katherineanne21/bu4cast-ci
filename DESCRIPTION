@@ -29,7 +29,8 @@ Imports:
     duckdbfs,
     furrr,
     future,
-    googlesheets4
+    googlesheets4, 
+    janitor
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

@@ -134,6 +134,7 @@ target_generation_inflows <- function(historic_inflow, current_inflow, historic_
     return(df_inflow_targets_final)
   }else{
    print('Inflow duplicates found...please fix')
+    stop()
   }
 
 

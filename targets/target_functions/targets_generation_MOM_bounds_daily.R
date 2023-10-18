@@ -1,6 +1,6 @@
-#calculates MOM_binary
-#MOM is calculated as the layer where DO is < 2mg/L (for now)
-#17Aug2023 HLW
+#calculates MOM upper and lower bounds
+#note that may want to set MOM bounds to 0 when MOM binary = 0 (need to link the two scripts?)
+#16Oct2023 HLW
 
 if (!require("pacman"))install.packages("pacman")
 pacman::p_load(utils, tidyverse)
@@ -33,48 +33,55 @@ targets_generation_daily_MOM <- function(current_file, historic_file){
   DO$Reservoir <- ifelse(DO$Reservoir == "FCR", 'fcre', DO$Reservoir)
   DO$Reservoir <- ifelse(DO$Reservoir == "BVR", 'bvre', DO$Reservoir)
 
-
   #change names so df matches targets format
   DO <- DO |> dplyr::rename(datetime = DateTime,
-                            site_id = Reservoir,
-                            depth_m = Depth_m,
-                            observation = DO_mgL)
+                        site_id = Reservoir,
+                        depth_m = Depth_m,
+                        observation = DO_mgL)
 
   #add variable column
   DO$variable <- "DO_mgL"
 
-  #now calculate MOM binary
-  MOM_binary <- DO |> dplyr::group_by(datetime, site_id, variable) |>
-    dplyr::mutate(MOM_binary = ifelse((observation < 2 & depth_m >= 2 & depth_m <= 8), 1, 0)) |>
-    dplyr::summarise(MOM_binary = max(MOM_binary)) |> dplyr::select(-variable)
+  #order DO by date, site, then depth
+  DO <- DO |> dplyr::arrange(datetime, site_id, depth_m)
+
+  #now calculate MOM bounds
+  MOM_bounds <- DO |> dplyr::group_by(datetime, site_id, variable) |>
+    dplyr::summarise(MetalimneticOxygenMinimum_upperbound =
+                       round(first(depth_m[observation < 2]),1),
+                     MetalimneticOxygenMinimum_lowerbound =
+                       round(last(depth_m[observation < 2]),1))
+
+  #wide to long
+  MOM_bounds_long <- MOM_bounds |> select(-variable) |>
+    tidyr::pivot_longer(cols = MetalimneticOxygenMinimum_upperbound:
+                          MetalimneticOxygenMinimum_lowerbound, names_to = "variable")
 
   #rename columns to match targets file
-  MOM_binary <- MOM_binary |>
-    dplyr::rename(observation = MOM_binary)
-
-  MOM_binary$variable <- " MOM_binary_sample"
+  MOM_bounds_long <- MOM_bounds_long |>
+    rename(observation = value)
 
   #Depth is na bc full water column variable
-  MOM_binary$depth_m <- NA
-  MOM_binary$duration <- 'P1D'
-  MOM_binary$project_id <- 'vera4cast'
+  MOM_bounds_long$depth_m <- NA
+  MOM_bounds_long$duration <- 'P1D'
+  MOM_bounds_long$project_id <- 'vera4cast'
 
-  mom_dup_check <- MOM_binary  %>%
+  mom_dup_check <- MOM_bounds_long  %>%
     dplyr::group_by(datetime, site_id, variable) %>%
     dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
     dplyr::filter(n > 1)
 
   if (nrow(mom_dup_check) == 0){
-    return(MOM_binary)
+    return(MOM_bounds_long)
   }else{
     print('MOM binary duplicates found...please fix')
     stop()
   }
 
+
   # return dataframe formatted to match FLARE targets
-  #return(MOM_binary)
+  r#eturn(MOM_binary)
+}
 
-  }
 
-a <- targets_generation_daily_MOM(current_file = current_file, historic_file = historic_file)
-
+#a <- targets_generation_daily_MOM(current_file = current_file, historic_file = historic_file)

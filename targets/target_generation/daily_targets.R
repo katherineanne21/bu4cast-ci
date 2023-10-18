@@ -57,11 +57,21 @@ bvr_thermistor_temp_daily <- target_generation_ThermistorTemp_C_daily(current_fi
 bvr_thermistor_temp_daily$duration <- 'P1D'
 bvr_thermistor_temp_daily$project_id <- 'vera4cast'
 
+
+#Secchi
+source('targets/target_functions/target_generation_daily_secchi_m.R')
+current = "https://raw.githubusercontent.com/addelany/Reservoirs/master/Data/DataNotYetUploadedToEDI/Secchi/secchi_L1.csv"
+edi = "https://pasta.lternet.edu/package/data/eml/edi/198/11/81f396b3e910d3359907b7264e689052"
+
+secchi_daily <- target_generation_daily_secchi_m(current = current, edi = edi) |>
+  filter(site_id %in% c('fcre', 'bvre'))
+
+secchi_daily$duration <- 'P1D'
+secchi_daily$project_id <- 'vera4cast'
+
 ## combine the data and perform final adjustments (depth, etc.)
-#combined_targets <- bind_rows(exo_daily, fluoro_daily)
 
-
-combined_targets <- bind_rows(exo_daily, fluoro_daily, fcr_thermistor_temp_daily, bvr_thermistor_temp_daily) |>
+combined_targets <- bind_rows(exo_daily, fluoro_daily, fcr_thermistor_temp_daily, bvr_thermistor_temp_daily, secchi_daily) |>
   select(all_of(column_names))
 
 combined_targets_deduped <- combined_targets |>

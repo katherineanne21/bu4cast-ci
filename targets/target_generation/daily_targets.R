@@ -63,7 +63,24 @@ bvr_thermistor_temp_daily$project_id <- 'vera4cast'
 
 combined_targets <- bind_rows(exo_daily, fluoro_daily, fcr_thermistor_temp_daily, bvr_thermistor_temp_daily) |>
   select(all_of(column_names))
-arrow::write_csv_arrow(combined_targets, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
+
+combined_targets_deduped <- combined_targets |>
+  group_by(datetime, site_id, variable, depth_m) |>
+  mutate(obs_deduped = mean(observation, na.rm = TRUE)) |>
+  ungroup() |>
+  distinct(datetime, site_id, variable, depth_m, .keep_all = TRUE) |>
+  select(project_id, site_id, datetime, duration, depth_m, variable, observation)
+
+combined_dup_check <- combined_targets_deduped  %>%
+  dplyr::group_by(datetime, site_id, variable, depth_m) %>%
+  dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+  dplyr::filter(n > 1)
+
+if (nrow(combined_dup_check) != 0){
+  print('target duplicates found...please fix')
+  stop()
+}
+arrow::write_csv_arrow(combined_targets_deduped, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 
 
 ## INFLOWS

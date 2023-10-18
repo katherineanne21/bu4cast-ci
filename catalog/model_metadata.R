@@ -81,7 +81,7 @@ for(i in 1:nrow(registered_models)){
 
   if(registered_models$`Do you update your initial conditions or parameters between forecast submissions using newly available data (i.e., data assimilation)?`[i] %in%
      c("Parameter", "Both initial conditions and parameters")){
-    metadata$uncertainty$parameter$assimilation$type = registered_models$`What method did you use if you updated your initial conditions or parameters using data assimilation?`[i]
+    metadata$uncertainty$parameters$assimilation$type = registered_models$`What method did you use if you updated your initial conditions or parameters using data assimilation?`[i]
   }
 
   # Drivers
@@ -112,12 +112,7 @@ for(i in 1:nrow(registered_models)){
     metadata$uncertainty$process_error$data_driven <- FALSE
     metadata$uncertainty$process_error$progagates$type <- progagates_method
   }else if(registered_models$`Does your forecast include uncertainty from the model (process uncertainty)?`[i] == "No"){
-    if(registered_models$`Does your model include parameters?`[i] == "Yes"){
-      metadata$uncertainty$process_error$present <- TRUE
-      metadata$uncertainty$process_error$data_driven <- FALSE
-    }else{
-      metadata$uncertainty$process_error$present <- FALSE
-    }
+    metadata$uncertainty$process_error$present <- FALSE
   }else{
     metadata$uncertainty$process$present <- "Unknown"
   }
@@ -135,7 +130,7 @@ for(i in 1:nrow(registered_models)){
   }else if(registered_models$`Does your forecast include uncertainty from measurement noise?`[i] == "No"){
     metadata$uncertainty$obs_error$present <- FALSE
   }else{
-    metadata$uncertainty$parameters$present <- "Unknown"
+    metadata$uncertainty$obs_error$present <- "Unknown"
   }
 
   #Structural uncertainty

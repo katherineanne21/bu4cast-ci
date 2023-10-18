@@ -20,7 +20,7 @@
   "properties": {
     "description": "\nmodel info: NOAA Global Ensemble Forecasting Model downloaded using the https://open-meteo.com.  The seamless model combines the 0.25 and 0.5 degree resolution products to get a full 35-day ahead forecast\n\nSites: fcre\n\nVariables: BP_kPa_mean, AirTemp_C_mean, RH_percent_mean, Rain_mm_sum, ShortwaveRadiationUp_Wm2_mean, WindSpeed_ms_mean",
     "start_datetime": "2023-10-13",
-    "end_datetime": "2023-11-20",
+    "end_datetime": "2023-11-21",
     "providers": [
       {
         "url": "pending",

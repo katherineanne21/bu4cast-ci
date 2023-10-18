@@ -20,6 +20,7 @@ source("R/plot-utils.R")
 
 ## Most recent forecasts
 
+
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("../cache/duration=P1D") |> 
@@ -40,7 +41,9 @@ reference_date <- max(lubridate::as_date(df$reference_datetime))
 
 Forecasts submitted on `r reference_date`
 
-#### Chlorophyll-a
+::: panel-tabset
+
+### Chlorophyll-a
 
 ```{r}
 
@@ -53,7 +56,7 @@ df |>
   forecast_plots()
 ```
 
-#### Chlorophyll-a bloom probability
+### Chlorophyll-a bloom probability
 
 ```{r}
 ggobj <- df |> 
@@ -79,7 +82,7 @@ girafe(ggobj = ggobj,
          ))
 ```
 
-#### Water temperature
+### Water temperature
 
 ```{r}
 df |> 
@@ -90,7 +93,7 @@ df |>
   forecast_plots()
 ```
 
-#### Air temperature
+### Air temperature
 
 ```{r}
 df |> 
@@ -100,7 +103,7 @@ df |>
   forecast_plots()
 ```
 
-#### Inflow discharge
+### Inflow discharge
 
 ```{r}
 df |> 
@@ -109,6 +112,8 @@ df |>
          variable == c("Flow_cms_mean")) |> 
   forecast_plots()
 ```
+
+:::
 
 ## Forecast analysis
 

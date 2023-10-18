@@ -31,8 +31,9 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 
 ```{r echo = FALSE}
   target_metadata <- target_metadata |> 
-  rename(variable = `"official" targets name`) |> 
-  select(variable, duration, class, `Variable name`, Description)
+  rename(variable = `"official" targets name`,
+         priority = `priority target`) |> 
+  select(variable, duration, class, Description, priority)
 ```
 
 #### Physical variables
@@ -41,9 +42,20 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 targets |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "physical") |> 
-  select(-class) |> 
+  filter(class == "physical" & priority) |> 
+  select(-class,-priority) |> 
   knitr::kable()
+```
+```{r echo = FALSE, warning = FALSE}
+targets |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "physical" & priority) |> 
+  select(-class,-priority) |> 
+  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
 ```
 #### Chemical variables
 
@@ -51,20 +63,42 @@ targets |>
 targets |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "chemical") |> 
-  select(-class) |> 
+  filter(class == "chemical" & priority ) |> 
+  select(-class,-priority) |> 
   knitr::kable()
 ```
-
+```{r echo = FALSE, warning = FALSE}
+targets |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "chemical" & priority) |> 
+  select(-class,-priority) |> 
+  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+```
 #### Biological variables
 
 ```{r echo = FALSE}
 targets |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "biological") |> 
-  select(-class) |> 
+  filter(class == "biological"& priority) |> 
+  select(-class,-priority) |> 
   knitr::kable()
+```
+```{r echo = FALSE, warning = FALSE}
+targets |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(class == "biological" & priority) |> 
+  select(-class,-priority) |> 
+  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+
 ```
 
 ## Site
@@ -95,6 +129,7 @@ inflow_targets |>
   select(-class) |> 
   knitr::kable()
 ```
+
 ### Falling Creek Reservoir meteorology
 
 Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
@@ -118,3 +153,15 @@ Hourly time-step variables measured at the meteorology station (located on the d
 ```{r}
 url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/duration=PT1H/hourly-met-targets.csv.gz"
 ```
+
+### Other variables measured in the reservoirs
+
+```{r echo = FALSE}
+targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(!priority) |> 
+  select(-class,-priority) |> 
+  knitr::kable()
+```
+

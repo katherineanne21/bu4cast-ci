@@ -8,7 +8,7 @@ library(dplyr)
 # install.packages('googlesheets4')
 #Load the library
 library(googlesheets4)
-library(janitor)
+#library(janitor)
 library(tibble)
 
 

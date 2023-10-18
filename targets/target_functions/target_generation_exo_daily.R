@@ -146,7 +146,7 @@ target_generation_exo_daily <- function (fcr_files,
   if (nrow(exo_dup_check) == 0){
     return(comb_sum)
   }else{
-    print('MOM binary duplicates found...please fix')
+    print('EXO duplicates found...please fix')
     stop()
   }
 

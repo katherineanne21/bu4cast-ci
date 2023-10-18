@@ -19,9 +19,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: autoregressive neural net fit using the NNETAR() function in the fable R package\n\nSites: bvre, fcre\n\nVariables: Chla_ugL_mean",
+    "description": "\nmodel info: autoregressive neural net fit using the NNETAR() function in the fable R package\n\nSites: bvre, fcre\n\nVariables: Chla_ugL_mean, Bloom_binary_mean",
     "start_datetime": "2023-10-12",
-    "end_datetime": "2023-11-21",
+    "end_datetime": "2023-11-22",
     "providers": [
       {
         "url": "pending",
@@ -44,7 +44,7 @@
     "keywords": [
       "Forecasting",
       "VERA",
-      "Chla_ugL_mean"
+      "Chla_ugL_mean, Bloom_binary_mean"
     ],
     "table:columns": [
       {
@@ -188,6 +188,12 @@
       "title": "Database Access for Chla_ugL_mean",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=fableNNETAR?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Chla_ugL_mean/model_id=fableNNETAR?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Bloom_binary_mean",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Bloom_binary_mean/model_id=fableNNETAR?endpoint_override=renc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/scores/parquet/daily/variable=Bloom_binary_mean/model_id=fableNNETAR?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

@@ -51,6 +51,22 @@ df |>
   forecast_plots()
 ```
 
+#### Chlorophyll-a bloom probability
+
+```{r}
+df |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+        lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
+         variable == c("Bloom_binary_mean"),
+         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
+ggplot(aes(x = datetime, y = mean, color = model_id)) + 
+  geom_line() + 
+  facet_wrap(~site_id) +
+  labs(y = "Predicted probability") +
+  theme_bw()
+  
+```
+
 #### Water temperature
 
 ```{r}
@@ -88,8 +104,11 @@ df |>
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
 ## with at least n observations to compare!
 
-ref <- Sys.Date() - lubridate::days(30)
-ref <- max(c(ref, min(lubridate::as_date(combined$reference_datetime))))
+ref <- Sys.Date() - lubridate::days(10)
+
+ref <- max(c(ref, 
+             min(lubridate::as_date(combined$reference_datetime)),
+             lubridate::as_date("2023-10-14")))
 
 #n_data <- 10
 #who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
@@ -104,13 +123,19 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 ### Chla_ugL_mean
 
 ```{r}
-ex |> filter(variable == "Chla_ugL_mean") |> forecast_plots()
+ex |> filter(variable == "Chla_ugL_mean",
+            ((depth_m == 1.6 & site_id == "fcre") | 
+            (depth_m == 1.5 & site_id == "bvre"))) |> forecast_plots()
 ```
 
 ### Temp_C_mean
 
 ```{r}
-ex |> filter(variable == "Temp_C_mean") |> forecast_plots()
+ex |> filter(variable == "Temp_C_mean",
+         (site_id == "tubr" | 
+            (depth_m == 1.6 & site_id == "fcre") | 
+            (depth_m == 1.5 & site_id == "bvre"))) |> 
+  forecast_plots()
 ```
 
 ### AirTemp_C_mean
@@ -139,5 +164,10 @@ leaderboard_plots(combined, "Chla_ugL_mean")
 
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")
+```
+## AirTemp_C_mean
+
+```{r}
+leaderboard_plots(combined, "AirTemp_C_mean")
 ```
 :::

@@ -124,13 +124,13 @@ unlink(forecast_file)
 
 source('R/fablePersistenceModelFunction.R')
 
-targets <- targets |> mutate(datetime = lubridate::as_date(datetime))
+targets <- targets |> mutate(datetime = lubridate::as_date(datetime)) |>
+  filter(variable %in% c("Chla_ugL_mean","Temp_C_mean"),
+         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
 
 
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
-  filter(variable %in% c("Chla_ugL_mean","Temp_C_mean"),
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>
   as_tsibble(key = c('variable', 'site_id', 'depth_m', 'duration', 'project_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())

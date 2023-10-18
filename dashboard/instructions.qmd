@@ -6,14 +6,35 @@ editor:
     wrap: sentence
 ---
 
-## How to submit a forecast
+## tl;dr: How to submit a forecast
 
 We provide an overview of the steps for submitting with the details below:
 
 1)  Register at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in analyses.
-2)  Generate forecast with required columns
+2)  Generate forecast with required columns.
 3)  Write the forecast to a file that follows the standardized naming format.
-4)  Submit forecast using a provided function
+4)  Submit forecast using a provided function.
+5)  Watch forecast be evaluated as new data is collected. 
+
+## Generating a forecast
+
+### Any approach but be sure to include uncertainty
+
+You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  We require that predictions include uncertainty that is either represented using a distribution or numerically using an ensemble (or sample) of predictions. 
+
+### Any model drivers/covariates/features are welcome
+
+You can use any data as inputs.  This includes all the targets data available to date.  All sensor-based target data is avaialable in near-real time (1 day latency).  You may want to use the updated target data to re-train a model or use in data assimilation.
+
+As this is a geninue forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.  If you are interested in using forecasted meteorology, we have developed an R package ([https://github.com/FLARE-forecast/RopenMeteo](https://github.com/FLARE-forecast/RopenMeteo)) that can be used to access ensemble weather forecasts or seasonal forecasts for the sites.  The R package is a wrapper around the open-meteo.com API.  The README in the R package repo provides instructions for use.
+
+### Forecasts can be for a range of horizons
+
+Forecasts can be submitted for 1 to 10 years ahead.  
+
+### Forecasts can be submitted everyday
+
+Since forecasts can be submitted everyday, automation is important.  We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [rqthomas/vera4cast:latest](https://github.com/LTREB-reservoirs/vera4cast/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
 
 ## Forecast file format
 
@@ -39,7 +60,7 @@ The file is a csv format with the following columns:
     This value should match the duration of the target variable that you are forecasting.
     Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
--   `site_id`: code for site (`bvre` or `fcre`)
+-   `site_id`: code for site (`bvre`, `fcre`, or `tubr`)
 
 -   `depth_m`: the depth (meters) for the forecasted variable.
     Use `NA` for variables without a specified depth.
@@ -126,4 +147,4 @@ A `pub_datetime` column will be added that denotes when a forecast was submitted
 
 All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
 
-Information for accessing the forecasts and scores can be found on our [What has been forecasted](catalog.qmd#sec-spatiotemporal-asset-catalog) page. 
+Information for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page. 

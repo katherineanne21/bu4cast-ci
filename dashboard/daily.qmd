@@ -43,6 +43,8 @@ Forecasts submitted on `r reference_date`
 #### Chlorophyll-a
 
 ```{r}
+
+
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
@@ -54,17 +56,27 @@ df |>
 #### Chlorophyll-a bloom probability
 
 ```{r}
-df |> 
+ggobj <- df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Bloom_binary_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
+  collect() |>
 ggplot(aes(x = datetime, y = mean, color = model_id)) + 
-  geom_line() + 
+  geom_line_interactive(aes(datetime, mean, col = model_id,
+                              tooltip = model_id, data_id = model_id),
+                        show.legend=FALSE) +
   facet_wrap(~site_id) +
   labs(y = "Predicted probability") +
   theme_bw()
-  
+
+girafe(ggobj = ggobj,
+         width_svg = 8, height_svg = 4,
+         options = list(
+           opts_hover_inv(css = "opacity:0.20;"),
+           opts_hover(css = "stroke-width:2;"),
+           opts_zoom(max = 4)
+         ))
 ```
 
 #### Water temperature

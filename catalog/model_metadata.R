@@ -11,7 +11,7 @@ registered_models <- googlesheets4::read_sheet("https://docs.google.com/spreadsh
 for(i in 1:nrow(registered_models)){
 
   #Need to get from forecast output
-  progagates_method <- "ensemble"
+  progagates_method <- "Infer from family column in archived forecasts"
 
   metadata <- list()
 

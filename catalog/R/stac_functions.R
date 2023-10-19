@@ -16,9 +16,9 @@ generate_model_assets <- function(m_vars, aws_path){
     "1"= list(
       'type'= 'application/json',
       'title' = 'Model Metadata',
-      'href' = paste0(config$model_metadata_http,'/',m,'.json'),
+      'href' = paste0("https://", config$endpoint,"/", config$model_metadata_bucket,"/",m,".json"),
       'description' = paste0("Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.
-      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(",paste0('"',config$model_metadata_http,'/',m,'.json"'),")\n\n")
+      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(",paste0('"','https://', config$endpoint,'/', config$model_metadata_bucket,'/',m,'.json"'),")\n\n")
     )
   )
 

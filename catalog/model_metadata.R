@@ -1,25 +1,22 @@
-library(score4cast)
-library(arrow)
-library(bench)
-
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
            AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
-
-ignore_sigpipe()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 endpoint <- config$endpoint
 
+minioclient::mc_alias_set("osn",
+                          config$endpoint,
+                          Sys.getenv("OSN_KEY"),
+                          Sys.getenv("OSN_SECRET"))
+
 googlesheets4::gs4_deauth()
 registered_models <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing")
-
-
 
 for(i in 1:nrow(registered_models)){
 
   #Need to get from forecast output
-  progagates_method <- "ensemble"
+  progagates_method <- "Infer from family column in archived forecasts"
 
   metadata <- list()
 
@@ -166,13 +163,7 @@ for(i in 1:nrow(registered_models)){
   file_name <- paste0(metadata$model_id, ".json")
   jsonlite::write_json(metadata, path = file.path("catalog",file_name), pretty = TRUE)
 
-  aws.s3::put_object(file = file.path("catalog",file_name),
-                     object = paste0("vera4cast/metadata/model_id/",file_name),
-                     bucket = "bio230121-bucket01",
-                     region=  "renc",
-                     base_url = "osn.xsede.org",
-                     key = Sys.getenv("OSN_KEY"),
-                     secret = Sys.getenv("OSN_SECRET"))
+  minioclient::mc_cp(file.path("catalog",file_name), file.path("osn",config$model_metadata_bucket))
 
   unlink(file.path("catalog",file_name))
 }

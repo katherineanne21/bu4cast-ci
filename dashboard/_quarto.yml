@@ -19,7 +19,7 @@ website:
         icon: bullseye
       - href: instructions.qmd
         icon: info-square
-      - href: daily.qmd
+      - href: performance.qmd
         icon: droplet
       - href: catalog.qmd
         icon: book

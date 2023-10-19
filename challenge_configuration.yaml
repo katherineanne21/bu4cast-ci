@@ -1,3 +1,4 @@
+project_id: vera4cast
 endpoint: renc.osn.xsede.org
 submissions_endpoint: submit.ltreb-reservoirs.org
 scores_bucket: bio230121-bucket01/vera4cast/scores
@@ -12,3 +13,4 @@ model_metadata_http: https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/met
 example_model_id: example
 site_table: vera4cast_field_site_metadata.csv
 target_metadata: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing
+challenge_url: https://www.ltreb-reservoirs.org/vera4cast/

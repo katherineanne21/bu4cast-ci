@@ -10,6 +10,8 @@ We invite you to submit forecasts!
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
 
+The forecasting challenge is one component of the Virginia Reservoirs LTREB project that is monitoring the reservoirs to broadly advance our understanding of freshwater ecosystem processes in two neighboring reservoirs with contrasting dissolved oxygen conditions.
+
 <br />
 <br />
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
@@ -45,17 +47,7 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
            min = lubridate::as_date(min)) |> 
     dplyr::collect()
 
-unique_targets <- arrow::open_csv_dataset(s3_targets,
-                                    schema = arrow::schema(
-                                      project_id = arrow::string(),
-                                      site_id = arrow::string(),
-                                      datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
-                                      duration = arrow::string(),
-                                      depth_m = arrow::float(),
-                                      variable = arrow::string(),
-                                      observation = arrow::float()),
-                                    skip = 1,
-                                    partitioning = "duration") |>
+unique_forecasted_targets <- arrow::open_dataset("../cache/duration=P1D") |> 
   dplyr::distinct(variable) |> count() |> 
     dplyr::collect() |> 
     pull(n)
@@ -85,7 +77,7 @@ layout_column_wrap(
   ),
     value_box(
     title = "Number of variables being forecasted", 
-    value = unique_targets,
+    value = unique_forecasted_targets,
     showcase = bs_icon("clipboard-data"),
     theme_color = "success" 
   )

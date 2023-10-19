@@ -1,8 +1,10 @@
+library(vera4castHelpers) #project_specific
+
+
 library(readr)
 library(dplyr)
 library(arrow)
 library(glue)
-library(vera4castHelpers)
 library(here)
 library(minioclient)
 library(tools)
@@ -48,7 +50,7 @@ if(length(submissions) > 0){
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
-  s3_inventory <- arrow::s3_bucket("bio230121-bucket01/vera4cast",
+  s3_inventory <- arrow::s3_bucket(dirname(config$inventory_bucket),
                                    endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
@@ -111,7 +113,7 @@ if(length(submissions) > 0){
         duration <- fc$duration[1]
         endpoint <- config$endpoint
         curr_inventory <- fc |>
-          dplyr::mutate(project_id = "vera4cast",
+          dplyr::mutate(project_id = config$project_id,
                  date = lubridate::as_date(datetime),
                  path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
                  endpoint = config$endpoint) |>

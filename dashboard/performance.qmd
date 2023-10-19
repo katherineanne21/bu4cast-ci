@@ -18,8 +18,9 @@ source("R/plot-utils.R")
 
 ```
 
-## Most recent forecasts
+This page visualizes the forecasts and forecast performance for the focal target variables.
 
+## Most recent forecasts {#sec-performance}
 
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
@@ -104,7 +105,7 @@ df |>
   forecast_plots()
 ```
 
-### fDOM_QSU_mean
+### fDOM QSU
 
 ```{r}
 df |> 
@@ -114,17 +115,17 @@ df |>
   forecast_plots()
 ```
 
-### Secchi_m_mean
+### Secchi depth
 
 ```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Secchi_m_mean")) |> 
+         variable == c("Secchi_m_sample")) |> 
   forecast_plots()
 ```
 
-### IceCover_binary_sum
+### Ice Cover Probability
 
 ```{r}
 df |> 
@@ -180,7 +181,7 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 
 ::: panel-tabset
 
-### Chla_ugL_mean
+### Chlorophyll-a
 
 ```{r}
 ex |> filter(variable == "Chla_ugL_mean",
@@ -188,7 +189,7 @@ ex |> filter(variable == "Chla_ugL_mean",
             (depth_m == 1.5 & site_id == "bvre"))) |> forecast_plots()
 ```
 
-### Temp_C_mean
+### Water temperature
 
 ```{r}
 ex |> filter(variable == "Temp_C_mean",
@@ -198,14 +199,21 @@ ex |> filter(variable == "Temp_C_mean",
   forecast_plots()
 ```
 
-### AirTemp_C_mean
+### Secchi depth
+
+```{r}
+ex |> filter(variable == "Secchi_m_sample") |> 
+  forecast_plots()
+```
+
+### Air Temperature
 
 ```{r}
 ex |> filter(variable == "AirTemp_C_mean") |> forecast_plots()
 ```
 :::
 
-## Leaderboard
+## Aggregated scores
 
 Average skill scores of each model across all sites.\
 
@@ -214,18 +222,19 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-## Chla_ugL_mean
+## Chlorophyll-a
 
 ```{r}
 leaderboard_plots(combined, "Chla_ugL_mean")
 ```
 
-## Temp_C_mean
+## Water temperature
 
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")
 ```
-## AirTemp_C_mean
+
+## Air temperature
 
 ```{r}
 leaderboard_plots(combined, "AirTemp_C_mean")

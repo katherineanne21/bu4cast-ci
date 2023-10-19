@@ -18,19 +18,23 @@ We provide an overview of the steps for submitting with the details below:
 
 ## Generating a forecast
 
-### Any approach but be sure to include uncertainty
+### Any approach is allowed
 
-You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  We require that predictions include uncertainty that is either represented using a distribution or numerically using an ensemble (or sample) of predictions. 
+You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  
+
+### Must include uncertainty
+
+Forecasts require you to make a access of confidence in the prediction of the future.  You can represent your confidence (i.e., uncertainty in forecast) using a distribution or numerically using an ensemble (or sample) of predictions. 
 
 ### Any model drivers/covariates/features are welcome
 
-You can use any data as inputs.  This includes all the targets data available to date.  All sensor-based target data is avaialable in near-real time (1 day latency).  You may want to use the updated target data to re-train a model or use in data assimilation.
+You can use any data as inputs.  This includes all the targets data available to date.  All sensor-based target data is available in near-real time (1 day latency).  You may want to use the updated target data to re-train a model or use in data assimilation.
 
-As this is a geninue forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.  If you are interested in using forecasted meteorology, we have developed an R package ([https://github.com/FLARE-forecast/RopenMeteo](https://github.com/FLARE-forecast/RopenMeteo)) that can be used to access ensemble weather forecasts or seasonal forecasts for the sites.  The R package is a wrapper around the open-meteo.com API.  The README in the R package repo provides instructions for use.
+As this is a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.  If you are interested in using forecasted meteorology, we have developed an R package ([https://github.com/FLARE-forecast/RopenMeteo](https://github.com/FLARE-forecast/RopenMeteo)) that can be used to access ensemble weather forecasts or seasonal forecasts for the sites.  The R package is a wrapper around the open-meteo.com API.  The README in the R package repo provides instructions for use.
 
 ### Forecasts can be for a range of horizons
 
-Forecasts can be submitted for 1 to 10 years ahead.  
+Forecasts can be submitted at the daily time step 1 day to 10 years ahead
 
 ### Forecasts can be submitted everyday
 
@@ -76,13 +80,35 @@ The file is a csv format with the following columns:
 
 -   `prediction`: forecasted value for the parameter in the parameter column
 
-### Family - Parameter Columns
+## Representing uncertainity 
 
-For example, For a parametric forecast with the normal distribution, the `family` column uses the word `normal` to designate a normal distribution and the parameter column must have values of `mu` and `sigma` for each forecasted variable, site_id, depth and time combination.
+Uncertainty is represented through the family - parameter columns
+
+#### Parameteric forecast
+
+For a parametric forecast with the normal distribution, the `family` column uses the word `normal` to designate a normal distribution and the parameter column must have values of `mu` and `sigma` for each forecasted variable, site_id, depth and time combination.
 
 Parameteric forecasts for binary variables should use `bernoulli` as the distribution.
 
-If you are submitting a forecast that is not in the supported list we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your distribution.
+The following names and parameterization of the distribution are supported (family: parameters):
+
+-   `lognormal`: `mu`, `sigma`
+-   `normal`: `mu`,`sigma`
+-   `bernoulli`: `prob`
+-   `beta`: `shape1`, `shape2`
+-   `uniform`: `min`, `max`
+-   `gamma`: `shape`, `rate`
+-   `logistic`: `location`, `scale`
+-   `exponential`: `rate`
+-   `poisson`: `lambda`
+
+If you are submitting a forecast that is not in the supported list we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your distribution. 
+
+#### Ensemble (or sample) forecast
+
+Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `parameter` values are the ensemble index.  
+
+When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a "perfect ensemble" in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`). Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
 
 ### Supported distributions
 
@@ -142,9 +168,23 @@ vera4castHelpers::submit(forecast_file = "your_file.csv",
 
 ## Post submission
 
-After submission, our servers will process uploaded files by converting to a parquet on our public s3 storage.
-A `pub_datetime` column will be added that denotes when a forecast was submitted.
+### Processing
 
-All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
+After submission, our servers will process uploaded files by converting to a parquet format on our public s3 storage. A `pub_datetime` column will be added that denotes when a forecast was submitted.
+
+### Evaluation
+
+All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the `crps` and `logs` functions in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package. 
+
+### Comparsion
+
+Forecast performance can be compared to the performance of baseline models.  We are automatically submitting the following baseline models:
+
+- `climatology`: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations
+- `persistenceRW`: a random walk model that assumes no change in the mean behavior.  The random walk is initialized using the most resent observation.
+
+Our [forecast performance](performance.qmd#performance) page includes evaluations of all submitted models.
+
+### Catalog
 
 Information for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page. 

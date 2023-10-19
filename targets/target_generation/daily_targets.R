@@ -30,7 +30,6 @@ exo_daily$project_id <- 'vera4cast'
 ## FLUOROPROBE
 source('targets/target_functions/target_generation_FluoroProbe.R')
 historic_data <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.272.7&entityid=001cb516ad3e8cbabe1fdcf6826a0a45"
-
 current_data <- "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/Data/DataNotYetUploadedToEDI/Raw_fluoroprobe/fluoroprobe_L1.csv"
 
 fluoro_daily <- target_generation_FluoroProbe(current_file = current_data, historic_file = historic_data)
@@ -60,7 +59,7 @@ bvr_thermistor_temp_daily$project_id <- 'vera4cast'
 
 #Secchi
 source('targets/target_functions/target_generation_daily_secchi_m.R')
-current = "https://raw.githubusercontent.com/addelany/Reservoirs/master/Data/DataNotYetUploadedToEDI/Secchi/secchi_L1.csv"
+current = "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/Data/DataNotYetUploadedToEDI/Secchi/secchi_L1.csv"
 edi = "https://pasta.lternet.edu/package/data/eml/edi/198/11/81f396b3e910d3359907b7264e689052"
 
 secchi_daily <- target_generation_daily_secchi_m(current = current, edi = edi) |>
@@ -90,6 +89,7 @@ if (nrow(combined_dup_check) != 0){
   print('target duplicates found...please fix')
   stop()
 }
+
 arrow::write_csv_arrow(combined_targets_deduped, sink = s3_daily$path("daily-insitu-targets.csv.gz"))
 
 

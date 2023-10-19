@@ -84,7 +84,7 @@ target_generation_daily_secchi_m <- function(current, edi){
 }
 
 #google_doc = 'https://docs.google.com/spreadsheets/d/1fvM0fDRliuthicQWZT7c9RYErikI5DwrzbOC7TCoMGI/edit#gid=1172894977'
-# secchi <- target_generation_daily_secchi_m(current = "https://raw.githubusercontent.com/addelany/Reservoirs/master/Data/DataNotYetUploadedToEDI/Secchi/secchi_L1.csv",
+# secchi <- target_generation_daily_secchi_m(current = "https://raw.githubusercontent.com/CareyLabVT/Reservoirs/master/Data/DataNotYetUploadedToEDI/Secchi/secchi_L1.csv",
 #                                            edi = "https://pasta.lternet.edu/package/data/eml/edi/198/11/81f396b3e910d3359907b7264e689052")
 
 

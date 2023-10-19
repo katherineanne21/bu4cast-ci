@@ -1,11 +1,5 @@
-#library(score4cast)
-#library(arrow)
-#library(bench)
-
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
            AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
-
-ignore_sigpipe()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
@@ -13,8 +7,6 @@ endpoint <- config$endpoint
 
 googlesheets4::gs4_deauth()
 registered_models <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing")
-
-
 
 for(i in 1:nrow(registered_models)){
 

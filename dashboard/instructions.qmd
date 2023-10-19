@@ -106,7 +106,9 @@ If you are submitting a forecast that is not in the supported list we recommend 
 
 #### Ensemble (or sample) forecast
 
-Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `parameter` values are the ensemble index.  When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no adjustments are required to map the ensemble to be more consistent with observations). This is refereed to as a "perfect ensemble" in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`). Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
+Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `parameter` values are the ensemble index.  
+
+When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a "perfect ensemble" in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`). Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
 
 ### Supported distributions
 

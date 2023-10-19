@@ -15,7 +15,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 
 endpoint <- config$endpoint
 
-s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast",
+s3 <- arrow::s3_bucket(dirname(config$scores_bucket),
                        endpoint_override = endpoint,
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
@@ -102,7 +102,8 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     tg <- target |>
       dplyr::filter(lubridate::as_date(datetime) >= ref,
                     lubridate::as_date(datetime) < ref+lubridate::days(1)) |>
-      dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m))
+      dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) #project_specific
+
 
 
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
@@ -120,9 +121,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                       lubridate::as_date(datetime) < ref+lubridate::days(1))
 
       fc |>
-        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>
+        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
         dplyr::mutate(variable = curr_variable) |>
-        score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |>
+        score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |> #project_specific
         dplyr::mutate(date = group$date,
                       model_id = group$model_id) |>
         dplyr::select(-variable) |>

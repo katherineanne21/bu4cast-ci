@@ -18,8 +18,9 @@ source("R/plot-utils.R")
 
 ```
 
-## Most recent forecasts {#sec-performance}
+This page visualizes the forecasts and forecast performance for the focal target variables.
 
+## Most recent forecasts {#sec-performance}
 
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
@@ -212,7 +213,7 @@ ex |> filter(variable == "AirTemp_C_mean") |> forecast_plots()
 ```
 :::
 
-## Leaderboard
+## Aggregated scores
 
 Average skill scores of each model across all sites.\
 
@@ -221,18 +222,19 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-## Chla_ugL_mean
+## Chlorophyll-a
 
 ```{r}
 leaderboard_plots(combined, "Chla_ugL_mean")
 ```
 
-## Temp_C_mean
+## Water temperature
 
 ```{r}
 leaderboard_plots(combined, "Temp_C_mean")
 ```
-## AirTemp_C_mean
+
+## Air temperature
 
 ```{r}
 leaderboard_plots(combined, "AirTemp_C_mean")

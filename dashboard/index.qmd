@@ -10,6 +10,8 @@ We invite you to submit forecasts!
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
 
+The forecasting challenge is one component of the Virginia Reservoirs LTREB project that is monitoring the reservoirs to broadly advance our understanding of freshwater ecosystem processes in two neighboring reservoirs with contrasting dissolved oxygen conditions.
+
 <br />
 <br />
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}

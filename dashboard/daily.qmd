@@ -180,7 +180,7 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 
 ::: panel-tabset
 
-### Chla_ugL_mean
+### Chlorophyll-a
 
 ```{r}
 ex |> filter(variable == "Chla_ugL_mean",
@@ -188,7 +188,7 @@ ex |> filter(variable == "Chla_ugL_mean",
             (depth_m == 1.5 & site_id == "bvre"))) |> forecast_plots()
 ```
 
-### Temp_C_mean
+### Water temperature
 
 ```{r}
 ex |> filter(variable == "Temp_C_mean",
@@ -198,7 +198,14 @@ ex |> filter(variable == "Temp_C_mean",
   forecast_plots()
 ```
 
-### AirTemp_C_mean
+### Secchi depth
+
+```{r}
+ex |> filter(variable == "Secchi_m_sample") |> 
+  forecast_plots()
+```
+
+### Air Temperature
 
 ```{r}
 ex |> filter(variable == "AirTemp_C_mean") |> forecast_plots()

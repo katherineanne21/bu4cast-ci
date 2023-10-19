@@ -104,7 +104,7 @@ df |>
   forecast_plots()
 ```
 
-### fDOM_QSU_mean
+### fDOM QSU
 
 ```{r}
 df |> 
@@ -114,17 +114,17 @@ df |>
   forecast_plots()
 ```
 
-### Secchi_m_mean
+### Secchi depth
 
 ```{r}
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Secchi_m_mean")) |> 
+         variable == c("Secchi_m_sample")) |> 
   forecast_plots()
 ```
 
-### IceCover_binary_sum
+### Ice Cover Probability
 
 ```{r}
 df |> 

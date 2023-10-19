@@ -18,7 +18,7 @@ We provide an overview of the steps for submitting with the details below:
 
 ## Generating a forecast
 
-### Any approach allow
+### Any approach allowed
 
 You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  
 

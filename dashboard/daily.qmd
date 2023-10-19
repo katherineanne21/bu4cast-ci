@@ -18,7 +18,7 @@ source("R/plot-utils.R")
 
 ```
 
-## Most recent forecasts
+## Most recent forecasts {#sec-performance}
 
 
 ```{r}

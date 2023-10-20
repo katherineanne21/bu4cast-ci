@@ -44,13 +44,12 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
   duration <- variable_duration$duration[k]
   project_id <- variable_duration$project_id[k]
 
-  #s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint)
+  print(variable_duration[k,])
+
   s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
-  #s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
+  s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
   s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
   s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
-
-  print(variable_duration[k,])
 
   local_prov <- paste0(project_id,"-",duration,"-",variable, "-scoring_provenance.csv")
 
@@ -66,7 +65,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   s3_scores_path <- s3_scores$path(glue::glue("parquet/project_id={project_id}/duration={duration}/variable={variable}"))
 
-  s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
+  s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket), endpoint_override = endpoint)
 
   target <- arrow::open_csv_dataset(s3_targets,
                                     schema = arrow::schema(
@@ -78,7 +77,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                                       variable = arrow::string(),
                                       observation = arrow::float()),
                                     skip = 1,
-                                    partitioning = "duration") |>
+                                    partitioning = c("project_id", "duration")) |>
     dplyr::filter(variable == variable_duration$variable[k],
                   duration == variable_duration$duration[k],
                   project_id == variable_duration$project_id[k]) |>
@@ -86,6 +85,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   curr_variable <- variable
   curr_duration <- duration
+  curr_project_id <- project_id
 
   groupings <- arrow::open_dataset(s3_inv) |>
     dplyr::filter(variable == curr_variable, duration == curr_duration) |>
@@ -109,8 +109,6 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                     lubridate::as_date(datetime) < ref+lubridate::days(1)) |>
       dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) #project_specific
 
-
-
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
     print(j)
@@ -119,7 +117,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 
-      fc <-  arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
+      fc <- arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
         dplyr::filter(reference_date %in% reference_dates) |>
         dplyr::collect() |>
         dplyr::filter(lubridate::as_date(datetime) >= ref,
@@ -127,11 +125,12 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       fc |>
         dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
-        dplyr::mutate(variable = curr_variable) |>
+        dplyr::mutate(variable = curr_variable,
+                      project_id = curr_project_id) |>
         score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
         dplyr::mutate(date = group$date,
                       model_id = group$model_id) |>
-        dplyr::select(-variable) |>
+        dplyr::select(-variable,-project_id) |>
         arrow::write_dataset(s3_scores_path,
                              partitioning = c("model_id", "date"))
 
@@ -146,7 +145,6 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
   prov_df <- dplyr::bind_rows(prov_df, new_prov)
   arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 
-  #message(paste(config$themes[i]," done in", time[["real"]]))
 },
 variable_duration,  config, endpoint
 )

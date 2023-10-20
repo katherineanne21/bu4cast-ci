@@ -355,7 +355,7 @@ build_forecast_scores <- function(table_schema,
                   ),
                   list(
                     "rel" = "cite-as",
-                    "href" = "https://doi.org/10.1002/fee.2616"
+                    "href" = catalog_config$citation_doi
                   ),
                   list(
                     "rel" = "about",
@@ -365,8 +365,8 @@ build_forecast_scores <- function(table_schema,
                   ),
                   list(
                     "rel" = "describedby",
-                    "href" = "https://ltreb-reservoirs.github.io/vera4cast/",
-                    "title" = "VERA Forecast Challenge Dashboard",
+                    "href" = catalog_config$dashboard_url,
+                    "title" = catalog_config$dashboard_title,
                     "type" = "text/html"
                   )
                 )),
@@ -619,7 +619,7 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
         'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
                       as.numeric(catalog_config$bbox$max_lat),
                       as.numeric(catalog_config$bbox$max_lon),
-                      as.numeric(catalog_config$bbox$max_lat)))
+                      as.numeric(catalog_config$bbox$max_lat))
       ),
       "temporal" = list(
         'interval' = list(list(

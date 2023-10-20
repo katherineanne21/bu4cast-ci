@@ -7,7 +7,7 @@
   "id": "climatology2",
   "bbox": [
     -156.6194,
-    17.9696,
+    71.2824,
     -66.7987,
     71.2824
   ],
@@ -43,7 +43,7 @@
     "license": "CC0-1.0",
     "keywords": [
       "Forecasting",
-      "VERA",
+      "vera4cast",
       "Temp_C_mean, Chla_ugL_mean"
     ],
     "table:columns": [
@@ -126,7 +126,7 @@
       "rel": "root",
       "href": "../../../catalog.json",
       "type": "application/json",
-      "title": "EFI Forecast Catalog"
+      "title": "Forecast Catalog"
     },
     {
       "rel": "parent",
@@ -152,13 +152,13 @@
       "type": "application/x-parquet",
       "title": "Database Access for Temp_C_mean",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Temp_C_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Temp_C_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Temp_C_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Chla_ugL_mean",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Chla_ugL_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Chla_ugL_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Chla_ugL_mean/model_id=climatology2?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

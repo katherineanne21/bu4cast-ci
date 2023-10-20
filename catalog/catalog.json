@@ -1,8 +1,8 @@
 {
   "type": "Catalog",
-  "id": "vera-stac",
+  "id": "vera4cast-stac",
   "title": "Virginia Ecoforecast Reservoir Analysis Catalog",
-  "description": "A STAC (Spatiotemporal Asset Catalog) describing forecasts and forecast scores for the VERA Forecasting Challenge",
+  "description": "A STAC (Spatiotemporal Asset Catalog) describing forecasts and forecast scores for the vera4cast Forecasting Challenge",
   "stac_version": "1.0.0",
   "conformsTo": "conformsTo",
   "links": [
@@ -19,13 +19,13 @@
     {
       "rel": "child",
       "type": "application/json",
-      "title": "VERA Forecasts",
+      "title": "Forecasts",
       "href": "forecasts/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "title": "VERA Scores",
+      "title": "Scores",
       "href": "scores/collection.json"
     }
   ]

@@ -18,9 +18,11 @@ challenge_url: https://www.ltreb-reservoirs.org/vera4cast/
 github_repo: LTREB-reservoirs/vera4cast
 variable_groups:
   Biological:
-    variable: ['Chla_ugL_mean','Chla_ugL_mean']
+    variable: ['Chla_ugL_mean','Bloom_binary_mean']
     duration: ['P1D','P1D']
-  Physical: ['Temp_C_mean']
+  Physical:
+    variable: ['Temp_C_mean', 'Secchi_m_sample']
+    duration: ['P1D','P1D']
 catalog_config:
   about_string: 'www.ltreb-reservoirs.org/vera4cast'
   about_title: 'VERA Forecasting Challenge Documentation'

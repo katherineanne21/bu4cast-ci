@@ -86,10 +86,10 @@ build_model <- function(model_id,
     "type"= "Feature",
     "id"= model_id,
     "bbox"=
-      list(catalog_config$bbox$min_lon,
-           catalog_config$bbox$max_lat,
-           catalog_config$bbox$max_lon,
-           catalog_config$bbox$max_lat),
+      list(as.numeric(catalog_config$bbox$min_lon),
+           as.numeric(catalog_config$bbox$max_lat),
+           as.numeric(catalog_config$bbox$max_lon),
+           as.numeric(catalog_config$bbox$max_lat)),
     "geometry"= list(
       "type"= catalog_config$site_type,
       "coordinates"=  get_site_coords(sites = site_values)
@@ -373,10 +373,10 @@ build_forecast_scores <- function(table_schema,
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(catalog_config$bbox_min_lon,
-                      catalog_config$bbox_max_lat,
-                      catalog_config$bbox_max_lon,
-                      catalog_config$bbox_max_lat)),
+        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+                      as.numeric(catalog_config$bbox$max_lat),
+                      as.numeric(catalog_config$bbox$max_lon),
+                      as.numeric(catalog_config$bbox$max_lat))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -518,10 +518,10 @@ build_group_variables <- function(table_schema,
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(catalog_config$bbox$min_lon,
-                      catalog_config$bbox$max_lat,
-                      catalog_config$bbox$max_lon,
-                      catalog_config$bbox$max_lat)),
+        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+                      as.numeric(catalog_config$bbox$max_lat),
+                      as.numeric(catalog_config$bbox$max_lon),
+                      as.numeric(catalog_config$bbox$max_lat))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -616,10 +616,10 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
     ),
     "extent" = list(
       "spatial" = list(
-        'bbox' = list('bbox' = list(catalog_config$bbox$min_lon,
-                      catalog_config$bbox$max_lat,
-                      catalog_config$bbox$max_lon,
-                      catalog_config$bbox$max_lat))
+        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+                      as.numeric(catalog_config$bbox$max_lat),
+                      as.numeric(catalog_config$bbox$max_lon),
+                      as.numeric(catalog_config$bbox$max_lat)))
       ),
       "temporal" = list(
         'interval' = list(list(

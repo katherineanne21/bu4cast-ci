@@ -99,7 +99,7 @@ build_group_variables(table_schema = scores_theme_df,
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
 
-registered_model_id <- googlesheets4::read_sheet(catalog_config$model_metadata_url)
+registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 
 scores_sites <- c()

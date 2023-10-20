@@ -5,8 +5,8 @@ s3 <- arrow::s3_bucket("bio230121-bucket01", endpoint_override = "renc.osn.xsede
 s3$CreateDir("vera4cast/targets/duration=P1D")
 s3$CreateDir("vera4cast/targets/duration=PT1H")
 
-s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=P1D", endpoint_override = "renc.osn.xsede.org")
-s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/duration=PT1H", endpoint_override = "renc.osn.xsede.org")
+s3_daily <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D", endpoint_override = "renc.osn.xsede.org")
+s3_hourly <- arrow::s3_bucket("bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=PT1H", endpoint_override = "renc.osn.xsede.org")
 
 column_names <- c("project_id", "site_id","datetime","duration", "depth_m","variable","observation")
 

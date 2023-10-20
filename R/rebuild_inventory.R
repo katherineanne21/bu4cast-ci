@@ -9,7 +9,7 @@ inventory_df <- arrow::open_dataset(s3) |>
            date = lubridate::as_date(datetime)) |>
     distinct(duration, model_id, site_id, reference_date, variable, date, project_id) |>
     collect() |>
-    mutate(path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
+    mutate(path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
            endpoint =config$endpoint)
 
 s3_inventory <- arrow::s3_bucket(config$inventory_bucket,

@@ -1,5 +1,8 @@
 library(whisker)
 library(httr)
+
+config <- yaml::read_yaml('challenge_configuration.yaml')
+
 tpl <- '<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  {{#links}}
@@ -10,13 +13,12 @@ tpl <- '<?xml version="1.0" encoding="UTF-8"?>
  {{/links}}
 </urlset>
 '
-links <- c("https://LTREB-reservoirs.github.io/vera4cast/catalog.html",
-           "https://LTREB-reservoirs.github.io/vera4cast/instructions.html",
-           "https://LTREB-reservoirs.github.io/vera4cast/daily.html",
-           "https://LTREB-reservoirs.github.io/vera4cast/index.html")
+links <- c(paste0(config$challenge_url, "/catalog.html"),
+           paste0(config$challenge_url, "/instructions.html"),
+           paste0(config$challenge_url, "/performance.html"),
+           paste0(config$challenge_url, "/index.html"))
 
-links <- c(links, paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/",fs::dir_ls(path = 'catalog', glob="*.json", recurse=TRUE)))
-
+links <- c(links, paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/", config$github_repo, "/main/",fs::dir_ls(path = 'catalog', glob="*.json", recurse=TRUE)))
 
 map_links <- function(l) {
   tmp <- GET(l)

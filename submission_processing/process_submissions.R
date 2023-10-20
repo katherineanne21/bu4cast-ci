@@ -16,7 +16,7 @@ install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-minioclient::mc_alias_set("osn",
+minioclient::mc_alias_set("s3_store",
              config$endpoint,
              Sys.getenv("OSN_KEY"),
              Sys.getenv("OSN_SECRET"))
@@ -82,6 +82,10 @@ if(length(submissions) > 0){
 
         pub_datetime <- strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
 
+        if("depth_m" %in% names(fc)){
+          fc <- fc |> dplyr::mutate(depth_m = as.numeric(depth_m))
+        }
+
         if(!"duration" %in% names(fc)){
           if(stringr::str_detect(fc$datetime[1], ":")){
             fc <- fc |> dplyr::mutate(duration = "P1H")
@@ -90,32 +94,26 @@ if(length(submissions) > 0){
           }
         }
 
-        if(!("depth_m" %in% names(fc))){
-          fc <- fc |>
-            mutate(depth_m = NA,
-                   depth_m = as.numeric(depth_m))
-        }
-
         fc <- fc |>
-          dplyr::mutate(pub_datetime = pub_datetime,
-                 reference_datetime = lubridate::as_datetime(reference_datetime),
-                 reference_date = lubridate::as_date(reference_datetime))
+          dplyr::mutate(pub_datetime = lubridate::as_datetime(pub_datetime),
+                        reference_datetime = lubridate::as_datetime(reference_datetime),
+                        reference_date = lubridate::as_date(reference_datetime),
+                        parameter = as.character(parameter))
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/"))
         path <- s3$path(paste0("parquet/"))
         fc |> arrow::write_dataset(path, format = 'parquet',
-                            partitioning = c("duration","variable","model_id", "reference_date"))
+                            partitioning = c("project_id",
+                                             "duration",
+                                             "variable",
+                                             "model_id",
+                                             "reference_date"))
 
-        model_id <- fc$model_id[1]
         bucket <- config$forecasts_bucket
-        reference_date <- fc$reference_date[1]
-        duration <- fc$duration[1]
-        endpoint <- config$endpoint
         curr_inventory <- fc |>
-          dplyr::mutate(project_id = config$project_id,
-                 date = lubridate::as_date(datetime),
-                 path = glue::glue("{bucket}/parquet/duration={duration}/variable={variable}"),
+          dplyr::mutate(date = lubridate::as_date(datetime),
+                 path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
                  endpoint = config$endpoint) |>
           dplyr::distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
 
@@ -123,7 +121,7 @@ if(length(submissions) > 0){
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
-        raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
+        raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
         minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
 
@@ -134,7 +132,7 @@ if(length(submissions) > 0){
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
-        raw_bucket_object <- paste0("osn/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
+        raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
         minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
 

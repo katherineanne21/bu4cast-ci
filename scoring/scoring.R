@@ -30,7 +30,7 @@ Sys.unsetenv("AWS_DEFAULT_REGION")
 s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
 
 variable_duration <- arrow::open_dataset(s3_inv) |>
-  dplyr::distinct(variable, duration) |>
+  dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 
 future::plan("future::multisession", workers = n_cores)
@@ -42,16 +42,17 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   variable <- variable_duration$variable[k]
   duration <- variable_duration$duration[k]
+  project_id <- variable_duration$project_id[k]
 
-  s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint)
-  s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = endpoint)
-  s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
+  #s3_forecasts <- arrow::s3_bucket(config$forecasts_bucket, endpoint_override = endpoint)
+  s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
+  #s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
   s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
   s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"), endpoint_override = endpoint)
 
   print(variable_duration[k,])
 
-  local_prov <- paste0(duration,"-",variable, "-scoring_provenance.csv")
+  local_prov <- paste0(project_id,"-",duration,"-",variable, "-scoring_provenance.csv")
 
   if (!(local_prov %in% s3_prov$ls())) {
     arrow::write_csv_arrow(dplyr::tibble(new_id = "start") |> dplyr::mutate(new_id = as.character(new_id)), local_prov)
@@ -63,7 +64,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   prov_df <- readr::read_csv(local_prov, col_types = "c")
 
-  s3_scores_path <- s3_scores$path(glue::glue("parquet/duration={duration}/variable={variable}"))
+  s3_scores_path <- s3_scores$path(glue::glue("parquet/project_id={project_id}/duration={duration}/variable={variable}"))
+
+  s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
 
   target <- arrow::open_csv_dataset(s3_targets,
                                     schema = arrow::schema(
@@ -71,12 +74,14 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                                       site_id = arrow::string(),
                                       datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
                                       duration = arrow::string(),
-                                      depth_m = arrow::float(),
+                                      depth_m = arrow::float(), #project_specific
                                       variable = arrow::string(),
                                       observation = arrow::float()),
                                     skip = 1,
                                     partitioning = "duration") |>
-    dplyr::filter(variable == variable_duration$variable[k] & duration == variable_duration$duration[k]) |>
+    dplyr::filter(variable == variable_duration$variable[k],
+                  duration == variable_duration$duration[k],
+                  project_id == variable_duration$project_id[k]) |>
     dplyr::collect()
 
   curr_variable <- variable
@@ -123,7 +128,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
       fc |>
         dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
         dplyr::mutate(variable = curr_variable) |>
-        score4cast::crps_logs_score(tg, extra_groups = c("depth_m")) |> #project_specific
+        score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
         dplyr::mutate(date = group$date,
                       model_id = group$model_id) |>
         dplyr::select(-variable) |>

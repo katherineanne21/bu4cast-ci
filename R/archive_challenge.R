@@ -27,7 +27,7 @@ df <- open_dataset(s3_forecasts) |>
 if(archive_format == "parquet"){
   write_dataset(df, path = file.path(curr_dir, "archive/forecasts"),
                 hive_style = TRUE,
-                partitioning = c("duration","variable", "model_id"))
+                partitioning = c("project_id", "duration","variable", "model_id"))
 }else if(archive_format == "csv"){
   write_csv_arrow(df, sink = file.path("archive/forecasts.csv.gz"))
 }
@@ -43,7 +43,9 @@ df_scores <- open_dataset(s3_scores) |>
   filter(datetime >= lubridate::as_datetime(start_date), datetime < lubridate::as_datetime(end_date))
 
 if(archive_format == "parquet"){
-  write_dataset(df_scores, path = file.path("archive/scores"), hive_style = TRUE, partitioning = c("duration","variable","model_id"))
+  write_dataset(df_scores, path = file.path("archive/scores"),
+                hive_style = TRUE,
+                partitioning = c("project_id", "duration","variable","model_id"))
 }else if(archive_format == "csv"){
   write_csv_arrow(df, sink = file.path("archive/scores.csv.gz"))
 }
@@ -51,12 +53,12 @@ if(archive_format == "parquet"){
 #######
 message("Archiving targets")
 
-minioclient::mc_alias_set("osn",
+minioclient::mc_alias_set("s3_store",
                           config$endpoint,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-minioclient::mc_mirror(from = paste0("osn/",config$targets_bucket), to = "archive/targets")
+minioclient::mc_mirror(from = paste0("s3_store/",config$targets_bucket), to = "archive/targets")
 
 ######
 message("Archive catalog and metadata")
@@ -71,7 +73,7 @@ for(i in 1:length(jsons)){
 
 # Archive variable descriptions
 googlesheets4::gs4_deauth()
-target_metadata <- googlesheets4::read_sheet(config$target_metadata)
+target_metadata <- googlesheets4::read_sheet(config$target_metadata_gsheet)
 
 if(archive_format == "parquet"){
   readr::write_csv(target_metadata, file.path(curr_dir, "archive/catalog/target_metadata.csv"))
@@ -92,4 +94,4 @@ utils::zip(zipfile = file.path(curr_dir, file_name), files = files2zip)
 
 ### Copy archive to bucket
 minioclient::mc_cp(from = file.path(curr_dir, paste0(file_name,".zip")),
-                   to = paste0("osn/",config$archive_bucket,"/",paste0(file_name,".zip")))
+                   to = paste0("s3_store/",config$archive_bucket,"/",paste0(file_name,".zip")))

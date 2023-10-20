@@ -5,9 +5,16 @@ source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
-names(config$variable_groups)
-variable_groups <- names(config$variable_groups)
-variable_list <- config$variable_groups
+for(i in 1:length(config$variable_groups)){
+
+  variable_group <- names(config$variable_groups)[i]
+
+  for(j in 1:length(config$variable_groups[[i]]$variable)){
+  variable <- config$variable_groups[[i]]$variable[j]
+  duration <- config$variable_groups[[i]]$duration[j]
+  }
+}
+
 
 ## CREATE table for column descriptions
 forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',

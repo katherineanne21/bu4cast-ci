@@ -74,10 +74,6 @@ minioclient::mc_mirror("s3_store/bio230121-bucket01/vera4cast/scores/parquet", "
 
 minioclient::mc_rm("s3_store/bio230121-bucket01/vera4cast/scores/parquet", recursive = TRUE)
 
-
-
-
-
 s3 <- arrow::s3_bucket("temp_scores",
                        endpoint_override = "renc.osn.xsede.org",
                        access_key = Sys.getenv("OSN_KEY"),
@@ -116,7 +112,8 @@ s3 <- arrow::s3_bucket("bio230121-bucket01/vera4cast/scores/parquet",
                        secret_key = Sys.getenv("OSN_SECRET"))
 
 
-d |> arrow::write_dataset(s3, format = 'parquet',
+d |> dplyr::filter(variable == "WindSpeed_ms_mean") |>
+  arrow::write_dataset(s3, format = 'parquet',
                           partitioning = c("project_id",
                                            "duration",
                                            "variable",

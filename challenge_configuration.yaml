@@ -17,7 +17,9 @@ target_metadata_gsheet: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmR
 challenge_url: https://www.ltreb-reservoirs.org/vera4cast/
 github_repo: LTREB-reservoirs/vera4cast
 variable_groups:
-  Biological: ['Chla_ugL_mean']
+  Biological:
+    variable: ['Chla_ugL_mean','Chla_ugL_mean']
+    duration: ['P1D','P1D']
   Physical: ['Temp_C_mean']
 catalog_config:
   about_string: 'www.ltreb-reservoirs.org/vera4cast'

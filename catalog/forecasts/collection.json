@@ -55,7 +55,7 @@
     },
     {
       "rel": "describedby",
-      "href": "https://ltreb-reservoirs.github.io/vera4cast/",
+      "href": "https://www.ltreb-reservoirs.org/vera4cast",
       "title": "VERA Forecast Challenge Dashboard",
       "type": "text/html"
     }
@@ -64,27 +64,24 @@
   "extent": {
     "spatial": {
       "bbox": [
-        -156.6194,
-        71.2824,
-        -66.7987,
-        71.2824
+        [
+          -156.6194,
+          71.2824,
+          -66.7987,
+          71.2824
+        ]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-09-21T00:00:00Z",
-          "2024-02-01T00:00:00Z"
+          "2024-01-31T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
-    {
-      "name": "project_id",
-      "type": "string",
-      "description": "unique identifier for the forecast project"
-    },
     {
       "name": "site_id",
       "type": "string",
@@ -102,7 +99,7 @@
     },
     {
       "name": "depth_m",
-      "type": "bool",
+      "type": "double",
       "description": "depth (meters) in water column of prediction"
     },
     {
@@ -112,7 +109,7 @@
     },
     {
       "name": "parameter",
-      "type": "double",
+      "type": "string",
       "description": "ensemble member or distribution parameter"
     },
     {
@@ -122,8 +119,13 @@
     },
     {
       "name": "pub_datetime",
-      "type": "string",
+      "type": "timestamp[us, tz=UTC]",
       "description": "datetime that forecast was submitted"
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "unique identifier for the forecast project"
     },
     {
       "name": "duration",

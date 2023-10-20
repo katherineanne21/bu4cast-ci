@@ -6,10 +6,12 @@
   "type": "Feature",
   "id": "gfs_seamless",
   "bbox": [
-    -156.6194,
-    71.2824,
-    -66.7987,
-    71.2824
+    [
+      -156.6194,
+      71.2824,
+      -66.7987,
+      71.2824
+    ]
   ],
   "geometry": {
     "type": "MultiPoint",
@@ -18,9 +20,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NOAA Global Ensemble Forecasting Model downloaded using the https://open-meteo.com.  The seamless model combines the 0.25 and 0.5 degree resolution products to get a full 35-day ahead forecast\n\nSites: fcre\n\nVariables: BP_kPa_mean, AirTemp_C_mean, RH_percent_mean, Rain_mm_sum, ShortwaveRadiationUp_Wm2_mean, WindSpeed_ms_mean",
+    "description": "\nmodel info: NOAA Global Ensemble Forecasting Model downloaded using the https://open-meteo.com.  The seamless model combines the 0.25 and 0.5 degree resolution products to get a full 35-day ahead forecast\n\nSites: fcre\n\nVariables: RH_percent_mean, Rain_mm_sum, ShortwaveRadiationUp_Wm2_mean, BP_kPa_mean, AirTemp_C_mean, WindSpeed_ms_mean",
     "start_datetime": "2023-10-13",
-    "end_datetime": "2023-11-23",
+    "end_datetime": "2023-11-22",
     "providers": [
       {
         "url": "pending",
@@ -32,7 +34,7 @@
         ]
       },
       {
-        "url": "https://ecoforecast.org",
+        "url": "https://www.ecoforecastprojectvt.org",
         "name": "Ecoforecast Challenge",
         "roles": [
           "host"
@@ -43,14 +45,9 @@
     "keywords": [
       "Forecasting",
       "vera4cast",
-      "BP_kPa_mean, AirTemp_C_mean, RH_percent_mean, Rain_mm_sum, ShortwaveRadiationUp_Wm2_mean, WindSpeed_ms_mean"
+      "RH_percent_mean, Rain_mm_sum, ShortwaveRadiationUp_Wm2_mean, BP_kPa_mean, AirTemp_C_mean, WindSpeed_ms_mean"
     ],
     "table:columns": [
-      {
-        "name": "project_id",
-        "type": "string",
-        "description": "unique identifier for the forecast project"
-      },
       {
         "name": "site_id",
         "type": "string",
@@ -68,7 +65,7 @@
       },
       {
         "name": "depth_m",
-        "type": "bool",
+        "type": "double",
         "description": "depth (meters) in water column of prediction"
       },
       {
@@ -78,7 +75,7 @@
       },
       {
         "name": "parameter",
-        "type": "double",
+        "type": "string",
         "description": "ensemble member or distribution parameter"
       },
       {
@@ -88,8 +85,13 @@
       },
       {
         "name": "pub_datetime",
-        "type": "string",
+        "type": "timestamp[us, tz=UTC]",
         "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique identifier for the forecast project"
       },
       {
         "name": "duration",
@@ -149,37 +151,37 @@
     },
     "2": {
       "type": "application/x-parquet",
-      "title": "Database Access for BP_kPa_mean",
-      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=BP_kPa_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=BP_kPa_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "3": {
-      "type": "application/x-parquet",
-      "title": "Database Access for AirTemp_C_mean",
-      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=AirTemp_C_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=AirTemp_C_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
-      "title": "Database Access for RH_percent_mean",
+      "title": "Database Access for RH_percent_mean P1D",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=RH_percent_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=RH_percent_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "5": {
+    "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Rain_mm_sum",
+      "title": "Database Access for Rain_mm_sum P1D",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Rain_mm_sum/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=Rain_mm_sum/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "6": {
+    "4": {
       "type": "application/x-parquet",
-      "title": "Database Access for ShortwaveRadiationUp_Wm2_mean",
+      "title": "Database Access for ShortwaveRadiationUp_Wm2_mean P1D",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=ShortwaveRadiationUp_Wm2_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=ShortwaveRadiationUp_Wm2_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
+    "5": {
+      "type": "application/x-parquet",
+      "title": "Database Access for BP_kPa_mean P1D",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=BP_kPa_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=BP_kPa_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "6": {
+      "type": "application/x-parquet",
+      "title": "Database Access for AirTemp_C_mean P1D",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=AirTemp_C_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=AirTemp_C_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
     "7": {
       "type": "application/x-parquet",
-      "title": "Database Access for WindSpeed_ms_mean",
+      "title": "Database Access for WindSpeed_ms_mean P1D",
       "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=WindSpeed_ms_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/variable=WindSpeed_ms_mean/model_id=gfs_seamless?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }

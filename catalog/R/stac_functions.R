@@ -10,7 +10,7 @@ generate_authors <- function(metadata_table, index){
   )
 }
 
-generate_model_assets <- function(m_vars, aws_path){
+generate_model_assets <- function(m_vars, m_duration, aws_path){
 
   metadata_json_asset <- list(
     "1"= list(
@@ -27,7 +27,7 @@ generate_model_assets <- function(m_vars, aws_path){
   model_data_assets <- purrr::map(iterator_list, function(i)
     list(
       'type'= 'application/x-parquet',
-      'title' = paste0('Database Access for ',m_vars[i]),
+      'title' = paste0('Database Access for ',m_vars[i],' ', m_duration[i]),
       'href' = paste0("s3://anonymous@",
                       aws_path,
                       "/parquet/duration=P1D/variable=", m_vars[i],
@@ -56,6 +56,7 @@ build_model <- function(model_id,
                         end_date,
                         use_metadata,
                         var_values,
+                        duration_names,
                         site_values,
                         model_documentation,
                         destination_path,
@@ -86,10 +87,10 @@ build_model <- function(model_id,
     "type"= "Feature",
     "id"= model_id,
     "bbox"=
-      list(as.numeric(catalog_config$bbox$min_lon),
+      list(list(as.numeric(catalog_config$bbox$min_lon),
            as.numeric(catalog_config$bbox$max_lat),
            as.numeric(catalog_config$bbox$max_lon),
-           as.numeric(catalog_config$bbox$max_lat)),
+           as.numeric(catalog_config$bbox$max_lat))),
     "geometry"= list(
       "type"= catalog_config$site_type,
       "coordinates"=  get_site_coords(sites = site_values)
@@ -146,7 +147,7 @@ build_model <- function(model_id,
         "type"= "application/json",
         "title"= "Model Forecast"
       )),
-    "assets"= generate_model_assets(var_values, aws_download_path)#,
+    "assets"= generate_model_assets(var_values, duration_names, aws_download_path)#,
     #pull_images(theme_id,model_id,thumbnail_image_name)
   )
 
@@ -373,10 +374,10 @@ build_forecast_scores <- function(table_schema,
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+        'bbox' = list(list(as.numeric(catalog_config$bbox$min_lon),
                       as.numeric(catalog_config$bbox$max_lat),
                       as.numeric(catalog_config$bbox$max_lon),
-                      as.numeric(catalog_config$bbox$max_lat))),
+                      as.numeric(catalog_config$bbox$max_lat)))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -518,10 +519,10 @@ build_group_variables <- function(table_schema,
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+        'bbox' = list(list(as.numeric(catalog_config$bbox$min_lon),
                       as.numeric(catalog_config$bbox$max_lat),
                       as.numeric(catalog_config$bbox$max_lon),
-                      as.numeric(catalog_config$bbox$max_lat))),
+                      as.numeric(catalog_config$bbox$max_lat)))),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -616,10 +617,10 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
     ),
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(as.numeric(catalog_config$bbox$min_lon),
+        'bbox' = list(list(as.numeric(catalog_config$bbox$min_lon),
                       as.numeric(catalog_config$bbox$max_lat),
                       as.numeric(catalog_config$bbox$max_lon),
-                      as.numeric(catalog_config$bbox$max_lat))
+                      as.numeric(catalog_config$bbox$max_lat)))
       ),
       "temporal" = list(
         'interval' = list(list(

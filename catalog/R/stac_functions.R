@@ -33,7 +33,7 @@ generate_model_assets <- function(m_vars, aws_path){
                       "/parquet/duration=P1D/variable=", m_vars[i],
                       "/model_id=", m,
                       "?endpoint_override=",config$endpoint),
-      'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
+      'description' = paste0("Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",paste0("s3://anonymous@",
                                                                                                                                                                                                                                                                        aws_path,
                                                                                                                                                                                                                                                                        "/parquet/duration=P1D/variable=", m_vars[i],
                                                                                                                                                                                                                                                                        "/model_id=", m,
@@ -68,7 +68,7 @@ build_model <- function(model_id,
                         table_description) {
 
 
-  preset_keywords <- list("Forecasting", "VERA")
+  preset_keywords <- list("Forecasting", config$project_id)
   variables_reformat <- paste(var_values, collapse = ", ")
   site_reformat <- paste(site_values, collapse = ", ")
 
@@ -77,7 +77,7 @@ build_model <- function(model_id,
                            "/model_id=", model_id,
                            "?endpoint_override=",config$endpoint)
 
-  aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for this model within the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
+  aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
        \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n")
 
   meta <- list(
@@ -86,7 +86,7 @@ build_model <- function(model_id,
     "type"= "Feature",
     "id"= model_id,
     "bbox"=
-      list(catalog_config$bbox_min_lon, catalog_config$bbox_max_lat, catalog_config$bbox_max_lon,  catalog_config$bbox_max_lat),
+      list(catalog_config$bbox$min_lon, catalog_config$bbox$max_lat, catalog_config$bbox$max_lon,  catalog_config$bbox$max_lat),
     "geometry"= list(
       "type"= catalog_config$site_type,
       "coordinates"=  get_site_coords(sites = site_values)
@@ -515,10 +515,10 @@ build_group_variables <- function(table_schema,
     "title" = theme_title,
     "extent" = list(
       "spatial" = list(
-        'bbox' = list(catalog_config$bbox_min_lon,
-                      catalog_config$bbox_max_lat,
-                      catalog_config$bbox_max_lon,
-                      catalog_config$bbox_max_lat)),
+        'bbox' = list(catalog_config$bbox$min_lon,
+                      catalog_config$bbox$max_lat,
+                      catalog_config$bbox$max_lon,
+                      catalog_config$bbox$max_lat)),
       "temporal" = list(
         'interval' = list(list(
           paste0(start_date,"T00:00:00Z"),
@@ -613,10 +613,10 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
     ),
     "extent" = list(
       "spatial" = list(
-        'bbox' = list('bbox' = list(catalog_config$bbox_min_lon,
-                      catalog_config$bbox_max_lat,
-                      catalog_config$bbox_max_lon,
-                      catalog_config$bbox_max_lat))
+        'bbox' = list('bbox' = list(catalog_config$bbox$min_lon,
+                      catalog_config$bbox$max_lat,
+                      catalog_config$bbox$max_lon,
+                      catalog_config$bbox$max_lat))
       ),
       "temporal" = list(
         'interval' = list(list(

@@ -1,3 +1,4 @@
+challenge_long_name: Virginia Ecoforecast Reservoir Analysis
 project_id: vera4cast
 endpoint: renc.osn.xsede.org
 submissions_endpoint: submit.ltreb-reservoirs.org
@@ -9,8 +10,33 @@ prov_bucket: bio230121-bucket01/vera4cast/prov
 targets_bucket: bio230121-bucket01/vera4cast/targets
 archive_bucket: bio230121-bucket01/vera4cast/archive
 model_metadata_bucket: bio230121-bucket01/vera4cast/metadata/model_id
-model_metadata_http: https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/metadata/model_id
+model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
 site_table: vera4cast_field_site_metadata.csv
 target_metadata: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing
 challenge_url: https://www.ltreb-reservoirs.org/vera4cast/
+variable_groups:
+  Biological: ['Chla_ugL_mean']
+  Physical: ['Temp_C_mean']
+catalog_config:
+  about_string: 'www.ltreb-reservoirs.org/vera4cast'
+  about_title: 'VERA Forecasting Challenge Documentation'
+  scores_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
+  scores_thumbnail_title: "Falling Creek Reservoir"
+  forecasts_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
+  forecasts_thumbnail_title: "Falling Creek Reservoir"
+  forecast_path: 'catalog/forecasts/'
+  scores_path: 'catalog/scores/'
+  aws_download_path: 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D'
+  host_url: "https://ecoforecast.org"
+  host_name: "Ecoforecast Challenge"
+  bbox:
+    max_lat: 71.2824
+    min_lat: 17.9696
+    max_lon: -66.7987
+    min_lon: -156.6194
+  site_type: 'MultiPoint'
+  base_image_path: 'https://data.ecoforecast.org/neon4cast-catalog'
+  citation_doi: "https://doi.org/10.1002/fee.2616"
+  citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
+

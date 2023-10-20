@@ -11,7 +11,7 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_SECRET"))
 
 googlesheets4::gs4_deauth()
-registered_models <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing")
+registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 for(i in 1:nrow(registered_models)){
 

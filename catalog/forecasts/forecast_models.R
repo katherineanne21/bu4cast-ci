@@ -3,11 +3,11 @@ library(dplyr)
 
 source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
-catalog_config <- yaml::read_yaml("catalog/catalog_configuration.yaml")
+catalog_config <- config$catalog_config
 
-variable_groups <- c('Biological', 'Physical')
-variable_list <- list(c('Chla_ugL_mean'),
-                      c('Temp_C_mean'))
+names(config$variable_groups)
+variable_groups <- names(config$variable_groups)
+variable_list <- config$variable_groups
 
 ## CREATE table for column descriptions
 forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',
@@ -45,7 +45,7 @@ forecast_date_range <- forecast_data_df |> dplyr::summarise(min(date),max(date))
 forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
 
-build_description <- "The catalog contains forecasts for the VERA Forecasting Challenge. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model."
+build_description <- paste0("The catalog contains forecasts for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
 #variable_group <- c('test_daily')
 
@@ -64,11 +64,8 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       destination_path = catalog_config$forecast_path,
                       aws_download_path = catalog_config$aws_download_path,
                       link_items = generate_group_values(group_values = variable_groups),
-                      thumbnail_link = catalog_config$fcr_thumbnail,
-                      thumbnail_title = 'Falling Creek Reservoir')
-
-
-
+                      thumbnail_link = catalog_config$forecasts_thumbnail,
+                      thumbnail_title = catalog_config$forecasts_thumbnail_title)
 
 ## create separate JSON for model landing page
 
@@ -92,7 +89,7 @@ build_group_variables(table_schema = forecast_theme_df,
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
 
-registered_model_id <- googlesheets4::read_sheet(catalog_config$model_metadata_url)
+registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 
 forecast_sites <- c()

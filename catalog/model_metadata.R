@@ -5,6 +5,8 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 
 endpoint <- config$endpoint
 
+minioclient::install_mc()
+
 minioclient::mc_alias_set("osn",
                           config$endpoint,
                           Sys.getenv("OSN_KEY"),

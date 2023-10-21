@@ -25,7 +25,9 @@ This page visualizes the forecasts and forecast performance for the focal target
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("../cache/duration=P1D") |> 
-  filter(date >= cutoff) |> collect()
+  filter(date >= cutoff)
+
+
 
 
 config <- yaml::read_yaml("../challenge_configuration.yaml")
@@ -35,7 +37,8 @@ df <- combined |>
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id) |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
-         datetime = lubridate::as_datetime(datetime))
+         datetime = lubridate::as_datetime(datetime)) |> 
+  collect()
 
 reference_date <- max(lubridate::as_date(df$reference_datetime))
 ```
@@ -68,8 +71,11 @@ ggobj <- df |>
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Bloom_binary_mean"),
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
-  collect() |>
+         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
+  
+if(nrow(ggobj) > 0){
+
+ggobj |> 
 ggplot(aes(x = datetime, y = mean, color = model_id)) + 
   geom_line_interactive(aes(datetime, mean, col = model_id,
                               tooltip = model_id, data_id = model_id),
@@ -87,20 +93,18 @@ girafe(ggobj = ggobj,
            opts_zoom(max = 4)
          ))
 }
+}
 ```
 
 ### Water temperature
 
 ```{r}
-if("Temp_C_mean" %in% unique(df$variable)){
-
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          variable == c("Temp_C_mean"),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
   forecast_plots()
-}
 ```
 
 ### Air temperature

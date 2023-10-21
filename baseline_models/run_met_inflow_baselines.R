@@ -114,7 +114,7 @@ combined_met <- combined |>
 
 ####
 
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/duration=P1D/daily-inflow-targets.csv.gz"), guess_max = 10000, show_col_types = FALSE)
+targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/project_id=vera4cast/duration=P1D/daily-inflow-targets.csv.gz"), guess_max = 10000, show_col_types = FALSE)
 
 site_names <- "tubr"
 

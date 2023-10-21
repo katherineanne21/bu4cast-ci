@@ -76,8 +76,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                                       depth_m = arrow::float(), #project_specific
                                       variable = arrow::string(),
                                       observation = arrow::float()),
-                                    skip = 1,
-                                    partitioning = c("project_id", "duration")) |>
+                                    skip = 1) |>
     dplyr::filter(variable == variable_duration$variable[k],
                   duration == variable_duration$duration[k],
                   project_id == variable_duration$project_id[k]) |>

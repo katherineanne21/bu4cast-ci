@@ -48,18 +48,22 @@ Forecasts submitted on `r reference_date`
 
 ```{r}
 
-
+if("Chla_ugL_mean" %in% unique(df$variable)){
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Chla_ugL_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
   forecast_plots()
+}
 ```
 
 ### Chlorophyll-a bloom probability
 
 ```{r}
+
+if("Bloom_binary_mean" %in% unique(df$variable)){
+  
 ggobj <- df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
@@ -82,17 +86,21 @@ girafe(ggobj = ggobj,
            opts_hover(css = "stroke-width:2;"),
            opts_zoom(max = 4)
          ))
+}
 ```
 
 ### Water temperature
 
 ```{r}
+if("Temp_C_mean" %in% unique(df$variable)){
+
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          variable == c("Temp_C_mean"),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
   forecast_plots()
+}
 ```
 
 ### Air temperature
@@ -108,52 +116,68 @@ df |>
 ### fDOM QSU
 
 ```{r}
+
+if("fDOM_QSU_mean" %in% unique(df$variable)){
+
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("fDOM_QSU_mean")) |> 
   forecast_plots()
+}
 ```
 
 ### Secchi depth
 
 ```{r}
+if("Secchi_m_sample" %in% unique(df$variable)){
+
+
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Secchi_m_sample")) |> 
   forecast_plots()
+  
+}
 ```
 
 ### Ice Cover Probability
 
 ```{r}
+if("IceCover_binary_sum" %in% unique(df$variable)){
+
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("IceCover_binary_sum")) |> 
   forecast_plots()
+}
 ```
 
 ### Dissolved methane
 
 ```{r}
+if("CH4_umolL_sample" %in% unique(df$variable)){
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("CH4_umolL_sample")) |> 
   forecast_plots()
+}
 ```
 
 
 ### Inflow discharge
 
 ```{r}
+if("Flow_cms_mean" %in% unique(df$variable)){
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Flow_cms_mean")) |> 
   forecast_plots()
+}
 ```
 
 :::

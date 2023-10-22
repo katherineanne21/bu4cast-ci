@@ -25,7 +25,7 @@ This page visualizes the forecasts and forecast performance for the focal target
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("../cache/duration=P1D") |> 
-  filter(date >= cutoff)
+  filter(date >= cutoff) |> collect()
 
 
 
@@ -201,7 +201,9 @@ ref <- max(c(ref,
 #n_data <- 10
 #who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 #ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
-ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
+ex <- combined |> 
+  mutate(reference_date = lubridate::as_date(reference_datetime)) |> 
+  filter(reference_date == ref, site_id %in% sites) |> collect() 
 
 ```
 

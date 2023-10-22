@@ -67,15 +67,15 @@ df |>
 
 if("Bloom_binary_mean" %in% unique(df$variable)){
   
-ggobj <- df |> 
+ggobj_df <- df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Bloom_binary_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
   
-if(nrow(ggobj) > 0){
+if(nrow(ggobj_df) > 0){
 
-ggobj |> 
+ggobj <- ggobj_df |> 
 ggplot(aes(x = datetime, y = mean, color = model_id)) + 
   geom_line_interactive(aes(datetime, mean, col = model_id,
                               tooltip = model_id, data_id = model_id),

@@ -146,7 +146,7 @@ for (m in theme_models$model_id){
 
 ## BUILD VARIABLE GROUPS
 
-for (i in 1:length(variable_groups)){
+for (i in 1:length(config$variable_groups)){
   print(names(config$variable_groups)[i])
 
   if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups[i])))){

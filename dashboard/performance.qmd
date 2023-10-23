@@ -53,7 +53,7 @@ Forecasts submitted on `r reference_date`
 
 if("Chla_ugL_mean" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(2),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Chla_ugL_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
@@ -68,7 +68,7 @@ df |>
 if("Bloom_binary_mean" %in% unique(df$variable)){
   
 ggobj_df <- df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Bloom_binary_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
@@ -100,7 +100,7 @@ girafe(ggobj = ggobj,
 
 ```{r}
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          variable == c("Temp_C_mean"),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
@@ -111,7 +111,7 @@ df |>
 
 ```{r}
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("AirTemp_C_mean")) |> 
   forecast_plots()
@@ -124,7 +124,7 @@ df |>
 if("fDOM_QSU_mean" %in% unique(df$variable)){
 
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("fDOM_QSU_mean")) |> 
   forecast_plots()
@@ -138,7 +138,7 @@ if("Secchi_m_sample" %in% unique(df$variable)){
 
 
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Secchi_m_sample")) |> 
   forecast_plots()
@@ -152,7 +152,7 @@ df |>
 if("IceCover_binary_sum" %in% unique(df$variable)){
 
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("IceCover_binary_sum")) |> 
   forecast_plots()
@@ -164,7 +164,7 @@ df |>
 ```{r}
 if("CH4_umolL_sample" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("CH4_umolL_sample")) |> 
   forecast_plots()
@@ -177,7 +177,7 @@ df |>
 ```{r}
 if("Flow_cms_mean" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Flow_cms_mean")) |> 
   forecast_plots()

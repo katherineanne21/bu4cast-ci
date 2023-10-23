@@ -170,7 +170,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                         theme_title = names(config$variable_groups[i]),
                         destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
                         aws_download_path = catalog_config$aws_download_path,
-                        group_var_items = generate_group_variable_items(variables = names(config$variable_groups[i])))
+                        group_var_items = generate_group_variable_items(variables = config$variable_groups[[i]]$variable))
 
 
 

@@ -13,7 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Physical/collection.json"
+      "href": "Temp_C_mean/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Secchi_m_sample/collection.json"
     },
     {
       "rel": "parent",

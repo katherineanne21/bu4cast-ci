@@ -30,7 +30,8 @@ scores_description_create <- data.frame(reference_datetime ='datetime that the f
                                  depth_m = 'depth (meters) in water column of prediction',
                                  model_id = 'unique model identifier',
                                  date = 'ISO 8601 (ISO 2019) date of the predicted value; follows CF convention http://cfconventions.org/cf-conventions/cf-conventions.html#time-coordinate. This variable was called time before v0.5of the EFI convention. For time-integrated variables (e.g., cumulative net primary productivity), one should specify the start_datetime and end_datetime as two variables, instead of the single datetime. If this is not provided the datetime is assumed to be the MIDPOINT of the integration period.',
-                                 pub_datetime = 'datetime that forecast was submitted')
+                                 pub_datetime = 'datetime that forecast was submitted',
+                                 project_id = 'unique project identifier')
 
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
@@ -111,7 +112,7 @@ for (m in theme_models$model_id){
   model_sites <- scores_data_df |> filter(model_id == m) |> distinct(site_id)
   model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable)
 
-  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+  model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
@@ -130,6 +131,7 @@ for (m in theme_models$model_id){
               start_date = model_min_date,
               end_date = model_max_date,
               var_values = model_vars$variable,
+              duration_names = model_var_duration_df$duration_name,
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
@@ -183,11 +185,11 @@ for (i in 1:length(variable_groups)){
                           aws_download_path = catalog_config$aws_download_path,
                           group_var_items = generate_group_variable_items(variables = var_name_combined_list))
 
-    if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
-      dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
+    if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
+      dir.create(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
     }
 
-    var_data <- forecast_data_df |>
+    var_data <- scores_data_df |>
       filter(variable == var_name)
 
     var_date_range <- var_data |> dplyr::summarise(min(date),max(date))

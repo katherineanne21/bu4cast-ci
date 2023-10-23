@@ -31,6 +31,8 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
   #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
+# NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
+    #(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))
 
 ## identify model ids from bucket -- used in generate model items function
 forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
@@ -56,10 +58,8 @@ build_forecast_scores(table_schema = forecast_theme_df,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
                       theme_title = "Forecasts",
-                      #model_documentation = NULL,
                       destination_path = catalog_config$forecast_path,
                       aws_download_path = catalog_config$aws_download_path,
-                      #link_items = generate_group_values(group_values = variable_groups),
                       link_items = generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title)

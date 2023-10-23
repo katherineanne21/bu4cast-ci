@@ -5,9 +5,9 @@ source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
-names(config$variable_groups)
-variable_groups <- names(config$variable_groups)
-variable_list <- config$variable_groups
+# names(config$variable_groups)
+# variable_groups <- names(config$variable_groups)
+# variable_list <- config$variable_groups
 
 
 ## CREATE table for column descriptions
@@ -34,13 +34,13 @@ scores_description_create <- data.frame(reference_datetime ='datetime that the f
 
 
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
-theme <- 'daily'
-reference_datetime <- '2023-09-01'
-site_id <- 'fcre'
-model_id <- 'climatology'
+# theme <- 'daily'
+# reference_datetime <- '2023-09-01'
+# site_id <- 'fcre'
+# model_id <- 'climatology'
 
-scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) |>
-  filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
+scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
+  #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
 scores_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
@@ -71,12 +71,9 @@ build_forecast_scores(table_schema = scores_theme_df,
                       theme_title = "Scores",
                       destination_path = catalog_config$scores_path,
                       aws_download_path = catalog_config$aws_download_path,
-                      link_items = generate_group_values(group_values = variable_groups),
+                      link_items = generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$scores_thumbnail,
                       thumbnail_title = catalog_config$scores_thumbnail_title)
-
-
-
 
 ## create separate JSON for model landing page
 
@@ -94,7 +91,7 @@ build_group_variables(table_schema = scores_theme_df,
                       aws_download_path = catalog_config$aws_download_path,
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
 
-## create models
+## CREATE MODELS
 
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
@@ -114,6 +111,13 @@ for (m in theme_models$model_id){
   model_sites <- scores_data_df |> filter(model_id == m) |> distinct(site_id)
   model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable)
 
+  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+    mutate(duration_name = ifelse(duration == 'P1D', 'daily', duration)) |>
+    mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'P1W', 'weekly', duration_name))
+
+  model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 
   scores_sites <- append(scores_sites,  get_site_coords(sites = model_sites$site_id))
 
@@ -129,7 +133,6 @@ for (m in theme_models$model_id){
               site_values = model_sites$site_id,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
-              description_path = NULL, #"catalog/daily/scores/models/asset-description.Rmd", # MIGHT REMOVE THIS
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
               theme_title = m,
               collection_name = 'scores',
@@ -142,37 +145,50 @@ for (m in theme_models$model_id){
 ## BUILD VARIABLE GROUPS
 
 for (i in 1:length(variable_groups)){
-  print(variable_groups[i])
+  print(names(config$variable_groups)[i])
 
-  if (!dir.exists(paste0("catalog/scores/",variable_groups[i]))){
-    dir.create(paste0("catalog/scores/",variable_groups[i]))
+  if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups[i])))){
+    dir.create(paste0(catalog_config$scores_path,names(config$variable_groups[i])))
   }
 
-  group_description <- paste0('This page includes variables for the ',variable_groups[i],' group.')
+  for(j in 1:length(config$variable_groups[[i]]$variable)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
 
-  build_group_variables(table_schema = scores_theme_df,
-                        theme_id = variable_groups[i],
-                        table_description = scores_description_create,
-                        start_date = scores_min_date,
-                        end_date = scores_max_date,
-                        id_value = variable_groups[i],
-                        description_string = group_description,
-                        about_string = catalog_config$about_string,
-                        about_title = catalog_config$about_title,
-                        theme_title = variable_groups[i],
-                        destination_path = paste0(catalog_config$scores_path,variable_groups[i]),
-                        aws_download_path = catalog_config$aws_download_path,
-                        group_var_items = generate_group_variable_items(variables = variable_list[[i]]))
+    ## restructure variable names
+    var_values <- config$variable_groups[[i]]$variable
+    var_name <- config$variable_groups[[i]]$variable[j]
 
-  for (v in variable_list[[i]]){ # Make variable JSONS within each group
-    print(v)
+    ## create new vector to store duration names
+    duration_values <- config$variable_groups[[i]]$duration
+    duration_values[which(duration_values == 'P1D')] <- 'daily'
+    duration_values[which(duration_values == 'PT1H')] <- 'hourly'
+    duration_values[which(duration_values == 'PT30M')] <- '30min'
+    duration_values[which(duration_values == 'P1W')] <- 'weekly'
 
-    if (!dir.exists(paste0(catalog_config$scores_path,variable_groups[i],'/',v))){
-      dir.create(paste0(catalog_config$scores_path,variable_groups[i],'/',v))
+    var_name_combined_list <- paste0(var_values, '_',duration_values)
+
+    ## CREATE VARIABLE GROUP JSONS
+    group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
+
+    build_group_variables(table_schema = scores_theme_df,
+                          theme_id = names(config$variable_groups[i]),
+                          table_description = scores_description_create,
+                          start_date = scores_min_date,
+                          end_date = scores_max_date,
+                          id_value = names(config$variable_groups[i]),
+                          description_string = group_description,
+                          about_string = catalog_config$about_string,
+                          about_title = catalog_config$about_title,
+                          theme_title = names(config$variable_groups[i]),
+                          destination_path = paste0(catalog_config$scores_path,names(config$variable_groups[i])),
+                          aws_download_path = catalog_config$aws_download_path,
+                          group_var_items = generate_group_variable_items(variables = var_name_combined_list))
+
+    if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
+      dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
     }
 
-    var_data <- scores_data_df |>
-      filter(variable == v)
+    var_data <- forecast_data_df |>
+      filter(variable == var_name)
 
     var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
     var_min_date <- var_date_range$`min(date)`
@@ -180,19 +196,19 @@ for (i in 1:length(variable_groups)){
 
     var_models <- var_data |> distinct(model_id)
 
-    var_description <- paste0('This page includes all models for the ',v,' variable.')
+    var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
     build_group_variables(table_schema = scores_theme_df,
-                          theme_id = v,
+                          theme_id = var_name_combined_list[j],
                           table_description = scores_description_create,
                           start_date = var_min_date,
                           end_date = var_max_date,
-                          id_value = v,
+                          id_value = var_name_combined_list[j],
                           description_string = var_description,
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
-                          theme_title = v,
-                          destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
+                          theme_title = var_name_combined_list[j],
+                          destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

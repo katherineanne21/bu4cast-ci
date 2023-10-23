@@ -119,7 +119,8 @@ build_model <- function(model_id,
       ),
       "license"= "CC0-1.0",
       "keywords"= c(preset_keywords, variables_reformat),
-      "table:columns" = stac4cast::build_table_columns(table_schema, table_description)
+      #"table:columns" = stac4cast::build_table_columns_full_bucket(table_schema, table_description)
+      "table:columns" = build_table_columns_full_bucket(table_schema, table_description)
     ),
     "collection"= collection_name,
     "links"= list(
@@ -317,7 +318,7 @@ build_forecast_scores <- function(table_schema,
 
   aws_asset_link <- paste0("s3://anonymous@",
                            aws_download_path,
-                           "/model_id=", model_id,
+                           #"/model_id=", model_id,
                            "?endpoint_override=",config$endpoint)
 
   aws_asset_description <-   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
@@ -384,7 +385,9 @@ build_forecast_scores <- function(table_schema,
           paste0(end_date,"T00:00:00Z"))
         ))
     ),
-    "table:columns" = stac4cast::build_table_columns(table_schema, table_description),
+    #"table:columns" = stac4cast::build_table_columns_full_bucket(table_schema, table_description),
+    "table:columns" = build_table_columns_full_bucket(table_schema, table_description),
+
     'assets' = list(
       # 'data' = list(
       #   "href"= model_documentation,
@@ -468,7 +471,7 @@ build_group_variables <- function(table_schema,
 
   aws_asset_link <-  paste0("s3://anonymous@",
                      aws_download_path,
-                     "/model_id=", model_id,
+                     #"/model_id=", model_id,
                      "?endpoint_override=",config$endpoint)
 
   aws_asset_description <-   aws_asset_description <- paste0("Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(",aws_asset_link,")\ndf <- all_results |> dplyr::collect()\n\n```
@@ -529,7 +532,8 @@ build_group_variables <- function(table_schema,
           paste0(end_date,"T00:00:00Z"))
         ))
     ),
-    "table:columns" = stac4cast::build_table_columns(table_schema, table_description),
+    #"table:columns" = stac4cast::build_table_columns_full_bucket(table_schema, table_description),
+    "table:columns" = build_table_columns_full_bucket(table_schema, table_description),
     'assets' = list(
       'data' = list(
         "href" = aws_asset_link,
@@ -674,6 +678,29 @@ build_theme <- function(start_date,end_date, id_value, theme_description, theme_
   stac4cast::stac_validate(json)
 }
 
+
+
+
+## ADD PLACEHOLDER FUNCTION FOR STAC4CAST TABLE BUILD
+build_table_columns_full_bucket <- function(data_object,description_df){
+
+  full_string_list <- strsplit(data_object$ToString(),'\n')[[1]]
+
+  #create initial empty list
+  init_list = vector(mode="list", length = data_object$num_cols)
+
+  ## loop through parquet df and description information to build the list
+  for (i in seq.int(1,data_object$num_cols)){
+    list_items <- strsplit(full_string_list[i],': ')[[1]]
+    col_list <- list(name = list_items[1],
+                     type = list_items[2],
+                     description = description_df[1,list_items[1]])
+
+    init_list[[i]] <- col_list
+
+  }
+  return(init_list)
+}
 
 ## WE DON'T USE THE FOLLOWING TWO FUNCITONS ANYMORE. KEEPING THEM FOR REFERENCE BUT DELETE EVENTUALLY
 #' build_site_item <- function(theme_id,

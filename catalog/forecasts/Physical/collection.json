@@ -13,12 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Temp_C_mean/collection.json"
+      "href": "Temp_C_mean_daily/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Secchi_m_sample/collection.json"
+      "href": "Secchi_m_sample_daily/collection.json"
     },
     {
       "rel": "parent",

@@ -13,12 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Chla_ugL_mean/collection.json"
+      "href": "Chla_ugL_mean_daily/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Bloom_binary_mean/collection.json"
+      "href": "Bloom_binary_mean_daily/collection.json"
     },
     {
       "rel": "parent",

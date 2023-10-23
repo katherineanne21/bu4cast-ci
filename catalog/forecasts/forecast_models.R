@@ -181,7 +181,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
 
 
-  for(j in length(config$variable_groups[[i]]$variable)){
+  for(j in 1:length(config$variable_groups[[i]]$variable)){
 
 
     ## restructure variable names

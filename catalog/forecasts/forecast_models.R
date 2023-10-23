@@ -116,9 +116,9 @@ for (m in theme_models$model_id){
 
   model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'daily', duration)) |>
-    mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration)) |>
-    mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration)) |>
-    mutate(duration_name = ifelse(duration == 'P1W', 'weekly', duration))
+    mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'P1W', 'weekly', duration_name))
 
   model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 

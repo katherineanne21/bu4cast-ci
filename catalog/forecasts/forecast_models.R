@@ -175,7 +175,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
 
 
-  for(j in length(config$variable_groups[[i]])){
+  for(j in length(config$variable_groups[[i]]$variable)){
 
     var_name <- config$variable_groups[[i]]$variable[j]
     duration_name <- config$variable_groups[[i]]$duration[j]
@@ -194,8 +194,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
     var_name_full <- paste0(var_name,'_',duration_name_title)
 
-    if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups[i]),'/',var_name_full))){
-      dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups[i]),'/',var_name_full))
+    if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_full))){
+      dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_full))
     }
 
     var_data <- forecast_data_df |>
@@ -219,7 +219,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
                           theme_title = var_name_full,
-                          destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups[i]),var_name_full),
+                          destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_name_full),
                           aws_download_path = var_data$path[1],
                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
 

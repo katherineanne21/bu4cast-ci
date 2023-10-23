@@ -5,16 +5,6 @@ source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
-# for(i in 1:length(config$variable_groups)){
-#
-#   variable_group <- names(config$variable_groups)[i]
-#
-#   for(j in 1:length(config$variable_groups[[i]]$variable)){
-#   variable <- config$variable_groups[[i]]$variable[j]
-#   duration <- config$variable_groups[[i]]$duration[j]
-#   }
-# }
-
 
 ## CREATE table for column descriptions
 forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',
@@ -34,13 +24,13 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 
 ## CHANGE THE WAY TO READ THE SCHEMA
 ## just read in example forecast to extract schema information -- ask about better ways of doing this
-theme <- 'daily'
-reference_datetime <- '2023-09-01'
-site_id <- 'fcre'
-model_id <- 'climatology'
+# theme <- 'daily'
+# reference_datetime <- '2023-09-01'
+# site_id <- 'fcre'
+# model_id <- 'climatology'
 
-forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) |>
-  filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
+forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
+  #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
 forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
@@ -55,9 +45,6 @@ forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
 
 build_description <- paste0("The catalog contains forecasts for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
-
-#variable_group <- c('test_daily')
-
 
 build_forecast_scores(table_schema = forecast_theme_df,
                       theme_id = 'Forecasts',
@@ -94,7 +81,7 @@ build_group_variables(table_schema = forecast_theme_df,
                       aws_download_path = catalog_config$aws_download_path,
                       group_var_items = generate_model_items(model_list = theme_models$model_id))
 
-## create models
+## CREATE MODELS
 
 ## READ IN MODEL METADATA
 googlesheets4::gs4_deauth()
@@ -104,7 +91,7 @@ registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 forecast_sites <- c()
 
-## loop over model ids and extract components if present in metadata table
+## LOOP OVER MODEL IDS AND CREATE JSONS
 for (m in theme_models$model_id){
   print(m)
   model_date_range <- forecast_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
@@ -156,37 +143,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))
   }
 
-  # ## create new vector to store duration names
-  # duration_values <- config$variable_groups[[i]]$duration
-  # duration_values[which(duration_values == 'P1D')] <- 'daily'
-  # duration_values[which(duration_values == 'PT1H')] <- 'hourly'
-  # duration_values[which(duration_values == 'PT30M')] <- '30min'
-  # duration_values[which(duration_values == 'P1W')] <- 'weekly'
-  #
-  # group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
-  #
-  # build_group_variables(table_schema = forecast_theme_df,
-  #                       theme_id = names(config$variable_groups[i]),
-  #                       table_description = forecast_description_create,
-  #                       start_date = forecast_min_date,
-  #                       end_date = forecast_max_date,
-  #                       id_value = names(config$variable_groups[i]),
-  #                       description_string = group_description,
-  #                       about_string = catalog_config$about_string,
-  #                       about_title = catalog_config$about_title,
-  #                       theme_title = names(config$variable_groups[i]),
-  #                       destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
-  #                       aws_download_path = catalog_config$aws_download_path,
-  #                       group_var_items = generate_group_variable_items(variables = duration_values))
-
-
-
-  for(j in 1:length(config$variable_groups[[i]]$variable)){
-
+  for(j in 1:length(config$variable_groups[[i]]$variable)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
 
     ## restructure variable names
-    var_name <- config$variable_groups[[i]]$variable[j]
     var_values <- config$variable_groups[[i]]$variable
+    var_name <- config$variable_groups[[i]]$variable[j]
 
     ## create new vector to store duration names
     duration_values <- config$variable_groups[[i]]$duration
@@ -213,24 +174,6 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
                           group_var_items = generate_group_variable_items(variables = var_name_combined_list))
-
-
-    #var_name <- config$variable_groups[[i]]$variable[j]
-    # duration_name <- config$variable_groups[[i]]$duration[j]
-
-    # duration_name_title <- duration_name
-    #
-    # if (duration_name == 'P1D'){
-    #   duration_name_title <- 'daily'
-    # } else if(duration_name == 'PT1H'){
-    #   duraiton_name_title <- 'hourly'
-    # } else if(duration_name == 'PT30M'){
-    #   duration_name_title == '30min'
-    # } else if(duration_name == 'P1W'){
-    #   duration_name_title == 'weekly'
-    # }
-
-    # var_name_full <- paste0(var_name,'_',duration_values[j])
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
@@ -263,48 +206,3 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
   }
 }
-
-#   # for (d in unique(names(config$variable_groups[[i]]$duration[d]))){ # make a specific duration group for each variable (Bio_daily, Bio_houly, etc.)
-#   #   #print(names(config$variable_groups[[i]]$duration[d]))
-#   #   for(j in config$variable_groups[[i]]$variable[j]){
-#   #
-#   #   }
-#   #
-#   # }
-#
-#   for (v in variable_list[[i]]){ # Make variable JSONS within each group
-#     print(v)
-#
-#     if (!dir.exists(paste0(catalog_config$forecast_path,variable_groups[i],'/',v))){
-#       dir.create(paste0(catalog_config$forecast_path,variable_groups[i],'/',v))
-#     }
-#
-#     var_data <- forecast_data_df |>
-#       filter(variable == v)
-#
-#     var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
-#     var_min_date <- var_date_range$`min(date)`
-#     var_max_date <- var_date_range$`max(date)`
-#
-#     var_models <- var_data |> distinct(model_id)
-#
-#     var_description <- paste0('This page includes all models for the ',v,' variable.')
-#
-#     build_group_variables(table_schema = forecast_theme_df,
-#                           theme_id = v,
-#                           table_description = forecast_description_create,
-#                           start_date = var_min_date,
-#                           end_date = var_max_date,
-#                           id_value = v,
-#                           description_string = var_description,
-#                           about_string = catalog_config$about_string,
-#                           about_title = catalog_config$about_title,
-#                           theme_title = v,
-#                           destination_path = file.path(catalog_config$forecast_path,variable_groups[i],v),
-#                           aws_download_path = var_data$path[1],
-#                           group_var_items = generate_variable_model_items(model_list = var_models$model_id))
-#
-#   }
-#
-#
-# }

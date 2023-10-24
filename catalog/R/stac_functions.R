@@ -107,7 +107,7 @@ build_model <- function(model_id,
 '),
       "start_datetime" = start_date,
       "end_datetime" = end_date,
-      "providers"= c(generate_authors(metadata_table = model_documentation, index = idx),list(
+      "providers"= c(generate_authors(metadata_table = model_documentation),list(
         list(
           "url"= catalog_config$host_url,
           "name"= catalog_config$host_name,
@@ -272,13 +272,15 @@ pull_images <- function(theme, m_id, image_name){
 }
 
 
-get_site_coords <- function(sites){
+get_site_coords <- function(site_metadata, sites){
 
-  site_df <- data.frame(site_id = c('fcre', 'bvre', 'ccre'),
-                        site_lon = c(-79.837217, -79.815936, -79.95856),
-                        site_lat = c(37.303153, 37.312909, 37.370259))
+  site_df <- read_csv(site_metadata)
 
-  site_lat_lon <- lapply(sites, function(i) c(site_df$site_lon[which(site_df[,1] == i)], site_df$site_lat[which(site_df[,1] == i)]))
+  # site_df <- data.frame(site_id = c('fcre', 'bvre', 'ccre'),
+  #                       site_lon = c(-79.837217, -79.815936, -79.95856),
+  #                       site_lat = c(37.303153, 37.312909, 37.370259))
+
+  site_lat_lon <- lapply(sites, function(i) c(site_df$latitude[which(site_df[,2] == i)], site_df$longtitude[which(site_df[,2] == i)]))
 
   return(site_lat_lon)
 }
@@ -556,127 +558,127 @@ build_group_variables <- function(table_schema,
   stac4cast::stac_validate(json)
 }
 
-build_theme <- function(start_date,end_date, id_value, theme_description, theme_title, destination_path, thumbnail_link, thumbnail_title){
-
-  theme <- list(
-    "id" = id_value,
-    "type" = "Collection",
-    "links" = list(
-      list(
-        "rel" = "child",
-        "type" = "application/json",
-        "href" = 'forecasts/collection.json',
-        "title" = 'forecast item'
-      ),
-      list(
-        "rel" = "child",
-        "type" = "application/json",
-        "href" = 'scores/collection.json',
-        "title" = 'scores item'
-      ),
-      list(
-        "rel"= "parent",
-        "type"= "application/json",
-        "href"= "../catalog.json",
-        "title" = 'parent'
-      ),
-      list(
-        "rel"= "root",
-        "type"= "application/json",
-        "href"= "../catalog.json",
-        "title" = 'root'
-      ),
-      list(
-        "rel"= "self",
-        "type"= "application/json",
-        "href" = 'collection.json',
-        "title" = 'self'
-      ),
-      list(
-        "rel" ="cite-as",
-        "href"= catalog_config$citation_link,
-        "title" = "citation"
-      ),
-      list(
-        "rel"= "about",
-        "href"= catalog_config$about_string,
-        "type"= "text/html",
-        "title"= catalog_config$about_title
-      ),
-      list(
-        "rel"= "describedby",
-        "href"= catalog_config$about_string,
-        "title"= catalog_config$about_title,
-        "type"= "text/html"
-      )
-    ),
-    "title"= theme_title,
-    'assets' = list(
-      'thumbnail' = list(
-        "href"= thumbnail_link,
-        "type"= "image/JPEG",
-        "roles" = list('thumbnail'),
-        "title"= thumbnail_title
-      )
-    ),
-    "extent" = list(
-      "spatial" = list(
-        'bbox' = list(list(as.numeric(catalog_config$bbox$min_lon),
-                      as.numeric(catalog_config$bbox$max_lat),
-                      as.numeric(catalog_config$bbox$max_lon),
-                      as.numeric(catalog_config$bbox$max_lat)))
-      ),
-      "temporal" = list(
-        'interval' = list(list(
-          paste0(start_date,'T00:00:00Z'),
-          paste0(end_date,'T00:00:00Z'))
-        ))
-    ),
-    "license" = "CC0-1.0",
-    "keywords" = list(
-      "Forecasting",
-      "Data",
-      "Ecology"
-    ),
-    "providers" = list(
-      list(
-        "url"= catalog_config$host_url,
-        "name"= catalog_config$host_name,
-        "roles" = list(
-          "producer",
-          "processor",
-          "licensor"
-        )
-      ),
-      list(
-        "url"= catalog_config$host_url,
-        "name"= catalog_config$host_name,
-        "roles" = list('host')
-      )
-    ),
-    "description" = theme_description,
-    "stac_version" = "1.0.0",
-    "stac_extensions" = list(
-      "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
-      "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
-      "https://stac-extensions.github.io/table/v1.2.0/schema.json"
-    ),
-    "publications" = list(
-      "doi" = catalog_config$citation_doi,
-      "citation"= catalog_config$citation_text
-    )
-  )
-
-
-  dest <- destination_path
-  json <- file.path(dest, "collection.json")
-
-  jsonlite::write_json(theme,
-                       json,
-                       pretty=TRUE,
-                       auto_unbox=TRUE)
-  stac4cast::stac_validate(json)
-}
+# build_theme <- function(start_date,end_date, id_value, theme_description, theme_title, destination_path, thumbnail_link, thumbnail_title){
+#
+#   theme <- list(
+#     "id" = id_value,
+#     "type" = "Collection",
+#     "links" = list(
+#       list(
+#         "rel" = "child",
+#         "type" = "application/json",
+#         "href" = 'forecasts/collection.json',
+#         "title" = 'forecast item'
+#       ),
+#       list(
+#         "rel" = "child",
+#         "type" = "application/json",
+#         "href" = 'scores/collection.json',
+#         "title" = 'scores item'
+#       ),
+#       list(
+#         "rel"= "parent",
+#         "type"= "application/json",
+#         "href"= "../catalog.json",
+#         "title" = 'parent'
+#       ),
+#       list(
+#         "rel"= "root",
+#         "type"= "application/json",
+#         "href"= "../catalog.json",
+#         "title" = 'root'
+#       ),
+#       list(
+#         "rel"= "self",
+#         "type"= "application/json",
+#         "href" = 'collection.json',
+#         "title" = 'self'
+#       ),
+#       list(
+#         "rel" ="cite-as",
+#         "href"= catalog_config$citation_link,
+#         "title" = "citation"
+#       ),
+#       list(
+#         "rel"= "about",
+#         "href"= catalog_config$about_string,
+#         "type"= "text/html",
+#         "title"= catalog_config$about_title
+#       ),
+#       list(
+#         "rel"= "describedby",
+#         "href"= catalog_config$about_string,
+#         "title"= catalog_config$about_title,
+#         "type"= "text/html"
+#       )
+#     ),
+#     "title"= theme_title,
+#     'assets' = list(
+#       'thumbnail' = list(
+#         "href"= thumbnail_link,
+#         "type"= "image/JPEG",
+#         "roles" = list('thumbnail'),
+#         "title"= thumbnail_title
+#       )
+#     ),
+#     "extent" = list(
+#       "spatial" = list(
+#         'bbox' = list(list(as.numeric(catalog_config$bbox$min_lon),
+#                       as.numeric(catalog_config$bbox$max_lat),
+#                       as.numeric(catalog_config$bbox$max_lon),
+#                       as.numeric(catalog_config$bbox$max_lat)))
+#       ),
+#       "temporal" = list(
+#         'interval' = list(list(
+#           paste0(start_date,'T00:00:00Z'),
+#           paste0(end_date,'T00:00:00Z'))
+#         ))
+#     ),
+#     "license" = "CC0-1.0",
+#     "keywords" = list(
+#       "Forecasting",
+#       "Data",
+#       "Ecology"
+#     ),
+#     "providers" = list(
+#       list(
+#         "url"= catalog_config$host_url,
+#         "name"= catalog_config$host_name,
+#         "roles" = list(
+#           "producer",
+#           "processor",
+#           "licensor"
+#         )
+#       ),
+#       list(
+#         "url"= catalog_config$host_url,
+#         "name"= catalog_config$host_name,
+#         "roles" = list('host')
+#       )
+#     ),
+#     "description" = theme_description,
+#     "stac_version" = "1.0.0",
+#     "stac_extensions" = list(
+#       "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
+#       "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
+#       "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+#     ),
+#     "publications" = list(
+#       "doi" = catalog_config$citation_doi,
+#       "citation"= catalog_config$citation_text
+#     )
+#   )
+#
+#
+#   dest <- destination_path
+#   json <- file.path(dest, "collection.json")
+#
+#   jsonlite::write_json(theme,
+#                        json,
+#                        pretty=TRUE,
+#                        auto_unbox=TRUE)
+#   stac4cast::stac_validate(json)
+# }
 
 
 

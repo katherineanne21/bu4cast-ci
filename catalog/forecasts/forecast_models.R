@@ -110,7 +110,8 @@ for (m in theme_models$model_id){
   model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 
 
-  forecast_sites <- append(forecast_sites,  get_site_coords(sites = model_sites$site_id))
+  forecast_sites <- append(forecast_sites,  get_site_coords(site_metadata = catalog_config$site_metadata_url,
+                                                            sites = model_sites$site_id))
 
   idx = which(registered_model_id$model_id == m)
 

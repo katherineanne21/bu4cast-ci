@@ -53,7 +53,7 @@ Forecasts submitted on `r reference_date`
 
 if("Chla_ugL_mean" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(2),
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Chla_ugL_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 

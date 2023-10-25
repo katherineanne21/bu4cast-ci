@@ -1,10 +1,13 @@
 library(arrow)
 library(dplyr)
 
-source('catalog/R/stac_functions.R')
+#source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
+# file.sources = list.files(c("../stac4cast/R"), full.names=TRUE,
+#                           ignore.case=TRUE)
+# sapply(file.sources,source,.GlobalEnv)
 
 ## CREATE table for column descriptions
 forecast_description_create <- data.frame(datetime = 'datetime of the forecasted value (ISO 8601)',
@@ -48,8 +51,8 @@ forecast_max_date <- forecast_date_range$`max(date)`
 
 build_description <- paste0("The catalog contains forecasts for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
-build_forecast_scores(table_schema = forecast_theme_df,
-                      theme_id = 'Forecasts',
+stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
+                      #theme_id = 'Forecasts',
                       table_description = forecast_description_create,
                       start_date = forecast_min_date,
                       end_date = forecast_max_date,
@@ -67,7 +70,6 @@ build_forecast_scores(table_schema = forecast_theme_df,
 ## create separate JSON for model landing page
 
 build_group_variables(table_schema = forecast_theme_df,
-                      theme_id = 'models',
                       table_description = forecast_description_create,
                       start_date = forecast_min_date,
                       end_date = forecast_max_date,
@@ -116,7 +118,6 @@ for (m in theme_models$model_id){
   idx = which(registered_model_id$model_id == m)
 
   build_model(model_id = m,
-              theme_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
@@ -124,10 +125,10 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               duration_names = model_var_duration_df$duration_name,
               site_values = model_sites$site_id,
+              site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$forecast_path,"models/model_items"),
               aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
-              theme_title = m,
               collection_name = 'forecasts',
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,
@@ -163,7 +164,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
     build_group_variables(table_schema = forecast_theme_df,
-                          theme_id = names(config$variable_groups[i]),
+                          #theme_id = names(config$variable_groups[i]),
                           table_description = forecast_description_create,
                           start_date = forecast_min_date,
                           end_date = forecast_max_date,
@@ -192,7 +193,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
     build_group_variables(table_schema = forecast_theme_df,
-                          theme_id = var_name_combined_list[j],
+                          #theme_id = var_name_combined_list[j],
                           table_description = forecast_description_create,
                           start_date = var_min_date,
                           end_date = var_max_date,

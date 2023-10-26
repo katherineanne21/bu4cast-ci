@@ -3,9 +3,9 @@
 # bvr_current <- c("https://raw.githubusercontent.com/FLARE-forecast/BVRE-data/bvre-platform-data-qaqc/bvre-waterquality_L1.csv")
 # bvr_historic <- c("https://pasta.lternet.edu/package/data/eml/edi/725/3/a9a7ff6fe8dc20f7a8f89447d4dc2038")
 
-# fcr_current <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
-# fcr_historic <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
-  
+fcr_current <- "https://raw.githubusercontent.com/FLARE-forecast/FCRE-data/fcre-catwalk-data-qaqc/fcre-waterquality_L1.csv"
+fcr_historic <- "https://pasta.lternet.edu/package/data/eml/edi/271/7/71e6b946b751aa1b966ab5653b01077f"
+
 target_generation_NotStratified_binary <- function(current_file, historic_file){
   ## read in current data file
   # Github, Googlesheet, etc.
@@ -29,9 +29,9 @@ target_generation_NotStratified_binary <- function(current_file, historic_file){
     dplyr::mutate(observation = ifelse(n < 144/2, NA, observation)) |> # 144 = 24 * 6(10 minute intervals/hr)
     dplyr::rename(site_id = Reservoir,
                   datetime = date)
-  
+
   message('Current file ready')
-  
+
   # read in historical data file
   # EDI
   infile <- tempfile()
@@ -58,7 +58,7 @@ target_generation_NotStratified_binary <- function(current_file, historic_file){
     dplyr::rename(site_id = Reservoir,
                   datetime = date)
   message('EDI file ready')
-  
+
   ## extract the depths that will be used to calculate the mixing metric (surface, bottom)
   depths_use <- dplyr::bind_rows(historic_df, current_df)  |>
     dplyr::mutate(depth = ifelse(depth == "surface", 0, depth)) |>
@@ -68,7 +68,7 @@ target_generation_NotStratified_binary <- function(current_file, historic_file){
                      bottom = max(as.numeric(depth))) |>
     tidyr::pivot_longer(cols = top:bottom,
                         values_to = 'depth')
-  
+
   ## bind the two files using row.bind()
   final_df <- dplyr::bind_rows(historic_df, current_df) |>
     dplyr::mutate(depth = as.numeric(ifelse(depth == "surface", 0, depth))) |>
@@ -84,14 +84,16 @@ target_generation_NotStratified_binary <- function(current_file, historic_file){
     tidyr::pivot_longer(cols = NotStratified_binary,
                         names_to = 'variable',
                         values_to = 'observation')
-  
+
+  depth_m <- NA
+
   ## Match data to flare targets file
   # Use pivot_longer to create a long-format table
   # for time specific - use midnight UTC values for daily
   # for hourly
-  
+
   ## return dataframe formatted to match FLARE targets
   return(final_df)
 }
 
-#a <- target_generation_NotStratified_binary(current_file = bvr_current, historic_file = bvr_historic)
+a <- target_generation_NotStratified_binary(current_file = fcr_current, historic_file = fcr_historic)

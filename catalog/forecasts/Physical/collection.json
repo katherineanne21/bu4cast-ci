@@ -13,7 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Temp_C_mean/collection.json"
+      "href": "Temp_C_mean_daily/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Secchi_m_sample_daily/collection.json"
     },
     {
       "rel": "parent",
@@ -42,8 +47,8 @@
     },
     {
       "rel": "describedby",
-      "href": "https://ltreb-reservoirs.github.io/vera4cast/",
-      "title": "VERA Forecast Challenge Dashboard",
+      "href": "www.ltreb-reservoirs.org/vera4cast",
+      "title": "VERA Forecasting Challenge Documentation",
       "type": "text/html"
     }
   ],
@@ -51,10 +56,12 @@
   "extent": {
     "spatial": {
       "bbox": [
-        -156.6194,
-        71.2824,
-        -66.7987,
-        71.2824
+        [
+          -156.6194,
+          71.2824,
+          -66.7987,
+          71.2824
+        ]
       ]
     },
     "temporal": {
@@ -67,11 +74,6 @@
     }
   },
   "table:columns": [
-    {
-      "name": "project_id",
-      "type": "string",
-      "description": "unique identifier for the forecast project"
-    },
     {
       "name": "site_id",
       "type": "string",
@@ -89,7 +91,7 @@
     },
     {
       "name": "depth_m",
-      "type": "bool",
+      "type": "double",
       "description": "depth (meters) in water column of prediction"
     },
     {
@@ -99,7 +101,7 @@
     },
     {
       "name": "parameter",
-      "type": "double",
+      "type": "string",
       "description": "ensemble member or distribution parameter"
     },
     {
@@ -109,8 +111,13 @@
     },
     {
       "name": "pub_datetime",
-      "type": "string",
+      "type": "timestamp[us, tz=UTC]",
       "description": "datetime that forecast was submitted"
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "unique identifier for the forecast project"
     },
     {
       "name": "duration",
@@ -135,13 +142,13 @@
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/model_id=climatology?endpoint_override=renc.osn.xsede.org",
+      "href": "s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D?endpoint_override=renc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D/model_id=climatology?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D?endpoint_override=renc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

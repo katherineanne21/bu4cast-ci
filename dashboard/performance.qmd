@@ -28,6 +28,8 @@ combined <- arrow::open_dataset("../cache/duration=P1D") |>
   filter(date >= cutoff) |> collect()
 
 
+
+
 config <- yaml::read_yaml("../challenge_configuration.yaml")
 sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALSE)
 
@@ -35,7 +37,8 @@ df <- combined |>
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id) |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
-         datetime = lubridate::as_datetime(datetime))
+         datetime = lubridate::as_datetime(datetime)) |> 
+  collect()
 
 reference_date <- max(lubridate::as_date(df$reference_datetime))
 ```
@@ -48,24 +51,31 @@ Forecasts submitted on `r reference_date`
 
 ```{r}
 
-
+if("Chla_ugL_mean" %in% unique(df$variable)){
 df |> 
   filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Chla_ugL_mean"),
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
   forecast_plots()
+}
 ```
 
 ### Chlorophyll-a bloom probability
 
 ```{r}
-ggobj <- df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+
+if("Bloom_binary_mean" %in% unique(df$variable)){
+  
+ggobj_df <- df |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Bloom_binary_mean"),
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
-  collect() |>
+         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
+  
+if(nrow(ggobj_df) > 0){
+
+ggobj <- ggobj_df |> 
 ggplot(aes(x = datetime, y = mean, color = model_id)) + 
   geom_line_interactive(aes(datetime, mean, col = model_id,
                               tooltip = model_id, data_id = model_id),
@@ -82,13 +92,15 @@ girafe(ggobj = ggobj,
            opts_hover(css = "stroke-width:2;"),
            opts_zoom(max = 4)
          ))
+}
+}
 ```
 
 ### Water temperature
 
 ```{r}
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          variable == c("Temp_C_mean"),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
@@ -99,7 +111,7 @@ df |>
 
 ```{r}
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("AirTemp_C_mean")) |> 
   forecast_plots()
@@ -108,52 +120,68 @@ df |>
 ### fDOM QSU
 
 ```{r}
+
+if("fDOM_QSU_mean" %in% unique(df$variable)){
+
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("fDOM_QSU_mean")) |> 
   forecast_plots()
+}
 ```
 
 ### Secchi depth
 
 ```{r}
+if("Secchi_m_sample" %in% unique(df$variable)){
+
+
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Secchi_m_sample")) |> 
   forecast_plots()
+  
+}
 ```
 
 ### Ice Cover Probability
 
 ```{r}
+if("IceCover_binary_sum" %in% unique(df$variable)){
+
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("IceCover_binary_sum")) |> 
   forecast_plots()
+}
 ```
 
 ### Dissolved methane
 
 ```{r}
+if("CH4_umolL_sample" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("CH4_umolL_sample")) |> 
   forecast_plots()
+}
 ```
 
 
 ### Inflow discharge
 
 ```{r}
+if("Flow_cms_mean" %in% unique(df$variable)){
 df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
          variable == c("Flow_cms_mean")) |> 
   forecast_plots()
+}
 ```
 
 :::
@@ -173,7 +201,9 @@ ref <- max(c(ref,
 #n_data <- 10
 #who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 #ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
-ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
+ex <- combined |> 
+  mutate(reference_date = lubridate::as_date(reference_datetime)) |> 
+  filter(reference_date == ref, site_id %in% sites) |> collect() 
 
 ```
 

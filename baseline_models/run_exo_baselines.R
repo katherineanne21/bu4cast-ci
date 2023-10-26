@@ -17,7 +17,7 @@ config <- yaml::read_yaml("challenge_configuration.yaml")
 team_name <- "climatology"
 
 
-targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/duration=P1D/daily-insitu-targets.csv.gz"), guess_max = 10000)
+targets <- readr::read_csv(paste0("https://", config$endpoint, "/", config$targets_bucket, "/project_id=vera4cast/duration=P1D/daily-insitu-targets.csv.gz"), guess_max = 10000)
 
 
 sites <- read_csv(config$site_table, show_col_types = FALSE)

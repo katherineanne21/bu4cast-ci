@@ -1,6 +1,7 @@
 library(arrow)
 library(dplyr)
 library(gsheet)
+library(readr)
 
 #source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')

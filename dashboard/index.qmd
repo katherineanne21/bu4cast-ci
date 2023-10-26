@@ -39,8 +39,8 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                       depth_m = arrow::float(),
                                       variable = arrow::string(),
                                       observation = arrow::float()),
-                                    skip = 1,
-                                    partitioning = "duration") |>
+                                    skip = 1) |>
+  filter(project_id == config$project_id) |> 
     summarize(max = max(datetime),
               min = min(datetime)) |> 
     mutate(max = lubridate::as_date(max),

@@ -63,13 +63,13 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       theme_title = "Forecasts",
                       destination_path = catalog_config$forecast_path,
                       aws_download_path = catalog_config$aws_download_path,
-                      link_items = generate_group_values(group_values = names(config$variable_groups)),
+                      link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title)
 
 ## create separate JSON for model landing page
 
-build_group_variables(table_schema = forecast_theme_df,
+stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       table_description = forecast_description_create,
                       start_date = forecast_min_date,
                       end_date = forecast_max_date,
@@ -81,7 +81,7 @@ build_group_variables(table_schema = forecast_theme_df,
                       #model_documentation = NULL,
                       destination_path = paste0(catalog_config$forecast_path,"models"),
                       aws_download_path = catalog_config$aws_download_path,
-                      group_var_items = generate_model_items(model_list = theme_models$model_id))
+                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id))
 
 ## CREATE MODELS
 
@@ -112,12 +112,12 @@ for (m in theme_models$model_id){
   model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 
 
-  forecast_sites <- append(forecast_sites,  get_site_coords(site_metadata = catalog_config$site_metadata_url,
+  forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
                                                             sites = model_sites$site_id))
 
   idx = which(registered_model_id$model_id == m)
 
-  build_model(model_id = m,
+  stac4cast::build_model(model_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
@@ -163,7 +163,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
-    build_group_variables(table_schema = forecast_theme_df,
+    stac4cast::build_group_variables(table_schema = forecast_theme_df,
                           #theme_id = names(config$variable_groups[i]),
                           table_description = forecast_description_create,
                           start_date = forecast_min_date,
@@ -175,7 +175,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           theme_title = names(config$variable_groups[i]),
                           destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
-                          group_var_items = generate_group_variable_items(variables = var_name_combined_list))
+                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list))
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
@@ -192,7 +192,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
-    build_group_variables(table_schema = forecast_theme_df,
+    stac4cast::build_group_variables(table_schema = forecast_theme_df,
                           #theme_id = var_name_combined_list[j],
                           table_description = forecast_description_create,
                           start_date = var_min_date,
@@ -204,7 +204,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],
-                          group_var_items = generate_variable_model_items(model_list = var_models$model_id))
+                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id))
 
   }
 }

@@ -22,7 +22,7 @@
   "properties": {
     "description": "\nmodel info: GLM-AED with Ensemble Kalman Filter as implemented in FLARE.  This version used DA to update model states but not model parameters.\n\nSites: fcre\n\nVariables: DIC_mgL_sample, DO_mgL_mean, NH4_ugL_sample, SRP_ugL_sample, Temp_C_mean, fDOM_QSU_mean, Chla_ugL_mean, Secchi_m_sample, Bloom_binary_mean",
     "start_datetime": "2023-10-14",
-    "end_datetime": "2023-11-28",
+    "end_datetime": "2023-11-29",
     "providers": [
       {
         "url": "pending",

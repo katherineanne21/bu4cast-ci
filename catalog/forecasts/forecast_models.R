@@ -1,5 +1,6 @@
 library(arrow)
 library(dplyr)
+library(gsheet)
 
 #source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
@@ -86,10 +87,11 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
 ## CREATE MODELS
 
 ## READ IN MODEL METADATA
-googlesheets4::gs4_deauth()
+# googlesheets4::gs4_deauth()
+#
+# registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
-registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
-
+registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
 
 forecast_sites <- c()
 

@@ -42,8 +42,8 @@
     },
     {
       "rel": "describedby",
-      "href": "https://ltreb-reservoirs.github.io/vera4cast/",
-      "title": "VERA Forecast Challenge Dashboard",
+      "href": "www.ltreb-reservoirs.org/vera4cast",
+      "title": "VERA Forecasting Challenge Documentation",
       "type": "text/html"
     }
   ],
@@ -63,7 +63,7 @@
       "interval": [
         [
           "2023-10-14T00:00:00Z",
-          "2023-11-26T00:00:00Z"
+          "2023-11-29T00:00:00Z"
         ]
       ]
     }

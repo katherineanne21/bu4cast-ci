@@ -16,15 +16,15 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-79.8159, 37.3129],
-      [-79.8372, 37.3032],
-      []
+      [37.3129, -79.8159],
+      [37.3032, -79.8372],
+      [37.3078, -79.8357]
     ]
   },
   "properties": {
     "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: bvre, fcre, tubr\n\nVariables: Chla_ugL_mean, Temp_C_mean, Flow_cms_mean, AirTemp_C_mean",
     "start_datetime": "2023-09-21",
-    "end_datetime": "2023-11-28",
+    "end_datetime": "2023-12-02",
     "providers": [
       {
         "url": "pending",

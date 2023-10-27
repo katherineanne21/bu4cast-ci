@@ -16,13 +16,13 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-79.8372, 37.3032]
+      [37.3032, -79.8372]
     ]
   },
   "properties": {
     "description": "\nmodel info: ECMWF IFS Ensemble weather model downloaded from open-meteo.com.  Since ECMWF IFS Ensemble does output solar radiation on open-meteo.com,  the solar radiation from GFS seamless is used.\n\nSites: fcre\n\nVariables: AirTemp_C_mean, RH_percent_mean, Rain_mm_sum, BP_kPa_mean, WindSpeed_ms_mean",
     "start_datetime": "2023-10-14",
-    "end_datetime": "2023-11-01",
+    "end_datetime": "2023-11-05",
     "providers": [
       {
         "url": "pending",

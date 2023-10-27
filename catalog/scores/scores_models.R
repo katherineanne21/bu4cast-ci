@@ -140,7 +140,7 @@ for (m in theme_models$model_id){
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
-              theme_title = m,
+              #theme_title = m,
               collection_name = 'scores',
               thumbnail_image_name = NULL,
               table_schema = scores_theme_df,

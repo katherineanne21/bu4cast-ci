@@ -137,6 +137,7 @@ for (m in theme_models$model_id){
               var_values = model_vars$variable,
               duration_names = model_var_duration_df$duration_name,
               site_values = model_sites$site_id,
+              site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
@@ -176,7 +177,7 @@ for (i in 1:length(config$variable_groups)){
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
     stac4cast::build_group_variables(table_schema = scores_theme_df,
-                          theme_id = names(config$variable_groups[i]),
+                          #theme_id = names(config$variable_groups[i]),
                           table_description = scores_description_create,
                           start_date = scores_min_date,
                           end_date = scores_max_date,
@@ -205,7 +206,7 @@ for (i in 1:length(config$variable_groups)){
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
     stac4cast::build_group_variables(table_schema = scores_theme_df,
-                          theme_id = var_name_combined_list[j],
+                          #theme_id = var_name_combined_list[j],
                           table_description = scores_description_create,
                           start_date = var_min_date,
                           end_date = var_max_date,

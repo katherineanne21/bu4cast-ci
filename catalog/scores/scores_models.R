@@ -1,7 +1,9 @@
 library(arrow)
 library(dplyr)
+library(gsheet)
+library(readr)
 
-source('catalog/R/stac_functions.R')
+#source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
 
@@ -60,8 +62,8 @@ build_description <- paste0("The catalog contains forecasts for the ", config$ch
 #variable_group <- c('test_daily')
 
 
-build_forecast_scores(table_schema = scores_theme_df,
-                      theme_id = 'Scores',
+stac4cast::build_forecast_scores(table_schema = scores_theme_df,
+                      #theme_id = 'Scores',
                       table_description = scores_description_create,
                       start_date = scores_min_date,
                       end_date = scores_max_date,
@@ -72,14 +74,14 @@ build_forecast_scores(table_schema = scores_theme_df,
                       theme_title = "Scores",
                       destination_path = catalog_config$scores_path,
                       aws_download_path = catalog_config$aws_download_path,
-                      link_items = generate_group_values(group_values = names(config$variable_groups)),
+                      link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$scores_thumbnail,
                       thumbnail_title = catalog_config$scores_thumbnail_title)
 
 ## create separate JSON for model landing page
 
-build_group_variables(table_schema = scores_theme_df,
-                      theme_id = 'models',
+stac4cast::build_group_variables(table_schema = scores_theme_df,
+                      #theme_id = 'models',
                       table_description = scores_description_create,
                       start_date = scores_min_date,
                       end_date = scores_max_date,
@@ -90,15 +92,16 @@ build_group_variables(table_schema = scores_theme_df,
                       theme_title = "Models",
                       destination_path = paste0(catalog_config$scores_path,"models"),
                       aws_download_path = catalog_config$aws_download_path,
-                      group_var_items = generate_model_items(model_list = theme_models$model_id))
+                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id))
 
 ## CREATE MODELS
 
 ## READ IN MODEL METADATA
-googlesheets4::gs4_deauth()
+# googlesheets4::gs4_deauth()
+#
+# registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
-registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
-
+registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
 
 scores_sites <- c()
 
@@ -120,12 +123,13 @@ for (m in theme_models$model_id){
 
   model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 
-  scores_sites <- append(scores_sites,  get_site_coords(sites = model_sites$site_id))
+  scores_sites <- append(scores_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
+                                                                   sites = model_sites$site_id))
 
   idx = which(registered_model_id$model_id == m)
 
-  build_model(model_id = m,
-              theme_id = m,
+  stac4cast::build_model(model_id = m,
+              #theme_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
@@ -171,7 +175,7 @@ for (i in 1:length(config$variable_groups)){
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
-    build_group_variables(table_schema = scores_theme_df,
+    stac4cast::build_group_variables(table_schema = scores_theme_df,
                           theme_id = names(config$variable_groups[i]),
                           table_description = scores_description_create,
                           start_date = scores_min_date,
@@ -183,7 +187,7 @@ for (i in 1:length(config$variable_groups)){
                           theme_title = names(config$variable_groups[i]),
                           destination_path = paste0(catalog_config$scores_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
-                          group_var_items = generate_group_variable_items(variables = var_name_combined_list))
+                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list))
 
     if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
@@ -200,7 +204,7 @@ for (i in 1:length(config$variable_groups)){
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
-    build_group_variables(table_schema = scores_theme_df,
+    stac4cast::build_group_variables(table_schema = scores_theme_df,
                           theme_id = var_name_combined_list[j],
                           table_description = scores_description_create,
                           start_date = var_min_date,
@@ -212,7 +216,7 @@ for (i in 1:length(config$variable_groups)){
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],
-                          group_var_items = generate_variable_model_items(model_list = var_models$model_id))
+                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id))
 
   }
 

@@ -23,7 +23,7 @@
   "properties": {
     "description": "\nmodel info: autoregressive neural net fit using the NNETAR() function in the fable R package\n\nSites: bvre, fcre\n\nVariables: Bloom_binary_mean, Chla_ugL_mean",
     "start_datetime": "2023-10-12",
-    "end_datetime": "2023-12-02",
+    "end_datetime": "2023-12-03",
     "providers": [
       {
         "url": "pending",

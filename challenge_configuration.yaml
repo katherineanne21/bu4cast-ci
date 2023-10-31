@@ -1,21 +1,21 @@
-challenge_long_name: Virginia Ecoforecast Reservoir Analysis
-project_id: vera4cast
-endpoint: renc.osn.xsede.org
-submissions_endpoint: submit.ltreb-reservoirs.org
-scores_bucket: bio230121-bucket01/vera4cast/scores
-forecasts_bucket: bio230121-bucket01/vera4cast/forecasts
-submissions_bucket: vera4cast-submissions
-inventory_bucket: bio230121-bucket01/vera4cast/inventory
-prov_bucket: bio230121-bucket01/vera4cast/prov
-targets_bucket: bio230121-bucket01/vera4cast/targets
-archive_bucket: bio230121-bucket01/vera4cast/archive
-model_metadata_bucket: bio230121-bucket01/vera4cast/metadata/model_id
+challenge_long_name: NEON Ecological Forecasting Challenge
+project_id: neon4cast
+endpoint: sdsc.osn.xsede.org
+submissions_endpoint: submit.ecoforecast.org
+scores_bucket: bio230014-bucket01/challenges/scores
+forecasts_bucket: bio230014-bucket01/challenges/forecasts
+submissions_bucket: submissions
+inventory_bucket: bio230014-bucket01/challenges/inventory
+prov_bucket: bio230014-bucket01/challenges/prov
+targets_bucket: bio230014-bucket01/challenges/targets
+archive_bucket: bio230014-bucket01/challenges/archive
+model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_table: vera4cast_field_site_metadata.csv
+site_table: neon4cast_field_site_metadata.csv
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing
-challenge_url: https://www.ltreb-reservoirs.org/vera4cast/
-github_repo: LTREB-reservoirs/vera4cast
+challenge_url: https://www.neon4cast.org
+github_repo: eco4cast/neon4cast-ci
 variable_groups:
   Biological:
     variable: ['Chla_ugL_mean','Bloom_binary_mean']

@@ -22,7 +22,7 @@
   "properties": {
     "description": "\nmodel info: flow is forecasted as using a linear relationship between historical flow, month, and 5-day sum of precipitation.  Temperature is forecasted using a linear relationship between historical water temperature, month, and 5-day mean air temperature.  NOAA GEFS is then used to get the future values of 5-day sum precipitation and mean temperature.  Nutrients are forecasting using the DOY climatology.  The DOY climatology was developed using a linear interpolation of the historical samples.\n\nSites: tubr\n\nVariables: DIC_mgL_sample, DRSI_mgL_sample, Flow_cms_mean, Temp_C_mean, CH4_umolL_sample, DOC_mgL_sample, TN_ugL_sample, NH4_ugL_sample, TP_ugL_sample, NO3NO2_ugL_sample, SRP_ugL_sample",
     "start_datetime": "2023-10-13",
-    "end_datetime": "2023-12-02",
+    "end_datetime": "2023-12-03",
     "providers": [
       {
         "url": "pending",

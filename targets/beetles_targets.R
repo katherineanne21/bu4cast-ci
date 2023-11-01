@@ -10,24 +10,58 @@ Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
 library(neonstore)
 library(tidyverse)
 library(ISOweek)
-source("R/resolve_taxonomy.R")
+source("targets/R/resolve_taxonomy.R")
 
 print(neon_dir())
 
 #message("Downloading: DP1.10022.001")
-#neonstore::neon_download(product="DP1.10022.001", 
-#                         type = "expanded", 
+#neonstore::neon_download(product="DP1.10022.001",
+#                         type = "expanded",
 #                         start_date = NA,
 #                         .token = Sys.getenv("NEON_TOKEN"))
 #neon_store(product = "DP1.10022.001")
 
+df <-  neonstore:::neon_data(product = "DP1.10022.001",
+                             #start_date = "2023-06-01",
+                             #end_date = "2023-08-01",
+                             type="expanded")
+sorting_urls <- df |>
+  dplyr::filter(grepl("bet_sorting", name)) |>
+  pull(url)
 
-## Load data from raw files
-sorting <- neon_table("bet_sorting-expanded")
-para <- neon_table("bet_parataxonomistID-expanded")
-expert <- neon_table("bet_expertTaxonomistIDProcessed-expanded")
-field <- neon_table("bet_fielddata-expanded")
+sorting <- duckdbfs::open_dataset(sorting_urls,
+                             format="csv") |>
+  select(collectDate, siteID, taxonID, individualCount, subsampleID,
+         scientificName, morphospeciesID, taxonRank, sampleType,
+         nativeStatusCode, sampleCondition) |>
+  collect()
 
+para_urls <- df |>
+  dplyr::filter(grepl("bet_parataxonomistID", name)) |>
+  pull(url)
+
+para <- duckdbfs::open_dataset(para_urls,
+                               format="csv") |>
+  select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID) |>
+  collect()
+
+expert_urls <- df |>
+  dplyr::filter(grepl("bet_expertTaxonomistIDProcessed", name)) |>
+  pull(url)
+
+expert <- duckdbfs::open_dataset(expert_urls,
+                               format="csv") |>
+  select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate) |>
+  collect()
+
+field_urls <- df |>
+  dplyr::filter(grepl("bet_fielddata", name)) |>
+  pull(url)
+
+field <- duckdbfs::open_dataset(expert_urls,
+                                format="csv") |>
+  select(collectDate, siteID, setDate) |>
+  collect()
 
 #### Generate derived richness table  ####################
 beetles <- resolve_taxonomy(sorting, para, expert) %>%
@@ -41,8 +75,6 @@ richness <- beetles %>%
   count(siteID, time) %>%
   rename(richness = n)  %>%
   ungroup()
-
-
 
 #### Generate derived abundance table ####################
 
@@ -64,13 +96,13 @@ counts <- beetles %>%
             .groups = "drop")
 
 abund <- counts %>%
-  left_join(effort) %>%
+  left_join(effort, by = join_by(siteID, time)) %>%
   arrange(time) %>%
   mutate(abundance = count / trapnights) %>%
   select(siteID, time, abundance) %>%
   ungroup()
 
-targets_na <- full_join(abund, richness)
+targets_na <- full_join(abund, richness, by = join_by(siteID, time))
 
 ## site-dates that have sampling effort but no counts should be
 ## treated as explicit observation 0s
@@ -79,25 +111,32 @@ targets_na <- full_join(abund, richness)
 
 targets <- effort %>%
   select(siteID, time) %>%
-  left_join(targets_na) %>%
-  tidyr::replace_na(list(richness = 0L, abundance = 0)) |> 
-  pivot_longer(-c("time","siteID"), names_to = "variable", values_to = "observation") |> 
-  rename(site_id = siteID) |> 
-  mutate(iso_week = ISOweek::ISOweek(time)) |> 
+  left_join(targets_na, by = join_by(siteID, time)) %>%
+  tidyr::replace_na(list(richness = 0L, abundance = 0)) |>
+  pivot_longer(-c("time","siteID"), names_to = "variable", values_to = "observation") |>
+  rename(site_id = siteID) |>
+  mutate(iso_week = ISOweek::ISOweek(time)) |>
   select(time, site_id, variable, observation, iso_week)
 
-targets <- targets |> 
+targets <- targets |>
   rename(datetime = time)
 
-##  Write out the targets
-write_csv(targets, "beetles-targets.csv.gz")
+s3 <- arrow::s3_bucket("neon4cast-targets/beetles",
+                       endpoint_override = "data.ecoforecast.org",
+                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
+                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
-aws.s3::put_object(file = "beetles-targets.csv.gz", 
-                   object = "beetles/beetles-targets.csv.gz",
-                   bucket = "neon4cast-targets")
+arrow::write_csv_arrow(targets, sink = s3$path("beetles-targets.csv.gz"))
 
+targets2 <- targets |>
+  mutate(datetime = lubridate::as_datetime(datetime),
+         duration = "P1W",
+         project_id = "neon4cast") |>
+  select(project_id, site_id, datetime, duration, variable, observation)
 
-unlink("beetles-targets.csv.gz")
+s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W",
+                       endpoint_override = "sdsc.osn.xsede.org",
+                       access_key = Sys.getenv("OSN_KEY"),
+                       secret_key = Sys.getenv("OSN_SECRET"))
 
-
-
+arrow::write_csv_arrow(targets2, sink = s3$path("beetles-targets.csv.gz"))

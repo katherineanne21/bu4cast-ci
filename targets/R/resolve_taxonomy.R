@@ -17,12 +17,11 @@ resolve_taxonomy <- function(sorting, para, expert){
 
   taxonomy <-
     left_join(sorting,
-              select(para, subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID),
+              para,
               by = "subsampleID")  %>%
     ## why are there so many other shared columns (siteID, collectDate, etc?  and why don't they match!?)
     ## we use `select` to avoid these
-    left_join(
-      select(expert, -uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate),
+    left_join(expert,
       by = "individualID") %>%
     distinct() %>%
      ## Prefer the para table cols over the sorting table cols only for sampleType=="other carabid"

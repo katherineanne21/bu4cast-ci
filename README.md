@@ -1,4 +1,4 @@
-# Virginia Ecoforecast Reservoir Analysis (VERA) Ecological Forecasting Challenge
+# National Ecological Observatory Network (NEON) Ecological Forecasting Challenge
 
 The following elements of a forecasting challenge workflow are included in this repo.  The GitHub Actions are the tool for automating the tasks.
 

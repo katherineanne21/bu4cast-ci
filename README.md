@@ -14,4 +14,4 @@ The following elements of a forecasting challenge workflow are included in this 
 
 See [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616) for more information on the structure of a forecasting challenge.
 
-Supported by the U.S. National Science Foundation Long Term Research in Environmental Biology program (DEB-2327030)
+Supported by the U.S. National Science Foundation grants (DEB-1926388 and OAC-2209866)

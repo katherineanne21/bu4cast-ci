@@ -1,36 +1,18 @@
-#renv::restore()
-## 02_process.R
-##  Process the raw data into the target variable product
-
-#renv::restore()
-Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
-#Sys.setenv("NEONSTORE_DB" = "/home/rstudio/data/neonstore")
-#Sys.setenv("NEONSTORE_DB")
-
 library(neonstore)
 library(tidyverse)
 library(ISOweek)
 source("targets/R/resolve_taxonomy.R")
 
-print(neon_dir())
-
-#message("Downloading: DP1.10022.001")
-#neonstore::neon_download(product="DP1.10022.001",
-#                         type = "expanded",
-#                         start_date = NA,
-#                         .token = Sys.getenv("NEON_TOKEN"))
-#neon_store(product = "DP1.10022.001")
-
 df <-  neonstore:::neon_data(product = "DP1.10022.001",
                              #start_date = "2023-06-01",
                              #end_date = "2023-08-01",
                              type="expanded")
+
 sorting_urls <- df |>
   dplyr::filter(grepl("bet_sorting", name)) |>
   pull(url)
 
-sorting <- duckdbfs::open_dataset(sorting_urls,
-                             format="csv") |>
+sorting <- duckdbfs::open_dataset(sorting_urls, format="csv") |>
   select(collectDate, siteID, taxonID, individualCount, subsampleID,
          scientificName, morphospeciesID, taxonRank, sampleType,
          nativeStatusCode, sampleCondition) |>
@@ -40,8 +22,7 @@ para_urls <- df |>
   dplyr::filter(grepl("bet_parataxonomistID", name)) |>
   pull(url)
 
-para <- duckdbfs::open_dataset(para_urls,
-                               format="csv") |>
+para <- duckdbfs::open_dataset(para_urls, format="csv") |>
   select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID) |>
   collect()
 
@@ -49,8 +30,7 @@ expert_urls <- df |>
   dplyr::filter(grepl("bet_expertTaxonomistIDProcessed", name)) |>
   pull(url)
 
-expert <- duckdbfs::open_dataset(expert_urls,
-                               format="csv") |>
+expert <- duckdbfs::open_dataset(expert_urls, format="csv") |>
   select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate) |>
   collect()
 
@@ -58,12 +38,13 @@ field_urls <- df |>
   dplyr::filter(grepl("bet_fielddata", name)) |>
   pull(url)
 
-field <- duckdbfs::open_dataset(expert_urls,
-                                format="csv") |>
+field <- duckdbfs::open_dataset(expert_urls, format="csv") |>
   select(collectDate, siteID, setDate) |>
   collect()
 
 #### Generate derived richness table  ####################
+
+
 beetles <- resolve_taxonomy(sorting, para, expert) %>%
   mutate(iso_week = ISOweek::ISOweek(collectDate),
          time = ISOweek::ISOweek2date(paste0(iso_week, "-1"))) %>%

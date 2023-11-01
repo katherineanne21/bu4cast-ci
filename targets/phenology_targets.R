@@ -64,12 +64,6 @@ allData2 <- allData2 |>
   select("time", "site_id", "variable", "observation") |>
   rename(datetime = time)
 
-readr::write_csv(allData2, "phenology-targets.csv.gz")
-
-aws.s3::put_object(file = "phenology-targets.csv.gz",
-                   object = "phenology/phenology-targets.csv.gz",
-                   bucket = "neon4cast-targets")
-
 s3 <- arrow::s3_bucket("neon4cast-targets/phenology",
                               endpoint_override = "data.ecoforecast.org",
                               access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),

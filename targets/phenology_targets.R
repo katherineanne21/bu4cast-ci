@@ -75,7 +75,7 @@ s3 <- arrow::s3_bucket("neon4cast-targets/phenology",
                               access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
                               secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
 
-arrow::write_csv_arrow(met_hourly, sink = s3$path("phenology-targets.csv.gz"))
+arrow::write_csv_arrow(allData2, sink = s3$path("phenology-targets.csv.gz"))
 
 allData3 <- allData2 |>
   mutate(datetime = lubridate::as_datetime(datetime),
@@ -88,6 +88,6 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
                               access_key = Sys.getenv("OSN_KEY"),
                               secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_csv_arrow(met_hourly, sink = s3$path("phenology-targets.csv.gz"))
+arrow::write_csv_arrow(allData3, sink = s3$path("phenology-targets.csv.gz"))
 
 unlink("phenology-targets.csv.gz")

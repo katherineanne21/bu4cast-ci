@@ -6,7 +6,7 @@ library(tidyverse)
 source("targets/R/downloadPhenoCam.R")
 source("targets/R/calculatePhenoCamUncertainty.R")
 
-sites <- readr::read_csv("NEON_Field_Site_Metadata_20220412.csv") |>
+sites <- readr::read_csv("neon4cast_field_site_metadata.csv") |>
   dplyr::filter(phenology == 1)
 
 allData <- data.frame(matrix(nrow = 0, ncol = 5))

@@ -13,8 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.OSN_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.OSN_SECRET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v3
@@ -22,4 +24,4 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          source("targets/target_generation/generate_targets.R")
+          source("targets/generate_daily_targets.R")

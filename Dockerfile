@@ -10,12 +10,18 @@ ENV GITHUB_PAT=$GITHUB_PAT
 
 # COPY --chown=${NB_USER} . ${HOME}
 
-RUN install2.r arrow bslib bsicons ggiraph patchwork pak jsonlite reticulate duckdbfs furrr future googlesheets4 here imputeTS tsibble fable RcppRoll
-RUN R -e "devtools::install_github('eco4cast/score4cast')"
-RUN R -e "devtools::install_github('cboettig/minioclient')"
-RUN R -e "devtools::install_github('LTREB-reservoirs/ver4castHelpers')"
-RUN R -e "devtools::install_github('eco4cast/stac4cast')"
-RUN R -e "devtools::install_github('cboettig/duckdbfs')"
-RUN R -e "devtools::install_github('cboettig/aws.s3')"
-RUN R -e "devtools::install_github('FLARE-forecast/RopenMeteo')"
-#RUN ldd /usr/local/lib/R/site-library/GLM3r/exec/nixglm
+#USER root
+RUN apt-get update && apt-get -y install cron
+RUN apt-get update && apt-get -y install jags
+RUN apt-get update && apt-get -y install libgd-dev
+RUN apt-get update && apt-get -y install libnetcdf-dev
+
+#USER ${NB_USER}
+
+RUN install2.r devtools remotes
+
+RUN R -e "remotes::install_github(c('eco4cast/EFIstandards','cboettig/aws.s3','rqthomas/cronR','eco4cast/score4cast','EcoForecast/ecoforecastR','eco4cast/neon4cast','cboettig/prov', 'eco4cast/read4cast','eco4cast/gefs4cast'))"
+
+RUN install2.r arrow renv rjags neonstore ISOweek RNetCDF fable fabletools forecast imputeTS ncdf4 scoringRules tidybayes tidync udunits2 bench contentid flexdashboard shiny yaml RCurl here feasts
+
+COPY cron.sh /etc/services.d/cron/run

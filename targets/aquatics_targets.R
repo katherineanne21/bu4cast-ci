@@ -1,0 +1,893 @@
+#renv::restore()
+
+message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
+
+avro_file_directory <- "/home/rstudio/data/aquatic_avro"
+parquet_file_directory <- "/home/rstudio/data/aquatic_parquet"
+EDI_file_directory <- "/home/rstudio/data/aquatic_EDI"
+
+readRenviron("~/.Renviron") # compatible with littler
+Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
+
+
+# Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore") #Sys.setenv("NEONSTORE_HOME" = "/efi_neon_challenge/neonstore")
+#Sys.setenv("NEONSTORE_DB" = "home/rstudio/data/neonstore")    #Sys.setenv("NEONSTORE_DB" = "/efi_neon_challenge/neonstore")
+
+Sys.unsetenv("AWS_DEFAULT_REGION")
+Sys.unsetenv("AWS_S3_ENDPOINT")
+Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
+
+Sys.setenv(TZ = 'UTC')
+## 02_generate_targets_aquatics
+## Process the raw data into the target variable product
+library(neonstore)
+library(tidyverse)
+library(lubridate)
+library(contentid)
+library(sparklyr)
+library(sparkavro)
+source('R/avro_functions.R')
+source('R/data_processing.R')
+# spark_install(version = '3.0')
+
+`%!in%` <- Negate(`%in%`) # not in function
+
+message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
+
+sites <- readr::read_csv("NEON_Field_Site_Metadata_20220412.csv") |> 
+  dplyr::filter(aquatics == 1)
+
+nonwadable_rivers <- sites$field_site_id[(which(sites$field_site_subtype == "Non-wadeable River"))]
+lake_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Lake"))]
+stream_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Wadeable Stream"))]
+
+#======================================================#
+
+#message("Downloading: DP1.20288.001")
+
+#neonstore::neon_download("DP1.20288.001",site = sites$field_site_id, type = "basic")
+#neonstore::neon_store(table = "waq_instantaneous", n = 50)
+#message("Downloading: DP1.20264.001")
+#neonstore::neon_download("DP1.20264.001", site =  sites$field_site_id, type = "basic")
+#neonstore::neon_store(table = "TSD_30_min")
+#message("Downloading: DP1.20053.001")
+#neonstore::neon_download("DP1.20053.001", site =  sites$field_site_id, type = "basic")
+#neonstore::neon_store(table = "TSW_30min")
+
+## Load data from raw files
+# message("neon_table(table = 'waq_instantaneous')")
+# wq_raw <- neonstore::neon_table(table = "waq_instantaneous", site = stream_sites[1:6]) 
+# message("neon_table(table = 'TSD_30_min')")
+# temp_bouy <- neonstore::neon_table("TSD_30_min", site = nonwadable_rivers)
+# message("neon_table(table = 'TSW_30min')")
+# temp_prt <- neonstore::neon_table("TSW_30min", site = stream_sites) 
+
+#sc <- sparklyr::spark_connect(master = "local",version = "3.0")
+
+
+
+neon <- arrow::s3_bucket("neon4cast-targets/neon",
+                         endpoint_override = "data.ecoforecast.org",
+                         anonymous = TRUE)
+
+message("#### Generate WQ table #############")
+
+# list tables with `neon$ls()`
+
+wq_portal <- purrr::map_dfr(sites$field_site_id, function(site){
+  message(site)
+arrow::open_dataset(neon$path("waq_instantaneous-basic-DP1.20288.001"), partitioning = "siteID") %>%   # waq_instantaneous
+    #wq_portal <- neonstore::neon_table("waq_instantaneous", site = sites$field_site_id, lazy = TRUE) %>%   # waq_instantaneous
+    dplyr::filter(siteID %in% site) %>%
+    dplyr::select(siteID, startDateTime, sensorDepth,
+                  dissolvedOxygen,dissolvedOxygenExpUncert,dissolvedOxygenFinalQF, 
+                  chlorophyll, chlorophyllExpUncert,chlorophyllFinalQF,
+                  chlaRelativeFluorescence, chlaRelFluoroFinalQF) %>%
+    dplyr::mutate(sensorDepth = as.numeric(sensorDepth),
+                  dissolvedOxygen = as.numeric(dissolvedOxygen),
+                  dissolvedOxygenExpUncert = as.numeric(dissolvedOxygenExpUncert),
+                  chla = as.numeric(chlorophyll),
+                  chlorophyllExpUncert = as.numeric(chlorophyllExpUncert),
+                  chla_RFU = as.numeric(chlaRelativeFluorescence)) %>%
+    dplyr::rename(site_id = siteID) %>% 
+    dplyr::filter(((sensorDepth > 0 & sensorDepth < 1)| is.na(sensorDepth))) |> 
+    collect()   %>% # sensor depth of NA == surface?
+    dplyr::mutate(startDateTime = as_datetime(startDateTime)) %>%
+    dplyr::mutate(time = as_date(startDateTime)) %>%
+    # QF (quality flag) == 0, is a pass (1 == fail), 
+    # make NA so these values are not used in the mean summary
+    dplyr::mutate(dissolvedOxygen = ifelse(dissolvedOxygenFinalQF == 0, dissolvedOxygen, NA),
+                  chla = ifelse(chlorophyllFinalQF == 0, chla, NA),
+                  chla_RFU = ifelse(chlaRelFluoroFinalQF == 0, chla_RFU, NA)) %>% 
+    dplyr::group_by(site_id, time) %>%
+    dplyr::summarize(oxygen = mean(dissolvedOxygen, na.rm = TRUE),
+                     chla = mean(chla, na.rm = TRUE),
+                     chla_RFU = mean(chla_RFU, na.rm = T), .groups = "drop") %>%
+    dplyr::select(time, site_id, 
+                  oxygen, chla, chla_RFU) %>% 
+    pivot_longer(cols = -c("time", "site_id"), names_to = "variable", values_to = "observation") %>%
+    dplyr::filter(!((variable == "chla" & site_id %in% stream_sites) | 
+                      (variable == "chla_RFU" & site_id %in% stream_sites)))
+}
+)
+
+#====================================================#
+##### low latency WQ data =======
+message("# download the 24/48hr provisional data from the Google Cloud")
+
+# where should these files be saved?
+
+fs::dir_create(avro_file_directory) # ignores existing directories unlike dir.create()
+
+# need to figure out which month's data are required
+# what is in the NEON store db?
+cur_wq_month <- wq_portal %>%
+  group_by(site_id) %>%
+  summarise(cur_wq_month = as.Date(max(time))) %>%
+  mutate(new_date = cur_wq_month + days(1))
+# # what is the next month from this plus the current month? These might be the same
+# new_month_wq <- unique(format(c((as.Date(max(wq_portal$time)) %m+% months(1)), 
+#                                 (Sys.Date() - days(2))), "%Y-%m"))
+
+
+# Download any new files from the Google Cloud
+download.neon.avro(months = cur_wq_month, 
+                   data_product = '20288',  # WQ data product
+                   path = avro_file_directory)
+
+# Delete superseded files
+# Files that have been superseded by the NEON store files can be deleted from the relavent repository
+# Look in each repository to see if there are files that exceed the current maximum date of the NEON
+# store data
+
+delete.neon.parquet(months = cur_wq_month,
+                    path = file.path(parquet_file_directory, "wq"),
+                    data_product = '20288')
+
+delete.neon.avro(months = cur_wq_month,
+                 path = avro_file_directory,
+                 data_product = '20288')
+
+# Read in the new files to append to the NEONstore data
+# connect to spark locally 
+#sc <- sparklyr::spark_connect(master = "local", version = '3.0')
+
+
+
+# The variables (term names that should be kept)
+wq_vars <- c('siteName',
+             'startDate',
+             'dissolvedOxygen',
+             'dissolvedOxygenExpUncert',
+             'dissolvedOxygenFinalQF',
+             'chlorophyll',
+             'chlorophyllExpUncert',
+             'chlorophyllFinalQF',
+             'chlaRelativeFluorescence',
+             'chlaRelFluoroFinalQF')
+columns_keep <- c('siteName', 'termName', 'startDate', 'Value', 'verticalIndex')
+
+# Generate a list of files to be read
+wq_avro_files <- paste0(avro_file_directory, '/',
+                        list.files(path = paste0(avro_file_directory), 
+                                   pattern = '*20288', 
+                                   recursive = T))
+
+wq_parquet_files <- list.files(path = file.path(parquet_file_directory, "wq"))
+
+new_files <- map_lgl(wq_avro_files, function(x){
+  new_file <- TRUE
+  if(basename(x) %in% tools::file_path_sans_ext(wq_parquet_files)){
+    new_file <- FALSE
+  }
+  return(new_file)
+})
+
+wq_avro_files <- wq_avro_files[which(new_files)]
+
+if(length(wq_avro_files) > 0){
+  sc <- sparklyr::spark_connect(master = "local")
+  # Read in each of the files and then bind by rows
+  purrr::walk(.x = wq_avro_files, ~ read.avro.wq(sc= sc, path = .x, columns_keep = columns_keep, dir = file.path(parquet_file_directory, "wq")))
+  spark_disconnect(sc)
+}
+
+
+s3 <- arrow::SubTreeFileSystem$create(file.path(parquet_file_directory, "wq"))
+
+wq_avro_df <- arrow::open_dataset(s3) |> 
+  collect()
+
+if("observed" %in% names(wq_avro_df)){
+  wq_avro_df <- wq_avro_df |> rename(observation = observed)
+}
+
+
+# Combine the avro files with the portal data
+wq_full <- dplyr::bind_rows(wq_portal, wq_avro_df) %>%
+  dplyr::arrange(site_id, time)
+
+wq_full <- wq_full |> 
+  group_by(site_id, time, variable) |> 
+  summarise(observation = mean(observation, na.rm = TRUE), .groups = "drop")
+#==============================#
+
+message("##### WQ QC protocol =======")
+# additional QC steps implemented (FO, 2022-07-13)
+##### check 1 Gross range tests on DO and chlorophyll
+# DO ranges for each sensor and each season
+DO_max <- 15 # gross max
+DO_min <- 2 # gross min
+
+# chlorophyll ranges
+chla_max <- 200
+chla_min <- 0
+
+# GR flag will be true if either the DO concentration or the chlorophyll are 
+# outside the ranges specified about
+
+wq_cleaned <- wq_full  |> 
+  tidyr::pivot_wider(names_from = variable, 
+                     values_from = observation, 
+                     id_cols = c(time, site_id)) |> 
+  dplyr::mutate(chla = ifelse(site_id == "BARC" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "BLWA" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-15") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "CRAM" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "FLNT" & (lubridate::as_date(time) >= lubridate::as_date("2021-11-09") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "LIRO" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "PRLA" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "PRPO" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "SUGG" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "TOMB" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla),
+                chla = ifelse(site_id == "TOOK" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
+                                                     lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
+                              chla_RFU,                               
+                              chla)) |> 
+  tidyr::pivot_longer(cols = -c("time", "site_id"), names_to = 'variable', values_to = 'observation') |> 
+  dplyr::filter(variable != 'chla_RFU') %>%
+  dplyr::mutate(observation = ifelse(is.na(observation),
+                                     observation, ifelse(observation >= DO_min & observation <= DO_max & variable == 'oxygen', 
+                                                         observation, ifelse(observation >= chla_min & observation <= chla_max & variable == 'chla', observation, NA)))) %>%
+  # manual cleaning based on visual inspection
+  dplyr::mutate(observation = ifelse(site_id == "MAYF" & 
+                                       between(time, ymd("2019-01-20"), ymd("2019-02-05")) &
+                                       variable == "oxygen", NA, observation),
+                observation = ifelse(site_id == "WLOU" &
+                                       !between(observation, 7.5, 11) & 
+                                       variable == "oxygen", NA, observation),
+                observation = ifelse(site_id == "BARC" & 
+                                       observation < 4 &
+                                       variable == "oxygen", NA, observation),
+                observation = ifelse(site_id == "BLDE" &
+                                       between(time, ymd("2020-07-01"), ymd("2020-12-31")) & 
+                                       variable == "oxygen", NA, observation),
+                observation = ifelse(site_id == "BIGC" &
+                                       between(time, ymd("2021-10-25"), ymd("2021-10-27")) & 
+                                       variable == "oxygen", NA, observation),
+                observation = ifelse(site_id == "REDB" &
+                                       time == ymd("2022-04-28") & 
+                                       variable == "oxygen", NA, observation))
+#===============================================#
+message("#### Generate hourly temperature profiles for lake #############")
+message("##### NEON portal data #####")
+hourly_temp_profile_portal <- arrow::open_dataset(neon$path("TSD_30_min-basic-DP1.20264.001"), partitioning = "siteID") %>%
+  #hourly_temp_profile_portal <- neonstore::neon_table("TSD_30_min", site = sites$field_site_id) %>%
+  dplyr::filter(siteID %in% lake_sites) %>%
+  rename(site_id = siteID,
+         depth = thermistorDepth) %>%
+  dplyr::select(startDateTime, site_id, tsdWaterTempMean, depth, tsdWaterTempExpUncert, tsdWaterTempFinalQF, verticalPosition) %>%
+  dplyr::collect() %>%
+  # errors in the sensor depths reported - see "https://www.neonscience.org/impact/observatory-blog/incorrect-depths-associated-lake-and-river-temperature-profiles"
+  # sensor depths are manually assigned based on "vertical position" variable as per table on webpage
+  dplyr::mutate(depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 502, 1.75, depth),
+                depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 503, 3.45, depth),
+                depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 504, 5.15, depth),
+                depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 505, 6.85, depth),
+                depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 506, 8.55, depth),
+                depth = ifelse(site_id == "CRAM" & 
+                                 lubridate::as_date(startDateTime) < lubridate::as_date("2020-11-01") & 
+                                 verticalPosition == 505, 10.25, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 502, 0.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 503, 1.05, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 504, 1.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 505, 2.05, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 506, 2.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) < lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) > lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 507, 3.05, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 502, 0.3, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 503, 0.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 504, 0.8, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 505, 1.05, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 506, 1.3, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 507, 1.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 508, 2.05, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") & 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 509, 2.55, depth),
+                depth = ifelse(site_id == "BARC" & 
+                                 (lubridate::as_date(startDateTime) >= lubridate::as_date("2021-06-08") | 
+                                    lubridate::as_date(startDateTime) <= lubridate::as_date("2022-01-07") )& 
+                                 verticalPosition == 510, 3.05, depth)) %>%
+  dplyr::filter((tsdWaterTempFinalQF == 0 | (tsdWaterTempFinalQF == 1 & as_date(startDateTime) > as_date("2020-07-01")))) %>% 
+  dplyr::mutate(time = ymd_h(format(startDateTime, "%y-%m-%d %H")),
+                depth = round(depth, 1)) %>% # round to the nearest 0.1 m
+  group_by(site_id, depth, time) %>%
+  dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE),.groups = "drop") %>%
+  dplyr::select(time, site_id, temperature, depth) |> 
+  rename(observation = temperature) |> 
+  mutate(variable = "temperature") |> 
+  QC.temp(range = c(-5, 40), spike = 5, by.depth = T) %>%
+  mutate(data_source = 'NEON_portal')
+
+message("##### Sonde EDI data #####")
+# Only 6 lake sites available on EDI
+edi_url_lake <- c("https://pasta.lternet.edu/package/data/eml/edi/1071/1/7f8aef451231d5388c98eef889332a4b",
+                  "https://pasta.lternet.edu/package/data/eml/edi/1071/1/2c8893684d94b9a52394060a76cab798", 
+                  "https://pasta.lternet.edu/package/data/eml/edi/1071/1/770e2ab9d957991a787a2f990d5a2fad",
+                  "https://pasta.lternet.edu/package/data/eml/edi/1071/1/2e52d63ba4dc2040d1e5e2d11114aa93",
+                  "https://pasta.lternet.edu/package/data/eml/edi/1071/1/60df35a34bb948c0ca5e5556d129aa98", 
+                  "https://pasta.lternet.edu/package/data/eml/edi/1071/1/004857d60d6fe7587b112d714e0380d0")
+lake_edi_profile <- c("NEON.D03.BARC.DP0.20005.001.01378.csv",
+                      "NEON.D05.CRAM.DP0.20005.001.01378.csv",
+                      "NEON.D05.LIRO.DP0.20005.001.01378.csv",
+                      "NEON.D09.PRLA.DP0.20005.001.01378.csv",
+                      "NEON.D09.PRPO.DP0.20005.001.01378.csv",
+                      "NEON.D03.SUGG.DP0.20005.001.01378.csv")
+
+fs::dir_create(EDI_file_directory) # ignores existing directories unlike dir.create()
+# Download the data
+
+for(i in 1:length(edi_url_lake)){
+  if (!file.exists(file.path(EDI_file_directory,  lake_edi_profile[i]))) {
+    if (!dir.exists(dirname(file.path(EDI_file_directory, 
+                                      lake_edi_profile[i])))) {
+      dir.create(dirname(file.path(EDI_file_directory, 
+                                   lake_edi_profile[i])))
+    }
+    download.file(edi_url_lake[i], destfile = file.path(EDI_file_directory, lake_edi_profile[i]))
+  }
+}
+
+
+# List all the files in the EDI directory 
+edi_data <- list.files(file.path(EDI_file_directory), full.names = T)
+# Get the lake sites subset
+edi_lake_files <- c(edi_data[grepl(x = edi_data, pattern= lake_sites[1])],
+                    edi_data[grepl(x = edi_data, pattern= lake_sites[2])],
+                    edi_data[grepl(x = edi_data, pattern= lake_sites[3])],
+                    edi_data[grepl(x = edi_data, pattern= lake_sites[4])],
+                    edi_data[grepl(x = edi_data, pattern= lake_sites[5])],
+                    edi_data[grepl(x = edi_data, pattern= lake_sites[6])])
+
+# Calculate the hourly average profile 
+hourly_temp_profile_EDI <- purrr::map_dfr(.x = edi_lake_files, ~ read.csv(file = .x)) %>%
+  rename('site_id' = siteID,
+         'depth' = sensorDepth,
+         'observation' = waterTemp) %>%
+  mutate(startDate  = lubridate::ymd_hm(startDate),
+         time = lubridate::ymd_h(format(startDate, '%Y-%m-%d %H')),
+         depth = round(depth, digits = 1)) %>%
+  group_by(site_id, time, depth) %>%
+  summarise(observation = mean(observation),.groups = "drop") %>%
+  mutate(variable = "temperature") %>%
+  # include first QC of data
+  QC.temp(range = c(-5, 40), spike = 5, by.depth = T) %>%
+  mutate(data_source = 'MS_raw')
+
+message("##### avros data #####")
+message("# Download any new files from the Google Cloud")
+
+# need to figure out which data are required
+# what is in the NEON store db?
+cur_tsd_month <- hourly_temp_profile_portal %>%
+  group_by(site_id) %>%
+  summarise(cur_wq_month = as.Date(max(time))) %>%
+  mutate(new_date = cur_wq_month + days(1))
+# what is the next data from this?
+# new_month_tsd <- unique(format(c((as.Date(max(hourly_temp_profile_portal$time)) %m+% months(1)), (Sys.Date() - days(2))), "%Y-%m"))
+
+# Download any new files from the Google Cloud
+download.neon.avro(months = cur_tsd_month, 
+                   data_product = '20264',  # TSD data product
+                   path = avro_file_directory)
+# Start by deleting superseded files
+# Files that have been supersed by the NEON store files can be deleted from the relevent repository
+# Look in each repository to see if there are files that match the current maximum month of the NEON
+# store data
+
+delete.neon.parquet(months = cur_tsd_month,
+                    path = file.path(parquet_file_directory, "tsd"),
+                    data_product = '20264')
+
+delete.neon.avro(months = cur_tsd_month,
+                 path = avro_file_directory,
+                 data_product = '20264')
+
+
+
+
+
+# The variables (term names that should be kept)
+tsd_vars <- c('siteName',
+              'startDate',
+              'tsdWaterTempMean', 
+              'thermistorDepth', 
+              'tsdWaterTempExpUncert',
+              'tsdWaterTempFinalQF')
+
+columns_keep <- c('siteName', 'termName', 'startDate', 'Value', 'verticalIndex')
+thermistor_depths <- readr::read_csv('thermistorDepths.csv', col_types = 'ccd')
+
+
+# Generate a list of files to be read
+tsd_avro_files <- paste0(avro_file_directory, '/',
+                         list.files(path = avro_file_directory,
+                                    pattern = '*20264', 
+                                    recursive = T))
+lake_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[1])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[2])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[3])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[4])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[5])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[6])],
+                     tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[7])])
+
+tsd_parquet_files <- list.files(path = file.path(parquet_file_directory, "tsd"))
+
+new_files <- map_lgl(lake_avro_files, function(x){
+  new_file <- TRUE
+  if(basename(x) %in% tools::file_path_sans_ext(tsd_parquet_files)){
+    new_file <- FALSE
+  }
+  return(new_file)
+})
+
+lake_avro_files <- lake_avro_files[which(new_files)]
+
+if(length(lake_avro_files) > 0){
+  sc <- sparklyr::spark_connect(master = "local")
+  message("# Read in each of the files and then bind by rows")
+  hourly_temp_profile_avro <- purrr::walk(.x = lake_avro_files,
+                                          ~ read.avro.tsd.profile(sc= sc,
+                                                                  path = .x,
+                                                                  thermistor_depths = thermistor_depths,
+                                                                  columns_keep = columns_keep,
+                                                                  dir = file.path(parquet_file_directory, "tsd"),
+                                                                  delete_files = FALSE))
+  spark_disconnect(sc)
+}
+
+s3 <- arrow::SubTreeFileSystem$create(file.path(parquet_file_directory, "tsd"))
+
+hourly_temp_profile_avro <- arrow::open_dataset(s3) |> 
+  collect()
+
+if("observed" %in% names(hourly_temp_profile_avro)){
+  hourly_temp_profile_avro <- hourly_temp_profile_avro |> rename(observation = observed)
+}
+
+# Combine the three data sources
+hourly_temp_profile_lakes <- bind_rows(hourly_temp_profile_portal, hourly_temp_profile_EDI, hourly_temp_profile_avro) %>%
+  arrange(time, site_id, depth) %>%
+  group_by(time, site_id, depth) %>%
+  summarise(observation = mean(observation, na.rm = T), .groups = "drop") |> 
+  mutate(variable = "temperature") |> 
+  select(time, site_id, depth, variable, observation)
+
+#======================================================#
+
+message("#### Generate surface (< 1 m) temperature #############")
+message("###### Lake temperatures #####")
+# Daily surface lake temperatures generated from the hourly profiles created above
+daily_temp_surface_lakes <- hourly_temp_profile_lakes %>%
+  dplyr::filter(depth <= 1) %>%
+  mutate(time = lubridate::as_date(time)) %>%
+  group_by(site_id, time) %>%
+  summarise(observation = mean(observation, na.rm = T),.groups = "drop") %>%
+  mutate(variable = 'temperature')     
+
+message("##### Stream temperatures #####")
+temp_streams_portal <- arrow::open_dataset(neon$path("TSW_30min-basic-DP1.20053.001"), partitioning = "siteID") %>% 
+  #temp_streams_portal <- neonstore::neon_table("TSW_30min", site = sites$field_site_id) %>%
+  dplyr::filter(horizontalPosition == "101" |
+                  horizontalPosition == "111" | # take upstream to match WQ data
+                  (horizontalPosition == "112" & siteID == "BLUE"), # no data at BLUE upstream
+                finalQF == 0) %>%  
+  dplyr::select(startDateTime, siteID, surfWaterTempMean, surfWaterTempExpUncert, finalQF) %>%
+  dplyr::collect() %>%
+  dplyr::rename(site_id = siteID) 
+
+temp_streams_portal <- temp_streams_portal %>%
+  dplyr::mutate(time = as_date(startDateTime)) %>% 
+  dplyr::group_by(time, site_id) %>%
+  dplyr::summarize(temperature= mean(surfWaterTempMean, na.rm = TRUE),.groups = "drop") %>%
+  dplyr::select(time, site_id, temperature) %>%
+  rename(observation = temperature) |> 
+  mutate(variable = "temperature")
+
+temp_streams_portal_QC <- temp_streams_portal %>%
+  QC.temp(range = c(-5, 40), spike = 7, by.depth = F)
+#===========================================#
+message("##### Stream temperatures2 #####") 
+#### avros
+
+# need to figure out which month's data are required
+# what is in the NEON store db?
+cur_prt_month <- temp_streams_portal_QC %>%
+  group_by(site_id) %>%
+  summarise(cur_wq_month = as.Date(max(time))) %>%
+  mutate(new_date = cur_wq_month + days(1))
+# what is the next month from this plus the current month? These might be the same
+# new_month_prt <- unique(format(c((as.Date(max(temp_streams_portal_QC$time)) %m+% months(1)), (Sys.Date() - days(2))), "%Y-%m"))
+
+# Download any new files from the Google Cloud
+download.neon.avro(months = cur_prt_month, 
+                   data_product = '20053',  # PRT data product
+                   path = avro_file_directory)
+
+# Start by deleting superseded files
+# Files that have been supersed by the NEON store files can be deleted from the relevent repository
+# Look in each repository to see if there are files that match the current maximum month of the NEON
+# store data
+
+delete.neon.parquet(months = cur_prt_month,
+                    path = file.path(parquet_file_directory, "prt"),
+                    data_product = '20053')
+
+delete.neon.avro(months = cur_prt_month,
+                 path = avro_file_directory,
+                 data_product = '20053')
+
+
+# Read in the new files to append to the NEONstore data
+# connect to spark locally 
+
+
+# The variables (term names that should be kept)
+prt_vars <- c('siteName',
+              'startDate',
+              'surfWaterTempMean',
+              'surfWaterTempExpUncert', 
+              'finalQF')
+
+columns_keep <- c('siteName', 'termName', 'startDate', 'Value', 'verticalIndex')
+
+
+# Generate a list of files to be read
+prt_avro_files <- paste0(avro_file_directory, '/',
+                         list.files(path = avro_file_directory,
+                                    pattern = '*20053', 
+                                    recursive = T))
+
+prt_parquet_files <- list.files(path = file.path(parquet_file_directory, "prt"))
+
+new_files <- map_lgl(prt_avro_files, function(x){
+  new_file <- TRUE
+  if(basename(x) %in% tools::file_path_sans_ext(prt_parquet_files)){
+    new_file <- FALSE
+  }
+  return(new_file)
+})
+
+prt_avro_files <- prt_avro_files[which(new_files)]
+
+## check for bad NEON files and remove if present 
+problem_files <- c('/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2021-12-27.avro',
+                   '/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2023-02-01.avro',
+                   '/home/rstudio/data/aquatic_avro/site=BIGC/BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001__2023-01-28.avro')
+
+problem_files <- map_lgl(prt_avro_files, function(x){
+  problem_file <- FALSE
+  if(stringr::str_detect(x, "BIGC_L0_to_L1_Surface_Water_Temperature_DP1.20053.001")){
+    problem_file <- TRUE
+  }
+  return(problem_file)
+})
+
+if(any(problem_files == TRUE)){
+prt_avro_files <- prt_avro_files[!problem_files]
+  message('Problem files removed')
+}
+
+
+if(length(prt_avro_files > 0)){
+  sc <- sparklyr::spark_connect(master = "local")
+  # Read in each of the files and then bind by rows
+  purrr::walk(.x = prt_avro_files, ~ read.avro.prt(sc= sc, 
+                                                   path = .x, 
+                                                   columns_keep = columns_keep, 
+                                                   dir = file.path(parquet_file_directory, "prt")))
+  spark_disconnect(sc)
+}
+
+s3 <- arrow::SubTreeFileSystem$create(file.path(parquet_file_directory, "prt"))
+
+temp_streams_avros <- arrow::open_dataset(s3) |> 
+  collect()
+
+if("observed" %in% names(temp_streams_avros)){
+  temp_streams_avros <- temp_streams_avros |> rename(observation = observed)
+}
+
+
+
+
+#===============================================#
+
+message("##### River temperature ######")
+# For non-wadeable rivers need portal, EDI and avro data
+
+# Portal data
+temp_rivers_portal <- arrow::open_dataset(neon$path("TSD_30_min-basic-DP1.20264.001"), partitioning = "siteID") %>%
+  #temp_rivers_portal <- neonstore::neon_table("TSD_30_min", site = sites$field_site_id) %>%
+  dplyr::filter(siteID %in% nonwadable_rivers) %>%
+  rename(site_id = siteID,
+         depth = thermistorDepth) %>%
+  dplyr::select(startDateTime, site_id, tsdWaterTempMean, depth, tsdWaterTempExpUncert, tsdWaterTempFinalQF) %>%
+  dplyr::filter(tsdWaterTempFinalQF == 0) %>%
+  dplyr::collect()
+
+temp_rivers_portal <- temp_rivers_portal %>%
+  dplyr::mutate(time = as_date(startDateTime)) %>% 
+  dplyr::group_by(time, site_id) %>%
+  dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE),.groups = "drop") %>%
+  dplyr::select(time, site_id, temperature) %>%
+  rename(observation = temperature) |> 
+  mutate(variable = "temperature")
+
+temp_rivers_portal_QC <- temp_rivers_portal %>%
+  QC.temp(range = c(-5, 40), spike = 7, by.depth = F)
+
+# EDI data
+edi_url_river <- c("https://pasta.lternet.edu/package/data/eml/edi/1185/1/fb9cf9ba62ee8e8cf94cb020175e9165",
+                   "https://pasta.lternet.edu/package/data/eml/edi/1185/1/fac068cff680ae28473c3e13dc75aa9f",
+                   "https://pasta.lternet.edu/package/data/eml/edi/1185/1/5567ad7252b598ee40f5653e7b732ff4" )
+
+river_edi_profile <- c("NEON.D03.FLNT.DP0.20005.001.01378.csv",
+                       "NEON.D03.BLWA.DP0.20005.001.01378.csv",
+                       "NEON.D03.TOMB.DP0.20005.001.01378.csv")
+
+for(i in 1:length(edi_url_river)){
+  if (!file.exists(file.path(EDI_file_directory,river_edi_profile[i]))) {
+    if (!dir.exists(dirname(file.path(EDI_file_directory, 
+                                      river_edi_profile[i])))) {
+      dir.create(dirname(file.path(EDI_file_directory, 
+                                   river_edi_profile[i])))
+    }
+    download.file(edi_url_river[i], destfile = file.path(EDI_file_directory, river_edi_profile[i]))
+  }
+}
+
+edi_data <- list.files(file.path(EDI_file_directory), full.names = T)
+
+edi_rivers <- c(edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[1])],
+                edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[2])],
+                edi_data[grepl(x = edi_data, pattern= nonwadable_rivers[3])])
+
+# The hourly data set is for the whole water column.
+temp_rivers_EDI <- purrr::map_dfr(.x = edi_rivers, ~ read.csv(file = .x)) %>%
+  rename('site_id' = siteID,
+         'observation' = waterTemp) %>%
+  mutate(startDate  = lubridate::ymd_hm(startDate),
+         time = as.Date(startDate)) %>% 
+  group_by(site_id, time) %>%
+  summarise(observation = mean(observation),.groups = "drop") %>%
+  # include first QC of data
+  QC.temp(range = c(-5, 40), spike = 5, by.depth = F) |> 
+  mutate(variable = "temperature")
+
+
+# avros
+message('download non-wadable rivers avros')
+cur_tsd_month <- temp_rivers_portal_QC %>%
+  group_by(site_id) %>%
+  summarise(cur_wq_month = as.Date(max(time))) %>%
+  mutate(new_date = cur_wq_month + days(1))
+# what is the next data from this?
+# new_month_tsd <- unique(format(c((as.Date(max(hourly_temp_profile_portal$time)) %m+% months(1)), (Sys.Date() - days(2))), "%Y-%m"))
+
+# Download any new files from the Google Cloud
+download.neon.avro(months = cur_tsd_month, 
+                   data_product = '20264',  # TSD data product
+                   path = avro_file_directory)
+
+message("Generate a list of nonwadable_rivers avro files to be read")
+tsd_avro_files <- paste0(avro_file_directory, '/',
+                         list.files(path = avro_file_directory,
+                                    pattern = '*20264', 
+                                    recursive = T))
+river_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[1])],
+                      tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[2])],
+                      tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[3])])
+
+tsd_parquet_files <- list.files(path = file.path(parquet_file_directory, "river_tsd"))
+
+new_files <- map_lgl(river_avro_files, function(x){
+  new_file <- TRUE
+  if(basename(x) %in% tools::file_path_sans_ext(tsd_parquet_files)){
+    new_file <- FALSE
+  }
+  return(new_file)
+})
+
+river_avro_files <- river_avro_files[which(new_files)]
+
+
+if(length(river_avro_files) > 0){
+  sc <- sparklyr::spark_connect(master = "local")
+  # Read in each of the files and then bind by rows
+  purrr::walk(.x = river_avro_files,  ~ read.avro.tsd(sc= sc,
+                                                      path = .x,
+                                                      thermistor_depths = thermistor_depths, 
+                                                      dir = file.path(parquet_file_directory, "river_tsd"),
+                                                      delete_files = FALSE))
+  spark_disconnect(sc)
+}
+
+s3 <- arrow::SubTreeFileSystem$create(file.path(parquet_file_directory, "river_tsd"))
+
+temp_rivers_avros <- arrow::open_dataset(s3) |> 
+  collect()
+
+if("observed" %in% names(temp_rivers_avros)){
+  temp_rivers_avros <- temp_rivers_avros |> rename(observation = observed)
+}
+
+
+#===========================================#
+
+message("#### surface temperatures ####")
+
+# Combine the avro files with the portal data
+temp_full <- dplyr::bind_rows(# Lakes surface temperature
+  daily_temp_surface_lakes,
+  
+  # Stream temperature data
+  temp_streams_portal_QC,
+  temp_streams_avros,
+  
+  # River temperature data
+  temp_rivers_portal_QC,
+  temp_rivers_EDI,
+  temp_rivers_avros) %>%
+  dplyr::arrange(site_id, time) %>%
+  group_by(site_id, time) %>%
+  summarise(observation = mean(observation, na.rm = T),.groups = "drop") %>%
+  mutate(variable = 'temperature')
+
+
+#### Temp QC protocol=================
+
+# additional QC steps implemented (FO, 2022-07-13)
+##### check 1 Gross range tests on temperature
+# temperature ranges 
+T_max <- 32 # gross max
+T_min <- -2 # gross min
+
+# GR flag will be true if the temperature is outside the range specified 
+temp_cleaned <-  temp_full %>%
+  dplyr::mutate(observation =ifelse(observation >= T_min & observation <= T_max , 
+                                 observation, NA))  %>%
+  # manual cleaning based on observation
+  dplyr:: mutate(observation = ifelse(site_id == "PRLA" & time <ymd("2019-01-01"),
+                                   NA, observation))
+
+#### Targets==========================
+targets_long <- dplyr::bind_rows(wq_cleaned, temp_cleaned) %>%
+  dplyr::arrange(site_id, time, variable) %>%
+  dplyr::mutate(observation = ifelse(is.nan(observation), NA, observation))
+
+message("#### Writing forecasts to file ####")
+
+targets_long <- targets_long |> 
+  rename(datetime = time)
+
+### Write out the targets
+write_csv(targets_long, "aquatics-targets.csv.gz")
+
+#ggplot(targets_long, aes(x = time, y = observation)) +
+#  geom_point() +
+#  facet_grid(variable~site_id, scale = "free")
+
+hourly_temp_profile_lakes <- hourly_temp_profile_lakes |> 
+  rename(datetime = time)
+
+### Write the disaggregated lake data
+write_csv(hourly_temp_profile_lakes, "aquatics-expanded-observations.csv.gz")
+
+#hourly_temp_profile_lakes |> 
+#  dplyr::filter(site_id == "CRAM") |> 
+#ggplot(aes(x = time, y = observation)) +
+#  geom_point() +
+#  facet_wrap(~as_factor(depth), scale = "free")
+
+message("#### Moving forecasts to s3 bucket ####")
+readRenviron("~/.Renviron") # compatible with littler
+aws.s3::put_object(file = "aquatics-targets.csv.gz", 
+                   object = "aquatics/aquatics-targets.csv.gz",
+                   bucket = "neon4cast-targets")
+
+aws.s3::put_object(file = "aquatics-expanded-observations.csv.gz", 
+                   object = "aquatics/aquatics-expanded-observations.csv.gz",
+                   bucket = "neon4cast-targets")
+
+unlink("aquatics-expanded-observations.csv.gz")
+unlink("aquatics-targets.csv.gz")
+
+message(paste0("Completed Aquatics Target at ", Sys.time()))

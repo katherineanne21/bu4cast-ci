@@ -145,7 +145,7 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_csv_arrow(targets2, sink = s3$path("ticks-targets.csv.gz"))
+arrow::write_csv_arrow(tick_targets2, sink = s3$path("ticks-targets.csv.gz"))
 
 
 

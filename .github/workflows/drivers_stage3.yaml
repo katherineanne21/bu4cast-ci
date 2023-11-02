@@ -1,30 +1,31 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  #schedule:
-  #  - cron: '0 0 * * *'
+  schedule:
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
-name: scoring
+name: gefs_osn_stage3
 
 jobs:
   docker:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: [self-hosted]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+#    container: rocker/geospatial
     steps:
       - uses: actions/checkout@v3
 
       - name: Install
         shell: Rscript {0}
         run: |
-          remotes::install_deps(".", dep=TRUE)
+          #devtools::install(dependencies=TRUE, upgrade="never")
+          install.packages("remotes")
+          remotes::install_github("eco4cast/gefs4cast")
 
-      - name: Generate scores
+      - name: Update Stage3
         shell: Rscript {0}
         run: |
-          source("scoring/scoring.R")
+          source("drivers/update_stage3.R")

@@ -1,23 +1,32 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  #schedule:
-  #  - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 12 * * *'
   workflow_dispatch:
-  
-name: seasonal_forecast_download
+
+
+name: gefs_osn
+
 jobs:
-  seasonal:
-    runs-on: ubuntu-latest
+  docker:
+    runs-on: [self-hosted]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rqthomas/vera-rocker:latest
+#    container: rocker/geospatial
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download
+      - name: Install
         shell: Rscript {0}
         run: |
-          source("drivers/seasonal.R")
+          #devtools::install(dependencies=TRUE, upgrade="never")
+          install.packages("remotes")
+          remotes::install_github("eco4cast/gefs4cast")
+
+      - name: Update GEFS
+        shell: Rscript {0}
+        run: |
+          source("drivers/download_stage1_psuedo.R")

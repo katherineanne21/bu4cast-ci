@@ -12,7 +12,7 @@ library(fs)
 library(stringr)
 library(lubridate)
 
-install_mc()
+#install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
@@ -55,7 +55,7 @@ if(length(submissions) > 0){
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  s3_inventory$CreateDir("inventory")
+  s3_inventory$CreateDir("inventory/catalog")
 
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"),
                                    endpoint_override = config$endpoint,
@@ -101,6 +101,7 @@ if(length(submissions) > 0){
 
         fc <- fc |>
           dplyr::mutate(pub_datetime = lubridate::as_datetime(pub_datetime),
+                        datetime = lubridate::as_datetime(datetime),
                         reference_datetime = lubridate::as_datetime(reference_datetime),
                         reference_date = lubridate::as_date(reference_datetime),
                         parameter = as.character(parameter),

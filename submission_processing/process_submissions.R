@@ -100,7 +100,7 @@ if(length(submissions) > 0){
           }
         }
 
-        if("model_id" %in% colnames(fc)){
+        if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = model_id)
         }
 
@@ -131,11 +131,13 @@ if(length(submissions) > 0){
 
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
 
+        arrow::write_dataset(inventory_df, path = s3_inventory)
+
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-        minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
+        minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
 
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
           minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
@@ -146,7 +148,7 @@ if(length(submissions) > 0){
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
 
-        minioclient::mc_cp(submission_timestamp, dirname(raw_bucket_object))
+        minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
 
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
           minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))

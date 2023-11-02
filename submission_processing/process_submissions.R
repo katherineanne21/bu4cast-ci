@@ -12,7 +12,7 @@ library(fs)
 library(stringr)
 library(lubridate)
 
-#install_mc()
+install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 

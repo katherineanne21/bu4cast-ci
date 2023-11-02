@@ -70,6 +70,7 @@ if(length(submissions) > 0){
 
     curr_submission <- basename(submissions[i])
     theme <-  stringr::str_split(curr_submission, "-")[[1]][1]
+    model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5]
     submission_dir <- dirname(submissions[i])
     print(curr_submission)
 
@@ -97,6 +98,10 @@ if(length(submissions) > 0){
               fc <- fc |> dplyr::mutate(duration = "P1D")
             }
           }
+        }
+
+        if("model_id" %in% colname(fc)){
+          fc <- fc |> mutate(model_id = model_id)
         }
 
         fc <- fc |>

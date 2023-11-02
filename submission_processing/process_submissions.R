@@ -100,7 +100,7 @@ if(length(submissions) > 0){
           }
         }
 
-        if("model_id" %in% colname(fc)){
+        if("model_id" %in% colnames(fc)){
           fc <- fc |> mutate(model_id = model_id)
         }
 

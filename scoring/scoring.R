@@ -73,7 +73,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                                       site_id = arrow::string(),
                                       datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
                                       duration = arrow::string(),
-                                      depth_m = arrow::float(), #project_specific
+                                      #depth_m = arrow::float(), #project_specific
                                       variable = arrow::string(),
                                       observation = arrow::float()),
                                     skip = 1) |>

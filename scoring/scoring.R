@@ -104,9 +104,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     ref <- group$date
 
     tg <- target |>
+      #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
       dplyr::filter(lubridate::as_date(datetime) >= ref,
-                    lubridate::as_date(datetime) < ref+lubridate::days(1)) |>
-      #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) #project_specific
+                    lubridate::as_date(datetime) < ref+lubridate::days(1))
 
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 

@@ -83,7 +83,7 @@ submit <- function(forecast_file,
       }
     }
   }else{
-    message("Since `example` is in your model_id, you are submitting an example forecast that will be processed but only retained for 30-days")
+    message("Since `example` is in your model_id, you are submitting an example forecast that will be processed but not used in future analyses.")
   }
 
   if(go & ask){

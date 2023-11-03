@@ -1,15 +1,15 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  #schedule:
-  #  - cron: '0 13 * * *'
+  schedule:
+    - cron: "0 1 * * SUN"
   workflow_dispatch:
 
 
-name: baseline-forecasts
+name: baseline-weekly-forecasts
 
 jobs:
-  docker:
+  ticks:
     runs-on: ubuntu-latest
     container: eco4cast/rocker-neon4cast:latest
     env:
@@ -19,15 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      #- name: Install
-      #  shell: Rscript {0}
-      #  run: |
-      #    remotes::install_github("cboettig/aws.s3")
-      #    remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-      #    install.packages(c("imputeTS", "tsibble", "fable"))
+      - name: Generate forecasts
+        shell: Rscript {0}
+        run: |
+          source("baseline_models/run_ticks_baselines.R")
+
+  beetles:
+    runs-on: ubuntu-latest
+    container: eco4cast/rocker-neon4cast:latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Generate forecasts
         shell: Rscript {0}
         run: |
-          source("baseline_models/run_exo_baselines.R")
-          source("baseline_models/run_met_inflow_baselines.R")
+          source("baseline_models/run_beetles_baselines.R")

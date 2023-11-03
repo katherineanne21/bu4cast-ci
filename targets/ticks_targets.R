@@ -147,5 +147,5 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 
 arrow::write_csv_arrow(tick_targets2, sink = s3$path("ticks-targets.csv.gz"))
 
-
+RCurl::getURL("https://hc-ping.com/09c7ab10-eb4e-40ef-a029-7a4addc3295b")
 

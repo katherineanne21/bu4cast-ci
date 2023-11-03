@@ -121,3 +121,5 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
                        secret_key = Sys.getenv("OSN_SECRET"))
 
 arrow::write_csv_arrow(targets2, sink = s3$path("beetles-targets.csv.gz"))
+
+RCurl::getURL("https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99")

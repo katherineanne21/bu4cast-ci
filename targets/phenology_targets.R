@@ -85,3 +85,5 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 arrow::write_csv_arrow(allData3, sink = s3$path("phenology-targets.csv.gz"))
 
 unlink("phenology-targets.csv.gz")
+
+RCurl::getURL("https://hc-ping.com/f5d48d96-bb41-4c21-b028-930fa2b01c5a")

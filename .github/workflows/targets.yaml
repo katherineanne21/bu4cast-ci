@@ -23,6 +23,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
+          install.packages("RCurl")
           source("targets/phenology_targets.R")
 
   beetles:
@@ -41,9 +42,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages("neonstore")
-          install.packages("duckdbfs")
-          install.packages("ISOweek")
+          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek"))
           source("targets/beetles_targets.R")
 
   ticks:
@@ -62,8 +61,6 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages("neonstore")
-          install.packages("duckdbfs")
-          install.packages("ISOweek")
+          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek"))
           source("targets/ticks_targets.R")
 

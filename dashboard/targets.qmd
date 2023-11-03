@@ -26,14 +26,13 @@ glimpse(targets)
 
 ```{r message=FALSE}
 googlesheets4::gs4_deauth()
-target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing")
+target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing")
 ```
 
 ```{r echo = FALSE}
   target_metadata <- target_metadata |> 
-  rename(variable = `"official" targets name`,
-         priority = `priority target`) |> 
-  select(variable, duration, class, Description, priority)
+  rename(variable = `"official" targets name`) |> 
+  select(variable, duration, class, Description)
 ```
 
 #### Physical variables
@@ -42,8 +41,8 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 targets |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "physical" & priority) |> 
-  select(-class,-priority) |> 
+  filter(class == "aquatics") |> 
+  select(-class) |> 
   knitr::kable()
 ```
 ```{r echo = FALSE, warning = FALSE}

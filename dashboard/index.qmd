@@ -36,7 +36,7 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                       site_id = arrow::string(),
                                       datetime = arrow::timestamp(unit = "ns", timezone = "UTC"),
                                       duration = arrow::string(),
-                                      depth_m = arrow::float(),
+                                      #depth_m = arrow::float(),
                                       variable = arrow::string(),
                                       observation = arrow::float()),
                                     skip = 1) |>
@@ -47,15 +47,15 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
            min = lubridate::as_date(min)) |> 
     dplyr::collect()
 
-unique_forecasted_targets <- arrow::open_dataset("../cache/duration=P1D") |> 
-  dplyr::distinct(variable) |> count() |> 
-    dplyr::collect() |> 
-    pull(n)
+#unique_forecasted_targets <- arrow::open_dataset("../cache/duration=P1D") |> 
+#  dplyr::distinct(variable) |> count() |> 
+#    dplyr::collect() |> 
+#    pull(n)
 
 last_updated <- Sys.Date()
 ```
 
-```{r}
+```{r eval = FALSE}
 
 layout_column_wrap(
   width = "250px",
@@ -89,7 +89,7 @@ layout_column_wrap(
 
 ## What sites are being forecasted?
 
-```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE, eval = FALSE}
 leaflet() %>%
   setView(lat = 37.310922, lng = -79.828854, zoom= 15) %>%
   addTiles(group="OSM") %>%

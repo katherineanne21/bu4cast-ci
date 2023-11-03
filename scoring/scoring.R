@@ -123,10 +123,11 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                       lubridate::as_date(datetime) < ref+lubridate::days(1))
 
       fc |>
-        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
+        #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
         dplyr::mutate(variable = curr_variable,
                       project_id = curr_project_id) |>
-        score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
+        #score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
+        score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
         dplyr::mutate(date = group$date,
                       model_id = group$model_id) |>
         dplyr::select(-variable,-project_id) |>

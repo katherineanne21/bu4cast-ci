@@ -11,7 +11,7 @@ get_target <- function(variable, duration, project_id = "neon4cast", lazy = FALS
                                       variable = arrow::string(),
                                       observation = arrow::float()),
                                     skip = 1) |>
-    dplyr::filter(variable == variable,
+    dplyr::filter(variable %in% variable,
                   duration == duration,
                   project_id == project_id)
 

@@ -13,19 +13,28 @@ model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
 site_table: neon4cast_field_site_metadata.csv
-target_metadata_gsheet: https://docs.google.com/spreadsheets/d/1fOWo6zlcWA8F6PmRS9AD6n1pf-dTWSsmGKNpaX3yHNE/edit?usp=sharing
+target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 challenge_url: https://www.neon4cast.org
 github_repo: eco4cast/neon4cast-ci
 variable_groups:
-  Biological:
-    variable: ['Chla_ugL_mean','Bloom_binary_mean']
+  Aquatics:
+    variable: ['oxygen','temperature','chla']
+    duration: ['P1D','P1D','P1D']
+  Terrestrial:
+    variable: ['nee','le','nee','le']
+    duration: ['P1D','P1D','PT30M','PT30M']
+  Phenology:
+    variable: ['gcc','rcc']
     duration: ['P1D','P1D']
-  Physical:
-    variable: ['Temp_C_mean', 'Secchi_m_sample']
-    duration: ['P1D','P1D']
+  Beetles:
+    variable: ['abundance', 'richness']
+    duration: ['P1W','P1W']
+  Ticks:
+    variable: ['amblyomma_americanum',]
+    duration: ['P1W']
 catalog_config:
-  about_string: 'www.ltreb-reservoirs.org/vera4cast'
-  about_title: 'VERA Forecasting Challenge Documentation'
+  about_string: 'www.neon4cast.org'
+  about_title: 'NEON Ecological Forecasting Challenge Documentation'
   scores_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
   scores_thumbnail_title: "Falling Creek Reservoir"
   forecasts_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"

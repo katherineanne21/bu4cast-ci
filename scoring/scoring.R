@@ -2,7 +2,7 @@ library(score4cast)
 library(arrow)
 
 past_days <- 365
-n_cores <- 2
+n_cores <- 8
 
 setwd(here::here())
 

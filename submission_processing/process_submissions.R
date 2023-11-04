@@ -87,7 +87,7 @@ if(length(submissions) > 0){
 
         if(!"duration" %in% names(fc)){
           if(theme == "terrestrial_30min"){
-            fc <- fc |> dplyr::mutate(duration = "P1H")
+            fc <- fc |> dplyr::mutate(duration = "PT30M")
           }else if(theme %in% c("ticks","beetles")){
             fc <- fc |> dplyr::mutate(duration = "P1W")
           }else if(theme %in% c("aquatics","phenology","terrestrial_daily")){

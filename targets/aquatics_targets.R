@@ -1,17 +1,4 @@
-#renv::restore()
-
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
-
-avro_file_directory <- "/home/rstudio/data/aquatic_avro"
-parquet_file_directory <- "/home/rstudio/data/aquatic_parquet"
-EDI_file_directory <- "/home/rstudio/data/aquatic_EDI"
-
-readRenviron("~/.Renviron") # compatible with littler
-Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
-
-
-# Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore") #Sys.setenv("NEONSTORE_HOME" = "/efi_neon_challenge/neonstore")
-#Sys.setenv("NEONSTORE_DB" = "home/rstudio/data/neonstore")    #Sys.setenv("NEONSTORE_DB" = "/efi_neon_challenge/neonstore")
 
 Sys.unsetenv("AWS_DEFAULT_REGION")
 Sys.unsetenv("AWS_S3_ENDPOINT")
@@ -31,6 +18,35 @@ source('R/data_processing.R')
 # spark_install(version = '3.0')
 
 `%!in%` <- Negate(`%in%`) # not in function
+
+avro_file_directory <- "/home/rstudio/data/aquatic_avro"
+parquet_file_directory <- "/home/rstudio/data/aquatic_parquet"
+EDI_file_directory <- "/home/rstudio/data/aquatic_EDI"
+
+readRenviron("~/.Renviron") # compatible with littler
+Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
+Sys.getenv("NEONSTORE_DB")
+
+#temporary aquatic repo during test of new workflow
+site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv")
+aq_sites <- site_data |> filter(aquatics == 1) |> pull(field_site_id)
+
+message("aquatics targets")
+neonstore::neon_download("DP1.20288.001", site = aq_sites) # water quality
+neonstore::neon_store(table = "waq_instantaneous", n = 50)
+
+neonstore::neon_download("DP1.20264.001", table ='30', site =  aq_sites)
+neonstore::neon_store(table = "TSD_30_min")
+
+neonstore::neon_download("DP1.20053.001", table ='30', site =  aq_sites)
+neonstore::neon_store(table = "TSW_30min")
+
+neon_disconnect()
+
+# Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore") #Sys.setenv("NEONSTORE_HOME" = "/efi_neon_challenge/neonstore")
+#Sys.setenv("NEONSTORE_DB" = "home/rstudio/data/neonstore")    #Sys.setenv("NEONSTORE_DB" = "/efi_neon_challenge/neonstore")
+
+
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
@@ -898,6 +914,5 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
                        secret_key = Sys.getenv("OSN_SECRET"))
 
 arrow::write_csv_arrow(hourly_temp_profile_lakes2, sink = s3$path("aquatics-expanded-observations.csv.gz"))
-
 
 message(paste0("Completed Aquatics Target at ", Sys.time()))

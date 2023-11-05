@@ -24,6 +24,9 @@ site_names <- sites$field_site_id
 # Terrestrial
 
 #Get the published files on the portal
+neonstore::neon_download(product = "DP4.00200.001", site = site_names, type = "basic")
+neonstore::neon_store(product = "DP4.00200.001")
+#neon_disconnect()
 
 #DP4.00200.001 & DP1.00094.001
 #neon_store(product = "DP4.00200.001")
@@ -335,4 +338,4 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 
 arrow::write_csv_arrow(flux_target_daily2, sink = s3$path("terrestrial_daily-targets.csv.gz"))
 
-
+message(paste0("Completed Terrestrial Target at ", Sys.time()))

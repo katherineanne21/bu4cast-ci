@@ -63,14 +63,4 @@ neon4cast::submit(forecast_file = forecast_file,
                   metadata = NULL,
                   ask = FALSE)
 
-remotes::install_github("eco4cast/neon4cast", ref = "ci_upgrade")
-library(neon4cast)
-detach("package:neon4cast", unload = TRUE)
-
-
-neon4cast::submit(forecast_file = forecast_file,
-                  ask = FALSE,
-                  first_submission = FALSE)
-
-
 unlink(forecast_file)

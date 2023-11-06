@@ -95,7 +95,9 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
 #
 # registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
-registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
+# read in model metadata and filter for the relevant project
+registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
+  filter(`What forecasting challenge are you registering for?` == config$project_id)
 
 forecast_sites <- c()
 

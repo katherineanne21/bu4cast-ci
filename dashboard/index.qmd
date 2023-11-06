@@ -2,15 +2,13 @@
 title: "Forecasting Challenge"
 ---
 
-Welcome to the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech ([EFP](https://www.ecoforecastprojectvt.org/)).
+Welcome to the NEON Forecasting Challenge, hosted by the Ecologial Forecasting Initiative Research Coordination Network
 
 We invite you to submit forecasts!
 
 ## Why a forecasting challenge? 
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
-
-The forecasting challenge is one component of the Virginia Reservoirs LTREB project that is monitoring the reservoirs to broadly advance our understanding of freshwater ecosystem processes in two neighboring reservoirs with contrasting dissolved oxygen conditions.
 
 <br />
 <br />
@@ -42,7 +40,8 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                     skip = 1) |>
   filter(project_id == config$project_id) |> 
     summarize(max = max(datetime),
-              min = min(datetime)) |> 
+              min = min(datetime),
+              n = n_distinct(variable)) |> 
     mutate(max = lubridate::as_date(max),
            min = lubridate::as_date(min)) |> 
     dplyr::collect()
@@ -55,12 +54,12 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
 last_updated <- Sys.Date()
 ```
 
-```{r eval = FALSE}
+```{r}
 
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the VERA Challenge", 
+    title = "Total forecasts submitted to the NEON Challenge", 
     value = n_forecasts,
     showcase = bs_icon("graph-up"),
     theme_color = "success" 
@@ -77,7 +76,7 @@ layout_column_wrap(
   ),
     value_box(
     title = "Number of variables being forecasted", 
-    value = unique_forecasted_targets,
+    value = most_recent_targets$n,
     showcase = bs_icon("clipboard-data"),
     theme_color = "success" 
   )
@@ -100,7 +99,7 @@ leaflet() %>%
 ```
 <br />
 <br />
-This material is based upon work supported by the National Science Foundation under Grant DEB-2327030. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
 <br />
 <br />
 Page last updated on `r Sys.Date()`

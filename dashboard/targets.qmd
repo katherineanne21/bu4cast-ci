@@ -5,26 +5,16 @@ editor:
     wrap: sentence
 ---
 
-## Targets file
-
-Daily time-step variables measured within the reservoirs:
-
-```{r}
-url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D/daily-insitu-targets.csv.gz"
-```
-
-```{r message=FALSE}
+```{r  message=FALSE, echo = FALSE}
 library(tidyverse)
-targets <- read_csv(url, show_col_types = FALSE)
+terrestrial_focal_sites <- c("HARV", "OSBS")
+aquatics_focal_sites <- c("BARC", "CRAM")
+phenology_focal_sites <- c("HARV", "OSBS")
+ticks_focal_sites <- c("HARV", "OSBS")
+beetles_focal_sites <- c("HARV", "OSBS")
 ```
 
-```{r}
-glimpse(targets)
-```
-
-### Variable list 
-
-```{r message=FALSE}
+```{r message=FALSE, echo = FALSE}
 googlesheets4::gs4_deauth()
 target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing")
 ```
@@ -32,135 +22,220 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 ```{r echo = FALSE}
   target_metadata <- target_metadata |> 
   rename(variable = `"official" targets name`) |> 
-  select(variable, duration, class, Description)
+  select(variable, duration, class, Description, horizon)
 ```
 
-#### Physical variables
+The targets were specifically chosen to include ecosystem, community, and population dynamics.
+Targets are available at all relative NEON sites.
+If you are interested in forecasting a single site, we recommend the following focal sites.
+
+- Terrestrial: HARV
+- Aquatics: BARC
+- Phenology: HARV 
+- Beetles:
+- Ticks:
+
+## Targets files
+
+### Terrestrial fluxes
+
+Insert short description
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+```
+
+```{r}
+
+terrestrial_targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(terrestrial_targets)
+```
 
 ```{r echo = FALSE}
-targets |> 
+terrestrial_targets |> 
   distinct(variable, duration) |> 
   left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "aquatics") |> 
+  filter(variable %in% c("nee","le")) |> 
   select(-class) |> 
   knitr::kable()
 ```
-```{r echo = FALSE, warning = FALSE}
-targets |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "physical" & priority) |> 
-  select(-class,-priority) |> 
-  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
-  ggplot(aes(x = datetime, y = observation)) +
-  geom_point() +
-  facet_grid(variable~site_id, scales = "free_y") +
-  theme_bw()
-```
-#### Chemical variables
-
-```{r echo = FALSE}
-targets |> 
-  distinct(variable, duration) |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "chemical" & priority ) |> 
-  select(-class,-priority) |> 
-  knitr::kable()
-```
-```{r echo = FALSE, warning = FALSE}
-targets |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "chemical" & priority) |> 
-  select(-class,-priority) |> 
-  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
-  ggplot(aes(x = datetime, y = observation)) +
-  geom_point() +
-  facet_grid(variable~site_id, scales = "free_y") +
-  theme_bw()
-```
-#### Biological variables
-
-```{r echo = FALSE}
-targets |> 
-  distinct(variable, duration) |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "biological"& priority) |> 
-  select(-class,-priority) |> 
-  knitr::kable()
-```
-```{r echo = FALSE, warning = FALSE}
-targets |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(class == "biological" & priority) |> 
-  select(-class,-priority) |> 
-  filter(depth_m %in% c(1.5, 1.6) | is.na(depth_m)) |> 
-  ggplot(aes(x = datetime, y = observation)) +
-  geom_point() +
-  facet_grid(variable~site_id, scales = "free_y") +
-  theme_bw()
-
-```
-
-## Site
 
 ```{r}
-site_list <- read_csv("https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/vera4cast_field_site_metadata.csv", show_col_types = FALSE)
+terrestrial_targets |> 
+  filter(site_id %in% c("HARV", "OSBS")) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+
+```
+
+Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html>
+
+### Aquatics
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
+```
+
+```{r}
+aquatics_targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(aquatics_targets)
+```
+
+```{r echo = FALSE}
+aquatics_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(variable %in% c("temperature","oxygen", "chla")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+```{r}
+aquatics_targets |> 
+  filter(site_id %in% c("BARC", "CRAM")) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+
+```
+
+Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html>
+
+### Phenology
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
+```
+
+```{r}
+phenology_targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(phenology_targets)
+```
+
+```{r echo = FALSE}
+phenology_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(variable %in% c("gcc_90","rcc_90")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+```{r}
+phenology_targets |> 
+  filter(site_id %in% c("HARV", "OSBS")) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+
+```
+
+Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Phenology.html>
+
+### Beetle communities
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
+```
+
+```{r}
+beetles_targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(beetles_targets)
+```
+
+```{r echo = FALSE}
+beetles_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(variable %in% c("abundance","richness")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+```{r}
+beetles_targets |> 
+  filter(site_id %in% c("HARV", "OSBS")) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+```
+
+Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Beetles.html>
+
+### Tick populations
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
+```
+
+```{r}
+ticks_targets <- read_csv(url, show_col_types = FALSE)
+```
+
+```{r}
+glimpse(ticks_targets)
+```
+
+```{r echo = FALSE}
+beetles_targets |> 
+  distinct(variable, duration) |> 
+  left_join(target_metadata, by = c("variable","duration")) |> 
+  filter(variable %in% c("amblyomma_americanum")) |> 
+  select(-class) |> 
+  knitr::kable()
+```
+
+```{r}
+ticks_targets |> 
+  filter(site_id %in% c("BLAN", "OSBS")) |> 
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_grid(variable~site_id, scales = "free_y") +
+  theme_bw()
+```
+
+Learn more at: [https://projects.ecoforecast.org/neon4cast-docs/Beetles.html](https://projects.ecoforecast.org/neon4cast-docs/Ticks.html)
+
+## Sites
+
+The following table lists all the sites in the NEON Ecological Forecasting Challenge along with the "themes" that it is included it.
+
+```{r}
+site_list <- read_csv("../neon4cast_field_site_metadata.csv", show_col_types = FALSE) |> 
+  rename(site_id = field_site_id) |> 
+  select(site_id, field_site_name, terrestrial, aquatics, phenology, ticks, beetles) 
 ```
 
 ```{r echo = FALSE}
 site_list |> knitr::kable()
 ```
 
-## Additional target variables
+## Additional variables
 
-### Stream inflow to Falling Creek Reservoir
+### Hourly water temperature
 
 Daily time-step variables measured in the monitored stream (Tunnel Branch; site_id = tubr)
 
 ```{r}
-url2 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D/daily-inflow-targets.csv.gz"
-inflow_targets <- read_csv(url2, show_col_types = FALSE)
-glimpse(inflow_targets)
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT1H/aquatics-expanded-observations.csv.gz"
+
+aquatics_expanded <- read_csv(url, show_col_types = FALSE)
+glimpse(aquatics_expanded)
 ```
-```{r echo = FALSE}
-inflow_targets |> 
-  distinct(variable, duration) |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  select(-class) |> 
-  knitr::kable()
-```
-
-### Falling Creek Reservoir meteorology
-
-Daily time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
-
-```{r}
-url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D/daily-met-targets.csv.gz"
-met_targets <- read_csv(url3, show_col_types = FALSE)
-glimpse(met_targets)
-```
-
-```{r echo = FALSE}
-met_targets |> 
-  distinct(variable, duration) |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  select(-class) |> 
-  knitr::kable()
-```
-
-Hourly time-step variables measured at the meteorology station (located on the dam at Falling Creek Reservoir)
-
-```{r}
-url3 <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=PT1H/hourly-met-targets.csv.gz"
-```
-
-### Other variables measured in the reservoirs
-
-```{r echo = FALSE}
-targets |> 
-  distinct(variable, duration) |> 
-  left_join(target_metadata, by = c("variable","duration")) |> 
-  filter(!priority) |> 
-  select(-class,-priority) |> 
-  knitr::kable()
-```
-

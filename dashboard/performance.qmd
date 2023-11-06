@@ -15,7 +15,11 @@ source("R/plot-utils.R")
 #source("../R/ignore_sigpipes.R")
 #ignore_sigpipe()
 
-
+terrestrial_focal_sites <- c("HARV", "OSBS")
+aquatics_focal_sites <- c("BARC", "CRAM")
+phenology_focal_sites <- c("HARV", "OSBS")
+ticks_focal_sites <- c("HARV", "OSBS")
+beetles_focal_sites <- c("HARV", "OSBS")
 ```
 
 This page visualizes the forecasts and forecast performance for the focal target variables.
@@ -24,164 +28,150 @@ This page visualizes the forecasts and forecast performance for the focal target
 
 ```{r}
 cutoff <- as.character(Sys.Date() - 30)
-combined <- arrow::open_dataset("../cache/duration=P1D") |> 
+combined_P1D <- arrow::open_dataset("../cache/duration=P1D") |> 
+  filter(date >= cutoff) |> collect()
+
+combined_P1W <- arrow::open_dataset("../cache/duration=P1W") |> 
   filter(date >= cutoff) |> collect()
 
 
 
-
 config <- yaml::read_yaml("../challenge_configuration.yaml")
-sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALSE)
+sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALSE) |> 
+  rename(site_id = field_site_id)
 
-df <- combined |> 
+df_P1D <- combined_P1D |> 
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id) |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |> 
   collect()
 
-reference_date <- max(lubridate::as_date(df$reference_datetime))
+df_P1W <- combined_P1W |> 
+  left_join(sites, by = "site_id") |> 
+  filter(site_id %in% sites$site_id) |> 
+  mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
+         datetime = lubridate::as_datetime(datetime)) |> 
+  collect()
+
+#reference_date_P1D <- max(lubridate::as_date(df_P1D$reference_datetime))
+#reference_date_P1W <- max(lubridate::as_date(df_P1W$reference_datetime))
 ```
 
-Forecasts submitted on `r reference_date`
+Forecasts submitted on `r max(lubridate::as_date(df_P1D$reference_datetime))`
 
 ::: panel-tabset
 
-### Chlorophyll-a
+### Terrestrial: Net Ecosystem Exchange
 
 ```{r}
-
-if("Chla_ugL_mean" %in% unique(df$variable)){
-df |> 
-  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Chla_ugL_mean"),
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |> 
+         variable == "nee",
+         site_id %in% terrestrial_focal_sites) |> 
   forecast_plots()
-}
 ```
 
-### Chlorophyll-a bloom probability
+### Terrestrial: Latent Heat Flux
 
 ```{r}
-
-if("Bloom_binary_mean" %in% unique(df$variable)){
-  
-ggobj_df <- df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) > max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Bloom_binary_mean"),
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre")))
-  
-if(nrow(ggobj_df) > 0){
-
-ggobj <- ggobj_df |> 
-ggplot(aes(x = datetime, y = mean, color = model_id)) + 
-  geom_line_interactive(aes(datetime, mean, col = model_id,
-                              tooltip = model_id, data_id = model_id),
-                        show.legend=FALSE) +
-  facet_wrap(~site_id) +
-  ylim(0,1) +
-  labs(y = "Predicted probability") +
-  theme_bw()
-
-girafe(ggobj = ggobj,
-         width_svg = 8, height_svg = 4,
-         options = list(
-           opts_hover_inv(css = "opacity:0.20;"),
-           opts_hover(css = "stroke-width:2;"),
-           opts_zoom(max = 4)
-         ))
-}
-}
+         variable == "le",
+         site_id %in% terrestrial_focal_sites) |> 
+  forecast_plots()
 ```
-
-### Water temperature
+### Phenology: Greeness
 
 ```{r}
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
-         variable == c("Temp_C_mean"),
-         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         ((depth_m == 1.6 & site_id == "fcre") | (depth_m == 1.5 & site_id == "bvre"))) |>  
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
+         #::as_date(datetime) > lubridate::as_date(reference_datetime),
+         variable == "gcc_90",
+         site_id %in% phenology_focal_sites) |> 
   forecast_plots()
 ```
 
-### Air temperature
+
+### Phenology: Redness
 
 ```{r}
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
-         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("AirTemp_C_mean")) |> 
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
+         #::as_date(datetime) > lubridate::as_date(reference_datetime),
+         variable == "rcc_90",
+         site_id %in% phenology_focal_sites) |> 
   forecast_plots()
 ```
 
-### fDOM QSU
+### Aquatics: water temperature
 
 ```{r}
-
-if("fDOM_QSU_mean" %in% unique(df$variable)){
-
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("fDOM_QSU_mean")) |> 
+         variable == c("temperature"),
+         site_id %in% aquatics_focal_sites) |> 
   forecast_plots()
-}
 ```
 
-### Secchi depth
+### Aquatics: dissolved oxygen
 
 ```{r}
-if("Secchi_m_sample" %in% unique(df$variable)){
-
-
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Secchi_m_sample")) |> 
+         variable == c("oxygen"),
+         site_id %in% aquatics_focal_sites) |> 
   forecast_plots()
-  
-}
 ```
 
-### Ice Cover Probability
+### Aquatics: chrophyll-a
 
 ```{r}
-if("IceCover_binary_sum" %in% unique(df$variable)){
-
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1D |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1D$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("IceCover_binary_sum")) |> 
+         variable == c("chla"),
+         site_id %in% aquatics_focal_sites) |> 
   forecast_plots()
-}
+
 ```
 
-### Dissolved methane
+### Beetle community richness
 
 ```{r}
-if("CH4_umolL_sample" %in% unique(df$variable)){
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1W |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1W$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("CH4_umolL_sample")) |> 
+         variable == c("richness"),
+         site_id %in% beetles_focal_sites) |> 
   forecast_plots()
-}
+```
+
+### Beetle community abundance
+
+```{r}
+df_P1W |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1W$reference_datetime)) - lubridate::days(1),
+         lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
+         variable == c("abundance"),
+         site_id %in% beetles_focal_sites) |> 
+  forecast_plots()
 ```
 
 
-### Inflow discharge
+### Ticks: Amblyomma americanum
 
 ```{r}
-if("Flow_cms_mean" %in% unique(df$variable)){
-df |> 
-  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df$reference_datetime)) - lubridate::days(1),
+df_P1W |> 
+  filter(lubridate::as_date(reference_datetime) == max(lubridate::as_date(df_P1W$reference_datetime)) - lubridate::days(1),
          lubridate::as_date(datetime) > lubridate::as_date(reference_datetime), 
-         variable == c("Flow_cms_mean")) |> 
+         variable == c("amblyomma_americanum"),
+         site_id %in% ticks_focal_sites) |> 
   forecast_plots()
-}
 ```
 
 :::
@@ -189,58 +179,126 @@ df |>
 ## Forecast analysis
 
 ```{r}
-sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
+#sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
 ## with at least n observations to compare!
 
 ref <- Sys.Date() - lubridate::days(10)
 
-ref <- max(c(ref, 
-             min(lubridate::as_date(combined$reference_datetime)),
-             lubridate::as_date("2023-10-14")))
+ref_P1D <- max(c(ref, 
+             lubridate::as_date(combined_P1D$reference_datetime)))
+
+ref_P1W <- max(c(ref, 
+             lubridate::as_date(combined_P1W$reference_datetime)))
 
 #n_data <- 10
 #who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 #ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
-ex <- combined |> 
+ex_P1D <- combined_P1D |> 
   mutate(reference_date = lubridate::as_date(reference_datetime)) |> 
-  filter(reference_date == ref, site_id %in% sites) |> collect() 
+  filter(reference_date == ref_P1D) |> collect() 
+
+ex_P1W <- combined_P1W |> 
+  mutate(reference_date = lubridate::as_date(reference_datetime)) |> 
+  filter(reference_date == ref_P1W) |> collect() 
 
 ```
 
 Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
-
-### Chlorophyll-a
-
-```{r}
-ex |> filter(variable == "Chla_ugL_mean",
-            ((depth_m == 1.6 & site_id == "fcre") | 
-            (depth_m == 1.5 & site_id == "bvre"))) |> forecast_plots()
-```
-
-### Water temperature
+### Terrestrial: Net Ecosystem Exchange
 
 ```{r}
-ex |> filter(variable == "Temp_C_mean",
-         (site_id == "tubr" | 
-            (depth_m == 1.6 & site_id == "fcre") | 
-            (depth_m == 1.5 & site_id == "bvre"))) |> 
+ex_P1D |> 
+  filter(variable == "nee",
+         site_id %in% terrestrial_focal_sites) |> 
   forecast_plots()
 ```
 
-### Secchi depth
+### Terrestrial: Latent Heat Flux
 
 ```{r}
-ex |> filter(variable == "Secchi_m_sample") |> 
+ex_P1D |> 
+  filter(variable == "le",
+         site_id %in% terrestrial_focal_sites) |> 
+  forecast_plots()
+```
+### Phenology: Greeness
+
+```{r}
+ex_P1D |> 
+  filter(variable == "gcc_90",
+         site_id %in% phenology_focal_sites) |> 
   forecast_plots()
 ```
 
-### Air Temperature
+
+### Phenology: Redness
 
 ```{r}
-ex |> filter(variable == "AirTemp_C_mean") |> forecast_plots()
+ex_P1D |> 
+  filter(variable == "rcc_90",
+         site_id %in% phenology_focal_sites) |> 
+  forecast_plots()
 ```
+
+### Aquatics: water temperature
+
+```{r}
+ex_P1D |> 
+  filter(variable == c("temperature"),
+         site_id %in% aquatics_focal_sites) |> 
+  forecast_plots()
+```
+
+### Aquatics: disolved oxygen
+
+```{r}
+ex_P1D |> 
+  filter(variable == c("oxygen"),
+         site_id %in% aquatics_focal_sites) |> 
+  forecast_plots()
+```
+
+### Aquatics: chrophyll-a
+
+```{r}
+ex_P1D |> 
+  filter(variable == c("chla"),
+         site_id %in% aquatics_focal_sites) |> 
+  forecast_plots()
+
+```
+
+### Beetle community richness
+
+```{r}
+ex_P1W |> 
+  filter(variable == c("richness"),
+         site_id %in% beetles_focal_sites) |> 
+  forecast_plots()
+```
+
+### Beetle community abundance
+
+```{r}
+ex_P1W |> 
+  filter(variable == c("abundance"),
+         site_id %in% beetles_focal_sites) |> 
+  forecast_plots()
+```
+
+
+### Ticks: Amblyomma americanum
+
+```{r}
+ex_P1W |> 
+  filter(variable == c("amblyomma_americanum"),
+         site_id %in% ticks_focal_sites) |> 
+  forecast_plots()
+```
+
+
 :::
 
 ## Aggregated scores
@@ -252,21 +310,66 @@ Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
 
 ::: panel-tabset
-## Chlorophyll-a
+
+### Terrestrial: Net Ecosystem Exchange
 
 ```{r}
-leaderboard_plots(combined, "Chla_ugL_mean")
+leaderboard_plots(combined_P1D, "nee")
 ```
 
-## Water temperature
+### Terrestrial: Latent Heat Flux
 
 ```{r}
-leaderboard_plots(combined, "Temp_C_mean")
+leaderboard_plots(combined_P1D, "le")
 ```
-
-## Air temperature
+### Phenology: Greeness
 
 ```{r}
-leaderboard_plots(combined, "AirTemp_C_mean")
+leaderboard_plots(combined_P1D, "gcc_90")
 ```
+
+
+### Phenology: Redness
+
+```{r}
+leaderboard_plots(combined_P1D, "rcc_90")
+```
+
+### Aquatics: water temperature
+
+```{r}
+leaderboard_plots(combined_P1D, "temperature")
+```
+
+### Aquatics: dissolved oxygen
+
+```{r}
+leaderboard_plots(combined_P1D, "oxygen")
+```
+
+### Aquatics: chrophyll-a
+
+```{r}
+leaderboard_plots(combined_P1D, "chla")
+```
+
+### Beetle community richness
+
+```{r}
+leaderboard_plots(combined_P1W, "richness")
+```
+
+### Beetle community abundance
+
+```{r}
+leaderboard_plots(combined_P1W, "abundance")
+```
+
+
+### Ticks: Amblyomma americanum
+
+```{r}
+leaderboard_plots(combined_P1W, "amblyomma_americanum")
+```
+
 :::

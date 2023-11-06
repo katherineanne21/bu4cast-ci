@@ -20,7 +20,7 @@ We provide an overview of the steps for submitting with the details below:
 
 ### Any approach is allowed
 
-You can use any approach to make a prediction about the future conditions at the two reservoirs or the stream.  
+You can use any approach to make a prediction about the future conditions at any of the sites and variables
 
 ### Must include uncertainty
 
@@ -38,13 +38,13 @@ Forecasts can be submitted at the daily time step 1 day to 10 years ahead
 
 ### Forecasts can be submitted everyday
 
-Since forecasts can be submitted everyday, automation is important.  We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [rqthomas/vera4cast:latest](https://github.com/LTREB-reservoirs/vera4cast/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
+Since forecasts can be submitted everyday, automation is important.  We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/LTREB-reservoirs/vera4cast/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
 
 ## Forecast file format
 
 The file is a csv format with the following columns:
 
--   `project_id`: use `vera4cast`
+-   `project_id`: use `neon4cast`
 
 -   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your registration.
     The model_id should have no spaces.
@@ -60,14 +60,11 @@ The file is a csv format with the following columns:
     Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
 
 -   `duration`: the time-step of the forecast.
-    Use the value of `P1D` for a daily forecast and `PT1H` for an hourly forecast.
+    Use the value of `P1D` for a daily forecast, `P1W` for a weekly forecast, and `PT30M` for 30 minute forecast.
     This value should match the duration of the target variable that you are forecasting.
     Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
--   `site_id`: code for site (`bvre`, `fcre`, or `tubr`)
-
--   `depth_m`: the depth (meters) for the forecasted variable.
-    Use `NA` for variables without a specified depth.
+-   `site_id`: code for NEON site.
 
 -   `family` name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution).
     An ensemble forecast as a family of `ensemble`.
@@ -129,40 +126,42 @@ The following names and parameterization of the distribution are supported (fami
 Here is an example of a forecast that uses a normal distribution:
 
 ```{r}
-df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231345_daily-2023-10-01-climatology.csv.gz", show_col_types = FALSE)
+df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz", show_col_types = FALSE)
 dplyr::glimpse(df)
 ```
 
 For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
-df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231348_daily-2023-10-01-persistenceRW.csv.gz", show_col_types = FALSE)
+df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz", show_col_types = FALSE)
 dplyr::glimpse(df)
 ```
 
 ## Submission process
 
+### Timing
+
 Individual forecast files can be uploaded any time.
 
-Teams will submit their forecast csv files through an R function.
+Teams will submit their forecast csv files through an R function. The csv file can only contain one unique `model_id` and one unique `project_id`. 
 
 The function is available using the following code
 
 ```{r eval = FALSE}
-remotes::install_github("LTREB-reservoirs/vera4castHelpers")
+remotes::install_github("eco4cast/neon4cast")
 ```
 
 The submit function is
 
 ```{r eval = FALSE}
-library(vera4castHelpers)
-submit(forecast_file = "your_file.csv")
+library(neon4cast)
+neon4cast::submit(forecast_file = "your_file.csv")
 ```
 
 If you will be submitting multiple forecasts using the same model_id, use the following
 
 ```{r eval = FALSE}
-vera4castHelpers::submit(forecast_file = "your_file.csv",
+neon4cast::submit(forecast_file = "your_file.csv",
                          first_submission = FALSE)
 ```
 

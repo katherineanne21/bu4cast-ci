@@ -70,8 +70,8 @@ if(length(submissions) > 0){
 
     curr_submission <- basename(submissions[i])
     theme <-  stringr::str_split(curr_submission, "-")[[1]][1]
-    model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5]
-    reference_datetime <- lubridate::as_datetime(paste0(stringr::str_split(curr_submission, "-")[[1]][2:4], collapse = "-"))
+    file_name_model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5]
+    file_name_reference_datetime <- lubridate::as_datetime(paste0(stringr::str_split(curr_submission, "-")[[1]][2:4], collapse = "-"))
     submission_dir <- dirname(submissions[i])
     print(curr_submission)
 
@@ -102,11 +102,11 @@ if(length(submissions) > 0){
         }
 
         if(!("model_id" %in% colnames(fc))){
-          fc <- fc |> mutate(model_id = model_id)
+          fc <- fc |> mutate(model_id = file_name_model_id)
         }
 
         if(!("reference_datetime" %in% colnames(fc))){
-          fc <- fc |> mutate(reference_datetime = reference_datetime)
+          fc <- fc |> mutate(reference_datetime = file_name_reference_datetime)
         }
 
         fc <- fc |>

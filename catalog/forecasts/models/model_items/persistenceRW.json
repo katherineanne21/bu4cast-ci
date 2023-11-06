@@ -1,0 +1,264 @@
+{
+  "stac_version": "1.0.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/table/v1.2.0/schema.json"
+  ],
+  "type": "Feature",
+  "id": "persistenceRW",
+  "bbox": [
+    [
+      -156.6194,
+      71.2824,
+      -66.7987,
+      71.2824
+    ]
+  ],
+  "geometry": {
+    "type": "MultiPoint",
+    "coordinates": [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {}
+    ]
+  },
+  "properties": {
+    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: OSBS, PUUM, RMNP, SCBI, SERC, SJER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, SOAP, SRER, STEI, STER, CRAM, CUPE, FLNT, GUIL, HOPB, KING, SYCA, TECR, TOMB, TOOK, WALK, WLOU, JERC, JORN, KONA, KONZ, LAJA, LENO, CPER, DCFS, DEJU, DELA, DSNY, MLBS, MOAB, NIWO, NOGP, ABBY, BARR, BART, BLAN, BONA, HEAL, LIRO, PRLA, PRPO, SUGG, CLBJ, PRIN, REDB, GRSM, GUAN, HARV, OAES, ONAQ, ORNL, WOOD, BLUE, BLWA, CARI, COMO, WREF, YELL, BARC, ARIK, BIGC, BLDE, MAYF, MCDI, MCRA, OKSR, POSE, LECO, LEWI, MART\n\nVariables: gcc_90, rcc_90, temperature, nee, chla, oxygen", "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: OSBS, PUUM, RMNP, SCBI, SERC, SJER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, SOAP, SRER, STEI, STER, CRAM, CUPE, FLNT, GUIL, HOPB, KING, SYCA, TECR, TOMB, TOOK, WALK, WLOU, JERC, JORN, KONA, KONZ, LAJA, LENO, CPER, DCFS, DEJU, DELA, DSNY, MLBS, MOAB, NIWO, NOGP, ABBY, BARR, BART, BLAN, BONA, HEAL, LIRO, PRLA, PRPO, SUGG, CLBJ, PRIN, REDB, GRSM, GUAN, HARV, OAES, ONAQ, ORNL, WOOD, BLUE, BLWA, CARI, COMO, WREF, YELL, BARC, ARIK, BIGC, BLDE, MAYF, MCDI, MCRA, OKSR, POSE, LECO, LEWI, MART\n\nVariables: gcc_90, rcc_90, temperature, nee, chla, oxygen"],
+    "start_datetime": "2023-10-20",
+    "end_datetime": "2023-12-09",
+    "providers": [
+      {
+        "url": "pending",
+        "name": "pending",
+        "roles": [
+          "producer",
+          "processor",
+          "licensor"
+        ]
+      },
+      {
+        "url": "https://www.ecoforecastprojectvt.org",
+        "name": "Ecoforecast Challenge",
+        "roles": [
+          "host"
+        ]
+      }
+    ],
+    "license": "CC0-1.0",
+    "keywords": [
+      "Forecasting",
+      "neon4cast",
+      "gcc_90, rcc_90, temperature, nee, chla, oxygen"
+    ],
+    "table:columns": [
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
+        "name": "datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "site_id",
+        "type": "string",
+        "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
+      },
+      {
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      },
+      {
+        "name": "parameter",
+        "type": "string",
+        "description": "ensemble member or distribution parameter"
+      },
+      {
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted value for variable"
+      },
+      {
+        "name": "pub_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "project_id",
+        "type": "string",
+        "description": "unique identifier for the forecast project"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+      },
+      {
+        "name": "variable",
+        "type": "string",
+        "description": "name of forecasted variable"
+      },
+      {
+        "name": "model_id",
+        "type": "string",
+        "description": "unique model identifier"
+      },
+      {
+        "name": "reference_date",
+        "type": "string",
+        "description": "date that the forecast was initiated"
+      }
+    ]
+  },
+  "collection": "forecasts",
+  "links": [
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "persistenceRW"
+    },
+    {
+      "rel": "root",
+      "href": "../../../catalog.json",
+      "type": "application/json",
+      "title": "Forecast Catalog"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "persistenceRW"
+    },
+    {
+      "rel": "self",
+      "href": "persistenceRW.json",
+      "type": "application/json",
+      "title": "Model Forecast"
+    }
+  ],
+  "assets": {
+    "1": {
+      "type": "application/json",
+      "title": "Model Metadata",
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/persistenceRW.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/persistenceRW.json\")\n\n"
+    },
+    "2": {
+      "type": "application/x-parquet",
+      "title": "Database Access for gcc_90 daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=gcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=gcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for rcc_90 daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for temperature daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "5": {
+      "type": "application/x-parquet",
+      "title": "Database Access for nee daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "6": {
+      "type": "application/x-parquet",
+      "title": "Database Access for chla daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "7": {
+      "type": "application/x-parquet",
+      "title": "Database Access for oxygen daily",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=oxygen/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=oxygen/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    }
+  }
+}

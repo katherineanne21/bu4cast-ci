@@ -41,7 +41,7 @@ catalog_config:
   forecasts_thumbnail_title: "Falling Creek Reservoir"
   forecast_path: 'catalog/forecasts/'
   scores_path: 'catalog/scores/'
-  aws_download_path: 'bio230121-bucket01/vera4cast/forecasts/parquet/duration=P1D'
+  aws_download_path: 'bio230014-bucket01/challenges/forecasts/parquet/duration=P1D'
   host_url: "https://www.ecoforecastprojectvt.org"
   host_name: "Ecoforecast Challenge"
   bbox:
@@ -54,5 +54,5 @@ catalog_config:
   citation_doi: "https://doi.org/10.1002/fee.2616"
   citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
   dashboard_url: "https://www.ltreb-reservoirs.org/vera4cast"
-  dashboard_title: "VERA Forecast Challenge Dashboard"
+  dashboard_title: "NEON Forecast Challenge Dashboard"
   site_metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'

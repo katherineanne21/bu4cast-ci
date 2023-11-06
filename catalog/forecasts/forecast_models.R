@@ -70,6 +70,9 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title)
 
 ## create separate JSON for model landing page
+if (!dir.exists(paste0(catalog_config$forecast_path,"models"))){
+  dir.create(paste0(catalog_config$forecast_path,"models"))
+}
 
 stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       table_description = forecast_description_create,
@@ -98,6 +101,12 @@ forecast_sites <- c()
 
 ## LOOP OVER MODEL IDS AND CREATE JSONS
 for (m in theme_models$model_id){
+
+  # make model items directory
+  if (!dir.exists(paste0(catalog_config$forecast_path,"models/model_items"))){
+    dir.create(paste0(catalog_config$forecast_path,"models/model_items"))
+  }
+
   print(m)
   model_date_range <- forecast_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
   model_min_date <- model_date_range$`min(date)`

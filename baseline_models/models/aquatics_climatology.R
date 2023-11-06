@@ -1,4 +1,4 @@
-#'# Ecological Forecasting Initiative Null Model 
+#'# Ecological Forecasting Initiative Null Model
 
 #'## Set-up
 
@@ -7,14 +7,11 @@ print(paste0("Running Creating Daily Terrestrial Forecasts at ", Sys.time()))
 #'Load renv.lock file that includes the versions of all the packages used
 #'You can generate using the command renv::snapshot()
 
-#' Required packages.  
+#' Required packages.
 #' EFIstandards is at remotes::install_github("eco4cast/EFIstandards")
 library(tidyverse)
 library(lubridate)
 library(aws.s3)
-library(prov)
-library(EFIstandards)
-library(EML)
 library(jsonlite)
 library(imputeTS)
 
@@ -29,7 +26,7 @@ generate_plots <- TRUE
 efi_server <- TRUE
 
 #' List of team members. Used in the generation of the metadata
-#team_list <- list(list(individualName = list(givenName = "Quinn", surName = "Thomas"), 
+#team_list <- list(list(individualName = list(givenName = "Quinn", surName = "Thomas"),
 #                       id = "https://orcid.org/0000-0003-1282-7825"),
 #                  list(individualName = list(givenName = "Others",  surName ="Pending")),
 #)
@@ -43,21 +40,21 @@ targets <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/aquat
 #targets <- read_csv("aquatics-targets.csv.gz")
 
 
-sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |> 
+sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |>
   dplyr::filter(aquatics == 1)
 
 site_names <- sites$field_site_id
 
 
 # calculates a doy average for each target variable in each site
-target_clim <- targets %>%  
+target_clim <- targets %>%
   mutate(doy = yday(datetime),
-         year = year(datetime)) %>% 
-  filter(year < year(Sys.Date())) |> 
-  group_by(doy, site_id, variable) %>% 
+         year = year(datetime)) %>%
+  filter(year < year(Sys.Date())) |>
+  group_by(doy, site_id, variable) %>%
   summarise(mean = mean(observation, na.rm = TRUE),
             sd = sd(observation, na.rm = TRUE),
-            .groups = "drop") %>% 
+            .groups = "drop") %>%
   mutate(mean = ifelse(is.nan(mean), NA, mean))
 
 #curr_month <- month(Sys.Date())
@@ -77,8 +74,8 @@ forecast_dates_df <- tibble(datetime = forecast_dates,
                             doy = forecast_doy)
 
 forecast <- target_clim %>%
-  mutate(doy = as.integer(doy)) %>% 
-  filter(doy %in% forecast_doy) %>% 
+  mutate(doy = as.integer(doy)) %>%
+  filter(doy %in% forecast_doy) %>%
   full_join(forecast_dates_df, by = 'doy') %>%
   arrange(site_id, datetime)
 
@@ -104,40 +101,40 @@ forecast_tibble <- bind_rows(forecast_tibble1, forecast_tibble2, forecast_tibble
 
 foreast <- right_join(forecast, forecast_tibble)
 
-forecast |> 
+forecast |>
   ggplot(aes(x = datetime, y = mean)) +
   geom_point() +
   facet_grid(site_id ~ variable, scale = "free")
 
-combined <- forecast %>% 
-  select(datetime, site_id, variable, mean, sd) %>% 
-  group_by(site_id, variable) %>% 
+combined <- forecast %>%
+  select(datetime, site_id, variable, mean, sd) %>%
+  group_by(site_id, variable) %>%
   # remove rows where all in group are NA
   filter(all(!is.na(mean))) %>%
   # retain rows where group size >= 2, to allow interpolation
   filter(n() >= 2) %>%
   mutate(mu = imputeTS::na_interpolation(mean),
          sigma = median(sd, na.rm = TRUE)) %>%
-  pivot_longer(c("mu", "sigma"),names_to = "parameter", values_to = "prediction") |> 
-  mutate(family = "normal") |> 
-  ungroup() |> 
+  pivot_longer(c("mu", "sigma"),names_to = "parameter", values_to = "prediction") |>
+  mutate(family = "normal") |>
+  ungroup() |>
   mutate(reference_datetime = lubridate::as_date(min(datetime)) - lubridate::days(1),
-         model_id = "climatology") |> 
+         model_id = "climatology") |>
   select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
-combined |> 
-  filter(parameter == "mu") |> 
+combined |>
+  filter(parameter == "mu") |>
   ggplot(aes(x = datetime, y = prediction)) +
   geom_point() +
   facet_grid(site_id ~ variable, scale = "free")
 
 
 # plot the forecasts
-combined %>% 
-  select(datetime, prediction ,parameter, variable, site_id) %>% 
-  pivot_wider(names_from = parameter, values_from = prediction) %>% 
+combined %>%
+  select(datetime, prediction ,parameter, variable, site_id) %>%
+  pivot_wider(names_from = parameter, values_from = prediction) %>%
   ggplot(aes(x = datetime)) +
-  geom_ribbon(aes(ymin=mu - sigma*1.96, ymax=mu + sigma*1.96), alpha = 0.1) + 
+  geom_ribbon(aes(ymin=mu - sigma*1.96, ymax=mu + sigma*1.96), alpha = 0.1) +
   geom_line(aes(y = mu)) +
   facet_grid(variable~site_id, scales = "free") +
   theme_bw()
@@ -148,8 +145,14 @@ forecast_file <- paste("aquatics", file_date, "climatology.csv.gz", sep = "-")
 
 write_csv(combined, forecast_file)
 
-neon4cast::submit(forecast_file = forecast_file, 
-                  metadata = NULL, 
+neon4cast::submit(forecast_file = forecast_file,
+                  ask = FALSE)
+
+remotes::install_github("eco4cast/neon4cast", ref = "ci_upgrade")
+detach("package:neon4cast", unload = TRUE)
+library(neon4cast)
+
+neon4cast::submit(forecast_file = forecast_file,
                   ask = FALSE)
 
 unlink(forecast_file)

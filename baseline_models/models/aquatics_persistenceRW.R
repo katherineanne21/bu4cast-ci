@@ -21,11 +21,11 @@ site_var_combinations <- expand.grid(site = unique(targets$site_id),
   mutate(transformation = ifelse(var %in% c('chla', 'oxygen'), 'log', 'none')) %>%
   mutate(boot_number = 200,
          h = 35,
-         bootstrap = T, 
+         bootstrap = T,
          verbose = T)
 
 # runs the RW forecast for each combination of variable and site_id
-RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast) 
+RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast)
 
 # convert the output into EFI standard
 RW_forecasts_EFI <- RW_forecasts %>%
@@ -37,10 +37,10 @@ RW_forecasts_EFI <- RW_forecasts %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
          model_id = "persistenceRW") %>%
-  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) 
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
-#RW_forecasts_EFI |> 
-#  filter(variable == "chla") |> 
+#RW_forecasts_EFI |>
+#  filter(variable == "chla") |>
 #  ggplot(aes(x = time, y = prediction, group = ensemble)) +
 #  geom_line() +
 #  facet_wrap(~site_id)
@@ -53,9 +53,8 @@ file_date <- RW_forecasts_EFI$reference_datetime[1]
 
 forecast_file <- paste("aquatics", file_date, "persistenceRW.csv.gz", sep = "-")
 
-RW_forecasts_EFI <- RW_forecasts_EFI |> 
+RW_forecasts_EFI <- RW_forecasts_EFI |>
   filter(variable != "ch")
-
 
 
 write_csv(RW_forecasts_EFI, forecast_file)
@@ -63,5 +62,13 @@ write_csv(RW_forecasts_EFI, forecast_file)
 neon4cast::submit(forecast_file = forecast_file,
                   metadata = NULL,
                   ask = FALSE)
+
+remotes::install_github("eco4cast/neon4cast", ref = "ci_upgrade")
+detach("package:neon4cast", unload = TRUE)
+library(neon4cast)
+
+neon4cast::submit(forecast_file = forecast_file,
+                  ask = FALSE)
+
 
 unlink(forecast_file)

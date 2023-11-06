@@ -69,7 +69,8 @@ detach("package:neon4cast", unload = TRUE)
 
 
 neon4cast::submit(forecast_file = forecast_file,
-                  ask = FALSE)
+                  ask = FALSE,
+                  first_submission = FALSE)
 
 
 unlink(forecast_file)

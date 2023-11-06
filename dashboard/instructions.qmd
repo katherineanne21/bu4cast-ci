@@ -143,13 +143,7 @@ dplyr::glimpse(df)
 
 Individual forecast files can be uploaded any time.
 
-### File name format
-
-The csv file can only contain one unique `model_id` and one unique `project_id`. 
-
-### Submitting the file
-
-Teams will submit their forecast csv files through an R function.
+Teams will submit their forecast csv files through an R function. The csv file can only contain one unique `model_id` and one unique `project_id`. 
 
 The function is available using the following code
 

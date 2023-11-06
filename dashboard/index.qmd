@@ -2,15 +2,13 @@
 title: "Forecasting Challenge"
 ---
 
-Welcome to the Virginia Ecoforecast Reservoir Analysis ([VERA](http://ltreb-reservoirs.org/)) Forecasting Challenge, hosted by the Ecological Forecasting Project at Virginia Tech ([EFP](https://www.ecoforecastprojectvt.org/)).
+Welcome to the NEON Forecasting Challenge, hosted by the Ecologial Forecasting Initiative Research Coordination Network
 
 We invite you to submit forecasts!
 
 ## Why a forecasting challenge? 
 
 We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
-
-The forecasting challenge is one component of the Virginia Reservoirs LTREB project that is monitoring the reservoirs to broadly advance our understanding of freshwater ecosystem processes in two neighboring reservoirs with contrasting dissolved oxygen conditions.
 
 <br />
 <br />
@@ -100,7 +98,7 @@ leaflet() %>%
 ```
 <br />
 <br />
-This material is based upon work supported by the National Science Foundation under Grant DEB-2327030. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
 <br />
 <br />
 Page last updated on `r Sys.Date()`

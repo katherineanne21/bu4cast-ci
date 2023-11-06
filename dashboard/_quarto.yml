@@ -3,9 +3,9 @@ project:
   output-dir: docs
 
 website:
-  title: "VERA Forecast Challenge"
+  title: "NEON Ecological Forecast Challenge"
   page-navigation: true
-  repo-url: https://github.com/LTREB-reservoirs/vera4cast
+  repo-url: https://github.com/eco4cast/neon4cast-ci
   repo-actions: [source, issue]
 
   navbar:

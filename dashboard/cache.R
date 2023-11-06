@@ -1,5 +1,3 @@
-#install.packages("remotes")
-#remotes::install_github("cboettig/minio")
 library(minioclient)
 config <- yaml::read_yaml("challenge_configuration.yaml")
 install_mc()

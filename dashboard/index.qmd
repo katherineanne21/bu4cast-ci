@@ -40,7 +40,8 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
                                     skip = 1) |>
   filter(project_id == config$project_id) |> 
     summarize(max = max(datetime),
-              min = min(datetime)) |> 
+              min = min(datetime),
+              n = n_distinct(variable)) |> 
     mutate(max = lubridate::as_date(max),
            min = lubridate::as_date(min)) |> 
     dplyr::collect()
@@ -53,12 +54,12 @@ most_recent_targets <- arrow::open_csv_dataset(s3_targets,
 last_updated <- Sys.Date()
 ```
 
-```{r eval = FALSE}
+```{r}
 
 layout_column_wrap(
   width = "250px",
   value_box(
-    title = "Total forecasts submitted to the VERA Challenge", 
+    title = "Total forecasts submitted to the NEON Challenge", 
     value = n_forecasts,
     showcase = bs_icon("graph-up"),
     theme_color = "success" 
@@ -75,7 +76,7 @@ layout_column_wrap(
   ),
     value_box(
     title = "Number of variables being forecasted", 
-    value = unique_forecasted_targets,
+    value = most_recent_targets$n,
     showcase = bs_icon("clipboard-data"),
     theme_color = "success" 
   )

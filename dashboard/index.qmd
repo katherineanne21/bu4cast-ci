@@ -88,9 +88,9 @@ layout_column_wrap(
 
 ## What sites are being forecasted?
 
-```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE, eval = FALSE}
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
 leaflet() %>%
-  setView(lat = 37.310922, lng = -79.828854, zoom= 15) %>%
+  setView(lat = 43.47839356422085, lng = -98.74777398430538, zoom= 3) %>%
   addTiles(group="OSM") %>%
   addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%

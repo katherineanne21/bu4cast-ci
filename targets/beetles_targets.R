@@ -38,7 +38,7 @@ field_urls <- df |>
   dplyr::filter(grepl("bet_fielddata", name)) |>
   pull(url)
 
-field <- duckdbfs::open_dataset(expert_urls, format="csv") |>
+field <- duckdbfs::open_dataset(field_urls, format="csv") |>
   select(collectDate, siteID, setDate) |>
   collect()
 

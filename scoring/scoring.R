@@ -97,7 +97,6 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
                        paste(reference_date, collapse=","),
                      .groups = "drop")
 
-
   new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
     group <- groupings[j,]
@@ -110,9 +109,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     id <- rlang::hash(list(group[, c("model_id","reference_date","date","duration")],  tg))
 
-    print(j)
     if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
-      print(j)
 
       reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 
@@ -144,6 +141,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   prov_df <- dplyr::bind_rows(prov_df, new_prov)
   arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
+  print("finished")
 
 },
 variable_duration,  config, endpoint

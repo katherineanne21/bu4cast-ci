@@ -64,7 +64,7 @@ The file is a csv format with the following columns:
     This value should match the duration of the target variable that you are forecasting.
     Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
--   `site_id`: code for site (`bvre`, `fcre`, or `tubr`)
+-   `site_id`: code for NEON site.
 
 -   `family` name of the probability distribution that is described by the parameter values in the parameter column (see list below for accepted distribution).
     An ensemble forecast as a family of `ensemble`.
@@ -126,20 +126,28 @@ The following names and parameterization of the distribution are supported (fami
 Here is an example of a forecast that uses a normal distribution:
 
 ```{r}
-df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231345_daily-2023-10-01-climatology.csv.gz", show_col_types = FALSE)
+df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz", show_col_types = FALSE)
 dplyr::glimpse(df)
 ```
 
 For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
-df <- readr::read_csv("https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/forecasts/raw/T20231001231348_daily-2023-10-01-persistenceRW.csv.gz", show_col_types = FALSE)
+df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz", show_col_types = FALSE)
 dplyr::glimpse(df)
 ```
 
 ## Submission process
 
+### Timing
+
 Individual forecast files can be uploaded any time.
+
+### File name format
+
+The csv file can only contain one unique `model_id` and one unique `project_id`. 
+
+### Submitting the file
 
 Teams will submit their forecast csv files through an R function.
 

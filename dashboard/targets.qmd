@@ -29,7 +29,7 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 
 The "targets" are time-series of National Ecological Observatory Network ([NEON](https://www.neonscience.org)) data for use in model development and forecast evaluation.
 
-The targets are updated daily as new NEON is made available. 
+The targets are updated as new NEON data is made available. 
 
 The 10 targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes". The themes and links to targets files are included below.
 
@@ -45,7 +45,7 @@ If are you are getting started, we recommend the following focal sites for each 
 
 As you develop your forecasting skills and want to expand to more sites, the targets are available at all 81 NEON sites.
 
-## Explore the targets
+## Explore the targets and themes
 
 Information on the targets files for the five "themes" is below. In the tables, 
 - "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly mean. 
@@ -58,7 +58,7 @@ The exchange of water and carbon dioxide between the atmosphere and the land is 
 
 The terrestrial flux theme challenges you to forecast the gas exchange at up to 47 sites across the U.S.
 
-There are variables and two time-steps (or duration) that you can forecast.
+There are two variables and two time-steps (or duration) that you can forecast.
 
 ```{r echo = FALSE}
 url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
@@ -121,7 +121,7 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html
 
 Freshwater surface water temperature, dissolved oxygen, and chlorophyll-a all influence drinking water quality, are critical for life in aquatic environments, and can represent the health of the ecosystem.
 
-The aquatics theme challenges you to forecast daily mean water quality variables at 7 lakes and 27 river/stream NEON sites.
+The aquatics theme challenges you to forecast daily mean water quality variables at up-to 7 lakes and 27 river/stream NEON sites.
 
 ```{r echo = FALSE}
 url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
@@ -166,11 +166,9 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html>
 
 ### Phenology
 
-The changes in plant canopies over the year (e.g., spring leaf-out and fall leaf-drop) 
-
 Phenology (the changes in plant canopies over the year) has been identified as one of the primary ecological fingerprints of global climate change. 
 
-The greenness and redness, as measured by camera's looking down on the top of canopies are a quantitative measure of phenology.  The phenology theme challenges you to forecast daily mean greeness and redness at up-to 47 terrestrial NEON sites.
+The greenness and redness, as measured by a camera looking down at the top of vegetation are a quantitative measure of phenology.  The phenology theme challenges you to forecast daily mean greeness and/or redness at up-to 47 terrestrial NEON sites.
 
 ```{r echo = FALSE}
 url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
@@ -204,7 +202,7 @@ and the time series for the focal sites
 
 ```{r}
 phenology_targets |> 
-  filter(site_id %in% c("HARV", "OSBS")) |> 
+  filter(site_id %in% phenology_focal_sites) |> 
   ggplot(aes(x = datetime, y = observation)) +
   geom_point() +
   facet_grid(variable~site_id, scales = "free_y") +
@@ -216,9 +214,9 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Phenology.html>
 
 ### Beetle communities
 
-Sentinel species (such as beetles) give forewarning of environmental risk to humans, so are particularly useful for such monitoring and forecasting efforts because they can provide surrogates for other co-located components of biodiversity.
+Sentinel species (such as beetles) can give forewarning of environmental risk to humans, so are particularly useful for such monitoring and forecasting efforts because they can provide surrogates for other co-located components of biodiversity.
 
-The beetles theme challenges you to forecast weekly Ground beetles (Family: Carabidae) abundance and richness (two measures of biodiversity) at up-to 47 terrestrial NEON sites.
+The beetles theme challenges you to forecast weekly ground beetles (Family: Carabidae) abundance and richness (two measures of biodiversity) at up-to 47 terrestrial NEON sites.
 
 ```{r echo = FALSE}
 url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
@@ -252,7 +250,7 @@ and the time series for the focal sites
 
 ```{r}
 beetles_targets |> 
-  filter(site_id %in% c("HARV", "OSBS")) |> 
+  filter(site_id %in% beetles_focal_sites) |> 
   ggplot(aes(x = datetime, y = observation)) +
   geom_point() +
   facet_grid(variable~site_id, scales = "free_y") +
@@ -299,7 +297,7 @@ and the time series for the focal sites
 
 ```{r}
 ticks_targets |> 
-  filter(site_id %in% c("BLAN", "OSBS")) |> 
+  filter(site_id %in% ticks_focal_sites) |> 
   ggplot(aes(x = datetime, y = observation)) +
   geom_point() +
   facet_grid(variable~site_id, scales = "free_y") +
@@ -339,7 +337,7 @@ site_list |> knitr::kable()
 
 ## Additional variables
 
-Additional NEON observation are provided that are not used to evaluate forecasts (thus are not targets)
+Additional NEON observations are provided that are not used to evaluate forecasts (thus are not targets)
 
 ### Hourly water temperature
 

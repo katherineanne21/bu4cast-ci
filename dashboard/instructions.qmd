@@ -12,7 +12,7 @@ We provide an overview of the steps for submitting with the details below:
 
 1)  Register at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in analyses.
 2)  Generate forecast with required columns.
-3)  Write the forecast to a file that follows the standardized naming format.
+3)  Write the forecast to a file.
 4)  Submit forecast using a provided function.
 5)  Watch forecast be evaluated as new data is collected. 
 
@@ -20,11 +20,11 @@ We provide an overview of the steps for submitting with the details below:
 
 ### Any approach is allowed
 
-You can use any approach to make a prediction about the future conditions at any of the sites and variables
+You can use any approach to make a prediction about the future conditions at any of the sites and variables.
 
 ### Must include uncertainty
 
-Forecasts require you to make a access of confidence in the prediction of the future.  You can represent your confidence (i.e., uncertainty in forecast) using a distribution or numerically using an ensemble (or sample) of predictions. 
+Forecasts require you to make a assessment of your confidence in the prediction of the future.  You can represent your confidence (i.e., uncertainty in forecast) using a distribution or numerically using an ensemble (or sample) of predictions. 
 
 ### Any model drivers/covariates/features are welcome
 
@@ -107,20 +107,6 @@ Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `par
 
 When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a "perfect ensemble" in Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` ). 
 
-### Supported distributions
-
-The following names and parameterization of the distribution are supported (family: parameters):
-
--   `lognormal`: `mu`, `sigma`
--   `normal`: `mu`,`sigma`
--   `bernoulli`: `prob`
--   `beta`: `shape1`, `shape2`
--   `uniform`: `min`, `max`
--   `gamma`: `shape`, `rate`
--   `logistic`: `location`, `scale`
--   `exponential`: `rate`
--   `poisson`: `lambda`
-
 ### Example forecasts
 
 Here is an example of a forecast that uses a normal distribution:
@@ -138,8 +124,6 @@ dplyr::glimpse(df)
 ```
 
 ## Submission process
-
-### Timing
 
 Individual forecast files can be uploaded any time.
 

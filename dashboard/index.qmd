@@ -1,17 +1,23 @@
 ---
 title: "Forecasting Challenge"
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
-Welcome to the NEON Forecasting Challenge, hosted by the Ecologial Forecasting Initiative Research Coordination Network
+Welcome to the NEON Forecasting Challenge, hosted by the Ecologial
+Forecasting Initiative Research Coordination Network
 
 We invite you to submit forecasts!
 
-## Why a forecasting challenge? 
+## Why a forecasting challenge?
 
-We are using forecasts to compare the predictability of different ecosystem variables, in different ecosystem conditions to identify the fundamental predictability of freshwater ecosystems.
+We are using forecasts to compare the predictability of different
+ecosystem variables, in different ecosystem conditions to identify the
+fundamental predictability of freshwater ecosystems.
 
-<br />
-<br />
+<br /> <br />
+
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 library(dplyr)
@@ -83,8 +89,8 @@ layout_column_wrap(
 )
 
 ```
-<br />
-<br />
+
+<br /> <br />
 
 ## What sites are being forecasted?
 
@@ -97,9 +103,9 @@ leaflet() %>%
   addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
   addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
 ```
-<br />
-<br />
-This material is based upon work supported by the National Science Foundation under Grant DEB-1926388. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
-<br />
-<br />
-Page last updated on `r Sys.Date()`
+
+<br /> <br /> This material is based upon work supported by the National
+Science Foundation under Grant DEB-1926388. Any opinions, findings, and
+conclusions or recommendations expressed in this material are those of
+the author(s) and do not necessarily reflect the views of the National
+Science Foundation. <br /> <br /> Page last updated on `r Sys.Date()`

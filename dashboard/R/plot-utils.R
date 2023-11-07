@@ -43,13 +43,13 @@ by_model_id <- function(df, show.legend = FALSE) {
     df |>
     group_by(model_id) |>
     summarise(crps = mean(crps, na.rm=TRUE),
-              logs = mean(logs, na.rm=TRUE),
+              #logs = mean(logs, na.rm=TRUE),
               .groups = "drop") |>
     collect() |>
     mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
   leaderboard |>
-    pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
+    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
 
     ggplot(aes(x = model_id, y= score,  fill=model_id)) +
     geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
@@ -70,14 +70,14 @@ by_reference_datetime <- function(df, show.legend = FALSE) {
     df |>
     group_by(model_id, reference_datetime) |>
     summarise(crps = mean(crps, na.rm=TRUE),
-              logs = mean(logs, na.rm=TRUE),
+              #logs = mean(logs, na.rm=TRUE),
               .groups = "drop") |>
     mutate(reference_datetime = lubridate::as_datetime(reference_datetime)) |>
     collect() |>
     mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
   leaderboard |>
-    pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
+    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
 
     ggplot(aes(x = reference_datetime, y= score,  col=model_id)) +
     geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
@@ -95,13 +95,13 @@ by_horizon <- function(df, show.legend=FALSE) {
   leaderboard2 <- df |>
   group_by(model_id, horizon) |>
   summarise(crps = mean(crps, na.rm=TRUE),
-            logs = mean(logs, na.rm=TRUE),
+            #logs = mean(logs, na.rm=TRUE),
             .groups = "drop") |>
   collect() |>
   mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
 
   leaderboard2 |>
-    pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
+    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
     ggplot(aes(x = horizon, y= score,  col=model_id)) +
     geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
                            show.legend = show.legend) +

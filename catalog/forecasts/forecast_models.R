@@ -142,7 +142,7 @@ for (m in theme_models$model_id){
               start_date = model_min_date,
               end_date = model_max_date,
               var_values = model_vars$var_duration_name,
-              duration_names = model_var_duration_df$duration_name,
+              duration_names = model_var_duration_df$duration,
               site_values = model_sites$site_id,
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
@@ -151,7 +151,8 @@ for (m in theme_models$model_id){
               collection_name = 'forecasts',
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,
-              table_description = forecast_description_create)
+              table_description = forecast_description_create,
+              full_var_df = model_vars)
 }
 
 

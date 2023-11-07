@@ -24,13 +24,13 @@ variable_groups:
     variable: ['nee','le','nee','le']
     duration: ['P1D','P1D','PT30M','PT30M']
   Phenology:
-    variable: ['gcc','rcc']
+    variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
   Beetles:
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
   Ticks:
-    variable: ['amblyomma_americanum',]
+    variable: ['amblyomma_americanum']
     duration: ['P1W']
 catalog_config:
   about_string: 'www.neon4cast.org'

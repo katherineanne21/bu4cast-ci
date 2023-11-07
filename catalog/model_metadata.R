@@ -13,7 +13,8 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_SECRET"))
 
 googlesheets4::gs4_deauth()
-registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet)
+registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
+  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id)
 
 for(i in 1:nrow(registered_models)){
 
@@ -165,7 +166,7 @@ for(i in 1:nrow(registered_models)){
   file_name <- paste0(metadata$model_id, ".json")
   jsonlite::write_json(metadata, path = file.path("catalog",file_name), pretty = TRUE)
 
-  minioclient::mc_cp(file.path("catalog",file_name), file.path("osn",config$model_metadata_bucket))
+  minioclient::mc_cp(file.path("catalog",file_name), file.path("osn",config$model_metadata_bucket, file_name))
 
   unlink(file.path("catalog",file_name))
 }

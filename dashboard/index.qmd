@@ -5,16 +5,19 @@ editor:
     wrap: 72
 ---
 
-Welcome to the NEON Forecasting Challenge, hosted by the Ecologial
-Forecasting Initiative Research Coordination Network
+The NEON Ecological Forecasting Challenge is an open platform for the ecological and data science communities to forecast data from [the National Ecological Observatory Network](https://www.neonscience.org) before they are collected.
+
+The Challenge is hosted by the Ecological Forecasting Initiative Research Coordination Network and sponsored by the U.S. National Science Foundation. 
 
 We invite you to submit forecasts!
 
 ## Why a forecasting challenge?
 
-We are using forecasts to compare the predictability of different
-ecosystem variables, in different ecosystem conditions to identify the
-fundamental predictability of freshwater ecosystems.
+The ecological forecasting community is interested in using forecasts to advance theory and in translating forecasts for natural resource management By analyzing a catalog of forecasts developed for a range of ecological systems, spatiotemporal scales, and environmental gradients, scientists can begin to address fundamental questions in ecology.
+
+Our forecasting challenge is platform for the ecological and data science communities to advance skills in forecasting ecological systems and for generating forecasts that contribute to a synthetic understanding of patterns of predictability in ecology.  Rewards for contributing are skill advancement, joy, and potential involved in manuscripts. We do not currently crown winner nor offer financial awards.
+
+The Challenge is [an excellent focal project in university courses](https://www.neonscience.org/impact/observatory-blog/efi-neon-forecasting-challenge-classroom).
 
 <br /> <br />
 
@@ -92,20 +95,26 @@ layout_column_wrap(
 
 <br /> <br />
 
-## What sites are being forecasted?
+## The Challenge is a platform
 
-```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
-leaflet() %>%
-  setView(lat = 43.47839356422085, lng = -98.74777398430538, zoom= 2) %>%
-  addTiles(group="OSM") %>%
-  addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
-  addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
-  addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
-  addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
-```
+The platform is designed to empower you to contribute by providing target data, numerical weather forecasts, and tutorials.  We automatically score your forecasts using the latest NEON data.  All forecasts and scores are publicly available through cloud storage and discoverable through our catalog.
 
-<br /> <br /> This material is based upon work supported by the National
+![The NEON Ecological Forecasting Challenge platform from Thomas et al. 2023](img/workflow.png){fig-align="center"}
+Figure from [Thomas et al. 2023](https://doi.org/10.1002/fee.2616)
+<br /> <br />
+
+## Contact
+
+eco4cast.initiative@gmail.com
+
+## Acknowledgements
+
+Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616)
+<br /> <br /> 
+We thank NEON for provide the freely available data and the EFI community for feedback on the design of the Challenge. This material is based upon work supported by the National
 Science Foundation under Grant DEB-1926388. Any opinions, findings, and
 conclusions or recommendations expressed in this material are those of
 the author(s) and do not necessarily reflect the views of the National
-Science Foundation. <br /> <br /> Page last updated on `r Sys.Date()`
+Science Foundation.
+
+<br /> <br /> Page last updated on `r Sys.Date()`

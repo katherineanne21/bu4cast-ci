@@ -5,8 +5,8 @@ title: "Forecast catalog"
 ## What types of models are submitting forecasts?
 
 ```{r echo = FALSE}
-s3 <- arrow::s3_bucket(bucket = "bio230121-bucket01/vera4cast/metadata/model_id/",
-                       endpoint_override = "renc.osn.xsede.org", anonymous = TRUE)
+s3 <- arrow::s3_bucket(bucket = "bio230014-bucket01/challenges/metadata/model_id/",
+                       endpoint_override = "sdsc.osn.xsede.org", anonymous = TRUE)
 
 d1 <- arrow::open_dataset(s3, format = "json") |> dplyr::collect()
 

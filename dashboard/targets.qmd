@@ -22,14 +22,16 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 ```{r echo = FALSE}
   target_metadata <- target_metadata |> 
   rename(variable = `"official" targets name`) |> 
-  select(variable, duration, class, Description, horizon)
+  select(variable, duration, class, Description, horizon, Latency)
 ```
 
-The "targets" are time-series that are avialable for use in model development and forecastin evaluation.
-The targets are updated as new NEON is made available.
+## tl;dr: Forecast the targets!
 
-Targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes".
-The themes and their targets files are included below.
+The "targets" are time-series of National Ecological Observatory Network ([NEON](https://www.neonscience.org)) data for use in model development and forecast evaluation.
+
+The targets are updated daily as new NEON is made available. 
+
+The 10 targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes". The themes and links to targets files are included below.
 
 ## Where to start
 
@@ -43,9 +45,12 @@ If are you are getting started, we recommend the following focal sites for each 
 
 As you develop your forecasting skills and want to expand to more sites, the targets are available at all 81 NEON sites.
 
-## Targets files
+## Explore the targets
 
-Information on the targets files for the five "themes" is below. In the tables, the "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly mean. The "forecast horizon" is the number of days-ahead that we want you to forecasts. 
+Information on the targets files for the five "themes" is below. In the tables, 
+- "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly mean. 
+- The "forecast horizon" is the number of days-ahead that we want you to forecasts. 
+- The "latency" is the time between data collection and data availability in the targets file
 
 ### Terrestrial fluxes
 
@@ -303,11 +308,26 @@ ticks_targets |>
 
 Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Ticks.html>
 
-## Sites
+## Explore the sites
 
+```{r include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(leaflet)
+sites <- suppressMessages(sf::st_read("sites.json"))
+```
+
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE, message = FALSE}
+leaflet() %>%
+  setView(lat = 43.47839356422085, lng = -98.74777398430538, zoom= 2) %>%
+  addTiles(group="OSM") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group="Imagery") %>%
+  addProviderTiles(providers$Esri.WorldTopoMap, group="Topo Map") %>%
+  addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
+  addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
+```
+<br /> <br />
 The following table lists all the sites in the NEON Ecological Forecasting Challenge. The columns with "theme" names incidate whether that site is included in that theme's target file. 
 
-```{r}
+```{r echo = FALSE}
 site_list <- read_csv("../neon4cast_field_site_metadata.csv", show_col_types = FALSE) |> 
   rename(site_id = field_site_id) |> 
   select(site_id, field_site_name, terrestrial, aquatics, phenology, ticks, beetles) 
@@ -323,10 +343,10 @@ Additional NEON observation are provided that are not used to evaluate forecasts
 
 ### Hourly water temperature
 
-Water temperature at multiple depths measured at the UTC 00 hour are avoaiable for the 7 NEON lake sites
+Water temperature at multiple depths measured at the UTC 00 hour are available for the 7 NEON lake sites
 
 ```{r}
-url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT1H/aquatics-expanded-observations.csv.gz"
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/supporting_data/project_id=neon4cast/aquatics-expanded-observations.csv.gz"
 
 aquatics_expanded <- read_csv(url, show_col_types = FALSE)
 glimpse(aquatics_expanded)

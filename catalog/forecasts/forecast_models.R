@@ -86,7 +86,9 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       #model_documentation = NULL,
                       destination_path = paste0(catalog_config$forecast_path,"models"),
                       aws_download_path = catalog_config$aws_download_path,
-                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id))
+                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
+                      thumbnail_link = 'pending',
+                      thumbnail_title = 'pending')
 
 ## CREATE MODELS
 variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
@@ -201,7 +203,9 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           theme_title = names(config$variable_groups[i]),
                           destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
-                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list))
+                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
+                          thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
+                          thumbnail_title = config$variable_groups[[i]]$thumbnail_title)
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
@@ -230,7 +234,9 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],
-                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id))
+                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
+                          thumbnail_link = 'pending',
+                          thumbnail_title = 'pending')
 
   }
 }

@@ -20,18 +20,28 @@ variable_groups:
   Aquatics:
     variable: ['oxygen','temperature','chla']
     duration: ['P1D','P1D','P1D']
+    thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg'
+    thumbnail_title: 'NEON Aquatics Buoy'
   Terrestrial:
     variable: ['nee','le','nee','le']
     duration: ['P1D','P1D','PT30M','PT30M']
+    thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
+    thumbnail_title: 'NEON Field Tower'
   Phenology:
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
+    thumbnail_title: 'NEON Field Tower'
   Beetles:
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_width_1170px/public/image-content-images/Beetles_pinned.jpg'
+    thumbnail_title: 'Beetle Image'
   Ticks:
     variable: ['amblyomma_americanum']
     duration: ['P1W']
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/image-content-images/tick-image.jpg'
+    thumbnail_title: 'NEON Ticks'
 catalog_config:
   about_string: 'www.neon4cast.org'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'

@@ -324,10 +324,10 @@ leaflet() %>%
   addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
   addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
 ```
-
+<br /> <br />
 The following table lists all the sites in the NEON Ecological Forecasting Challenge. The columns with "theme" names incidate whether that site is included in that theme's target file. 
 
-```{r}
+```{r echo = FALSE}
 site_list <- read_csv("../neon4cast_field_site_metadata.csv", show_col_types = FALSE) |> 
   rename(site_id = field_site_id) |> 
   select(site_id, field_site_name, terrestrial, aquatics, phenology, ticks, beetles) 

@@ -99,7 +99,8 @@ layout_column_wrap(
 
 The platform is designed to empower you to contribute by providing target data, numerical weather forecasts, and tutorials.  We automatically score your forecasts using the latest NEON data.  All forecasts and scores are publicly available through cloud storage and discoverable through our catalog.
 
-![The NEON Ecological Forecasting Challenge platform from Thomas et al. 2023](img/workflow.jpg){fig-align="center"}
+![The NEON Ecological Forecasting Challenge platform from Thomas et al. 2023](img/workflow.png){fig-align="center"}
+Figure from [Thomas et al. 2023](https://doi.org/10.1002/fee.2616)
 <br /> <br />
 
 ## Contact

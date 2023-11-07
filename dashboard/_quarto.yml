@@ -29,7 +29,7 @@ website:
 
 format:
   html:
-    theme: [cerulean, custom.scss]
+    theme: [sandstone, custom.scss]
     css: styles.css
     title-block-style: default
     title-block-banner: "img/banner.jpg"

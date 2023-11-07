@@ -101,6 +101,7 @@ Our platform is designed to empower you to contribute by providing target data, 
 
 ![The NEON Ecological Forecasting Challenge platform from Thomas et al. 2023](img/workflow.png){fig-align="center"}
 <br /> <br />
+
 Figure from [Thomas et al. 2023](https://doi.org/10.1002/fee.2616)
 
 ## Contact

@@ -14,6 +14,7 @@ tpl <- '<?xml version="1.0" encoding="UTF-8"?>
 </urlset>
 '
 links <- c(paste0(config$challenge_url, "/catalog.html"),
+           paste0(config$challenge_url, "/targets.html"),
            paste0(config$challenge_url, "/instructions.html"),
            paste0(config$challenge_url, "/performance.html"),
            paste0(config$challenge_url, "/index.html"))

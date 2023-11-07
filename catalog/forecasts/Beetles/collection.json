@@ -13,7 +13,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Weekly beetle community richness/collection.json"
+      "href": "Weekly beetle community abundance/collection.json"
     },
     {
       "rel": "child",

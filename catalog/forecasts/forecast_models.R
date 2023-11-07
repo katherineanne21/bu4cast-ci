@@ -89,6 +89,7 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id))
 
 ## CREATE MODELS
+variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 
 ## READ IN MODEL METADATA
 # googlesheets4::gs4_deauth()
@@ -114,17 +115,21 @@ for (m in theme_models$model_id){
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_sites <- forecast_data_df |> filter(model_id == m) |> distinct(site_id)
-  model_vars <- forecast_data_df |> filter(model_id == m) |> distinct(variable)
-
   model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
-    mutate(duration_name = ifelse(duration == 'P1D', 'daily', duration)) |>
-    mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
+    mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-    mutate(duration_name = ifelse(duration == 'P1W', 'weekly', duration_name))
+    mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
 
-  model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
+  model_var_full_name <- model_var_duration_df |>
+    left_join((variable_gsheet |>
+                  select(variable = `"official" targets name`, full_name = `Variable name`) |>
+                  distinct(variable, .keep_all = TRUE)), by = c('variable'))
 
+  model_sites <- forecast_data_df |> filter(model_id == m) |> distinct(site_id)
+
+  model_vars <- forecast_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
+  model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
 
   forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
                                                             sites = model_sites$site_id))
@@ -136,7 +141,7 @@ for (m in theme_models$model_id){
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
               end_date = model_max_date,
-              var_values = model_vars$variable,
+              var_values = model_vars$var_duration_name,
               duration_names = model_var_duration_df$duration_name,
               site_values = model_sites$site_id,
               site_table = catalog_config$site_metadata_url,
@@ -151,6 +156,7 @@ for (m in theme_models$model_id){
 
 
 ## BUILD VARIABLE GROUPS
+#variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 
 for (i in 1:length(config$variable_groups)){ ## organize variable groups
   print(names(config$variable_groups)[i])
@@ -165,14 +171,19 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_values <- config$variable_groups[[i]]$variable
     var_name <- config$variable_groups[[i]]$variable[j]
 
+    # match variable with full name in gsheet
+    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_name),1][[1]]
+
+
     ## create new vector to store duration names
     duration_values <- config$variable_groups[[i]]$duration
-    duration_values[which(duration_values == 'P1D')] <- 'daily'
-    duration_values[which(duration_values == 'PT1H')] <- 'hourly'
+    duration_values[which(duration_values == 'P1D')] <- 'Daily'
+    duration_values[which(duration_values == 'PT1H')] <- 'Hourly'
     duration_values[which(duration_values == 'PT30M')] <- '30min'
-    duration_values[which(duration_values == 'P1W')] <- 'weekly'
+    duration_values[which(duration_values == 'P1W')] <- 'Weekly'
 
-    var_name_combined_list <- paste0(var_values, '_',duration_values)
+    #var_name_combined_list <- paste0(var_values, '_',duration_values)
+    var_name_combined_list <- paste0(duration_values,' ',var_name_full)
 
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')

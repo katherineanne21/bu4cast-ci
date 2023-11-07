@@ -31,7 +31,7 @@ variable_groups:
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
-    thumbnail_title: 'NEON Field Tower'
+    thumbnail_title: 'Phenology Image'
   Beetles:
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']

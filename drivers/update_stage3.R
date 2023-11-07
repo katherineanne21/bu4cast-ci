@@ -9,6 +9,9 @@ future::plan("future::multisession", workers = 8)
 
 furrr::future_walk(site_list, function(curr_site_id){
 
+  Sys.setenv("OSN_KEY"="3V0QE2X34IYY0FFNPBHC",
+             "OSN_SECRET" = "jIWNAp753sFdd0J1oiEKnwal5Gg/lD")
+
   print(curr_site_id)
 
   s3 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage3",
@@ -34,16 +37,20 @@ furrr::future_walk(site_list, function(curr_site_id){
   df <- arrow::open_dataset(s3_pseudo) |>
     dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
     dplyr::filter(site_id == curr_site_id,
-                  reference_datetime >= "2023-10-30") |>
+                  reference_datetime >= as.character(max_date - lubridate::days(2))) |>
     dplyr::collect()
 
   if(nrow(df) > 0){
 
-    df |>
-      to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
-      dplyr::bind_rows(stage3_df) |>
+    df2 <- df |>
+      to_hourly(use_solar_geom = TRUE, psuedo = TRUE)
+
+    stage3_df_update <- stage3_df |>
+      dplyr::filter(datetime < min(df2$datetime))
+
+    df2 |>
+      dplyr::bind_rows(stage3_df_update) |>
       dplyr::arrange(variable, datetime, ensemble) |>
-      dplyr::distinct() |>
       arrow::write_dataset(path = s3, partitioning = "site_id")
   }
 })

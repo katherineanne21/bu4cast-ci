@@ -209,7 +209,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
                           thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                           thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
-                          group_var_vector = var_values)
+                          group_var_vector = unique(var_values))
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))

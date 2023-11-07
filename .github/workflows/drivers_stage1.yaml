@@ -30,3 +30,8 @@ jobs:
         shell: Rscript {0}
         run: |
           source("drivers/download_stage1_psuedo.R")
+
+      - name: Generate stage 2
+        shell: Rscript {0}
+        run: |
+          source("drivers/generate_stage2.R")

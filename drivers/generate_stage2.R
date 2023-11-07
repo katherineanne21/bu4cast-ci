@@ -19,6 +19,9 @@ df <- arrow::open_dataset(s3_stage2) |>
 #                       anonymous = TRUE)
 
 
+#efi <- duckdbfs::open_dataset("s3://bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1",
+#                    s3_access_key_id="",
+#                    s3_endpoint="sdsc.osn.xsede.org")
 #df_stage1 <- arrow::open_dataset(stage1_s3) |>
 #  dplyr::summarize(max(reference_datetime)) |>
 #  dplyr::collect()

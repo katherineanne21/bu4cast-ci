@@ -13,12 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Chlorophyll-a/collection.json"
+      "href": "Daily Dissolved oxygen/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Chlorophyll-a/collection.json"
+      "href": "Daily Water temperature/collection.json"
     },
     {
       "rel": "child",

@@ -37,7 +37,7 @@ furrr::future_walk(site_list, function(curr_site_id){
   df <- arrow::open_dataset(s3_pseudo) |>
     dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
     dplyr::filter(site_id == curr_site_id,
-                  reference_datetime >= "2023-10-30") |>
+                  reference_datetime >= as.character(max_date - lubridate::days(2))) |>
     dplyr::collect()
 
   if(nrow(df) > 0){

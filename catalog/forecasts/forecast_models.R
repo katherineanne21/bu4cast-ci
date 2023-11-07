@@ -175,6 +175,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_values <- config$variable_groups[[i]]$variable
     var_name <- config$variable_groups[[i]]$variable[j]
 
+    duration_name <- config$variable_groups[[i]]$duration[j]
+
     # match variable with full name in gsheet
     var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
 
@@ -207,14 +209,15 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
                           thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                           thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
-                          group_var_vector = var_values)
+                          group_var_vector = unique(var_values))
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
     }
 
     var_data <- forecast_data_df |>
-      filter(variable == var_name)
+      filter(variable == var_name,
+             duration == duration_name)
 
     var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
     var_min_date <- var_date_range$`min(date)`

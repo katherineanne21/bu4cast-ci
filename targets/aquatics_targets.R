@@ -908,11 +908,16 @@ hourly_temp_profile_lakes2 <- hourly_temp_profile_lakes |>
          project_id = "neon4cast") |>
   select(project_id, site_id, datetime, duration, variable, observation)
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT1H",
+s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/supporting_data/project_id=neon4cast",
                        endpoint_override = "sdsc.osn.xsede.org",
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_csv_arrow(hourly_temp_profile_lakes2, sink = s3$path("aquatics-expanded-observations.csv.gz"))
+s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/",
+                       endpoint_override = "sdsc.osn.xsede.org",
+                       access_key = Sys.getenv("OSN_KEY"),
+                       secret_key = Sys.getenv("OSN_SECRET"))
+
+arrow::write_csv_arrow(hourly_temp_profile_lakes2, sink = s3$path("supporting_data/project_id=neon4cast/aquatics-expanded-observations.csv.gz"))
 
 message(paste0("Completed Aquatics Target at ", Sys.time()))

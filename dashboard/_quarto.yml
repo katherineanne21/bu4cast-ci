@@ -12,9 +12,6 @@ website:
     background: primary
     search: true
     left:
-      - href: https://www.ltreb-reservoirs.org
-        text: Home
-        icon: house-door
       - href: targets.qmd
         icon: bullseye
       - href: instructions.qmd
@@ -28,7 +25,7 @@ website:
     left: "CC-BY"
     right:
       - icon: github
-        href: https://github.com/LTREB-reservoirs/vera4cast
+        href: https://github.com/eco4cast/neon4cast-ci
 
 format:
   html:

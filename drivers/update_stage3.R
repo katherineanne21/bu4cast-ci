@@ -31,7 +31,7 @@ furrr::future_walk(site_list, function(curr_site_id){
 
   vars <- names(stage3_df)
 
-  cut_off <- as.character(lubridate::as_date(max_date) - lubridate::days(2))
+  cut_off <- as.character(lubridate::as_date(max_date) - lubridate::days(3))
 
   df <- arrow::open_dataset(s3_pseudo) |>
     dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>

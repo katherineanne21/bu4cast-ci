@@ -89,7 +89,8 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
                       thumbnail_link = 'pending',
                       thumbnail_title = 'pending',
-                      group_var_vector = NULL)
+                      group_var_vector = NULL,
+                      group_sites = NULL)
 
 ## CREATE MODELS
 variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
@@ -194,6 +195,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
+    ## find group sites
+    find_group_sites <- forecast_data_df |>
+      filter(variable %in% var_values) |>
+      distinct(site_id)
+
     stac4cast::build_group_variables(table_schema = forecast_theme_df,
                           #theme_id = names(config$variable_groups[i]),
                           table_description = forecast_description_create,
@@ -209,7 +215,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
                           thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                           thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
-                          group_var_vector = unique(var_values))
+                          group_var_vector = unique(var_values),
+                          group_sites = find_group_sites$site_id)
 
     if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
@@ -224,6 +231,10 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_max_date <- var_date_range$`max(date)`
 
     var_models <- var_data |> distinct(model_id)
+
+    find_var_sites <- forecast_data_df |>
+      filter(variable == var_name) |>
+      distinct(site_id)
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
@@ -242,7 +253,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
                           thumbnail_link = 'pending',
                           thumbnail_title = 'pending',
-                          group_var_vector = NULL)
+                          group_var_vector = NULL,
+                          group_sites = find_var_sites$site_id)
 
   }
 }

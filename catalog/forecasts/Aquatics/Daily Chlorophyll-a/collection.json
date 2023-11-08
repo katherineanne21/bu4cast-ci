@@ -141,6 +141,11 @@
       "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -178,7 +183,7 @@
       "bbox": [
         [
           -156.6194,
-          71.2824,
+          17.9696,
           -66.7987,
           71.2824
         ]
@@ -188,7 +193,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-11T00:00:00Z"
+          "2023-12-13T00:00:00Z"
         ]
       ]
     }

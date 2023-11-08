@@ -121,6 +121,11 @@
       "href": "../../models/model_items/tslm.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -158,7 +163,7 @@
       "bbox": [
         [
           -156.6194,
-          71.2824,
+          17.9696,
           -66.7987,
           71.2824
         ]
@@ -168,7 +173,7 @@
       "interval": [
         [
           "2023-03-01T00:00:00Z",
-          "2024-10-01T00:00:00Z"
+          "2024-10-02T00:00:00Z"
         ]
       ]
     }

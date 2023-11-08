@@ -276,13 +276,13 @@
     },
     {
       "rel": "about",
-      "href": "www.neon4cast.org",
+      "href": "https://projects.ecoforecast.org/neon4cast-docs/",
       "type": "text/html",
       "title": "NEON Ecological Forecasting Challenge Documentation"
     },
     {
       "rel": "describedby",
-      "href": "www.neon4cast.org",
+      "href": "https://projects.ecoforecast.org/neon4cast-docs/",
       "title": "NEON Ecological Forecasting Challenge Documentation",
       "type": "text/html"
     }

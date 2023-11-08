@@ -43,7 +43,7 @@ variable_groups:
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/image-content-images/tick-image.jpg'
     thumbnail_title: 'NEON Ticks'
 catalog_config:
-  about_string: 'www.neon4cast.org'
+  about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
   scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   scores_thumbnail_title: "NEON Buoy Image"

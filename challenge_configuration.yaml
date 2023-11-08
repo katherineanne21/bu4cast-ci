@@ -45,10 +45,10 @@ variable_groups:
 catalog_config:
   about_string: 'www.neon4cast.org'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
-  scores_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
-  scores_thumbnail_title: "Falling Creek Reservoir"
-  forecasts_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
-  forecasts_thumbnail_title: "Falling Creek Reservoir"
+  scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
+  scores_thumbnail_title: "NEON Buoy Image"
+  forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
+  forecasts_thumbnail_title: "NEON Buoy Image"
   forecast_path: 'catalog/forecasts/'
   scores_path: 'catalog/scores/'
   aws_download_path: 'bio230014-bucket01/challenges/forecasts/parquet/'

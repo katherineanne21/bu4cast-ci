@@ -73,7 +73,7 @@
     },
     {
       "rel": "describedby",
-      "href": "https://www.ltreb-reservoirs.org/vera4cast",
+      "href": "https://projects.ecoforecast.org/neon4cast-dashboard/",
       "title": "NEON Forecast Challenge Dashboard",
       "type": "text/html"
     }

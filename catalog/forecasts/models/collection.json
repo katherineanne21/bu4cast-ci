@@ -282,8 +282,8 @@
     },
     {
       "rel": "describedby",
-      "href": "https://projects.ecoforecast.org/neon4cast-docs/",
-      "title": "NEON Ecological Forecasting Challenge Documentation",
+      "href": "https://projects.ecoforecast.org/neon4cast-dashboard/",
+      "title": "NEON Forecast Challenge Dashboard",
       "type": "text/html"
     }
   ],

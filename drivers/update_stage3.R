@@ -9,9 +9,6 @@ future::plan("future::multisession", workers = 8)
 
 furrr::future_walk(site_list, function(curr_site_id){
 
-  Sys.setenv("OSN_KEY"="3V0QE2X34IYY0FFNPBHC",
-             "OSN_SECRET" = "jIWNAp753sFdd0J1oiEKnwal5Gg/lD")
-
   print(curr_site_id)
 
   s3 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage3",
@@ -34,10 +31,12 @@ furrr::future_walk(site_list, function(curr_site_id){
 
   vars <- names(stage3_df)
 
+  cut_off <- as.character(lubridate::as_date(max_date) - lubridate::days(2))
+
   df <- arrow::open_dataset(s3_pseudo) |>
     dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
     dplyr::filter(site_id == curr_site_id,
-                  reference_datetime >= as.character(max_date - lubridate::days(2))) |>
+                  reference_datetime >= cut_off) |>
     dplyr::collect()
 
   if(nrow(df) > 0){

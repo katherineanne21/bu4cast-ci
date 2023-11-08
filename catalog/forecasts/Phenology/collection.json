@@ -13,12 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily /collection.json"
+      "href": "Daily Green chromatic coordinate/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily /collection.json"
+      "href": "Daily Red chromatic coordinate/collection.json"
     },
     {
       "rel": "parent",

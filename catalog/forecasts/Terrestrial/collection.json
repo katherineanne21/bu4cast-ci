@@ -18,12 +18,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily latent heat flux/collection.json"
+      "href": "Daily Net ecosystem exchange/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "30min Net ecosystem exchange/collection.json"
+      "href": "30min latent heat flux/collection.json"
     },
     {
       "rel": "child",

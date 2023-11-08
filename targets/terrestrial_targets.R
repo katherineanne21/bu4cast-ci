@@ -298,13 +298,16 @@ s3 <- arrow::s3_bucket("neon4cast-targets/terrestrial_30min",
                        access_key = Sys.getenv("AWS_ACCESS_KEY"),
                        secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
 
-arrow::write_csv_arrow(flux_target_30m, sink = s3$path("terrestrial_30min-targets.csv.gz"))
+flux_target_30m |>
+  arrange(variable, datetime) |>
+  arrow::write_csv_arrow(sink = s3$path("terrestrial_30min-targets.csv.gz"))
 
 flux_target_30m2 <- flux_target_30m |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "PT30M",
          project_id = "neon4cast") |>
   select(project_id, site_id, datetime, duration, variable, observation) |>
+  arrange(variable, datetime) |>
   na.omit()
 
 s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M",
@@ -321,13 +324,16 @@ s3 <- arrow::s3_bucket("neon4cast-targets/terrestrial_daily",
                        access_key = Sys.getenv("AWS_ACCESS_KEY"),
                        secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
 
-arrow::write_csv_arrow(flux_target_daily, sink = s3$path("terrestrial_daily-targets.csv.gz"))
+flux_target_daily |>
+  arrange(variable, datetime) |>
+  arrow::write_csv_arrow(sink = s3$path("terrestrial_daily-targets.csv.gz"))
 
 flux_target_daily2 <- flux_target_daily |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "P1D",
          project_id = "neon4cast") |>
   select(project_id, site_id, datetime, duration, variable, observation) |>
+  arrange(variable, datetime) |>
   na.omit()
 
 s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",

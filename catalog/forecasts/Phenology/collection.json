@@ -47,7 +47,7 @@
     },
     {
       "rel": "describedby",
-      "href": "https://projects.ecoforecast.org/neon4cast-dashboard/",
+      "href": "https://projects.ecoforecast.org/neon4cast-docs/",
       "title": "NEON Forecast Challenge Dashboard",
       "type": "text/html"
     }

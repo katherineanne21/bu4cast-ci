@@ -29,7 +29,7 @@ df <- arrow::open_dataset(s3_stage2) |>
 curr_date <- Sys.Date()
 last_week <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(7), curr_date - lubridate::days(1), by = "1 day")))
 
-missing_dates <- dplyr::anti_join(last_week, df) |> dplyr::pull(reference_datetime)
+missing_dates <- dplyr::anti_join(last_week, df, by = join_by(reference_datetime)) |> dplyr::pull(reference_datetime)
 
 if(length(missing_dates) > 0){
   for(i in 1:length(missing_dates)){
@@ -46,6 +46,7 @@ if(length(missing_dates) > 0){
     site_df <- arrow::open_dataset(s3) |>
       dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
       dplyr::filter(site_id %in% site_list$site_id) |>
+      dplyr::filter(site_id == "BARC") |>
       dplyr::collect() |>
       dplyr::mutate(reference_datetime = missing_dates[i])
 

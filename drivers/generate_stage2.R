@@ -29,7 +29,7 @@ df <- arrow::open_dataset(s3_stage2) |>
 curr_date <- Sys.Date()
 last_week <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(7), curr_date - lubridate::days(1), by = "1 day")))
 
-missing_dates <- dplyr::anti_join(last_week, df, by = join_by(reference_datetime)) |> dplyr::pull(reference_datetime)
+missing_dates <- dplyr::anti_join(last_week, df, by = "reference_datetime") |> dplyr::pull(reference_datetime)
 
 if(length(missing_dates) > 0){
   for(i in 1:length(missing_dates)){

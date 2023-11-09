@@ -46,7 +46,6 @@ if(length(missing_dates) > 0){
     site_df <- arrow::open_dataset(s3) |>
       dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
       dplyr::filter(site_id %in% site_list$site_id) |>
-      dplyr::filter(site_id == "BARC") |>
       dplyr::collect() |>
       dplyr::mutate(reference_datetime = missing_dates[i])
 

@@ -62,6 +62,8 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       description_string = build_description,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
+                      # dashboard_string = catalog_config$dashboard_url,
+                      # dashboard_title = catalog_config$dashboard_title,
                       theme_title = "Forecasts",
                       destination_path = catalog_config$forecast_path,
                       aws_download_path = catalog_config$aws_download_path,
@@ -82,6 +84,8 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       description_string = build_description,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
+                      dashboard_string = catalog_config$dashboard_url,
+                      dashboard_title = catalog_config$dashboard_title,
                       theme_title = "Models",
                       #model_documentation = NULL,
                       destination_path = paste0(catalog_config$forecast_path,"models"),
@@ -179,7 +183,9 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     duration_name <- config$variable_groups[[i]]$duration[j]
 
     # match variable with full name in gsheet
-    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
+    #var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
+    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` %in% var_values),1][[1]]
+
 
 
     ## create new vector to store duration names
@@ -209,6 +215,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           description_string = group_description,
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
+                          dashboard_string = catalog_config$dashboard_url,
+                          dashboard_title = catalog_config$dashboard_title,
                           theme_title = names(config$variable_groups[i]),
                           destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
@@ -247,6 +255,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                           description_string = var_description,
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
+                          dashboard_string = catalog_config$dashboard_url,
+                          dashboard_title = catalog_config$dashboard_title,
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],

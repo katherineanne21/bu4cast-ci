@@ -253,6 +253,8 @@ for (i in 1:length(config$variable_groups)){
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
+    var_path <- gsub('forecasts','scores',var_data$path[1])
+
     stac4cast::build_group_variables(table_schema = scores_theme_df,
                           #theme_id = var_name_combined_list[j],
                           table_description = scores_description_create,
@@ -266,7 +268,7 @@ for (i in 1:length(config$variable_groups)){
                           dashboard_title = catalog_config$dashboard_title,
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_name_combined_list[j]),
-                          aws_download_path = var_data$path[1],
+                          aws_download_path = var_path,
                           group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
                           thumbnail_link = 'pending',
                           thumbnail_title = 'pending',

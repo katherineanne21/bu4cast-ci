@@ -79,6 +79,10 @@ stac4cast::build_forecast_scores(table_schema = scores_theme_df,
                       thumbnail_title = catalog_config$scores_thumbnail_title)
 
 ## create separate JSON for model landing page
+## create separate JSON for model landing page
+if (!dir.exists(paste0(catalog_config$scores_path,"models"))){
+  dir.create(paste0(catalog_config$scores_path,"models"))
+}
 
 stac4cast::build_group_variables(table_schema = scores_theme_df,
                       #theme_id = 'models',
@@ -89,24 +93,38 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                       description_string = build_description,
                       about_string = catalog_config$about_string,
                       about_title = catalog_config$about_title,
+                      dashboard_string = catalog_config$dashboard_url,
+                      dashboard_title = catalog_config$dashboard_title,
                       theme_title = "Models",
                       destination_path = paste0(catalog_config$scores_path,"models"),
                       aws_download_path = catalog_config$aws_download_path,
-                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id))
+                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
+                      thumbnail_link = 'pending',
+                      thumbnail_title = 'pending',
+                      group_var_vector = NULL,
+                      group_sites = NULL)
 
 ## CREATE MODELS
 
 ## READ IN MODEL METADATA
-# googlesheets4::gs4_deauth()
-#
-# registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
+variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 
-registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
+#registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
+
+# read in model metadata and filter for the relevant project
+registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
+  filter(`What forecasting challenge are you registering for?` == config$project_id)
 
 scores_sites <- c()
 
 ## loop over model ids and extract components if present in metadata table
 for (m in theme_models$model_id){
+
+  # make model items directory
+  if (!dir.exists(paste0(catalog_config$forecast_path,"models/model_items"))){
+    dir.create(paste0(catalog_config$forecast_path,"models/model_items"))
+  }
+
   print(m)
   model_date_range <- scores_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
   model_min_date <- model_date_range$`min(date)`
@@ -116,12 +134,22 @@ for (m in theme_models$model_id){
   model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable)
 
   model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
-    mutate(duration_name = ifelse(duration == 'P1D', 'daily', duration)) |>
-    mutate(duration_name = ifelse(duration == 'PT1H', 'hourly', duration_name)) |>
+    mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
+    mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-    mutate(duration_name = ifelse(duration == 'P1W', 'weekly', duration_name))
+    mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
 
-  model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
+  model_var_full_name <- model_var_duration_df |>
+    left_join((variable_gsheet |>
+                 select(variable = `"official" targets name`, full_name = `Variable name`) |>
+                 distinct(variable, .keep_all = TRUE)), by = c('variable'))
+
+  model_sites <- scores_data_df |> filter(model_id == m) |> distinct(site_id)
+
+  model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
+  model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
+
+  #model_var_duration_df$full_variable_name <- paste0(model_var_duration_df$variable, "_", model_var_duration_df$duration_name)
 
   scores_sites <- append(scores_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
                                                                    sites = model_sites$site_id))
@@ -129,7 +157,6 @@ for (m in theme_models$model_id){
   idx = which(registered_model_id$model_id == m)
 
   stac4cast::build_model(model_id = m,
-              #theme_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
               start_date = model_min_date,
@@ -141,11 +168,11 @@ for (m in theme_models$model_id){
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
               aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
-              #theme_title = m,
               collection_name = 'scores',
               thumbnail_image_name = NULL,
               table_schema = scores_theme_df,
-              table_description = scores_description_create)
+              table_description = scores_description_create,
+              full_var_df = model_vars)
 }
 
 
@@ -164,17 +191,27 @@ for (i in 1:length(config$variable_groups)){
     var_values <- config$variable_groups[[i]]$variable
     var_name <- config$variable_groups[[i]]$variable[j]
 
+    duration_name <- config$variable_groups[[i]]$duration[j]
+
+    # match variable with full name in gsheet
+    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` %in% var_values),1][[1]]
+
     ## create new vector to store duration names
     duration_values <- config$variable_groups[[i]]$duration
-    duration_values[which(duration_values == 'P1D')] <- 'daily'
-    duration_values[which(duration_values == 'PT1H')] <- 'hourly'
+    duration_values[which(duration_values == 'P1D')] <- 'Daily'
+    duration_values[which(duration_values == 'PT1H')] <- 'Hourly'
     duration_values[which(duration_values == 'PT30M')] <- '30min'
-    duration_values[which(duration_values == 'P1W')] <- 'weekly'
+    duration_values[which(duration_values == 'P1W')] <- 'Weekly'
 
-    var_name_combined_list <- paste0(var_values, '_',duration_values)
+    var_name_combined_list <- paste0(duration_values,' ',var_name_full)
 
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
+
+    ## find group sites
+    find_group_sites <- scores_data_df |>
+      filter(variable %in% var_values) |>
+      distinct(site_id)
 
     stac4cast::build_group_variables(table_schema = scores_theme_df,
                           #theme_id = names(config$variable_groups[i]),
@@ -185,23 +222,34 @@ for (i in 1:length(config$variable_groups)){
                           description_string = group_description,
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
+                          dashboard_string = catalog_config$dashboard_url,
+                          dashboard_title = catalog_config$dashboard_title,
                           theme_title = names(config$variable_groups[i]),
                           destination_path = paste0(catalog_config$scores_path,names(config$variable_groups[i])),
                           aws_download_path = catalog_config$aws_download_path,
-                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list))
+                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
+                          thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
+                          thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
+                          group_var_vector = unique(var_values),
+                          group_sites = find_group_sites$site_id)
 
     if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
       dir.create(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
     }
 
     var_data <- scores_data_df |>
-      filter(variable == var_name)
+      filter(variable == var_name,
+             duration == duration_name)
 
     var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
     var_min_date <- var_date_range$`min(date)`
     var_max_date <- var_date_range$`max(date)`
 
     var_models <- var_data |> distinct(model_id)
+
+    find_var_sites <- scores_data_df |>
+      filter(variable == var_name) |>
+      distinct(site_id)
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
@@ -214,10 +262,16 @@ for (i in 1:length(config$variable_groups)){
                           description_string = var_description,
                           about_string = catalog_config$about_string,
                           about_title = catalog_config$about_title,
+                          dashboard_string = catalog_config$dashboard_url,
+                          dashboard_title = catalog_config$dashboard_title,
                           theme_title = var_name_combined_list[j],
                           destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_name_combined_list[j]),
                           aws_download_path = var_data$path[1],
-                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id))
+                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
+                          thumbnail_link = 'pending',
+                          thumbnail_title = 'pending',
+                          group_var_vector = NULL,
+                          group_sites = find_var_sites$site_id)
 
   }
 

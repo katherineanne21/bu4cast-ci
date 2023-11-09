@@ -1,6 +1,6 @@
 {
-  "id": "daily-scores",
-  "description": "The catalog contains forecasts for the NEON Ecological Forecasting Challenge. The scores are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). You can access the scores at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the scores catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the scores for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.",
+  "id": "Aquatics",
+  "description": "This page includes variables for the Aquatics group.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -13,48 +13,27 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Aquatics/collection.json",
-      "title": "Aquatics"
+      "href": "Daily Dissolved oxygen/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Terrestrial/collection.json",
-      "title": "Terrestrial"
+      "href": "Daily Water temperature/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Phenology/collection.json",
-      "title": "Phenology"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Beetles/collection.json",
-      "title": "Beetles"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Ticks/collection.json",
-      "title": "Ticks"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "models/collection.json",
-      "title": "group item"
+      "href": "Daily Chlorophyll-a/collection.json"
     },
     {
       "rel": "parent",
       "type": "application/json",
-      "href": "../catalog.json"
+      "href": "../collection.json"
     },
     {
       "rel": "root",
       "type": "application/json",
-      "href": "../catalog.json"
+      "href": "../collection.json"
     },
     {
       "rel": "self",
@@ -78,16 +57,11 @@
       "type": "text/html"
     }
   ],
-  "title": "Scores",
+  "title": "Aquatics",
   "extent": {
     "spatial": {
       "bbox": [
-        [
-          -156.6194,
-          17.9696,
-          -66.7987,
-          71.2824
-        ]
+        [-149.6106, 18.1135, -66.7987, 68.6698]
       ]
     },
     "temporal": {
@@ -209,15 +183,15 @@
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for the VERA Forecasting Challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |>\n dplyr::filter(variable %in% c(\"oxygen\", \"temperature\", \"chla\")) |>\n dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
-      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg",
+      "href": "https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "NEON Buoy Image"
+      "title": "NEON Aquatics Buoy"
     }
   }
 }

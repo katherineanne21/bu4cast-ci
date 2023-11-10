@@ -45,9 +45,9 @@ jobs:
         run: |
           quarto render dashboard
 
-      #- name: Build site map
-      #  shell: Rscript {0}
-      #  run: source("dashboard/build_site_map.R")
+      - name: Build site map
+        shell: Rscript {0}
+        run: source("dashboard/build_site_map.R")
 
       - name: Publish
         run: |

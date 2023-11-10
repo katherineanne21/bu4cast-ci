@@ -113,16 +113,20 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 
+      ref_upper <- (lubridate::as_date(ref)+lubridate::days(1))
       fc <- arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
-        dplyr::filter(reference_date %in% reference_dates) |>
-        dplyr::collect() |>
-        dplyr::filter(lubridate::as_date(datetime) >= ref,
-                      lubridate::as_date(datetime) < ref+lubridate::days(1))
+        dplyr::filter(reference_date %in% reference_dates,
+                      lubridate::as_date(datetime) >= ref,
+                      lubridate::as_date(datetime) < ref_upper) |>
+        dplyr::collect()
 
       fc |>
         #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
         dplyr::mutate(variable = curr_variable,
                       project_id = curr_project_id) |>
+        #If for some reason, a forecast has multiple values for a parameter from a specific forecast, then average
+        dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family",
+                                                                              "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
         #score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
         score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
         dplyr::mutate(date = group$date,

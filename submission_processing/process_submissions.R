@@ -55,9 +55,9 @@ if(length(submissions) > 0){
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  s3_inventory$CreateDir("inventory/catalog")
+  s3_inventory$CreateDir(paste0("inventory/catalog/forecasts/project_id=", config$project_id))
 
-  s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"),
+  s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=", config$project_id),
                                    endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
@@ -131,6 +131,7 @@ if(length(submissions) > 0){
         curr_inventory <- fc |>
           dplyr::mutate(date = lubridate::as_date(datetime),
                         path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
+                        path_full = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
                         endpoint = config$endpoint) |>
           dplyr::distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
 

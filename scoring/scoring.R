@@ -99,6 +99,10 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
   new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
+    for(j in 1:nrow(groupings)){
+
+      print(j)
+
     group <- groupings[j,]
     ref <- group$date
 
@@ -138,6 +142,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
       curr_prov <- dplyr::tibble(new_id = id)
     }else{
       curr_prov <- NULL
+    }
     }
   },
   groupings, prov_df, s3_scores_path,curr_variable

@@ -45,13 +45,14 @@ variable_groups:
 catalog_config:
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
-  scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
+  scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/52760199990_d1a0f154fe_c.jpg"
   scores_thumbnail_title: "NEON Buoy Image"
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
   forecast_path: 'catalog/forecasts/'
   scores_path: 'catalog/scores/'
-  aws_download_path: 'bio230014-bucket01/challenges/forecasts/parquet/'
+  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/parquet/'
+  aws_download_path_scores: 'bio230014-bucket01/challenges/scores/parquet/'
   host_url: "https://www.ecoforecastprojectvt.org"
   host_name: "Ecoforecast Challenge"
   bbox:
@@ -63,6 +64,6 @@ catalog_config:
   base_image_path: 'https://data.ecoforecast.org/neon4cast-catalog'
   citation_doi: "https://doi.org/10.1002/fee.2616"
   citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
-  dashboard_url: "https://projects.ecoforecast.org/neon4cast-dashboard/"
+  dashboard_url: "https://projects.ecoforecast.org/neon4cast-docs/"
   dashboard_title: "NEON Forecast Challenge Dashboard"
   site_metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'

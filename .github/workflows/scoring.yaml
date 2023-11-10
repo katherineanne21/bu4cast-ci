@@ -29,3 +29,8 @@ jobs:
         shell: Rscript {0}
         run: |
           source("scoring/scoring.R")
+
+      - name: Update inventory
+        shell: Rscript {0}
+        run: |
+          source("scoring/build_score_inventory.R")

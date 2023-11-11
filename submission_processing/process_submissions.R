@@ -54,6 +54,12 @@ if(length(submissions) > 0){
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
+  s3_scores <- arrow::s3_bucket(config$scores_bucket,
+                                endpoint_override = endpoint,
+                                access_key = Sys.getenv("OSN_KEY"),
+                                secret_key = Sys.getenv("OSN_SECRET"))
+
+
   s3_inventory <- arrow::s3_bucket(dirname(config$inventory_bucket),
                                    endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
@@ -130,6 +136,18 @@ if(length(submissions) > 0){
                                                     "variable",
                                                     "model_id",
                                                     "reference_date"))
+
+        tg <- tibble::tibble(project_id = NA,
+                             site_id = NA,
+                             datetime = NA,
+                             duration = NA,
+                             variable = NA,
+                             observation = NA)
+        fc |>
+        score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
+          dplyr::mutate(date = group$date) |>
+          arrow::write_dataset(s3_scores,
+                               partitioning = c("project_id", "variable", "model_id", "date"))
 
         bucket <- config$forecasts_bucket
         curr_inventory <- fc |>

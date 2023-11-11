@@ -54,7 +54,7 @@ if(length(submissions) > 0){
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
-  s3_scores <- arrow::s3_bucket(config$scores_bucket,
+  s3_scores <- arrow::s3_bucket(file.path(config$scores_bucket,"parquet"),
                                 endpoint_override = endpoint,
                                 access_key = Sys.getenv("OSN_KEY"),
                                 secret_key = Sys.getenv("OSN_SECRET"))

@@ -33,7 +33,7 @@ variable_duration <- arrow::open_dataset(s3_inv) |>
   dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 
-future::plan("future::multisession", workers = n_cores)
+future::plan("future::sequential", workers = n_cores)
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 

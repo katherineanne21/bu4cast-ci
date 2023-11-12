@@ -147,7 +147,7 @@ if(length(submissions) > 0){
         score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
           dplyr::mutate(date = lubridate::as_date(datetime)) |>
           arrow::write_dataset(s3_scores,
-                               partitioning = c("project_id", "variable", "model_id", "date"))
+                               partitioning = c("project_id", "duration", "variable", "model_id", "date"))
 
         bucket <- config$forecasts_bucket
         curr_inventory <- fc |>

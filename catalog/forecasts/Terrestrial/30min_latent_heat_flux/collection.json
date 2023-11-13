@@ -1,6 +1,6 @@
 {
-  "id": "Phenology",
-  "description": "This page includes variables for the Phenology group.",
+  "id": "30min_latent_heat_flux",
+  "description": "This page includes all models for the 30min_latent_heat_flux variable.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -11,14 +11,9 @@
   "type": "Collection",
   "links": [
     {
-      "rel": "child",
+      "rel": "item",
       "type": "application/json",
-      "href": "Daily_Green_chromatic_coordinate/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Daily_Red_chromatic_coordinate/collection.json"
+      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "parent",
@@ -52,7 +47,7 @@
       "type": "text/html"
     }
   ],
-  "title": "Phenology",
+  "title": "30min_latent_heat_flux",
   "extent": {
     "spatial": {
       "bbox": [
@@ -62,8 +57,8 @@
     "temporal": {
       "interval": [
         [
-          "2021-05-17T00:00:00Z",
-          "2024-11-04T00:00:00Z"
+          "2023-11-06T00:00:00Z",
+          "2023-11-22T00:00:00Z"
         ]
       ]
     }
@@ -132,21 +127,21 @@
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=PT30M/variable=le?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for the NEON Ecological Forecasting Aquatics theme.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |>\n dplyr::filter(variable %in% c(\"gcc_90\", \"rcc_90\")) |>\n dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=PT30M/variable=le?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
-      "href": "https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg",
+      "href": "pending",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "Phenology Image"
+      "title": "pending"
     }
   }
 }

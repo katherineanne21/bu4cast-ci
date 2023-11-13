@@ -16,8 +16,10 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-103.0293, 40.4619],
       [-87.3933, 32.9505],
       [-119.006, 37.0058],
+      [-149.3705, 68.6611],
       [-89.5857, 45.4937],
       [-95.1921, 39.0404],
       [-89.5373, 46.2339],
@@ -30,13 +32,11 @@
       [-97.57, 33.4012],
       [-104.7456, 40.8155],
       [-99.1066, 47.1617],
-      [-145.7514, 63.8811],
       [-87.8039, 32.5417],
       [-81.4362, 28.1251],
       [-83.5019, 35.689],
       [-66.8687, 17.9696],
       [-72.1727, 42.5369],
-      [-149.2133, 63.8758],
       [-84.4686, 31.1948],
       [-106.8425, 32.5907],
       [-96.6129, 39.1104],
@@ -59,15 +59,15 @@
       [-119.2622, 37.0334],
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
-      [-103.0293, 40.4619],
       [-147.5026, 65.154],
-      [-149.3705, 68.6611]
+      [-145.7514, 63.8811],
+      [-149.2133, 63.8758]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-10-18",
-    "end_datetime": "2023-12-07",
+    "end_datetime": "2023-12-10",
     "providers": [
       {
         "url": "pending",
@@ -90,18 +90,19 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Red chromatic coordinate"
+      "Daily Red chromatic coordinate",
+      "NA Red chromatic coordinate"
     ],
     "table:columns": [
-      {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
       {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
         "name": "site_id",
@@ -194,6 +195,12 @@
       "title": "Database Access for Daily Red chromatic coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for NA Red chromatic coordinate",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

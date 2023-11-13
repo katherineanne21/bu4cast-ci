@@ -68,7 +68,7 @@
   "properties": {
     "description": [],
     "start_datetime": "2023-10-19",
-    "end_datetime": "2023-12-11",
+    "end_datetime": "2023-12-14",
     "providers": [
       {
         "url": "pending",
@@ -91,18 +91,19 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily latent heat flux"
+      "Daily latent heat flux",
+      "NA latent heat flux"
     ],
     "table:columns": [
-      {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
       {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
         "name": "site_id",
@@ -195,6 +196,12 @@
       "title": "Database Access for Daily latent heat flux",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for NA latent heat flux",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

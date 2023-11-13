@@ -16,17 +16,17 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0177, 29.6878],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-10-20",
-    "end_datetime": "2023-12-08",
+    "end_datetime": "2023-12-12",
     "providers": [
       {
         "url": "pending",
@@ -49,18 +49,19 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Water temperature"
+      "Daily Water temperature",
+      "NA Water temperature"
     ],
     "table:columns": [
-      {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
       {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
+      },
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
         "name": "site_id",
@@ -153,6 +154,12 @@
       "title": "Database Access for Daily Water temperature",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "3": {
+      "type": "application/x-parquet",
+      "title": "Database Access for NA Water temperature",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=NA/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

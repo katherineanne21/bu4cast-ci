@@ -85,7 +85,6 @@ stac4cast::build_group_variables(table_schema = forecast_theme_df,
                       dashboard_string = catalog_config$dashboard_url,
                       dashboard_title = catalog_config$dashboard_title,
                       theme_title = "Models",
-                      #model_documentation = NULL,
                       destination_path = paste0(catalog_config$forecast_path,"models"),
                       aws_download_path = catalog_config$aws_download_path_forecasts,
                       group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
@@ -245,7 +244,6 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
     stac4cast::build_group_variables(table_schema = forecast_theme_df,
-                          #theme_id = var_name_combined_list[j],
                           table_description = forecast_description_create,
                           start_date = var_min_date,
                           end_date = var_max_date,

@@ -35,3 +35,10 @@ jobs:
         shell: Rscript {0}
         run: |
           source("drivers/generate_stage2.R")
+
+
+      - name: Update Stage3
+        shell: Rscript {0}
+        run: |
+          source("drivers/update_stage3.R")
+

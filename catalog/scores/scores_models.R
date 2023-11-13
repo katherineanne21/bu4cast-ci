@@ -46,7 +46,7 @@ scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, en
   #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
 ## identify model ids from bucket -- used in generate model items function
-scores_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
+scores_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
   collect()
 

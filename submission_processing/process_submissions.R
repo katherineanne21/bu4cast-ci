@@ -16,6 +16,10 @@ install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
+sites <- readr::read_csv(config$site_table,show_col_types = FALSE) |>
+  select(field_site_id, latitude, longitude) |>
+  rename(site_id = field_site_id)
+
 minioclient::mc_alias_set("s3_store",
                           config$endpoint,
                           Sys.getenv("OSN_KEY"),
@@ -50,14 +54,20 @@ if(length(submissions) > 0){
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
+  s3_scores <- arrow::s3_bucket(file.path(config$scores_bucket,"parquet"),
+                                endpoint_override = config$endpoint,
+                                access_key = Sys.getenv("OSN_KEY"),
+                                secret_key = Sys.getenv("OSN_SECRET"))
+
+
   s3_inventory <- arrow::s3_bucket(dirname(config$inventory_bucket),
                                    endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
 
-  s3_inventory$CreateDir("inventory/catalog")
+  s3_inventory$CreateDir(paste0("inventory/catalog/forecasts/project_id=", config$project_id))
 
-  s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog"),
+  s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=", config$project_id),
                                    endpoint_override = config$endpoint,
                                    access_key = Sys.getenv("OSN_KEY"),
                                    secret_key = Sys.getenv("OSN_SECRET"))
@@ -127,12 +137,27 @@ if(length(submissions) > 0){
                                                     "model_id",
                                                     "reference_date"))
 
+        tg <- tibble::tibble(project_id = NA,
+                             site_id = NA,
+                             datetime = NA,
+                             duration = NA,
+                             variable = NA,
+                             observation = NA)
+        fc |>
+        score4cast::crps_logs_score(tg, extra_groups = c("project_id", "duration")) |> #project_specific
+          dplyr::mutate(date = lubridate::as_date(datetime)) |>
+          arrow::write_dataset(s3_scores,
+                               partitioning = c("project_id", "duration", "variable", "model_id", "date"))
+
         bucket <- config$forecasts_bucket
         curr_inventory <- fc |>
           dplyr::mutate(date = lubridate::as_date(datetime),
                         path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
+                        path_full = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
                         endpoint = config$endpoint) |>
           dplyr::distinct(project_id, duration, model_id, site_id, reference_date, variable, date, path, endpoint)
+
+        curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
 
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
 

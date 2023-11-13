@@ -157,7 +157,8 @@ for (m in theme_models$model_id){
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,
               table_description = forecast_description_create,
-              full_var_df = model_vars)
+              full_var_df = model_vars,
+              code_web_link = registered_model_id$`Web link to model code`[idx])
 }
 
 

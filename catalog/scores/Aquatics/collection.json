@@ -13,17 +13,17 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Dissolved oxygen/collection.json"
+      "href": "Daily_Dissolved_oxygen/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Water temperature/collection.json"
+      "href": "Daily_Water_temperature/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Chlorophyll-a/collection.json"
+      "href": "Daily_Chlorophyll_a/collection.json"
     },
     {
       "rel": "parent",
@@ -68,7 +68,7 @@
       "interval": [
         [
           "2021-05-17T00:00:00Z",
-          "2024-10-28T00:00:00Z"
+          "2024-11-04T00:00:00Z"
         ]
       ]
     }

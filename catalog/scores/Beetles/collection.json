@@ -13,12 +13,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Weekly beetle community abundance/collection.json"
+      "href": "Weekly_beetle_community_abundance/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Weekly beetle community richness/collection.json"
+      "href": "Weekly_beetle_community_richness/collection.json"
     },
     {
       "rel": "parent",
@@ -63,7 +63,7 @@
       "interval": [
         [
           "2021-05-17T00:00:00Z",
-          "2024-10-28T00:00:00Z"
+          "2024-11-04T00:00:00Z"
         ]
       ]
     }

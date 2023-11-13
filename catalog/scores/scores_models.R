@@ -203,7 +203,7 @@ for (i in 1:length(config$variable_groups)){
     duration_values[which(duration_values == 'PT30M')] <- '30min'
     duration_values[which(duration_values == 'P1W')] <- 'Weekly'
 
-    var_name_combined_list <- paste0(duration_values,' ',var_name_full)
+    var_name_combined_list <- paste0(duration_values,'_',var_name_full)
 
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')

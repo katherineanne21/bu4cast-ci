@@ -13,22 +13,22 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Net ecosystem exchange/collection.json"
+      "href": "Daily_Net_ecosystem_exchange/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily Net ecosystem exchange/collection.json"
+      "href": "Daily_Net_ecosystem_exchange/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "30min latent heat flux/collection.json"
+      "href": "30min_latent_heat_flux/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "30min latent heat flux/collection.json"
+      "href": "30min_latent_heat_flux/collection.json"
     },
     {
       "rel": "parent",
@@ -73,7 +73,7 @@
       "interval": [
         [
           "2021-05-17T00:00:00Z",
-          "2024-10-28T00:00:00Z"
+          "2024-11-04T00:00:00Z"
         ]
       ]
     }

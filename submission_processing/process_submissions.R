@@ -125,7 +125,8 @@ if(length(submissions) > 0){
                         reference_datetime = lubridate::as_datetime(reference_datetime),
                         reference_date = lubridate::as_date(reference_datetime),
                         parameter = as.character(parameter),
-                        project_id = "neon4cast")
+                        project_id = "neon4cast") |>
+          dplyr::filter(datetime >= reference_datetime)
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/"))

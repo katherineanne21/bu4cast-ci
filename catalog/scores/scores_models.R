@@ -172,7 +172,9 @@ for (m in theme_models$model_id){
               thumbnail_image_name = NULL,
               table_schema = scores_theme_df,
               table_description = scores_description_create,
-              full_var_df = model_vars)
+              full_var_df = model_vars,
+              #code_web_link = registered_model_id$`Web link to model code`[idx],
+              code_web_link = 'pending')
 }
 
 
@@ -180,6 +182,17 @@ for (m in theme_models$model_id){
 
 for (i in 1:length(config$variable_groups)){
   print(names(config$variable_groups)[i])
+
+  # check data and skip if no data found
+  var_group_data_check <- scores_data_df |>
+    filter(variable %in% config$variable_groups[[i]]$variable)
+
+  if (nrow(var_group_data_check) == 0){
+    print('No data available for group')
+    next
+  }
+
+
 
   if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups[i])))){
     dir.create(paste0(catalog_config$scores_path,names(config$variable_groups[i])))
@@ -190,6 +203,16 @@ for (i in 1:length(config$variable_groups)){
     ## restructure variable names
     var_values <- config$variable_groups[[i]]$variable
     var_name <- config$variable_groups[[i]]$variable[j]
+    print(var_name)
+
+    # check data and skip if no data found
+    var_data_check <- scores_data_df |>
+      filter(variable == var_name)
+
+    if (nrow(var_data_check) == 0){
+      print('No data available for variable')
+      next
+    }
 
     duration_name <- config$variable_groups[[i]]$duration[j]
 

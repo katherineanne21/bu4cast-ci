@@ -93,8 +93,8 @@
     "temporal": {
       "interval": [
         [
-          "2021-05-17T00:00:00Z",
-          "2024-11-04T00:00:00Z"
+          "2023-11-12T00:00:00Z",
+          "2023-12-15T00:00:00Z"
         ]
       ]
     }
@@ -127,7 +127,7 @@
     },
     {
       "name": "observation",
-      "type": "double",
+      "type": "bool",
       "description": "observed value for variable"
     },
     {

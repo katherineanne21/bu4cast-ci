@@ -61,14 +61,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-149.6106, 18.1135, -66.7987, 68.6698]
+        [-88.1589, 31.1854, -84.4374, 32.5415]
       ]
     },
     "temporal": {
       "interval": [
         [
-          "2021-05-17T00:00:00Z",
-          "2024-11-04T00:00:00Z"
+          "2023-11-12T00:00:00Z",
+          "2023-12-15T00:00:00Z"
         ]
       ]
     }
@@ -101,7 +101,7 @@
     },
     {
       "name": "observation",
-      "type": "double",
+      "type": "bool",
       "description": "observed value for variable"
     },
     {

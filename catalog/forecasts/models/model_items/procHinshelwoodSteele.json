@@ -27,8 +27,8 @@
   },
   "properties": {
     "description": [],
-    "start_datetime": "2023-01-01",
-    "end_datetime": "2023-12-12",
+    "start_datetime": "2023-11-13",
+    "end_datetime": "2023-12-13",
     "providers": [
       {
         "url": "pending",
@@ -55,6 +55,11 @@
     ],
     "table:columns": [
       {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
@@ -65,9 +70,9 @@
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
       },
       {
-        "name": "prediction",
-        "type": "double",
-        "description": "predicted value for variable"
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
       },
       {
         "name": "parameter",
@@ -75,14 +80,9 @@
         "description": "ensemble member or distribution parameter"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-      },
-      {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted value for variable"
       },
       {
         "name": "pub_datetime",
@@ -141,6 +141,12 @@
       "href": "procHinshelwoodSteele.json",
       "type": "application/json",
       "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": "pending",
+      "type": "text/html",
+      "title": "Link for Model Code"
     }
   ],
   "assets": {
@@ -151,6 +157,12 @@
       "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/procHinshelwoodSteele.json\")\n\n"
     },
     "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": "pending",
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=chla/model_id=procHinshelwoodSteele?endpoint_override=sdsc.osn.xsede.org",

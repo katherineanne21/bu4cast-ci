@@ -16,6 +16,56 @@
       "href": "../../models/model_items/USGSHABs1.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procBlanchardMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procBlanchardSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMIMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodSteele.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -51,14 +101,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-88.1589, 31.1854, -84.4374, 32.5415]
+        [-149.6106, 29.676, -82.0084, 68.6307]
       ]
     },
     "temporal": {
       "interval": [
         [
-          "2023-11-12T00:00:00Z",
-          "2023-12-15T00:00:00Z"
+          "2023-01-10T00:00:00Z",
+          "2023-12-17T00:00:00Z"
         ]
       ]
     }
@@ -91,7 +141,7 @@
     },
     {
       "name": "observation",
-      "type": "bool",
+      "type": "double",
       "description": "observed value for variable"
     },
     {

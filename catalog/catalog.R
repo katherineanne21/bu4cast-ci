@@ -31,7 +31,12 @@ build_catalog <- function(){
         "rel"= "child",
         "type"= "application/json",
         "title"= "Scores",
-        "href" = 'scores/collection.json')
+        "href" = 'scores/collection.json'),
+      list(
+        "rel"= "child",
+        "type"= "application/json",
+        "title"= "Inventory",
+        "href" = 'inventory/collection.json')
     )
   )
 

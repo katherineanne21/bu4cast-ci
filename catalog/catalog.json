@@ -27,6 +27,12 @@
       "type": "application/json",
       "title": "Scores",
       "href": "scores/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "title": "Inventory",
+      "href": "inventory/collection.json"
     }
   ]
 }

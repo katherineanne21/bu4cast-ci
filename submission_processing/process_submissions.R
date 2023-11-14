@@ -113,7 +113,10 @@ if(length(submissions) > 0){
 
         if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = file_name_model_id)
+        }else if(fc$model_id[1] == "null")
+          fc <- fc |> mutate(model_id = file_name_model_id)
         }
+
 
         if(!("reference_datetime" %in% colnames(fc))){
           fc <- fc |> mutate(reference_datetime = file_name_reference_datetime)

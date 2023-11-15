@@ -22,6 +22,6 @@ RUN install2.r devtools remotes
 
 RUN R -e "remotes::install_github(c('eco4cast/EFIstandards','cboettig/aws.s3','rqthomas/cronR','eco4cast/score4cast','EcoForecast/ecoforecastR','eco4cast/neon4cast','cboettig/prov', 'eco4cast/read4cast','eco4cast/gefs4cast'))"
 
-RUN install2.r arrow renv rjags neonstore ISOweek RNetCDF fable fabletools forecast imputeTS ncdf4 scoringRules tidybayes tidync udunits2 bench contentid flexdashboard shiny yaml RCurl here feasts
+RUN install2.r arrow renv rjags neonstore ISOweek RNetCDF fable fabletools forecast imputeTS ncdf4 scoringRules tidybayes tidync udunits2 bench contentid flexdashboard shiny yaml RCurl here feasts minioclient
 
 COPY cron.sh /etc/services.d/cron/run

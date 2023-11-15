@@ -16,7 +16,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
       
@@ -33,7 +33,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
 
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - run: git config --system --add safe.directory '*'
 

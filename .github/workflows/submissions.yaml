@@ -21,13 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_github("LTREB-reservoirs/vera4castHelpers")
-          install.packages("here")
-          install.packages("minioclient")
-
       - name: Process submissions
         shell: Rscript {0}
         run: |

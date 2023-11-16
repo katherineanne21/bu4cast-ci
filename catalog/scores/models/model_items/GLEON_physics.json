@@ -21,14 +21,13 @@
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
-      [-82.0177, 29.6878],
-      [-149.6106, 68.6307]
+      [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "description": [],
-    "start_datetime": "2023-10-19",
-    "end_datetime": "2023-12-15",
+    "start_datetime": "2023-11-14",
+    "end_datetime": "2023-12-18",
     "providers": [
       {
         "url": "pending",
@@ -181,6 +180,12 @@
       "href": "GLEON_physics.json",
       "type": "application/json",
       "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": "pending",
+      "type": "text/html",
+      "title": "Link for Model Code"
     }
   ],
   "assets": {
@@ -191,6 +196,12 @@
       "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/GLEON_physics.json\")\n\n"
     },
     "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": "pending",
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=temperature/model_id=GLEON_physics?endpoint_override=sdsc.osn.xsede.org",

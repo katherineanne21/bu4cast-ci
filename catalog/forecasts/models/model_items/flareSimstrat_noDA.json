@@ -16,17 +16,17 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0177, 29.6878],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "description": [],
-    "start_datetime": "2023-10-20",
-    "end_datetime": "2023-12-12",
+    "start_datetime": "2023-11-15",
+    "end_datetime": "2023-12-15",
     "providers": [
       {
         "url": "pending",
@@ -53,6 +53,11 @@
     ],
     "table:columns": [
       {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
+      },
+      {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
@@ -63,9 +68,9 @@
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
       },
       {
-        "name": "prediction",
-        "type": "double",
-        "description": "predicted value for variable"
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
       },
       {
         "name": "parameter",
@@ -73,14 +78,9 @@
         "description": "ensemble member or distribution parameter"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-      },
-      {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted value for variable"
       },
       {
         "name": "pub_datetime",
@@ -139,6 +139,12 @@
       "href": "flareSimstrat_noDA.json",
       "type": "application/json",
       "title": "Model Forecast"
+    },
+    {
+      "rel": "item",
+      "href": "pending",
+      "type": "text/html",
+      "title": "Link for Model Code"
     }
   ],
   "assets": {
@@ -149,6 +155,12 @@
       "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/flareSimstrat_noDA.json\")\n\n"
     },
     "2": {
+      "type": "text/html",
+      "title": "Link for Model Code",
+      "href": "pending",
+      "description": "The link to the model code provided by the model submission team"
+    },
+    "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org",

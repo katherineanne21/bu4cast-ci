@@ -1,8 +1,8 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  #schedule:
-  #  - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 5 * * *'
   workflow_dispatch:
 
 name: submissions-score-dashboard-catalog
@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
+      AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Process submissions
         shell: Rscript {0}
         run: |
@@ -33,7 +33,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
 
@@ -41,6 +41,11 @@ jobs:
         shell: Rscript {0}
         run: |
           source("scoring/scoring.R")
+
+      - name: Update inventory
+        shell: Rscript {0}
+        run: |
+          source("scoring/build_score_inventory.R")
 
   catalog:
     needs: scores
@@ -87,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: rqthomas/vera-rocker:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - run: git config --system --add safe.directory '*'
 

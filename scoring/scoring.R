@@ -110,7 +110,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
       ref <- group$date
 
       tg <- target |>
-        dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
+        #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
         dplyr::filter(lubridate::as_date(datetime) >= ref,
                       lubridate::as_date(datetime) < ref+lubridate::days(1))
 
@@ -128,7 +128,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
           dplyr::collect()
 
         fc |>
-          dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
+          #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
           dplyr::mutate(variable = curr_variable,
                         project_id = curr_project_id) |>
           #If for some reason, a forecast has multiple values for a parameter from a specific forecast, then average

@@ -6,8 +6,9 @@ s3 <- arrow::s3_bucket(paste0(config$scores_bucket, "/parquet"), endpoint_overri
 bucket <- config$scores_bucket
 inventory_df <- arrow::open_dataset(s3) |>
   mutate(reference_date = lubridate::as_date(reference_datetime),
-         date = lubridate::as_date(datetime)) |>
-  distinct(duration, model_id, site_id, reference_date, variable, date, project_id) |>
+         date = lubridate::as_date(datetime),
+         pub_date = lubridate::as_date(pub_datetime)) |>
+  distinct(duration, model_id, site_id, reference_date, variable, date, project_id, pub_date) |>
   collect() |>
   mutate(path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
          path_full = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/date={date}/part-0.parquet"),

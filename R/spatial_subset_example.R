@@ -15,7 +15,7 @@ ca <- us_states |>
 paths <- open_dataset(uri) |>
   mutate(geometry = ST_Point(longitude, latitude)) |>
   filter(st_within(geometry, ST_GeomFromText({ca}))) |>
-  filter(date == as_date("2023-07-01"), variable == "gcc_90") |>
+  filter(date == as_date("2023-11-01"), variable == "gcc_90") |>
   to_sf() |>
   collect()
 

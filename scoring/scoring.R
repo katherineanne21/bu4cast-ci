@@ -109,6 +109,8 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
       group <- groupings[j,]
       ref <- group$date
 
+      print(group)
+
       tg <- target |>
         #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
         dplyr::filter(lubridate::as_date(datetime) >= ref,

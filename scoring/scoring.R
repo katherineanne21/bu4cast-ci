@@ -108,9 +108,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       group <- groupings[j,]
       ref <- group$date
-
-      print(group)
-
+               
       tg <- target |>
         #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
         dplyr::filter(lubridate::as_date(datetime) >= ref,
@@ -119,6 +117,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
       id <- rlang::hash(list(group[, c("model_id","reference_date","date","pub_date")],  tg))
 
       if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+
+        print(group)
+
 
         reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 

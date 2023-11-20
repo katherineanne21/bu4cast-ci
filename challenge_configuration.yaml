@@ -1,11 +1,13 @@
 challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: neon4cast
 endpoint: sdsc.osn.xsede.org
+noaa_endpoint: s3.flare-forecast.org
 submissions_endpoint: submit.ecoforecast.org
 scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts
 submissions_bucket: submissions
 inventory_bucket: bio230014-bucket01/challenges/inventory
+noaa_forecast_bucket: drivers/noaa/gefs-v12-reprocess/
 prov_bucket: bio230014-bucket01/challenges/prov
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive
@@ -16,6 +18,8 @@ site_table: neon4cast_field_site_metadata.csv
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 github_repo: eco4cast/neon4cast-ci
+noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
+noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
 variable_groups:
   Aquatics:
     variable: ['oxygen','temperature','chla']
@@ -52,6 +56,7 @@ catalog_config:
   forecast_path: 'catalog/forecasts/'
   scores_path: 'catalog/scores/'
   inventory_path: 'catalog/inventory'
+  noaa_path: 'catalog/noaa_forecasts/'
   aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/parquet/'
   aws_download_path_scores: 'bio230014-bucket01/challenges/scores/parquet/'
   host_url: "https://www.ecoforecastprojectvt.org"

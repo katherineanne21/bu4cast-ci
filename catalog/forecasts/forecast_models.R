@@ -45,7 +45,7 @@ forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucke
 #   collect()
 
 
-forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/"),
                                 endpoint_override = "sdsc.osn.xsede.org",
                                 anonymous=TRUE)
 

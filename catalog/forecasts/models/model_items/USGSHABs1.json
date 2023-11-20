@@ -17,14 +17,14 @@
     "type": "MultiPoint",
     "coordinates": [
       [-87.7982, 32.5415],
-      [-84.4374, 31.1854],
-      [-88.1589, 31.8534]
+      [-88.1589, 31.8534],
+      [-84.4374, 31.1854]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-11-12",
-    "end_datetime": "2023-12-18",
+    "end_datetime": "2023-12-22",
     "providers": [
       {
         "url": "pending",

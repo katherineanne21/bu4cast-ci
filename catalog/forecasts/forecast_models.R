@@ -40,8 +40,17 @@ forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucke
     #(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))
 
 ## identify model ids from bucket -- used in generate model items function
-forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
-                                  s3_endpoint = config$endpoint, anonymous=TRUE) |>
+# forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+#                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
+#   collect()
+
+
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+                                endpoint_override = "sdsc.osn.xsede.org",
+                                anonymous=TRUE)
+
+forecast_data_df <- arrow::open_dataset(forecast_s3) |>
+  filter(project_id == config$project_id) |>
   collect()
 
 theme_models <- forecast_data_df |>
@@ -67,7 +76,8 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       aws_download_path = catalog_config$aws_download_path_forecasts,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
-                      thumbnail_title = catalog_config$forecasts_thumbnail_title)
+                      thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                      model_child = TRUE)
 
 ## create separate JSON for model landing page
 if (!dir.exists(paste0(catalog_config$forecast_path,"models"))){

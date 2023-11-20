@@ -1,7 +1,10 @@
 #renv::restore()
 print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
 
-Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
+#Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
+
+Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore_temp")
+
 pecan_flux_uncertainty <- "../pecan/modules/uncertainty/R/flux_uncertainty.R"
 readRenviron("~/.Renviron") # compatible with littler
 
@@ -23,8 +26,7 @@ site_names <- sites$field_site_id
 
 # Terrestrial
 
-#Get the published files on the portal
-neonstore::neon_download(product = "DP4.00200.001", site = site_names, type = "basic")
+neonstore::neon_download(product = "DP4.00200.001", type = "basic")
 neonstore::neon_store(product = "DP4.00200.001")
 #neon_disconnect()
 

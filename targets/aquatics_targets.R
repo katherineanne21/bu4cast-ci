@@ -39,10 +39,11 @@ sites <- readr::read_csv("NEON_Field_Site_Metadata_20220412.csv") |>
 nonwadable_rivers <- sites$field_site_id[(which(sites$field_site_subtype == "Non-wadeable River"))]
 lake_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Lake"))]
 stream_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Wadeable Stream"))]
+profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
 df <-  neonstore:::neon_data(product = "DP1.20288.001",
-                             #start_date = "2023-06-01",
-                             #end_date = "2023-08-01",
+                             # start_date = "2023-01-01",
+                             # end_date = "2023-10-01",
                              type="basic")
 
 urls <- df |>
@@ -61,7 +62,10 @@ wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
                 chla_RFU = as.numeric(chlaRelativeFluorescence),
                 startDateTime = as_datetime(startDateTime),
                 time = as_date(startDateTime)) %>%
-  dplyr::filter((sensorDepth > 0 & sensorDepth < 1) | is.na(sensorDepth)) |>
+  # sites that are not profiling do not have accurate depths - set to 0.5
+  dplyr::mutate(sensorDepth = ifelse(siteID %in% profiling_sites, sensorDepth,
+                                     0.5)) |>
+  dplyr::filter(sensorDepth > 0 & sensorDepth < 1) |>
   dplyr::mutate(dissolvedOxygen = ifelse(dissolvedOxygenFinalQF == 1, NA, dissolvedOxygen),
                 chla = ifelse(chlorophyllFinalQF == 1, NA, chla)) |>
   dplyr::rename(site_id = siteID) |>
@@ -112,6 +116,7 @@ delete.neon.avro(months = cur_wq_month,
 # The variables (term names that should be kept)
 wq_vars <- c('siteName',
              'startDate',
+             'sensorDepth',
              'dissolvedOxygen',
              'dissolvedOxygenExpUncert',
              'dissolvedOxygenFinalQF',

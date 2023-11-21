@@ -88,11 +88,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/prophet_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
@@ -104,6 +99,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/prophet_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "parent",
@@ -148,7 +153,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-24T00:00:00Z"
+          "2023-12-25T00:00:00Z"
         ]
       ]
     }

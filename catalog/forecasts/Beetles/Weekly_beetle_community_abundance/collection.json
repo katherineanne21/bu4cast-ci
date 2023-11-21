@@ -81,6 +81,11 @@
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

@@ -106,6 +106,10 @@ jobs:
         with:
           version: 1.4.146
 
+      - name: install deps
+        shell: Rscript {0}
+        run: remotes::install_deps(".", dep=TRUE)
+
       - name: pull scores cache
         shell: Rscript {0}
         run: source("dashboard/cache.R")

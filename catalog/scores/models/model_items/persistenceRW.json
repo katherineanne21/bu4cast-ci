@@ -81,18 +81,18 @@
       [-66.7987, 18.1741],
       [-72.3295, 42.4719],
       [-96.6038, 39.1051],
-      [-111.5081, 33.751],
-      [-105.9154, 39.8914],
       [-87.7982, 32.5415],
       [-147.504, 65.1532],
       [-105.5442, 40.035],
       [-89.4737, 46.2097],
+      [-111.5081, 33.751],
+      [-105.9154, 39.8914],
+      [-96.6242, 34.4442],
       [-97.57, 33.4012],
       [-104.7456, 40.8155],
       [-99.1066, 47.1617],
       [-145.7514, 63.8811],
       [-119.006, 37.0058],
-      [-96.6242, 34.4442],
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-119.2575, 37.0597],
@@ -100,9 +100,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: SJER, SOAP, SRER, STEI, STER, TALL, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, DELA, DSNY, GRSM, GUAN, HARV, HEAL, PRIN, PRLA, PRPO, REDB, SUGG, ABBY, WOOD, WREF, YELL, LIRO, TOMB, TOOK, BARR, BART, BLAN, BONA, SCBI, SERC, UNDE, MCDI, MCRA, OKSR, POSE, TECR, WALK, LECO, LEWI, MART, MAYF, TOOL, TREE, UKFS, CUPE, FLNT, GUIL, HOPB, KING, SYCA, WLOU, BLWA, CARI, COMO, CRAM, CLBJ, CPER, DCFS, DEJU, TEAK, BLUE, ARIK, BARC, BIGC, BLDE\n\nVariables: Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Chlorophyll_a, Daily Water_temperature",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: SJER, SOAP, SRER, STEI, STER, TALL, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, DELA, DSNY, GRSM, GUAN, HARV, HEAL, PRIN, PRLA, PRPO, REDB, SUGG, ABBY, WOOD, WREF, YELL, LIRO, TOMB, TOOK, BARR, BART, BLAN, BONA, SCBI, SERC, UNDE, MCDI, MCRA, OKSR, POSE, TECR, WALK, LECO, LEWI, MART, MAYF, TOOL, TREE, UKFS, CUPE, FLNT, GUIL, HOPB, KING, BLWA, CARI, COMO, CRAM, SYCA, WLOU, BLUE, CLBJ, CPER, DCFS, DEJU, TEAK, ARIK, BARC, BIGC, BLDE\n\nVariables: Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Chlorophyll_a, Daily Water_temperature",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2023-12-25",
+    "end_datetime": "2023-12-26",
     "providers": [
       {
         "url": "pending",

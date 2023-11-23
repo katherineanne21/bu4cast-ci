@@ -16,17 +16,17 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0177, 29.6878],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2023-12-21",
+    "end_datetime": "2023-12-22",
     "providers": [
       {
         "url": "pending",

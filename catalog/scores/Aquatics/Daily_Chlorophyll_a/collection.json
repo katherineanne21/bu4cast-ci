@@ -73,11 +73,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/procBlanchardMonod.json"
     },
     {
@@ -89,6 +84,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -108,7 +108,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procCTMIMonod.json"
+      "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",
@@ -118,12 +123,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
+      "href": "../../models/model_items/procCTMIMonod.json"
     },
     {
       "rel": "item",
@@ -183,7 +183,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-28T00:00:00Z"
+          "2023-12-29T00:00:00Z"
         ]
       ]
     }

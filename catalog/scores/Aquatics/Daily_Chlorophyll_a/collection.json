@@ -73,11 +73,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/procBlanchardMonod.json"
     },
     {
@@ -89,6 +84,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -183,7 +183,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-30T00:00:00Z"
+          "2023-12-31T00:00:00Z"
         ]
       ]
     }

@@ -43,11 +43,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
@@ -58,7 +53,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/randfor.json"
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -73,7 +73,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
+      "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -133,7 +133,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-01T00:00:00Z"
+          "2024-01-02T00:00:00Z"
         ]
       ]
     }

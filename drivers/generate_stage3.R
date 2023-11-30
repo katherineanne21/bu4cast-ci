@@ -46,5 +46,7 @@ furrr::future_walk(site_list, function(curr_site_id){
     #dplyr::filter(site_id == curr_site_id) |>
     #dplyr::collect() |>
     to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
+    dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) |>
+    dplyr::rename(parameter = ensemble) |>
     arrow::write_dataset(path = s3, partitioning = "site_id")
 })

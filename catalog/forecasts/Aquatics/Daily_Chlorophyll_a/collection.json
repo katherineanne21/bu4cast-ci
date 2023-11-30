@@ -108,16 +108,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procCTMIMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/procEppleyNorbergMonod.json"
     },
     {
@@ -128,12 +118,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMIMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "parent",
@@ -178,7 +183,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-24T00:00:00Z"
+          "2024-01-03T00:00:00Z"
         ]
       ]
     }

@@ -13,27 +13,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGLM_noDA.json"
+      "href": "../../models/model_items/flareGLM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareSimstrat.json"
     },
     {
       "rel": "item",
@@ -48,22 +43,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareSimstrat.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -186,6 +186,11 @@
       "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -228,7 +233,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-10-13T00:00:00Z"
+          "2024-10-23T00:00:00Z"
         ]
       ]
     }

@@ -45,13 +45,17 @@ forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucke
 #   collect()
 
 
-forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/"),
-                                endpoint_override = "sdsc.osn.xsede.org",
-                                anonymous=TRUE)
+# forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/"),
+#                                 endpoint_override = "sdsc.osn.xsede.org",
+#                                 anonymous=TRUE)
 
-forecast_data_df <- arrow::open_dataset(forecast_s3) |>
-  filter(project_id == config$project_id) |>
+forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+                                           s3_endpoint = config$endpoint, anonymous=TRUE) |>
   collect()
+
+# forecast_data_df <- arrow::open_dataset(forecast_s3) |>
+#   filter(project_id == config$project_id) |>
+#   collect()
 
 theme_models <- forecast_data_df |>
   distinct(model_id)
@@ -60,7 +64,7 @@ forecast_date_range <- forecast_data_df |> dplyr::summarise(min(date),max(date))
 forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
 
-build_description <- paste0("The catalog contains forecasts for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
+build_description <- paste0("Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
 stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       #theme_id = 'Forecasts',
@@ -187,6 +191,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     print('No data available for group')
     next
   }
+
+  ## REMOVE STALE OR UNUSED DIRECTORIES
+  current_var_path <- paste0(catalog_config$summaries_path,names(config$variable_groups[i]))
+  current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
+  unlink(current_var_dirs, recursive = TRUE)
 
   if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))){
     dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))

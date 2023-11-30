@@ -42,7 +42,9 @@ furrr::future_walk(site_list, function(curr_site_id){
   if(nrow(df) > 0){
 
     df2 <- df |>
-      to_hourly(use_solar_geom = TRUE, psuedo = TRUE)
+      to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
+    dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5)) |>
+    dplyr::rename(parameter = ensemble)
 
     stage3_df_update <- stage3_df |>
       dplyr::filter(datetime < min(df2$datetime))

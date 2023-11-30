@@ -5,6 +5,7 @@ noaa_endpoint: s3.flare-forecast.org
 submissions_endpoint: submit.ecoforecast.org
 scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts
+summaries_bucket: bio230014-bucket01/challenges/forecasts/summaries
 submissions_bucket: submissions
 inventory_bucket: bio230014-bucket01/challenges/inventory
 noaa_forecast_bucket: drivers/noaa/gefs-v12-reprocess/
@@ -14,11 +15,11 @@ archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
-site_thumbnail: "https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/dashboard/img/banner-2.jpg"
-site_thumbnail_title: "Falling Creek Reservoir Image"
 site_path: 'catalog/sites'
 site_table: neon4cast_field_site_metadata.csv
+site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
+site_thumbnail_title: "NEON Sites Map"
+site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 targets_thumbnail: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
 targets_thumbnail_title: 'Test Image'

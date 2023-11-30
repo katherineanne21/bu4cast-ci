@@ -7,11 +7,11 @@ editor:
 
 ```{r  message=FALSE, echo = FALSE}
 library(tidyverse)
-terrestrial_focal_sites <- c("HARV", "OSBS")
+terrestrial_focal_sites <- c("BART", "OSBS", "KONZ", "SRER")
 aquatics_focal_sites <- c("BARC", "CRAM")
-phenology_focal_sites <- c("HARV", "OSBS")
-ticks_focal_sites <- c("HARV", "OSBS")
-beetles_focal_sites <- c("HARV", "OSBS")
+phenology_focal_sites <- c("HARV", "BART", "STEI", "UKFS", "GRSM", "DELA", "CLBJ")
+ticks_focal_sites <- c("BLAN", "TALL")
+beetles_focal_sites <- c("BLAN", "OSBS")
 ```
 
 ```{r message=FALSE, echo = FALSE}
@@ -33,9 +33,9 @@ The targets are updated as new NEON data is made available.
 
 The 10 targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes". The themes and links to targets files are included below.
 
-## Where to start
+## Where to start {#sec-starting-sites}
 
-If are you are getting started, we recommend the following focal sites for each of the five "themes".
+If are you are getting started, we recommend the following focal sites for each of the five "themes".  The first site in the list is the recommended starting site.
 
 -   Terrestrial: `r terrestrial_focal_sites`
 -   Aquatics: `r aquatics_focal_sites`

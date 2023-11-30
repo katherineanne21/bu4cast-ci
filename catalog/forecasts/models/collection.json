@@ -1,6 +1,6 @@
 {
   "id": "models",
-  "description": "The catalog contains forecasts for the NEON Ecological Forecasting Challenge. The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.",
+  "description": "Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -298,7 +298,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-11-11T00:00:00Z"
+          "2024-11-18T00:00:00Z"
         ]
       ]
     }

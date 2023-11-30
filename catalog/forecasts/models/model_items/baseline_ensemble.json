@@ -88,9 +88,9 @@
     ]
   },
   "properties": {
-    "description": [],
+    "description": "\nmodel info: NA\n\nSites: STEI, STER, TALL, TEAK, TREE, UKFS, ARIK, BARC, BIGC, BLDE, BLUE, MCDI, MCRA, POSE, PRIN, REDB, DCFS, DELA, DSNY, GRSM, GUAN, UNDE, WOOD, WREF, YELL, LENO, MLBS, MOAB, NIWO, NOGP, SCBI, SERC, SJER, SOAP, SRER, HOPB, KING, LECO, LEWI, MART, MAYF, BLWA, COMO, CUPE, FLNT, GUIL, SUGG, SYCA, TECR, TOMB, WALK, WLOU, ABBY, BART, BLAN, CLBJ, CPER, JERC, JORN, KONA, KONZ, LAJA, HARV, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2023-12-19",
+    "end_datetime": "2023-12-28",
     "providers": [
       {
         "url": "pending",

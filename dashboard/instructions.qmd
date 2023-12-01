@@ -10,11 +10,12 @@ editor:
 
 We provide an overview of the steps for submitting with the details below:
 
-1)  Register at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses.
-2)  Generate a forecast!
-3)  Write the forecast output to a file that follows our standardized format (described below).
-4)  Submit your forecast using an R function (provided below).
-5)  Watch your forecast be evaluated as new data are collected. 
+1)  Explore the data (e.g., targets) and build your forecast model. 
+2)  Register and describe you model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses.
+3)  Generate a forecast!
+4)  Write the forecast output to a file that follows our standardized format (described below).
+5)  Submit your forecast using an R function (provided below).
+6)  Watch your forecast be evaluated as new data are collected. 
 
 ## Generating a forecast
 
@@ -38,11 +39,11 @@ Forecasts can be submitted at the daily time step for 1 day to 10 years ahead in
 
 ### Forecasts can be submitted everyday
 
-Since forecasts can be submitted everyday, automation is important.  We provide an example GitHub repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
+Since forecasts can be submitted everyday, automation is important.  We provide an [example GitHub](https://github.com/eco4cast/neon4cast-example) repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
 
 ## You can forecast at any of the NEON sites
 
-If are you are getting started, we recommend a set of focal sites for each of the five "themes". See @sec-starting-sites for the list. You are also welcome to submit forecasts to all NEON sites.
+If are you are getting started, we recommend a set of focal sites for each of the five "themes". See [here](targets.qmd#sec-starting-sites) for the list. You are also welcome to submit forecasts to all NEON sites.
 
 ## Forecast file format
 
@@ -128,6 +129,18 @@ dplyr::glimpse(df)
 
 ## Submission process
 
+### File name
+
+Save your forecast as a csv file with the following naming convention:
+
+`theme_name-year-month-day-model_id.csv`. Compressed csv files with the csv.gz extension are also accepted. 
+
+The `theme_name` options are: terrestrial_daily, terrestrial_30min, aquatics, beetles, ticks, or phenology.
+
+The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today, and used in the file name. `model_id` is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).
+
+### Uploading forecast
+
 Individual forecast files can be uploaded any time.
 
 Teams will submit their forecast csv files through an R function. The csv file can only contain one unique `model_id` and one unique `project_id`. 
@@ -142,14 +155,7 @@ The submit function is
 
 ```{r eval = FALSE}
 library(neon4cast)
-neon4cast::submit(forecast_file = "your_file.csv")
-```
-
-If you will be submitting multiple forecasts using the same model_id, use the following
-
-```{r eval = FALSE}
-neon4cast::submit(forecast_file = "your_file.csv",
-                         first_submission = FALSE)
+neon4cast::submit(forecast_file = "theme_name-year-month-day-model_id.csv")
 ```
 
 ## Post-submission
@@ -168,6 +174,7 @@ Forecast performance can be compared to the performance of baseline models.  We 
 
 - `climatology`: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations
 - `persistenceRW`: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most resent observation.
+- `mean`: the historical mean of the data is submitted for the beetles theme.
 
 Our [forecast performance](performance.qmd#performance) page includes evaluations of all submitted models.
 
@@ -177,4 +184,4 @@ Information for accessing the forecasts and scores can be found on our [forecast
 
 ## Questions?
 
-Thanks for reading this document! If you still have questions about how to submit your forecast to the VERA Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).
+Thanks for reading this document! If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).

@@ -4,6 +4,8 @@ title: "Forecast catalog"
 
 ## What types of models are submitting forecasts?
 
+*Note: This figure will become more complete, as more models register and provide model descriptions*
+
 ```{r echo = FALSE}
 s3 <- arrow::s3_bucket(bucket = "bio230014-bucket01/challenges/metadata/model_id/",
                        endpoint_override = "sdsc.osn.xsede.org", anonymous = TRUE)
@@ -23,7 +25,7 @@ ggplot2::ggplot(ggplot2::aes(x = model_type)) +
 
 ## Catalog of forecast submissions and evaluations {#sec-spatiotemporal-asset-catalog}
 
-The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below).  A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json) 
+The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below). A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json)
 
 <br /> <br />
 

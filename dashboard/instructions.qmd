@@ -10,41 +10,55 @@ editor:
 
 We provide an overview of the steps for submitting with the details below:
 
-1)  Explore the data (e.g., targets) and build your forecast model. 
+1)  Explore the data (e.g., targets) and build your forecast model.
 2)  Register and describe you model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses.
 3)  Generate a forecast!
 4)  Write the forecast output to a file that follows our standardized format (described below).
 5)  Submit your forecast using an R function (provided below).
-6)  Watch your forecast be evaluated as new data are collected. 
+6)  Watch your forecast be evaluated as new data are collected.
 
 ## Generating a forecast
 
 ### All forecasting approaches are welcome
 
-We encourage you to use any modeling approach to make a prediction about the future conditions at any of the NEON sites and variables. 
+We encourage you to use any modeling approach to make a prediction about the future conditions at any of the NEON sites and variables.
 
 ### Must include uncertainty
 
-Forecasts require you to make an assessment of the confidence in your prediction of the future. You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions. 
+Forecasts require you to make an assessment of the confidence in your prediction of the future.
+You can represent your confidence (i.e., uncertainty in the forecast) using a distribution or numerically using an ensemble (or sample) of predictions.
 
 ### Any model drivers/covariates/features are welcome
 
-You can use any data as model inputs (including all of the forecast target data available to date). All sensor-based target data are available in with a 1 to 7 day delay (latency) from time of collection. You may want to use the updated target data to re-train a model or for use in data assimilation.
+You can use any data as model inputs (including all of the forecast target data available to date).
+All sensor-based target data are available in with a 1 to 7 day delay (latency) from time of collection.
+You may want to use the updated target data to re-train a model or for use in data assimilation.
 
-As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs. If you are interested in using forecasted meteorology, we are downloading and processing NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site.  The NOAA GEFS forecasts extend 35-days ahead.  More information about accessing the weather forecasts can be found here: https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html 
+As a genuine forecasting challenge, you will need forecasted drivers if your model uses drivers as inputs.
+If you are interested in using forecasted meteorology, we are downloading and processing NOAA Global Ensemble Forecasting System (GEFS) weather forecasts for each NEON site.
+The NOAA GEFS forecasts extend 35-days ahead.
+More information about accessing the weather forecasts can be found here: https://projects.ecoforecast.org/neon4cast-docs/Shared-Forecast-Drivers.html
 
 ### Forecasts can be for a range of horizons
 
-Forecasts can be submitted at the daily time step for 1 day to 10 years ahead into the future.
+Forecasts can be submitted for 1 day to 1 year-ahead, depending on the variable.
+See the [variable tables](targets.qmd#sec-targets) for the horizon that is associated with each variable.
 
 ### Forecasts can be submitted everyday
 
-Since forecasts can be submitted everyday, automation is important.  We provide an [example GitHub](https://github.com/eco4cast/neon4cast-example) repository that can be used to automate your forecast with GitHub Actions.  It also includes the use of a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts. 
+Since forecasts can be submitted everyday, automation is important.
+We provide an [example GitHub](https://github.com/eco4cast/neon4cast-example) repository that can be used to automate your forecast with GitHub Actions.
+It also includes the use of a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that has many of the packages and functions needed to generate and submit forecasts.
+
+We only evaluate forecasts for any variables that are forecasted weekly (e.g., beetles and ticks) that were submitted on the Sunday of each week.
+Therefore we recommend only submitting forecasts of the weekly variables on Sundays.
 
 ## You can forecast at any of the NEON sites
 
-If are you are getting started, we recommend a set of focal sites for each of the five "themes". See [here](targets.qmd#sec-starting-sites) for the list. You are also welcome to submit forecasts to all NEON sites. More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
-
+If are you are getting started, we recommend a set of focal sites for each of the five "themes".
+See [here](targets.qmd#sec-starting-sites) for the list.
+You are also welcome to submit forecasts to all NEON sites.
+More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
 
 ## Forecast file format
 
@@ -53,7 +67,8 @@ The file is a csv format with the following columns:
 -   `project_id`: use `neon4cast`
 
 -   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your registration.
-    The model_id should have no spaces. `model_id` should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.
+    The model_id should have no spaces.
+    `model_id` should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.
 
 -   `datetime`: forecast timestamp.
     Format `%Y-%m-%d %H:%M:%S` with UTC as the time zone.
@@ -78,19 +93,20 @@ The file is a csv format with the following columns:
 -   `parameter` the parameters for the distribution (see note below about the parameter column) or the number of the ensemble members.
     For example, the parameters for a normal distribution are called `mu` and `sigma`.
 
--   `variable`: standardized variable name
+-   `variable`: standardized variable name.
+    It must match the variable name in the target file.
 
 -   `prediction`: forecasted value for the parameter in the parameter column
 
-## Representing uncertainity 
+## Representing uncertainity
 
-Uncertainty is represented through the family - parameter columns
+Uncertainty is represented through the family - parameter columns in the file that you submit.
 
 #### Parameteric forecast
 
 For a parametric forecast with a normal distribution, the `family` column would have the word `normal` to designate a normal distribution and the parameter column must have values of `mu` and `sigma` for each forecasted variable, site_id, depth, and time combination.
 
-Parameteric forecasts for binary variables should use `bernoulli` as the distribution.
+Parameteric forecasts for binary variables should use `bernoulli` as the family and `prob` as the parameter.
 
 The following names and parameterization of the distribution are currently supported (family: parameters):
 
@@ -104,13 +120,16 @@ The following names and parameterization of the distribution are currently suppo
 -   `exponential`: `rate`
 -   `poisson`: `lambda`
 
-If you are submitting a forecast that is not in the supported list, we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your forecast distribution. 
+If you are submitting a forecast that is not in the supported list, we recommend using the ensemble format and sampling from your distribution to generate a set of ensemble members that represents your forecast distribution.
 
 #### Ensemble (or sample) forecast
 
-Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `parameter` values are the ensemble index.  
+Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `parameter` values are the ensemble index.
 
-When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations). This is referred to as a "perfect ensemble" by Bröcker and Smith (2007). Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`). Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
+When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations).
+This is referred to as a "perfect ensemble" by Bröcker and Smith (2007).
+Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`).
+Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
 
 ### Example forecasts
 
@@ -118,14 +137,14 @@ Here is an example of a forecast that uses a normal distribution:
 
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz", show_col_types = FALSE)
-dplyr::glimpse(df)
+reactable::reactable(df)
 ```
 
 For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz", show_col_types = FALSE)
-dplyr::glimpse(df)
+reactable::reactable(df)
 ```
 
 ## Submission process
@@ -134,17 +153,21 @@ dplyr::glimpse(df)
 
 Save your forecast as a csv file with the following naming convention:
 
-`theme_name-year-month-day-model_id.csv`. Compressed csv files with the csv.gz extension are also accepted. 
+`theme_name-year-month-day-model_id.csv`.
+Compressed csv files with the csv.gz extension are also accepted.
 
 The `theme_name` options are: terrestrial_daily, terrestrial_30min, aquatics, beetles, ticks, or phenology.
 
-The year, month, and day are the year, month, and day the reference_datetime (horizon = 0). For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today, and used in the file name. `model_id` is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).
+The year, month, and day are the year, month, and day the reference_datetime (horizon = 0).
+For example, if a forecast starts today and tomorrow is the first forecasted day, horizon = 0 would be today, and used in the file name.
+`model_id` is the id for the model name that you specified in the model metadata Google Form (model_id has no spaces in it).
 
 ### Uploading forecast
 
 Individual forecast files can be uploaded any time.
 
-Teams will submit their forecast csv files through an R function. The csv file can only contain one unique `model_id` and one unique `project_id`. 
+Teams will submit their forecast csv files through an R function.
+The csv file can only contain one unique `model_id` and one unique `project_id`.
 
 The function is available using the following code
 
@@ -163,26 +186,30 @@ neon4cast::submit(forecast_file = "theme_name-year-month-day-model_id.csv")
 
 ### Processing
 
-After submission, our servers will process uploaded files by converting them to a parquet format on our public s3 storage. A `pub_datetime` column will be added that denotes when a forecast was submitted.
+After submission, our servers will process uploaded files by converting them to a parquet format on our public s3 storage.
+A `pub_datetime` column will be added that denotes when a forecast was submitted.
 
 ### Evaluation
 
-All forecasts are scored daily using new data until the full horizon of the forecast has been scored. Forecasts are scored using the `crps` and `logs` functions in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package. 
+All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
+Forecasts are scored using the `crps` and `logs` functions in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package.
 
 ### Comparison
 
-Forecast performance can be compared to the performance of baseline models.  We are automatically submitting the following baseline models:
+Forecast performance can be compared to the performance of baseline models.
+We are automatically submitting the following baseline models:
 
-- `climatology`: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations
-- `persistenceRW`: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most resent observation.
-- `mean`: the historical mean of the data is submitted for the beetles theme.
+-   `climatology`: the normal distribution (mean and standard deviation) of that day-of-year in the historical observations
+-   `persistenceRW`: a random walk model that assumes no change in the mean behavior. The random walk is initialized using the most resent observation.
+-   `mean`: the historical mean of the data is submitted for the beetles theme.
 
 Our [forecast performance](performance.qmd#performance) page includes evaluations of all submitted models.
 
 ### Catalog
 
-Information for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page. 
+Information for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page.
 
 ## Questions?
 
-Thanks for reading this document! If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).
+Thanks for reading this document!
+If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).

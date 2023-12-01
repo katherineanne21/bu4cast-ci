@@ -20,7 +20,7 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 ```
 
 ```{r echo = FALSE}
-  target_metadata <- target_metadata |> 
+target_metadata <- target_metadata |> 
   rename(variable = `"official" targets name`) |> 
   select(variable, duration, class, Description, horizon, Latency)
 ```
@@ -29,13 +29,15 @@ target_metadata <- googlesheets4::read_sheet("https://docs.google.com/spreadshee
 
 The "targets" are time-series of National Ecological Observatory Network ([NEON](https://www.neonscience.org)) data for use in model development and forecast evaluation.
 
-The targets are updated as new NEON data is made available. 
+The targets are updated as new NEON data is made available.
 
-The 10 targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes". The themes and links to targets files are included below.
+The 10 targets were specifically chosen to include ecosystem, community, and population dynamics and are represented by five "themes".
+The themes and links to targets files are included below.
 
 ## Where to start {#sec-starting-sites}
 
-If are you are getting started, we recommend the following focal sites for each of the five "themes".  The first site in the list is the recommended starting site.
+If are you are getting started, we recommend the following focal sites for each of the five "themes".
+The first site in the list is the recommended starting site.
 
 -   Terrestrial: `r terrestrial_focal_sites`
 -   Aquatics: `r aquatics_focal_sites`
@@ -44,19 +46,28 @@ If are you are getting started, we recommend the following focal sites for each 
 -   Ticks: `r ticks_focal_sites`
 
 As you develop your forecasting skills and want to expand to more sites, the targets are available at all 81 NEON sites.
+You may also consider submitting forecasts to sites that match your interests.
+For example, a class being taught in the winter may be more interested in forecasting southern sites while a summer class may focus on more northern sites.
 
 More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
 
-## Explore the targets and themes
+## Explore the targets and themes {#sec-targets}
 
-Information on the targets files for the five "themes" is below. In the tables, 
-- "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly mean. 
-- The "forecast horizon" is the number of days-ahead that we want you to forecasts. 
-- The "latency" is the time between data collection and data availability in the targets file
+Information on the targets files for the five "themes" is below.
+In the tables,
 
+-   "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly mean.
+
+-   The "forecast horizon" is the number of days-ahead that we want you to forecasts.
+
+-   The "latency" is the time between data collection and data availability in the targets file
+
+::: panel-tabset
 ### Terrestrial fluxes
 
-The exchange of water and carbon dioxide between the atmosphere and the land is akin to earth\'s terrestrial ecosystems breathing rate and lung capacity. 
+![](https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg)
+
+The exchange of water and carbon dioxide between the atmosphere and the land is akin to earth's terrestrial ecosystems breathing rate and lung capacity. 
 
 The terrestrial flux theme challenges you to forecast the gas exchange at up to 47 sites across the U.S.
 
@@ -83,7 +94,7 @@ read_csv(c(url_P1D, url_PT30M), show_col_types = FALSE) |>
 The daily mean target file is located at the following URL.
 
 ```{r}
-"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
 ```
 
 You can directly load it into R using the following
@@ -95,7 +106,9 @@ terrestrial_targets <- read_csv(url_P1D, show_col_types = FALSE)
 The file contains the following columns
 
 ```{r}
-glimpse(terrestrial_targets)
+terrestrial_targets |> 
+  head() |> 
+  knitr::kable()
 ```
 
 and the time series for the focal sites
@@ -111,15 +124,18 @@ terrestrial_targets |>
 
 #### 30 minute
 
-The 30 minute duration targets are designed for forecasting sub-daily carbon and water dynamics.  The URL is found at:
+The 30 minute duration targets are designed for forecasting sub-daily carbon and water dynamics.
+The URL is found at:
 
 ```{r}
-"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
+url_PT30M <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
 ```
 
 Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html>
 
 ### Aquatics
+
+![](https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg)
 
 Freshwater surface water temperature, dissolved oxygen, and chlorophyll-a all influence drinking water quality, are critical for life in aquatic environments, and can represent the health of the ecosystem.
 
@@ -138,7 +154,7 @@ read_csv(url, show_col_types = FALSE) |>
 The daily mean target file is located at the following URL.
 
 ```{r}
-"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
 ```
 
 You can directly load it into R using the following
@@ -150,7 +166,9 @@ aquatics_targets <- read_csv(url, show_col_types = FALSE)
 The file contains the following columns
 
 ```{r}
-glimpse(aquatics_targets)
+aquatics_targets |> 
+  head() |> 
+  knitr::kable()
 ```
 
 and the time series for the focal sites
@@ -164,15 +182,25 @@ aquatics_targets |>
   theme_bw()
 ```
 
+Water temperature at multiple depths measured at the UTC 00 hour are available for the 7 NEON lake sites.
+These data can be used for model development but will not be used for forecast evaluation.
+
+```{r}
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/supporting_data/project_id=neon4cast/aquatics-expanded-observations.csv.gz"
+```
+
 Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Aquatics.html>
 
 ### Phenology
 
-Phenology (the changes in plant canopies over the year) has been identified as one of the primary ecological fingerprints of global climate change. 
+![](https://phenocam.nau.edu/data/latest/NEON.D01.BART.DP1.00033.jpg)
 
-The greenness and redness, as measured by a camera looking down at the top of vegetation are a quantitative measure of phenology.  The phenology theme challenges you to forecast daily mean greeness and/or redness at up-to 47 terrestrial NEON sites.
+Phenology (the changes in plant canopies over the year) has been identified as one of the primary ecological fingerprints of global climate change.
 
-```{r echo = FALSE}
+The greenness and redness, as measured by a camera looking down at the top of vegetation are a quantitative measure of phenology.
+The phenology theme challenges you to forecast daily mean greeness and/or redness at up-to 47 terrestrial NEON sites.
+
+```{r}
 url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
 read_csv(url, show_col_types = FALSE) |> 
   distinct(variable, duration) |> 
@@ -185,7 +213,7 @@ read_csv(url, show_col_types = FALSE) |>
 The daily mean target file is located at the following URL.
 
 ```{r}
-"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
 ```
 
 You can directly load it into R using the following
@@ -197,7 +225,9 @@ phenology_targets <- read_csv(url, show_col_types = FALSE)
 The file contains the following columns
 
 ```{r}
-glimpse(phenology_targets)
+phenology_targets |> 
+  head() |> 
+  knitr::kable()
 ```
 
 and the time series for the focal sites
@@ -216,6 +246,8 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Phenology.html>
 
 ### Beetle communities
 
+![](https://www.neonscience.org/sites/default/files/styles/max_width_1170px/public/image-content-images/Beetles_pinned.jpg)
+
 Sentinel species (such as beetles) can give forewarning of environmental risk to humans, so are particularly useful for such monitoring and forecasting efforts because they can provide surrogates for other co-located components of biodiversity.
 
 The beetles theme challenges you to forecast weekly ground beetles (Family: Carabidae) abundance and richness (two measures of biodiversity) at up-to 47 terrestrial NEON sites.
@@ -233,7 +265,7 @@ read_csv(url, show_col_types = FALSE) |>
 The daily mean target file is located at the following URL.
 
 ```{r}
-"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
 ```
 
 You can directly load it into R using the following
@@ -245,7 +277,9 @@ beetles_targets <- read_csv(url, show_col_types = FALSE)
 The file contains the following columns
 
 ```{r}
-glimpse(beetles_targets)
+beetles_targets |> 
+  head() |> 
+  knitr::kable()
 ```
 
 and the time series for the focal sites
@@ -263,7 +297,13 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Beetles.html>
 
 ### Tick populations
 
-Target species for the tick population forecasts are Amblyomma americanum nymphal ticks. A. americanum is a vector of ehrlichiosis, tularemia, and southern tick-associated rash illness. The species is present in the eastern United States, and their populations are expanding. There is a correlation between tick population abundance and disease incidence, meaning forecasts for tick abundance have the potential to aid in our understanding of disease risk through time and space.
+![](https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/image-content-images/tick-image.jpg)
+
+Target species for the tick population forecasts are Amblyomma americanum nymphal ticks.
+A.
+americanum is a vector of ehrlichiosis, tularemia, and southern tick-associated rash illness.
+The species is present in the eastern United States, and their populations are expanding.
+There is a correlation between tick population abundance and disease incidence, meaning forecasts for tick abundance have the potential to aid in our understanding of disease risk through time and space.
 
 The beetles theme challenges you to forecast weekly Amblyomma americanum nymphal tick abundance at up-to 9 terrestrial NEON sites.
 
@@ -276,7 +316,7 @@ read_csv(url, show_col_types = FALSE) |>
   knitr::kable()
 ```
 
-The daily mean target file is located at the following URL.
+The weekly target file is located at the following URL.
 
 ```{r}
 "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
@@ -291,11 +331,12 @@ ticks_targets <- read_csv(url, show_col_types = FALSE)
 The file contains the following columns
 
 ```{r}
-glimpse(ticks_targets)
+ticks_targets |> 
+  head() |> 
+  knitr::kable()
 ```
 
 and the time series for the focal sites
-
 
 ```{r}
 ticks_targets |> 
@@ -307,6 +348,7 @@ ticks_targets |>
 ```
 
 Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Ticks.html>
+:::
 
 ## Explore the sites
 
@@ -324,8 +366,9 @@ leaflet() %>%
   addLayersControl(baseGroups=c('Imagery','OSM', 'Topo Map')) |> 
   addMarkers(data  = sites, popup=~as.character(site_id), group = ~as.character(Partner), clusterOptions = markerClusterOptions())
 ```
-<br /> <br />
-The following table lists all the sites in the NEON Ecological Forecasting Challenge. The columns with "theme" names incidate whether that site is included in that theme's target file. 
+
+<br /> <br /> The following table lists all the sites in the NEON Ecological Forecasting Challenge.
+The columns with "theme" names incidate whether that site is included in that theme's target file.
 
 ```{r echo = FALSE}
 site_list <- read_csv("../neon4cast_field_site_metadata.csv", show_col_types = FALSE) |> 
@@ -335,19 +378,4 @@ site_list <- read_csv("../neon4cast_field_site_metadata.csv", show_col_types = F
 
 ```{r echo = FALSE}
 site_list |> knitr::kable()
-```
-
-## Additional variables
-
-Additional NEON observations are provided that are not used to evaluate forecasts (thus are not targets)
-
-### Hourly water temperature
-
-Water temperature at multiple depths measured at the UTC 00 hour are available for the 7 NEON lake sites
-
-```{r}
-url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/supporting_data/project_id=neon4cast/aquatics-expanded-observations.csv.gz"
-
-aquatics_expanded <- read_csv(url, show_col_types = FALSE)
-glimpse(aquatics_expanded)
 ```

@@ -22,14 +22,6 @@ jobs:
            fetch-depth: 0
            set-safe-directory: '*'
 
-      - name: install deps
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE)
-          install.packages("bench")
-          install.packages("aws.s3")
-          #reticulate::install_python(version = '3.11.5')
-
       - name: install validator
         run: |
           pip install stac-validator

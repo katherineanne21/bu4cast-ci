@@ -201,7 +201,7 @@ A `pub_datetime` column will be added that denotes when a forecast was submitted
 ### Evaluation
 
 All forecasts are scored daily using new data until the full horizon of the forecast has been scored.
-Forecasts are scored using the `crps` and `logs` functions in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package.
+Forecasts are scored using the `crps` and `logs` functions in the [`scoringRules`](https://cran.r-project.org/web/packages/scoringRules/index.html) R package.  More information about the scoring metric can be found at [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
 
 ### Comparison
 

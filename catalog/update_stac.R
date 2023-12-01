@@ -20,4 +20,28 @@ rm(list = ls()) # remove all environmental vars between forecast and scores
 # scores
 source('catalog/scores/scores_models.R')
 
+rm(list = ls())
+
+# inventory
+source('catalog/inventory/create_inventory_page.R')
+
+rm(list = ls())
+
+# summaries
+source('catalog/summaries/summaries_models.R')
+
+rm(list = ls())
+
+# targets
+source('catalog/targets/create_targets_page.R')
+
+rm(list = ls())
+
+# noaa
+source('catalog/noaa_forecasts/noaa_forecasts.R')
+
+rm(list = ls())
+
+# sites
+source('catalog/sites/build_sites_page.R')
 

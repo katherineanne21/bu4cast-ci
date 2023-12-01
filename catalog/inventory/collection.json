@@ -57,8 +57,8 @@
     "temporal": {
       "interval": [
         [
-          "2023-01-10T00:00:00Z",
-          "2024-11-11T00:00:00Z"
+          "2023-01-01T00:00:00Z",
+          "2024-11-18T00:00:00Z"
         ]
       ]
     }
@@ -100,12 +100,22 @@
       "description": "unique project identifier"
     },
     {
+      "name": "pub_date",
+      "type": "date32[day]",
+      "description": {}
+    },
+    {
       "name": "path",
       "type": null,
       "description": "storage path for forecast data"
     },
     {
       "name": "path_full",
+      "type": null,
+      "description": {}
+    },
+    {
+      "name": "path_summaries",
       "type": null,
       "description": {}
     },

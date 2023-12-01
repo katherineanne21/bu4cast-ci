@@ -56,6 +56,12 @@ build_catalog <- function(){
         "href" = 'summaries/collection.json'
       ),
       list(
+        "rel"= "child",
+        "type"= "application/json",
+        "title"= "Sites",
+        "href" = 'sites/collection.json'
+      ),
+      list(
         "rel" = "parent",
         "type" = "application/json",
         "href" = "https://raw.githubusercontent.com/eco4cast/challenge-catalogs/main/catalog.json"

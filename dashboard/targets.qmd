@@ -45,6 +45,8 @@ If are you are getting started, we recommend the following focal sites for each 
 
 As you develop your forecasting skills and want to expand to more sites, the targets are available at all 81 NEON sites.
 
+More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
+
 ## Explore the targets and themes
 
 Information on the targets files for the five "themes" is below. In the tables, 

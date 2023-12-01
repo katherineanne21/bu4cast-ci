@@ -14,7 +14,9 @@ minioclient::mc_alias_set("osn",
 
 googlesheets4::gs4_deauth()
 registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
-  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id)
+  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+                !is.na(registered_models$`Which category best matches your modeling approach?`))
+
 
 for(i in 1:nrow(registered_models)){
 

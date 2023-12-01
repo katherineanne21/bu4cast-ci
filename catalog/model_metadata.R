@@ -12,11 +12,14 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-googlesheets4::gs4_deauth()
-registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
-  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
-                !is.na(registered_models$`Which category best matches your modeling approach?`))
+#googlesheets4::gs4_deauth()
+# registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
+#   dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+#                 !is.na(registered_models$`Which category best matches your modeling approach?`))
 
+registered_models <- gsheet::gsheet2tbl(config$model_metadata_gsheet) |>
+  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+                !is.na(`Which category best matches your modeling approach?`))
 
 for(i in 1:nrow(registered_models)){
 

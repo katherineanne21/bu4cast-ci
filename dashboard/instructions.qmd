@@ -43,7 +43,8 @@ Since forecasts can be submitted everyday, automation is important.  We provide 
 
 ## You can forecast at any of the NEON sites
 
-If are you are getting started, we recommend a set of focal sites for each of the five "themes". See [here](targets.qmd#sec-starting-sites) for the list. You are also welcome to submit forecasts to all NEON sites.
+If are you are getting started, we recommend a set of focal sites for each of the five "themes". See [here](targets.qmd#sec-starting-sites) for the list. You are also welcome to submit forecasts to all NEON sites. More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
+
 
 ## Forecast file format
 

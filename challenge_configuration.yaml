@@ -21,7 +21,7 @@ site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600
 site_thumbnail_title: "NEON Sites Map"
 site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
-targets_thumbnail: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
+targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
 targets_thumbnail_title: 'Test Image'
 targets_path: 'catalog/targets/'
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
@@ -75,14 +75,14 @@ catalog_config:
   forecast_path: 'catalog/forecasts/'
   scores_path: 'catalog/scores/'
   summaries_path: 'catalog/summaries/'
-  summaries_thumbnail: 'https://raw.githubusercontent.com/addelany/vera4cast/main/catalog/thumbnail_plots/bvr_edge.JPG'
-  summaries_thumbnail_title: "BVRE Shore Image"
+  summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
+  summaries_thumbnail_title: "NEON Image"
   inventory_path: 'catalog/inventory'
-  inventory_thumbnail: 'https://raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/catalog/thumbnail_plots/bvr_low.JPG'
-  inventory_thumbnail_title: "BVRE Reservoir Image"
+  inventory_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_forest.jpg'
+  inventory_thumbnail_title: "NEON Image"
   noaa_path: 'catalog/noaa_forecasts/'
-  noaa_thumbnail: 'https://raw.githubusercontent.com/addelany/vera4cast/main/catalog/thumbnail_plots/bvr_dusk.jpg'
-  noaa_thumbnail_title: "CCRE Reservoir Image"
+  noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
+  noaa_thumbnail_title: "NEON Image"
   aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/parquet/'
   aws_download_path_scores: 'bio230014-bucket01/challenges/scores/parquet/'
   summaries_download_path: 'bio230014-bucket01/vera4cast/forecasts/summaries/parquet/'

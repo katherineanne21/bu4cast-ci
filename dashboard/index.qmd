@@ -5,11 +5,11 @@ editor:
     wrap: 72
 ---
 
+We invite you to submit forecasts!
+
 The NEON Ecological Forecasting Challenge is an open platform for the ecological and data science communities to forecast data from [the National Ecological Observatory Network](https://www.neonscience.org) before they are collected.
 
 The Challenge is hosted by the [Ecological Forecasting Initiative Research Coordination Network](https://ecoforecast.org) and sponsored by the U.S. National Science Foundation. 
-
-We invite you to submit forecasts!
 
 ## Why a forecasting challenge?
 

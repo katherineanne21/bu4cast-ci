@@ -25,7 +25,11 @@ ggplot2::ggplot(ggplot2::aes(x = model_type)) +
 
 ## Catalog of forecast submissions and evaluations {#sec-spatiotemporal-asset-catalog}
 
-The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below). A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json)
+The catalog of submitted forecasts and the evaluation of the forecasts ("scores") is available through the SpatioTemporal Asset Catalogs browser (below).\ 
+
+The catalog provides the code that you can use to access forecasts and scores.\ 
+
+A full page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/catalog.json)\
 
 <br /> <br />
 

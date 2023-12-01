@@ -137,15 +137,24 @@ Here is an example of a forecast that uses a normal distribution:
 
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-climatology.csv.gz", show_col_types = FALSE)
-reactable::reactable(df)
+```
+```{r}
+df |> 
+  head() |> 
+  knitr::kable()
 ```
 
 For an ensemble (or sample) forecast, the `family` column uses the word `ensemble` to designate that it is a ensemble forecast and the parameter column is the ensemble member number (`1`, `2`, `3` ...)
 
 ```{r}
 df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/forecasts/raw/T20231102190926_aquatics-2023-10-19-persistenceRW.csv.gz", show_col_types = FALSE)
-reactable::reactable(df)
 ```
+```{r}
+df |> 
+  head() |> 
+  knitr::kable()
+```
+
 
 ## Submission process
 
@@ -207,9 +216,10 @@ Our [forecast performance](performance.qmd#performance) page includes evaluation
 
 ### Catalog
 
-Information for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page.
+Information and code for accessing the forecasts and scores can be found on our [forecast catalog](catalog.qmd#sec-spatiotemporal-asset-catalog) page.
 
 ## Questions?
 
-Thanks for reading this document!
+Thanks for reading this document!\
+
 If you still have questions about how to submit your forecast to the NEON Ecological Forecasting Challenge, we encourage you to email Dr. Quinn Thomas (rqthomas{at}vt.edu).

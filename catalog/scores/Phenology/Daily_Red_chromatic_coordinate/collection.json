@@ -53,6 +53,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/baseline_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
@@ -69,11 +74,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -153,7 +153,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-03T00:00:00Z"
+          "2024-01-04T00:00:00Z"
         ]
       ]
     }

@@ -22,9 +22,9 @@ jobs:
            fetch-depth: 0
            set-safe-directory: '*'
 
-      #- name: install validator
-      #  run: |
-      #    pip install stac-validator
+      - name: install validator
+        run: |
+          pip install stac-validator
 
       - name: Render
         shell: Rscript {0}

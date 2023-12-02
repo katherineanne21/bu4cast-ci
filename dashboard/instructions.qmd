@@ -147,7 +147,7 @@ df <- readr::read_csv("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/
 ```
 ```{r}
 df |> 
-  arrange(variable, site_id, datetime, parameter) |> 
+  dplyr::arrange(variable, site_id, datetime, parameter) |> 
   head() |> 
   knitr::kable()
 ```

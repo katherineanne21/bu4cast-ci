@@ -76,12 +76,14 @@ layout_column_wrap(
   value_box(
     title = "Most recent data for model training", 
     value = most_recent_targets$max,
-    showcase = bs_icon("bullseye")
+    showcase = bs_icon("bullseye"),
+    theme_color = "info" 
   ),
     value_box(
     title = "Number of years of data for model training", 
     value = round(as.numeric(most_recent_targets$max - most_recent_targets$min) /365, 2),
-    showcase = bs_icon("bullseye")
+    showcase = bs_icon("bullseye"),
+    theme_color = "info" 
   ),
     value_box(
     title = "Number of variables being forecasted", 

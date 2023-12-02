@@ -33,7 +33,7 @@ Only the top five performing models are shown.
 reference_datetimes <- arrow::open_dataset("../cache/summaries") |> 
   dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>  
   dplyr::collect() |> 
-    group_by(variable) |>
+  group_by(variable) |>
   dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(1))))
 
 config <- yaml::read_yaml("../challenge_configuration.yaml")
@@ -270,7 +270,6 @@ Forecast summaries are available [here](https://radiantearth.github.io/stac-brow
 
 ```{r}
 best_models <- best_P1W_scores |> filter(variable == "amblyomma_americanum") |> pull(model_id)
-
 
 df_P1W |> 
   filter(variable == c("amblyomma_americanum"),

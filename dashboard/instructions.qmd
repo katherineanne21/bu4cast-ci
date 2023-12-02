@@ -11,7 +11,7 @@ editor:
 We provide an overview of the steps for submitting with the details below:
 
 1)  Explore the data (e.g., targets) and build your forecast model.
-2)  Register and describe you model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses.
+2)  Register and describe you model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses. Use neon4cast as the challenge you are registering for. 
 3)  Generate a forecast!
 4)  Write the forecast output to a file that follows our standardized format (described below).
 5)  Submit your forecast using an R function (provided below).

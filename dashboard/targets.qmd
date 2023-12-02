@@ -105,7 +105,7 @@ terrestrial_targets <- read_csv(url_P1D, show_col_types = FALSE)
 
 The file contains the following columns
 
-```{r}
+```{r echo = FALSE}
 terrestrial_targets |> 
   head() |> 
   knitr::kable()
@@ -165,7 +165,7 @@ aquatics_targets <- read_csv(url, show_col_types = FALSE)
 
 The file contains the following columns
 
-```{r}
+```{r echo = FALSE}
 aquatics_targets |> 
   head() |> 
   knitr::kable()
@@ -224,7 +224,7 @@ phenology_targets <- read_csv(url, show_col_types = FALSE)
 
 The file contains the following columns
 
-```{r}
+```{r echo = FALSE}
 phenology_targets |> 
   head() |> 
   knitr::kable()
@@ -276,7 +276,7 @@ beetles_targets <- read_csv(url, show_col_types = FALSE)
 
 The file contains the following columns
 
-```{r}
+```{r echo = FALSE}
 beetles_targets |> 
   head() |> 
   knitr::kable()
@@ -330,7 +330,7 @@ ticks_targets <- read_csv(url, show_col_types = FALSE)
 
 The file contains the following columns
 
-```{r}
+```{r echo = FALSE}
 ticks_targets |> 
   head() |> 
   knitr::kable()

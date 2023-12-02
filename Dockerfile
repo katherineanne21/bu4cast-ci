@@ -22,7 +22,7 @@ RUN apt-get -y install python3 python3-pip
 
 RUN install2.r devtools remotes reticulate
 
-RUN R -e "remotes::install_github(c('cboettig/minioclient','eco4cast/stac4cast', 'eco4cast/EFIstandards','cboettig/aws.s3','rqthomas/cronR','eco4cast/score4cast','EcoForecast/ecoforecastR','eco4cast/neon4cast','cboettig/prov', 'eco4cast/read4cast','eco4cast/gefs4cast'))"
+RUN R -e "remotes::install_github(c('cboettig/minioclient','eco4cast/stac4cast', 'eco4cast/EFIstandards','cboettig/aws.s3','eco4cast/score4cast','EcoForecast/ecoforecastR','eco4cast/neon4cast','cboettig/prov', 'eco4cast/read4cast','eco4cast/gefs4cast'))"
 
 RUN install2.r arrow renv rjags neonstore ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet
 

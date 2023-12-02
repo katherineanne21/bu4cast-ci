@@ -10,7 +10,7 @@ editor:
 
 We provide an overview of the steps for submitting with the details below:
 
-1)  Explore the data (e.g., targets) and build your forecast model.
+1)  Explore the [data](targets.qmd#sec-targets) (e.g., targets) and build your forecast model.
 2)  Register and describe your model at <https://forms.gle/kg2Vkpho9BoMXSy57>. You are not required to register if your forecast submission uses the word "example" in your model_id". Any forecasts with "example" in the model_id will not be used in forecast evaluation analyses. Use neon4cast as the challenge you are registering for. 
 3)  Generate a forecast!
 4)  Write the forecast output to a file that follows our standardized format (described below).
@@ -55,10 +55,8 @@ Therefore we recommend only submitting forecasts of the weekly variables on Sund
 
 ## You can forecast at any of the NEON sites
 
-If are you are getting started, we recommend a set of focal sites for each of the five "themes".
-See [here](targets.qmd#sec-starting-sites) for the list.
-You are also welcome to submit forecasts to all NEON sites.
-More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
+If are you are getting started, we recommend a set of [focal sites](targets.qmd#sec-starting-sites) for each of the five "themes".
+You are also welcome to submit forecasts to all  or a subset of NEON sites . More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
 
 ## Forecast file format
 
@@ -66,8 +64,7 @@ The file is a csv format with the following columns:
 
 -   `project_id`: use `neon4cast`
 
--   `model_id`: the short name of the model defined as the model_id in the file name (see below) and in your registration.
-    The model_id should have no spaces.
+-   `model_id`: the short name of the model defined as the model_id in your registration. The model_id should have no spaces.
     `model_id` should reflect a method to forecast one or a set of target variables and must be unique to the neon4cast challenge.
 
 -   `datetime`: forecast timestamp.
@@ -128,8 +125,7 @@ Ensemble (or sample) forecasts use the `family` value of `ensemble` and the `par
 
 When forecasts using the ensemble family are scored, we assume that the ensemble is a set of equally likely realizations that are sampled from a distribution that is comparable to that of the observations (i.e., no broad adjustments are required to make the ensemble more consistent with observations).
 This is referred to as a "perfect ensemble" by Bröcker and Smith (2007).
-Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps` and kernel density estimation using a Gaussian kernel for the `logs`).
-Kernel density estimation uses the default bandwidth produced by the `bw.nrd` function in the R `stats` package.
+Ensemble (or sample) forecasts are transformed to a probability distribution function (e.g., dressed) using the default methods in the `scoringRules` R package (empirical version of the quantile decomposition for the `crps`).
 
 ### Example forecasts
 

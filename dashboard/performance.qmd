@@ -26,7 +26,7 @@ This page visualizes the forecasts and forecast performance for the focal target
 
 ## Most recent forecasts {#sec-performance}
 
-Only the top five performing models are shown.
+Only the top performing models from the last 30 days are shown.
 
 ```{r echo = FALSE}
 ### GET FORECASTS

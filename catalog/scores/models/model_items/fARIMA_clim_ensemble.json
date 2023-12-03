@@ -46,7 +46,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: LECO, LEWI, MART, MAYF, MCDI, MCRA, KING, POSE, REDB, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, ARIK, BARC, BLDE, BLUE, BLWA, SUGG, SYCA, WALK, PRIN, WLOU\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-10",
-    "end_datetime": "2023-12-30",
+    "end_datetime": "2023-12-31",
     "providers": [
       {
         "url": "pending",

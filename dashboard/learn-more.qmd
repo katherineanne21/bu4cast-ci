@@ -1,7 +1,5 @@
 # Learn more
 
-A video introduction to the NEON Forecasting Challenge and highlights results from forecasts submitted to the Phenology and Aquatics themes. [https://www.youtube.com/watch?v=r3oHH1AuItI](https://www.youtube.com/watch?v=r3oHH1AuItI)
-
 ## Tutorials
 
 Introductory tutorial for submitting to Challenge focused on aquatics theme: [https://github.com/OlssonF/NEON-forecast-challenge-workshop](https://github.com/OlssonF/NEON-forecast-challenge-workshop). [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
@@ -42,8 +40,9 @@ Woelmer, W. M., Bradley, L. M., Haber, L. T., Klinges, D. H., Lewis, A. S. L., M
 
 Woelmer, W.M., T.N. Moore, M.E. Lofton, R.Q. Thomas, and C.C. Carey. 2023. Embedding communication concepts in forecasting training increases students’ understanding of ecological uncertainty Ecosphere 14: e4628 [https://doi.org/10.1002/ecs2.4628](https://doi.org/10.1002/ecs2.4628)
 
+## Videos
 
-
+{{< video https://www.youtube.com/watch?v=r3oHH1AuItI >}}
 
 
 

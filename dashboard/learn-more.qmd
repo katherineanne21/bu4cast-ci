@@ -1,10 +1,12 @@
 # Learn more
 
-An introduction to ecological forecasting, shares how the NEON Forecasting Challenge platform works, how people can participate in the Challenge, and highlights results from forecasts submitted to the Phenology and Aquatics themes in the Challenge. [https://www.youtube.com/watch?v=r3oHH1AuItI](https://www.youtube.com/watch?v=r3oHH1AuItI)
+A video introduction to the NEON Forecasting Challenge and highlights results from forecasts submitted to the Phenology and Aquatics themes. [https://www.youtube.com/watch?v=r3oHH1AuItI](https://www.youtube.com/watch?v=r3oHH1AuItI)
+
+## Tutorials
 
 Introductory tutorial for submitting to Challenge focused on aquatics theme: [https://github.com/OlssonF/NEON-forecast-challenge-workshop](https://github.com/OlssonF/NEON-forecast-challenge-workshop). [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
 
-More advanced tutorial for submitting to Challenge focused on terrestrial theme: [https://github.com/rqthomas/FluxCourseForecast](https://github.com/rqthomas/FluxCourseForecast)
+More advanced tutorial for submitting to Challenge focused on terrestrial theme: [https://github.com/rqthomas/FluxCourseForecast](https://github.com/mdietze/FluxCourseForecast)
 
 Other tutorial materials about [ecological forecasting](https://ecoforecast.org/resources/educational-resources/)
 

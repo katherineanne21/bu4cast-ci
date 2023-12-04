@@ -102,7 +102,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB\n\nVariables: Daily latent_heat_flux, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Dissolved_oxygen, Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Water_temperature, Weekly beetle_community_abundance, Weekly beetle_community_richness, Weekly Amblyomma_americanum_population",
     "start_datetime": "2023-01-01",
-    "end_datetime": "2024-11-18",
+    "end_datetime": "2024-11-25",
     "providers": [
       {
         "url": "pending",

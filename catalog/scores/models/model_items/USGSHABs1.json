@@ -17,14 +17,14 @@
     "type": "MultiPoint",
     "coordinates": [
       [-87.7982, 32.5415],
-      [-88.1589, 31.8534],
-      [-84.4374, 31.1854]
+      [-84.4374, 31.1854],
+      [-88.1589, 31.8534]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BLWA, TOMB, FLNT\n\nVariables: Daily Chlorophyll_a",
+    "description": "\nmodel info: NA\n\nSites: BLWA, FLNT, TOMB\n\nVariables: Daily Chlorophyll_a",
     "start_datetime": "2023-11-12",
-    "end_datetime": "2024-01-04",
+    "end_datetime": "2024-01-05",
     "providers": [
       {
         "url": "pending",

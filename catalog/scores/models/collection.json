@@ -58,26 +58,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/lasso.json"
     },
     {
@@ -93,12 +73,42 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -118,17 +128,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -208,22 +208,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/prophet_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareSimstrat_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flare_ler_baselines.json"
+      "href": "model_items/procHinshelwoodMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodMonod.json"
+      "href": "model_items/prophet_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flare_ler_baselines.json"
     },
     {
       "rel": "item",
@@ -243,12 +243,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
+      "href": "model_items/procCTMIMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procCTMIMonod.json"
+      "href": "model_items/procEppleyNorbergMonod.json"
     },
     {
       "rel": "item",

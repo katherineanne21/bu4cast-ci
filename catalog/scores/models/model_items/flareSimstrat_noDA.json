@@ -16,17 +16,17 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-82.0177, 29.6878],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-82.0177, 29.6878]
+      [-99.2531, 47.1298]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BARC, CRAM, PRLA, PRPO, SUGG\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: SUGG, BARC, CRAM, PRLA, PRPO\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-01-01",
+    "end_datetime": "2024-01-02",
     "providers": [
       {
         "url": "pending",

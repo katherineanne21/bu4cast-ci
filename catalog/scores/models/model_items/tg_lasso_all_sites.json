@@ -50,6 +50,14 @@
       [-149.6106, 68.6307],
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
+      [-84.2826, 35.9641],
+      [-81.9934, 29.6893],
+      [-155.3173, 19.5531],
+      [-105.546, 40.2759],
+      [-78.1395, 38.8929],
+      [-76.56, 38.8901],
+      [-119.7323, 37.1088],
+      [-119.2622, 37.0334],
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
       [-103.0293, 40.4619],
@@ -88,21 +96,13 @@
       [-105.5824, 40.0543],
       [-100.9154, 46.7697],
       [-99.0588, 35.4106],
-      [-112.4524, 40.1776],
-      [-84.2826, 35.9641],
-      [-81.9934, 29.6893],
-      [-155.3173, 19.5531],
-      [-105.546, 40.2759],
-      [-78.1395, 38.8929],
-      [-76.56, 38.8901],
-      [-119.7323, 37.1088],
-      [-119.2622, 37.0334]
+      [-112.4524, 40.1776]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-01-05",
+    "end_datetime": "2024-01-06",
     "providers": [
       {
         "url": "pending",
@@ -128,8 +128,8 @@
       "Daily Dissolved_oxygen",
       "Daily Chlorophyll_a",
       "Daily Water_temperature",
-      "Daily Green_chromatic_coordinate",
       "Daily Red_chromatic_coordinate",
+      "Daily Green_chromatic_coordinate",
       "Weekly beetle_community_abundance",
       "Weekly beetle_community_richness",
       "Weekly Amblyomma_americanum_population"
@@ -303,15 +303,15 @@
     },
     "6": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Green_chromatic_coordinate",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "7": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=rcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=rcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "7": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Green_chromatic_coordinate",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=tg_lasso_all_sites?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "8": {
       "type": "application/x-parquet",

@@ -13,24 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-=======
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "href": "model_items/tg_ets.json"
     },
     {
@@ -41,11 +23,7 @@
     {
       "rel": "item",
       "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/tg_randfor.json"
-=======
       "href": "model_items/tg_precip_lm_all_sites.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     },
     {
       "rel": "item",
@@ -60,9 +38,6 @@
     {
       "rel": "item",
       "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/tg_temp_lm.json"
-=======
       "href": "model_items/persistenceRW.json"
     },
     {
@@ -83,6 +58,26 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/lasso.json"
     },
     {
@@ -98,32 +93,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -138,127 +128,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/null.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm.json"
-=======
-      "href": "model_items/fARIMA_clim_ensemble.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_lasso.json"
-=======
-      "href": "model_items/flareGLM.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -293,24 +163,32 @@
     {
       "rel": "item",
       "type": "application/json",
-=======
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fTSLM_lag.json"
+      "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fTSLM_lag.json"
     },
     {
       "rel": "item",
@@ -325,7 +203,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/prophet_clim_ensemble.json"
+      "href": "model_items/procBlanchardMonod.json"
     },
     {
       "rel": "item",
@@ -341,14 +219,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flare_ler_baselines.json"
-<<<<<<< HEAD
-=======
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodMonod.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     },
     {
       "rel": "item",
@@ -363,30 +238,17 @@
     {
       "rel": "item",
       "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/procHinshelwoodMonod.json"
-=======
       "href": "model_items/GLEON_physics.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     },
     {
       "rel": "item",
       "type": "application/json",
-<<<<<<< HEAD
-      "href": "model_items/procBlanchardMonod.json"
-=======
       "href": "model_items/procEppleyNorbergMonod.json"
->>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procCTMIMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
     },
     {
       "rel": "item",
@@ -545,13 +407,13 @@
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org",
+      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org\"",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
       "href": "pending",

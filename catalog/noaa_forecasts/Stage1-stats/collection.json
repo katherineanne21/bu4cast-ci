@@ -122,13 +122,13 @@
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1-stats/parquet/0?endpoint_override=s3.flare-forecast.org",
+      "href": "\"s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1-stats/parquet/0?endpoint_override=s3.flare-forecast.org\"",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1-stats/parquet/0?endpoint_override=s3.flare-forecast.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1-stats/parquet/0?endpoint_override=s3.flare-forecast.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
       "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg",

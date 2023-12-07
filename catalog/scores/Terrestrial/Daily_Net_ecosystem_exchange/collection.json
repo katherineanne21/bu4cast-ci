@@ -58,7 +58,34 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< HEAD
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+=======
+      "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm.json"
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< HEAD
+      "href": "../../models/model_items/climatology.json"
+=======
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -68,17 +95,18 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
+      "href": "../../models/model_items/tg_precip_lm.json"
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -88,9 +116,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+<<<<<<< HEAD
+=======
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -133,7 +169,11 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
+<<<<<<< HEAD
           "2024-01-11T00:00:00Z"
+=======
+          "2024-01-10T00:00:00Z"
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
         ]
       ]
     }

@@ -45,9 +45,15 @@
     ]
   },
   "properties": {
+<<<<<<< HEAD
     "description": "\nmodel info: NA\n\nSites: KING, LECO, LEWI, MART, MAYF, MCDI, POSE, REDB, MCRA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, ARIK, BARC, BLDE, BLUE, BLWA, SUGG, SYCA, WALK, PRIN, WLOU, TOMB\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-10",
     "end_datetime": "2024-01-04",
+=======
+    "description": "\nmodel info: NA\n\nSites: LECO, LEWI, MART, MAYF, MCDI, MCRA, KING, POSE, REDB, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, ARIK, BARC, BLDE, BLUE, BLWA, SUGG, SYCA, WALK, PRIN, WLOU, TOMB\n\nVariables: Daily Water_temperature",
+    "start_datetime": "2023-11-10",
+    "end_datetime": "2024-01-03",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     "providers": [
       {
         "url": "pending",

@@ -16,6 +16,7 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+<<<<<<< HEAD
       [-119.7323, 37.1088],
       [-119.2622, 37.0334],
       [-110.8355, 31.9107],
@@ -63,6 +64,51 @@
       [-105.546, 40.2759],
       [-78.1395, 38.8929],
       [-76.56, 38.8901],
+=======
+      [-71.2874, 44.0639],
+      [-104.7456, 40.8155],
+      [-72.1727, 42.5369],
+      [-89.5373, 46.2339],
+      [-103.0293, 40.4619],
+      [-96.6129, 39.1104],
+      [-89.5857, 45.4937],
+      [-122.3303, 45.7624],
+      [-88.1612, 31.8539],
+      [-95.1921, 39.0404],
+      [-145.7514, 63.8811],
+      [-96.5631, 39.1008],
+      [-105.546, 40.2759],
+      [-156.6194, 71.2824],
+      [-106.8425, 32.5907],
+      [-119.2622, 37.0334],
+      [-89.5864, 45.5089],
+      [-87.3933, 32.9505],
+      [-99.1066, 47.1617],
+      [-149.3705, 68.6611],
+      [-99.2413, 47.1282],
+      [-99.0588, 35.4106],
+      [-149.2133, 63.8758],
+      [-76.56, 38.8901],
+      [-78.0418, 39.0337],
+      [-83.5019, 35.689],
+      [-84.2826, 35.9641],
+      [-110.8355, 31.9107],
+      [-100.9154, 46.7697],
+      [-84.4686, 31.1948],
+      [-87.8039, 32.5417],
+      [-80.5248, 37.3783],
+      [-105.5824, 40.0543],
+      [-121.9519, 45.8205],
+      [-67.0769, 18.0213],
+      [-119.006, 37.0058],
+      [-97.57, 33.4012],
+      [-119.7323, 37.1088],
+      [-112.4524, 40.1776],
+      [-81.4362, 28.1251],
+      [-78.1395, 38.8929],
+      [-109.3883, 38.2483],
+      [-155.3173, 19.5531],
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       [-87.7982, 32.5415],
       [-147.504, 65.1532],
       [-105.5442, 40.035],
@@ -90,6 +136,13 @@
       [-88.1589, 31.8534],
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
+<<<<<<< HEAD
+=======
+      [-110.5391, 44.9535],
+      [-147.5026, 65.154],
+      [-66.8687, 17.9696],
+      [-81.9934, 29.6893],
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-119.2575, 37.0597],
@@ -98,9 +151,15 @@
     ]
   },
   "properties": {
+<<<<<<< HEAD
     "description": "\nmodel info: NA\n\nSites: SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE\n\nVariables: Daily Green_chromatic_coordinate, Daily latent_heat_flux, Daily Dissolved_oxygen, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Water_temperature, Daily Chlorophyll_a",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-01-08",
+=======
+    "description": "\nmodel info: NA\n\nSites: BART, CPER, HARV, UNDE, STER, KONA, TREE, ABBY, LENO, UKFS, DEJU, KONZ, RMNP, BARR, JORN, SOAP, STEI, TALL, DCFS, TOOL, WOOD, OAES, HEAL, SERC, BLAN, GRSM, ORNL, SRER, NOGP, JERC, DELA, MLBS, NIWO, WREF, LAJA, TEAK, CLBJ, SJER, ONAQ, DSNY, SCBI, MOAB, PUUM, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, YELL, BONA, GUAN, OSBS, ARIK, BARC, BIGC, BLDE, BLUE\n\nVariables: Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Green_chromatic_coordinate, Daily latent_heat_flux, Daily Red_chromatic_coordinate, Daily Water_temperature, Daily Chlorophyll_a",
+    "start_datetime": "2023-11-14",
+    "end_datetime": "2024-01-07",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     "providers": [
       {
         "url": "pending",
@@ -123,6 +182,11 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
+<<<<<<< HEAD
+=======
+      "Daily Net_ecosystem_exchange",
+      "Daily Dissolved_oxygen",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "Daily Green_chromatic_coordinate",
       "Daily latent_heat_flux",
       "Daily Dissolved_oxygen",
@@ -282,6 +346,21 @@
     },
     "3": {
       "type": "application/x-parquet",
+<<<<<<< HEAD
+=======
+      "title": "Database Access for Daily Net_ecosystem_exchange",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Dissolved_oxygen",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "5": {
+      "type": "application/x-parquet",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "title": "Database Access for Daily Green_chromatic_coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=gcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"

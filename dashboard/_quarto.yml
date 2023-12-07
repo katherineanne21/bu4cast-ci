@@ -20,7 +20,8 @@ website:
         icon: droplet
       - href: catalog.qmd
         icon: book
-
+      - href: learn-more.qmd
+        icon: check2-circle
   page-footer:
     left: "CC-BY"
     right:

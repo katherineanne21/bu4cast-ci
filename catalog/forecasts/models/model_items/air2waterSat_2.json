@@ -55,7 +55,11 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR\n\nVariables: Daily Dissolved_oxygen, Daily Water_temperature",
     "start_datetime": "2023-11-14",
+<<<<<<< HEAD
     "end_datetime": "2024-01-09",
+=======
+    "end_datetime": "2024-01-08",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     "providers": [
       {
         "url": "pending",

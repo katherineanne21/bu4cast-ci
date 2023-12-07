@@ -55,7 +55,11 @@
   "properties": {
     "description": [],
     "start_datetime": "2023-10-11",
+<<<<<<< HEAD
     "end_datetime": "2024-10-30",
+=======
+    "end_datetime": "2024-10-29",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
     "providers": [
       {
         "url": "pending",

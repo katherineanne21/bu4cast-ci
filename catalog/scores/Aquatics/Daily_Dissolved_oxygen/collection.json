@@ -13,6 +13,7 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< HEAD
       "href": "../../models/model_items/climatology.json"
     },
     {
@@ -28,6 +29,8 @@
     {
       "rel": "item",
       "type": "application/json",
+=======
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "href": "../../models/model_items/tg_ets.json"
     },
     {
@@ -53,6 +56,48 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< HEAD
+=======
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
@@ -63,11 +108,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
       "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
@@ -163,7 +204,11 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
+<<<<<<< HEAD
           "2024-10-30T00:00:00Z"
+=======
+          "2024-10-29T00:00:00Z"
+>>>>>>> 97a9410ae26143f721542ee168dffa6c1ef4cef1
         ]
       ]
     }

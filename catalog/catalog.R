@@ -52,7 +52,7 @@ build_catalog <- function(){
       list(
         "rel"= "child",
         "type"= "application/json",
-        "title"= "Summaries",
+        "title"= "Forecast Summaries",
         "href" = 'summaries/collection.json'
       ),
       list(

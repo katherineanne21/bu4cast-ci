@@ -58,7 +58,7 @@
       "interval": [
         [
           "2013-08-30T00:00:00Z",
-          "2023-11-29T00:00:00Z"
+          "2023-12-06T00:00:00Z"
         ]
       ]
     }
@@ -102,7 +102,7 @@
   ],
   "assets": {
     "thumbnail": {
-      "href": "https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"

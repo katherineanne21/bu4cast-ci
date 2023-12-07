@@ -58,6 +58,6 @@ stac4cast::build_inventory(table_schema = inventory_theme_df,
                            aws_download_path = config$inventory_bucket,
                            #link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                            link_items = NULL,
-                           thumbnail_link = catalog_config$forecasts_thumbnail,
-                           thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                           thumbnail_link = catalog_config$inventory_thumbnail,
+                           thumbnail_title = catalog_config$inventory_thumbnail_title,
                            project_identifier = config$project_id)

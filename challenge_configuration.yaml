@@ -63,7 +63,7 @@ variable_groups:
   Ticks:
     variable: ['amblyomma_americanum']
     duration: ['P1W']
-    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/image-content-images/tick-image.jpg'
+    thumbnail_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/tick_drag.jpg'
     thumbnail_title: 'NEON Ticks'
 catalog_config:
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'

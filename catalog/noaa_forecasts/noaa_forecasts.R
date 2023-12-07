@@ -101,8 +101,8 @@ for (i in 1:length(config$noaa_forecast_groups)){ ## organize variable groups
                                  destination_path = paste0(catalog_config$noaa_path, config$noaa_forecast_groups[i]),
                                  aws_download_path = config$noaa_forecast_bucket,
                                  link_items = NULL,
-                                 thumbnail_link = catalog_config$forecasts_thumbnail,
-                                 thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                                 thumbnail_link = catalog_config$noaa_thumbnail,
+                                 thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  group_sites = find_noaa_sites$field_site_id,
                                  path_item = config$noaa_forecast_group_paths[i])
 

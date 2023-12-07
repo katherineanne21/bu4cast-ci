@@ -67,8 +67,8 @@ stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
                                  destination_path = catalog_config$noaa_path,
                                  aws_download_path = config$noaa_forecast_bucket,
                                  link_items = stac4cast::generate_group_values(group_values = config$noaa_forecast_groups),
-                                 thumbnail_link = catalog_config$forecasts_thumbnail,
-                                 thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                                 thumbnail_link = catalog_config$noaa_thumbnail,
+                                 thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  model_child = FALSE)
 
 

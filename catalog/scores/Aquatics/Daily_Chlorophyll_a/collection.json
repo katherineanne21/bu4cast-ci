@@ -108,12 +108,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
+      "href": "../../models/model_items/procCTMIMonod.json"
     },
     {
       "rel": "item",
@@ -123,7 +118,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procCTMIMonod.json"
+      "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",

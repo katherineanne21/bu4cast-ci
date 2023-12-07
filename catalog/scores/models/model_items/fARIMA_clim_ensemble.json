@@ -22,16 +22,16 @@
       [-87.4077, 32.9604],
       [-96.443, 38.9459],
       [-122.1655, 44.2596],
+      [-96.6038, 39.1051],
+      [-78.1473, 38.8943],
+      [-111.7979, 40.7839],
       [-105.5442, 40.035],
       [-89.4737, 46.2097],
       [-66.9868, 18.1135],
       [-84.4374, 31.1854],
       [-66.7987, 18.1741],
       [-72.3295, 42.4719],
-      [-96.6038, 39.1051],
-      [-78.1473, 38.8943],
       [-97.7823, 33.3785],
-      [-111.7979, 40.7839],
       [-82.0177, 29.6878],
       [-111.5081, 33.751],
       [-102.4471, 39.7582],
@@ -45,7 +45,7 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: LECO, LEWI, MART, MAYF, MCDI, MCRA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, POSE, PRIN, REDB, SUGG, SYCA, ARIK, BARC, BLDE, BLUE, BLWA, WALK, WLOU, TOMB\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: LECO, LEWI, MART, MAYF, MCDI, MCRA, KING, POSE, REDB, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, PRIN, SUGG, SYCA, ARIK, BARC, BLDE, BLUE, BLWA, WALK, WLOU, TOMB\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-10",
     "end_datetime": "2024-01-04",
     "providers": [

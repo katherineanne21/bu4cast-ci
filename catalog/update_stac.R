@@ -7,7 +7,7 @@ library(lubridate)
 #  reticulate::use_miniconda()
 
 #Generate EFI model metadata
-#source('catalog/model_metadata.R')
+source('catalog/model_metadata.R')
 
 # catalog
 print('BUILDING CATALOG')

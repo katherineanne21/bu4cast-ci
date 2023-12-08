@@ -58,7 +58,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
+      "href": "model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -68,7 +78,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -103,22 +118,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -129,6 +129,31 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareSimstrat.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/mean.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procEppleyNorbergSteele.json"
     },
     {
       "rel": "item",
@@ -148,37 +173,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareSimstrat.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergSteele.json"
     },
     {
       "rel": "item",
@@ -243,12 +243,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procCTMIMonod.json"
+      "href": "model_items/procEppleyNorbergMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
+      "href": "model_items/procCTMIMonod.json"
     },
     {
       "rel": "item",

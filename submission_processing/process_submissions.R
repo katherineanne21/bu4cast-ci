@@ -196,6 +196,8 @@ if(length(submissions) > 0){
     }
   }
 
+  message("writing inventory")
+
   arrow::write_dataset(inventory_df, path = s3_inventory)
 
   s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket),

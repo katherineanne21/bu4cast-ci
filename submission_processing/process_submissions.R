@@ -180,6 +180,10 @@ if(length(submissions) > 0){
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
           minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
+
+        rm(fc)
+        gc()
+
       } else {
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
@@ -195,6 +199,8 @@ if(length(submissions) > 0){
       }
     }
   }
+
+  message("writing inventory")
 
   arrow::write_dataset(inventory_df, path = s3_inventory)
 

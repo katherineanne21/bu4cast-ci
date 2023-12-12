@@ -24,7 +24,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: BLWA, TOMB, FLNT\n\nVariables: Daily Chlorophyll_a",
     "start_datetime": "2023-11-12",
-    "end_datetime": "2024-01-09",
+    "end_datetime": "2024-01-12",
     "providers": [
       {
         "url": "pending",

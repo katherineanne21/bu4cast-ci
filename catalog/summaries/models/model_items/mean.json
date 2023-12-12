@@ -16,59 +16,59 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-122.3303, 45.7624],
+      [-149.2133, 63.8758],
+      [-84.4686, 31.1948],
+      [-104.7456, 40.8155],
+      [-99.1066, 47.1617],
+      [-112.4524, 40.1776],
+      [-84.2826, 35.9641],
+      [-89.5864, 45.5089],
+      [-103.0293, 40.4619],
       [-156.6194, 71.2824],
-      [-96.6129, 39.1104],
+      [-71.2874, 44.0639],
       [-96.5631, 39.1008],
       [-67.0769, 18.0213],
-      [-84.2826, 35.9641],
-      [-145.7514, 63.8811],
-      [-149.3705, 68.6611],
-      [-87.8039, 32.5417],
-      [-81.4362, 28.1251],
-      [-83.5019, 35.689],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535],
-      [-71.2874, 44.0639],
-      [-80.5248, 37.3783],
-      [-109.3883, 38.2483],
-      [-105.5824, 40.0543],
-      [-155.3173, 19.5531],
-      [-105.546, 40.2759],
-      [-84.4686, 31.1948],
+      [-88.1612, 31.8539],
+      [-147.5026, 65.154],
+      [-97.57, 33.4012],
       [-106.8425, 32.5907],
+      [-96.6129, 39.1104],
+      [-149.3705, 68.6611],
       [-89.5857, 45.4937],
       [-95.1921, 39.0404],
-      [-100.9154, 46.7697],
+      [-78.0418, 39.0337],
+      [-109.3883, 38.2483],
+      [-105.5824, 40.0543],
       [-81.9934, 29.6893],
+      [-119.2622, 37.0334],
+      [-110.8355, 31.9107],
+      [-80.5248, 37.3783],
+      [-100.9154, 46.7697],
+      [-122.3303, 45.7624],
+      [-81.4362, 28.1251],
+      [-83.5019, 35.689],
       [-66.8687, 17.9696],
-      [-72.1727, 42.5369],
-      [-88.1612, 31.8539],
+      [-121.9519, 45.8205],
+      [-145.7514, 63.8811],
       [-76.56, 38.8901],
       [-119.7323, 37.1088],
+      [-87.8039, 32.5417],
+      [-78.1395, 38.8929],
+      [-110.5391, 44.9535],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-155.3173, 19.5531],
+      [-105.546, 40.2759],
       [-87.3933, 32.9505],
       [-119.006, 37.0058],
-      [-99.1066, 47.1617],
-      [-104.7456, 40.8155],
-      [-99.0588, 35.4106],
-      [-112.4524, 40.1776],
-      [-89.5864, 45.5089],
-      [-89.5373, 46.2339],
-      [-78.0418, 39.0337],
-      [-119.2622, 37.0334],
-      [-149.2133, 63.8758],
-      [-78.1395, 38.8929],
-      [-103.0293, 40.4619],
-      [-97.57, 33.4012],
-      [-147.5026, 65.154],
-      [-110.8355, 31.9107]
+      [-72.1727, 42.5369],
+      [-99.0588, 35.4106]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-11-20",
-    "end_datetime": "2024-11-25",
+    "end_datetime": "2024-12-02",
     "providers": [
       {
         "url": "pending",
@@ -91,8 +91,8 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Weekly beetle_community_abundance",
-      "Weekly beetle_community_richness"
+      "Weekly beetle_community_richness",
+      "Weekly beetle_community_abundance"
     ],
     "table:columns": [
       {
@@ -230,15 +230,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Weekly beetle_community_abundance",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=abundance/model_id=mean?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=abundance/model_id=mean?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Weekly beetle_community_richness",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=richness/model_id=mean?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=richness/model_id=mean?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Weekly beetle_community_abundance",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=abundance/model_id=mean?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/parquet/duration=P1W/variable=abundance/model_id=mean?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

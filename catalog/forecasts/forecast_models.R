@@ -34,6 +34,7 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 # site_id <- 'fcre'
 # model_id <- 'climatology'
 
+print('FIND FORECAST TABLE SCHEMA')
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
   #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
@@ -44,18 +45,19 @@ forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucke
 #                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
 #   collect()
 
+print('FIND INVENTORY BUCKET')
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+                              endpoint_override = "sdsc.osn.xsede.org",
+                              anonymous=TRUE)
 
-# forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/"),
-#                                 endpoint_override = "sdsc.osn.xsede.org",
-#                                 anonymous=TRUE)
-
-forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
-                                           s3_endpoint = config$endpoint, anonymous=TRUE) |>
-  collect()
-
-# forecast_data_df <- arrow::open_dataset(forecast_s3) |>
-#   filter(project_id == config$project_id) |>
+# forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+#                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
 #   collect()
+
+print('OPEN INVENTORY BUCKET')
+forecast_data_df <- arrow::open_dataset(forecast_s3) |>
+  filter(project_id == config$project_id) |>
+  collect()
 
 theme_models <- forecast_data_df |>
   distinct(model_id)

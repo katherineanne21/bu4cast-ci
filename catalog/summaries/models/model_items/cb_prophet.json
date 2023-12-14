@@ -100,7 +100,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, UNDE, STER, TREE, UKFS, SOAP, STEI, TALL, TOOL, WOOD, SRER, WREF, TEAK, YELL, ARIK, BIGC, BLDE, BLUE, CARI, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, COMO, CUPE\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily latent_heat_flux, Daily Red_chromatic_coordinate, Daily Dissolved_oxygen, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-01-13",
+    "end_datetime": "2024-01-15",
     "providers": [
       {
         "url": "pending",

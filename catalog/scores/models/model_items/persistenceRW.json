@@ -102,7 +102,7 @@
   "properties": {
     "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2023-12-11",
+    "end_datetime": "2023-12-12",
     "providers": [
       {
         "url": "pending",

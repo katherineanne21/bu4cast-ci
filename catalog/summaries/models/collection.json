@@ -256,6 +256,11 @@
       "href": "model_items/procHinshelwoodMonod.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/USUNEEDAILY.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

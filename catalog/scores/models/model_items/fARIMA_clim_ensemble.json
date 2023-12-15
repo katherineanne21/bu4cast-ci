@@ -42,13 +42,14 @@
       [-105.9154, 39.8914],
       [-122.1655, 44.2596],
       [-88.1589, 31.8534],
-      [-119.2575, 37.0597]
+      [-119.2575, 37.0597],
+      [-119.0274, 36.9559]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: ARIK, BARC, BLDE, BLUE, BLWA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, POSE, PRIN, REDB, SUGG, SYCA, WALK, WLOU, MCRA, TOMB, BIGC\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: ARIK, BARC, BLDE, BLUE, BLWA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, POSE, PRIN, REDB, SUGG, SYCA, WALK, WLOU, MCRA, TOMB, BIGC, TECR\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-10",
-    "end_datetime": "2023-12-09",
+    "end_datetime": "2023-12-12",
     "providers": [
       {
         "url": "pending",

@@ -63,11 +63,11 @@
       [-99.2413, 47.1282],
       [-121.9519, 45.8205],
       [-110.5391, 44.9535],
-      [-156.6194, 71.2824],
-      [-147.5026, 65.154],
       [-145.7514, 63.8811],
       [-149.2133, 63.8758],
       [-149.3705, 68.6611],
+      [-156.6194, 71.2824],
+      [-147.5026, 65.154],
       [-102.4471, 39.7582],
       [-119.2575, 37.0597],
       [-110.5871, 44.9501],
@@ -93,9 +93,9 @@
     ]
   },
   "properties": {
-    "description": ["\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
+    "description": ["\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, DEJU, HEAL, TOOL, BARR, BONA, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, DEJU, HEAL, TOOL, BARR, BONA, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
     "start_datetime": "2023-11-14",
-    "end_datetime": "2023-12-14",
+    "end_datetime": "2023-12-15",
     "providers": [
       {
         "url": "pending",

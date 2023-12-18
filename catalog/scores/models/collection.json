@@ -188,16 +188,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_JRabaey_temp_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
@@ -209,6 +199,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_JRabaey_temp_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_physics.json"
     },
     {
       "rel": "item",

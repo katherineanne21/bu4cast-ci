@@ -1,5 +1,6 @@
 library(minioclient)
-source("to_hourly.R")
+source("https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R")
+
 #install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", "", "")
 mc_mirror("osn/bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo", "pseudo")

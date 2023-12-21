@@ -22,7 +22,7 @@ ticks_focal_sites <- c("HARV", "OSBS")
 beetles_focal_sites <- c("HARV", "OSBS")
 ```
 
-This page visualizes the forecasts and forecast performance for the focal target variables.
+This page visualizes the forecasts and forecast performance for the focal target variables.  Only forecasts from a subset of NEON sites are shown.  If you want to see your forecasts or scores, the links can be found in our [forecast catalog](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/collection.json) and [scores catalog]((https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/collection.json)
 
 ## Most recent forecasts {#sec-performance}
 
@@ -31,6 +31,15 @@ Only the top performing models from the last 30 days are shown.
 ```{r echo = FALSE}
 ### GET FORECASTS
 reference_datetimes <- arrow::open_dataset("../cache/summaries") |> 
+  dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>  
+  dplyr::collect() |> 
+  group_by(variable) |>
+  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(1))))
+
+
+reference_datetimes_P1W <- arrow::open_dataset("../cache/summaries/duration=P1W") |> 
+  dplyr::mutate(wday = lubridate::wday(reference_datetime)) |> 
+  dplyr::filter(wday == 1) |> 
   dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>  
   dplyr::collect() |> 
   group_by(variable) |>
@@ -50,8 +59,8 @@ df_P1D <- arrow::open_dataset("../cache/summaries/duration=P1D") |>
   filter(lubridate::as_date(datetime) > lubridate::as_date(reference_datetime)) |> 
   collect()
 
-df_P1W <- arrow::open_dataset("../cache/summaries/duration=P1D") |> 
-  left_join(reference_datetimes, by = "variable") |> 
+df_P1W <- arrow::open_dataset("../cache/summaries/duration=P1W") |> 
+  left_join(reference_datetimes_P1W, by = "variable") |> 
   filter(reference_datetime == reference_datetime_max) |> 
   left_join(sites, by = "site_id") |> 
   filter(site_id %in% sites$site_id,) |> 

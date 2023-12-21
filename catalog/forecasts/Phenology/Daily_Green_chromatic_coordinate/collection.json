@@ -13,6 +13,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
     },
     {
@@ -59,16 +69,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
@@ -138,7 +138,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-22T00:00:00Z"
+          "2024-01-24T00:00:00Z"
         ]
       ]
     }

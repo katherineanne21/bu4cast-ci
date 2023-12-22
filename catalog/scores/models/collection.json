@@ -13,21 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_ets.json"
     },
     {
@@ -73,22 +58,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/persistenceRW.json"
     },
     {
       "rel": "item",
@@ -133,6 +118,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_temp_lm.json"
     },
     {
@@ -143,12 +143,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/randfor.json"
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -178,12 +178,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/prophet_clim_ensemble.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -194,16 +194,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/GLEON_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -256,6 +246,16 @@
       "href": "model_items/USUNEEDAILY.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -298,7 +298,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-19T00:00:00Z"
+          "2023-12-20T00:00:00Z"
         ]
       ]
     }

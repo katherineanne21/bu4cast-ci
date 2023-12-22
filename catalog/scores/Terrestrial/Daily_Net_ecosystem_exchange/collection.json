@@ -13,11 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -38,7 +33,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
+      "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -49,6 +44,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -74,11 +79,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",

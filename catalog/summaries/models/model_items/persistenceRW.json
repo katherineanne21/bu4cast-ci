@@ -102,7 +102,7 @@
   "properties": {
     "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: TOOK, BARC, BLWA, CRAM, FLNT, LIRO, SJER, SOAP, SRER, STEI, STER, TALL, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, HEAL, JERC, JORN, KONA, KONZ, OSBS, PUUM, RMNP, SCBI, SERC, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, OAES, ONAQ, ORNL, UNDE, WOOD, WREF, YELL, TEAK, TOOL, TREE, UKFS, DSNY, GRSM, GUAN, HARV, TECR, TOMB, WALK, WLOU, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, LECO, LEWI, MART, PRLA, PRPO, REDB, SUGG, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, KING, GUIL, HOPB\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Dissolved_oxygen, Daily Water_temperature", "\nmodel info: NA\n\nSites: TOOK, BARC, BLWA, CRAM, FLNT, LIRO, SJER, SOAP, SRER, STEI, STER, TALL, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, HEAL, JERC, JORN, KONA, KONZ, OSBS, PUUM, RMNP, SCBI, SERC, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, OAES, ONAQ, ORNL, UNDE, WOOD, WREF, YELL, TEAK, TOOL, TREE, UKFS, DSNY, GRSM, GUAN, HARV, TECR, TOMB, WALK, WLOU, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, LECO, LEWI, MART, PRLA, PRPO, REDB, SUGG, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, KING, GUIL, HOPB\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Dissolved_oxygen, Daily Water_temperature"],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-01-24",
+    "end_datetime": "2024-01-25",
     "providers": [
       {
         "url": "pending",

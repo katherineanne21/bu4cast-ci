@@ -168,6 +168,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/mean.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/GLEON_JRabaey_temp_physics.json"
     },
     {
@@ -184,16 +194,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",

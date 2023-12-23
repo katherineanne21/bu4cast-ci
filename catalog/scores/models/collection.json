@@ -178,12 +178,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/prophet_clim_ensemble.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -243,17 +243,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/USUNEEDAILY.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/USUNEEDAILY.json"
     },
     {
       "rel": "parent",
@@ -298,7 +298,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-20T00:00:00Z"
+          "2023-12-21T00:00:00Z"
         ]
       ]
     }

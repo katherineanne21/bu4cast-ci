@@ -100,9 +100,9 @@
     ]
   },
   "properties": {
-    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature, Daily Net_ecosystem_exchange", "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature, Daily Net_ecosystem_exchange"],
+    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2023-12-21",
+    "end_datetime": "2023-12-22",
     "providers": [
       {
         "url": "pending",
@@ -127,10 +127,10 @@
       "neon4cast",
       "Daily Chlorophyll_a",
       "Daily Green_chromatic_coordinate",
+      "Daily Net_ecosystem_exchange",
       "Daily Dissolved_oxygen",
       "Daily Red_chromatic_coordinate",
-      "Daily Water_temperature",
-      "Daily Net_ecosystem_exchange"
+      "Daily Water_temperature"
     ],
     "table:columns": [
       {
@@ -295,27 +295,27 @@
     },
     "5": {
       "type": "application/x-parquet",
+      "title": "Database Access for Daily Net_ecosystem_exchange",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "6": {
+      "type": "application/x-parquet",
       "title": "Database Access for Daily Dissolved_oxygen",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=oxygen/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=oxygen/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "6": {
+    "7": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=rcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=rcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "7": {
+    "8": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=temperature/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=temperature/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "8": {
-      "type": "application/x-parquet",
-      "title": "Database Access for Daily Net_ecosystem_exchange",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=nee/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Dissolved_oxygen, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2023-12-19",
+    "end_datetime": "2023-12-22",
     "providers": [
       {
         "url": "pending",

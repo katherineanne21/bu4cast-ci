@@ -90,7 +90,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, KING, LECO, LEWI, MART, MAYF, LENO, MLBS, MOAB, NIWO, NOGP, OAES, HARV, JERC, JORN, KONA, KONZ, LAJA, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, SCBI, SERC, SJER, SOAP, SRER, ONAQ, ORNL, OSBS, PUUM, RMNP, DCFS, DELA, DSNY, GRSM, GUAN, ABBY, BART, BLAN, CLBJ, CPER\n\nVariables: Daily Water_temperature, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-01-24",
+    "end_datetime": "2024-01-25",
     "providers": [
       {
         "url": "pending",

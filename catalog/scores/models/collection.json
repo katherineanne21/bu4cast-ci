@@ -158,6 +158,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/USUNEEDAILY.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/air2waterSat_2.json"
     },
     {
@@ -173,17 +183,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -193,12 +193,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_JRabaey_temp_physics.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_physics.json"
+      "href": "model_items/GLEON_JRabaey_temp_physics.json"
     },
     {
       "rel": "item",
@@ -209,6 +209,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_physics.json"
     },
     {
       "rel": "item",
@@ -264,11 +269,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USUNEEDAILY.json"
     },
     {
       "rel": "parent",

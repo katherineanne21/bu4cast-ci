@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: PRPO, SUGG, TOOK, BARC, CRAM, LIRO, PRLA\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-01-26",
+    "end_datetime": "2024-01-28",
     "providers": [
       {
         "url": "pending",

@@ -68,7 +68,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Daily Green_chromatic_coordinate, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-12-22",
-    "end_datetime": "2023-12-25",
+    "end_datetime": "2023-12-28",
     "providers": [
       {
         "url": "pending",

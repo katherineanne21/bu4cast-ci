@@ -4,7 +4,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Feature",
-  "id": "prophet_clim_ensemble",
+  "id": "PEG",
   "bbox": [
     [
       -156.6194,
@@ -16,24 +16,21 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-119.006, 37.0058],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
+      [-156.6194, 71.2824],
       [-71.2874, 44.0639],
       [-78.0418, 39.0337],
+      [-147.5026, 65.154],
       [-97.57, 33.4012],
       [-104.7456, 40.8155],
       [-99.1066, 47.1617],
+      [-145.7514, 63.8811],
       [-87.8039, 32.5417],
       [-81.4362, 28.1251],
       [-83.5019, 35.689],
       [-66.8687, 17.9696],
       [-72.1727, 42.5369],
+      [-149.2133, 63.8758],
       [-84.4686, 31.1948],
       [-106.8425, 32.5907],
       [-96.6129, 39.1104],
@@ -57,13 +54,21 @@
       [-110.8355, 31.9107],
       [-89.5864, 45.5089],
       [-103.0293, 40.4619],
-      [-87.3933, 32.9505]
+      [-87.3933, 32.9505],
+      [-119.006, 37.0058],
+      [-149.3705, 68.6611],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535]
     ]
   },
   "properties": {
-    "description": [],
-    "start_datetime": "2023-11-13",
-    "end_datetime": "2024-01-30",
+    "description": "\nmodel info: NA\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Daily Green_chromatic_coordinate, Daily Red_chromatic_coordinate",
+    "start_datetime": "2023-12-22",
+    "end_datetime": "2024-01-25",
     "providers": [
       {
         "url": "pending",
@@ -86,6 +91,7 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
+      "Daily Green_chromatic_coordinate",
       "Daily Red_chromatic_coordinate"
     ],
     "table:columns": [
@@ -157,7 +163,7 @@
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "prophet_clim_ensemble"
+      "title": "PEG"
     },
     {
       "rel": "root",
@@ -169,11 +175,11 @@
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "prophet_clim_ensemble"
+      "title": "PEG"
     },
     {
       "rel": "self",
-      "href": "prophet_clim_ensemble.json",
+      "href": "PEG.json",
       "type": "application/json",
       "title": "Model Forecast"
     },
@@ -188,8 +194,8 @@
     "1": {
       "type": "application/json",
       "title": "Model Metadata",
-      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/prophet_clim_ensemble.json",
-      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/prophet_clim_ensemble.json\")\n\n"
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/PEG.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/PEG.json\")\n\n"
     },
     "2": {
       "type": "text/html",
@@ -199,9 +205,15 @@
     },
     "3": {
       "type": "application/x-parquet",
+      "title": "Database Access for Daily Green_chromatic_coordinate",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=gcc_90/model_id=PEG?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=gcc_90/model_id=PEG?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=prophet_clim_ensemble?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=PEG?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=rcc_90/model_id=PEG?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

@@ -195,7 +195,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
   }
 
   ## REMOVE STALE OR UNUSED DIRECTORIES
-  current_var_path <- paste0(catalog_config$summaries_path,names(config$variable_groups[i]))
+  current_var_path <- paste0(catalog_config$forecast_path,names(config$variable_groups[i]))
   current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
   unlink(current_var_dirs, recursive = TRUE)
 
@@ -222,8 +222,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     duration_name <- config$variable_groups[[i]]$duration[j]
 
     # match variable with full name in gsheet
+    var_gsheet_arrange <- variable_gsheet |>
+      arrange(duration)
+
     #var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
-    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` %in% var_values),1][[1]]
+    var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
 
 

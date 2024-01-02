@@ -22,7 +22,7 @@
   "properties": {
     "description": "\nmodel info: \"Home brew ARIMA.\" We didn't use a formal time series framework because of all the missing values in both our response variable and the weather covariates. So we used a GAM to fit a seasonal component based on day of year, and we included NEE the previous day as as an AR 1 term. We did some model selection, using cross validation, to identify temperature and relative humidity as weather covariates.\n\nSites: PUUM\n\nVariables: Daily Net_ecosystem_exchange",
     "start_datetime": "2023-12-12",
-    "end_datetime": "2023-12-12",
+    "end_datetime": "2023-12-24",
     "providers": [
       {
         "url": "pending",

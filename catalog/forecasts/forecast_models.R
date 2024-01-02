@@ -136,7 +136,7 @@ for (m in theme_models$model_id){
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>

@@ -41,6 +41,7 @@ message("Downloading forecasts ...")
 minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
+submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
 submissions_filenames <- basename(submissions)
 
 if(length(submissions) > 0){

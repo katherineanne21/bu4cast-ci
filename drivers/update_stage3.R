@@ -1,4 +1,4 @@
-source("https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R")
+source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
 
 site_list <- readr::read_csv(paste0("https://github.com/eco4cast/",
                                     "neon4cast-noaa-download/",
@@ -37,7 +37,12 @@ furrr::future_walk(site_list, function(curr_site_id){
     dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF")) |>
     dplyr::filter(site_id == curr_site_id,
                   reference_datetime >= cut_off) |>
-    dplyr::collect()
+    dplyr::collect() |>
+    dplyr::mutate(date = lubridate::as_date(reference_datetime),
+                  new_datetime = date + lubridate::hours(as.numeric(horizon)) + lubridate::hours(as.numeric(cycle)),
+                  datetime = ifelse(datetime != new_datetime, new_datetime, datetime),
+                  datetime = lubridate::as_datetime(datetime)) |>
+    dplyr::select(-date, -new_datetime)
 
   if(nrow(df) > 0){
 

@@ -8,7 +8,7 @@ forecasts_bucket: bio230014-bucket01/challenges/forecasts
 summaries_bucket: bio230014-bucket01/challenges/forecasts/summaries
 submissions_bucket: submissions
 inventory_bucket: bio230014-bucket01/challenges/inventory
-noaa_forecast_bucket: drivers/noaa/gefs-v12-reprocess/
+noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
 prov_bucket: bio230014-bucket01/challenges/prov
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive

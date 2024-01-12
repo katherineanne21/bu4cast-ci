@@ -7,13 +7,13 @@ name: catalog
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted #ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    #container: eco4cast/rocker-neon4cast:latest
     steps:
       - run: git config --system --add safe.directory '*'
 

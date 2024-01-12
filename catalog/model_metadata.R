@@ -65,13 +65,13 @@ for(i in 1:nrow(registered_models)){
 
   #Parameters
 
-  if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and at least one is estimated from data"){
+  if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes"){
     metadata$uncertainty$parameters$present <- TRUE
-    metadata$uncertainty$parameters$data_driven <- TRUE
-    metadata$uncertainty$parameters$progagates$type <- progagates_method
-  }else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and they are not estimated from data"){
-    metadata$uncertainty$parameters$present <- TRUE
-    metadata$uncertainty$parameters$data_driven <- FALSE
+    if(registered_models$`Does your model include parameters?`[i] == "Yes and at least one is estimated from data"){
+       metadata$uncertainty$parameters$data_driven <- TRUE
+    }else  if(registered_models$`Does your model include parameters?`[i] == "Yes and they are not estimated from data"){
+       metadata$uncertainty$parameters$data_driven <- FALSE
+    }            
     metadata$uncertainty$parameters$progagates$type <- progagates_method
   }else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "No"){
     if(registered_models$`Does your model include parameters?`[i] == "Yes"){

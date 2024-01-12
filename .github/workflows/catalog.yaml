@@ -7,7 +7,7 @@ name: catalog
 
 jobs:
   docker:
-    runs-on: self-hosted #ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}

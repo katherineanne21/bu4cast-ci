@@ -433,9 +433,9 @@ Average skill scores of each model across all sites.\
 
 Scores are shown by reference date and forecast horizon (in days).\
 
-Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since `r cutoff`.\
+Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since in the last 30 days for the daily or sub-daily variables and the past year for the weekly variables\
 
-Learn about the continous ranked probablity score [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
+Learn about the continuous ranked probability score [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
 
 ::: panel-tabset
 

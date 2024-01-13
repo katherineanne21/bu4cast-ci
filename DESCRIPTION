@@ -30,7 +30,8 @@ Imports:
     furrr,
     future,
     gsheet, 
-    readr
+    readr,
+    bench,
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

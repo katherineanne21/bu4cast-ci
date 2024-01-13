@@ -9,19 +9,19 @@ name: gefs_osn_stage3
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    #container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Install
         shell: Rscript {0}
         run: |
-          #devtools::install(dependencies=TRUE, upgrade="never")
+          devtools::install(dependencies=TRUE, upgrade="never")
           install.packages("remotes")
           remotes::install_github("eco4cast/gefs4cast")
 

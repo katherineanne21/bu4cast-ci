@@ -30,13 +30,9 @@ Imports:
     furrr,
     future,
     gsheet, 
-<<<<<<< HEAD
     readr,
     bench,
-=======
-    reader,
     future
->>>>>>> 3deead9a71f5cedeb25eed6bd2630a6011c9d900
 Remotes: 
     github::eco4cast/score4cast,
     github::cboettig/minioclient,

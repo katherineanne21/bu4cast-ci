@@ -21,10 +21,9 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          devtools::install(dependencies=TRUE, upgrade="never")
           install.packages("remotes")
+          devtools::install_deps(upgrade="never")
           remotes::install_github("eco4cast/gefs4cast")
-
       - name: Download Pseudo
         shell: Rscript {0}
         run: |

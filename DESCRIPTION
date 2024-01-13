@@ -1,4 +1,4 @@
-Package: neon4cast-ci
+Package: neon4cast ci
 Title: Cyberinfrastructure for the VERA Forecasting Challenge
 Version: 0.1
 Authors@R: c(person(

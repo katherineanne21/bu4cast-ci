@@ -1,3 +1,8 @@
+Sys.setenv("OSN_KEY"= "3V0QE2X34IYY0FFNPBHC",
+           "OSN_SECRET"= "jIWNAp753sFdd0J1oiEKnwal5Gg/lD",
+           "AWS_ACCESS_KEY_SUBMISSIONS"="efi",
+           "AWS_SECRET_ACCESS_KEY_SUBMISSIONS"="eeZw3a65bFn&4#yQff3a")
+
 library(neon4cast) #project_specific
 
 
@@ -44,6 +49,9 @@ submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
 submissions_filenames <- basename(submissions)
 
+
+
+
 if(length(submissions) > 0){
 
   Sys.unsetenv("AWS_DEFAULT_REGION")
@@ -86,7 +94,10 @@ if(length(submissions) > 0){
     submission_dir <- dirname(submissions[i])
     print(curr_submission)
 
-    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc"))){
+    not_tg <- stringr::str_detect(curr_submission, "tg", negate = TRUE)
+    recent_date <- file_name_reference_datetime > (Sys.Date() - lubridate::days(3))
+
+    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & recent_date){
 
       valid <- forecast_output_validator(file.path(local_dir, curr_submission))
 

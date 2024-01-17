@@ -29,10 +29,11 @@ jobs:
       - name: Render
         shell: Rscript {0}
         run: source("catalog/model_metadata.R")
-        run: source("catalog/catalog.R")
+             source("catalog/catalog.R")
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -65,6 +66,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -97,6 +99,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -129,6 +132,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -161,6 +165,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -193,6 +198,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .
@@ -222,10 +228,11 @@ jobs:
       - name: Render
         shell: Rscript {0}
         run: source('catalog/targets/create_targets_page.R')
-        run: source('catalog/sites/build_sites_page.R')
+             source('catalog/sites/build_sites_page.R')
 
       - name: Commit and Push
         run: |
+          git pull
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add catalog/* .

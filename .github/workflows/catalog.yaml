@@ -61,7 +61,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/forecasts/forecast_models.R')
+        run: source('catalog/forecasts/forecast_models.R')
 
       - name: Commit and Push
         run: |
@@ -93,7 +93,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/forecasts/scores_models.R')
+        run: source('catalog/forecasts/scores_models.R')
 
       - name: Commit and Push
         run: |
@@ -125,7 +125,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/forecasts/create_inventory_page.R')
+        run: source('catalog/forecasts/create_inventory_page.R')
 
       - name: Commit and Push
         run: |
@@ -157,7 +157,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/summaries/summaries_models.R')
+        run: source('catalog/summaries/summaries_models.R')
 
       - name: Commit and Push
         run: |
@@ -189,7 +189,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/noaa_forecasts/noaa_forecasts.R')
+        run: source('catalog/noaa_forecasts/noaa_forecasts.R')
 
       - name: Commit and Push
         run: |
@@ -221,8 +221,8 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        source('catalog/targets/create_targets_page.R')
-        source('catalog/sites/build_sites_page.R')
+        run: source('catalog/targets/create_targets_page.R')
+        run: source('catalog/sites/build_sites_page.R')
 
       - name: Commit and Push
         run: |

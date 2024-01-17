@@ -13,27 +13,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/USUNEEDAILY.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
+      "href": "../../models/model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -44,11 +24,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -83,6 +58,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
     },
     {
@@ -93,7 +73,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+      "href": "../../models/model_items/USUNEEDAILY.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bookcast_forest.json"
     },
     {
       "rel": "parent",
@@ -138,7 +143,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2023-12-24T00:00:00Z"
+          "2024-01-10T00:00:00Z"
         ]
       ]
     }

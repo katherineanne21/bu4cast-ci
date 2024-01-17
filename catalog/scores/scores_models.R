@@ -145,7 +145,7 @@ for (m in theme_models$model_id){
   model_sites <- scores_data_df |> filter(model_id == m) |> distinct(site_id)
   model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable)
 
-  model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+  model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>

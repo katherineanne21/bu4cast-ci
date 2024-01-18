@@ -26,10 +26,13 @@ jobs:
         run: |
           pip install stac-validator
 
-      - name: Render
+      - name: Render metadata
         shell: Rscript {0}
         run: source("catalog/model_metadata.R")
-             source("catalog/catalog.R")
+
+      - name: Render catalog
+        shell: Rscript {0}
+        run: source("catalog/catalog.R")
 
       - name: Commit and Push
         run: |
@@ -95,7 +98,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        run: source('catalog/forecasts/scores_models.R')
+        run: source('catalog/scores/scores_models.R')
 
       - name: Commit and Push
         run: |
@@ -128,7 +131,7 @@ jobs:
 
       - name: Render
         shell: Rscript {0}
-        run: source('catalog/forecasts/create_inventory_page.R')
+        run: source('catalog/inventory/create_inventory_page.R')
 
       - name: Commit and Push
         run: |
@@ -225,10 +228,13 @@ jobs:
         run: |
           pip install stac-validator
 
-      - name: Render
+      - name: Render targets
         shell: Rscript {0}
         run: source('catalog/targets/create_targets_page.R')
-             source('catalog/sites/build_sites_page.R')
+
+      - name: Render sites
+        shell: Rscript {0}
+        run: source('catalog/sites/build_sites_page.R')
 
       - name: Commit and Push
         run: |

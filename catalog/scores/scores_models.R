@@ -178,8 +178,8 @@ for (m in theme_models$model_id){
               site_values = model_sites$site_id,
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
-              destination_path = paste0(catalog_config$aws_download_path_scores,"models/model_items"),
-              aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
+              destination_path = paste0(catalog_config$scores_path,"models/model_items"),
+              aws_download_path = catalog_config$aws_download_path_scores, # CHANGE THIS BUCKET NAME
               collection_name = 'scores',
               thumbnail_image_name = NULL,
               table_schema = scores_theme_df,

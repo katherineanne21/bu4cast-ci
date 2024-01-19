@@ -123,6 +123,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
     },
     {
@@ -134,11 +139,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_lasso.json"
     },
     {
       "rel": "item",

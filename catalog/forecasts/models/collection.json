@@ -83,11 +83,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -129,6 +124,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -213,12 +213,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",

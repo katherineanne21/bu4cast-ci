@@ -16,6 +16,16 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-82.0084, 29.676],
+      [-87.7982, 32.5415],
+      [-89.4737, 46.2097],
+      [-84.4374, 31.1854],
+      [-89.7048, 45.9983],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878],
+      [-88.1589, 31.8534],
+      [-149.6106, 68.6307],
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
@@ -35,16 +45,6 @@
       [-106.8425, 32.5907],
       [-96.6129, 39.1104],
       [-96.5631, 39.1008],
-      [-82.0084, 29.676],
-      [-87.7982, 32.5415],
-      [-89.4737, 46.2097],
-      [-84.4374, 31.1854],
-      [-89.7048, 45.9983],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-82.0177, 29.6878],
-      [-88.1589, 31.8534],
-      [-149.6106, 68.6307],
       [-67.0769, 18.0213],
       [-88.1612, 31.8539],
       [-80.5248, 37.3783],
@@ -125,8 +125,8 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Green_chromatic_coordinate",
       "Daily Chlorophyll_a",
+      "Daily Green_chromatic_coordinate",
       "Daily latent_heat_flux",
       "Daily Water_temperature",
       "Daily Net_ecosystem_exchange",
@@ -244,15 +244,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Green_chromatic_coordinate",
-      "href": "\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
       "href": "\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\"",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Green_chromatic_coordinate",
+      "href": "\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\"",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=tg_bag_mlp?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "5": {
       "type": "application/x-parquet",

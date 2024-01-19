@@ -102,7 +102,7 @@
   "properties": {
     "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate", "\nmodel info: NA\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate"],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-02-20",
+    "end_datetime": "2024-02-21",
     "providers": [
       {
         "url": "pending",

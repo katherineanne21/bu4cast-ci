@@ -13,11 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -58,51 +53,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/procEppleyNorbergMonod.json"
     },
     {
@@ -123,12 +73,52 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso.json"
+      "href": "model_items/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso_all_sites.json"
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -138,12 +128,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
+      "href": "model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -223,17 +223,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/flareGOTM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM.json"
     },
     {
       "rel": "item",
@@ -259,11 +264,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGOTM.json"
     },
     {
       "rel": "item",

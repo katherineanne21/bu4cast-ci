@@ -16,16 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-89.7048, 45.9983],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-82.0177, 29.6878],
-      [-88.1589, 31.8534],
-      [-149.6106, 68.6307],
-      [-82.0084, 29.676],
-      [-87.7982, 32.5415],
-      [-89.4737, 46.2097],
-      [-84.4374, 31.1854],
       [-87.8039, 32.5417],
       [-81.4362, 28.1251],
       [-83.5019, 35.689],
@@ -73,6 +63,16 @@
       [-106.8425, 32.5907],
       [-96.6129, 39.1104],
       [-96.5631, 39.1008],
+      [-89.7048, 45.9983],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878],
+      [-88.1589, 31.8534],
+      [-149.6106, 68.6307],
+      [-82.0084, 29.676],
+      [-87.7982, 32.5415],
+      [-89.4737, 46.2097],
+      [-84.4374, 31.1854],
       [-96.6038, 39.1051],
       [-83.5038, 35.6904],
       [-77.9832, 39.0956],
@@ -100,9 +100,9 @@
     ]
   },
   "properties": {
-    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate", "\nmodel info: NA\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate"],
+    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Green_chromatic_coordinate, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate", "\nmodel info: NA\n\nSites: DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK\n\nVariables: Daily Green_chromatic_coordinate, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate"],
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-02-22",
+    "end_datetime": "2024-02-23",
     "providers": [
       {
         "url": "pending",
@@ -125,8 +125,8 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Chlorophyll_a",
       "Daily Green_chromatic_coordinate",
+      "Daily Chlorophyll_a",
       "Daily Net_ecosystem_exchange",
       "Daily Water_temperature",
       "Daily Dissolved_oxygen",
@@ -243,15 +243,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Chlorophyll_a",
-      "href": "\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Green_chromatic_coordinate",
       "href": "\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\"",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Chlorophyll_a",
+      "href": "\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\"",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=persistenceRW?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "5": {
       "type": "application/x-parquet",

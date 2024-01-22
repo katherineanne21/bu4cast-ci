@@ -13,6 +13,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/procCTMIMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/procEppleyNorbergSteele.json"
     },
     {
@@ -29,26 +44,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -83,17 +78,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procCTMIMonod.json"
+      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procCTMISteele.json"
+      "href": "model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -233,6 +233,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/flareGLM_noDA.json"
     },
     {
@@ -244,11 +254,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM.json"
     },
     {
       "rel": "item",
@@ -269,11 +274,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flare_ler_baselines.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/precip_mod.json"
     },
     {
       "rel": "item",
@@ -323,7 +323,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-17T00:00:00Z"
+          "2024-01-19T00:00:00Z"
         ]
       ]
     }

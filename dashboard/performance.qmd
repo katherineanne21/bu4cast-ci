@@ -141,7 +141,7 @@ best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == "nee",
-         model_id %in% best_models, 
+         #model_id %in% best_models, 
          site_id %in% terrestrial_focal_sites) |> 
   mutate(observation = as.numeric(NA)) |> 
   forecast_plots()
@@ -156,7 +156,7 @@ best_models <- best_P1D_scores |> filter(variable == "le") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == "le",
-         model_id %in% best_models,
+         #model_id %in% best_models,
          site_id %in% terrestrial_focal_sites) |> 
   mutate(observation = as.numeric(NA)) |> 
   forecast_plots()

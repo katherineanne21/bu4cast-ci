@@ -4,7 +4,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Feature",
-  "id": "procBlanchardMonod",
+  "id": "new_example_ID",
   "bbox": [
     [
       -156.6194,
@@ -26,9 +26,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Chlorophyll_a",
-    "start_datetime": "2023-11-13",
-    "end_datetime": "2024-02-21",
+    "description": [],
+    "start_datetime": "2024-01-23",
+    "end_datetime": "2024-02-25",
     "providers": [
       {
         "url": "pending",
@@ -51,7 +51,7 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Chlorophyll_a"
+      "Daily Water_temperature"
     ],
     "table:columns": [
       {
@@ -147,7 +147,7 @@
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "procBlanchardMonod"
+      "title": "new_example_ID"
     },
     {
       "rel": "root",
@@ -159,17 +159,17 @@
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "procBlanchardMonod"
+      "title": "new_example_ID"
     },
     {
       "rel": "self",
-      "href": "procBlanchardMonod.json",
+      "href": "new_example_ID.json",
       "type": "application/json",
       "title": "Model Forecast"
     },
     {
       "rel": "item",
-      "href": null,
+      "href": [],
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -178,20 +178,20 @@
     "1": {
       "type": "application/json",
       "title": "Model Metadata",
-      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/procBlanchardMonod.json",
-      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/procBlanchardMonod.json\")\n\n"
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/new_example_ID.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/new_example_ID.json\")\n\n"
     },
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": [],
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Chlorophyll_a",
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries//project_id=neon4cast/duration=P1D/variable=chla/model_id=procBlanchardMonod?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries//parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=procBlanchardMonod?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "title": "Database Access for Daily Water_temperature",
+      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries//project_id=neon4cast/duration=P1D/variable=temperature/model_id=new_example_ID?endpoint_override=sdsc.osn.xsede.org\"",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries//parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=new_example_ID?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

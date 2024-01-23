@@ -201,6 +201,16 @@
       "href": "../../models/model_items/null.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/new_example_ID.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

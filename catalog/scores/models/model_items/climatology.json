@@ -16,16 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0084, 29.676],
-      [-87.7982, 32.5415],
-      [-84.4374, 31.1854],
-      [-82.0177, 29.6878],
-      [-88.1589, 31.8534],
-      [-89.7048, 45.9983],
-      [-89.4737, 46.2097],
-      [-99.2531, 47.1298],
-      [-99.1139, 47.1591],
-      [-149.6106, 68.6307],
       [-122.3303, 45.7624],
       [-71.2874, 44.0639],
       [-78.0418, 39.0337],
@@ -68,6 +58,16 @@
       [-99.2413, 47.1282],
       [-121.9519, 45.8205],
       [-110.5391, 44.9535],
+      [-82.0084, 29.676],
+      [-87.7982, 32.5415],
+      [-84.4374, 31.1854],
+      [-82.0177, 29.6878],
+      [-88.1589, 31.8534],
+      [-89.7048, 45.9983],
+      [-99.2531, 47.1298],
+      [-89.4737, 46.2097],
+      [-99.1139, 47.1591],
+      [-149.6106, 68.6307],
       [-156.6194, 71.2824],
       [-147.5026, 65.154],
       [-145.7514, 63.8811],
@@ -100,9 +100,9 @@
     ]
   },
   "properties": {
-    "description": ["\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, LIRO, CRAM, PRPO, PRLA, TOOK, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, CARI, OKSR\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, LIRO, CRAM, PRPO, PRLA, TOOK, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, CARI, OKSR\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
+    "description": ["\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARC, BLWA, FLNT, SUGG, TOMB, LIRO, PRPO, CRAM, PRLA, TOOK, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, CARI, OKSR\n\nVariables: Daily Green_chromatic_coordinate, Daily Chlorophyll_a, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature", "\nmodel info: NA\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BARC, BLWA, FLNT, SUGG, TOMB, LIRO, PRPO, CRAM, PRLA, TOOK, BARR, BONA, DEJU, HEAL, TOOL, ARIK, BIGC, BLDE, BLUE, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, CARI, OKSR\n\nVariables: Daily Green_chromatic_coordinate, Daily Chlorophyll_a, Daily latent_heat_flux, 30min latent_heat_flux, Daily Net_ecosystem_exchange, 30min Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature"],
     "start_datetime": "2023-01-09",
-    "end_datetime": "2024-01-19",
+    "end_datetime": "2024-01-22",
     "providers": [
       {
         "url": "pending",
@@ -125,8 +125,8 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Chlorophyll_a",
       "Daily Green_chromatic_coordinate",
+      "Daily Chlorophyll_a",
       "Daily latent_heat_flux",
       "30min latent_heat_flux",
       "Daily Net_ecosystem_exchange",
@@ -286,15 +286,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Chlorophyll_a",
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//project_id=neon4cast/duration=P1D/variable=chla/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Green_chromatic_coordinate",
       "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\"",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//parquet/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Chlorophyll_a",
+      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//project_id=neon4cast/duration=P1D/variable=chla/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\"",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=climatology?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "5": {
       "type": "application/x-parquet",

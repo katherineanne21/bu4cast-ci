@@ -16,10 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-102.4471, 39.7582],
-      [-82.0084, 29.676],
-      [-110.5871, 44.9501],
-      [-96.6242, 34.4442],
       [-87.7982, 32.5415],
       [-105.5442, 40.035],
       [-89.4737, 46.2097],
@@ -40,6 +36,10 @@
       [-111.5081, 33.751],
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
+      [-102.4471, 39.7582],
+      [-82.0084, 29.676],
+      [-110.5871, 44.9501],
+      [-96.6242, 34.4442],
       [-122.1655, 44.2596],
       [-88.1589, 31.8534],
       [-119.2575, 37.0597],
@@ -47,9 +47,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: ARIK, BARC, BLDE, BLUE, BLWA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, POSE, PRIN, REDB, SUGG, SYCA, WALK, WLOU, MCRA, TOMB, BIGC, TECR\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: BLWA, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, POSE, PRIN, REDB, SUGG, SYCA, WALK, WLOU, ARIK, BARC, BLDE, BLUE, MCRA, TOMB, BIGC, TECR\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-10",
-    "end_datetime": "2024-01-21",
+    "end_datetime": "2024-01-22",
     "providers": [
       {
         "url": "pending",

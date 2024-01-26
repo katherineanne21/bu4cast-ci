@@ -211,6 +211,26 @@
       "href": "../../models/model_items/new_example_ID.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

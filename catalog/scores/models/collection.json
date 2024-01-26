@@ -58,11 +58,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/procEppleyNorbergSteele.json"
     },
     {
@@ -74,6 +69,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -143,17 +148,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_ets.json"
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -179,11 +179,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/neon4cast_example.json"
     },
     {
       "rel": "item",
@@ -218,6 +213,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
@@ -229,11 +229,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
@@ -273,12 +268,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/neon4cast_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/precip_mod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/mean.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/new_example_ID.json"
     },
     {
       "rel": "parent",
@@ -323,7 +333,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-23T00:00:00Z"
+          "2024-01-24T00:00:00Z"
         ]
       ]
     }

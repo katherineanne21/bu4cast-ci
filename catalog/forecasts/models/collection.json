@@ -311,6 +311,11 @@
       "href": "model_items/example_climatology.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BKandel.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

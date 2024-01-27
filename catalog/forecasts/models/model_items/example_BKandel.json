@@ -4,7 +4,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Feature",
-  "id": "flareSimstrat",
+  "id": "example_BKandel",
   "bbox": [
     [
       -156.6194,
@@ -16,18 +16,19 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
       [-82.0177, 29.6878],
-      [-82.0084, 29.676]
+      [-149.6106, 68.6307]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: CRAM, LIRO, PRLA, PRPO, SUGG, BARC\n\nVariables: Daily Water_temperature",
-    "start_datetime": "2023-11-15",
-    "end_datetime": "2024-02-25",
+    "description": [],
+    "start_datetime": "2024-01-27",
+    "end_datetime": "2024-02-29",
     "providers": [
       {
         "url": "pending",
@@ -121,7 +122,7 @@
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "flareSimstrat"
+      "title": "example_BKandel"
     },
     {
       "rel": "root",
@@ -133,11 +134,11 @@
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "flareSimstrat"
+      "title": "example_BKandel"
     },
     {
       "rel": "self",
-      "href": "flareSimstrat.json",
+      "href": "example_BKandel.json",
       "type": "application/json",
       "title": "Model Forecast"
     },
@@ -152,8 +153,8 @@
     "1": {
       "type": "application/json",
       "title": "Model Metadata",
-      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/flareSimstrat.json",
-      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/flareSimstrat.json\")\n\n"
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/example_BKandel.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/example_BKandel.json\")\n\n"
     },
     "2": {
       "type": "text/html",
@@ -164,8 +165,8 @@
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
-      "href": "\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_BKandel?endpoint_override=sdsc.osn.xsede.org\"",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_BKandel?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

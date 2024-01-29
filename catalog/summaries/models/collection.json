@@ -316,6 +316,11 @@
       "href": "model_items/example_BKandel.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_WP_SP24.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

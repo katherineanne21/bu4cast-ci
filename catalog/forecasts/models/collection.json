@@ -228,17 +228,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -283,12 +283,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BK.json"
+      "href": "model_items/example_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID.json"
+      "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -313,7 +318,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "parent",

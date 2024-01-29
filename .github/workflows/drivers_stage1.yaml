@@ -24,7 +24,7 @@ jobs:
         run: |
           install.packages("remotes")
           install.packages("devtools")
-          devtools::install(dependencies=TRUE, upgrade="never")
+          #devtools::install(dependencies=TRUE, upgrade="never")
           #install.packages("remotes")
           remotes::install_github("eco4cast/gefs4cast")
 

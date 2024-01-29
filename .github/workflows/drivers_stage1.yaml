@@ -17,7 +17,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
       container: rocker/geospatial:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install
         shell: Rscript {0}

@@ -9,12 +9,12 @@ name: gefs_osn_stage3
 
 jobs:
   docker:
-    runs-on: ubuntu-latest #self-hosted
+    runs-on: self-hosted
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    #container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
 

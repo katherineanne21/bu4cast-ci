@@ -146,12 +146,13 @@ if(length(submissions) > 0){
                                                     "variable",
                                                     "model_id",
                                                     "reference_date"))
+        print("creating summaries")
 
         s3$CreateDir(paste0("summaries"))
         fc |>
-          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "depth_m", "duration", "model_id",
+          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
                                                                                 "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
-          score4cast::summarize_forecast(extra_groups = c("duration", "project_id", "depth_m")) |>
+          score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
           dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
           arrow::write_dataset(s3$path("summaries"), format = 'parquet',
                                partitioning = c("project_id",
@@ -159,6 +160,9 @@ if(length(submissions) > 0){
                                                 "variable",
                                                 "model_id",
                                                 "reference_date"))
+
+        print("updating inventory")
+
 
         bucket <- config$forecasts_bucket
         curr_inventory <- fc |>
@@ -187,6 +191,8 @@ if(length(submissions) > 0){
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
           minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
+
+        print("finishing submission processing")
 
         rm(fc)
         gc()

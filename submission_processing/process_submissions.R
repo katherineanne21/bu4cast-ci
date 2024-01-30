@@ -179,11 +179,17 @@ if(length(submissions) > 0){
 
         curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
 
+        print("updating inventory3")
+
+
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
+
+        print("updating inventory4")
+
 
         arrow::write_dataset(inventory_df, path = s3_inventory)
 
-        print("updating inventory3")
+        print("updating inventory5")
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)

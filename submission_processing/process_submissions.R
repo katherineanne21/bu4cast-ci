@@ -186,6 +186,10 @@ if(length(submissions) > 0){
 
         print("updating inventory4")
 
+        nrow(inventory_df)
+        ncol(inventory_df)
+        object_size(inventory_df)
+
 
         arrow::write_dataset(inventory_df, path = s3_inventory)
 

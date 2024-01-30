@@ -183,6 +183,8 @@ if(length(submissions) > 0){
 
         arrow::write_dataset(inventory_df, path = s3_inventory)
 
+        print("updating inventory3")
+
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))

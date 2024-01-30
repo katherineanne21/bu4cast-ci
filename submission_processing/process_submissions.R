@@ -175,6 +175,7 @@ if(length(submissions) > 0){
                  path_summaries = glue::glue("{bucket}/summaries/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
                  endpoint =config$endpoint)
 
+        print("updating inventory2")
 
         curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
 

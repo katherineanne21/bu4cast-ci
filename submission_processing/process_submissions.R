@@ -180,16 +180,13 @@ if(length(submissions) > 0){
         curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
 
         print("updating inventory3")
-
+        print(object.size(inventory_df), units = "GB")
 
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
 
         print("updating inventory4")
 
-        nrow(inventory_df)
-        ncol(inventory_df)
-        object_size(inventory_df)
-
+        print(object.size(inventory_df), units = "GB")
 
         arrow::write_dataset(inventory_df, path = s3_inventory)
 

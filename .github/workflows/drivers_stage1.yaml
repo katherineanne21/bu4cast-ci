@@ -38,3 +38,7 @@ jobs:
         run: |
           source("drivers/generate_stage2.R")
 
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/fc148462-2f07-4cd3-a11d-823982db0270
+

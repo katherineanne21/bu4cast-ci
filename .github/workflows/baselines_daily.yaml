@@ -53,3 +53,7 @@ jobs:
         shell: Rscript {0}
         run: |
           source("baseline_models/run_phenology_baselines.R")
+
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/7f3fab32-5167-4817-9f2a-d1cc654c0b45

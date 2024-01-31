@@ -33,3 +33,7 @@ jobs:
         shell: Rscript {0}
         run: |
           source("drivers/update_stage3.R")
+
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/cfa6fee0-6608-46f4-9cca-4e83445788fe

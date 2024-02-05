@@ -23,6 +23,10 @@ jobs:
         shell: Rscript {0}
         run: |
           source("baseline_models/run_terrestrial_baselines.R")
+          
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/bbe3ddc7-4020-4c53-bb13-08580d765e32
 
   aquatics:
     runs-on: ubuntu-latest
@@ -38,6 +42,10 @@ jobs:
         shell: Rscript {0}
         run: |
           source("baseline_models/run_aquatics_baselines.R")
+          
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/a848914e-9abf-45e4-bcf3-27f570cc3623
 
   phenology:
     runs-on: ubuntu-latest
@@ -56,4 +64,4 @@ jobs:
 
       - name: Healthcheck
         run: |
-          curl -m 10 --retry 5 https://hc-ping.com/7f3fab32-5167-4817-9f2a-d1cc654c0b45
+          curl -m 10 --retry 5 https://hc-ping.com/f5d48d96-bb41-4c21-b028-930fa2b01c5a

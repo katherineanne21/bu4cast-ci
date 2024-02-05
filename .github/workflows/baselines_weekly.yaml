@@ -23,6 +23,10 @@ jobs:
         shell: Rscript {0}
         run: |
           source("baseline_models/run_ticks_baselines.R")
+          
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/9fd0a2f4-13b3-4d11-880b-1487a1d801ca
 
   beetles:
     runs-on: ubuntu-latest
@@ -41,4 +45,4 @@ jobs:
 
       - name: Healthcheck
         run: |
-          curl -m 10 --retry 5 https://hc-ping.com/74d913b8-ec61-4659-a14a-6cb0bfabec19
+          curl -m 10 --retry 5 https://hc-ping.com/28df2e97-6036-4fa1-9d8a-6aa9fbaa0726

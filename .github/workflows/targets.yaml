@@ -56,7 +56,7 @@ jobs:
       NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
     container: rocker/geospatial:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Generate targets
         shell: Rscript {0}

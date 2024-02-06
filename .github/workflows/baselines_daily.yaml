@@ -56,4 +56,4 @@ jobs:
 
       - name: Healthcheck
         run: |
-          curl -m 10 --retry 5 https://hc-ping.com/7f3fab32-5167-4817-9f2a-d1cc654c0b45
+          curl -m 10 --retry 5 https://hc-ping.com/5e8257df-e494-4946-8aee-1f78eba0d5b7

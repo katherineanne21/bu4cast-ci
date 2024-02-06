@@ -21,4 +21,4 @@ if(generate_null_30min){
   print(paste0("Completed 30 min Null at ", Sys.time()))
 }
 
-RCurl::url.exists("https://hc-ping.com/bbe3ddc7-4020-4c53-bb13-08580d765e32")
+#RCurl::url.exists("https://hc-ping.com/bbe3ddc7-4020-4c53-bb13-08580d765e32")

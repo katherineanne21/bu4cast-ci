@@ -34,7 +34,7 @@ reference_datetimes <- arrow::open_dataset("../cache/summaries") |>
   dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>  
   dplyr::collect() |> 
   group_by(variable) |>
-  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(1))))
+  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(2))))
 
 
 reference_datetimes_P1W <- arrow::open_dataset("../cache/summaries/duration=P1W") |> 
@@ -43,7 +43,7 @@ reference_datetimes_P1W <- arrow::open_dataset("../cache/summaries/duration=P1W"
   dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>  
   dplyr::collect() |> 
   group_by(variable) |>
-  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(1))))
+  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(2))))
 
 config <- yaml::read_yaml("../challenge_configuration.yaml")
 sites <- readr::read_csv(paste0("../", config$site_table), show_col_types = FALSE) |> 

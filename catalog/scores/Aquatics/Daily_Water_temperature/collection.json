@@ -18,26 +18,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
     },
     {
@@ -53,17 +33,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
+      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fTSLM_lag.json"
+      "href": "../../models/model_items/GLEON_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -108,7 +93,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM.json"
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fTSLM_lag.json"
     },
     {
       "rel": "item",
@@ -124,6 +119,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM.json"
     },
     {
       "rel": "item",
@@ -223,17 +223,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -301,7 +301,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-72.3295, 42.4719, -72.3295, 42.4719]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {

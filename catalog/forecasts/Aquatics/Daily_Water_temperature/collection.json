@@ -266,6 +266,16 @@
       "href": "../../models/model_items/example_faasr.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

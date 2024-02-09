@@ -28,9 +28,10 @@ s3$CreateDir("scores")
 Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
 Sys.unsetenv("AWS_DEFAULT_REGION")
 
-s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=", config$project_id), endpoint_override = endpoint)
+s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"), endpoint_override = endpoint)
 
 variable_duration <- arrow::open_dataset(s3_inv) |>
+  filter(project_id == config$project_id) |>
   dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 
@@ -53,7 +54,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
   s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
   s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
   s3_prov <- arrow::s3_bucket(config$prov_bucket, endpoint_override = endpoint)
-  s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=",config$project_id), endpoint_override = endpoint)
+  s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"), endpoint_override = endpoint)
 
   local_prov <- paste0(project_id,"-",duration,"-",variable, "-scoring_provenance.csv")
 
@@ -92,8 +93,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
   curr_project_id <- project_id
 
   groupings <- arrow::open_dataset(s3_inv) |>
-    dplyr::mutate(project_id = config$project_id) |>
-    dplyr::filter(variable == curr_variable, duration == curr_duration) |>
+    dplyr::filter(variable == curr_variable,
+                  duration == curr_duration,
+                  project_id == config$project_id) |>
     dplyr::select(-site_id) |>
     dplyr::collect() |>
     dplyr::distinct() |>

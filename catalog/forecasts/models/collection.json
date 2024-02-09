@@ -321,6 +321,46 @@
       "href": "model_items/example_WP_SP24.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ACP_sp24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/mkricheldorf_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_Kandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_Kandel1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -432,7 +472,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

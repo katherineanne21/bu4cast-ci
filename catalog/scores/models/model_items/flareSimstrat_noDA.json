@@ -27,7 +27,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: PRPO, BARC, SUGG, CRAM, PRLA, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-03-08",
-    "end_datetime": "2024-01-29",
+    "end_datetime": "2024-02-05",
     "providers": [
       {
         "url": "pending",
@@ -204,8 +204,8 @@
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet//parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareSimstrat_noDA?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

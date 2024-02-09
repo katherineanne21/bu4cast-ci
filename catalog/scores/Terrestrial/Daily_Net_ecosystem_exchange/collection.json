@@ -13,21 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/USUNEEDAILY.json"
     },
     {
@@ -43,7 +28,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -63,11 +63,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
@@ -79,6 +74,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -136,14 +136,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-156.6194, 17.9696, -66.8687, 71.2824]
+        [-78.0418, 39.0337, -78.0418, 39.0337]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-24T00:00:00Z"
+          "2024-01-30T00:00:00Z"
         ]
       ]
     }
@@ -252,7 +252,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=nee?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=nee?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

@@ -56,7 +56,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-156.6194, 17.9696, -66.8687, 71.2824]
+        [-88.1612, 31.8539, -88.1612, 31.8539]
       ]
     },
     "temporal": {
@@ -157,7 +157,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

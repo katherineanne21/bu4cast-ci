@@ -38,6 +38,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
@@ -49,11 +59,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -78,12 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "parent",
@@ -121,7 +121,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-156.6194, 17.9696, -66.8687, 71.2824]
+        [-122.3303, 45.7624, -122.3303, 45.7624]
       ]
     },
     "temporal": {
@@ -237,7 +237,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=richness?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1W/variable=richness?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

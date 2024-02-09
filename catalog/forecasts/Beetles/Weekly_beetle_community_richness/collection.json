@@ -121,7 +121,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-156.6194, 17.9696, -66.8687, 71.2824]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
@@ -197,7 +197,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1W/variable=richness?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1W/variable=richness?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

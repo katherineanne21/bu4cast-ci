@@ -51,14 +51,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-96.5631, 29.6893, -76.56, 39.1008]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-03T00:00:00Z"
+          "2024-02-05T00:00:00Z"
         ]
       ]
     }
@@ -167,7 +167,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

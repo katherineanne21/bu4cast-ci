@@ -31,7 +31,7 @@ Sys.unsetenv("AWS_DEFAULT_REGION")
 s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"), endpoint_override = endpoint)
 
 variable_duration <- arrow::open_dataset(s3_inv) |>
-  filter(project_id == config$project_id) |>
+  dplyr::filter(project_id == config$project_id) |>
   dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 

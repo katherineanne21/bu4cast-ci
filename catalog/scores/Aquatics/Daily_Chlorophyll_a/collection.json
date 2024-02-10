@@ -33,7 +33,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodSteele.json"
+      "href": "../../models/model_items/procBlanchardMonod.json"
     },
     {
       "rel": "item",
@@ -43,37 +43,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procBlanchardMonod.json"
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procBlanchardSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procCTMIMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procCTMISteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodMonod.json"
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -118,16 +93,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
     },
     {
@@ -139,6 +104,41 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procBlanchardSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMIMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "parent",
@@ -183,7 +183,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-05T00:00:00Z"
+          "2024-02-07T00:00:00Z"
         ]
       ]
     }

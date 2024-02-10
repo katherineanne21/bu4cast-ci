@@ -33,7 +33,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
+      "href": "model_items/procBlanchardMonod.json"
     },
     {
       "rel": "item",
@@ -43,37 +43,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procBlanchardMonod.json"
+      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procBlanchardSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procCTMIMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procCTMISteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procHinshelwoodMonod.json"
+      "href": "model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -118,16 +93,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_tbats.json"
     },
     {
@@ -168,17 +133,42 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/procBlanchardSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procCTMIMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procEppleyNorbergSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procHinshelwoodMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",
@@ -223,7 +213,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/GLEON_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -258,7 +258,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_Kandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_Kandel1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
     },
     {
       "rel": "item",
@@ -284,11 +294,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -338,17 +343,12 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/flareGLM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_Kandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
     },
     {
       "rel": "parent",
@@ -393,7 +393,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-05T00:00:00Z"
+          "2024-02-08T00:00:00Z"
         ]
       ]
     }

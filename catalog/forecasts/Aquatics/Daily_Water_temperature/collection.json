@@ -213,32 +213,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BK.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_BKandel.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -259,6 +244,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_Kandel1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
     },
     {
       "rel": "item",

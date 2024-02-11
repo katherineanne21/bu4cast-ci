@@ -13,16 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_humidity_lm.json"
     },
     {
@@ -88,7 +78,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_ets.json"
+      "href": "model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -134,6 +124,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -288,7 +288,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
+      "href": "model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_climatology.json"
     },
     {
       "rel": "item",
@@ -299,11 +314,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -328,22 +338,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
+      "href": "model_items/new_example_ID.json"
     },
     {
       "rel": "item",
@@ -353,12 +353,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "parent",

@@ -136,6 +136,11 @@
       "href": "../../models/model_items/example_faasr.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

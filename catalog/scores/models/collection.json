@@ -38,26 +38,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/procBlanchardSteele.json"
     },
     {
@@ -93,6 +73,31 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_tbats.json"
     },
     {
@@ -103,7 +108,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
+      "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -133,17 +138,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_randfor.json"
+      "href": "model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -183,7 +183,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
+      "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -194,6 +194,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -278,12 +283,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
+      "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA.json"
+      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -309,11 +314,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/precip_mod.json"
     },
     {
       "rel": "item",
@@ -348,7 +348,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
+      "href": "model_items/precip_mod.json"
     },
     {
       "rel": "item",

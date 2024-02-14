@@ -23,12 +23,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/randfor.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -126,14 +126,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        ["Inf", "Inf", "-Inf", "-Inf"]
+        [-149.2133, 42.5369, -72.1727, 63.8758]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-04T00:00:00Z"
+          "2024-02-06T00:00:00Z"
         ]
       ]
     }

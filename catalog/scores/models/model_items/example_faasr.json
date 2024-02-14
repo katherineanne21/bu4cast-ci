@@ -16,6 +16,12 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-111.5081, 33.751],
+      [-119.0274, 36.9559],
+      [-88.1589, 31.8534],
+      [-149.6106, 68.6307],
+      [-84.2793, 35.9574],
+      [-105.9154, 39.8914],
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-119.2575, 37.0597],
@@ -43,19 +49,13 @@
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
       [-111.7979, 40.7839],
-      [-82.0177, 29.6878],
-      [-111.5081, 33.751],
-      [-119.0274, 36.9559],
-      [-88.1589, 31.8534],
-      [-149.6106, 68.6307],
-      [-84.2793, 35.9574],
-      [-105.9154, 39.8914]
+      [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2024-02-02",
-    "end_datetime": "2024-02-10",
+    "end_datetime": "2024-02-11",
     "providers": [
       {
         "url": "pending",
@@ -78,8 +78,8 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Water_temperature",
-      "Daily Dissolved_oxygen"
+      "Daily Dissolved_oxygen",
+      "Daily Water_temperature"
     ],
     "table:columns": [
       {
@@ -232,15 +232,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Water_temperature",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Dissolved_oxygen",
       "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

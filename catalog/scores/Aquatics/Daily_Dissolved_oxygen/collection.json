@@ -38,12 +38,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_WP_SP24.json"
+      "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -63,7 +58,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -78,22 +78,12 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -113,12 +103,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -133,7 +133,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "parent",
@@ -178,7 +178,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-10T00:00:00Z"
+          "2024-02-11T00:00:00Z"
         ]
       ]
     }

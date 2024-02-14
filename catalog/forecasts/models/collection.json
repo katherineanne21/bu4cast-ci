@@ -13,16 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -79,6 +69,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -213,12 +213,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -233,12 +233,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
+      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -293,22 +293,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BK.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_climatology.json"
+      "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
@@ -318,7 +303,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BKandel.json"
+      "href": "model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -348,17 +333,32 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -369,6 +369,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_WP_SP24_Uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "parent",

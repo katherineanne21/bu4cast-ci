@@ -371,6 +371,11 @@
       "href": "model_items/example_WP_SP24_Uncertainty.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

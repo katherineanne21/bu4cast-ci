@@ -38,6 +38,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/procBlanchardSteele.json"
     },
     {
@@ -68,21 +83,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_bag_mlp.json"
     },
     {
@@ -93,17 +93,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
@@ -133,7 +133,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
+      "href": "model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
@@ -183,6 +183,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_WP_SP24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_faasr.json"
     },
     {
@@ -194,11 +199,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -283,12 +283,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA.json"
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
+      "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
@@ -304,6 +304,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGLM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -353,12 +358,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/mean.json"
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/mean.json"
     },
     {
       "rel": "parent",
@@ -403,7 +408,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-11T00:00:00Z"
+          "2024-02-13T00:00:00Z"
         ]
       ]
     }

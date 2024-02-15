@@ -208,7 +208,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/new_example_ID.json"
+      "href": "../../models/model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
     },
     {
       "rel": "item",
@@ -218,7 +233,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BK.json"
+      "href": "../../models/model_items/new_example_ID.json"
     },
     {
       "rel": "item",
@@ -248,32 +263,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_RW.json"
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",

@@ -268,12 +268,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",

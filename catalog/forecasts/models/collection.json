@@ -13,16 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -79,6 +69,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -313,11 +313,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/new_example_ID.json"
     },
     {
@@ -353,12 +348,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -374,6 +374,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
     },
     {
       "rel": "parent",
@@ -417,7 +422,7 @@
     "temporal": {
       "interval": [
         [
-          "2023-01-01T00:00:00Z",
+          "2022-01-01T00:00:00Z",
           "2025-02-10T00:00:00Z"
         ]
       ]

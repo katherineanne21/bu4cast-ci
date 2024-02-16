@@ -86,6 +86,11 @@
       "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -127,7 +132,7 @@
     "temporal": {
       "interval": [
         [
-          "2023-01-02T00:00:00Z",
+          "2022-01-01T00:00:00Z",
           "2025-02-10T00:00:00Z"
         ]
       ]

@@ -376,6 +376,11 @@
       "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -417,7 +422,7 @@
     "temporal": {
       "interval": [
         [
-          "2023-01-01T00:00:00Z",
+          "2022-01-01T00:00:00Z",
           "2025-02-10T00:00:00Z"
         ]
       ]

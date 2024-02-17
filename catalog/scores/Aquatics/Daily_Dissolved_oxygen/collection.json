@@ -13,11 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/air2waterSat_2.json"
     },
     {
@@ -28,17 +23,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_WP_SP24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
     },
     {
       "rel": "item",
@@ -68,17 +68,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -118,12 +118,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -138,7 +138,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
+      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "parent",
@@ -176,14 +176,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-105.5442, 40.035, -105.5442, 40.035]
+        [-111.5081, 29.6878, -82.0177, 44.9501]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-13T00:00:00Z"
+          "2024-02-14T00:00:00Z"
         ]
       ]
     }

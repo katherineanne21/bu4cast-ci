@@ -43,11 +43,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
     },
     {
@@ -93,6 +88,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
@@ -128,12 +128,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_WP_SP24.json"
+      "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
+      "href": "../../models/model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",

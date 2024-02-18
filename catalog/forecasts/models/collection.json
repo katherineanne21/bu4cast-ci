@@ -213,12 +213,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -233,12 +233,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
+      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -283,27 +283,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/new_example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID.json"
     },
     {
       "rel": "item",
@@ -319,6 +304,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
@@ -353,12 +348,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",

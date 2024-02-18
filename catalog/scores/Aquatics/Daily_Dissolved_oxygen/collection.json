@@ -13,6 +13,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/air2waterSat_2.json"
     },
     {
@@ -23,12 +28,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -58,21 +73,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
@@ -83,7 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -113,6 +113,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
     },
     {
@@ -134,11 +139,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "parent",
@@ -176,14 +176,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-111.5081, 29.6878, -82.0177, 44.9501]
+        [-105.5442, 40.035, -89.7048, 45.9983]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-14T00:00:00Z"
+          "2024-02-15T00:00:00Z"
         ]
       ]
     }

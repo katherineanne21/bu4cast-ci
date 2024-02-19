@@ -13,6 +13,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -24,11 +39,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
     },
     {
       "rel": "item",
@@ -68,16 +78,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_auto_adam.json"
     },
     {
@@ -93,6 +93,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_tbats.json"
     },
     {
@@ -104,6 +114,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -129,21 +144,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -188,11 +188,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24_Uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_faasr.json"
     },
     {
@@ -233,6 +228,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -254,6 +264,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
@@ -288,17 +303,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fTSLM_lag.json"
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -314,16 +319,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGOTM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareSimstrat.json"
     },
     {
       "rel": "item",
@@ -353,6 +348,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareSimstrat.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
     },
     {
@@ -363,22 +373,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/precip_mod.json"
+      "href": "model_items/example_WP_SP24_Uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "parent",
@@ -423,7 +423,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-16T00:00:00Z"
+          "2024-02-17T00:00:00Z"
         ]
       ]
     }

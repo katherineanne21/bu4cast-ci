@@ -68,6 +68,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
@@ -79,16 +89,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -136,14 +136,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-78.0418, 39.0337, -78.0418, 39.0337]
+        [-119.006, 32.9505, -87.3933, 37.0058]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-16T00:00:00Z"
+          "2024-02-17T00:00:00Z"
         ]
       ]
     }

@@ -213,12 +213,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -283,22 +283,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID.json"
     },
     {
       "rel": "item",
@@ -318,12 +308,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
+      "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -353,12 +343,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/new_example_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -368,7 +363,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -378,7 +378,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sujan_ID.json"
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
     },
     {
       "rel": "parent",

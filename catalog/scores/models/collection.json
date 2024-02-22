@@ -13,6 +13,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/procBlanchardMonod.json"
     },
     {
@@ -53,6 +58,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -68,7 +78,37 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/persistenceRW.json"
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/PEG.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -104,46 +144,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -423,7 +423,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-19T00:00:00Z"
+          "2024-02-20T00:00:00Z"
         ]
       ]
     }

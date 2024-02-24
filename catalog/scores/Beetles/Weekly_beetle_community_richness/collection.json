@@ -13,11 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -68,6 +63,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
     },
     {
@@ -83,7 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/mean.json"
     },
     {
       "rel": "parent",
@@ -121,7 +121,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {

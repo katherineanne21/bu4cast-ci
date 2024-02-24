@@ -13,17 +13,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -126,14 +126,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-06T00:00:00Z"
+          "2024-02-16T00:00:00Z"
         ]
       ]
     }

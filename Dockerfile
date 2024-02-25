@@ -16,6 +16,8 @@ RUN apt-get update && apt-get -y install jags
 RUN apt-get update && apt-get -y install libgd-dev
 RUN apt-get update && apt-get -y install libnetcdf-dev
 
+RUN sudo update-ca-certificates
+
 #USER ${NB_USER}
 
 RUN apt-get -y install python3 python3-pip

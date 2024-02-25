@@ -13,6 +13,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/mean.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -33,22 +38,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -83,7 +78,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/mean.json"
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "parent",
@@ -121,7 +121,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        ["Inf", "Inf", "-Inf", "-Inf"]
+        [-122.3303, 45.7624, -122.3303, 45.7624]
       ]
     },
     "temporal": {

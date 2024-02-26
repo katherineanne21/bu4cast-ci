@@ -233,12 +233,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
+      "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -298,12 +298,32 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BK.json"
+      "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -333,22 +353,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -363,22 +368,47 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_example_mod_naive.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_example_mod_null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "parent",

@@ -286,6 +286,11 @@
       "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

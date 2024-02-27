@@ -13,22 +13,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/PEG.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -151,14 +151,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-20T00:00:00Z"
+          "2024-02-22T00:00:00Z"
         ]
       ]
     }

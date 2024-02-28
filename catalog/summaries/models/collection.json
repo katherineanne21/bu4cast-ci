@@ -416,6 +416,21 @@
       "href": "model_items/MAL_model_unc.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/zimmerman_proj1.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

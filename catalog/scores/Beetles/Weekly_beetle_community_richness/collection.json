@@ -38,7 +38,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -83,7 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "parent",

@@ -13,12 +13,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -38,12 +43,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -136,14 +136,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        ["Inf", "Inf", "-Inf", "-Inf"]
+        [-119.006, 32.9505, -87.3933, 37.0058]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-02T00:00:00Z"
+          "2024-04-03T00:00:00Z"
         ]
       ]
     }

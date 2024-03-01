@@ -42,10 +42,9 @@ minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = 
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
 submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
+submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)]
+
 submissions_filenames <- basename(submissions)
-
-
-
 
 if(length(submissions) > 0){
 

@@ -116,7 +116,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-96.5631, 29.6893, -76.56, 39.1008]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
@@ -130,11 +130,6 @@
   },
   "table:columns": [
     {
-      "name": "reference_datetime",
-      "type": "timestamp[us, tz=UTC]",
-      "description": "datetime that the forecast was initiated (horizon = 0)"
-    },
-    {
       "name": "datetime",
       "type": "timestamp[us, tz=UTC]",
       "description": "datetime of the forecasted value (ISO 8601)"
@@ -145,9 +140,9 @@
       "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
     },
     {
-      "name": "family",
-      "type": "string",
-      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      "name": "prediction",
+      "type": "double",
+      "description": "predicted value for variable"
     },
     {
       "name": "parameter",
@@ -155,14 +150,24 @@
       "description": "ensemble member or distribution parameter"
     },
     {
-      "name": "prediction",
-      "type": "double",
-      "description": "predicted value for variable"
+      "name": "family",
+      "type": "string",
+      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+    },
+    {
+      "name": "reference_datetime",
+      "type": "timestamp[us, tz=UTC]",
+      "description": "datetime that the forecast was initiated (horizon = 0)"
     },
     {
       "name": "pub_datetime",
       "type": "timestamp[us, tz=UTC]",
       "description": "datetime that forecast was submitted"
+    },
+    {
+      "name": "date",
+      "type": "date32[day]",
+      "description": {}
     },
     {
       "name": "project_id",
@@ -192,7 +197,7 @@
   ],
   "assets": {
     "data": {
-      "href": "\"s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum?endpoint_override=sdsc.osn.xsede.org\"",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [

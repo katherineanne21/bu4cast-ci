@@ -13,12 +13,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodSteele.json"
+      "href": "../../models/model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
@@ -63,17 +68,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/USGSHABs1.json"
+      "href": "../../models/model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -176,7 +176,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-82.0084, 29.676, -82.0084, 29.676]
+        [-82.0177, 29.6878, -82.0177, 29.6878]
       ]
     },
     "temporal": {

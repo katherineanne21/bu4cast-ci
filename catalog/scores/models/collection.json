@@ -13,17 +13,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
+      "href": "model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -63,17 +73,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/climatology.json"
+      "href": "model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
@@ -168,12 +168,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",

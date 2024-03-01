@@ -16,13 +16,10 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-<<<<<<< HEAD
       [-87.7982, 32.5415],
       [-147.504, 65.1532],
       [-105.5442, 40.035],
       [-89.4737, 46.2097],
-=======
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
       [-102.4471, 39.7582],
       [-66.9868, 18.1135],
       [-84.4374, 31.1854],
@@ -52,15 +49,7 @@
       [-84.2793, 35.9574],
       [-105.9154, 39.8914],
       [-110.5871, 44.9501],
-<<<<<<< HEAD
       [-96.6242, 34.4442]
-=======
-      [-96.6242, 34.4442],
-      [-87.7982, 32.5415],
-      [-147.504, 65.1532],
-      [-105.5442, 40.035],
-      [-89.4737, 46.2097]
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
     ]
   },
   "properties": {
@@ -89,24 +78,11 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-<<<<<<< HEAD
       "Daily Dissolved_oxygen",
       "Daily Water_temperature"
     ],
     "table:columns": [
       {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
-      {
-=======
-      "Daily Water_temperature",
-      "Daily Dissolved_oxygen"
-    ],
-    "table:columns": [
-      {
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
@@ -117,15 +93,9 @@
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
       },
       {
-<<<<<<< HEAD
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-=======
         "name": "prediction",
         "type": "double",
         "description": "predicted value for variable"
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
       },
       {
         "name": "parameter",
@@ -133,11 +103,6 @@
         "description": "ensemble member or distribution parameter"
       },
       {
-<<<<<<< HEAD
-        "name": "prediction",
-        "type": "double",
-        "description": "predicted value for variable"
-=======
         "name": "family",
         "type": "string",
         "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
@@ -146,7 +111,6 @@
         "name": "reference_datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime that the forecast was initiated (horizon = 0)"
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
       },
       {
         "name": "pub_datetime",
@@ -154,14 +118,11 @@
         "description": "datetime that forecast was submitted"
       },
       {
-<<<<<<< HEAD
-=======
         "name": "date",
         "type": "date32[day]",
         "description": {}
       },
       {
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
         "name": "project_id",
         "type": "string",
         "description": "unique identifier for the forecast project"
@@ -236,27 +197,15 @@
     },
     "3": {
       "type": "application/x-parquet",
-<<<<<<< HEAD
-      "title": "Database Access for Daily Dissolved_oxygen",
-      "href": "\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
-      "title": "Database Access for Daily Water_temperature",
-      "href": "\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\"",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-=======
-      "title": "Database Access for Daily Water_temperature",
-      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "4": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily Dissolved_oxygen",
       "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
->>>>>>> 521dd76c7d8df5d22f5f7e367a459e047005892e
+    },
+    "4": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=example_faasr?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

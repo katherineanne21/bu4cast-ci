@@ -193,16 +193,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/GLEON_lm_lag_1day.json"
     },
     {
@@ -213,12 +203,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/baseline_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -293,11 +293,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_BK.json"
     },
     {
@@ -318,7 +313,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
+      "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
@@ -338,12 +333,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_Kandel.json"
+      "href": "model_items/example_Kandel1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_Kandel1.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -383,11 +378,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
@@ -403,7 +393,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -413,7 +403,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tidymodels_ML.json"
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -428,7 +423,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
@@ -443,17 +448,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/hotdeck.json"
     },
     {
       "rel": "item",

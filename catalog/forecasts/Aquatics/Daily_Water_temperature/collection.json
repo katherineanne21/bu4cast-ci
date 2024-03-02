@@ -213,11 +213,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_BK.json"
     },
     {
@@ -238,6 +233,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/example_BKandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -249,11 +249,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mkricheldorf_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_Kandel.json"
     },
     {
       "rel": "item",
@@ -288,7 +283,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tidymodels_ML.json"
+      "href": "../../models/model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -303,7 +298,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
@@ -318,17 +323,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/hotdeck.json"
     },
     {
       "rel": "item",

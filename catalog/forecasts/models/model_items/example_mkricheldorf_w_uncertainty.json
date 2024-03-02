@@ -28,7 +28,7 @@
   "properties": {
     "description": [],
     "start_datetime": "2024-02-08",
-    "end_datetime": "2024-03-31",
+    "end_datetime": "2024-04-01",
     "providers": [
       {
         "url": "pending",

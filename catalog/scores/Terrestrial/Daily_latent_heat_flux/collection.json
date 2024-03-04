@@ -13,11 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
@@ -28,12 +23,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/randfor.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -73,12 +68,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -89,6 +84,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "parent",
@@ -126,14 +126,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-22T00:00:00Z"
+          "2024-02-25T00:00:00Z"
         ]
       ]
     }

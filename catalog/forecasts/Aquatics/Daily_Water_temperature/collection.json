@@ -278,11 +278,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/hotdeck.json"
     },
     {
@@ -309,6 +304,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

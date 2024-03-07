@@ -88,26 +88,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_humidity_lm_all_sites.json"
     },
     {
@@ -138,7 +118,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -223,6 +223,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/GLEON_JRabaey_temp_physics.json"
     },
     {
@@ -244,11 +249,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",

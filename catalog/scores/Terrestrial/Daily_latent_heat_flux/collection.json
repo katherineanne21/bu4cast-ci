@@ -43,11 +43,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
     },
     {
@@ -89,6 +84,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "parent",
@@ -133,7 +133,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-02-27T00:00:00Z"
+          "2024-02-29T00:00:00Z"
         ]
       ]
     }

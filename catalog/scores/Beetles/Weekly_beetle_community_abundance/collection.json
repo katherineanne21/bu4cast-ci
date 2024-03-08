@@ -13,6 +13,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/mean.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -24,6 +34,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -78,6 +93,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
@@ -104,21 +124,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "parent",
@@ -156,7 +161,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-96.6129, 18.0213, -67.0769, 39.1104]
+        [-122.3303, 45.7624, -122.3303, 45.7624]
       ]
     },
     "temporal": {

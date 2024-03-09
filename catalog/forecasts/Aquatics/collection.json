@@ -61,7 +61,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-96.6038, 39.1051, -96.6038, 39.1051]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {

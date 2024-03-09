@@ -121,6 +121,11 @@
       "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

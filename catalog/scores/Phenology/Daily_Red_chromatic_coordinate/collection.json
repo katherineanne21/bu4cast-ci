@@ -13,21 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
@@ -48,22 +33,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
+      "href": "../../models/model_items/PEG.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
+      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -78,17 +53,37 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -103,17 +98,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "parent",
@@ -151,14 +151,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-83.5019, 17.9696, -66.8687, 35.689]
+        ["Inf", "Inf", "-Inf", "-Inf"]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-07T00:00:00Z"
+          "2024-03-08T00:00:00Z"
         ]
       ]
     }

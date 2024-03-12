@@ -341,6 +341,11 @@
       "href": "../../models/model_items/mkricheldorf_w_lag.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/acp_fableLM.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

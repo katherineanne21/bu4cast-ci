@@ -471,6 +471,11 @@
       "href": "model_items/bet_abund_example_tslm_temp.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/acp_fableLM.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

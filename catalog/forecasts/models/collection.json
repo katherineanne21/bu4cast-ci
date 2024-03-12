@@ -308,17 +308,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/new_example_ID.json"
     },
     {
       "rel": "item",
@@ -338,6 +338,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
@@ -348,12 +353,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -363,7 +363,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sujan_ID.json"
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "item",
@@ -408,22 +408,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/Sujan_forecast.json"
     },
     {
       "rel": "item",
@@ -433,17 +418,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -458,7 +453,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MALM.json"
+      "href": "model_items/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
@@ -469,6 +469,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_abund_example_tslm_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/acp_fableLM.json"
     },
     {
       "rel": "parent",

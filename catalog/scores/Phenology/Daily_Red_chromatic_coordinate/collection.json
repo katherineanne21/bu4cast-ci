@@ -73,11 +73,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
@@ -88,7 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",
@@ -99,6 +94,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",

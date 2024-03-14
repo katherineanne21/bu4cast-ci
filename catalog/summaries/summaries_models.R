@@ -102,8 +102,8 @@ registered_model_id <- gsheet_read |>
   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
   rename(project_id = `What forecasting challenge are you registering for?`) |>
   arrange(row_non_na) |>
-  distinct(model_id, project_id, .keep_all = TRUE) |>
-  filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
+  distinct(model_id, project_id, .keep_all = TRUE) #|>
+  #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
 
 # read in model metadata and filter for the relevant project
 # registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>

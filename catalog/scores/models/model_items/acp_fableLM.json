@@ -4,7 +4,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Feature",
-  "id": "USUNEEDAILY",
+  "id": "acp_fableLM",
   "bbox": [
     [
       -156.6194,
@@ -16,13 +16,19 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-155.3173, 19.5531]
+      [-82.0084, 29.676],
+      [-89.4737, 46.2097],
+      [-89.7048, 45.9983],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878],
+      [-149.6106, 68.6307]
     ]
   },
   "properties": {
-    "description": "\nmodel info: \"Home brew ARIMA.\" We didn't use a formal time series framework because of all the missing values in both our response variable and the weather covariates. So we used a GAM to fit a seasonal component based on day of year, and we included NEE the previous day as as an AR 1 term. We did some model selection, using cross validation, to identify temperature and relative humidity as weather covariates.\n\nSites: PUUM\n\nVariables: Daily Net_ecosystem_exchange",
-    "start_datetime": "2023-12-12",
-    "end_datetime": "2024-01-16",
+    "description": "\nmodel info: Time series linear model with FABLE\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
+    "start_datetime": "2024-03-11",
+    "end_datetime": "2024-03-11",
     "providers": [
       {
         "url": "pending",
@@ -45,7 +51,7 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
-      "Daily Net_ecosystem_exchange"
+      "Daily Water_temperature"
     ],
     "table:columns": [
       {
@@ -156,7 +162,7 @@
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "USUNEEDAILY"
+      "title": "acp_fableLM"
     },
     {
       "rel": "root",
@@ -168,17 +174,17 @@
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "USUNEEDAILY"
+      "title": "acp_fableLM"
     },
     {
       "rel": "self",
-      "href": "USUNEEDAILY.json",
+      "href": "acp_fableLM.json",
       "type": "application/json",
       "title": "Model Forecast"
     },
     {
       "rel": "item",
-      "href": "https://drive.google.com/file/d/10uvb3HWR0nHOHrBSQTTPc9vZnYgFgbVa/view?usp=sharing",
+      "href": "https://github.com/acpVT/eco_forecast/blob/main/FABLEmodel.Rmd",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -187,20 +193,20 @@
     "1": {
       "type": "application/json",
       "title": "Model Metadata",
-      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/USUNEEDAILY.json",
-      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/USUNEEDAILY.json\")\n\n"
+      "href": "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/acp_fableLM.json",
+      "description": "Use `jsonlite::fromJSON()` to download the model metadata JSON file. This R code will return metadata provided during the model registration.\n      \n\n### R\n\n```{r}\n# Use code below\n\nmodel_metadata <- jsonlite::fromJSON(\"https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/metadata/model_id/acp_fableLM.json\")\n\n"
     },
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "https://drive.google.com/file/d/10uvb3HWR0nHOHrBSQTTPc9vZnYgFgbVa/view?usp=sharing",
+      "href": "https://github.com/acpVT/eco_forecast/blob/main/FABLEmodel.Rmd",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Net_ecosystem_exchange",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=nee/model_id=USUNEEDAILY?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=nee/model_id=USUNEEDAILY?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=acp_fableLM?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=acp_fableLM?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

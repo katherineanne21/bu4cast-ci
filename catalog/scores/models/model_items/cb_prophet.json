@@ -262,7 +262,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -277,7 +277,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": null,
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

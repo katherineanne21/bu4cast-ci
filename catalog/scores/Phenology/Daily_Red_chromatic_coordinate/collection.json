@@ -13,17 +13,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/PEG.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -158,7 +158,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-11T00:00:00Z"
+          "2024-03-12T00:00:00Z"
         ]
       ]
     }

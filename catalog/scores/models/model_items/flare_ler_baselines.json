@@ -23,7 +23,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: BARC, SUGG\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-03-10",
+    "end_datetime": "2024-03-11",
     "providers": [
       {
         "url": "pending",
@@ -179,7 +179,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -194,7 +194,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": null,
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -118,8 +118,15 @@ variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 # registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 # read in model metadata and filter for the relevant project
-registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
-  filter(`What forecasting challenge are you registering for?` == config$project_id)
+# registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
+#   filter(`What forecasting challenge are you registering for?` == config$project_id)
+
+registered_model_id <- gsheet_read |>
+  filter(`What forecasting challenge are you registering for?` == config$project_id) |>
+  rename(project_id = `What forecasting challenge are you registering for?`) |>
+  arrange(row_non_na) |>
+  distinct(model_id, project_id, .keep_all = TRUE) |>
+  filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
 
 forecast_sites <- c()
 
@@ -174,8 +181,8 @@ for (m in theme_models$model_id){
               table_schema = forecast_theme_df,
               table_description = forecast_description_create,
               full_var_df = model_vars,
-              #code_web_link = registered_model_id$`Web link to model code`[idx],
-              code_web_link = 'pending')
+              code_web_link = registered_model_id$`Web link to model code`[idx])
+              #code_web_link = 'pending')
 }
 
 

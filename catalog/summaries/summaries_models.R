@@ -98,6 +98,9 @@ variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 #
 # registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
+gsheet_read <- gsheet2tbl(config$model_metadata_gsheet)
+gsheet_read$row_non_na <- rowSums(!is.na(gsheet_read))
+
 registered_model_id <- gsheet_read |>
   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
   rename(project_id = `What forecasting challenge are you registering for?`) |>

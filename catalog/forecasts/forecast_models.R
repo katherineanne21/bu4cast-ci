@@ -121,11 +121,14 @@ variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 # registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
 #   filter(`What forecasting challenge are you registering for?` == config$project_id)
 
+gsheet_read <- gsheet2tbl(config$model_metadata_gsheet)
+gsheet_read$row_non_na <- rowSums(!is.na(gsheet_read))
+
 registered_model_id <- gsheet_read |>
   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
   rename(project_id = `What forecasting challenge are you registering for?`) |>
   arrange(row_non_na) |>
-  distinct(model_id, project_id, .keep_all = TRUE) #|>
+  distinct(model_id, project_id, .keep_all = TRUE)#|>
   #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
 
 forecast_sites <- c()

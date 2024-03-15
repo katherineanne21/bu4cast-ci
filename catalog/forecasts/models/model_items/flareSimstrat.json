@@ -25,7 +25,7 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: CRAM, LIRO, PRLA, PRPO, SUGG, BARC\n\nVariables: Daily Water_temperature",
+    "description": [],
     "start_datetime": "2023-11-15",
     "end_datetime": "2024-03-19",
     "providers": [
@@ -148,7 +148,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": [],
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -163,7 +163,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": [],
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

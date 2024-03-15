@@ -133,16 +133,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
     },
     {
@@ -154,6 +144,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -238,7 +238,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -249,26 +269,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mkricheldorf_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -308,7 +308,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MALM.json"
     },
     {
       "rel": "item",
@@ -328,17 +338,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/mkricheldorf_w_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -381,7 +381,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        ["Inf", "Inf", "-Inf", "-Inf"]
+        [-149.6106, 18.1135, -66.7987, 68.6698]
       ]
     },
     "temporal": {

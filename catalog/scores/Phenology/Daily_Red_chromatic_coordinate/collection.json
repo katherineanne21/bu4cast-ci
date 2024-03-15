@@ -38,27 +38,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/prophet_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
+      "href": "../../models/model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -73,7 +68,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -88,17 +88,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -114,6 +109,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "parent",
@@ -151,14 +151,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        [-156.6194, 17.9696, -66.8687, 71.2824]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-12T00:00:00Z"
+          "2024-03-13T00:00:00Z"
         ]
       ]
     }

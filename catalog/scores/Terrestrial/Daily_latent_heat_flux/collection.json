@@ -28,11 +28,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -91,6 +86,11 @@
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/randfor.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -126,14 +126,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-122.3303, 45.7624, -122.3303, 45.7624]
+        [-156.6194, 17.9696, -66.8687, 71.2824]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-06T00:00:00Z"
+          "2024-03-07T00:00:00Z"
         ]
       ]
     }

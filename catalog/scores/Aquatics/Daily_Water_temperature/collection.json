@@ -58,7 +58,47 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/baseline_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -123,47 +163,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/fTSLM_lag.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/flareGOTM.json"
     },
     {
       "rel": "item",
@@ -238,7 +243,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGOTM.json"
+      "href": "../../models/model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -278,6 +288,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
     },
     {
@@ -293,32 +313,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -381,14 +381,14 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-105.5442, 40.035, -105.5442, 40.035]
+        [-149.6106, 18.1135, -66.7987, 68.6698]
       ]
     },
     "temporal": {
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-11T00:00:00Z"
+          "2024-03-12T00:00:00Z"
         ]
       ]
     }

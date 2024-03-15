@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: I used an autoregressive linear model using the lm() function\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-03-06",
-    "end_datetime": "2024-03-10",
+    "end_datetime": "2024-03-11",
     "providers": [
       {
         "url": "pending",
@@ -184,7 +184,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": "https://github.com/michael-kricheldorf/first-forecast",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -199,7 +199,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": "https://github.com/michael-kricheldorf/first-forecast",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

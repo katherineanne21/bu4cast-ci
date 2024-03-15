@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: Modelling for water temperature using a single layer neural network (mlp() in tidymodels). Used relative humidity, precipitation flux and air temperature as drivers. Hypertuned parameters for models to be run with 100 epochs and penalty value of 0.01.\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-03-01",
-    "end_datetime": "2024-03-10",
+    "end_datetime": "2024-03-11",
     "providers": [
       {
         "url": "pending",
@@ -184,7 +184,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": "https://github.com/lindsey-finks/NEON-forecast-challenge-workshop",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -199,7 +199,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": "https://github.com/lindsey-finks/NEON-forecast-challenge-workshop",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

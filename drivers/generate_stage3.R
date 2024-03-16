@@ -13,8 +13,6 @@ site_list <- readr::read_csv(paste0("https://github.com/eco4cast/",
                                     "raw/master/noaa_download_site_list.csv"),
                              show_col_types = FALSE) |> dplyr::pull(site_id)
 
-site_list <- TALL
-
 s3 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12",
                        endpoint_override = "sdsc.osn.xsede.org",
                        access_key= Sys.getenv("OSN_KEY"),

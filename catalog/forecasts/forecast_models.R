@@ -34,6 +34,7 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 # site_id <- 'fcre'
 # model_id <- 'climatology'
 
+print('FIND FORECAST TABLE SCHEMA')
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
   #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
@@ -44,11 +45,16 @@ forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucke
 #                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
 #   collect()
 
+print('FIND INVENTORY BUCKET')
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+                              endpoint_override = "sdsc.osn.xsede.org",
+                              anonymous=TRUE)
 
-forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/"),
-                                endpoint_override = "sdsc.osn.xsede.org",
-                                anonymous=TRUE)
+# forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+#                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
+#   collect()
 
+print('OPEN INVENTORY BUCKET')
 forecast_data_df <- arrow::open_dataset(forecast_s3) |>
   filter(project_id == config$project_id) |>
   collect()
@@ -60,7 +66,7 @@ forecast_date_range <- forecast_data_df |> dplyr::summarise(min(date),max(date))
 forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
 
-build_description <- paste0("The catalog contains forecasts for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble).  Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
+build_description <- paste0("Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
 stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       #theme_id = 'Forecasts',
@@ -112,8 +118,18 @@ variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 # registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
 
 # read in model metadata and filter for the relevant project
-registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
-  filter(`What forecasting challenge are you registering for?` == config$project_id)
+# registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
+#   filter(`What forecasting challenge are you registering for?` == config$project_id)
+
+gsheet_read <- gsheet2tbl(config$model_metadata_gsheet)
+gsheet_read$row_non_na <- rowSums(!is.na(gsheet_read))
+
+registered_model_id <- gsheet_read |>
+  filter(`What forecasting challenge are you registering for?` == config$project_id) |>
+  rename(project_id = `What forecasting challenge are you registering for?`) |>
+  arrange(row_non_na) |>
+  distinct(model_id, project_id, .keep_all = TRUE)#|>
+  #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
 
 forecast_sites <- c()
 
@@ -130,7 +146,7 @@ for (m in theme_models$model_id){
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+  model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
@@ -162,14 +178,14 @@ for (m in theme_models$model_id){
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$forecast_path,"models/model_items"),
-              aws_download_path = config$forecasts_bucket, # CHANGE THIS BUCKET NAME
+              aws_download_path = config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
               collection_name = 'forecasts',
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,
               table_description = forecast_description_create,
               full_var_df = model_vars,
-              #code_web_link = registered_model_id$`Web link to model code`[idx],
-              code_web_link = 'pending')
+              code_web_link = registered_model_id$`Web link to model code`[idx])
+              #code_web_link = 'pending')
 }
 
 
@@ -187,6 +203,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     print('No data available for group')
     next
   }
+
+  ## REMOVE STALE OR UNUSED DIRECTORIES
+  current_var_path <- paste0(catalog_config$forecast_path,names(config$variable_groups[i]))
+  current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
+  unlink(current_var_dirs, recursive = TRUE)
 
   if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))){
     dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))
@@ -211,8 +232,11 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     duration_name <- config$variable_groups[[i]]$duration[j]
 
     # match variable with full name in gsheet
+    var_gsheet_arrange <- variable_gsheet |>
+      arrange(duration)
+
     #var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
-    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` %in% var_values),1][[1]]
+    var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
 
 

@@ -9,20 +9,22 @@ name: submissions-score-dashboard-catalog
 
 jobs:
   submissions:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted #ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
       AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    #container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Process submissions
         shell: Rscript {0}
         run: |
+          #devtools::install_deps(upgrade="never")
+          remotes::install_github("eco4cast/score4cast")
           source("submission_processing/process_submissions.R")
 
 
@@ -35,7 +37,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Generate scores
         shell: Rscript {0}
@@ -47,49 +49,8 @@ jobs:
         run: |
           source("scoring/build_score_inventory.R")
 
-  catalog:
-    needs: scores
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: rocker/ml-verse
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      - name: install deps
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE)
-          install.packages("bench")
-          install.packages("aws.s3")
-          #reticulate::install_python(version = '3.11.5')
-
-      - name: install validator
-        run: |
-          pip install stac-validator
-
-      - name: Render
-        shell: Rscript {0}
-        run: source("catalog/update_stac.R")
-
-      - name: Commit and Push
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git pull
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
   dashboard:
-    needs: catalog
+    needs: scores
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -97,7 +58,7 @@ jobs:
     steps:
       - run: git config --system --add safe.directory '*'
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
            fetch-depth: 0
            set-safe-directory: '*'
@@ -126,8 +87,13 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git pull
           git checkout gh-pages
           cp -r dashboard/docs/* .
           git add .
           git commit -a -m "update pages" || echo "nothing to commit"
           git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
+
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/3d4d156a-d6d6-4670-82b8-fe383bb7fb93

@@ -25,9 +25,13 @@ noaa_description_create <- data.frame(site_id = 'For forecasts that are not on a
                                       longitude = 'forecast site longitude',
                                       latitude = 'forecast site latitude')
 
+noaa_theme_df <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2"), endpoint_override = config$noaa_endpoint, anonymous = TRUE))
 
-noaa_theme_df <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"stage2/parquet/0/2023-08-01/feea"), endpoint_override = config$noaa_endpoint, anonymous = TRUE))
-
+noaa_theme_dates <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2"), endpoint_override = config$noaa_endpoint, anonymous = TRUE)) |>
+  dplyr::summarise(min(datetime),max(datetime)) |>
+  collect()
+noaa_min_date <- noaa_theme_dates$`min(datetime)`
+noaa_max_date <- noaa_theme_dates$`max(datetime)`
 
 #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
@@ -51,8 +55,8 @@ build_description <- paste0("The catalog contains NOAA forecasts used for the ",
 stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
                                  #theme_id = 'Forecasts',
                                  table_description = noaa_description_create,
-                                 start_date = 'pending',
-                                 end_date = 'pending',
+                                 start_date = noaa_min_date,
+                                 end_date = noaa_max_date,
                                  id_value = "noaa-forecasts",
                                  description_string = build_description,
                                  about_string = catalog_config$about_string,
@@ -61,8 +65,8 @@ stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
                                  destination_path = catalog_config$noaa_path,
                                  aws_download_path = config$noaa_forecast_bucket,
                                  link_items = stac4cast::generate_group_values(group_values = config$noaa_forecast_groups),
-                                 thumbnail_link = catalog_config$forecasts_thumbnail,
-                                 thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                                 thumbnail_link = catalog_config$noaa_thumbnail,
+                                 thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  model_child = FALSE)
 
 
@@ -85,8 +89,8 @@ for (i in 1:length(config$noaa_forecast_groups)){ ## organize variable groups
 
   stac4cast::build_noaa_forecast(table_schema = noaa_theme_df,
                                  table_description = noaa_description_create,
-                                 start_date = 'pending',
-                                 end_date = 'pending',
+                                 start_date = noaa_min_date,
+                                 end_date = noaa_max_date,
                                  id_value = config$noaa_forecast_groups[i],
                                  description_string = build_description,
                                  about_string = catalog_config$about_string,
@@ -95,8 +99,8 @@ for (i in 1:length(config$noaa_forecast_groups)){ ## organize variable groups
                                  destination_path = paste0(catalog_config$noaa_path, config$noaa_forecast_groups[i]),
                                  aws_download_path = config$noaa_forecast_bucket,
                                  link_items = NULL,
-                                 thumbnail_link = catalog_config$forecasts_thumbnail,
-                                 thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                                 thumbnail_link = catalog_config$noaa_thumbnail,
+                                 thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  group_sites = find_noaa_sites$field_site_id,
                                  path_item = config$noaa_forecast_group_paths[i])
 

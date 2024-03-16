@@ -13,6 +13,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
     },
     {
@@ -23,12 +38,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
+      "href": "../../models/model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -43,7 +63,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -53,17 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -73,22 +93,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
+      "href": "../../models/model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -138,17 +143,12 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-01-03T00:00:00Z"
+          "2024-04-18T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
-    {
-      "name": "reference_datetime",
-      "type": "timestamp[us, tz=UTC]",
-      "description": "datetime that the forecast was initiated (horizon = 0)"
-    },
     {
       "name": "datetime",
       "type": "timestamp[us, tz=UTC]",
@@ -160,9 +160,9 @@
       "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
     },
     {
-      "name": "family",
-      "type": "string",
-      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      "name": "prediction",
+      "type": "double",
+      "description": "predicted value for variable"
     },
     {
       "name": "parameter",
@@ -170,14 +170,24 @@
       "description": "ensemble member or distribution parameter"
     },
     {
-      "name": "prediction",
-      "type": "double",
-      "description": "predicted value for variable"
+      "name": "family",
+      "type": "string",
+      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+    },
+    {
+      "name": "reference_datetime",
+      "type": "timestamp[us, tz=UTC]",
+      "description": "datetime that the forecast was initiated (horizon = 0)"
     },
     {
       "name": "pub_datetime",
       "type": "timestamp[us, tz=UTC]",
       "description": "datetime that forecast was submitted"
+    },
+    {
+      "name": "date",
+      "type": "date32[day]",
+      "description": {}
     },
     {
       "name": "project_id",
@@ -213,7 +223,7 @@
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1D/variable=gcc_90?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
       "href": "pending",

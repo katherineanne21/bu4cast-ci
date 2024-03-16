@@ -52,22 +52,22 @@
     "temporal": {
       "interval": [
         [
-          "pendingT00:00:00Z",
-          "pendingT00:00:00Z"
+          "2020-09-26T00:00:00Z",
+          "2024-04-18T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
     {
-      "name": "site_id",
-      "type": "string",
-      "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
+      "name": "parameter",
+      "type": "double",
+      "description": "ensemble member or distribution parameter"
     },
     {
-      "name": "prediction",
-      "type": "double",
-      "description": "predicted value for variable"
+      "name": "datetime",
+      "type": "timestamp[us, tz=UTC]",
+      "description": "datetime of the forecasted value (ISO 8601)"
     },
     {
       "name": "variable",
@@ -75,19 +75,9 @@
       "description": "name of forecasted variable"
     },
     {
-      "name": "height",
-      "type": "string",
-      "description": "variable height"
-    },
-    {
-      "name": "horizon",
+      "name": "prediction",
       "type": "double",
-      "description": "number of days in forecast"
-    },
-    {
-      "name": "parameter",
-      "type": "int32",
-      "description": "ensemble member or distribution parameter"
+      "description": "predicted value for variable"
     },
     {
       "name": "family",
@@ -96,47 +86,32 @@
     },
     {
       "name": "reference_datetime",
-      "type": "timestamp[us, tz=UTC]",
+      "type": "string",
       "description": "datetime that the forecast was initiated (horizon = 0)"
     },
     {
-      "name": "forecast_valid",
+      "name": "site_id",
       "type": "string",
-      "description": "date when forecast is valid"
-    },
-    {
-      "name": "datetime",
-      "type": "timestamp[us, tz=UTC]",
-      "description": "datetime of the forecasted value (ISO 8601)"
-    },
-    {
-      "name": "longitude",
-      "type": "double",
-      "description": "forecast site longitude"
-    },
-    {
-      "name": "latitude",
-      "type": "double",
-      "description": "forecast site latitude"
+      "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
     }
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1/parquet/0?endpoint_override=s3.flare-forecast.org",
+      "href": "s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12stage1/parquet?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@drivers/noaa/gefs-v12-reprocess/stage1/parquet/0?endpoint_override=s3.flare-forecast.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12stage1/parquet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
-      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "NEON Buoy Image"
+      "title": "NEON Image"
     }
   }
 }

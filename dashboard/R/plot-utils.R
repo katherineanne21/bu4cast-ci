@@ -45,8 +45,15 @@ by_model_id <- function(df, show.legend = FALSE) {
     summarise(crps = mean(crps, na.rm=TRUE),
               #logs = mean(logs, na.rm=TRUE),
               .groups = "drop") |>
-    collect() |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
+    collect()
+
+  if (TRUE %in% is.nan(leaderboard$crps)){
+    missing_model <- leaderboard[which(is.nan(leaderboard$crps)), 1][[1]]
+    stop(paste0('Missing CRPS score for model: "',missing_model, '"'))
+  } else{
+    leaderboard <- leaderboard |>
+      mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
+  }
 
   leaderboard |>
     pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>

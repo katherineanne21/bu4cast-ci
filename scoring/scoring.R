@@ -2,6 +2,7 @@ library(score4cast)
 library(arrow)
 
 past_days <- 365
+cut_off_date <- lubridate::as_date("2023-12-31")
 n_cores <- 8
 
 setwd(here::here())
@@ -27,26 +28,28 @@ s3$CreateDir("scores")
 Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
 Sys.unsetenv("AWS_DEFAULT_REGION")
 
-s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=", config$project_id), endpoint_override = endpoint)
+s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"), endpoint_override = endpoint)
 
 variable_duration <- arrow::open_dataset(s3_inv) |>
+  dplyr::filter(project_id == config$project_id) |>
   dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 
-future::plan("future::multisession", workers = n_cores)
+#future::plan("future::multisession", workers = n_cores)
 
-#future::plan("future::sequential", workers = n_cores)
+future::plan("future::sequential")
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 
   Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
              AWS_SECRET_ACCESS_KEY=Sys.getenv("OSN_SECRET"))
 
+
   variable <- variable_duration$variable[k]
   duration <- variable_duration$duration[k]
   project_id <- variable_duration$project_id[k]
 
-  print(variable_duration[k,])
+  #print(variable_duration[k,])
 
   s3_targets <- arrow::s3_bucket(glue::glue(config$targets_bucket,"/project_id={project_id}"), endpoint_override = endpoint)
   s3_scores <- arrow::s3_bucket(config$scores_bucket, endpoint_override = endpoint)
@@ -90,12 +93,15 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
   curr_project_id <- project_id
 
   groupings <- arrow::open_dataset(s3_inv) |>
-    dplyr::filter(variable == curr_variable, duration == curr_duration) |>
+    dplyr::filter(variable == curr_variable,
+                  duration == curr_duration,
+                  project_id == config$project_id) |>
     dplyr::select(-site_id) |>
     dplyr::collect() |>
     dplyr::distinct() |>
     dplyr::filter(date > Sys.Date() - lubridate::days(past_days),
-                  date <= lubridate::as_date(max(target$datetime))) |>
+                  date <= lubridate::as_date(max(target$datetime)),
+                  ((date > cut_off_date & duration %in% c("P1D","PT30M")) | !(duration %in% c("P1D","PT30M")))) |>
     dplyr::group_by(model_id, date, duration, path, endpoint) |>
     dplyr::arrange(reference_date, pub_date) |>
     dplyr::summarise(reference_date = paste(unique(reference_date), collapse=","),
@@ -106,9 +112,12 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
+
+      print(c(variable_duration[k,], j))
+
       group <- groupings[j,]
       ref <- group$date
-               
+
       tg <- target |>
         #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
         dplyr::filter(lubridate::as_date(datetime) >= ref,
@@ -118,7 +127,8 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
 
-        print(group)
+        print(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint))
+        print(group$reference_date)
 
 
         reference_dates <- unlist(stringr::str_split(group$reference_date, ","))

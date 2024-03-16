@@ -42,6 +42,7 @@ scores_description_create <- data.frame(reference_datetime ='datetime that the f
 # site_id <- 'fcre'
 # model_id <- 'climatology'
 
+print('FIND SCORES TABLE SCHEMA')
 scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
   #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 
@@ -50,11 +51,12 @@ scores_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$scores_bucket, en
 #                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
 #   collect()
 
-
-scores_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+print('FIND INVENTORY BUCKET')
+scores_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/scores/project_id={config$project_id}"),
                                 endpoint_override = "sdsc.osn.xsede.org",
                                 anonymous=TRUE)
 
+print('OPEN INVENTORY BUCKET')
 scores_data_df <- arrow::open_dataset(scores_s3) |>
   filter(project_id == config$project_id) |>
   collect()
@@ -122,8 +124,26 @@ variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 #registered_model_id <- gsheet2tbl(config$model_metadata_gsheet)
 
 # read in model metadata and filter for the relevant project
-registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
-  filter(`What forecasting challenge are you registering for?` == config$project_id)
+gsheet_read <- gsheet2tbl(config$model_metadata_gsheet)
+gsheet_read$row_non_na <- rowSums(!is.na(gsheet_read))
+
+registered_model_id <- gsheet_read |>
+  filter(`What forecasting challenge are you registering for?` == config$project_id) |>
+  rename(project_id = `What forecasting challenge are you registering for?`) |>
+  arrange(row_non_na) |>
+  distinct(model_id, project_id, .keep_all = TRUE) #|>
+  #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
+
+# registered_model_id <- gsheet_read |>
+#   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
+#   rename(project_id = `What forecasting challenge are you registering for?`) |>
+#   group_by(model_id, project_id) |>
+#   mutate(na_num = max(row_na)) |>
+#   ungroup() |>
+#   filter(row_na < na_num | row_na > 20)
+  #ungroup() |>
+  #filter(row_na < 22) ## current number of rows assuming everything (minus model and project) are empty
+
 
 scores_sites <- c()
 
@@ -143,7 +163,7 @@ for (m in theme_models$model_id){
   model_sites <- scores_data_df |> filter(model_id == m) |> distinct(site_id)
   model_vars <- scores_data_df |> filter(model_id == m) |> distinct(variable)
 
-  model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration) |>
+  model_var_duration_df <- scores_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
@@ -177,14 +197,14 @@ for (m in theme_models$model_id){
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$scores_path,"models/model_items"),
-              aws_download_path = config$scores_bucket, # CHANGE THIS BUCKET NAME
+              aws_download_path = catalog_config$aws_download_path_scores, # CHANGE THIS BUCKET NAME
               collection_name = 'scores',
               thumbnail_image_name = NULL,
               table_schema = scores_theme_df,
               table_description = scores_description_create,
               full_var_df = model_vars,
-              #code_web_link = registered_model_id$`Web link to model code`[idx],
-              code_web_link = 'pending')
+              code_web_link = registered_model_id$`Web link to model code`[idx])
+              #code_web_link = 'pending')
 }
 
 
@@ -202,7 +222,10 @@ for (i in 1:length(config$variable_groups)){
     next
   }
 
-
+  ## REMOVE STALE OR UNUSED DIRECTORIES
+  current_var_path <- paste0(catalog_config$scores_path,names(config$variable_groups[i]))
+  current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
+  unlink(current_var_dirs, recursive = TRUE)
 
   if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups[i])))){
     dir.create(paste0(catalog_config$scores_path,names(config$variable_groups[i])))
@@ -227,7 +250,10 @@ for (i in 1:length(config$variable_groups)){
     duration_name <- config$variable_groups[[i]]$duration[j]
 
     # match variable with full name in gsheet
-    var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` %in% var_values),1][[1]]
+    var_gsheet_arrange <- variable_gsheet |>
+      arrange(duration)
+
+    var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
     ## create new vector to store duration names
     duration_values <- config$variable_groups[[i]]$duration

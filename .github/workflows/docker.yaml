@@ -26,3 +26,6 @@ jobs:
           push: true
           tags: eco4cast/rocker-neon4cast:latest
           build-args: GITHUB_PAT=${{ secrets.PAT }}
+      - name: Healthcheck
+        run: |
+          curl -m 10 --retry 5 https://hc-ping.com/069f9542-6476-4a07-a6c4-00a55e3b6157

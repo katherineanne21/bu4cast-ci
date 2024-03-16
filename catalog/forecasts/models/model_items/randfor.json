@@ -16,6 +16,19 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-119.2622, 37.0334],
+      [-110.8355, 31.9107],
+      [-89.5864, 45.5089],
+      [-103.0293, 40.4619],
+      [-87.3933, 32.9505],
+      [-119.006, 37.0058],
+      [-149.3705, 68.6611],
+      [-89.5857, 45.4937],
+      [-95.1921, 39.0404],
+      [-89.5373, 46.2339],
+      [-99.2413, 47.1282],
+      [-121.9519, 45.8205],
+      [-110.5391, 44.9535],
       [-122.3303, 45.7624],
       [-156.6194, 71.2824],
       [-71.2874, 44.0639],
@@ -49,26 +62,13 @@
       [-105.546, 40.2759],
       [-78.1395, 38.8929],
       [-76.56, 38.8901],
-      [-119.7323, 37.1088],
-      [-119.2622, 37.0334],
-      [-110.8355, 31.9107],
-      [-89.5864, 45.5089],
-      [-103.0293, 40.4619],
-      [-87.3933, 32.9505],
-      [-119.006, 37.0058],
-      [-149.3705, 68.6611],
-      [-89.5857, 45.4937],
-      [-95.1921, 39.0404],
-      [-89.5373, 46.2339],
-      [-99.2413, 47.1282],
-      [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-119.7323, 37.1088]
     ]
   },
   "properties": {
     "description": [],
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-01-01",
+    "end_datetime": "2024-02-12",
     "providers": [
       {
         "url": "pending",
@@ -95,11 +95,6 @@
     ],
     "table:columns": [
       {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
-      {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
@@ -110,9 +105,9 @@
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted value for variable"
       },
       {
         "name": "parameter",
@@ -120,14 +115,24 @@
         "description": "ensemble member or distribution parameter"
       },
       {
-        "name": "prediction",
-        "type": "double",
-        "description": "predicted value for variable"
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      },
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
         "name": "pub_datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "date",
+        "type": "date32[day]",
+        "description": {}
       },
       {
         "name": "project_id",
@@ -184,7 +189,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": [],
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -199,14 +204,14 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": [],
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily latent_heat_flux",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=le/model_id=randfor?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

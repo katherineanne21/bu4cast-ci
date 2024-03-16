@@ -26,9 +26,9 @@
     ]
   },
   "properties": {
-    "description": [],
+    "description": "\nmodel info: NA\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Chlorophyll_a",
     "start_datetime": "2023-11-13",
-    "end_datetime": "2023-12-28",
+    "end_datetime": "2024-03-06",
     "providers": [
       {
         "url": "pending",
@@ -184,7 +184,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -199,14 +199,14 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": null,
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=chla/model_id=procHinshelwoodSteele?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/scores/parquet/duration=P1D/variable=chla/model_id=procHinshelwoodSteele?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=procHinshelwoodSteele?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/parquet/project_id=neon4cast/duration=P1D/variable=chla/model_id=procHinshelwoodSteele?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

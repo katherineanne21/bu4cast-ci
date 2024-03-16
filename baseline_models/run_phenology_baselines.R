@@ -11,4 +11,4 @@ print(paste0("Running daily persistence at ", Sys.time()))
 source("baseline_models/models/phenology_persistenceRW.R")
 print(paste0("Completed daily persistenceRW ", Sys.time()))
 
-RCurl::url.exists("https://hc-ping.com/a5a12c66-6e38-4415-aa40-4eb24881a949")
+#RCurl::url.exists("https://hc-ping.com/a5a12c66-6e38-4415-aa40-4eb24881a949")

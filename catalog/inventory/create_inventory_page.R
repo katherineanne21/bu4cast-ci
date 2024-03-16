@@ -26,8 +26,13 @@ inventory_description_create <- data.frame(duration = 'sample duration code for 
 
 inventory_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE))
 
-inventory_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
+# inventory_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
+#                                             s3_endpoint = config$endpoint, anonymous=TRUE) |>
+# inventory_data_df <- arrow::open_dataset(arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) |>
+#   collect()
+
+inventory_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+                       s3_endpoint = config$endpoint, anonymous=TRUE) |>
   collect()
 
 theme_models <- inventory_data_df |>
@@ -53,6 +58,6 @@ stac4cast::build_inventory(table_schema = inventory_theme_df,
                            aws_download_path = config$inventory_bucket,
                            #link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                            link_items = NULL,
-                           thumbnail_link = catalog_config$forecasts_thumbnail,
-                           thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                           thumbnail_link = catalog_config$inventory_thumbnail,
+                           thumbnail_title = catalog_config$inventory_thumbnail_title,
                            project_identifier = config$project_id)

@@ -41,6 +41,9 @@ message("Downloading forecasts ...")
 minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
+submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
+submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)]
+
 submissions_filenames <- basename(submissions)
 
 if(length(submissions) > 0){
@@ -85,7 +88,10 @@ if(length(submissions) > 0){
     submission_dir <- dirname(submissions[i])
     print(curr_submission)
 
-    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc"))){
+    not_tg <- stringr::str_detect(curr_submission, "tg", negate = TRUE)
+    recent_date <- file_name_reference_datetime > (Sys.Date() - lubridate::days(3))
+
+    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & recent_date & !is.na(file_name_reference_datetime)){
 
       valid <- forecast_output_validator(file.path(local_dir, curr_submission))
 
@@ -139,12 +145,13 @@ if(length(submissions) > 0){
                                                     "variable",
                                                     "model_id",
                                                     "reference_date"))
+        print("creating summaries")
 
         s3$CreateDir(paste0("summaries"))
         fc |>
-          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "depth_m", "duration", "model_id",
+          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
                                                                                 "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
-          score4cast::summarize_forecast(extra_groups = c("duration", "project_id", "depth_m")) |>
+          score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
           dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
           arrow::write_dataset(s3$path("summaries"), format = 'parquet',
                                partitioning = c("project_id",
@@ -152,6 +159,9 @@ if(length(submissions) > 0){
                                                 "variable",
                                                 "model_id",
                                                 "reference_date"))
+
+        print("updating inventory")
+
 
         bucket <- config$forecasts_bucket
         curr_inventory <- fc |>
@@ -164,12 +174,22 @@ if(length(submissions) > 0){
                  path_summaries = glue::glue("{bucket}/summaries/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
                  endpoint =config$endpoint)
 
+        print("updating inventory2")
 
         curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
 
+        print("updating inventory3")
+        print(object.size(inventory_df), units = "GB")
+
         inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
 
+        print("updating inventory4")
+
+        print(object.size(inventory_df), units = "GB")
+
         arrow::write_dataset(inventory_df, path = s3_inventory)
+
+        print("updating inventory5")
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
@@ -180,6 +200,12 @@ if(length(submissions) > 0){
         if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
           minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
         }
+
+        print("finishing submission processing")
+
+        rm(fc)
+        gc()
+
       } else {
 
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
@@ -195,6 +221,8 @@ if(length(submissions) > 0){
       }
     }
   }
+
+  message("writing inventory")
 
   arrow::write_dataset(inventory_df, path = s3_inventory)
 

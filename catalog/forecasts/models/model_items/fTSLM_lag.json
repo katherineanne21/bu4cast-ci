@@ -16,12 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-111.7979, 40.7839],
-      [-82.0177, 29.6878],
-      [-111.5081, 33.751],
-      [-119.0274, 36.9559],
       [-88.1589, 31.8534],
       [-149.6106, 68.6307],
       [-84.2793, 35.9574],
@@ -49,13 +43,19 @@
       [-122.1655, 44.2596],
       [-149.143, 68.6698],
       [-78.1473, 38.8943],
-      [-97.7823, 33.3785]
+      [-97.7823, 33.3785],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-111.7979, 40.7839],
+      [-82.0177, 29.6878],
+      [-111.5081, 33.751],
+      [-119.0274, 36.9559]
     ]
   },
   "properties": {
-    "description": [],
-    "start_datetime": "2023-11-10",
-    "end_datetime": "2024-01-01",
+    "description": "\nmodel info: NA\n\nSites: TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR\n\nVariables: Daily Water_temperature",
+    "start_datetime": "2023-01-08",
+    "end_datetime": "2024-04-17",
     "providers": [
       {
         "url": "pending",
@@ -82,11 +82,6 @@
     ],
     "table:columns": [
       {
-        "name": "reference_datetime",
-        "type": "timestamp[us, tz=UTC]",
-        "description": "datetime that the forecast was initiated (horizon = 0)"
-      },
-      {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"
@@ -97,9 +92,9 @@
         "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
       },
       {
-        "name": "family",
-        "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+        "name": "prediction",
+        "type": "double",
+        "description": "predicted value for variable"
       },
       {
         "name": "parameter",
@@ -107,14 +102,24 @@
         "description": "ensemble member or distribution parameter"
       },
       {
-        "name": "prediction",
-        "type": "double",
-        "description": "predicted value for variable"
+        "name": "family",
+        "type": "string",
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      },
+      {
+        "name": "reference_datetime",
+        "type": "timestamp[us, tz=UTC]",
+        "description": "datetime that the forecast was initiated (horizon = 0)"
       },
       {
         "name": "pub_datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime that forecast was submitted"
+      },
+      {
+        "name": "date",
+        "type": "date32[day]",
+        "description": {}
       },
       {
         "name": "project_id",
@@ -171,7 +176,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -186,14 +191,14 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": null,
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/duration=P1D/variable=temperature/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org)\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=temperature/model_id=fTSLM_lag?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

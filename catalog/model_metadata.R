@@ -12,9 +12,14 @@ minioclient::mc_alias_set("osn",
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-googlesheets4::gs4_deauth()
-registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
-  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id)
+#googlesheets4::gs4_deauth()
+# registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
+#   dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+#                 !is.na(registered_models$`Which category best matches your modeling approach?`))
+
+registered_models <- gsheet::gsheet2tbl(config$model_metadata_gsheet) |>
+  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+                !is.na(`Which category best matches your modeling approach?`))
 
 for(i in 1:nrow(registered_models)){
 
@@ -60,13 +65,13 @@ for(i in 1:nrow(registered_models)){
 
   #Parameters
 
-  if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and at least one is estimated from data"){
+  if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes"){
     metadata$uncertainty$parameters$present <- TRUE
-    metadata$uncertainty$parameters$data_driven <- TRUE
-    metadata$uncertainty$parameters$progagates$type <- progagates_method
-  }else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "Yes and they are not estimated from data"){
-    metadata$uncertainty$parameters$present <- TRUE
-    metadata$uncertainty$parameters$data_driven <- FALSE
+    if(registered_models$`Does your model include parameters?`[i] == "Yes and at least one is estimated from data"){
+       metadata$uncertainty$parameters$data_driven <- TRUE
+    }else  if(registered_models$`Does your model include parameters?`[i] == "Yes and they are not estimated from data"){
+       metadata$uncertainty$parameters$data_driven <- FALSE
+    }            
     metadata$uncertainty$parameters$progagates$type <- progagates_method
   }else if(registered_models$`Does your forecast include uncertainty from the model parameters?`[i] == "No"){
     if(registered_models$`Does your model include parameters?`[i] == "Yes"){

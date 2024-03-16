@@ -18,7 +18,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     #container: eco4cast/rocker-neon4cast:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install
         shell: Rscript {0}

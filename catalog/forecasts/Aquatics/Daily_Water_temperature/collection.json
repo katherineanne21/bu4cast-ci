@@ -258,17 +258,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -308,6 +308,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
@@ -334,11 +339,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mkricheldorf_w_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

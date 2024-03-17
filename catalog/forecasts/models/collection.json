@@ -13,26 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/USGSHABs1.json"
     },
     {
@@ -93,7 +73,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
@@ -228,17 +228,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -318,11 +318,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -338,17 +333,12 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_WP_SP24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24_Uncertainty.json"
     },
     {
       "rel": "item",
@@ -363,12 +353,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+      "href": "model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_WP_SP24_Uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -389,16 +399,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_lm_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -433,6 +433,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/GAM_air_wind.json"
     },
     {
@@ -459,11 +464,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/mkricheldorf_w_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

@@ -23,26 +23,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
@@ -78,6 +58,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
@@ -88,17 +78,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
+      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fTSLM_lag.json"
+      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
@@ -163,6 +148,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/flareGLM.json"
     },
     {
@@ -173,7 +173,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGOTM.json"
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -243,22 +258,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
+      "href": "../../models/model_items/flareGOTM.json"
     },
     {
       "rel": "item",
@@ -308,7 +308,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -318,7 +318,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -388,7 +388,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-14T00:00:00Z"
+          "2024-03-15T00:00:00Z"
         ]
       ]
     }

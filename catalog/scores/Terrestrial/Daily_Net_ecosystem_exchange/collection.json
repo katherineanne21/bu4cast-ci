@@ -83,12 +83,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -143,7 +143,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-11T00:00:00Z"
+          "2024-03-12T00:00:00Z"
         ]
       ]
     }

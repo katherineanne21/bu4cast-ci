@@ -110,9 +110,9 @@
     ]
   },
   "properties": {
-    "description": ["\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, NOGP, OAES, ONAQ, ORNL, OSBS, UNDE, WOOD, WREF, YELL, BONA, CLBJ, CPER, DCFS, DEJU, DELA, HEAL, JERC, JORN, KONA, KONZ, LAJA, SJER, SOAP, SRER, STEI, STER, TALL, DSNY, GRSM, GUAN, HARV, TEAK, TOOL, TREE, UKFS, ABBY, BARR, BART, BLAN, LENO, MLBS, MOAB, NIWO, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK, PUUM, RMNP, SCBI, SERC, USGS-01427510, USGS-01463500, USGS-05543010, USGS-05549500, USGS-05553700, USGS-05558300, USGS-05586300, USGS-14181500, USGS-14211010, USGS-14211720\n\nVariables: Daily Chlorophyll_a, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate", "\nmodel info: NA\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, NOGP, OAES, ONAQ, ORNL, OSBS, UNDE, WOOD, WREF, YELL, BONA, CLBJ, CPER, DCFS, DEJU, DELA, HEAL, JERC, JORN, KONA, KONZ, LAJA, SJER, SOAP, SRER, STEI, STER, TALL, DSNY, GRSM, GUAN, HARV, TEAK, TOOL, TREE, UKFS, ABBY, BARR, BART, BLAN, LENO, MLBS, MOAB, NIWO, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK, PUUM, RMNP, SCBI, SERC, USGS-01427510, USGS-01463500, USGS-05543010, USGS-05549500, USGS-05553700, USGS-05558300, USGS-05586300, USGS-14181500, USGS-14211010, USGS-14211720\n\nVariables: Daily Chlorophyll_a, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate"],
+    "description": "\nmodel info: NA\n\nSites: LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, BARC, BLWA, CRAM, FLNT, NOGP, OAES, ONAQ, ORNL, OSBS, UNDE, WOOD, WREF, YELL, BONA, CLBJ, CPER, DCFS, DEJU, DELA, HEAL, JERC, JORN, KONA, KONZ, LAJA, SJER, SOAP, SRER, STEI, STER, TALL, DSNY, GRSM, GUAN, HARV, TEAK, TOOL, TREE, UKFS, ABBY, BARR, BART, BLAN, LENO, MLBS, MOAB, NIWO, KING, LECO, LEWI, MART, MAYF, ARIK, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, GUIL, HOPB, REDB, SYCA, CARI, COMO, TECR, WALK, PUUM, RMNP, SCBI, SERC, USGS-01427510, USGS-01463500, USGS-05543010, USGS-05549500, USGS-05553700, USGS-05558300, USGS-05586300, USGS-14181500, USGS-14211010, USGS-14211720\n\nVariables: Daily Chlorophyll_a, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Water_temperature, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-04-14",
+    "end_datetime": "2024-04-24",
     "providers": [
       {
         "url": "pending",
@@ -259,7 +259,7 @@
     },
     {
       "rel": "item",
-      "href": ["https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R", null],
+      "href": null,
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -274,7 +274,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": ["https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R", null],
+      "href": null,
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

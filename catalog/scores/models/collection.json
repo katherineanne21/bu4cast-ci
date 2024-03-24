@@ -33,6 +33,26 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/procBlanchardMonod.json"
     },
     {
@@ -68,12 +88,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
+      "href": "model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -98,11 +123,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_humidity_lm.json"
     },
     {
@@ -123,37 +143,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/lasso.json"
+      "href": "model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -168,7 +168,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -178,7 +178,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",
@@ -208,12 +208,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
+      "href": "model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
+      "href": "model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -264,6 +264,26 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM.json"
     },
     {
       "rel": "item",
@@ -323,21 +343,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fTSLM_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareGLM_noDA.json"
     },
     {
@@ -348,7 +353,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM.json"
+      "href": "model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareSimstrat.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -393,27 +418,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareSimstrat.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareSimstrat_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/sujan_ID.json"
+      "href": "model_items/mean.json"
     },
     {
       "rel": "item",
@@ -471,11 +476,6 @@
       "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/mean.json"
-    },
-    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -518,7 +518,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-21T00:00:00Z"
+          "2024-03-22T00:00:00Z"
         ]
       ]
     }

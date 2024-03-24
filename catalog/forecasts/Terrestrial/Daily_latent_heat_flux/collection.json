@@ -58,21 +58,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/randfor.json"
     },
     {
@@ -89,6 +74,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "parent",
@@ -133,7 +133,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-27T00:00:00Z"
+          "2024-04-28T00:00:00Z"
         ]
       ]
     }

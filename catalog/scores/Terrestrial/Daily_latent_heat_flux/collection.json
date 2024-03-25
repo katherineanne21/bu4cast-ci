@@ -23,17 +23,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -133,7 +133,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-15T00:00:00Z"
+          "2024-03-16T00:00:00Z"
         ]
       ]
     }

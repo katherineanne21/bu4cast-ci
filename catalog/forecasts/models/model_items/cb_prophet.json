@@ -98,7 +98,7 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, PUUM, GUAN, OSBS, SCBI, MOAB, BART, CPER, HARV, UNDE, STER, KONA, TREE, ABBY, LENO, UKFS, DEJU, KONZ, RMNP, BARR, JORN, SOAP, STEI, TALL, DCFS, TOOL, WOOD, OAES, HEAL, SERC, BLAN, GRSM, ORNL, SRER, NOGP, JERC, DELA, MLBS, NIWO, WREF, LAJA, TEAK, CLBJ, SJER, ONAQ, DSNY, BONA, YELL, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, ARIK, BIGC, BLDE\n\nVariables: Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Green_chromatic_coordinate, Daily Dissolved_oxygen, Daily latent_heat_flux, Daily Water_temperature, Daily Red_chromatic_coordinate",
+    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, PUUM, GUAN, OSBS, SCBI, MOAB, BART, CPER, HARV, UNDE, STER, KONA, TREE, ABBY, LENO, UKFS, DEJU, KONZ, RMNP, BARR, JORN, SOAP, STEI, TALL, DCFS, TOOL, WOOD, OAES, HEAL, SERC, BLAN, GRSM, ORNL, SRER, NOGP, JERC, DELA, MLBS, NIWO, WREF, LAJA, TEAK, CLBJ, SJER, ONAQ, DSNY, BONA, YELL, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, ARIK, BIGC, BLDE\n\nVariables: Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Green_chromatic_coordinate, Daily latent_heat_flux, Daily Dissolved_oxygen, Daily Water_temperature, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-10",
     "providers": [
@@ -126,8 +126,8 @@
       "Daily Chlorophyll_a",
       "Daily Net_ecosystem_exchange",
       "Daily Green_chromatic_coordinate",
-      "Daily Dissolved_oxygen",
       "Daily latent_heat_flux",
+      "Daily Dissolved_oxygen",
       "Daily Water_temperature",
       "Daily Red_chromatic_coordinate"
     ],
@@ -265,15 +265,15 @@
     },
     "6": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Dissolved_oxygen",
-      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "7": {
-      "type": "application/x-parquet",
       "title": "Database Access for Daily latent_heat_flux",
       "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=le/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=le/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "7": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Dissolved_oxygen",
+      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "8": {
       "type": "application/x-parquet",

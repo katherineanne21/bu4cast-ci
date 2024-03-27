@@ -23,7 +23,7 @@
   "properties": {
     "description": "\nmodel info: A simple daily timestep process-based model of a terrestrial carbon cycle.  It includes leaves, wood, and soil pools.  It uses a light-use efficiency GPP model to convert PAR to carbon. The model is derived from https://github.com/mdietze/FluxCourseForecast.\n\nSites: TALL, OSBS\n\nVariables: Daily Net_ecosystem_exchange",
     "start_datetime": "2024-01-10",
-    "end_datetime": "2024-03-17",
+    "end_datetime": "2024-03-18",
     "providers": [
       {
         "url": "pending",

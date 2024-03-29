@@ -13,16 +13,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
@@ -34,6 +24,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
@@ -103,11 +103,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
@@ -129,6 +124,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -183,7 +183,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-25T00:00:00Z"
+          "2024-03-26T00:00:00Z"
         ]
       ]
     }

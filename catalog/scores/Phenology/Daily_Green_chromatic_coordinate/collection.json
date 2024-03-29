@@ -23,12 +23,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/PEG.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/PEG.json"
     },
     {
       "rel": "item",
@@ -58,11 +58,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
     },
     {
@@ -78,17 +73,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -143,7 +143,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-26T00:00:00Z"
+          "2024-03-27T00:00:00Z"
         ]
       ]
     }

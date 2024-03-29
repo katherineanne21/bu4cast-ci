@@ -97,7 +97,7 @@
   "properties": {
     "description": "\nmodel info: NA\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, SERC, SJER, SOAP, SRER, STEI, UNDE, WOOD, WREF, YELL, STER, TALL, TEAK, TREE, UKFS, DELA, DSNY, GRSM, GUAN, MLBS, MOAB, NIWO, NOGP, BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, BONA, DEJU, HEAL, TOOL, BARR, CRAM, LIRO\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-04-25",
+    "end_datetime": "2024-04-26",
     "providers": [
       {
         "url": "pending",

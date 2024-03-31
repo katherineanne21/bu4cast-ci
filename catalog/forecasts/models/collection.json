@@ -118,6 +118,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/fTSLM_lag.json"
     },
     {
@@ -163,17 +173,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -193,22 +203,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -288,6 +288,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BKandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_BK.json"
     },
     {
@@ -308,16 +318,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -333,12 +333,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
+      "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -353,7 +353,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -363,12 +363,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sujan_ID.json"
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -388,17 +398,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+      "href": "model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tidymodels_lm.json"
     },
     {
       "rel": "item",
@@ -408,7 +423,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
@@ -423,17 +448,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -448,32 +463,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/mkricheldorf_w_lag.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/acp_fableLM.json"
+      "href": "model_items/bet_abund_example_tslm_temp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_abund_example_tslm_temp.json"
+      "href": "model_items/acp_fableLM.json"
     },
     {
       "rel": "parent",

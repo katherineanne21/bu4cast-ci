@@ -149,7 +149,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": "https://github.com/acpVT/eco_forecast/blob/main/FABLEmodel.Rmd",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -164,7 +164,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": "https://github.com/acpVT/eco_forecast/blob/main/FABLEmodel.Rmd",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

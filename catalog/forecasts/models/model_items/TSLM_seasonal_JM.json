@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: My model uses the fable package TSLM, and uses built in exogenous regressors to represent the trend and seasonality of the data as well as air temperature to predict water temperature.\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-02-29",
-    "end_datetime": "2024-04-14",
+    "end_datetime": "2024-05-02",
     "providers": [
       {
         "url": "pending",
@@ -149,7 +149,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": "https://github.com/jcmorgan7VT/NEON-forecast-challenge-workshop/blob/main/troubleshoot.Rmd",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -164,7 +164,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": "https://github.com/jcmorgan7VT/NEON-forecast-challenge-workshop/blob/main/troubleshoot.Rmd",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

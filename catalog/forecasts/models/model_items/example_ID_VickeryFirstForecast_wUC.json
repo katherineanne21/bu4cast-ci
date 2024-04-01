@@ -16,13 +16,13 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0177, 29.6878],
-      [-149.6106, 68.6307],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878],
+      [-149.6106, 68.6307]
     ]
   },
   "properties": {
@@ -149,7 +149,7 @@
     },
     {
       "rel": "item",
-      "href": "pending",
+      "href": [],
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -164,7 +164,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": "pending",
+      "href": [],
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

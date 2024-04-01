@@ -39,14 +39,26 @@ summaries_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$summaries_buck
 
 ## identify model ids from bucket -- used in generate model items function
 
-summaries_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
-                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
+# summaries_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+#                                             s3_endpoint = config$endpoint, anonymous=TRUE) |>
+#   collect()
+
+# theme_models <- summaries_data_df |>
+#   distinct(model_id)
+
+forecast_bucket_connect <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+                                                  s3_endpoint = config$endpoint, anonymous=TRUE)
+
+theme_models <- forecast_bucket_connect |>
+  distinct(model_id) |>
   collect()
 
-theme_models <- summaries_data_df |>
-  distinct(model_id)
+#forecast_date_range <- summaries_data_df |> dplyr::summarise(min(date),max(date))
 
-forecast_date_range <- summaries_data_df |> dplyr::summarise(min(date),max(date))
+forecast_date_range <- forecast_bucket_connect |>
+  summarise(min(date),max(date)) |>
+  collect()
+
 forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
 
@@ -129,11 +141,16 @@ for (m in theme_models$model_id){
   }
 
   print(m)
-  model_date_range <- summaries_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
+  #model_date_range <- summaries_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
+  model_date_range <- forecast_bucket_connect |> filter(model_id == m) |> dplyr::summarise(min(date),max(date)) |> collect()
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
-  model_var_duration_df <- summaries_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
+  #model_var_duration_df <- summaries_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
+  model_var_duration_df <- forecast_bucket_connect |>
+    filter(model_id == m) |>
+    distinct(variable,duration, project_id) |>
+    collect() |>
     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
@@ -144,9 +161,19 @@ for (m in theme_models$model_id){
                  select(variable = `"official" targets name`, full_name = `Variable name`) |>
                  distinct(variable, .keep_all = TRUE)), by = c('variable'))
 
-  model_sites <- summaries_data_df |> filter(model_id == m) |> distinct(site_id)
+  #model_sites <- summaries_data_df |> filter(model_id == m) |> distinct(site_id)
+  model_sites <- forecast_bucket_connect |>
+    filter(model_id == m) |>
+    distinct(site_id) |>
+    collect()
 
-  model_vars <- summaries_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
+  #model_vars <- summaries_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
+  model_vars <- forecast_bucket_connect |>
+    filter(model_id == m) |>
+    distinct(variable) |>
+    collect() |>
+    left_join(model_var_full_name, by = 'variable')
+
   model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
 
   forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
@@ -182,10 +209,20 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
   print(names(config$variable_groups)[i])
 
   # check data and skip if no data found
-  var_group_data_check <- summaries_data_df |>
-    filter(variable %in% config$variable_groups[[i]]$variable)
+  # var_group_data_check <- summaries_data_df |>
+  #   filter(variable %in% config$variable_groups[[i]]$variable)
+  var_groups <- config$variable_groups[[i]]$variable
 
-  if (nrow(var_group_data_check) == 0){
+  var_group_data_check <- forecast_bucket_connect |>
+    filter(variable %in% var_groups) |>
+    count() |>
+    collect()
+
+  # if (nrow(var_group_data_check) == 0){
+  #   print('No data available for group')
+  #   next
+  # }
+  if (var_group_data_check$n == 0){
     print('No data available for group')
     next
   }
@@ -208,13 +245,22 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     print(var_name)
 
     # check data and skip if no data found
-    var_data_check <- summaries_data_df |>
-      filter(variable == var_name)
+    # var_data_check <- summaries_data_df |>
+    #   filter(variable == var_name)
+    var_data_check <- forecast_bucket_connect |>
+      filter(variable == var_name) |>
+      count() |>
+      collect()
 
-    if (nrow(var_data_check) == 0){
+    # if (nrow(var_data_check) == 0){
+    #   print('No data available for variable')
+    #   next
+    # }
+    if (var_data_check$n == 0){
       print('No data available for variable')
       next
     }
+
 
 
     duration_name <- config$variable_groups[[i]]$duration[j]
@@ -249,10 +295,15 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     ## CREATE VARIABLE GROUP JSONS
     group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
 
-    ## find group sites
-    find_group_sites <- summaries_data_df |>
+    # ## find group sites
+    # find_group_sites <- summaries_data_df |>
+    #   filter(variable %in% var_values) |>
+    #   distinct(site_id)
+
+    find_group_sites <- forecast_bucket_connect |>
       filter(variable %in% var_values) |>
-      distinct(site_id)
+      distinct(site_id) |>
+      collect()
 
     stac4cast::build_group_variables(table_schema = summaries_theme_df,
                                      #theme_id = names(config$variable_groups[i]),
@@ -281,19 +332,44 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     # var_data <- summaries_data_df |>
     #   filter(variable == var_name,
     #          duration == duration_name)
-    var_data <- summaries_data_df |>
-      filter(variable == var_name)
-    #duration == duration_name)
 
-    var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
+    # var_data <- summaries_data_df |>
+    #   filter(variable == var_name)
+
+     #duration == duration_name)
+
+    # var_data <- forecast_bucket_connect |>
+    #   filter(variable == var_name) |>
+    #   collect()
+
+    var_date_range <- forecast_bucket_connect |>
+      filter(variable == var_name) |>
+      dplyr::summarise(min(date),max(date)) |>
+      collect()
+
+    #var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
     var_min_date <- var_date_range$`min(date)`
     var_max_date <- var_date_range$`max(date)`
 
-    var_models <- var_data |> distinct(model_id)
 
-    find_var_sites <- summaries_data_df |>
+    var_models <- forecast_bucket_connect |>
       filter(variable == var_name) |>
-      distinct(site_id)
+      distinct(model_id) |>
+      collect()
+
+    # find_var_sites <- summaries_data_df |>
+    #   filter(variable == var_name) |>
+    #   distinct(site_id)
+
+    find_var_sites <- forecast_bucket_connect |>
+      filter(variable == var_name) |>
+      distinct(site_id) |>
+      collect()
+
+    var_path <- forecast_bucket_connect |>
+      filter(variable == var_name) |>
+      distinct(path) |>
+      collect()
 
     var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
 
@@ -309,7 +385,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                      dashboard_title = catalog_config$dashboard_title,
                                      theme_title = var_name_combined_list[j],
                                      destination_path = file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_name_combined_list[j]),
-                                     aws_download_path = var_data$path[1],
+                                     aws_download_path = var_path$path,
                                      group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
                                      thumbnail_link = 'pending',
                                      thumbnail_title = 'pending',

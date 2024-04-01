@@ -78,6 +78,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
     },
     {
@@ -89,16 +99,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",

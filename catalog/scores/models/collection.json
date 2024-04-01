@@ -13,6 +13,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/USGSHABs1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/persistenceRW.json"
     },
     {
@@ -74,21 +89,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/climatology.json"
     },
     {
       "rel": "item",
@@ -168,6 +168,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/cb_f1.json"
     },
     {
@@ -198,16 +208,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_randfor_all_sites.json"
     },
     {
@@ -219,6 +219,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/prophet_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
@@ -259,11 +264,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
@@ -338,16 +338,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareGOTM_noDA.json"
     },
     {
@@ -403,7 +393,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGOTM.json"
+      "href": "model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -414,6 +409,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGOTM.json"
     },
     {
       "rel": "item",
@@ -518,7 +518,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-28T00:00:00Z"
+          "2024-03-30T00:00:00Z"
         ]
       ]
     }

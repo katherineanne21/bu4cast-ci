@@ -245,6 +245,13 @@ jobs:
           git commit -a -m "update catalog" || echo "nothing to commit"
           git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
 
-      - name: Healthcheck
+  Healthcheck:
+    needs: [metadata_catalog, forecasts, scores, inventory, summaries, noaa, targets_sites]
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - name: Call Healthcheck
         run: |
           curl -m 10 --retry 5 https://hc-ping.com/22fcd257-7930-455c-948d-0f913743b0c3

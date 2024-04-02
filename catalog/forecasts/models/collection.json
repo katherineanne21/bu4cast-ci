@@ -168,6 +168,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_lasso.json"
     },
     {
@@ -179,16 +189,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -228,17 +228,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -338,7 +338,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -348,17 +348,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24_Uncertainty.json"
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -368,7 +358,32 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_WP_SP24_Uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -384,21 +399,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_example_mod_null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -433,12 +433,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
+      "href": "model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GAM_air_wind.json"
+      "href": "model_items/MALM.json"
     },
     {
       "rel": "item",
@@ -458,7 +458,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MALM.json"
+      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

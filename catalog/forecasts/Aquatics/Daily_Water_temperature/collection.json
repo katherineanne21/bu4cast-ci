@@ -253,7 +253,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -263,17 +263,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -308,12 +308,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
+      "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GAM_air_wind.json"
+      "href": "../../models/model_items/MALM.json"
     },
     {
       "rel": "item",
@@ -333,7 +333,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MALM.json"
+      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

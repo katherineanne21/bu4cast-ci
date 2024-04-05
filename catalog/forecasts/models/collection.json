@@ -13,37 +13,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -58,17 +28,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -113,22 +73,47 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
+      "href": "model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_randfor.json"
+      "href": "model_items/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -178,12 +163,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
+      "href": "model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -199,6 +189,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -313,11 +313,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
     },
     {
@@ -334,6 +329,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/mkricheldorf_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",

@@ -133,6 +133,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
     },
     {
@@ -144,16 +154,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -233,11 +233,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -249,6 +244,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mkricheldorf_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_BKandel.json"
     },
     {
       "rel": "item",

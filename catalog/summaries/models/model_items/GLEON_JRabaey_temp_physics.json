@@ -23,14 +23,6 @@
       [-83.5038, 35.6904],
       [-111.5081, 33.751],
       [-84.2793, 35.9574],
-      [-105.9154, 39.8914],
-      [-89.7048, 45.9983],
-      [-121.9338, 45.7908],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-111.7979, 40.7839],
-      [-119.0274, 36.9559],
-      [-88.1589, 31.8534],
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-147.504, 65.1532],
@@ -49,11 +41,19 @@
       [-96.6038, 39.1051],
       [-87.4077, 32.9604],
       [-122.1655, 44.2596],
-      [-78.1473, 38.8943]
+      [-78.1473, 38.8943],
+      [-105.9154, 39.8914],
+      [-89.7048, 45.9983],
+      [-121.9338, 45.7908],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-111.7979, 40.7839],
+      [-119.0274, 36.9559],
+      [-88.1589, 31.8534]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BIGC, BLDE, BLUE, CRAM, LECO, SYCA, WALK, WLOU, LIRO, MART, PRLA, PRPO, REDB, TECR, TOMB, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, OKSR, PRIN, SUGG, TOOK, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: BIGC, BLDE, BLUE, CRAM, LECO, SYCA, WALK, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, OKSR, PRIN, SUGG, TOOK, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE, WLOU, LIRO, MART, PRLA, PRPO, REDB, TECR, TOMB\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-12",
     "providers": [

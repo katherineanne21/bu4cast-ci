@@ -83,16 +83,6 @@
       "name": "family",
       "type": "string",
       "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-    },
-    {
-      "name": "reference_datetime",
-      "type": "string",
-      "description": "datetime that the forecast was initiated (horizon = 0)"
-    },
-    {
-      "name": "site_id",
-      "type": "string",
-      "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
     }
   ],
   "assets": {

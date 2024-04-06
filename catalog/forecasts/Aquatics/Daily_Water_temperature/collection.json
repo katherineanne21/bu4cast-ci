@@ -233,6 +233,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/example_BKandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -248,22 +253,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -278,22 +278,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
+      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MALM.json"
     },
     {
       "rel": "item",
@@ -304,6 +294,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
@@ -323,17 +318,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/zimmerman_proj1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tidymodels_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

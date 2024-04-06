@@ -33,26 +33,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/procBlanchardMonod.json"
     },
     {
@@ -74,6 +54,26 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -113,6 +113,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
     },
     {
@@ -129,16 +139,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "parent",

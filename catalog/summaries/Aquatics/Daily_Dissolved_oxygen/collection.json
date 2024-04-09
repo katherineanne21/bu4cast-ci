@@ -13,62 +13,43 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/cb_f1.json"
+=======
+      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+=======
       "href": "../../models/model_items/tg_tbats.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_tbats.json"
+=======
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/neon4cast_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+=======
       "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/null.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
@@ -83,7 +64,74 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_humidity_lm.json"
+=======
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/neon4cast_example.json"
+=======
+      "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_lasso.json"
+=======
+      "href": "../../models/model_items/tg_auto_adam.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_precip_lm.json"
+=======
+      "href": "../../models/model_items/example_faasr.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/null.json"
+=======
+      "href": "../../models/model_items/air2waterSat_2.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/climatology.json"
+=======
+      "href": "../../models/model_items/cb_f1.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_arima.json"
+=======
+      "href": "../../models/model_items/tg_temp_lm.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_bag_mlp.json"
+=======
+      "href": "../../models/model_items/tg_humidity_lm.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
@@ -93,47 +141,83 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_randfor.json"
+=======
+      "href": "../../models/model_items/neon4cast_example.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+=======
       "href": "../../models/model_items/persistenceRW.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/hotdeck.json"
+=======
+      "href": "../../models/model_items/example_WP_SP24.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/tg_auto_adam.json"
+=======
+      "href": "../../models/model_items/null.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/example_faasr.json"
+=======
+      "href": "../../models/model_items/tg_precip_lm.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "../../models/model_items/persistenceRW.json"
+=======
+      "href": "../../models/model_items/tg_randfor.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_ets.json"
+=======
+      "href": "../../models/model_items/tg_bag_mlp.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+=======
+      "href": "../../models/model_items/tg_ets.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/tg_randfor_all_sites.json"
+=======
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
@@ -143,7 +227,11 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "../../models/model_items/example_WP_SP24.json"
+=======
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "parent",

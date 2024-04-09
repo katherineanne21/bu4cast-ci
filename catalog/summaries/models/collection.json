@@ -13,277 +13,376 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procCTMIMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procHinshelwoodMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareSimstrat_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ACP_sp24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/new_example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp2m_mod_temp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USUNEEDAILY.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procBlanchardMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procCTMISteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+=======
       "href": "model_items/GLEON_physics.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/procCTMISteele.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_humidity_lm_all_sites.json"
+=======
+      "href": "model_items/procEppleyNorbergMonod.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/persistenceRW.json"
+=======
       "href": "model_items/bookcast_forest.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/lm_AT_WTL_WS.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procCTMIMonod.json"
+=======
       "href": "model_items/null.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_humidity_lm.json"
+<<<<<<< Updated upstream
+      "href": "model_items/procHinshelwoodMonod.json"
+=======
+      "href": "model_items/example_climatology.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_tbats.json"
+<<<<<<< Updated upstream
+      "href": "model_items/procHinshelwoodSteele.json"
+=======
+      "href": "model_items/tg_precip_lm_all_sites.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_lasso_all_sites.json"
+=======
+      "href": "model_items/climatology.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_randfor_all_sites.json"
+=======
+      "href": "model_items/tg_arima.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/flareSimstrat_noDA.json"
+=======
+      "href": "model_items/flareSimstrat.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/flareGLM.json"
+=======
+      "href": "model_items/flare_ler_baselines.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/flareGLM_noDA.json"
+=======
+      "href": "model_items/tg_auto_adam.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_ACP_sp24.json"
+=======
+      "href": "model_items/prophet_clim_ensemble.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+=======
+      "href": "model_items/fTSLM_lag.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/TSLM_seasonal_JM.json"
+=======
+      "href": "model_items/example_WP_SP24_Uncertainty.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/new_example_ID.json"
+=======
+      "href": "model_items/hotdeck.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+=======
+      "href": "model_items/mlp1_wtempforecast_LF.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/precip_mod.json"
+=======
+      "href": "model_items/GAM_air_wind.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/USUNEEDAILY.json"
+=======
+      "href": "model_items/Sujan_forecast.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/MALM.json"
+=======
+      "href": "model_items/bee_bake_RFModel_2024.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_WP_SP24.json"
+=======
+      "href": "model_items/bet_example_mod_naive.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tidymodels_ML.json"
+=======
+      "href": "model_items/bet_example_mod_null.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_precip_lm.json"
+=======
+      "href": "model_items/example_faasr.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procBlanchardMonod.json"
+=======
+      "href": "model_items/MAL_model_unc.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procCTMISteele.json"
+=======
+      "href": "model_items/example_ID_VickeryFirstForecast.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procEppleyNorbergMonod.json"
+=======
+      "href": "model_items/tg_precip_lm.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/GLEON_physics.json"
+=======
+      "href": "model_items/procBlanchardMonod.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/bookcast_forest.json"
+=======
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_climatology.json"
+=======
+      "href": "model_items/lm_AT_WTL_WS.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+=======
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+=======
       "href": "model_items/tg_temp_lm.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/lm_AT_WTL_WS.json"
+=======
       "href": "model_items/cb_prophet.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
+<<<<<<< Updated upstream
+      "href": "model_items/null.json"
+=======
+      "href": "model_items/tg_humidity_lm.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procBlanchardSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/procEppleyNorbergSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/mean.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_humidity_lm.json"
+=======
       "href": "model_items/air2waterSat_2.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_tbats.json"
+=======
       "href": "model_items/baseline_ensemble.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_temp_lm.json"
+=======
       "href": "model_items/cb_f1.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_temp_lm_all_sites.json"
+=======
+      "href": "model_items/procBlanchardSteele.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/cb_prophet.json"
+=======
       "href": "model_items/flareGOTM.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/neon4cast_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_BK.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/lasso.json"
+=======
       "href": "model_items/sujan_ID.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/tg_lasso.json"
+=======
+      "href": "model_items/fARIMA_clim_ensemble.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procBlanchardSteele.json"
+=======
+      "href": "model_items/zimmerman_proj1.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/procEppleyNorbergSteele.json"
+=======
+      "href": "model_items/neon4cast_example.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
@@ -293,117 +392,327 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/flareGOTM_noDA.json"
+=======
+      "href": "model_items/tg_temp_lm_all_sites.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/GLEON_lm_lag_1day.json"
+=======
+      "href": "model_items/lasso.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/air2waterSat_2.json"
+=======
+      "href": "model_items/tg_lasso.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/baseline_ensemble.json"
+=======
+      "href": "model_items/flareGOTM_noDA.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/cb_f1.json"
+=======
+      "href": "model_items/mean.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/flareGOTM.json"
+=======
+      "href": "model_items/GLEON_lm_lag_1day.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/fARIMA_clim_ensemble.json"
+=======
+      "href": "model_items/procEppleyNorbergSteele.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/neon4cast_example.json"
+=======
+      "href": "model_items/fARIMA.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_BK.json"
+=======
+      "href": "model_items/example_ID.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_ID.json"
+=======
+      "href": "model_items/tidymodels_lm.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/example_ID_airtempANDprecipadjusted.json"
+=======
+      "href": "model_items/example_BK.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/sujan_ID.json"
+=======
+      "href": "model_items/example_ID_airtempANDprecipadjusted.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
+=======
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
+=======
       "href": "model_items/bet_abund_example_tslm_temp.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/bet_abund_example_tslm_temp.json"
+=======
       "href": "model_items/acp_fableLM.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
+      "href": "model_items/acp_fableLM.json"
+=======
+      "href": "model_items/tg_humidity_lm_all_sites.json"
+>>>>>>> Stashed changes
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tidymodels_lm.json"
+=======
+      "href": "model_items/tg_ets.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/bet_lm_temp_clim_ensemble.json"
+=======
+      "href": "model_items/flareSimstrat_noDA.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_arima.json"
+=======
+      "href": "model_items/tg_lasso_all_sites.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_auto_adam.json"
+=======
+      "href": "model_items/tg_randfor_all_sites.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_bag_mlp.json"
+=======
+      "href": "model_items/procCTMIMonod.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/climatology.json"
+=======
+      "href": "model_items/flareGLM.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/randfor.json"
+=======
+      "href": "model_items/new_example_ID.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_precip_lm_all_sites.json"
+=======
+      "href": "model_items/TSLM_seasonal_JM.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/tg_randfor.json"
+=======
+      "href": "model_items/precip_mod.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/USGSHABs1.json"
+=======
+      "href": "model_items/MALM.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/flareSimstrat.json"
+=======
+      "href": "model_items/tg_randfor.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/flare_ler.json"
+=======
+      "href": "model_items/randfor.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/flare_ler_baselines.json"
+=======
+      "href": "model_items/flare_ler.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/GLEON_JRabaey_temp_physics.json"
+=======
+      "href": "model_items/tg_bag_mlp.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/fTSLM_lag.json"
+=======
+      "href": "model_items/GLEON_JRabaey_temp_physics.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/prophet_clim_ensemble.json"
+=======
+      "href": "model_items/USGSHABs1.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/PEG.json"
+=======
+      "href": "model_items/mkricheldorf_w_lag.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/example_ID_VickeryFirstForecast.json"
+=======
+      "href": "model_items/example_BKandel.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/example_RW.json"
+=======
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
@@ -413,67 +722,103 @@
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/example_WP_SP24_Uncertainty.json"
+=======
+      "href": "model_items/PEG.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/bet_example_mod_naive.json"
+=======
+      "href": "model_items/example_RW.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/bet_example_mod_null.json"
+=======
+      "href": "model_items/persistenceRW.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/bet_lm_precip_clim_ensemble.json"
+=======
+      "href": "model_items/procHinshelwoodMonod.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GAM_air_wind.json"
+      "href": "model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/Sujan_forecast.json"
+=======
+      "href": "model_items/flareGLM_noDA.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/bee_bake_RFModel_2024.json"
+=======
+      "href": "model_items/USUNEEDAILY.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/hotdeck.json"
+=======
+      "href": "model_items/example_WP_SP24.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/mlp1_wtempforecast_LF.json"
+      "href": "model_items/example_ACP_sp24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/mkricheldorf_w_lag.json"
+      "href": "model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/example_BKandel.json"
+=======
+      "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "item",
       "type": "application/json",
+<<<<<<< Updated upstream
       "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_faasr.json"
+=======
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+>>>>>>> Stashed changes
     },
     {
       "rel": "parent",

@@ -332,9 +332,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                         thumbnail_link = 'pending',
                                         thumbnail_title = 'pending',
                                         group_var_vector = NULL,
-                                        group_sites = find_var_sites$site_id,
-                                        citation_values = var_citations,
-                                        doi_values = doi_citations)
+                                        group_sites = find_var_sites$site_id)#,
+                                        #citation_values = var_citations,
+                                        #doi_values = doi_citations)
             } ## end duration loop
 
   } ## end variable loop
@@ -363,7 +363,7 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                     thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                     thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
                     group_var_vector = unique(var_values),
-                    group_sites = find_group_sites$site_id,
-                    citation_values = citation_build,
-                    doi_build = doi_build)
+                    group_sites = find_group_sites$site_id)#,
+                    #citation_values = citation_build,
+                    #doi_build = doi_build)
 } # end group loop

@@ -152,8 +152,8 @@ scores_sites <- c()
 for (m in theme_models$model_id){
 
   # make model items directory
-  if (!dir.exists(file.path(catalog_config$forecast_path,"models/model_items"))){
-    dir.create(file.path(catalog_config$forecast_path,"models/model_items"))
+  if (!dir.exists(file.path(catalog_config$scores_path,"models/model_items"))){
+    dir.create(file.path(catalog_config$scores_path,"models/model_items"))
   }
 
   print(m)
@@ -197,7 +197,7 @@ for (m in theme_models$model_id){
               site_values = model_sites$site_id,
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
-              destination_path = paste0(catalog_config$scores_path,"models/model_items"),
+              destination_path = file.path(catalog_config$scores_path,"models/model_items"),
               aws_download_path = catalog_config$aws_download_path_scores, # CHANGE THIS BUCKET NAME
               collection_name = 'scores',
               thumbnail_image_name = NULL,

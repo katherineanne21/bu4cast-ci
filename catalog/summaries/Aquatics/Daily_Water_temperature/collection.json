@@ -9,12 +9,8 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_physics.json"
-    },
     {
       "rel": "item",
       "type": "application/json",
@@ -23,7 +19,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/null.json"
+      "href": "../../models/model_items/GLEON_physics.json"
     },
     {
       "rel": "item",
@@ -43,12 +39,47 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -68,42 +99,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/hotdeck.json"
+      "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
@@ -118,12 +119,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/mlp1_wtempforecast_LF.json"
+      "href": "../../models/model_items/hotdeck.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GAM_air_wind.json"
+      "href": "../../models/model_items/mlp1_wtempforecast_LF.json"
     },
     {
       "rel": "item",
@@ -133,12 +134,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
+      "href": "../../models/model_items/example_BKandel.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
+      "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -163,36 +164,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGOTM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/GLEON_lm_lag_1day.json"
     },
     {
@@ -213,7 +184,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGOTM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGOTM_noDA.json"
     },
     {
       "rel": "item",
@@ -233,22 +229,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/zimmerman_proj1.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -263,12 +244,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/acp_fableLM.json"
+      "href": "../../models/model_items/example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/zimmerman_proj1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tidymodels_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ID_airtempANDprecipadjusted.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/acp_fableLM.json"
     },
     {
       "rel": "item",
@@ -284,6 +285,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -308,26 +314,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -338,7 +324,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/precip_mod.json"
     },
     {
       "rel": "item",
@@ -362,7 +363,7 @@
     },
     {
       "rel": "cite-as",
-      "href": "10.1002/fee.2616"
+      "href": "https://doi.org/10.1002/fee.2616"
     },
     {
       "rel": "about",

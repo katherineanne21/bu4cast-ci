@@ -16,8 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-87.7982, 32.5415],
-      [-84.4374, 31.1854],
       [],
       [],
       [],
@@ -26,11 +24,13 @@
       [],
       [-88.1589, 31.8534],
       [],
-      []
+      [],
+      [-87.7982, 32.5415],
+      [-84.4374, 31.1854]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BLWA, FLNT, USGS-14181500, USGS-05558300, USGS-05553700, USGS-05543010, USGS-05549500, USGS-01427510, TOMB, USGS-14211720, USGS-05586300\n\nVariables: Daily Chlorophyll_a, Daily Chlorophyll_a",
+    "description": "\nmodel info: NA\n\nSites: USGS-14181500, USGS-05558300, USGS-05553700, USGS-05543010, USGS-05549500, USGS-01427510, TOMB, USGS-14211720, USGS-05586300, BLWA, FLNT\n\nVariables: Daily Chlorophyll_a, Daily Chlorophyll_a",
     "start_datetime": "2023-11-12",
     "end_datetime": "2024-05-12",
     "providers": [
@@ -195,14 +195,14 @@
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=usgsrc4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=usgsrc4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=usgsrc4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=usgsrc4cast/duration=P1D/variable=chla/model_id=USGSHABs1?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

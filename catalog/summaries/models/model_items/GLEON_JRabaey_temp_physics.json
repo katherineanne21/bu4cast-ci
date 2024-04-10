@@ -16,13 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-119.2575, 37.0597],
-      [-110.5871, 44.9501],
-      [-96.6242, 34.4442],
-      [-89.4737, 46.2097],
-      [-83.5038, 35.6904],
-      [-111.5081, 33.751],
-      [-84.2793, 35.9574],
       [-105.9154, 39.8914],
       [-89.7048, 45.9983],
       [-121.9338, 45.7908],
@@ -49,11 +42,18 @@
       [-149.143, 68.6698],
       [-97.7823, 33.3785],
       [-82.0177, 29.6878],
-      [-149.6106, 68.6307]
+      [-149.6106, 68.6307],
+      [-119.2575, 37.0597],
+      [-110.5871, 44.9501],
+      [-96.6242, 34.4442],
+      [-89.4737, 46.2097],
+      [-83.5038, 35.6904],
+      [-111.5081, 33.751],
+      [-84.2793, 35.9574]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BIGC, BLDE, BLUE, CRAM, LECO, SYCA, WALK, WLOU, LIRO, MART, PRLA, PRPO, REDB, TECR, TOMB, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, OKSR, PRIN, SUGG, TOOK\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: WLOU, LIRO, MART, PRLA, PRPO, REDB, TECR, TOMB, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, OKSR, PRIN, SUGG, TOOK, BIGC, BLDE, BLUE, CRAM, LECO, SYCA, WALK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-12",
     "providers": [

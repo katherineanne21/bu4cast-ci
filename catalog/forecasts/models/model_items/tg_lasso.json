@@ -100,7 +100,7 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, TECR, WALK, WLOU, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP\n\nVariables: Daily Chlorophyll_a, Daily Dissolved_oxygen, Daily Green_chromatic_coordinate, Daily Water_temperature, Weekly beetle_community_richness, Daily Red_chromatic_coordinate, Weekly beetle_community_abundance, Weekly Amblyomma_americanum_population",
+    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, TECR, WALK, WLOU, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP\n\nVariables: Daily Chlorophyll_a, Daily Dissolved_oxygen, Daily Green_chromatic_coordinate, Daily Water_temperature, Weekly beetle_community_richness, Weekly beetle_community_abundance, Weekly Amblyomma_americanum_population, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-02-16",
     "providers": [
@@ -130,9 +130,9 @@
       "Daily Green_chromatic_coordinate",
       "Daily Water_temperature",
       "Weekly beetle_community_richness",
-      "Daily Red_chromatic_coordinate",
       "Weekly beetle_community_abundance",
-      "Weekly Amblyomma_americanum_population"
+      "Weekly Amblyomma_americanum_population",
+      "Daily Red_chromatic_coordinate"
     ],
     "table:columns": [
       {
@@ -280,21 +280,21 @@
     },
     "8": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Red_chromatic_coordinate",
-      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "9": {
-      "type": "application/x-parquet",
       "title": "Database Access for Weekly beetle_community_abundance",
       "href": "s3://anonymous@project_id=neon4cast/duration=P1W/variable=abundance/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1W/variable=abundance/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "10": {
+    "9": {
       "type": "application/x-parquet",
       "title": "Database Access for Weekly Amblyomma_americanum_population",
       "href": "s3://anonymous@project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "10": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Red_chromatic_coordinate",
+      "href": "s3://anonymous@project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_lasso?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

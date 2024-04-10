@@ -164,6 +164,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_humidity_lm_all_sites.json"
     },
     {
@@ -180,16 +190,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -324,11 +324,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -340,6 +335,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/mkricheldorf_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_faasr.json"
     },
     {
       "rel": "item",
@@ -374,6 +374,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
@@ -389,17 +394,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -434,11 +434,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/GAM_air_wind.json"
     },
     {
@@ -460,6 +455,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

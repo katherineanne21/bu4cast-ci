@@ -38,17 +38,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/mean.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
       "rel": "item",
@@ -63,7 +68,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_lm_temp2m_mod_temp.json"
     },
     {
       "rel": "item",
@@ -88,11 +113,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/bet_example_mod_naive.json"
     },
     {
@@ -103,27 +123,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp2m_mod_temp.json"
+      "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
       "rel": "parent",
@@ -142,7 +142,7 @@
     },
     {
       "rel": "cite-as",
-      "href": "https://doi.org/10.1002/fee.2616"
+      "href": "10.1002/fee.2616"
     },
     {
       "rel": "about",

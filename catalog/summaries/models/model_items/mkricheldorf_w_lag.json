@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: I used an autoregressive linear model using the lm() function\n\nSites: LIRO, PRLA, PRPO, CRAM, BARC, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-03-06",
-    "end_datetime": "2024-05-11",
+    "end_datetime": "2024-05-12",
     "providers": [
       {
         "url": "pending",

@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-02-28",
-    "end_datetime": "2024-05-13",
+    "end_datetime": "2024-05-14",
     "providers": [
       {
         "url": "pending",

@@ -16,26 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-78.1395, 38.8929],
-      [-103.0293, 40.4619],
-      [-95.1921, 39.0404],
-      [-145.7514, 63.8811],
-      [-96.5631, 39.1008],
-      [-106.8425, 32.5907],
-      [-89.5864, 45.5089],
-      [-99.1066, 47.1617],
-      [-99.0588, 35.4106],
-      [-97.57, 33.4012],
-      [-147.5026, 65.154],
-      [-87.7982, 32.5415],
-      [-66.9868, 18.1135],
-      [-84.4374, 31.1854],
-      [-72.3295, 42.4719],
-      [-96.6038, 39.1051],
-      [-87.4077, 32.9604],
-      [-122.1655, 44.2596],
-      [-78.1473, 38.8943],
-      [-110.5391, 44.9535],
       [-155.3173, 19.5531],
       [-66.8687, 17.9696],
       [-109.3883, 38.2483],
@@ -71,8 +51,28 @@
       [-96.6242, 34.4442],
       [-89.4737, 46.2097],
       [-83.5038, 35.6904],
-      [-111.5081, 33.751],
       [-84.2793, 35.9574],
+      [-111.5081, 33.751],
+      [-78.1395, 38.8929],
+      [-103.0293, 40.4619],
+      [-95.1921, 39.0404],
+      [-145.7514, 63.8811],
+      [-96.5631, 39.1008],
+      [-106.8425, 32.5907],
+      [-89.5864, 45.5089],
+      [-99.1066, 47.1617],
+      [-99.0588, 35.4106],
+      [-97.57, 33.4012],
+      [-147.5026, 65.154],
+      [-87.7982, 32.5415],
+      [-66.9868, 18.1135],
+      [-84.4374, 31.1854],
+      [-72.3295, 42.4719],
+      [-96.6038, 39.1051],
+      [-87.4077, 32.9604],
+      [-122.1655, 44.2596],
+      [-78.1473, 38.8943],
+      [-110.5391, 44.9535],
       [-81.9934, 29.6893],
       [-71.2874, 44.0639],
       [-104.7456, 40.8155],
@@ -89,16 +89,16 @@
       [-112.4524, 40.1776],
       [-89.7048, 45.9983],
       [-121.9338, 45.7908],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
       [-111.7979, 40.7839],
       [-119.0274, 36.9559],
       [-88.1589, 31.8534],
-      [-105.9154, 39.8914],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-105.9154, 39.8914]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: SCBI, STER, UKFS, DEJU, KONZ, JORN, STEI, DCFS, OAES, CLBJ, BONA, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE, YELL, PUUM, GUAN, MOAB, HARV, WOOD, SERC, BLAN, LAJA, SJER, DSNY, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, PRIN, SUGG, TREE, ABBY, LENO, SOAP, GRSM, ORNL, NOGP, MLBS, NIWO, WREF, TEAK, BIGC, BLDE, BLUE, CRAM, LECO, SYCA, WALK, OSBS, BART, CPER, UNDE, KONA, RMNP, BARR, TALL, TOOL, HEAL, SRER, JERC, DELA, ONAQ, LIRO, MART, REDB, TECR, TOMB, WLOU, PRLA, PRPO\n\nVariables: Daily Dissolved_oxygen, Daily latent_heat_flux, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate, Daily Chlorophyll_a, Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: PUUM, GUAN, MOAB, HARV, WOOD, SERC, BLAN, LAJA, SJER, DSNY, ARIK, BARC, CARI, COMO, GUIL, LEWI, MCDI, PRIN, SUGG, TREE, ABBY, LENO, SOAP, GRSM, ORNL, NOGP, MLBS, NIWO, WREF, TEAK, BIGC, BLDE, BLUE, CRAM, LECO, WALK, SYCA, SCBI, STER, UKFS, DEJU, KONZ, JORN, STEI, DCFS, OAES, CLBJ, BONA, BLWA, CUPE, FLNT, HOPB, KING, MAYF, MCRA, POSE, YELL, OSBS, BART, CPER, UNDE, KONA, RMNP, BARR, TALL, TOOL, HEAL, SRER, JERC, DELA, ONAQ, LIRO, MART, PRLA, PRPO, REDB, TECR, TOMB, WLOU\n\nVariables: Daily Water_temperature, Daily Dissolved_oxygen, Daily latent_heat_flux, Daily Green_chromatic_coordinate, Daily Chlorophyll_a, Daily Net_ecosystem_exchange, Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-10",
     "providers": [
@@ -123,13 +123,13 @@
     "keywords": [
       "Forecasting",
       "neon4cast",
+      "Daily Water_temperature",
       "Daily Dissolved_oxygen",
       "Daily latent_heat_flux",
       "Daily Green_chromatic_coordinate",
-      "Daily Net_ecosystem_exchange",
-      "Daily Red_chromatic_coordinate",
       "Daily Chlorophyll_a",
-      "Daily Water_temperature"
+      "Daily Net_ecosystem_exchange",
+      "Daily Red_chromatic_coordinate"
     ],
     "table:columns": [
       {
@@ -267,45 +267,45 @@
     },
     "3": {
       "type": "application/x-parquet",
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
+    "4": {
+      "type": "application/x-parquet",
       "title": "Database Access for Daily Dissolved_oxygen",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "4": {
+    "5": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily latent_heat_flux",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=le/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=le/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "5": {
+    "6": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Green_chromatic_coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=gcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
-    "6": {
-      "type": "application/x-parquet",
-      "title": "Database Access for Daily Net_ecosystem_exchange",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
     "7": {
-      "type": "application/x-parquet",
-      "title": "Database Access for Daily Red_chromatic_coordinate",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
-    },
-    "8": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Chlorophyll_a",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
       "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=chla/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
+    "8": {
+      "type": "application/x-parquet",
+      "title": "Database Access for Daily Net_ecosystem_exchange",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=nee/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+    },
     "9": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Water_temperature",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "title": "Database Access for Daily Red_chromatic_coordinate",
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `arrow` for remote access to the database. This R code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     }
   }
 }

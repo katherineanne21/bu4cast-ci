@@ -34,12 +34,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
+      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",

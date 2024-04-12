@@ -134,17 +134,6 @@ registered_model_id <- gsheet_read |>
   distinct(model_id, project_id, .keep_all = TRUE) #|>
   #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
 
-# registered_model_id <- gsheet_read |>
-#   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
-#   rename(project_id = `What forecasting challenge are you registering for?`) |>
-#   group_by(model_id, project_id) |>
-#   mutate(na_num = max(row_na)) |>
-#   ungroup() |>
-#   filter(row_na < na_num | row_na > 20)
-  #ungroup() |>
-  #filter(row_na < 22) ## current number of rows assuming everything (minus model and project) are empty
-
-
 scores_sites <- c()
 
 ## loop over model ids and extract components if present in metadata table
@@ -341,12 +330,6 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
 ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
 stac4cast::build_group_variables(table_schema = scores_theme_df,
-                    table_description = scores_description_create,
-                    table_description = scores_description_create,
-                    start_date = scores_min_date,
-                    table_description = scores_description_create,
-                    start_date = scores_min_date,
-                    table_description = scores_description_create,
                     table_description = scores_description_create,
                     start_date = scores_min_date,
                     end_date = scores_max_date,

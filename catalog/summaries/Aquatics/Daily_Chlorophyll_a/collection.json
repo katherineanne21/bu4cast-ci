@@ -14,57 +14,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procBlanchardMonod.json"
+      "href": "../../models/model_items/procBlanchardSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procCTMISteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/procCTMIMonod.json"
+      "href": "../../models/model_items/procEppleyNorbergSteele.json"
     },
     {
       "rel": "item",
@@ -94,27 +54,57 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procEppleyNorbergSteele.json"
+      "href": "../../models/model_items/procCTMIMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/procBlanchardSteele.json"
+      "href": "../../models/model_items/procHinshelwoodMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+      "href": "../../models/model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procBlanchardMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procCTMISteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -135,6 +125,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -184,7 +184,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-05-15T00:00:00Z"
+          "2024-05-16T00:00:00Z"
         ]
       ]
     }

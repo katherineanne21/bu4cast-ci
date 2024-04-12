@@ -9,22 +9,8 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Daily_Net_ecosystem_exchange/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Daily_latent_heat_flux/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "30min_Net_ecosystem_exchange/collection.json"
-    },
     {
       "rel": "child",
       "type": "application/json",

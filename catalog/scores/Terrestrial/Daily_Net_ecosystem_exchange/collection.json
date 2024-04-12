@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "item",
@@ -33,12 +34,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
+      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -93,12 +94,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "parent",

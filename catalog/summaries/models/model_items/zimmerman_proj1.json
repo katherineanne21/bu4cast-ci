@@ -16,19 +16,19 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-89.4737, 46.2097],
       [-82.0084, 29.676],
       [-82.0177, 29.6878],
       [-149.6106, 68.6307],
-      [-89.4737, 46.2097],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298]
     ]
   },
   "properties": {
-    "description": "\nmodel info: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature\n\nSites: BARC, SUGG, TOOK, CRAM, LIRO, PRLA, PRPO\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature\n\nSites: CRAM, BARC, SUGG, TOOK, LIRO, PRLA, PRPO\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-02-28",
-    "end_datetime": "2024-05-15",
+    "end_datetime": "2024-05-16",
     "providers": [
       {
         "url": "pending",

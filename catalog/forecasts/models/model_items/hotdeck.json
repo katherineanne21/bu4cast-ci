@@ -42,7 +42,7 @@
   "properties": {
     "description": "\nmodel info: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h.\n\nSites: BARC, SUGG, TOMB, BLWA, FLNT, KING, SYCA, POSE, PRIN, MAYF, LEWI, LECO, MCRA, ARIK, HOPB, REDB, TECR, BLDE, COMO, WLOU, BIGC\n\nVariables: Daily Water_temperature, Daily Dissolved_oxygen",
     "start_datetime": "2024-02-28",
-    "end_datetime": "2024-05-12",
+    "end_datetime": "2024-05-13",
     "providers": [
       {
         "url": "pending",

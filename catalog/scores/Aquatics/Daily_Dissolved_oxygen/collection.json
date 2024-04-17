@@ -44,6 +44,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_WP_SP24.json"
     },
     {
@@ -65,11 +70,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",

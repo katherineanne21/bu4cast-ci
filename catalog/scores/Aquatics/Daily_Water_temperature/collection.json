@@ -53,6 +53,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/acp_fableLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/air2waterSat_2.json"
     },
     {
@@ -63,12 +68,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
+      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -78,7 +83,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -93,12 +98,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGLM_noDA.json"
+      "href": "../../models/model_items/fTSLM_lag.json"
     },
     {
       "rel": "item",
@@ -163,7 +163,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fTSLM_lag.json"
+      "href": "../../models/model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -243,6 +243,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -278,31 +283,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
@@ -313,7 +293,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -343,7 +338,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/acp_fableLM.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "parent",
@@ -388,7 +388,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-12T00:00:00Z"
+          "2024-04-05T00:00:00Z"
         ]
       ]
     }

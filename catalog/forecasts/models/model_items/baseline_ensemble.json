@@ -89,13 +89,18 @@
       [-145.7514, 63.8811],
       [-149.2133, 63.8758],
       [-149.3705, 68.6611],
-      [-156.6194, 71.2824]
+      [-156.6194, 71.2824],
+      [-89.4737, 46.2097],
+      [-89.7048, 45.9983],
+      [-99.2531, 47.1298],
+      [-99.1139, 47.1591],
+      [-147.504, 65.1532]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, SERC, SJER, SOAP, SRER, STEI, UNDE, WOOD, WREF, YELL, STER, TALL, TEAK, TREE, UKFS, DELA, DSNY, GRSM, GUAN, MLBS, MOAB, NIWO, NOGP, BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, BONA, DEJU, HEAL, TOOL, BARR\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, SERC, SJER, SOAP, SRER, STEI, UNDE, WOOD, WREF, YELL, STER, TALL, TEAK, TREE, UKFS, DELA, DSNY, GRSM, GUAN, MLBS, MOAB, NIWO, NOGP, BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, BONA, DEJU, HEAL, TOOL, BARR, CRAM, LIRO, PRPO, PRLA, CARI\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-04-12",
+    "end_datetime": "2024-05-13",
     "providers": [
       {
         "url": "pending",

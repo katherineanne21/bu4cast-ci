@@ -45,26 +45,57 @@ variable_groups:
     duration: ['P1D','P1D','P1D']
     thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg'
     thumbnail_title: 'NEON Aquatics Buoy'
+    group_vars:
+      oxygen:
+        duration: "P1D"
+      temperature:
+        duration: 'PID'
+      chla:
+        duration: "P1D"
   Terrestrial:
     variable: ['nee','le','nee','le']
     duration: ['P1D','P1D','PT30M','PT30M']
     thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
     thumbnail_title: 'NEON Field Tower'
+    group_vars:
+      nee:
+        duration: ["P1D", "PT30M"]
+      le:
+        duration: ["P1D", "PT30M"]
   Phenology:
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
     thumbnail_title: 'Phenology Image'
+    group_vars:
+      gcc_90:
+        duration: "P1D"
+        var_doi: '10.1016/j.agrformet.2023.109810.'
+        var_citation: 'Kathryn I. Wheeler, Michael C. Dietze, David LeBauer, Jody A. Peters, Andrew D. Richardson, Arun A. Ross, R. Quinn Thomas,
+        Kai Zhu, Uttam Bhat, Stephan Munch, Raphaela Floreani Buzbee, Min Chen, Benjamin Goldstein, Jessica Guo, Dalei Hao, Chris Jones, Mira Kelly-Fair,
+        Haoran Liu, Charlotte Malmborg, Naresh Neupane, Debasmita Pal, Vaughn Shirey, Yiluan Song, McKalee Steen, Eric A. Vance, Whitney M. Woelmer,
+        Jacob H. Wynne, Luke Zachmann, Predicting spring phenology in deciduous broadleaf forests: NEON phenology forecasting community challenge,
+        Agricultural and Forest Meteorology, Volume 345, 2024'
+      rcc_90:
+        duration: 'PID'
   Beetles:
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_width_1170px/public/image-content-images/Beetles_pinned.jpg'
     thumbnail_title: 'Beetle Image'
+    group_vars:
+      abundance:
+        duration: "P1W"
+      richness:
+        duration: 'PIW'
   Ticks:
     variable: ['amblyomma_americanum']
     duration: ['P1W']
     thumbnail_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/tick_drag.jpg'
     thumbnail_title: 'NEON Ticks'
+    group_vars:
+      amblyomma_americanum:
+        duration: "P1W"
 catalog_config:
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
@@ -73,7 +104,7 @@ catalog_config:
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
   forecast_path: 'catalog/forecasts/'
-  scores_path: 'catalog/scores/'
+  scores_path: 'catalog/scores'
   summaries_path: 'catalog/summaries/'
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
@@ -95,7 +126,8 @@ catalog_config:
     min_lon: -156.6194
   site_type: 'MultiPoint'
   base_image_path: 'https://data.ecoforecast.org/neon4cast-catalog'
-  citation_doi: "https://doi.org/10.1002/fee.2616"
+  citation_doi_link: "https://doi.org/10.1002/fee.2616"
+  citation_doi: "10.1002/fee.2616"
   citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
   dashboard_url: "https://projects.ecoforecast.org/neon4cast-docs/"
   dashboard_title: "NEON Forecast Challenge Dashboard"

@@ -2,7 +2,7 @@ library(score4cast)
 library(arrow)
 
 past_days <- 365
-cut_off_date <- lubridate::as_date("2023-12-31")
+cut_off_date <- lubridate::as_date("2024-03-01")
 n_cores <- 8
 
 setwd(here::here())
@@ -112,8 +112,8 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
-
-      print(c(variable_duration[k,], j))
+      print(c(unlist(variable_duration[k,]), j))
+      print(group$date)
 
       group <- groupings[j,]
       ref <- group$date
@@ -135,8 +135,9 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
         ref_upper <- (lubridate::as_date(ref)+lubridate::days(1))
         fc <- arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
-          dplyr::filter(reference_date %in% reference_dates,
-                        lubridate::as_date(datetime) >= ref,
+          #dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
+          #dplyr::filter(reference_date %in% reference_dates) |>
+          dplyr::filter(lubridate::as_date(datetime) >= ref,
                         lubridate::as_date(datetime) < ref_upper) |>
           dplyr::collect()
 

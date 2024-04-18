@@ -9,27 +9,8 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
-    },
     {
       "rel": "item",
       "type": "application/json",
@@ -49,6 +30,26 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -101,6 +102,11 @@
       "href": "../../models/model_items/bookcast_forest.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sustainseers.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -143,7 +149,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-19T00:00:00Z"
+          "2026-12-13T00:00:00Z"
         ]
       ]
     }

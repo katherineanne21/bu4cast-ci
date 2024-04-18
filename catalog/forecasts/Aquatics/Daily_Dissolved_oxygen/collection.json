@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "item",
@@ -139,6 +140,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_WP_SP24_Uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "parent",

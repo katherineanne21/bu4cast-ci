@@ -13,22 +13,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_arima.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_ets.json"
+      "href": "model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -39,16 +29,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -84,6 +64,26 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procHinshelwoodMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -128,6 +128,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/procHinshelwoodSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_temp_lm.json"
     },
     {
@@ -148,7 +153,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -159,11 +164,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bookcast_forest.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -179,21 +179,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -219,6 +204,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/baseline_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -258,6 +258,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/acp_fableLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
     },
     {
@@ -273,12 +278,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
+      "href": "model_items/fTSLM_lag.json"
     },
     {
       "rel": "item",
@@ -338,7 +338,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/fTSLM_lag.json"
+      "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -399,6 +399,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM.json"
     },
     {
       "rel": "item",
@@ -471,11 +476,6 @@
       "href": "model_items/mean.json"
     },
     {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/acp_fableLM.json"
-    },
-    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"
@@ -518,7 +518,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-03-13T00:00:00Z"
+          "2024-04-06T00:00:00Z"
         ]
       ]
     }

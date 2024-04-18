@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "item",
@@ -208,32 +209,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BK.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/new_example_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_BKandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -253,12 +239,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
     },
     {
       "rel": "item",
@@ -274,6 +270,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -329,11 +335,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mlp1_wtempforecast_LF.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",

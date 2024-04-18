@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "child",
@@ -73,7 +74,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2025-02-10T00:00:00Z"
+          "2026-12-13T00:00:00Z"
         ]
       ]
     }

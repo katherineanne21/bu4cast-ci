@@ -27,13 +27,13 @@
     },
     {
       "rel": "cite-as",
-      "href": "https://doi.org/10.1002/fee.2616"
+      "href": "10.1002/fee.2616"
     },
     {
       "rel": "about",
       "href": "https://projects.ecoforecast.org/neon4cast-docs/",
-      "type": "text/html",
-      "title": "NEON Ecological Forecasting Challenge Documentation"
+      "title": "NEON Ecological Forecasting Challenge Documentation",
+      "type": "text/html"
     },
     {
       "rel": "describedby",
@@ -53,7 +53,7 @@
       "interval": [
         [
           "2020-09-26T00:00:00Z",
-          "2024-04-18T00:00:00Z"
+          "2024-05-21T00:00:00Z"
         ]
       ]
     }
@@ -83,27 +83,17 @@
       "name": "family",
       "type": "string",
       "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
-    },
-    {
-      "name": "reference_datetime",
-      "type": "string",
-      "description": "datetime that the forecast was initiated (horizon = 0)"
-    },
-    {
-      "name": "site_id",
-      "type": "string",
-      "description": "For forecasts that are not on a spatial grid, use of a site dimension that maps to a more detailed geometry (points, polygons, etc.) is allowable. In general this would be documented in the external metadata (e.g., alook-up table that provides lon and lat)"
     }
   ],
   "assets": {
     "data": {
-      "href": "s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12pseudo/parquet?endpoint_override=sdsc.osn.xsede.org",
+      "href": "s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo/parquet?endpoint_override=sdsc.osn.xsede.org",
       "type": "application/x-parquet",
       "title": "Database Access",
       "roles": [
         "data"
       ],
-      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12pseudo/parquet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
+      "description": "Use `arrow` for remote access to the database. This R code will return results for NEON forecasts associated with the forecasting challenge.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo/parquet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
       "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg",

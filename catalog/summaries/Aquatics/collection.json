@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "child",
@@ -61,7 +62,7 @@
   "extent": {
     "spatial": {
       "bbox": [
-        [-96.6038, 39.1051, -96.6038, 39.1051]
+        [-149.6106, 18.1135, -66.7987, 68.6698]
       ]
     },
     "temporal": {

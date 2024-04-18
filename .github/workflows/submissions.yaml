@@ -10,14 +10,14 @@ name: process-submissions
 
 jobs:
   docker:
-    runs-on: self-hosted #ubuntu-latest
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
       AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: eco4cast/rocker-neon4cast:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v4
 

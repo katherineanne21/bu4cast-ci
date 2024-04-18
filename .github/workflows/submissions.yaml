@@ -17,11 +17,13 @@ jobs:
       AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    #container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Process submissions
         shell: Rscript {0}
         run: |
+          #devtools::install_deps(upgrade="never")
+          remotes::install_github("eco4cast/score4cast")
           source("submission_processing/process_submissions.R")

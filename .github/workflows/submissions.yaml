@@ -10,7 +10,7 @@ name: process-submissions
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted #ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}

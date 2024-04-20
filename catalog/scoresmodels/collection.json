@@ -119,17 +119,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/procHinshelwoodSteele.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/procHinshelwoodSteele.json"
     },
     {
       "rel": "item",
@@ -169,12 +169,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/cb_f1.json"
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -339,16 +339,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/flareGOTM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareGOTM_noDA.json"
     },
     {
@@ -399,12 +389,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/flareGLM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
+      "href": "model_items/flareGLM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGOTM.json"
     },
     {
       "rel": "item",

@@ -14,12 +14,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
+      "href": "../../models/model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
+      "href": "../../models/model_items/cb_f1.json"
     },
     {
       "rel": "item",
@@ -99,11 +99,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
@@ -115,6 +110,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
     },
     {
       "rel": "item",

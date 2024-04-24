@@ -9,8 +9,8 @@ name: scoring
 
 jobs:
   docker:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
     timeout-minutes: 1440
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

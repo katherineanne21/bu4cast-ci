@@ -22,7 +22,7 @@
   "properties": {
     "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2024-04-18",
-    "end_datetime": "2024-05-20",
+    "end_datetime": "2024-05-21",
     "providers": [
       {
         "url": "pending",

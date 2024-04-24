@@ -2,8 +2,8 @@ library(score4cast)
 library(arrow)
 
 past_days <- 365
-cut_off_date <- lubridate::as_date("2024-03-01")
-n_cores <- 8
+cut_off_date <- lubridate::as_date("2024-01-01")
+n_cores <- parallel::detectCores()
 
 setwd(here::here())
 
@@ -35,9 +35,9 @@ variable_duration <- arrow::open_dataset(s3_inv) |>
   dplyr::distinct(variable, duration, project_id) |>
   dplyr::collect()
 
-#future::plan("future::multisession", workers = n_cores)
+future::plan("future::multisession", workers = n_cores)
 
-future::plan("future::sequential")
+#future::plan("future::sequential")
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 
@@ -112,11 +112,11 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
     new_prov <- purrr::map_dfr(1:nrow(groupings), function(j, groupings, prov_df, s3_scores_path, curr_variable){
 
-      print(c(unlist(variable_duration[k,]), j))
-      print(group$date)
-
       group <- groupings[j,]
       ref <- group$date
+
+      #print(c(unlist(variable_duration[k,]), j))
+      #print(group$date)
 
       tg <- target |>
         #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |>  #project_specific
@@ -125,7 +125,7 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       id <- rlang::hash(list(group[, c("model_id","reference_date","date","pub_date")],  tg))
 
-      if (!(score4cast:::prov_has(id, prov_df, "new_id"))){
+      if (!(score4cast:::prov_has(id, prov_df, "new_id")) & group$model_id != "cb_f1"){
 
         print(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint))
         print(group$reference_date)
@@ -134,42 +134,50 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
         reference_dates <- unlist(stringr::str_split(group$reference_date, ","))
 
         ref_upper <- (lubridate::as_date(ref)+lubridate::days(1))
-        fc <- arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint)) |>
-          #dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
-          #dplyr::filter(reference_date %in% reference_dates) |>
-          dplyr::filter(lubridate::as_date(datetime) >= ref,
-                        lubridate::as_date(datetime) < ref_upper) |>
-          dplyr::collect()
 
-        fc |>
-          #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
-          dplyr::mutate(variable = curr_variable,
-                        project_id = curr_project_id) |>
-          #If for some reason, a forecast has multiple values for a parameter from a specific forecast, then average
-          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family",
-                                                                                "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
-          #score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
-          score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
-          dplyr::mutate(date = group$date,
-                        model_id = group$model_id) |>
-          dplyr::select(-variable,-project_id) |>
-          arrow::write_dataset(s3_scores_path,
-                               partitioning = c("model_id", "date"))
+        fc_files <- arrow::open_dataset(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint))
+
+        if(length(fc_files$files) > 0){
+          fc <- fc_files |>
+            dplyr::filter(lubridate::as_date(datetime) >= ref,
+                          lubridate::as_date(datetime) < ref_upper) |>
+            dplyr::select(-reference_date) |>
+            dplyr::collect()
+        }else{
+          fc <- tibble::tibble()
+        }
+
+        if(nrow(fc) > 0){
+          fc |>
+            #dplyr::mutate(depth_m = ifelse(!is.na(depth_m), round(depth_m, 2), depth_m)) |> #project_specific
+            dplyr::mutate(variable = curr_variable,
+                          project_id = curr_project_id) |>
+            #If for some reason, a forecast has multiple values for a parameter from a specific forecast, then average
+            dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family",
+                                                                                  "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
+            #score4cast::crps_logs_score(tg, extra_groups = c("depth_m","project_id")) |> #project_specific
+            score4cast::crps_logs_score(tg, extra_groups = c("project_id")) |> #project_specific
+            dplyr::mutate(date = group$date,
+                          model_id = group$model_id) |>
+            dplyr::select(-variable,-project_id) |>
+            arrow::write_dataset(s3_scores_path,
+                                 partitioning = c("model_id", "date"))
+        }
 
         curr_prov <- dplyr::tibble(date = Sys.Date(),
                                    new_id = id,
                                    model_id = group$model_id,
                                    reference_date = group$reference_date,
                                    pub_date = group$pub_date)
-      }else{
-        curr_prov <- NULL
-      }
-    },
-    groupings, prov_df, s3_scores_path,curr_variable)
+    }else{
+      curr_prov <- NULL
+    }
+  },
+  groupings, prov_df, s3_scores_path,curr_variable)
 
     prov_df <- dplyr::bind_rows(prov_df, new_prov)
     arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
-  }
+}
 },
 variable_duration,  config, endpoint
 )

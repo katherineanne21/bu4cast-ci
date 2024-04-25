@@ -303,6 +303,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         citation_build <- append(citation_build, var_citations)
         doi_build <- append(doi_build, doi_citations)
 
+        variable_name_build <- append(variable_name_build, var_formal_name)
+
         stac4cast::build_group_variables(table_schema = scores_theme_df,
                                         #theme_id = var_formal_name[j],
                                         table_description = scores_description_create,
@@ -342,7 +344,7 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                     theme_title = names(config$variable_groups[i]),
                     destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i]),
                     aws_download_path = catalog_config$aws_download_path_scores,
-                    group_var_items = stac4cast::generate_group_variable_items(variables = var_formal_name),
+                    group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
                     thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                     thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
                     group_var_vector = unique(var_values),

@@ -19,7 +19,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "PIW_beetle_community_richness/collection.json"
+      "href": "Weekly_beetle_community_richness/collection.json"
     },
     {
       "rel": "parent",

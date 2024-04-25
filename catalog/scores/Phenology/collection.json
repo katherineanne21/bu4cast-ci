@@ -19,7 +19,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "PID_Red_chromatic_coordinate/collection.json"
+      "href": "Daily_Red_chromatic_coordinate/collection.json"
     },
     {
       "rel": "parent",

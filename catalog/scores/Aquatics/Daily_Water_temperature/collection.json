@@ -9,6 +9,7 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Collection",
+  "sci:doi": "10.1002/fee.2616",
   "links": [
     {
       "rel": "item",
@@ -223,6 +224,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/neon4cast_example.json"
     },
     {
@@ -243,22 +249,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/precip_mod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -278,7 +269,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/precip_mod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
@@ -298,22 +309,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
@@ -338,7 +339,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",

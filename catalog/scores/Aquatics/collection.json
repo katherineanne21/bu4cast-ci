@@ -19,7 +19,7 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "PID_Water_temperature/collection.json"
+      "href": "Daily_Water_temperature/collection.json"
     },
     {
       "rel": "child",

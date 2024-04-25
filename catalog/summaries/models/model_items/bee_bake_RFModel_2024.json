@@ -17,18 +17,18 @@
     "type": "MultiPoint",
     "coordinates": [
       [-89.4737, 46.2097],
-      [-89.7048, 45.9983],
-      [-99.2531, 47.1298],
-      [-99.1139, 47.1591],
       [-82.0084, 29.676],
       [-82.0177, 29.6878],
-      [-149.6106, 68.6307]
+      [-149.6106, 68.6307],
+      [-99.2531, 47.1298],
+      [-99.1139, 47.1591],
+      [-89.7048, 45.9983]
     ]
   },
   "properties": {
-    "description": "\nmodel info: Random Forest\n\nSites: CRAM, LIRO, PRPO, PRLA, BARC, SUGG, TOOK\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: Random Forest\n\nSites: CRAM, BARC, SUGG, TOOK, PRPO, PRLA, LIRO\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-02-29",
-    "end_datetime": "2024-05-27",
+    "end_datetime": "2024-05-28",
     "providers": [
       {
         "url": "pending",

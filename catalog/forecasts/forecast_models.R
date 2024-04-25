@@ -178,7 +178,7 @@ for (m in theme_models$model_id){
               site_table = catalog_config$site_metadata_url,
               model_documentation = registered_model_id,
               destination_path = paste0(catalog_config$forecast_path,"models/model_items"),
-              aws_download_path = config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
+              aws_download_path = catalog_config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
               collection_name = 'forecasts',
               thumbnail_image_name = NULL,
               table_schema = forecast_theme_df,

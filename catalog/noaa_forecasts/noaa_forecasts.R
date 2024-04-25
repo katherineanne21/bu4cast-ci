@@ -34,7 +34,7 @@ noaa_theme_df <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecas
 #noaa_max_date <- noaa_theme_dates$`max(datetime)`
 
 noaa_min_date <- as.Date('2020-01-01')
-noaa_max <- Sys.Date()
+noaa_max_date <- Sys.Date()
 #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
 #(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))

@@ -147,6 +147,11 @@
       "href": "../../models/model_items/hotdeck.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/AquaticEcosystemsOxygen.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

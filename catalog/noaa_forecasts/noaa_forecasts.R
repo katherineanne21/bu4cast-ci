@@ -27,12 +27,14 @@ noaa_description_create <- data.frame(site_id = 'For forecasts that are not on a
 
 noaa_theme_df <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2/reference_datetime=2024-02-21/site_id=BARC"), endpoint_override = config$noaa_endpoint, anonymous = TRUE))
 
-noaa_theme_dates <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2"), endpoint_override = config$noaa_endpoint, anonymous = TRUE)) |>
-  dplyr::summarise(min(datetime),max(datetime)) |>
-  collect()
-noaa_min_date <- noaa_theme_dates$`min(datetime)`
-noaa_max_date <- noaa_theme_dates$`max(datetime)`
+#noaa_theme_dates <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2"), endpoint_override = config$noaa_endpoint, anonymous = TRUE)) |>
+#  dplyr::summarise(min(datetime),max(datetime)) |>
+#  collect()
+#noaa_min_date <- noaa_theme_dates$`min(datetime)`
+#noaa_max_date <- noaa_theme_dates$`max(datetime)`
 
+noaa_min_date <- as.Date('2020-01-01')
+noaa_max_date <- Sys.Date()
 #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
 #(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))

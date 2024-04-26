@@ -14,6 +14,21 @@
     {
       "rel": "child",
       "type": "application/json",
+      "href": "Daily_Net_ecosystem_exchange/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "30min_Net_ecosystem_exchange/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Daily_latent_heat_flux/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
       "href": "30min_latent_heat_flux/collection.json"
     },
     {

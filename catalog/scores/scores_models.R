@@ -302,6 +302,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         #update group list of publication information
         citation_build <- append(citation_build, var_citations)
         doi_build <- append(doi_build, doi_citations)
+      
+        variable_name_build <- append(variable_name_build, var_formal_name)
 
         variable_name_build <- append(variable_name_build, var_formal_name)
 

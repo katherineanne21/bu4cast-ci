@@ -14,6 +14,16 @@
     {
       "rel": "child",
       "type": "application/json",
+      "href": "Daily_Dissolved_oxygen/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Daily_Water_temperature/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
       "href": "Daily_Chlorophyll_a/collection.json"
     },
     {

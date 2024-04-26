@@ -34,7 +34,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -49,7 +59,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -99,26 +119,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fTSLM_lag.json"
     },
     {
@@ -164,17 +164,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -354,7 +354,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+      "href": "model_items/sujan_ID.json"
     },
     {
       "rel": "item",
@@ -364,7 +364,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sujan_ID.json"
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "item",
@@ -389,12 +389,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/hotdeck.json"
+      "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tidymodels_lm.json"
+      "href": "model_items/bet_example_mod_naive.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_example_mod_null.json"
     },
     {
       "rel": "item",
@@ -404,22 +409,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -434,7 +424,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -445,6 +445,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -464,17 +469,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
+      "href": "model_items/tidymodels_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_example_mod_naive.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_example_mod_null.json"
+      "href": "model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",
@@ -489,12 +489,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/chlorocrusaders.json"
+      "href": "model_items/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/ChlorophyllCrusaders.json"
+      "href": "model_items/chlorocrusaders.json"
     },
     {
       "rel": "parent",
@@ -539,7 +539,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2026-12-20T00:00:00Z"
+          "2026-12-21T00:00:00Z"
         ]
       ]
     }

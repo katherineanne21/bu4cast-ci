@@ -109,11 +109,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
@@ -125,6 +120,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/bet_example_mod_null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
     },
     {
       "rel": "parent",

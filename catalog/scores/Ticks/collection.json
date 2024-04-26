@@ -17,6 +17,11 @@
       "href": "Weekly_Amblyomma_americanum_population/collection.json"
     },
     {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Weekly_Amblyomma_americanum_population/collection.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

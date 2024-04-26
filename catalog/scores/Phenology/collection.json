@@ -19,6 +19,16 @@
     {
       "rel": "child",
       "type": "application/json",
+      "href": "Daily_Green_chromatic_coordinate/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Daily_Red_chromatic_coordinate/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
       "href": "Daily_Red_chromatic_coordinate/collection.json"
     },
     {

@@ -31,7 +31,7 @@ summaries_description_create <- data.frame(reference_datetime = 'datetime that t
                                            model_id = 'unique model identifier',
                                            reference_date = 'date that the forecast was initiated')
 
-
+print('FIND SUMMARIES TABLE SCHEMA')
 summaries_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$summaries_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
 #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
 # NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
@@ -46,16 +46,29 @@ summaries_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$summaries_buck
 # theme_models <- summaries_data_df |>
 #   distinct(model_id)
 
-forecast_bucket_connect <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
-                                                  s3_endpoint = config$endpoint, anonymous=TRUE)
-
-theme_models <- forecast_bucket_connect |>
-  distinct(model_id) |>
-  collect()
+# forecast_bucket_connect <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
+#                                                   s3_endpoint = config$endpoint, anonymous=TRUE)
+#
+# theme_models <- forecast_bucket_connect |>
+#   distinct(model_id) |>
+#   collect()
 
 #forecast_date_range <- summaries_data_df |> dplyr::summarise(min(date),max(date))
 
-forecast_date_range <- forecast_bucket_connect |>
+print('FIND INVENTORY BUCKET')
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+                                endpoint_override = "sdsc.osn.xsede.org",
+                                anonymous=TRUE)
+
+print('OPEN INVENTORY BUCKET')
+forecast_data_df <- arrow::open_dataset(forecast_s3) |>
+  filter(project_id == config$project_id) |>
+  collect()
+
+theme_models <- forecast_data_df |>
+  distinct(model_id)
+
+forecast_date_range <- forecast_data_df |>
   summarise(min(date),max(date)) |>
   collect()
 
@@ -142,12 +155,12 @@ for (m in theme_models$model_id){
 
   print(m)
   #model_date_range <- summaries_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
-  model_date_range <- forecast_bucket_connect |> filter(model_id == m) |> dplyr::summarise(min(date),max(date)) |> collect()
+  model_date_range <- forecast_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date)) |> collect()
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
   #model_var_duration_df <- summaries_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
-  model_var_duration_df <- forecast_bucket_connect |>
+  model_var_duration_df <- forecast_data_df |>
     filter(model_id == m) |>
     distinct(variable,duration, project_id) |>
     collect() |>
@@ -162,13 +175,13 @@ for (m in theme_models$model_id){
                  distinct(variable, .keep_all = TRUE)), by = c('variable'))
 
   #model_sites <- summaries_data_df |> filter(model_id == m) |> distinct(site_id)
-  model_sites <- forecast_bucket_connect |>
+  model_sites <- forecast_data_df |>
     filter(model_id == m) |>
     distinct(site_id) |>
     collect()
 
   #model_vars <- summaries_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
-  model_vars <- forecast_bucket_connect |>
+  model_vars <- forecast_data_df |>
     filter(model_id == m) |>
     distinct(variable) |>
     collect() |>
@@ -213,7 +226,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
   #   filter(variable %in% config$variable_groups[[i]]$variable)
   var_groups <- config$variable_groups[[i]]$variable
 
-  var_group_data_check <- forecast_bucket_connect |>
+  var_group_data_check <- forecast_data_df |>
     filter(variable %in% var_groups) |>
     count() |>
     collect()
@@ -247,7 +260,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     # check data and skip if no data found
     # var_data_check <- summaries_data_df |>
     #   filter(variable == var_name)
-    var_data_check <- forecast_bucket_connect |>
+    var_data_check <- forecast_data_df |>
       filter(variable == var_name) |>
       count() |>
       collect()
@@ -300,7 +313,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     #   filter(variable %in% var_values) |>
     #   distinct(site_id)
 
-    find_group_sites <- forecast_bucket_connect |>
+    find_group_sites <- forecast_data_df |>
       filter(variable %in% var_values) |>
       distinct(site_id) |>
       collect()
@@ -342,7 +355,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     #   filter(variable == var_name) |>
     #   collect()
 
-    var_date_range <- forecast_bucket_connect |>
+    var_date_range <- forecast_data_df |>
       filter(variable == var_name) |>
       dplyr::summarise(min(date),max(date)) |>
       collect()
@@ -352,7 +365,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     var_max_date <- var_date_range$`max(date)`
 
 
-    var_models <- forecast_bucket_connect |>
+    var_models <- forecast_data_df |>
       filter(variable == var_name) |>
       distinct(model_id) |>
       collect()
@@ -361,12 +374,12 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     #   filter(variable == var_name) |>
     #   distinct(site_id)
 
-    find_var_sites <- forecast_bucket_connect |>
+    find_var_sites <- forecast_data_df |>
       filter(variable == var_name) |>
       distinct(site_id) |>
       collect()
 
-    var_path <- forecast_bucket_connect |>
+    var_path <- forecast_data_df |>
       filter(variable == var_name) |>
       distinct(path) |>
       collect()

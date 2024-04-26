@@ -102,6 +102,11 @@
       "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/ChlorophyllCrusaders.json"
+    },
+    {
       "rel": "parent",
       "type": "application/json",
       "href": "../collection.json"

@@ -3,7 +3,7 @@ library(arrow)
 
 past_days <- 365
 cut_off_date <- lubridate::as_date("2024-01-01")
-n_cores <- parallel::detectCores()
+n_cores <- 2 #parallel::detectCores()
 
 setwd(here::here())
 

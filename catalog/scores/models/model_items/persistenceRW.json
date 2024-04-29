@@ -73,16 +73,6 @@
       [-99.2413, 47.1282],
       [-121.9519, 45.8205],
       [-110.5391, 44.9535],
-      [-147.504, 65.1532],
-      [-105.5442, 40.035],
-      [-66.9868, 18.1135],
-      [-66.7987, 18.1741],
-      [-72.3295, 42.4719],
-      [-96.6038, 39.1051],
-      [-83.5038, 35.6904],
-      [-77.9832, 39.0956],
-      [-121.9338, 45.7908],
-      [-87.4077, 32.9604],
       [-96.443, 38.9459],
       [-122.1655, 44.2596],
       [-149.143, 68.6698],
@@ -96,13 +86,23 @@
       [-102.4471, 39.7582],
       [-119.2575, 37.0597],
       [-110.5871, 44.9501],
-      [-96.6242, 34.4442]
+      [-96.6242, 34.4442],
+      [-147.504, 65.1532],
+      [-105.5442, 40.035],
+      [-66.9868, 18.1135],
+      [-66.7987, 18.1741],
+      [-72.3295, 42.4719],
+      [-96.6038, 39.1051],
+      [-83.5038, 35.6904],
+      [-77.9832, 39.0956],
+      [-121.9338, 45.7908],
+      [-87.4077, 32.9604]
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, ARIK, BIGC, BLDE, BLUE\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, MCDI, MCRA, OKSR, POSE, PRIN, REDB, SYCA, TECR, WALK, WLOU, ARIK, BIGC, BLDE, BLUE, CARI, COMO, CUPE, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF\n\nVariables: Daily Chlorophyll_a, Daily Green_chromatic_coordinate, Daily Net_ecosystem_exchange, Daily Dissolved_oxygen, Daily Red_chromatic_coordinate, Daily Water_temperature",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-04-06",
+    "end_datetime": "2024-04-26",
     "providers": [
       {
         "url": "pending",

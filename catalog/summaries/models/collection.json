@@ -34,17 +34,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -59,17 +49,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -119,6 +99,26 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/fTSLM_lag.json"
     },
     {
@@ -164,17 +164,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_humidity_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -190,16 +200,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -229,17 +229,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -289,16 +289,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/new_example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_BK.json"
     },
     {
@@ -319,7 +309,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
+      "href": "model_items/example_BKandel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/new_example_ID.json"
     },
     {
       "rel": "item",
@@ -344,12 +339,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -364,17 +364,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/bet_lm_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -390,21 +395,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_example_mod_null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -435,6 +425,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -539,7 +539,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2026-12-23T00:00:00Z"
+          "2026-12-24T00:00:00Z"
         ]
       ]
     }

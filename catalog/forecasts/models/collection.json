@@ -204,12 +204,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_randfor_all_sites.json"
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/randfor.json"
+      "href": "model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
@@ -229,17 +229,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -319,6 +319,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_WP_SP24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -335,11 +340,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",
@@ -374,12 +374,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -399,17 +404,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+      "href": "model_items/zimmerman_proj1.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
+      "href": "model_items/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/MALM.json"
     },
     {
       "rel": "item",
@@ -420,11 +430,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
@@ -444,7 +449,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/zimmerman_proj1.json"
+      "href": "model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -469,22 +474,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/acp_fableLM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/AquaticEcosystemsOxygen.json"
+      "href": "model_items/sustainseers.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sustainseers.json"
+      "href": "model_items/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",

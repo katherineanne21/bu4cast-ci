@@ -34,17 +34,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_temp_lm_all_sites.json"
+      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -59,17 +49,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -119,17 +99,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_humidity_lm_all_sites.json"
+      "href": "model_items/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
+      "href": "model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_randfor.json"
+      "href": "model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -179,12 +164,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/air2waterSat_2.json"
+      "href": "model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -204,12 +184,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/randfor.json"
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/air2waterSat_2.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/randfor.json"
     },
     {
       "rel": "item",
@@ -294,32 +294,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_BK.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_ID_VickeryFirstForecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/example_BKandel.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_BK.json"
     },
     {
       "rel": "item",
@@ -339,7 +324,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_ID_VickeryFirstForecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
     },
     {
       "rel": "item",
@@ -364,12 +364,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/bet_lm_temp2m_mod_temp.json"
+      "href": "model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -385,11 +390,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_example_mod_null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -439,11 +439,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/TSLM_seasonal_JM.json"
     },
     {
@@ -459,6 +454,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/mkricheldorf_w_lag.json"
     },
     {
@@ -469,22 +474,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/acp_fableLM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/AquaticEcosystemsOxygen.json"
+      "href": "model_items/sustainseers.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/sustainseers.json"
+      "href": "model_items/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",
@@ -539,7 +539,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2026-12-24T00:00:00Z"
+          "2026-12-25T00:00:00Z"
         ]
       ]
     }

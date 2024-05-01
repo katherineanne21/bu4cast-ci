@@ -22,7 +22,7 @@
   "properties": {
     "description": "\nmodel info: Our project utilizes a historical GCC data to fit a Dynamic Linear Model (DLM). After this DLM is trained, we utilize forecasted temperature data to predict future GCC data.\n\nSites: HARV\n\nVariables: Daily Green_chromatic_coordinate",
     "start_datetime": "2024-04-26",
-    "end_datetime": "2024-05-30",
+    "end_datetime": "2024-05-31",
     "providers": [
       {
         "url": "pending",
@@ -66,7 +66,7 @@
       {
         "name": "family",
         "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+        "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d>For summary statistics: <e2><80><9c>summary.<e2><80><9d>"
       },
       {
         "name": "pub_datetime",

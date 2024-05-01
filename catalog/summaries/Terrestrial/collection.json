@@ -74,7 +74,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2026-12-25T00:00:00Z"
+          "2026-12-26T00:00:00Z"
         ]
       ]
     }
@@ -98,7 +98,7 @@
     {
       "name": "family",
       "type": "string",
-      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
+      "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d>For summary statistics: <e2><80><9c>summary.<e2><80><9d>"
     },
     {
       "name": "pub_datetime",

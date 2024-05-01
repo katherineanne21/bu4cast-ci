@@ -16,10 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-149.2133, 63.8758],
-      [-84.4686, 31.1948],
-      [-106.8425, 32.5907],
-      [-96.6129, 39.1104],
       [-96.5631, 39.1008],
       [-67.0769, 18.0213],
       [-88.1612, 31.8539],
@@ -42,7 +38,6 @@
       [-103.0293, 40.4619],
       [-87.3933, 32.9505],
       [-119.006, 37.0058],
-      [-149.3705, 68.6611],
       [-89.5857, 45.4937],
       [-95.1921, 39.0404],
       [-89.5373, 46.2339],
@@ -50,19 +45,24 @@
       [-121.9519, 45.8205],
       [-110.5391, 44.9535],
       [-122.3303, 45.7624],
-      [-156.6194, 71.2824],
       [-71.2874, 44.0639],
       [-78.0418, 39.0337],
-      [-147.5026, 65.154],
       [-97.57, 33.4012],
       [-104.7456, 40.8155],
       [-99.1066, 47.1617],
-      [-145.7514, 63.8811],
       [-87.8039, 32.5417],
       [-81.4362, 28.1251],
       [-83.5019, 35.689],
       [-66.8687, 17.9696],
       [-72.1727, 42.5369],
+      [-84.4686, 31.1948],
+      [-106.8425, 32.5907],
+      [-96.6129, 39.1104],
+      [-147.5026, 65.154],
+      [-145.7514, 63.8811],
+      [-149.2133, 63.8758],
+      [-149.3705, 68.6611],
+      [-156.6194, 71.2824],
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-119.2575, 37.0597],
@@ -98,9 +98,9 @@
     ]
   },
   "properties": {
-    "description": "\nmodel info: NA\n\nSites: HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, CRAM, LIRO, PRPO, PRLA, CARI\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
+    "description": "\nmodel info: NA\n\nSites: KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, BONA, DEJU, HEAL, TOOL, BARR, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, CRAM, LIRO, PRPO, PRLA, CARI\n\nVariables: Daily Red_chromatic_coordinate, Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-04-26",
+    "end_datetime": "2024-04-28",
     "providers": [
       {
         "url": "pending",
@@ -145,7 +145,7 @@
       {
         "name": "family",
         "type": "string",
-        "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+        "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d> For summary statistics: <e2><80><9c>summary.<e2><80><9d>If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
       },
       {
         "name": "pub_datetime",

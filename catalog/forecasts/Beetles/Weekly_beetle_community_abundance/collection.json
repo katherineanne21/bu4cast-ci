@@ -114,12 +114,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
+      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
+      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -169,7 +169,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2025-04-21T00:00:00Z"
+          "2025-04-28T00:00:00Z"
         ]
       ]
     }

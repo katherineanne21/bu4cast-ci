@@ -214,11 +214,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_BK.json"
     },
     {
@@ -235,6 +230,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_BKandel.json"
     },
     {
       "rel": "item",
@@ -279,11 +279,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/hotdeck.json"
     },
     {
@@ -314,12 +309,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/TSLM_seasonal_JM.json"
+      "href": "../../models/model_items/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -330,6 +320,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",

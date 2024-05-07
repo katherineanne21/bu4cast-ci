@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: Random Forest\n\nSites: BARC, PRPO, CRAM, PRLA, LIRO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-02-29",
-    "end_datetime": "2024-06-08",
+    "end_datetime": "2024-06-09",
     "providers": [
       {
         "url": "pending",

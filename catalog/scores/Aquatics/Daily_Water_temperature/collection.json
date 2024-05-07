@@ -14,16 +14,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
@@ -35,6 +25,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
     },
     {
       "rel": "item",
@@ -89,41 +89,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -155,6 +120,41 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/example_ID_airtempANDprecipadjusted.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -244,6 +244,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
     },
     {
@@ -259,17 +264,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -294,12 +294,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor.json"
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -309,12 +309,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
+      "href": "../../models/model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",

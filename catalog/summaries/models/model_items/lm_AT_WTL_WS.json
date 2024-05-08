@@ -28,7 +28,7 @@
   "properties": {
     "description": "\nmodel info: This forecast of water temperature at NEON Lake sites uses a linear model, incorporating air temperature, wind speed, and the previous day's forecasted water temperature as variables.\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-03-01",
-    "end_datetime": "2024-06-06",
+    "end_datetime": "2024-06-07",
     "providers": [
       {
         "url": "pending",
@@ -72,7 +72,7 @@
       {
         "name": "family",
         "type": "string",
-        "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d>For summary statistics: <e2><80><9c>summary.<e2><80><9d>"
+        "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
       },
       {
         "name": "pub_datetime",

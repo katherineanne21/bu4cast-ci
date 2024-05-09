@@ -92,28 +92,28 @@ stac4cast::build_forecast_scores(table_schema = summaries_theme_df,
                                  link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                                  thumbnail_link = catalog_config$summaries_thumbnail,
                                  thumbnail_title = catalog_config$summaries_thumbnail_title,
-                                 model_child = TRUE)
+                                 model_child = FALSE)
 
 ## create separate JSON for model landing page
 
-stac4cast::build_group_variables(table_schema = summaries_theme_df,
-                                 table_description = summaries_description_create,
-                                 start_date = forecast_min_date,
-                                 end_date = forecast_max_date,
-                                 id_value = "models",
-                                 description_string = build_description,
-                                 about_string = catalog_config$about_string,
-                                 about_title = catalog_config$about_title,
-                                 dashboard_string = catalog_config$dashboard_url,
-                                 dashboard_title = catalog_config$dashboard_title,
-                                 theme_title = "Models",
-                                 destination_path = paste0(catalog_config$summaries_path,"models"),
-                                 aws_download_path = catalog_config$summaries_download_path,
-                                 group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
-                                 thumbnail_link = 'pending',
-                                 thumbnail_title = 'pending',
-                                 group_var_vector = NULL,
-                                 group_sites = NULL)
+# stac4cast::build_group_variables(table_schema = summaries_theme_df,
+#                                  table_description = summaries_description_create,
+#                                  start_date = forecast_min_date,
+#                                  end_date = forecast_max_date,
+#                                  id_value = "models",
+#                                  description_string = build_description,
+#                                  about_string = catalog_config$about_string,
+#                                  about_title = catalog_config$about_title,
+#                                  dashboard_string = catalog_config$dashboard_url,
+#                                  dashboard_title = catalog_config$dashboard_title,
+#                                  theme_title = "Models",
+#                                  destination_path = paste0(catalog_config$summaries_path,"models"),
+#                                  aws_download_path = catalog_config$summaries_download_path,
+#                                  group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
+#                                  thumbnail_link = 'pending',
+#                                  thumbnail_title = 'pending',
+#                                  group_var_vector = NULL,
+#                                  group_sites = NULL)
 
 ## CREATE MODELS
 variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)

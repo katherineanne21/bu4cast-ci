@@ -88,7 +88,7 @@ stac4cast::build_forecast_scores(table_schema = scores_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$scores_thumbnail,
                       thumbnail_title = catalog_config$scores_thumbnail_title,
-                      model_child = TRUE)
+                      model_child = FALSE)
 
 ## create separate JSON for model landing page
 ## create separate JSON for model landing page
@@ -96,25 +96,25 @@ if (!dir.exists(paste0(catalog_config$scores_path,"models"))){
   dir.create(paste0(catalog_config$scores_path,"models"))
 }
 
-stac4cast::build_group_variables(table_schema = scores_theme_df,
-                      #theme_id = 'models',
-                      table_description = scores_description_create,
-                      start_date = scores_min_date,
-                      end_date = scores_max_date,
-                      id_value = "models",
-                      description_string = build_description,
-                      about_string = catalog_config$about_string,
-                      about_title = catalog_config$about_title,
-                      dashboard_string = catalog_config$dashboard_url,
-                      dashboard_title = catalog_config$dashboard_title,
-                      theme_title = "Models",
-                      destination_path = paste0(catalog_config$scores_path,"models"),
-                      aws_download_path = catalog_config$aws_download_path_scores,
-                      group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
-                      thumbnail_link = 'pending',
-                      thumbnail_title = 'pending',
-                      group_var_vector = NULL,
-                      group_sites = NULL)
+# stac4cast::build_group_variables(table_schema = scores_theme_df,
+#                       #theme_id = 'models',
+#                       table_description = scores_description_create,
+#                       start_date = scores_min_date,
+#                       end_date = scores_max_date,
+#                       id_value = "models",
+#                       description_string = build_description,
+#                       about_string = catalog_config$about_string,
+#                       about_title = catalog_config$about_title,
+#                       dashboard_string = catalog_config$dashboard_url,
+#                       dashboard_title = catalog_config$dashboard_title,
+#                       theme_title = "Models",
+#                       destination_path = paste0(catalog_config$scores_path,"models"),
+#                       aws_download_path = catalog_config$aws_download_path_scores,
+#                       group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
+#                       thumbnail_link = 'pending',
+#                       thumbnail_title = 'pending',
+#                       group_var_vector = NULL,
+#                       group_sites = NULL)
 
 ## CREATE MODELS
 
@@ -302,7 +302,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         #update group list of publication information
         citation_build <- append(citation_build, var_citations)
         doi_build <- append(doi_build, doi_citations)
-      
+
         variable_name_build <- append(variable_name_build, var_formal_name)
 
         variable_name_build <- append(variable_name_build, var_formal_name)
@@ -326,8 +326,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                         thumbnail_title = 'pending',
                                         group_var_vector = NULL,
                                         group_sites = find_var_sites$site_id)#,
-                                        #citation_values = var_citations,
-                                        #doi_values = doi_citations)
+                                        citation_values = var_citations,
+                                        doi_values = doi_citations)
             } ## end duration loop
 
   } ## end variable loop
@@ -350,7 +350,7 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                     thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                     thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
                     group_var_vector = unique(var_values),
-                    group_sites = find_group_sites$site_id)#,
-                    #citation_values = citation_build,
-                    #doi_build = doi_build)
+                    group_sites = find_group_sites$site_id,
+                    citation_values = citation_build,
+                    doi_build = doi_build)
 } # end group loop

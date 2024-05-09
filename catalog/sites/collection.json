@@ -57,8 +57,8 @@
     "temporal": {
       "interval": [
         [
-          "pendingT00:00:00Z",
-          "pendingT00:00:00Z"
+          "2013-03-07T00:00:00Z",
+          "2024-05-08T00:00:00Z"
         ]
       ]
     }
@@ -67,97 +67,97 @@
     {
       "name": "field_domain_id",
       "type": "character",
-      "description": "domain identifier"
+      "description": {}
     },
     {
       "name": "field_site_id",
       "type": "character",
-      "description": "site identifier"
+      "description": {}
     },
     {
       "name": "field_site_name",
       "type": "character",
-      "description": "site name"
+      "description": {}
     },
     {
       "name": "terrestrial",
       "type": "numeric",
-      "description": "binary indicator for variable group"
+      "description": {}
     },
     {
       "name": "aquatics",
       "type": "numeric",
-      "description": "binary indicator for variable group"
+      "description": {}
     },
     {
       "name": "phenology",
       "type": "numeric",
-      "description": "binary indicator for variable group"
+      "description": {}
     },
     {
       "name": "ticks",
       "type": "numeric",
-      "description": "binary indicator for variable group"
+      "description": {}
     },
     {
       "name": "beetles",
       "type": "numeric",
-      "description": "binary indicator for variable group"
+      "description": {}
     },
     {
       "name": "phenocam_code",
       "type": "character",
-      "description": "code used for phenocam"
+      "description": {}
     },
     {
       "name": "phenocam_roi",
       "type": "character",
-      "description": "phenocam region of interest"
+      "description": {}
     },
     {
       "name": "phenocam_vegetation",
       "type": "character",
-      "description": "phenocam vegetation type"
+      "description": {}
     },
     {
       "name": "field_site_type",
       "type": "character",
-      "description": "site type"
+      "description": {}
     },
     {
       "name": "field_site_subtype",
       "type": "character",
-      "description": "site subtype"
+      "description": {}
     },
     {
       "name": "field_colocated_site",
       "type": "character",
-      "description": "sites that are colocated"
+      "description": {}
     },
     {
       "name": "field_site_host",
       "type": "character",
-      "description": "host site"
+      "description": {}
     },
     {
       "name": "field_site_url",
       "type": "character",
-      "description": "host site url"
+      "description": {}
     },
     {
       "name": "field_nonneon_research_allowed",
       "type": "character",
-      "description": "is non-neon research allowed"
+      "description": {}
     },
     {
       "name": "field_access_details",
       "type": "character",
-      "description": "details for accessing the site"
+      "description": {}
     },
     {
       "name": "field_neon_field_operations_office",
       "type": "character",
-      "description": "operations office for neon site"
+      "description": {}
     },
     {
       "name": "latitude",
@@ -172,167 +172,167 @@
     {
       "name": "field_geodetic_datum",
       "type": "character",
-      "description": "geodetic coordinates for site"
+      "description": {}
     },
     {
       "name": "field_utm_northing",
       "type": "numeric",
-      "description": "northing utm for site"
+      "description": {}
     },
     {
       "name": "field_utm_easting",
       "type": "numeric",
-      "description": "easting utm for site"
+      "description": {}
     },
     {
       "name": "field_utm_zone",
       "type": "character",
-      "description": "utm zone for site"
+      "description": {}
     },
     {
       "name": "field_site_county",
       "type": "character",
-      "description": "county where site is located"
+      "description": {}
     },
     {
       "name": "field_site_state",
       "type": "character",
-      "description": "state where site is located"
+      "description": {}
     },
     {
       "name": "field_site_country",
       "type": "character",
-      "description": "country where site is located"
+      "description": {}
     },
     {
       "name": "field_mean_elevation_m",
       "type": "numeric",
-      "description": "mean site elevation in meters"
+      "description": {}
     },
     {
       "name": "field_minimum_elevation_m",
       "type": "numeric",
-      "description": "minimum site elevation in meters"
+      "description": {}
     },
     {
       "name": "field_maximum_elevation_m",
       "type": "numeric",
-      "description": "maximum site elevation in meters"
+      "description": {}
     },
     {
       "name": "field_mean_annual_temperature_C",
       "type": "numeric",
-      "description": "annual temperature of site in degrees C"
+      "description": {}
     },
     {
       "name": "field_mean_annual_precipitation_mm",
       "type": "numeric",
-      "description": "mean annual precipitation at site in mm"
+      "description": {}
     },
     {
       "name": "field_dominant_wind_direction",
       "type": "character",
-      "description": "dominant wind direction at site"
+      "description": {}
     },
     {
       "name": "field_mean_canopy_height_m",
       "type": "character",
-      "description": "mean canopy height at site"
+      "description": {}
     },
     {
       "name": "field_dominant_nlcd_classes",
       "type": "character",
-      "description": "dominant nlcd classes at site"
+      "description": {}
     },
     {
       "name": "field_domint_plant_species",
       "type": "character",
-      "description": "dominant plant species at site"
+      "description": {}
     },
     {
       "name": "field_usgs_huc",
       "type": "character",
-      "description": "USGS Hyrdrologic Unit Code (HUC) for site"
+      "description": {}
     },
     {
       "name": "field_watershed_name",
       "type": "character",
-      "description": "watershed name for site"
+      "description": {}
     },
     {
       "name": "field_watershed_size_km2",
       "type": "numeric",
-      "description": "watershed size for site in square kilometers"
+      "description": {}
     },
     {
       "name": "field_lake_depth_mean_m",
       "type": "numeric",
-      "description": "mean lake depth at site in meters"
+      "description": {}
     },
     {
       "name": "field_lake_depth_max_m",
       "type": "numeric",
-      "description": "maximum lake depth in meters"
+      "description": {}
     },
     {
       "name": "field_tower_height_m",
       "type": "numeric",
-      "description": "tower height at site in meters"
+      "description": {}
     },
     {
       "name": "field_usgs_geology_unit",
       "type": "character",
-      "description": "USGS geology unit for site"
+      "description": {}
     },
     {
       "name": "field_megapit_soil_family",
       "type": "character",
-      "description": "magapit soil family at site"
+      "description": {}
     },
     {
       "name": "field_soil_subgroup",
       "type": "character",
-      "description": "soil subgroup at site"
+      "description": {}
     },
     {
       "name": "field_avg_number_of_green_days",
       "type": "numeric",
-      "description": "average number of green days at site"
+      "description": {}
     },
     {
       "name": "field_avg_grean_increase_doy",
       "type": "character",
-      "description": "average green increase for day of year"
+      "description": {}
     },
     {
       "name": "field_avg_green_max_doy",
       "type": "character",
-      "description": "average green maximum for day of year"
+      "description": {}
     },
     {
       "name": "field_avg_green_decrease_doy",
       "type": "character",
-      "description": "average green decrease for day of year"
+      "description": {}
     },
     {
       "name": "field_avg_green_min_doy",
       "type": "character",
-      "description": "average green minimum for day of year"
+      "description": {}
     },
     {
       "name": "field_phenocams",
       "type": "character",
-      "description": "phenocam details for site"
+      "description": {}
     },
     {
       "name": "field_number_tower_levels",
       "type": "numeric",
-      "description": "number of tower levels at site"
+      "description": {}
     },
     {
       "name": "neon_url",
       "type": "character",
-      "description": "neon URL for site"
+      "description": {}
     }
   ],
   "assets": {

@@ -16,10 +16,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-122.3303, 45.7624],
-      [-156.6194, 71.2824],
-      [-71.2874, 44.0639],
-      [-78.0418, 39.0337],
       [-147.5026, 65.154],
       [-97.57, 33.4012],
       [-104.7456, 40.8155],
@@ -52,7 +48,11 @@
       [-89.5373, 46.2339],
       [-99.2413, 47.1282],
       [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-110.5391, 44.9535],
+      [-122.3303, 45.7624],
+      [-156.6194, 71.2824],
+      [-71.2874, 44.0639],
+      [-78.0418, 39.0337]
     ]
   },
   "properties": {
@@ -102,7 +102,7 @@
       {
         "name": "family",
         "type": "string",
-        "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d> For summary statistics: <e2><80><9c>summary.<e2><80><9d>If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+        "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
       },
       {
         "name": "pub_datetime",

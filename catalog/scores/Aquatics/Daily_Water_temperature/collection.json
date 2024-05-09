@@ -14,11 +14,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
@@ -34,12 +29,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -79,12 +84,37 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
+      "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_faasr.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
     },
     {
       "rel": "item",
@@ -124,36 +154,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
@@ -165,6 +165,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -234,11 +239,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/flareGOTM.json"
     },
     {
@@ -279,16 +279,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
     },
     {
@@ -315,6 +305,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -413,7 +413,7 @@
     {
       "name": "family",
       "type": "string",
-      "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d> For summary statistics: <e2><80><9c>summary.<e2><80><9d>If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+      "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
     },
     {
       "name": "pub_datetime",

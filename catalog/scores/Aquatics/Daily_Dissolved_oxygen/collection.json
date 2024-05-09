@@ -44,6 +44,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_WP_SP24.json"
     },
     {
@@ -65,11 +70,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/neon4cast_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
@@ -119,16 +119,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
@@ -144,12 +134,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
+      "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "parent",
@@ -218,7 +218,7 @@
     {
       "name": "family",
       "type": "string",
-      "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d> For summary statistics: <e2><80><9c>summary.<e2><80><9d>If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+      "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
     },
     {
       "name": "pub_datetime",

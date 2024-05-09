@@ -14,16 +14,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/climatology.json"
     },
     {
@@ -55,6 +45,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/procEppleyNorbergMonod.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/USGSHABs1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -94,31 +94,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/tg_humidity_lm.json"
     },
     {
@@ -130,6 +105,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -154,12 +139,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/lasso.json"
+      "href": "model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "model_items/randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -199,6 +199,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_WP_SP24.json"
     },
     {
@@ -220,11 +225,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/neon4cast_example.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/null.json"
     },
     {
       "rel": "item",
@@ -289,6 +289,31 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_RW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "model_items/example_ACP_sp24.json"
     },
     {
@@ -324,31 +349,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_RW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/example_mkricheldorf_w_uncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/fARIMA_clim_ensemble.json"
     },
     {
@@ -360,6 +360,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -414,11 +419,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "model_items/flareGOTM.json"
     },
     {
@@ -430,6 +430,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "model_items/mean.json"
     },
     {
       "rel": "item",
@@ -475,21 +490,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "model_items/bet_lm_temp2m_mod_temp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/bet_lm_temp_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "model_items/mean.json"
     },
     {
       "rel": "parent",
@@ -558,7 +558,7 @@
     {
       "name": "family",
       "type": "string",
-      "description": "For ensembles: <e2><80><9c>ensemble.<e2><80><9d> Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The <e2><80><9c>sample<e2><80><9d> distribution is synonymous with <e2><80><9c>ensemble.<e2><80><9d> For summary statistics: <e2><80><9c>summary.<e2><80><9d>If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
+      "description": "For ensembles: “ensemble.” Default value if unspecified For probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.” For summary statistics: “summary.”If this dimension does not vary, it is permissible to specify family as a variable attribute if the file format being used supports this (e.g.,netCDF)."
     },
     {
       "name": "pub_datetime",

@@ -213,109 +213,136 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
     dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups[i])))
   }
 
-  for(j in 1:length(config$variable_groups[[i]]$variable)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
+  # match variable with full name in gsheet
+  var_gsheet_arrange <- variable_gsheet |>
+    arrange(duration)
 
-    ## restructure variable names
-    var_values <- config$variable_groups[[i]]$variable
-    var_name <- config$variable_groups[[i]]$variable[j]
+  var_values <- names(config$variable_groups[[i]]$group_vars)
+
+  var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
+
+  ## CREATE VARIABLE GROUP JSONS
+  group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
+
+  ## find group sites
+  find_group_sites <- forecast_data_df |>
+    filter(variable %in% var_values) |>
+    distinct(site_id)
+
+  ## create empty vector to track publication information
+  citation_build <- c()
+  doi_build <- c()
+
+  ## create empty vector to track variable information
+  variable_name_build <- c()
+
+  for(j in 1:length(config$variable_groups[[i]]$group_vars)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
+
+    var_name <- names(config$variable_groups[[i]]$group_vars[j])
     print(var_name)
 
-    # check data and skip if no data found
-    var_data_check <- forecast_data_df |>
-      filter(variable == var_name)
+    for (k in 1:length(config$variable_groups[[i]]$group_vars[[j]]$duration)){
+      duration_value <- config$variable_groups[[i]]$group_vars[[j]]$duration[k]
+      print(duration_value)
 
-    if (nrow(var_data_check) == 0){
-      print('No data available for variable')
-      next
-    }
+      ## save original duration name for reference
+      duration_name <- config$variable_groups[[i]]$group_vars[[j]]$duration[k]
 
-    duration_name <- config$variable_groups[[i]]$duration[j]
+      ## create formal variable name
+      duration_value[which(duration_value == 'P1D')] <- 'Daily'
+      duration_value[which(duration_value == 'PT1H')] <- 'Hourly'
+      duration_value[which(duration_value == 'PT30M')] <- '30min'
+      duration_value[which(duration_value == 'P1W')] <- 'Weekly'
 
-    # match variable with full name in gsheet
-    var_gsheet_arrange <- variable_gsheet |>
-      arrange(duration)
+      var_formal_name <- paste0(duration_value,'_',var_name_full[j])
 
-    #var_name_full <- variable_gsheet[which(variable_gsheet$`"official" targets name` == var_values),1][[1]]
-    var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
+      # check data and skip if no data found
+      var_data_check <- forecast_data_df |>
+        filter(variable == var_name)
 
+      if (nrow(var_data_check) == 0){
+        print('No data available for variable')
+        next
+      }
 
+      if (!dir.exists(file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name))){
+        dir.create(file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name))
+      }
 
-    ## create new vector to store duration names
-    duration_values <- config$variable_groups[[i]]$duration
-    duration_values[which(duration_values == 'P1D')] <- 'Daily'
-    duration_values[which(duration_values == 'PT1H')] <- 'Hourly'
-    duration_values[which(duration_values == 'PT30M')] <- '30min'
-    duration_values[which(duration_values == 'P1W')] <- 'Weekly'
+      var_data <- forecast_data_df |>
+        filter(variable == var_name,
+               duration == duration_name)
 
-    #var_name_combined_list <- paste0(var_values, '_',duration_values)
-    var_name_combined_list <- paste0(duration_values,'_',var_name_full)
+      var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
+      var_min_date <- var_date_range$`min(date)`
+      var_max_date <- var_date_range$`max(date)`
 
-    ## CREATE VARIABLE GROUP JSONS
-    group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
+      var_models <- var_data |> distinct(model_id)
 
-    ## find group sites
-    find_group_sites <- forecast_data_df |>
-      filter(variable %in% var_values) |>
-      distinct(site_id)
+      find_var_sites <- forecast_data_df |>
+        filter(variable == var_name) |>
+        distinct(site_id)
 
-    stac4cast::build_group_variables(table_schema = forecast_theme_df,
-                          #theme_id = names(config$variable_groups[i]),
-                          table_description = forecast_description_create,
-                          start_date = forecast_min_date,
-                          end_date = forecast_max_date,
-                          id_value = names(config$variable_groups[i]),
-                          description_string = group_description,
-                          about_string = catalog_config$about_string,
-                          about_title = catalog_config$about_title,
-                          dashboard_string = catalog_config$dashboard_url,
-                          dashboard_title = catalog_config$dashboard_title,
-                          theme_title = names(config$variable_groups[i]),
-                          destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups[i])),
-                          aws_download_path = catalog_config$aws_download_path_forecasts,
-                          group_var_items = stac4cast::generate_group_variable_items(variables = var_name_combined_list),
-                          thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
-                          thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
-                          group_var_vector = unique(var_values),
-                          group_sites = find_group_sites$site_id)
+      var_description <- paste0('This page includes all models for the ',var_formal_name,' variable.')
 
-    if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))){
-      dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_name_combined_list[j]))
-    }
+      #var_path <- gsub('forecasts','scores',var_data$path[1])
 
-    var_data <- forecast_data_df |>
-      filter(variable == var_name,
-             duration == duration_name)
+      ## build lists for creating publication items
+      var_citations <- config$variable_groups[[i]]$group_vars[[j]]$var_citation
+      doi_citations <- config$variable_groups[[i]]$group_vars[[j]]$var_doi
 
-    var_date_range <- var_data |> dplyr::summarise(min(date),max(date))
-    var_min_date <- var_date_range$`min(date)`
-    var_max_date <- var_date_range$`max(date)`
+      #update group list of publication information
+      citation_build <- append(citation_build, var_citations)
+      doi_build <- append(doi_build, doi_citations)
 
-    var_models <- var_data |> distinct(model_id)
+      variable_name_build <- append(variable_name_build, var_formal_name)
 
-    find_var_sites <- forecast_data_df |>
-      filter(variable == var_name) |>
-      distinct(site_id)
+      variable_name_build <- append(variable_name_build, var_formal_name)
 
-    var_description <- paste0('This page includes all models for the ',var_name_combined_list[j],' variable.')
+      stac4cast::build_group_variables(table_schema = forecast_data_df,
+                                       #theme_id = var_formal_name[j],
+                                       table_description = forecast_description_create,
+                                       start_date = var_min_date,
+                                       end_date = var_max_date,
+                                       id_value = var_formal_name,
+                                       description_string = var_description,
+                                       about_string = catalog_config$about_string,
+                                       about_title = catalog_config$about_title,
+                                       dashboard_string = catalog_config$dashboard_url,
+                                       dashboard_title = catalog_config$dashboard_title,
+                                       theme_title = var_formal_name,
+                                       destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name),
+                                       aws_download_path = var_path,
+                                       group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
+                                       thumbnail_link = 'pending',
+                                       thumbnail_title = 'pending',
+                                       group_var_vector = NULL,
+                                       group_sites = find_var_sites$site_id,
+                                       citation_values = var_citations,
+                                       doi_values = var_doi)
+    } ## end duration loop
 
-    stac4cast::build_group_variables(table_schema = forecast_theme_df,
-                          table_description = forecast_description_create,
-                          start_date = var_min_date,
-                          end_date = var_max_date,
-                          id_value = var_name_combined_list[j],
-                          description_string = var_description,
-                          about_string = catalog_config$about_string,
-                          about_title = catalog_config$about_title,
-                          dashboard_string = catalog_config$dashboard_url,
-                          dashboard_title = catalog_config$dashboard_title,
-                          theme_title = var_name_combined_list[j],
-                          destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_name_combined_list[j]),
-                          aws_download_path = var_data$path[1],
-                          group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
-                          thumbnail_link = 'pending',
-                          thumbnail_title = 'pending',
-                          group_var_vector = NULL,
-                          group_sites = find_var_sites$site_id)
+  } ## end variable loop
 
-  }
-}
+  ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
+  stac4cast::build_group_variables(table_schema = forecast_data_df,
+                                   table_description = forecast_description_create,
+                                   start_date = forecast_min_date,
+                                   end_date = forecast_max_date,
+                                   id_value = names(config$variable_groups)[i],
+                                   description_string = group_description,
+                                   about_string = catalog_config$about_string,
+                                   about_title = catalog_config$about_title,
+                                   dashboard_string = catalog_config$dashboard_url,
+                                   dashboard_title = catalog_config$dashboard_title,
+                                   theme_title = names(config$variable_groups[i]),
+                                   destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i]),
+                                   aws_download_path = catalog_config$aws_download_path_scores,
+                                   group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
+                                   thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
+                                   thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
+                                   group_var_vector = unique(var_values),
+                                   group_sites = find_group_sites$site_id,
+                                   citation_values = citation_build,
+                                   doi_values = doi_build)
+} # end group loop

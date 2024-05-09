@@ -325,7 +325,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                         thumbnail_link = 'pending',
                                         thumbnail_title = 'pending',
                                         group_var_vector = NULL,
-                                        group_sites = find_var_sites$site_id)#,
+                                        group_sites = find_var_sites$site_id,
                                         citation_values = var_citations,
                                         doi_values = doi_citations)
             } ## end duration loop

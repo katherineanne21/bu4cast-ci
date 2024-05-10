@@ -5,14 +5,7 @@
   ],
   "type": "Feature",
   "id": "ChlorophyllCrusaders",
-  "bbox": [
-    [
-      -156.6194,
-      71.2824,
-      -66.7987,
-      71.2824
-    ]
-  ],
+  "bbox": [-72.1727, 42.5369, -72.1727, 42.5369],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

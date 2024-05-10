@@ -5,14 +5,7 @@
   ],
   "type": "Feature",
   "id": "prophet_clim_ensemble",
-  "bbox": [
-    [
-      -156.6194,
-      71.2824,
-      -66.7987,
-      71.2824
-    ]
-  ],
+  "bbox": [-155.3173, 17.9696, -66.8687, 47.1617],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

@@ -5,14 +5,7 @@
   ],
   "type": "Feature",
   "id": "hotdeck",
-  "bbox": [
-    [
-      -156.6194,
-      71.2824,
-      -66.7987,
-      71.2824
-    ]
-  ],
+  "bbox": [-147.504, 18.1135, -66.7987, 65.1532],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

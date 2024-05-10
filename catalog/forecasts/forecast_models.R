@@ -62,6 +62,9 @@ forecast_data_df <- arrow::open_dataset(forecast_s3) |>
 theme_models <- forecast_data_df |>
   distinct(model_id)
 
+forecast_sites <- forecast_data_df |>
+  distinct(site_id)
+
 forecast_date_range <- forecast_data_df |> dplyr::summarise(min(date),max(date))
 forecast_min_date <- forecast_date_range$`min(date)`
 forecast_max_date <- forecast_date_range$`max(date)`
@@ -83,6 +86,7 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title,
+                      group_sites = forecast_sites$site_id,
                       model_child = FALSE)
 
 ## create separate JSON for model landing page

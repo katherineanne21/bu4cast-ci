@@ -72,6 +72,8 @@ build_description <- paste0("The catalog contains scores for the ", config$chall
 
 #variable_group <- c('test_daily')
 
+scores_sites <- scores_data_df |>
+  distinct(site_id)
 
 stac4cast::build_forecast_scores(table_schema = scores_theme_df,
                       #theme_id = 'Scores',
@@ -88,6 +90,7 @@ stac4cast::build_forecast_scores(table_schema = scores_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$scores_thumbnail,
                       thumbnail_title = catalog_config$scores_thumbnail_title,
+                      group_sites = scores_sites$site_id,
                       model_child = FALSE)
 
 ## create separate JSON for model landing page

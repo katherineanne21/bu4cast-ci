@@ -176,6 +176,12 @@ for (m in theme_models$model_id){
 
   idx = which(registered_model_id$model_id == m)
 
+  if (is.null(registered_model_id$`Web link to model code`[idx])){
+    model_code_link <- 'https://projects.ecoforecast.org/neon4cast-ci/'
+  } else{
+    model_code_link <- registered_model_id$`Web link to model code`[idx]
+  }
+
   stac4cast::build_model(model_id = m,
               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
@@ -193,7 +199,7 @@ for (m in theme_models$model_id){
               table_schema = scores_theme_df,
               table_description = scores_description_create,
               full_var_df = model_vars,
-              code_web_link = registered_model_id$`Web link to model code`[idx])
+              code_web_link = model_code_link)
               #code_web_link = 'pending')
 }
 

@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "sustainseers",
-  "bbox": [-110.8355, 29.6893, -71.2874, 44.0639],
+  "bbox": [
+    [-110.8355, 29.6893, -71.2874, 44.0639]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

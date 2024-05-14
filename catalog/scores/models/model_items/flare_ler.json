@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "flare_ler",
-  "bbox": [-99.2531, 29.676, -82.0084, 47.1591],
+  "bbox": [
+    [-99.2531, 29.676, -82.0084, 47.1591]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

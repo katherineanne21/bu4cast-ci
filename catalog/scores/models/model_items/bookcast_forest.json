@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "bookcast_forest",
-  "bbox": [-87.3933, 29.6893, -81.9934, 32.9505],
+  "bbox": [
+    [-87.3933, 29.6893, -81.9934, 32.9505]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "AquaticEcosystemsOxygen",
-  "bbox": [-82.0084, 29.676, -82.0084, 29.676],
+  "bbox": [
+    [-82.0084, 29.676, -82.0084, 29.676]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

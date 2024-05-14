@@ -10,6 +10,7 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "item",
@@ -34,11 +35,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_auto_adam.json"
     },
     {
@@ -50,6 +46,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/lasso.json"
     },
     {
       "rel": "item",
@@ -84,12 +85,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
+      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "parent",

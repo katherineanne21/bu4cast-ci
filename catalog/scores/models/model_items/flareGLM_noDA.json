@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "flareGLM_noDA",
-  "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
+  "bbox": [
+    [-149.6106, 29.676, -82.0084, 68.6307]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

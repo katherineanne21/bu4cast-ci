@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "lasso",
-  "bbox": [-156.6194, 17.9696, -66.8687, 71.2824],
+  "bbox": [
+    [-156.6194, 17.9696, -66.8687, 71.2824]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

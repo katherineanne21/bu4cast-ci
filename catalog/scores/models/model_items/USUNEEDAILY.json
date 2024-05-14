@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "USUNEEDAILY",
-  "bbox": [-155.3173, 19.5531, -155.3173, 19.5531],
+  "bbox": [
+    [-155.3173, 19.5531, -155.3173, 19.5531]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

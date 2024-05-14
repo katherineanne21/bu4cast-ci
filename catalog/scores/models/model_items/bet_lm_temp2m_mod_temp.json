@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "bet_lm_temp2m_mod_temp",
-  "bbox": [-81.9934, 29.6893, -81.9934, 29.6893],
+  "bbox": [
+    [-81.9934, 29.6893, -81.9934, 29.6893]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "USGSHABs1",
-  "bbox": [-88.1589, 31.1854, -84.4374, 32.5415],
+  "bbox": [
+    [-88.1589, 31.1854, -84.4374, 32.5415]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

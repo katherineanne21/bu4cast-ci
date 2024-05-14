@@ -5,7 +5,9 @@
   ],
   "type": "Feature",
   "id": "example_faasr",
-  "bbox": [-149.6106, 18.1135, -66.7987, 68.6698],
+  "bbox": [
+    [-149.6106, 18.1135, -66.7987, 68.6698]
+  ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [

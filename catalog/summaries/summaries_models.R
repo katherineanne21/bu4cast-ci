@@ -322,6 +322,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       var_description <- paste0('This page includes all models for the ',var_formal_name,' variable.')
 
       #var_path <- gsub('forecasts','scores',var_data$path[1])
+      var_path <- var_data$path[1]
 
       ## build lists for creating publication items
       var_citations <- config$variable_groups[[i]]$group_vars[[j]]$var_citation
@@ -373,7 +374,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                    dashboard_title = catalog_config$dashboard_title,
                                    theme_title = names(config$variable_groups[i]),
                                    destination_path = file.path(catalog_config$summaries_path,names(config$variable_groups)[i]),
-                                   aws_download_path = catalog_config$aws_download_path_scores,
+                                   aws_download_path = catalog_config$aws_download_path_summaries,
                                    group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
                                    thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                                    thumbnail_title = config$variable_groups[[i]]$thumbnail_title,

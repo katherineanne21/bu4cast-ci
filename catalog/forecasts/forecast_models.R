@@ -71,6 +71,8 @@ forecast_max_date <- forecast_date_range$`max(date)`
 
 build_description <- paste0("Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
+forecast_path <- forecast_sites$site_id
+
 stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       #theme_id = 'Forecasts',
                       table_description = forecast_description_create,
@@ -86,7 +88,7 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title,
-                      group_sites = forecast_sites$site_id,
+                      group_sites = forecast_path,
                       model_child = FALSE)
 
 ## create separate JSON for model landing page
@@ -296,6 +298,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
       var_description <- paste0('This page includes all models for the ',var_formal_name,' variable.')
 
       #var_path <- gsub('forecasts','scores',var_data$path[1])
+      var_path <- var_data$path[1]
 
       ## build lists for creating publication items
       var_citations <- config$variable_groups[[i]]$group_vars[[j]]$var_citation
@@ -309,7 +312,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
       variable_name_build <- append(variable_name_build, var_formal_name)
 
-      stac4cast::build_group_variables(table_schema = forecast_data_df,
+      stac4cast::build_group_variables(table_schema = forecast_theme_df,
                                        #theme_id = var_formal_name[j],
                                        table_description = forecast_description_create,
                                        start_date = var_min_date,
@@ -329,13 +332,13 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                        group_var_vector = NULL,
                                        group_sites = find_var_sites$site_id,
                                        citation_values = var_citations,
-                                       doi_values = var_doi)
+                                       doi_values = doi_citations)
     } ## end duration loop
 
   } ## end variable loop
 
   ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
-  stac4cast::build_group_variables(table_schema = forecast_data_df,
+  stac4cast::build_group_variables(table_schema = forecast_theme_df,
                                    table_description = forecast_description_create,
                                    start_date = forecast_min_date,
                                    end_date = forecast_max_date,

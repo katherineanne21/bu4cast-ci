@@ -10,6 +10,7 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "item",
@@ -129,12 +130,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_WP_SP24.json"
+      "href": "../../models/model_items/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_faasr.json"
+      "href": "../../models/model_items/example_WP_SP24.json"
     },
     {
       "rel": "item",

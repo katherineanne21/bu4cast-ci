@@ -361,5 +361,5 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                     group_var_vector = unique(var_values),
                     group_sites = find_group_sites$site_id,
                     citation_values = citation_build,
-                    doi_build = doi_build)
+                    doi_values = doi_citations)
 } # end group loop

@@ -71,7 +71,7 @@ forecast_max_date <- forecast_date_range$`max(date)`
 
 build_description <- paste0("Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
-forecast_path <- forecast_sites$site_id
+forecast_sites <- forecast_sites$site_id
 
 stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       #theme_id = 'Forecasts',
@@ -88,7 +88,7 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title,
-                      group_sites = forecast_path,
+                      group_sites = forecast_sites,
                       model_child = FALSE)
 
 ## create separate JSON for model landing page

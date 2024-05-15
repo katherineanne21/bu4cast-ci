@@ -159,12 +159,12 @@ for (m in theme_models$model_id){
 
   print(m)
   #model_date_range <- summaries_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
-  model_date_range <- forecast_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date)) |> collect()
+  model_date_range <- summaries_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date)) |> collect()
   model_min_date <- model_date_range$`min(date)`
   model_max_date <- model_date_range$`max(date)`
 
   #model_var_duration_df <- summaries_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
-  model_var_duration_df <- forecast_data_df |>
+  model_var_duration_df <- summaries_data_df |>
     filter(model_id == m) |>
     distinct(variable,duration, project_id) |>
     collect() |>
@@ -179,13 +179,13 @@ for (m in theme_models$model_id){
                  distinct(variable, .keep_all = TRUE)), by = c('variable'))
 
   #model_sites <- summaries_data_df |> filter(model_id == m) |> distinct(site_id)
-  model_sites <- forecast_data_df |>
+  model_sites <- summaries_data_df |>
     filter(model_id == m) |>
     distinct(site_id) |>
     collect()
 
   #model_vars <- summaries_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
-  model_vars <- forecast_data_df |>
+  model_vars <- summaries_data_df |>
     filter(model_id == m) |>
     distinct(variable) |>
     collect() |>
@@ -214,7 +214,7 @@ for (m in theme_models$model_id){
                          site_values = model_sites$site_id,
                          site_table = catalog_config$site_metadata_url,
                          model_documentation = registered_model_id,
-                         destination_path = paste0(catalog_config$summaries_path,"models/model_items"),
+                         destination_path = paste0(catalog_config$summaries_path,"/models/model_items"),
                          aws_download_path = catalog_config$summaries_download_path, # NEEDS TO BE SCORES FOR PATH TO BE CORRECT
                          collection_name = 'summaries',
                          thumbnail_image_name = NULL,

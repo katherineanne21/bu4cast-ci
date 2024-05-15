@@ -38,13 +38,15 @@
       [-96.6242, 34.4442],
       [-66.9868, 18.1135],
       [-66.7987, 18.1741],
-      [-84.2793, 35.9574]
+      [-84.2793, 35.9574],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298]
     ]
   },
   "properties": {
-    "description": "\nmodel info: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h.\n\nSites: BARC, BIGC, BLDE, KING, MCRA, REDB, SUGG, SYCA, CRAM, LIRO, LEWI, MAYF, POSE, PRIN, BLWA, FLNT, LECO, TOMB, ARIK, HOPB, TECR, COMO, WLOU, CARI, BLUE, CUPE, GUIL, WALK\n\nVariables: Daily Dissolved_oxygen, Daily Water_temperature",
+    "description": "\nmodel info: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h.\n\nSites: BARC, BIGC, BLDE, KING, MCRA, REDB, SUGG, SYCA, CRAM, LIRO, LEWI, MAYF, POSE, PRIN, BLWA, FLNT, LECO, TOMB, ARIK, HOPB, TECR, COMO, WLOU, CARI, BLUE, CUPE, GUIL, WALK, PRLA, PRPO\n\nVariables: Daily Dissolved_oxygen, Daily Water_temperature",
     "start_datetime": "2024-02-28",
-    "end_datetime": "2024-04-28",
+    "end_datetime": "2024-05-12",
     "providers": [
       {
         "url": "pending",

@@ -6,18 +6,20 @@
   "type": "Feature",
   "id": "AquaticEcosystemsOxygen",
   "bbox": [
-    [-82.0084, 29.676, -82.0084, 29.676]
+    [-105.9154, 29.676, -82.0084, 39.8914]
   ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0084, 29.676]
+      [-82.0084, 29.676],
+      [-102.4471, 39.7582],
+      [-105.9154, 39.8914]
     ]
   },
   "properties": {
-    "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC\n\nVariables: Daily Dissolved_oxygen",
+    "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC, ARIK, WLOU\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2024-04-18",
-    "end_datetime": "2024-04-28",
+    "end_datetime": "2024-05-12",
     "providers": [
       {
         "url": "pending",

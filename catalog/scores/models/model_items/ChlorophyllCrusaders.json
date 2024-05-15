@@ -6,18 +6,19 @@
   "type": "Feature",
   "id": "ChlorophyllCrusaders",
   "bbox": [
-    [-72.1727, 42.5369, -72.1727, 42.5369]
+    [-149.2133, 42.5369, -72.1727, 63.8758]
   ],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-72.1727, 42.5369]
+      [-72.1727, 42.5369],
+      [-149.2133, 63.8758]
     ]
   },
   "properties": {
-    "description": "\nmodel info: Our project utilizes a historical GCC data to fit a Dynamic Linear Model (DLM). After this DLM is trained, we utilize forecasted temperature data to predict future GCC data.\n\nSites: HARV\n\nVariables: Daily Green_chromatic_coordinate",
+    "description": "\nmodel info: Our project utilizes a historical GCC data to fit a Dynamic Linear Model (DLM). After this DLM is trained, we utilize forecasted temperature data to predict future GCC data.\n\nSites: HARV, HEAL\n\nVariables: Daily Green_chromatic_coordinate",
     "start_datetime": "2024-04-26",
-    "end_datetime": "2024-04-27",
+    "end_datetime": "2024-05-12",
     "providers": [
       {
         "url": "pending",

@@ -143,8 +143,8 @@ forecast_sites <- c()
 for (m in theme_models$model_id){
 
   # make model items directory
-  if (!dir.exists(paste0(catalog_config$forecast_path,"models/model_items"))){
-    dir.create(paste0(catalog_config$forecast_path,"models/model_items"))
+  if (!dir.exists(paste0(catalog_config$forecast_path,"/models/model_items"))){
+    dir.create(paste0(catalog_config$forecast_path,"/models/model_items"))
   }
 
   print(m)

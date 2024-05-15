@@ -56,35 +56,35 @@ summaries_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$summaries_buck
 #forecast_date_range <- summaries_data_df |> dplyr::summarise(min(date),max(date))
 
 print('FIND INVENTORY BUCKET')
-forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+summaries_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
                                 endpoint_override = "sdsc.osn.xsede.org",
                                 anonymous=TRUE)
 
 print('OPEN INVENTORY BUCKET')
-forecast_data_df <- arrow::open_dataset(forecast_s3) |>
+summaries_data_df <- arrow::open_dataset(summaries_s3) |>
   filter(project_id == config$project_id) |>
   collect()
 
-theme_models <- forecast_data_df |>
+theme_models <- summaries_data_df |>
   distinct(model_id)
 
-summary_sites <- summary_data_df |>
+summary_sites <- summaries_data_df |>
   distinct(site_id)
 
-forecast_date_range <- forecast_data_df |>
+summary_date_range <- summaries_data_df |>
   summarise(min(date),max(date)) |>
   collect()
 
-forecast_min_date <- forecast_date_range$`min(date)`
-forecast_max_date <- forecast_date_range$`max(date)`
+summaries_min_date <- summary_date_range$`min(date)`
+summaries_max_date <- summary_date_range$`max(date)`
 
 build_description <- paste0("Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). You can access the summaries at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
 stac4cast::build_forecast_scores(table_schema = summaries_theme_df,
                                  #theme_id = 'Forecasts',
                                  table_description = summaries_description_create,
-                                 start_date = forecast_min_date,
-                                 end_date = forecast_max_date,
+                                 start_date = summaries_min_date,
+                                 end_date = summaries_max_date,
                                  id_value = "summaries",
                                  description_string = build_description,
                                  about_string = catalog_config$about_string,
@@ -153,8 +153,8 @@ forecast_sites <- c()
 for (m in theme_models$model_id){
 
   # make model items directory
-  if (!dir.exists(paste0(catalog_config$summaries_path,"models/model_items"))){
-    dir.create(paste0(catalog_config$summaries_path,"models/model_items"))
+  if (!dir.exists(paste0(catalog_config$summaries_path,"/models/model_items"))){
+    dir.create(paste0(catalog_config$summaries_path,"/models/model_items"))
   }
 
   print(m)

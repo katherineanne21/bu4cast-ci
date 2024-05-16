@@ -40,12 +40,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/prophet_clim_ensemble.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",

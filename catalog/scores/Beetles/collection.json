@@ -20,16 +20,6 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Weekly_beetle_community_abundance/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
-      "href": "Weekly_beetle_community_richness/collection.json"
-    },
-    {
-      "rel": "child",
-      "type": "application/json",
       "href": "Weekly_beetle_community_richness/collection.json"
     },
     {

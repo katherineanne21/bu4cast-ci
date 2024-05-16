@@ -312,7 +312,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         citation_build <- append(citation_build, var_citations)
         doi_build <- append(doi_build, doi_citations)
 
-        variable_name_build <- append(variable_name_build, var_formal_name)
+        #variable_name_build <- append(variable_name_build, var_formal_name)
 
         variable_name_build <- append(variable_name_build, var_formal_name)
 
@@ -361,5 +361,5 @@ stac4cast::build_group_variables(table_schema = scores_theme_df,
                     group_var_vector = unique(var_values),
                     group_sites = find_group_sites$site_id,
                     citation_values = citation_build,
-                    doi_values = doi_citations)
+                    doi_values = doi_build)
 } # end group loop

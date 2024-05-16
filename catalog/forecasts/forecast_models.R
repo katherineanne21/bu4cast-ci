@@ -349,7 +349,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                    dashboard_string = catalog_config$dashboard_url,
                                    dashboard_title = catalog_config$dashboard_title,
                                    theme_title = names(config$variable_groups[i]),
-                                   destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i]),
+                                   destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i]),
                                    aws_download_path = catalog_config$aws_download_path_scores,
                                    group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
                                    thumbnail_link = config$variable_groups[[i]]$thumbnail_link,

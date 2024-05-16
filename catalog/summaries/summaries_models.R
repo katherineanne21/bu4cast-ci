@@ -293,7 +293,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       var_formal_name <- paste0(duration_value,'_',var_name_full[j])
 
       # check data and skip if no data found
-      var_data_check <- scores_data_df |>
+      var_data_check <- summaries_data_df |>
         filter(variable == var_name)
 
       if (nrow(var_data_check) == 0){
@@ -301,8 +301,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         next
       }
 
-      if (!dir.exists(file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_formal_name))){
-        dir.create(file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_formal_name))
+      if (!dir.exists(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))){
+        dir.create(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))
       }
 
       var_data <- summaries_data_df |>
@@ -346,7 +346,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                        dashboard_string = catalog_config$dashboard_url,
                                        dashboard_title = catalog_config$dashboard_title,
                                        theme_title = var_formal_name,
-                                       destination_path = file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_formal_name),
+                                       destination_path = file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name),
                                        aws_download_path = var_path,
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
                                        thumbnail_link = 'pending',

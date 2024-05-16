@@ -10,6 +10,7 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "child",
@@ -19,12 +20,12 @@
     {
       "rel": "child",
       "type": "application/json",
-      "href": "Daily_latent_heat_flux/collection.json"
+      "href": "30min_Net_ecosystem_exchange/collection.json"
     },
     {
       "rel": "child",
       "type": "application/json",
-      "href": "30min_Net_ecosystem_exchange/collection.json"
+      "href": "Daily_latent_heat_flux/collection.json"
     },
     {
       "rel": "child",

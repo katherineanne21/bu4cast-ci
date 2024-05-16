@@ -75,7 +75,9 @@
   "title": "Forecast Summaries",
   "extent": {
     "spatial": {
-      "bbox": [-156.6194, 17.9696, -66.7987, 71.2824]
+      "bbox": [
+        [-156.6194, 17.9696, -66.7987, 71.2824]
+      ]
     },
     "temporal": {
       "interval": [

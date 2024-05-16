@@ -10,6 +10,7 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "item",
@@ -94,16 +95,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_lm_precip_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
     },
     {
@@ -119,7 +110,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/bet_lm_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -169,7 +170,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2025-04-28T00:00:00Z"
+          "2025-05-05T00:00:00Z"
         ]
       ]
     }

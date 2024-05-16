@@ -6,12 +6,7 @@
   "type": "Feature",
   "id": "bet_example_lm_temp2m_CMCC_CM2_VHR4",
   "bbox": [
-    [
-      -156.6194,
-      71.2824,
-      -66.7987,
-      71.2824
-    ]
+    [-81.9934, 29.6893, -81.9934, 29.6893]
   ],
   "geometry": {
     "type": "MultiPoint",

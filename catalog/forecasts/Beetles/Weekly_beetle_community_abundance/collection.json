@@ -10,6 +10,7 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "item",
@@ -169,7 +170,7 @@
       "interval": [
         [
           "2022-01-01T00:00:00Z",
-          "2025-04-28T00:00:00Z"
+          "2025-05-05T00:00:00Z"
         ]
       ]
     }

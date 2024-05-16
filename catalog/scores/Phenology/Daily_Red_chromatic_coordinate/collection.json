@@ -40,12 +40,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/prophet_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/prophet_clim_ensemble.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -90,7 +90,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -100,12 +105,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",

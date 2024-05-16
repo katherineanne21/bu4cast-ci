@@ -15,6 +15,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/USUNEEDAILY.json"
     },
     {
@@ -30,11 +35,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/lasso.json"
     },
     {
@@ -45,12 +45,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/sustainseers.json"
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/sustainseers.json"
     },
     {
       "rel": "item",

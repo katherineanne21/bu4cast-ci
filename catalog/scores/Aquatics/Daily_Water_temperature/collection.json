@@ -24,22 +24,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/baseline_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/GLEON_JRabaey_temp_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -109,6 +109,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/example_ACP_sp24.json"
     },
     {
@@ -169,11 +174,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fTSLM_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/flareGLM.json"
     },
     {
@@ -200,6 +200,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
@@ -249,17 +254,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/null.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",

@@ -15,16 +15,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/air2waterSat_2.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/cb_f1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/AquaticEcosystemsOxygen.json"
     },
     {
@@ -35,17 +25,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_f1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
@@ -75,12 +70,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
+      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
     },
     {
       "rel": "item",
@@ -115,17 +115,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_humidity_lm.json"
     },
     {
       "rel": "item",

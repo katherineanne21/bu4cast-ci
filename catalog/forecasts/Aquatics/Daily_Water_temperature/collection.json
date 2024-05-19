@@ -24,6 +24,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/fTSLM_lag.json"
     },
     {
@@ -70,21 +85,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_ets.json"
     },
     {
       "rel": "item",
@@ -269,12 +269,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/example_mkricheldorf_w_uncertainty.json"
+      "href": "../../models/model_items/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
@@ -289,22 +289,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/Sujan_forecast.json"
     },
     {
       "rel": "item",
@@ -314,17 +299,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/hotdeck.json"
     },
     {
       "rel": "item",
@@ -344,7 +339,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/MALM.json"
+      "href": "../../models/model_items/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tidymodels_ML.json"
     },
     {
       "rel": "item",

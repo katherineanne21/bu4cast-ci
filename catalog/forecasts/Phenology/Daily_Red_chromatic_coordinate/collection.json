@@ -20,16 +20,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_arima.json"
     },
     {
@@ -41,6 +31,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_temp_lm.json"
     },
     {
       "rel": "item",
@@ -160,7 +160,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-06-22T00:00:00Z"
+          "2024-06-23T00:00:00Z"
         ]
       ]
     }

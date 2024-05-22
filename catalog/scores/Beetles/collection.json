@@ -10,11 +10,17 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
     {
       "rel": "child",
       "type": "application/json",
-      "href": "PIW_beetle_community_richness/collection.json"
+      "href": "Weekly_beetle_community_abundance/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Weekly_beetle_community_richness/collection.json"
     },
     {
       "rel": "parent",
@@ -59,7 +65,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-06T00:00:00Z"
+          "2024-05-12T00:00:00Z"
         ]
       ]
     }

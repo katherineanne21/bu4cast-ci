@@ -10,7 +10,23 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Daily_Net_ecosystem_exchange/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "30min_Net_ecosystem_exchange/collection.json"
+    },
+    {
+      "rel": "child",
+      "type": "application/json",
+      "href": "Daily_latent_heat_flux/collection.json"
+    },
     {
       "rel": "child",
       "type": "application/json",
@@ -59,7 +75,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-06T00:00:00Z"
+          "2024-05-12T00:00:00Z"
         ]
       ]
     }

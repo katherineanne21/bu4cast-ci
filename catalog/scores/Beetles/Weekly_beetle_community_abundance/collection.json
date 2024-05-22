@@ -10,27 +10,8 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": {},
   "links": [
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_example_mod_naive.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_example_mod_null.json"
-    },
     {
       "rel": "item",
       "type": "application/json",
@@ -99,11 +80,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/tg_randfor.json"
     },
     {
@@ -125,6 +101,31 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_abund_example_tslm_temp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_example_lm_temp2m_CMCC_CM2_VHR4.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_example_mod_naive.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_example_mod_null.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "parent",
@@ -169,7 +170,7 @@
       "interval": [
         [
           "2023-01-02T00:00:00Z",
-          "2024-01-29T00:00:00Z"
+          "2024-04-15T00:00:00Z"
         ]
       ]
     }

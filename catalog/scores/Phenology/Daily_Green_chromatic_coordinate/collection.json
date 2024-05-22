@@ -10,7 +10,22 @@
   ],
   "type": "Collection",
   "sci:doi": "10.1002/fee.2616",
+  "sci:publications": [
+    {
+      "doi": "10.1002/fee.2616",
+      "citation": "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
+    },
+    {
+      "doi": "10.1016/j.agrformet.2023.109810.",
+      "citation": "Kathryn I. Wheeler, Michael C. Dietze, David LeBauer, Jody A. Peters, Andrew D. Richardson, Arun A. Ross, R. Quinn Thomas, Kai Zhu, Uttam Bhat, Stephan Munch, Raphaela Floreani Buzbee, Min Chen, Benjamin Goldstein, Jessica Guo, Dalei Hao, Chris Jones, Mira Kelly-Fair, Haoran Liu, Charlotte Malmborg, Naresh Neupane, Debasmita Pal, Vaughn Shirey, Yiluan Song, McKalee Steen, Eric A. Vance, Whitney M. Woelmer, Jacob H. Wynne, Luke Zachmann, Predicting spring phenology in deciduous broadleaf forests: NEON phenology forecasting community challenge, Agricultural and Forest Meteorology, Volume 345, 2024"
+    }
+  ],
   "links": [
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/cb_prophet.json"
+    },
     {
       "rel": "item",
       "type": "application/json",
@@ -19,7 +34,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
+      "href": "../../models/model_items/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
@@ -29,7 +44,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/cb_prophet.json"
+      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",
@@ -64,6 +79,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/tg_lasso_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/tg_lasso.json"
     },
     {
@@ -80,16 +105,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_lasso_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -144,7 +159,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-04-06T00:00:00Z"
+          "2024-05-12T00:00:00Z"
         ]
       ]
     }

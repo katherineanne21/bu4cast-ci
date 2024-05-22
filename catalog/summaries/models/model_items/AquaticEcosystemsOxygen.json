@@ -12,14 +12,14 @@
     "type": "MultiPoint",
     "coordinates": [
       [-82.0084, 29.676],
-      [-105.9154, 39.8914],
-      [-102.4471, 39.7582]
+      [-102.4471, 39.7582],
+      [-105.9154, 39.8914]
     ]
   },
   "properties": {
-    "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC, WLOU, ARIK\n\nVariables: Daily Dissolved_oxygen",
+    "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC, ARIK, WLOU\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2024-04-18",
-    "end_datetime": "2024-06-18",
+    "end_datetime": "2024-06-19",
     "providers": [
       {
         "url": "pending",

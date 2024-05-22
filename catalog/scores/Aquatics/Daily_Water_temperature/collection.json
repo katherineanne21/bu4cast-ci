@@ -64,37 +64,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/GLEON_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/acp_fableLM.json"
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -164,7 +134,37 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
+      "href": "../../models/model_items/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/GLEON_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/acp_fableLM.json"
     },
     {
       "rel": "item",
@@ -189,7 +189,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/flareGOTM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareSimstrat.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
@@ -235,21 +250,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/new_example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareGOTM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/flareSimstrat.json"
     },
     {
       "rel": "item",
@@ -319,12 +319,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_tbats.json"
+      "href": "../../models/model_items/tg_randfor_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_randfor_all_sites.json"
+      "href": "../../models/model_items/tg_tbats.json"
     },
     {
       "rel": "item",

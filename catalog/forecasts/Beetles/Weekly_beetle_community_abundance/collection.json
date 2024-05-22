@@ -95,12 +95,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
+      "href": "../../models/model_items/bet_lm_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -120,7 +115,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bet_lm_precip_clim_ensemble.json"
+      "href": "../../models/model_items/bet_lm_temp_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",

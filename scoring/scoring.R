@@ -14,6 +14,16 @@ ignore_sigpipe()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
+allowed_combinations <- NULL
+for(i in 1:length(config$variable_groups)){
+
+  curr_tibble <- tibble::tibble(variable = unlist(config$variable_groups[i][[1]]$variable),
+                                duration = unlist(config$variable_groups[i][[1]]$duration))
+
+  allowed_combinations <- dplyr::bind_rows(allowed_combinations, curr_tibble)
+}
+
+
 endpoint <- config$endpoint
 
 s3 <- arrow::s3_bucket(dirname(config$scores_bucket),
@@ -33,14 +43,15 @@ s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"),
 variable_duration <- arrow::open_dataset(s3_inv) |>
   dplyr::filter(project_id == config$project_id) |>
   dplyr::distinct(variable, duration, project_id) |>
-  dplyr::collect()
+  dplyr::collect() |>
+  dplyr::filter(paste0(variable,duration) %in% paste0(allowed_combinations$variable,allowed_combinations$duration))
 
 #variable_duration <- variable_duration |>
 #  dplyr::filter(duration != "P1W" & duration != "PT30M")
 
-#future::plan("future::multisession", workers = n_cores)
+future::plan("future::multisession", workers = n_cores)
 
-future::plan("future::sequential")
+#future::plan("future::sequential")
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 

@@ -44,6 +44,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/cb_f1.json"
     },
     {
@@ -54,22 +59,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -105,6 +95,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/acp_fableLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -179,11 +179,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/flareGOTM.json"
     },
     {
@@ -200,6 +195,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/flareGLM_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/null.json"
     },
     {
       "rel": "item",
@@ -249,11 +254,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/null.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/persistenceRW.json"
     },
     {
@@ -264,22 +264,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "../../models/model_items/precip_mod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/sujan_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "../../models/model_items/tg_bag_mlp.json"
     },
     {
       "rel": "item",

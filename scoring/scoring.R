@@ -193,5 +193,5 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 }
 },
-variable_duration,  config, endpoint
+variable_duration,  config, endpoint, .options=furrr::furrr_options(seed = TRUE)
 )

@@ -83,12 +83,17 @@
       "interval": [
         [
           "2020-01-01T00:00:00Z",
-          "2024-05-26T00:00:00Z"
+          "2024-05-27T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
+    {
+      "name": "5 columns",
+      "type": null,
+      "description": {}
+    },
     {
       "name": "parameter",
       "type": "double",
@@ -108,11 +113,6 @@
       "name": "prediction",
       "type": "double",
       "description": "predicted value for variable"
-    },
-    {
-      "name": "family",
-      "type": "string",
-      "description": "For ensembles: “ensemble.” Default value if unspecified for probability distributions: Name of the statistical distribution associated with the reported statistics. The “sample” distribution is synonymous with “ensemble.”For summary statistics: “summary.”"
     }
   ],
   "assets": {

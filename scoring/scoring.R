@@ -3,7 +3,7 @@ library(arrow)
 
 past_days <- 365
 cut_off_date <- lubridate::as_date("2024-01-01")
-n_cores <- 2 #parallel::detectCores()
+n_cores <- 4 #parallel::detectCores()
 
 setwd(here::here())
 
@@ -13,6 +13,16 @@ Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
 ignore_sigpipe()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
+
+allowed_combinations <- NULL
+for(i in 1:length(config$variable_groups)){
+
+  curr_tibble <- tibble::tibble(variable = unlist(config$variable_groups[i][[1]]$variable),
+                                duration = unlist(config$variable_groups[i][[1]]$duration))
+
+  allowed_combinations <- dplyr::bind_rows(allowed_combinations, curr_tibble)
+}
+
 
 endpoint <- config$endpoint
 
@@ -33,11 +43,15 @@ s3_inv <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts"),
 variable_duration <- arrow::open_dataset(s3_inv) |>
   dplyr::filter(project_id == config$project_id) |>
   dplyr::distinct(variable, duration, project_id) |>
-  dplyr::collect()
+  dplyr::collect() |>
+  dplyr::filter(paste0(variable,duration) %in% paste0(allowed_combinations$variable,allowed_combinations$duration))
 
-#future::plan("future::multisession", workers = n_cores)
+#variable_duration <- variable_duration |>
+#  dplyr::filter(duration != "P1W" & duration != "PT30M")
 
-future::plan("future::sequential")
+future::plan("future::multisession", workers = n_cores)
+
+#future::plan("future::sequential")
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 
@@ -179,5 +193,5 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
     arrow::write_csv_arrow(prov_df, s3_prov$path(local_prov))
 }
 },
-variable_duration,  config, endpoint
+variable_duration,  config, endpoint, .options=furrr::furrr_options(seed = TRUE)
 )

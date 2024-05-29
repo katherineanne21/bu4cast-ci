@@ -34,17 +34,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "../../models/model_items/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "../../models/model_items/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "../../models/model_items/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "../../models/model_items/persistenceRW.json"
     },
     {
       "rel": "item",

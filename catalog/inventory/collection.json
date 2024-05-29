@@ -65,6 +65,11 @@
   },
   "table:columns": [
     {
+      "name": "14 columns",
+      "type": null,
+      "description": {}
+    },
+    {
       "name": "duration",
       "type": "string",
       "description": "sample duration code for variable"
@@ -126,11 +131,6 @@
     },
     {
       "name": "latitude",
-      "type": "double",
-      "description": {}
-    },
-    {
-      "name": "longitude",
       "type": "double",
       "description": {}
     }

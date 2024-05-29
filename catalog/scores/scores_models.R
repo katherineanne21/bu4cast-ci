@@ -337,6 +337,91 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                         group_sites = find_var_sites$site_id,
                                         citation_values = var_citations,
                                         doi_values = doi_citations)
+
+
+        scores_sites <- c()
+
+        ## loop over model ids and extract components if present in metadata table
+
+        for (m in theme_models$model_id){
+
+          # make model directory
+          if (!dir.exists(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
+            dir.create(paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))
+          }
+
+          print(m)
+          model_date_range <- scores_data_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            dplyr::summarise(min(date),max(date))
+
+          model_min_date <- model_date_range$`min(date)`
+          model_max_date <- model_date_range$`max(date)`
+
+          model_var_duration_df <- scores_data_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            distinct(variable,duration, project_id) |>
+            mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
+            mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
+            mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
+            mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
+
+          model_var_full_name <- model_var_duration_df |>
+            left_join((variable_gsheet |>
+                         select(variable = `"official" targets name`, full_name = `Variable name`) |>
+                         distinct(variable, .keep_all = TRUE)), by = c('variable'))
+
+          model_sites <- scores_data_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            distinct(site_id)
+
+          model_vars <- scores_data_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            distinct(variable) |>
+            left_join(model_var_full_name, by = 'variable')
+
+          model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
+
+          scores_sites <- append(scores_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
+                                                                           sites = model_sites$site_id))
+          stac_id <- paste0(m,'_',var_name,'_',duration_name,'_scores')
+
+          idx = which(registered_model_id$model_id == m)
+
+          if (is.null(registered_model_id$`Web link to model code`[idx])){
+            model_code_link <- 'https://projects.ecoforecast.org/neon4cast-ci/'
+          } else{
+            model_code_link <- registered_model_id$`Web link to model code`[idx]
+          }
+
+          stac4cast::build_model(model_id = m,
+                                 team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
+                                 model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                                 start_date = model_min_date,
+                                 end_date = model_max_date,
+                                 var_values = model_vars$var_duration_name,
+                                 duration_names = model_var_duration_df$duration,
+                                 site_values = model_sites$site_id,
+                                 site_table = catalog_config$site_metadata_url,
+                                 model_documentation = registered_model_id,
+                                 destination_path = paste0(catalog_config$scores_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"),
+                                 aws_download_path = catalog_config$aws_download_path_scores, # CHANGE THIS BUCKET NAME
+                                 collection_name = 'scores',
+                                 thumbnail_image_name = NULL,
+                                 table_schema = scores_theme_df,
+                                 table_description = scores_description_create,
+                                 full_var_df = model_vars,
+                                 code_web_link = model_code_link)
+        } ## end model loop
+
             } ## end duration loop
 
   } ## end variable loop

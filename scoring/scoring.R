@@ -141,8 +141,8 @@ furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, con
 
       if (!(score4cast:::prov_has(id, prov_df, "new_id")) & group$model_id != "cb_f1"){
 
-        print(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint))
-        print(group$reference_date)
+        #print(paste0("s3://anonymous@",group$path,"/model_id=",group$model_id,"?endpoint_override=",group$endpoint))
+        #print(group$reference_date)
 
 
         reference_dates <- unlist(stringr::str_split(group$reference_date, ","))

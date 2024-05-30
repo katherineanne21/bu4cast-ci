@@ -15,7 +15,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "../../models/model_items/climatology.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "parent",
@@ -66,6 +66,11 @@
     }
   },
   "table:columns": [
+    {
+      "name": "17 columns",
+      "type": null,
+      "description": {}
+    },
     {
       "name": "reference_datetime",
       "type": "timestamp[us, tz=UTC]",
@@ -145,11 +150,6 @@
       "name": "model_id",
       "type": "string",
       "description": "unique model identifier"
-    },
-    {
-      "name": "reference_date",
-      "type": "string",
-      "description": "date that the forecast was initiated"
     }
   ],
   "assets": {

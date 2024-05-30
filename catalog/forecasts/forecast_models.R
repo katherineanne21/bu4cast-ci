@@ -340,8 +340,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
       for (m in theme_models$model_id){
 
         # make model items directory
-        if (!dir.exists(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
-          dir.create(paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))
+        if (!dir.exists(paste0(catalog_config$forecast_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
+          dir.create(paste0(catalog_config$forecast_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))
         }
 
         print(m)
@@ -408,7 +408,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                site_values = model_sites$site_id,
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,
-                               destination_path = paste0(catalog_config$forecast_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"),
+                               destination_path = paste0(catalog_config$forecast_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"),
                                aws_download_path = catalog_config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
                                collection_name = 'forecasts',
                                thumbnail_image_name = NULL,

@@ -363,8 +363,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       for (m in theme_models$model_id){
 
         # make model items directory
-        if (!dir.exists(paste0(catalog_config$summaries_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
-          dir.create(paste0(catalog_config$summaries_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"))
+        if (!dir.exists(paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
+          dir.create(paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))
         }
 
         print(m)
@@ -430,7 +430,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                site_values = model_sites$site_id,
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,
-                               destination_path = paste0(catalog_config$summaries_path,names(config$variable_groups)[i],'/',var_formal_name,"/models"),
+                               destination_path = paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"),
                                aws_download_path = catalog_config$summaries_download_path, # NEEDS TO BE SCORES FOR PATH TO BE CORRECT
                                collection_name = 'summaries',
                                thumbnail_image_name = NULL,

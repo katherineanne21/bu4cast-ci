@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "fTSLM_lag",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "\nmodel info: This is a simple time series linear model in which water temperature is a function of air\ntemperature of that day and the previous day’s air temperature\n\nSites: \n\nVariables: ",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -171,7 +171,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/ARIMA_model.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -186,7 +186,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/ARIMA_model.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

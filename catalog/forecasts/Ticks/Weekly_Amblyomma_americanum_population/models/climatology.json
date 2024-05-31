@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "climatology",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: \n\nVariables: ",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -136,7 +136,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -151,7 +151,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

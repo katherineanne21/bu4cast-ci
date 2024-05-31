@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "flareSimstrat_noDA",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "\nmodel info: FLARE-Simstrat uses the same principles and overarching framework as FLARE-GLM with the\nhydrodynamic model replaced with Simstrat. Simstrat is a 1-D hydrodynamic turbulence model\n(Goudsmit et al., 2002) that estimates water column temperatures.\n\nSites: \n\nVariables: ",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -136,7 +136,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/FLARE-forecast/NEON-forecast-code/workflows/ler",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -151,7 +151,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/FLARE-forecast/NEON-forecast-code/workflows/ler",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

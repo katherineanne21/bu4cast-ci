@@ -49,9 +49,9 @@
   },
   "properties": {
     "title": "persistenceRW",
-    "description": "\nmodel info: NA\n\nSites: CARI, COMO, CRAM, CUPE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, BLUE, BLWA, WLOU, ARIK, BARC, BIGC, BLDE, TECR, TOMB, TOOK, WALK, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART\n\nVariables: Daily Dissolved_oxygen",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: CARI, COMO, CRAM, CUPE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, BLUE, BLWA, WLOU, ARIK, BARC, BIGC, BLDE, TECR, TOMB, TOOK, WALK, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-02",
+    "end_datetime": "2024-07-03",
     "providers": [
       {
         "url": "pending",
@@ -172,7 +172,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -187,7 +187,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -62,7 +62,7 @@
   },
   "properties": {
     "title": "baseline_ensemble",
-    "description": "\nmodel info: NA\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, SERC, SJER, SOAP, SRER, STEI, UNDE, WOOD, WREF, YELL, STER, TALL, TEAK, TREE, UKFS, DELA, DSNY, GRSM, GUAN, MLBS, MOAB, NIWO, NOGP, BONA, DEJU, HEAL, TOOL, BARR\n\nVariables: Daily Red_chromatic_coordinate",
+    "description": "\nmodel info: The Baseline MME is a multi-model ensemble (MME) comprised of the two baseline models\n(day-of-year, persistence) submitted by Challenge organisers\n\nSites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, SERC, SJER, SOAP, SRER, STEI, UNDE, WOOD, WREF, YELL, STER, TALL, TEAK, TREE, UKFS, DELA, DSNY, GRSM, GUAN, MLBS, MOAB, NIWO, NOGP, BONA, DEJU, HEAL, TOOL, BARR\n\nVariables: Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-06-27",
     "providers": [
@@ -185,7 +185,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/baseline_ensemble.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -200,7 +200,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/baseline_ensemble.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

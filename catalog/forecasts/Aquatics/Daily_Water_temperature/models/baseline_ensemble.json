@@ -50,7 +50,7 @@
     "title": "baseline_ensemble",
     "description": "\nmodel info: The Baseline MME is a multi-model ensemble (MME) comprised of the two baseline models\n(day-of-year, persistence) submitted by Challenge organisers\n\nSites: BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, CRAM, LIRO, PRPO, PRLA, CARI, OKSR\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-06-27",
+    "end_datetime": "2024-06-28",
     "providers": [
       {
         "url": "pending",

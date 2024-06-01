@@ -64,7 +64,7 @@
     "title": "persistenceRW",
     "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: ABBY, BARR, RMNP, SCBI, SERC, SJER, SOAP, JERC, JORN, KONA, KONZ, LAJA, LENO, WOOD, WREF, YELL, SRER, STEI, STER, TALL, TEAK, CPER, DCFS, DEJU, DELA, DSNY, OAES, ONAQ, ORNL, OSBS, PUUM, MLBS, MOAB, NIWO, NOGP, TOOL, TREE, UKFS, UNDE, BART, BLAN, BONA, CLBJ, GRSM, GUAN, HARV, HEAL\n\nVariables: Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-03",
+    "end_datetime": "2024-07-04",
     "providers": [
       {
         "url": "pending",

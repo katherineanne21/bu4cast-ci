@@ -24,7 +24,7 @@
   },
   "properties": {
     "title": "tg_ets",
-    "description": "\nmodel info: NA\n\nSites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS\n\nVariables: Weekly Amblyomma_americanum_population",
+    "description": "\nmodel info: The tg_ets model is an Error, Trend, Seasonal (ETS) model fit using the function ets() from the\nforecast package in R (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series\nmodel with no covariates.\n\nSites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS\n\nVariables: Weekly Amblyomma_americanum_population",
     "start_datetime": "2023-02-06",
     "end_datetime": "2024-12-30",
     "providers": [
@@ -147,7 +147,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -162,7 +162,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

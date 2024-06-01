@@ -51,7 +51,7 @@
     "title": "climatology",
     "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: ARIK, BARC, BIGC, BLDE, BLUE, COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, SUGG, SYCA, TECR, WALK, WLOU, TOMB, BLWA, CRAM, CARI, LIRO, PRPO, PRLA, TOOK, OKSR\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2023-01-02",
-    "end_datetime": "2024-07-04",
+    "end_datetime": "2024-07-05",
     "providers": [
       {
         "url": "pending",

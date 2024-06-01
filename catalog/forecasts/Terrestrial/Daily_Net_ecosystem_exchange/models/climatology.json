@@ -64,7 +64,7 @@
     "title": "climatology",
     "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Daily Net_ecosystem_exchange",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-05",
+    "end_datetime": "2024-07-06",
     "providers": [
       {
         "url": "pending",

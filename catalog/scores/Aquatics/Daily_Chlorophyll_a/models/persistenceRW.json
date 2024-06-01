@@ -27,7 +27,7 @@
     "title": "persistenceRW",
     "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK\n\nVariables: Daily Chlorophyll_a",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-05-25",
+    "end_datetime": "2024-05-28",
     "providers": [
       {
         "url": "pending",

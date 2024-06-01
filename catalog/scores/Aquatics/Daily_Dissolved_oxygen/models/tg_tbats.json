@@ -11,18 +11,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-78.1473, 38.8943],
-      [-97.7823, 33.3785],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-111.7979, 40.7839],
-      [-82.0177, 29.6878],
-      [-111.5081, 33.751],
-      [-119.0274, 36.9559],
-      [-88.1589, 31.8534],
-      [-149.6106, 68.6307],
-      [-84.2793, 35.9574],
-      [-105.9154, 39.8914],
       [-102.4471, 39.7582],
       [-82.0084, 29.676],
       [-119.2575, 37.0597],
@@ -44,12 +32,24 @@
       [-87.4077, 32.9604],
       [-96.443, 38.9459],
       [-122.1655, 44.2596],
-      [-149.143, 68.6698]
+      [-149.143, 68.6698],
+      [-78.1473, 38.8943],
+      [-97.7823, 33.3785],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
+      [-111.7979, 40.7839],
+      [-82.0177, 29.6878],
+      [-111.5081, 33.751],
+      [-119.0274, 36.9559],
+      [-88.1589, 31.8534],
+      [-149.6106, 68.6307],
+      [-84.2793, 35.9574],
+      [-105.9154, 39.8914]
     ]
   },
   "properties": {
     "title": "tg_tbats",
-    "description": "\nmodel info: NA\n\nSites: POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR\n\nVariables: Daily Dissolved_oxygen",
+    "description": "\nmodel info: The tg_tbats model is a TBATS (Trigonometric seasonality, Box-Cox transformation, ARMA\nerrors, Trend and Seasonal components) model fit using the function tbats() from the forecast package in\nR (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series model with no\ncovariates.\n\nSites: ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK, WLOU\n\nVariables: Daily Dissolved_oxygen",
     "start_datetime": "2023-01-01",
     "end_datetime": "2024-02-12",
     "providers": [
@@ -207,7 +207,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -222,7 +222,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

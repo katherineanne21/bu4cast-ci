@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "tg_lasso",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "\nmodel info: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation.\n\nSites: \n\nVariables: ",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -171,7 +171,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -186,7 +186,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts/tg_lasso/forecast_model.RR",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

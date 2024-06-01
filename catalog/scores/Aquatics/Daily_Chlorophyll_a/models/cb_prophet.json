@@ -13,18 +13,18 @@
     "coordinates": [
       [-82.0084, 29.676],
       [-87.7982, 32.5415],
-      [-84.4374, 31.1854],
-      [-82.0177, 29.6878],
-      [-88.1589, 31.8534],
       [-89.4737, 46.2097],
+      [-84.4374, 31.1854],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-99.2531, 47.1298],
+      [-82.0177, 29.6878],
+      [-88.1589, 31.8534]
     ]
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "\nmodel info: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, CRAM, LIRO, PRLA, PRPO\n\nVariables: Daily Chlorophyll_a",
+    "description": "\nmodel info: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB\n\nVariables: Daily Chlorophyll_a",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-10",
     "providers": [

@@ -11,8 +11,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-122.3303, 45.7624],
-      [-156.6194, 71.2824],
       [-71.2874, 44.0639],
       [-78.0418, 39.0337],
       [-147.5026, 65.154],
@@ -57,14 +55,16 @@
       [-89.5373, 46.2339],
       [-99.2413, 47.1282],
       [-121.9519, 45.8205],
-      [-110.5391, 44.9535]
+      [-110.5391, 44.9535],
+      [-122.3303, 45.7624],
+      [-156.6194, 71.2824]
     ]
   },
   "properties": {
     "title": "persistenceRW",
-    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Daily Net_ecosystem_exchange",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR\n\nVariables: Daily Net_ecosystem_exchange",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-05-19",
+    "end_datetime": "2024-05-23",
     "providers": [
       {
         "url": "pending",

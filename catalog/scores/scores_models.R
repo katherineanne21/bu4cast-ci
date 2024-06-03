@@ -379,6 +379,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                    duration == duration_name) |>
             distinct(site_id)
 
+          model_site_text <- paste(as.character(model_sites$site_id), sep="' '", collapse=", ")
+
           model_vars <- scores_data_df |>
             filter(model_id == m,
                    variable == var_name,
@@ -400,10 +402,24 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
             model_code_link <- registered_model_id$`Web link to model code`[idx]
           }
 
+          model_description <- paste0("This page includes scores for the ",
+                                      var_formal_name,
+                                      ' variable for the ',
+                                      m,
+                                      ' model. Information for the model is provided as follows: ',
+                                      registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                                      '.
+                                    The model predicts this variable at the following sites: ',
+                                    model_site_text,
+                                    '.
+                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset')
+
+          model_keywords <- list('Scores',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], duration_value)
+
           stac4cast::build_model(model_id = m,
                                  stac_id = stac_id,
                                  team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
-                                 model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                                 model_description = model_description,
                                  start_date = model_min_date,
                                  end_date = model_max_date,
                                  var_values = model_vars$var_duration_name,
@@ -418,7 +434,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                  table_schema = scores_theme_df,
                                  table_description = scores_description_create,
                                  full_var_df = model_vars,
-                                 code_web_link = model_code_link)
+                                 code_web_link = model_code_link,
+                                 model_keywords = model_keywords)
         } ## end model loop
 
             } ## end duration loop

@@ -50,10 +50,11 @@ by_model_id <- function(df, show.legend = FALSE) {
   if (TRUE %in% is.nan(leaderboard$crps)){
     missing_model <- leaderboard[which(is.nan(leaderboard$crps)), 1][[1]]
     stop(paste0('Missing CRPS score for model: "',missing_model, '"'))
-  } else{
-    leaderboard <- leaderboard |>
-      mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
   }
+
+  leaderboard <- leaderboard |>
+    filter(!is.nan(crps)) |>
+    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
   leaderboard |>
     pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
@@ -81,6 +82,7 @@ by_reference_datetime <- function(df, show.legend = FALSE) {
               .groups = "drop") |>
     mutate(reference_datetime = lubridate::as_datetime(reference_datetime)) |>
     collect() |>
+    filter(!is.nan(crps)) |>
     mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
   leaderboard |>
@@ -105,6 +107,7 @@ by_horizon <- function(df, show.legend=FALSE) {
             #logs = mean(logs, na.rm=TRUE),
             .groups = "drop") |>
   collect() |>
+  filter(!is.nan(crps)) |>
   mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
 
   leaderboard2 |>

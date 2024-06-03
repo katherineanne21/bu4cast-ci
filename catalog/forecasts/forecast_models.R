@@ -375,6 +375,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                  duration == duration_name) |>
           distinct(site_id)
 
+        model_site_text <- paste(as.character(model_sites$site_id), sep="' '", collapse=", ")
+
         model_vars <- forecast_data_df |>
           filter(model_id == m,
                  variable == var_name,
@@ -397,10 +399,25 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
           model_code_link <- registered_model_id$`Web link to model code`[idx]
         }
 
+        model_description <- paste0("This page includes forecasts for the ",
+                                    var_formal_name,
+                                    ' variable for the ',
+                                    m,
+                                    ' model. Information for the model is provided as follows: ',
+                                    registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                                    '.
+                                    The model predicts this variable at the following sites: ',
+                                    model_site_text,
+                                    '.
+                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset')
+
+        model_keywords <- list('Forecasts',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], duration_value)
+
         stac4cast::build_model(model_id = m,
                                stac_id = stac_id,
                                team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
-                               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                               #model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
+                               model_description = model_description,
                                start_date = model_min_date,
                                end_date = model_max_date,
                                var_values = model_vars$var_duration_name,
@@ -415,8 +432,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                table_schema = forecast_theme_df,
                                table_description = forecast_description_create,
                                full_var_df = model_vars,
-                               code_web_link = model_code_link)
-        #code_web_link = 'pending')
+                               code_web_link = model_code_link,
+                               model_keywords = model_keywords)
 
       } ## end model loop
     } ## end duration loop

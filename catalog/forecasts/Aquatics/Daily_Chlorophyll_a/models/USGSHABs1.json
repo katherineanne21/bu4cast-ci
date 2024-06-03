@@ -18,7 +18,7 @@
   },
   "properties": {
     "title": "USGSHABs1",
-    "description": "\nmodel info: NA\n\nSites: BLWA, TOMB, FLNT\n\nVariables: Daily Chlorophyll_a",
+    "description": "This page includes forecasts for the Daily_Chlorophyll_a variable for the USGSHABs1 model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: BLWA, TOMB, FLNT.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-12",
     "end_datetime": "2024-03-09",
     "providers": [
@@ -41,9 +41,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Daily Chlorophyll_a"
+      "Aquatics",
+      "USGSHABs1",
+      "Chlorophyll_a",
+      "Daily"
     ],
     "table:columns": [
       {

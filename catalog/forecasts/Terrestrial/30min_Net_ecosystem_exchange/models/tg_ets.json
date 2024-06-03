@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "tg_ets",
-    "description": "\nmodel info: The tg_ets model is an Error, Trend, Seasonal (ETS) model fit using the function ets() from the\nforecast package in R (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series\nmodel with no covariates.\n\nSites: \n\nVariables: ",
+    "description": "This page includes forecasts for the 30min_Net_ecosystem_exchange variable for the tg_ets model. Information for the model is provided as follows: The tg_ets model is an Error, Trend, Seasonal (ETS) model fit using the function ets() from the\nforecast package in R (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series\nmodel with no covariates..\n                                    The model predicts this variable at the following sites: .\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Forecasts",
+      "neon4cast",
+      "Terrestrial",
+      "tg_ets",
+      "Net_ecosystem_exchange",
+      "30min"
     ],
     "table:columns": [
       {

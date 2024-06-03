@@ -22,7 +22,7 @@
   },
   "properties": {
     "title": "example_WP_SP24",
-    "description": [],
+    "description": "This page includes forecasts for the Daily_Dissolved_oxygen variable for the example_WP_SP24 model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2024-01-29",
     "end_datetime": "2024-03-02",
     "providers": [
@@ -45,9 +45,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "example_WP_SP24",
+      "Dissolved_oxygen",
+      "Daily"
     ],
     "table:columns": [
       {

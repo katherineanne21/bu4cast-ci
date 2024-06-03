@@ -62,7 +62,7 @@
   },
   "properties": {
     "title": "tg_randfor",
-    "description": "\nmodel info: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Weekly beetle_community_richness",
+    "description": "This page includes forecasts for the Weekly_beetle_community_richness variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-19",
     "end_datetime": "2024-02-09",
     "providers": [
@@ -85,9 +85,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Weekly beetle_community_richness"
+      "Beetles",
+      "tg_randfor",
+      "beetle_community_richness",
+      "Weekly"
     ],
     "table:columns": [
       {

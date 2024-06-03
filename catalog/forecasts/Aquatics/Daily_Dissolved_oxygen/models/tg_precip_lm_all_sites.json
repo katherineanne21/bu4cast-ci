@@ -49,7 +49,7 @@
   },
   "properties": {
     "title": "tg_precip_lm_all_sites",
-    "description": "\nmodel info: The tg_precip_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation. y. This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together.\n\nSites: TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR\n\nVariables: Daily Dissolved_oxygen",
+    "description": "This page includes forecasts for the Daily_Dissolved_oxygen variable for the tg_precip_lm_all_sites model. Information for the model is provided as follows: The tg_precip_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation. y. This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together..\n                                    The model predicts this variable at the following sites: TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-02-16",
     "providers": [
@@ -72,9 +72,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "tg_precip_lm_all_sites",
+      "Dissolved_oxygen",
+      "Daily"
     ],
     "table:columns": [
       {

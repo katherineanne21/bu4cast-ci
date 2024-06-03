@@ -62,9 +62,9 @@
   },
   "properties": {
     "title": "mean",
-    "description": [],
+    "description": "This page includes forecasts for the Weekly_beetle_community_richness variable for the mean model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: BARR, BART, GRSM, GUAN, HARV, OAES, ONAQ, SCBI, SERC, BLAN, BONA, LAJA, LENO, PUUM, RMNP, WOOD, WREF, DCFS, DEJU, ORNL, OSBS, TALL, TEAK, TOOL, JERC, JORN, NIWO, NOGP, UKFS, UNDE, HEAL, KONA, KONZ, TREE, CLBJ, MLBS, MOAB, DSNY, SRER, STEI, STER, CPER, YELL, SJER, SOAP, ABBY, DELA.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-20",
-    "end_datetime": "2025-05-19",
+    "end_datetime": "2025-05-26",
     "providers": [
       {
         "url": "pending",
@@ -85,9 +85,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Weekly beetle_community_richness"
+      "Beetles",
+      "mean",
+      "beetle_community_richness",
+      "Weekly"
     ],
     "table:columns": [
       {

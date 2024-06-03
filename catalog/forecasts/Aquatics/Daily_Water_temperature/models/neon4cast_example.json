@@ -49,7 +49,7 @@
   },
   "properties": {
     "title": "neon4cast_example",
-    "description": [],
+    "description": "This page includes forecasts for the Daily_Water_temperature variable for the neon4cast_example model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, WLOU, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, TOOK, WALK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-12-21",
     "end_datetime": "2024-01-22",
     "providers": [
@@ -72,9 +72,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Daily Water_temperature"
+      "Aquatics",
+      "neon4cast_example",
+      "Water_temperature",
+      "Daily"
     ],
     "table:columns": [
       {

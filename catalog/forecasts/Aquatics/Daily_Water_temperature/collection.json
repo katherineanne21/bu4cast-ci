@@ -144,6 +144,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/cb_f1.json"
     },
     {
@@ -155,16 +165,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -214,17 +214,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/new_example_ID.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/example_BK.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/example_ID.json"
     },
     {
       "rel": "item",
@@ -249,12 +244,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_ACP_sp24.json"
+      "href": "./models/new_example_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_faasr.json"
+      "href": "./models/example_ACP_sp24.json"
     },
     {
       "rel": "item",
@@ -265,6 +260,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/mkricheldorf_example.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/example_faasr.json"
     },
     {
       "rel": "item",
@@ -289,7 +289,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GAM_air_wind.json"
+      "href": "./models/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/zimmerman_proj1.json"
     },
     {
       "rel": "item",
@@ -299,17 +314,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/bee_bake_RFModel_2024.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/hotdeck.json"
+      "href": "./models/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",
@@ -324,27 +344,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/MALM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/MAL_model_unc.json"
     },
     {
       "rel": "item",

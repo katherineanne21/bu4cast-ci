@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "chlorocrusaders",
-    "description": [],
+    "description": "This page includes summaries for the Weekly_beetle_community_richness variable for the chlorocrusaders model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: .\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Summaries",
+      "neon4cast",
+      "Beetles",
+      "chlorocrusaders",
+      "beetle_community_richness",
+      "Weekly"
     ],
     "table:columns": [
       {

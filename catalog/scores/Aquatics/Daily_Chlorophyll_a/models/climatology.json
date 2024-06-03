@@ -18,16 +18,16 @@
       [-88.1589, 31.8534],
       [-89.4737, 46.2097],
       [-89.7048, 45.9983],
-      [-99.1139, 47.1591],
       [-99.2531, 47.1298],
+      [-99.1139, 47.1591],
       [-149.6106, 68.6307]
     ]
   },
   "properties": {
     "title": "climatology",
-    "description": "\nmodel info: Historical DOY mean and sd.  Assumes normal distribution\n\nSites: BARC, BLWA, FLNT, SUGG, TOMB, CRAM, LIRO, PRLA, PRPO, TOOK, USGS-01427510, USGS-01463500, USGS-05543010, USGS-05553700, USGS-05558300, USGS-05586300, USGS-14181500, USGS-14211010, USGS-14211720\n\nVariables: Daily Chlorophyll_a",
+    "description": "This page includes scores for the Daily_Chlorophyll_a variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: BARC, BLWA, FLNT, SUGG, TOMB, CRAM, LIRO, PRPO, PRLA, TOOK, USGS-01427510, USGS-01463500, USGS-05543010, USGS-05553700, USGS-05558300, USGS-05586300, USGS-14181500, USGS-14211010, USGS-14211720.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-01-09",
-    "end_datetime": "2024-05-28",
+    "end_datetime": "2024-05-31",
     "providers": [
       {
         "url": "pending",
@@ -48,9 +48,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Daily Chlorophyll_a"
+      "Aquatics",
+      "climatology",
+      "Chlorophyll_a",
+      "Daily"
     ],
     "table:columns": [
       {

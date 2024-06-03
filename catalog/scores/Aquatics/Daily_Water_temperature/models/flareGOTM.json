@@ -11,18 +11,18 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-82.0084, 29.676],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
       [-82.0177, 29.6878],
+      [-82.0084, 29.676],
       [-89.4737, 46.2097],
       [-149.6106, 68.6307]
     ]
   },
   "properties": {
     "title": "flareGOTM",
-    "description": [],
+    "description": "This page includes scores for the Daily_Water_temperature variable for the flareGOTM model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: LIRO, PRLA, PRPO, SUGG, BARC, CRAM, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-03-08",
     "end_datetime": "2024-03-20",
     "providers": [
@@ -45,9 +45,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Daily Water_temperature"
+      "Aquatics",
+      "flareGOTM",
+      "Water_temperature",
+      "Daily"
     ],
     "table:columns": [
       {

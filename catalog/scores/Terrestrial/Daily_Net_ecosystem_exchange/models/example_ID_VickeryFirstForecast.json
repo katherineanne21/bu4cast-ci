@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "example_ID_VickeryFirstForecast",
-    "description": [],
+    "description": "This page includes scores for the Daily_Net_ecosystem_exchange variable for the example_ID_VickeryFirstForecast model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Scores",
+      "neon4cast",
+      "Terrestrial",
+      "example_ID_VickeryFirstForecast",
+      "Net_ecosystem_exchange",
+      "Daily"
     ],
     "table:columns": [
       {

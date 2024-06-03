@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "fARIMA_clim_ensemble",
-    "description": "\nmodel info: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model\n\nSites: \n\nVariables: ",
+    "description": "This page includes scores for the Weekly_beetle_community_richness variable for the fARIMA_clim_ensemble model. Information for the model is provided as follows: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model.\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Scores",
+      "neon4cast",
+      "Beetles",
+      "fARIMA_clim_ensemble",
+      "beetle_community_richness",
+      "Weekly"
     ],
     "table:columns": [
       {

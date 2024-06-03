@@ -18,9 +18,9 @@
   },
   "properties": {
     "title": "AquaticEcosystemsOxygen",
-    "description": "\nmodel info: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package\n\nSites: BARC, ARIK, WLOU\n\nVariables: Daily Dissolved_oxygen",
+    "description": "This page includes scores for the Daily_Dissolved_oxygen variable for the AquaticEcosystemsOxygen model. Information for the model is provided as follows: Used a Bayesian Dynamic Linear Model using the fit_dlm function from the ecoforecastR package.\n                                    The model predicts this variable at the following sites: BARC, ARIK, WLOU.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-04-18",
-    "end_datetime": "2024-05-28",
+    "end_datetime": "2024-05-31",
     "providers": [
       {
         "url": "pending",
@@ -41,9 +41,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "AquaticEcosystemsOxygen",
+      "Dissolved_oxygen",
+      "Daily"
     ],
     "table:columns": [
       {

@@ -40,17 +40,17 @@
       [-96.6242, 34.4442],
       [-89.4737, 46.2097],
       [-89.7048, 45.9983],
-      [-99.1139, 47.1591],
       [-99.2531, 47.1298],
+      [-99.1139, 47.1591],
       [-147.504, 65.1532],
       [-149.143, 68.6698]
     ]
   },
   "properties": {
     "title": "baseline_ensemble",
-    "description": "\nmodel info: NA\n\nSites: BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, CRAM, LIRO, PRLA, PRPO, CARI, OKSR\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: The Baseline MME is a multi-model ensemble (MME) comprised of the two baseline models\n(day-of-year, persistence) submitted by Challenge organisers\n\nSites: BLWA, COMO, CUPE, FLNT, GUIL, HOPB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, KING, LECO, LEWI, MART, MAYF, MCDI, MCRA, POSE, PRIN, REDB, ARIK, BARC, BIGC, BLDE, BLUE, CRAM, LIRO, PRPO, PRLA, CARI, OKSR\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
-    "end_datetime": "2024-06-27",
+    "end_datetime": "2024-06-28",
     "providers": [
       {
         "url": "pending",
@@ -171,7 +171,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/baseline_ensemble.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -186,7 +186,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/OlssonF/NEON-simple-baselines/blob/main/Models/baseline_ensemble.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -214,12 +214,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_BK.json"
+      "href": "./models/example_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_ID.json"
+      "href": "./models/new_example_ID.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/example_BK.json"
     },
     {
       "rel": "item",
@@ -244,17 +249,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/new_example_ID.json"
+      "href": "./models/example_ACP_sp24.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/example_ACP_sp24.json"
     },
     {
       "rel": "item",
@@ -279,47 +279,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_ID_airtempANDprecipadjusted_wuncertainty.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/sujan_ID.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/Sujan_forecast.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/bee_bake_RFModel_2024.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_ML.json"
+      "href": "./models/example_ID_airtempANDprecipadjusted_wuncertainty.json"
     },
     {
       "rel": "item",
@@ -329,12 +294,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/MALM.json"
+      "href": "./models/Sujan_forecast.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/bee_bake_RFModel_2024.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/hotdeck.json"
     },
     {
       "rel": "item",
@@ -345,6 +320,31 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/zimmerman_proj1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/MAL_model_unc.json"
     },
     {
       "rel": "item",

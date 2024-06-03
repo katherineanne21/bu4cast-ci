@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "air2waterSat_2",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "\nmodel info: The air2water model is a linear model fit using the function lm() in R and uses air temperature as\na covariate\n\nSites: \n\nVariables: ",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -136,7 +136,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -151,7 +151,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

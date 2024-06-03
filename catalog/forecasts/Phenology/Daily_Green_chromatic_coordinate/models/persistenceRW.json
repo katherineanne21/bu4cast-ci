@@ -62,9 +62,9 @@
   },
   "properties": {
     "title": "persistenceRW",
-    "description": "\nmodel info: NA\n\nSites: DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ\n\nVariables: Daily Green_chromatic_coordinate",
+    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: DELA, DSNY, GRSM, GUAN, HARV, HEAL, BONA, CLBJ, CPER, DCFS, DEJU, SJER, SOAP, SRER, STEI, STER, TALL, NOGP, OAES, ONAQ, ORNL, OSBS, TEAK, TOOL, TREE, UKFS, UNDE, LAJA, LENO, MLBS, MOAB, NIWO, PUUM, RMNP, SCBI, SERC, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, JERC, JORN, KONA, KONZ\n\nVariables: Daily Green_chromatic_coordinate",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-02",
+    "end_datetime": "2024-07-04",
     "providers": [
       {
         "url": "pending",
@@ -185,7 +185,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -200,7 +200,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/neon4cast-ci/blob/main/baseline_models/models/aquatics_persistenceRW.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

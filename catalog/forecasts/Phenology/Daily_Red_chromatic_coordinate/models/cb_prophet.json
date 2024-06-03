@@ -62,7 +62,7 @@
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "\nmodel info: NA\n\nSites: KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN\n\nVariables: Daily Red_chromatic_coordinate",
+    "description": "\nmodel info: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term\n\nSites: KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL, ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN\n\nVariables: Daily Red_chromatic_coordinate",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-09",
     "providers": [
@@ -185,7 +185,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/cboettig/forecasts-darts-framework",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -200,7 +200,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/cboettig/forecasts-darts-framework",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

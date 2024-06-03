@@ -49,7 +49,7 @@
   },
   "properties": {
     "title": "air2waterSat_2",
-    "description": "\nmodel info: NA\n\nSites: TOOK, WALK, WLOU, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI\n\nVariables: Daily Water_temperature",
+    "description": "\nmodel info: The air2water model is a linear model fit using the function lm() in R and uses air temperature as\na covariate\n\nSites: TOOK, WALK, WLOU, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI\n\nVariables: Daily Water_temperature",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-05",
     "providers": [
@@ -172,7 +172,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -187,7 +187,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/rqthomas/neon4cast-example/blob/main/forecast_model.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -24,7 +24,7 @@
     "title": "GAM_air_wind",
     "description": "\nmodel info: I used a GAM (mgcv) with a linear relationship to air temperature and smoothing for eastward and northward winds.\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
     "start_datetime": "2024-03-01",
-    "end_datetime": "2024-07-03",
+    "end_datetime": "2024-07-04",
     "providers": [
       {
         "url": "pending",

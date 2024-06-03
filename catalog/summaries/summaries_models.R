@@ -421,7 +421,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
           model_code_link <- registered_model_id$`Web link to model code`[idx]
         }
 
-        model_description <- paste0("This page includes summaries for the ",
+        model_description <- paste0("This database includes summaries for the ",
                                     var_formal_name,
                                     ' variable for the ',
                                     m,
@@ -433,7 +433,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                     '.
                                     Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset')
 
-        model_keywords <- list('Summaries',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], duration_value)
+        model_keywords <- c(list('Summaries',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value),
+                            as.list(model_sites$site_id))
 
         stac4cast::build_model(model_id = m,
                                stac_id = stac_id,

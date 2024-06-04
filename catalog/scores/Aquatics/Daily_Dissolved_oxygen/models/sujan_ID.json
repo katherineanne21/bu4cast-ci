@@ -42,6 +42,7 @@
       "Aquatics",
       "sujan_ID",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

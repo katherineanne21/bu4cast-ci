@@ -42,6 +42,7 @@
       "Aquatics",
       "procBlanchardSteele",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

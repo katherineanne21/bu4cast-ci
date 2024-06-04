@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_ID_VickeryFirstForecast",
       "Net_ecosystem_exchange",
+      "nee",
       "Daily"
     ],
     "table:columns": [

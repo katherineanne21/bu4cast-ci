@@ -42,6 +42,7 @@
       "Aquatics",
       "precip_mod",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

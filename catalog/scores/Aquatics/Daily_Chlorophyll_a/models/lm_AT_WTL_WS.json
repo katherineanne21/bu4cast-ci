@@ -42,6 +42,7 @@
       "Aquatics",
       "lm_AT_WTL_WS",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

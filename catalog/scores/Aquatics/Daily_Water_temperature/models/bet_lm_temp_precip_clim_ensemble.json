@@ -42,6 +42,7 @@
       "Aquatics",
       "bet_lm_temp_precip_clim_ensemble",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

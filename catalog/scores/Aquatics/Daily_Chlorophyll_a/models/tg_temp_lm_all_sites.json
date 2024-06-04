@@ -53,7 +53,18 @@
       "Aquatics",
       "tg_temp_lm_all_sites",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB",
+      "TOOK"
     ],
     "table:columns": [
       {

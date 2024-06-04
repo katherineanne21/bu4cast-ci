@@ -42,6 +42,7 @@
       "Phenology",
       "bet_lm_temp2m_mod_temp",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Aquatics",
       "randfor",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

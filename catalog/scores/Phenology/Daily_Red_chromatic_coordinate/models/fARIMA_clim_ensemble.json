@@ -42,6 +42,7 @@
       "Phenology",
       "fARIMA_clim_ensemble",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

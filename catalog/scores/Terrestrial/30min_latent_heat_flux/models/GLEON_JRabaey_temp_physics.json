@@ -42,6 +42,7 @@
       "Terrestrial",
       "GLEON_JRabaey_temp_physics",
       "latent_heat_flux",
+      "le",
       "30min"
     ],
     "table:columns": [

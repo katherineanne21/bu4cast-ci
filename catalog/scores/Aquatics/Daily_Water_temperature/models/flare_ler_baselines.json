@@ -45,7 +45,10 @@
       "Aquatics",
       "flare_ler_baselines",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "BARC",
+      "SUGG"
     ],
     "table:columns": [
       {

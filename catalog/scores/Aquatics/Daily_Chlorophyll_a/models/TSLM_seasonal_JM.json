@@ -42,6 +42,7 @@
       "Aquatics",
       "TSLM_seasonal_JM",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

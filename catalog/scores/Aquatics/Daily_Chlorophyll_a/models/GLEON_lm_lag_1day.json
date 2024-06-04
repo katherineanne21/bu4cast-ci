@@ -42,6 +42,7 @@
       "Aquatics",
       "GLEON_lm_lag_1day",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

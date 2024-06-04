@@ -42,6 +42,7 @@
       "Beetles",
       "GLEON_lm_lag_1day",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

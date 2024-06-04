@@ -42,6 +42,7 @@
       "Beetles",
       "bet_lm_temp2m_mod_temp",
       "beetle_community_richness",
+      "richness",
       "Weekly"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Terrestrial",
       "procHinshelwoodMonod",
       "Net_ecosystem_exchange",
+      "nee",
       "30min"
     ],
     "table:columns": [

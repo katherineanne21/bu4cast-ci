@@ -42,6 +42,7 @@
       "Aquatics",
       "GLEON_JRabaey_temp_physics",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

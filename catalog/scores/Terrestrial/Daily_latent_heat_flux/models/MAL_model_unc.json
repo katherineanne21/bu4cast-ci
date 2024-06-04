@@ -42,6 +42,7 @@
       "Terrestrial",
       "MAL_model_unc",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

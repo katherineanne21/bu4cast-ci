@@ -42,6 +42,7 @@
       "Beetles",
       "GAM_air_wind",
       "beetle_community_richness",
+      "richness",
       "Weekly"
     ],
     "table:columns": [

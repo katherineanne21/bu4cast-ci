@@ -42,6 +42,7 @@
       "Phenology",
       "example_ID_airtempANDprecipadjusted_wuncertainty",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

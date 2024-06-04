@@ -42,6 +42,7 @@
       "Aquatics",
       "lasso",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

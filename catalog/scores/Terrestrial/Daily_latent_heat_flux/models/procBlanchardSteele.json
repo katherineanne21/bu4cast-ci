@@ -42,6 +42,7 @@
       "Terrestrial",
       "procBlanchardSteele",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

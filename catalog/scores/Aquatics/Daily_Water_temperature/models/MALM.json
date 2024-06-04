@@ -50,7 +50,15 @@
       "Aquatics",
       "MALM",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

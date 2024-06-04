@@ -42,6 +42,7 @@
       "Phenology",
       "precip_mod",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

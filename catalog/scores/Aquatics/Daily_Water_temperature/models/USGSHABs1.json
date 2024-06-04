@@ -42,6 +42,7 @@
       "Aquatics",
       "USGSHABs1",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

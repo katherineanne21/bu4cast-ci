@@ -46,7 +46,11 @@
       "Aquatics",
       "USGSHABs1",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BLWA",
+      "FLNT",
+      "TOMB"
     ],
     "table:columns": [
       {

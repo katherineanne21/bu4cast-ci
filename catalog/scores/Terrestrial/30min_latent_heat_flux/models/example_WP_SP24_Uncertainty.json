@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_WP_SP24_Uncertainty",
       "latent_heat_flux",
+      "le",
       "30min"
     ],
     "table:columns": [

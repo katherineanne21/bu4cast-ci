@@ -42,6 +42,7 @@
       "Aquatics",
       "bet_lm_temp2m_mod_temp",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

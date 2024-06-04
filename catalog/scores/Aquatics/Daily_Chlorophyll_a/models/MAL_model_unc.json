@@ -42,6 +42,7 @@
       "Aquatics",
       "MAL_model_unc",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

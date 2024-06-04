@@ -24,7 +24,7 @@
     "title": "bee_bake_RFModel_2024",
     "description": "This page includes scores for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-02-29",
-    "end_datetime": "2024-05-31",
+    "end_datetime": "2024-06-01",
     "providers": [
       {
         "url": "pending",
@@ -50,7 +50,15 @@
       "Aquatics",
       "bee_bake_RFModel_2024",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

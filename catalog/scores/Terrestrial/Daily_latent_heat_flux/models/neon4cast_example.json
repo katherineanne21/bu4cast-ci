@@ -42,6 +42,7 @@
       "Terrestrial",
       "neon4cast_example",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

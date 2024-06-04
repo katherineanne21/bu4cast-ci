@@ -42,6 +42,7 @@
       "Terrestrial",
       "bet_lm_temp_precip_clim_ensemble",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

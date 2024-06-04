@@ -53,7 +53,18 @@
       "Aquatics",
       "tg_bag_mlp",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB",
+      "TOOK"
     ],
     "table:columns": [
       {

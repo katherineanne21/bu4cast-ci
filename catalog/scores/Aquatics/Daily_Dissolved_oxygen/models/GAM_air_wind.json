@@ -42,6 +42,7 @@
       "Aquatics",
       "GAM_air_wind",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Aquatics",
       "baseline_ensemble",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

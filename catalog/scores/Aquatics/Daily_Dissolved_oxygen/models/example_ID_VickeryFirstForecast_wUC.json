@@ -42,6 +42,7 @@
       "Aquatics",
       "example_ID_VickeryFirstForecast_wUC",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

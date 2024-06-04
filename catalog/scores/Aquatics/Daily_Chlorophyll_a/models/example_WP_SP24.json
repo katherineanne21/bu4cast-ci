@@ -42,6 +42,7 @@
       "Aquatics",
       "example_WP_SP24",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

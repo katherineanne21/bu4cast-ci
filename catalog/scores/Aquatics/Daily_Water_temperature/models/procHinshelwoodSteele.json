@@ -42,6 +42,7 @@
       "Aquatics",
       "procHinshelwoodSteele",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

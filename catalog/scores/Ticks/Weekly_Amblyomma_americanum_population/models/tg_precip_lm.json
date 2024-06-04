@@ -42,6 +42,7 @@
       "Ticks",
       "tg_precip_lm",
       "Amblyomma_americanum_population",
+      "amblyomma_americanum",
       "Weekly"
     ],
     "table:columns": [

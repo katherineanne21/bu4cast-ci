@@ -42,6 +42,7 @@
       "Terrestrial",
       "flareGLM_noDA",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

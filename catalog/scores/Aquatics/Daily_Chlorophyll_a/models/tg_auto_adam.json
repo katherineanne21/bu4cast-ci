@@ -53,7 +53,18 @@
       "Aquatics",
       "tg_auto_adam",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB",
+      "TOOK"
     ],
     "table:columns": [
       {

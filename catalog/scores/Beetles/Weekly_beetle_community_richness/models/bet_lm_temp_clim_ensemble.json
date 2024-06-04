@@ -42,6 +42,7 @@
       "Beetles",
       "bet_lm_temp_clim_ensemble",
       "beetle_community_richness",
+      "richness",
       "Weekly"
     ],
     "table:columns": [

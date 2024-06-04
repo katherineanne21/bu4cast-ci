@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_BKandel",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

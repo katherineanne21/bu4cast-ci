@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_ID_VickeryFirstForecast_wUC",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

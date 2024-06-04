@@ -42,6 +42,7 @@
       "Beetles",
       "tidymodels_lm",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

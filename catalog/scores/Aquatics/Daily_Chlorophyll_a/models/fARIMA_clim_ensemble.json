@@ -42,6 +42,7 @@
       "Aquatics",
       "fARIMA_clim_ensemble",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

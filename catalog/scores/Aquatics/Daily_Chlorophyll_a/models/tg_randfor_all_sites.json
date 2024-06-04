@@ -42,6 +42,7 @@
       "Aquatics",
       "tg_randfor_all_sites",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

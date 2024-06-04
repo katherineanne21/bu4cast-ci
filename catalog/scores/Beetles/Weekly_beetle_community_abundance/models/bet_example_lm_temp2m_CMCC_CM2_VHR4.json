@@ -44,7 +44,9 @@
       "Beetles",
       "bet_example_lm_temp2m_CMCC_CM2_VHR4",
       "beetle_community_abundance",
-      "Weekly"
+      "abundance",
+      "Weekly",
+      "OSBS"
     ],
     "table:columns": [
       {

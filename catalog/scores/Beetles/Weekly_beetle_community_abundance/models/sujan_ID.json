@@ -42,6 +42,7 @@
       "Beetles",
       "sujan_ID",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

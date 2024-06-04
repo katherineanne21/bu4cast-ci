@@ -42,6 +42,7 @@
       "Aquatics",
       "tidymodels_ML",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

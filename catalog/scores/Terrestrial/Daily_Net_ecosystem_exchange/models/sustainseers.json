@@ -21,7 +21,7 @@
     "title": "sustainseers",
     "description": "This page includes scores for the Daily_Net_ecosystem_exchange variable for the sustainseers model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: BART, KONZ, OSBS, SRER.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-03-19",
-    "end_datetime": "2024-05-24",
+    "end_datetime": "2024-05-26",
     "providers": [
       {
         "url": "pending",
@@ -47,7 +47,12 @@
       "Terrestrial",
       "sustainseers",
       "Net_ecosystem_exchange",
-      "Daily"
+      "nee",
+      "Daily",
+      "BART",
+      "KONZ",
+      "OSBS",
+      "SRER"
     ],
     "table:columns": [
       {

@@ -42,6 +42,7 @@
       "Aquatics",
       "procEppleyNorbergSteele",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

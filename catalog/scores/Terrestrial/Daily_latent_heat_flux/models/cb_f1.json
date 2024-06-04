@@ -42,6 +42,7 @@
       "Terrestrial",
       "cb_f1",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

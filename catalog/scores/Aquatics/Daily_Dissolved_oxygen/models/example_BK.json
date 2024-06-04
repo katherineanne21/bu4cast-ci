@@ -42,6 +42,7 @@
       "Aquatics",
       "example_BK",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

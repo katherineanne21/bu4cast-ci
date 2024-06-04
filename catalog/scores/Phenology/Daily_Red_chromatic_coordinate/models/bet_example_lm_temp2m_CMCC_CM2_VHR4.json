@@ -42,6 +42,7 @@
       "Phenology",
       "bet_example_lm_temp2m_CMCC_CM2_VHR4",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

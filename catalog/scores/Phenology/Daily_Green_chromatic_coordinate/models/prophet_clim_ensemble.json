@@ -42,6 +42,7 @@
       "Phenology",
       "prophet_clim_ensemble",
       "Green_chromatic_coordinate",
+      "gcc_90",
       "Daily"
     ],
     "table:columns": [

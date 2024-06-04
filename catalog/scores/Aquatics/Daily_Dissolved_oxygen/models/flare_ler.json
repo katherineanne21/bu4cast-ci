@@ -42,6 +42,7 @@
       "Aquatics",
       "flare_ler",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

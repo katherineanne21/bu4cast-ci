@@ -42,6 +42,7 @@
       "Terrestrial",
       "ChlorophyllCrusaders",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

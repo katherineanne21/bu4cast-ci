@@ -42,6 +42,7 @@
       "Phenology",
       "bet_lm_temp_precip_clim_ensemble",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

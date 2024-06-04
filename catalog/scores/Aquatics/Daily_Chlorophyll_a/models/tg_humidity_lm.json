@@ -53,7 +53,18 @@
       "Aquatics",
       "tg_humidity_lm",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB",
+      "TOOK"
     ],
     "table:columns": [
       {

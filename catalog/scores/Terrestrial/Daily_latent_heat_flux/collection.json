@@ -25,7 +25,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_bag_mlp.json"
+      "href": "./models/randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -40,6 +45,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_auto_adam.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_humidity_lm_all_sites.json"
     },
     {
@@ -50,17 +65,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/lasso.json"
+      "href": "./models/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/randfor.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/tg_bag_mlp.json"
     },
     {
       "rel": "item",
@@ -76,21 +91,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "parent",
@@ -135,7 +135,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-05-24T00:00:00Z"
+          "2024-05-26T00:00:00Z"
         ]
       ]
     }

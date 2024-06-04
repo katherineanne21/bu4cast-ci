@@ -42,6 +42,7 @@
       "Beetles",
       "MAL_model_unc",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

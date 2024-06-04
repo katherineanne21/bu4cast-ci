@@ -42,6 +42,7 @@
       "Terrestrial",
       "mkricheldorf_example",
       "latent_heat_flux",
+      "le",
       "30min"
     ],
     "table:columns": [

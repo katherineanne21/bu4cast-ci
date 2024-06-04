@@ -42,6 +42,7 @@
       "Aquatics",
       "mean",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

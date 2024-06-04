@@ -42,6 +42,7 @@
       "Aquatics",
       "prophet_clim_ensemble",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

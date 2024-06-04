@@ -50,7 +50,15 @@
       "Aquatics",
       "procBlanchardSteele",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

@@ -42,6 +42,7 @@
       "Aquatics",
       "flareSimstrat",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

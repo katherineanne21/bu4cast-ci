@@ -42,6 +42,7 @@
       "Ticks",
       "mlp1_wtempforecast_LF",
       "Amblyomma_americanum_population",
+      "amblyomma_americanum",
       "Weekly"
     ],
     "table:columns": [

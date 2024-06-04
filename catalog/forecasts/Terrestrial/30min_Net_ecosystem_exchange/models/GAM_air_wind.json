@@ -42,6 +42,7 @@
       "Terrestrial",
       "GAM_air_wind",
       "Net_ecosystem_exchange",
+      "nee",
       "30min"
     ],
     "table:columns": [

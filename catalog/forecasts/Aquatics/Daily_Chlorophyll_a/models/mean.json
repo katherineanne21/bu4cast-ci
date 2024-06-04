@@ -42,6 +42,7 @@
       "Aquatics",
       "mean",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

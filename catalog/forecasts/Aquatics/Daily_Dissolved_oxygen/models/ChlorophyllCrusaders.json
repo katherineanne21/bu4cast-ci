@@ -42,6 +42,7 @@
       "Aquatics",
       "ChlorophyllCrusaders",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

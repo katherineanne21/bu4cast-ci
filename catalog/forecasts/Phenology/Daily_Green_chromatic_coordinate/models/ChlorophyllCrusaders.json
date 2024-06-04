@@ -45,7 +45,10 @@
       "Phenology",
       "ChlorophyllCrusaders",
       "Green_chromatic_coordinate",
-      "Daily"
+      "gcc_90",
+      "Daily",
+      "HARV",
+      "HEAL"
     ],
     "table:columns": [
       {

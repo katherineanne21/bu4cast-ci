@@ -42,6 +42,7 @@
       "Aquatics",
       "example_ID_VickeryFirstForecast",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

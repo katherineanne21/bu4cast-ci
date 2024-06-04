@@ -42,6 +42,7 @@
       "Aquatics",
       "example_WP_SP24_Uncertainty",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

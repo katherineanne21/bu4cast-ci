@@ -42,6 +42,7 @@
       "Aquatics",
       "procBlanchardSteele",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

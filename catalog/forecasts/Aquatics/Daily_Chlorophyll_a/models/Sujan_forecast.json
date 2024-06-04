@@ -42,6 +42,7 @@
       "Aquatics",
       "Sujan_forecast",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

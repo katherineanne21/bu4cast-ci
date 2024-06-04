@@ -42,6 +42,7 @@
       "Aquatics",
       "example_mkricheldorf_w_uncertainty",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

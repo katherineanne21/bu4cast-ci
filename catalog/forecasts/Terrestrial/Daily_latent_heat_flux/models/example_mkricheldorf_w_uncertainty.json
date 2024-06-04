@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_mkricheldorf_w_uncertainty",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Aquatics",
       "example_ID_airtempANDprecipadjusted_wuncertainty",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

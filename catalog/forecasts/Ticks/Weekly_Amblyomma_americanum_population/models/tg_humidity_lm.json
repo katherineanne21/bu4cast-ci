@@ -52,7 +52,17 @@
       "Ticks",
       "tg_humidity_lm",
       "Amblyomma_americanum_population",
-      "Weekly"
+      "amblyomma_americanum",
+      "Weekly",
+      "BLAN",
+      "KONZ",
+      "LENO",
+      "ORNL",
+      "OSBS",
+      "SCBI",
+      "SERC",
+      "TALL",
+      "UKFS"
     ],
     "table:columns": [
       {

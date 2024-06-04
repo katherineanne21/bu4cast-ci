@@ -42,6 +42,7 @@
       "Aquatics",
       "bet_lm_temp_clim_ensemble",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

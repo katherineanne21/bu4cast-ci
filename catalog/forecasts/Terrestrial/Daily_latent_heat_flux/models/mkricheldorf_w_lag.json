@@ -42,6 +42,7 @@
       "Terrestrial",
       "mkricheldorf_w_lag",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

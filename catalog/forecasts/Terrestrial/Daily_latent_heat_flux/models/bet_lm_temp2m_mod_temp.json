@@ -42,6 +42,7 @@
       "Terrestrial",
       "bet_lm_temp2m_mod_temp",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

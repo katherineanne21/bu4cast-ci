@@ -42,6 +42,7 @@
       "Terrestrial",
       "fARIMA_clim_ensemble",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

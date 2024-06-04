@@ -42,6 +42,7 @@
       "Terrestrial",
       "TSLM_seasonal_JM",
       "latent_heat_flux",
+      "le",
       "30min"
     ],
     "table:columns": [

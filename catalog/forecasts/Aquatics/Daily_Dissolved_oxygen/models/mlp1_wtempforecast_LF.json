@@ -42,6 +42,7 @@
       "Aquatics",
       "mlp1_wtempforecast_LF",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

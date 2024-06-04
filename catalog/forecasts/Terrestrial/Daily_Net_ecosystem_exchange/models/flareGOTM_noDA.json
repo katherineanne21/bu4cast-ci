@@ -42,6 +42,7 @@
       "Terrestrial",
       "flareGOTM_noDA",
       "Net_ecosystem_exchange",
+      "nee",
       "Daily"
     ],
     "table:columns": [

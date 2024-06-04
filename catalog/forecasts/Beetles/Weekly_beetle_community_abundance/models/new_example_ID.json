@@ -42,6 +42,7 @@
       "Beetles",
       "new_example_ID",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

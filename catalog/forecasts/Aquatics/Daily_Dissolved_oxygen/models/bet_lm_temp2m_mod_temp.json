@@ -42,6 +42,7 @@
       "Aquatics",
       "bet_lm_temp2m_mod_temp",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

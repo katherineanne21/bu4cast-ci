@@ -42,6 +42,7 @@
       "Terrestrial",
       "bookcast_forest",
       "Net_ecosystem_exchange",
+      "nee",
       "30min"
     ],
     "table:columns": [

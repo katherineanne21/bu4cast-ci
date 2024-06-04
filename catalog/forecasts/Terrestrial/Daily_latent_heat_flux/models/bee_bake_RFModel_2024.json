@@ -42,6 +42,7 @@
       "Terrestrial",
       "bee_bake_RFModel_2024",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

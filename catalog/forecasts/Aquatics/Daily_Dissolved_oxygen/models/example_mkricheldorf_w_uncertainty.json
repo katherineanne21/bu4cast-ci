@@ -42,6 +42,7 @@
       "Aquatics",
       "example_mkricheldorf_w_uncertainty",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

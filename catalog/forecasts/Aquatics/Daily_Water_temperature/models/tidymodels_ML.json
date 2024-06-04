@@ -50,7 +50,15 @@
       "Aquatics",
       "tidymodels_ML",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "PRLA",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

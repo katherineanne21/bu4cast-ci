@@ -42,6 +42,7 @@
       "Aquatics",
       "procEppleyNorbergSteele",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

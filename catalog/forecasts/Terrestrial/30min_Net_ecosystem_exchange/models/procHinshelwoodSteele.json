@@ -42,6 +42,7 @@
       "Terrestrial",
       "procHinshelwoodSteele",
       "Net_ecosystem_exchange",
+      "nee",
       "30min"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_WP_SP24",
       "Net_ecosystem_exchange",
+      "nee",
       "Daily"
     ],
     "table:columns": [

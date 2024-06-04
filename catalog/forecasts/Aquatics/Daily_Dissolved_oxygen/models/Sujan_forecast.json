@@ -42,6 +42,7 @@
       "Aquatics",
       "Sujan_forecast",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

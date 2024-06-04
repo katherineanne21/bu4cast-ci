@@ -42,6 +42,7 @@
       "Terrestrial",
       "persistenceRW",
       "latent_heat_flux",
+      "le",
       "30min"
     ],
     "table:columns": [

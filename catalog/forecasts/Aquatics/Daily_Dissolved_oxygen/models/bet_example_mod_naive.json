@@ -42,6 +42,7 @@
       "Aquatics",
       "bet_example_mod_naive",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

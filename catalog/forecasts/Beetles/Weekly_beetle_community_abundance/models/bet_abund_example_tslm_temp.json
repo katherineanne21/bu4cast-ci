@@ -44,7 +44,9 @@
       "Beetles",
       "bet_abund_example_tslm_temp",
       "beetle_community_abundance",
-      "Weekly"
+      "abundance",
+      "Weekly",
+      "OSBS"
     ],
     "table:columns": [
       {

@@ -50,7 +50,15 @@
       "Aquatics",
       "example_WP_SP24",
       "Dissolved_oxygen",
-      "Daily"
+      "oxygen",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

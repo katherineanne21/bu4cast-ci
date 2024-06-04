@@ -42,6 +42,7 @@
       "Phenology",
       "GLEON_JRabaey_temp_physics",
       "Green_chromatic_coordinate",
+      "gcc_90",
       "Daily"
     ],
     "table:columns": [

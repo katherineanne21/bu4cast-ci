@@ -42,6 +42,7 @@
       "Aquatics",
       "TSLM_seasonal_JM",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

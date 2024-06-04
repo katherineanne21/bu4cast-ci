@@ -42,6 +42,7 @@
       "Aquatics",
       "procEppleyNorbergMonod",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

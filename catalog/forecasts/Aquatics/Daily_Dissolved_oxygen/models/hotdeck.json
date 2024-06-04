@@ -57,7 +57,22 @@
       "Aquatics",
       "hotdeck",
       "Dissolved_oxygen",
-      "Daily"
+      "oxygen",
+      "Daily",
+      "BARC",
+      "SUGG",
+      "KING",
+      "BLDE",
+      "BIGC",
+      "MCRA",
+      "REDB",
+      "SYCA",
+      "CRAM",
+      "LIRO",
+      "PRIN",
+      "POSE",
+      "MAYF",
+      "LEWI"
     ],
     "table:columns": [
       {

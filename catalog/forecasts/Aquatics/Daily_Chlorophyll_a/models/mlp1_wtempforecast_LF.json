@@ -42,6 +42,7 @@
       "Aquatics",
       "mlp1_wtempforecast_LF",
       "Chlorophyll_a",
+      "chla",
       "Daily"
     ],
     "table:columns": [

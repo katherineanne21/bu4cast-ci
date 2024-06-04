@@ -44,7 +44,9 @@
       "Terrestrial",
       "USUNEEDAILY",
       "Net_ecosystem_exchange",
-      "Daily"
+      "nee",
+      "Daily",
+      "PUUM"
     ],
     "table:columns": [
       {

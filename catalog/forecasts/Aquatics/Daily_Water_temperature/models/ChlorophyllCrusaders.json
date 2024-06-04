@@ -42,6 +42,7 @@
       "Aquatics",
       "ChlorophyllCrusaders",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

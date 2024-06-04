@@ -52,7 +52,17 @@
       "Aquatics",
       "cb_prophet",
       "Chlorophyll_a",
-      "Daily"
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB"
     ],
     "table:columns": [
       {

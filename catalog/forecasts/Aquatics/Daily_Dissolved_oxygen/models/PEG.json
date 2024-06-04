@@ -42,6 +42,7 @@
       "Aquatics",
       "PEG",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Aquatics",
       "procBlanchardMonod",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

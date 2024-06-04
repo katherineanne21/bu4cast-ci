@@ -42,6 +42,7 @@
       "Phenology",
       "cb_f1",
       "Red_chromatic_coordinate",
+      "rcc_90",
       "Daily"
     ],
     "table:columns": [

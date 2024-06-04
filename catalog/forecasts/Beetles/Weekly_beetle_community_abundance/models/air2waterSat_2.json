@@ -42,6 +42,7 @@
       "Beetles",
       "air2waterSat_2",
       "beetle_community_abundance",
+      "abundance",
       "Weekly"
     ],
     "table:columns": [

@@ -42,6 +42,7 @@
       "Terrestrial",
       "example_mkricheldorf_w_uncertainty",
       "Net_ecosystem_exchange",
+      "nee",
       "30min"
     ],
     "table:columns": [

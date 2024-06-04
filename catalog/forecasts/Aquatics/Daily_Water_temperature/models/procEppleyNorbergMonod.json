@@ -42,6 +42,7 @@
       "Aquatics",
       "procEppleyNorbergMonod",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

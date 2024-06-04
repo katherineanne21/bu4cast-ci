@@ -47,7 +47,12 @@
       "Terrestrial",
       "sustainseers",
       "Net_ecosystem_exchange",
-      "Daily"
+      "nee",
+      "Daily",
+      "BART",
+      "OSBS",
+      "KONZ",
+      "SRER"
     ],
     "table:columns": [
       {

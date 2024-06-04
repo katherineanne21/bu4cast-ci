@@ -49,7 +49,14 @@
       "Aquatics",
       "flare_ler",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "SUGG",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "BARC"
     ],
     "table:columns": [
       {

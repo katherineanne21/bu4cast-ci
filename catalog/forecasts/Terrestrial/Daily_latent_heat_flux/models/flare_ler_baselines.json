@@ -42,6 +42,7 @@
       "Terrestrial",
       "flare_ler_baselines",
       "latent_heat_flux",
+      "le",
       "Daily"
     ],
     "table:columns": [

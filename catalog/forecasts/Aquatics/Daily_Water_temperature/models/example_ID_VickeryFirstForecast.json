@@ -44,7 +44,9 @@
       "Aquatics",
       "example_ID_VickeryFirstForecast",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "TOOK"
     ],
     "table:columns": [
       {

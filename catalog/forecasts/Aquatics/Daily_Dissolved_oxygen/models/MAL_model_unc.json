@@ -42,6 +42,7 @@
       "Aquatics",
       "MAL_model_unc",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

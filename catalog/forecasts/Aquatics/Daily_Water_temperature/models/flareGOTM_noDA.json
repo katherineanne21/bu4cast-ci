@@ -50,7 +50,15 @@
       "Aquatics",
       "flareGOTM_noDA",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "SUGG",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "TOOK"
     ],
     "table:columns": [
       {

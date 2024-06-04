@@ -42,6 +42,7 @@
       "Aquatics",
       "sustainseers",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

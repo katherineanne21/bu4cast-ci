@@ -42,6 +42,7 @@
       "Aquatics",
       "bookcast_forest",
       "Water_temperature",
+      "temperature",
       "Daily"
     ],
     "table:columns": [

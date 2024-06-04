@@ -42,6 +42,7 @@
       "Aquatics",
       "MALM",
       "Dissolved_oxygen",
+      "oxygen",
       "Daily"
     ],
     "table:columns": [

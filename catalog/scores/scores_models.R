@@ -340,7 +340,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         scores_sites <- c()
 
         var_models <- var_models |>
-          filter(model_id %in% registered_model_id)
+          filter(model_id %in% registered_model_id$model_id)
 
         ## loop over model ids and extract components if present in metadata table
 

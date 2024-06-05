@@ -337,7 +337,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
       forecast_sites <- c()
 
       var_models <- var_models |>
-        filter(model_id %in% registered_model_id)
+        filter(model_id %in% registered_model_id$model_id)
 
       ## LOOP OVER MODEL IDS AND CREATE JSONS
       for (m in var_models$model_id){

@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "lm_AT_WTL_WS",
-    "description": "\nmodel info: This forecast of water temperature at NEON Lake sites uses a linear model, incorporating air temperature, wind speed, and the previous day's forecasted water temperature as variables.\n\nSites: \n\nVariables: ",
+    "description": "This page includes scores for the Daily_Chlorophyll_a variable for the lm_AT_WTL_WS model. Information for the model is provided as follows: This forecast of water temperature at NEON Lake sites uses a linear model, incorporating air temperature, wind speed, and the previous day's forecasted water temperature as variables..\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,13 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Scores",
+      "neon4cast",
+      "Aquatics",
+      "lm_AT_WTL_WS",
+      "Chlorophyll_a",
+      "chla",
+      "Daily"
     ],
     "table:columns": [
       {

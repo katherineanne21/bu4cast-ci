@@ -24,21 +24,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_ets.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/fTSLM_lag.json"
     },
     {
@@ -85,6 +70,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_bag_mlp.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",
@@ -144,6 +144,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/fARIMA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/fARIMA_clim_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/cb_f1.json"
     },
     {
@@ -155,16 +165,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/fARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/fARIMA_clim_ensemble.json"
     },
     {
       "rel": "item",
@@ -254,11 +254,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_faasr.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/example_ID_airtempANDprecipadjusted.json"
     },
     {
@@ -269,12 +264,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_mkricheldorf_w_uncertainty.json"
+      "href": "./models/example_faasr.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/example_ID_VickeryFirstForecast_wUC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
@@ -285,6 +285,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/example_ID_airtempANDprecipadjusted_wuncertainty.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/MAL_model_unc.json"
     },
     {
       "rel": "item",
@@ -309,11 +314,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/lm_AT_WTL_WS.json"
     },
     {
@@ -329,12 +329,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_ML.json"
+      "href": "./models/hotdeck.json"
     },
     {
       "rel": "item",
@@ -344,7 +339,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/MAL_model_unc.json"
+      "href": "./models/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tidymodels_ML.json"
     },
     {
       "rel": "item",

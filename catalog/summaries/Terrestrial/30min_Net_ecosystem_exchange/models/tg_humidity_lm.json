@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "tg_humidity_lm",
-    "description": "\nmodel info: NA\n\nSites: \n\nVariables: ",
+    "description": "This page includes summaries for the 30min_Net_ecosystem_exchange variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: .\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Summaries",
+      "neon4cast",
+      "Terrestrial",
+      "tg_humidity_lm",
+      "Net_ecosystem_exchange",
+      "30min"
     ],
     "table:columns": [
       {
@@ -156,7 +160,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -171,7 +175,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

@@ -49,9 +49,9 @@
   },
   "properties": {
     "title": "persistenceRW",
-    "description": "\nmodel info: Random walk from the fable package with ensembles used to represent uncertainty\n\nSites: CARI, COMO, CRAM, CUPE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, BLUE, BLWA, WLOU, ARIK, BARC, BIGC, BLDE, TECR, TOMB, TOOK, WALK, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART\n\nVariables: Daily Dissolved_oxygen",
+    "description": "This page includes summaries for the Daily_Dissolved_oxygen variable for the persistenceRW model. Information for the model is provided as follows: Random walk from the fable package with ensembles used to represent uncertainty.\n                                    The model predicts this variable at the following sites: CARI, COMO, CRAM, CUPE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, MAYF, MCDI, MCRA, OKSR, POSE, BLUE, BLWA, WLOU, ARIK, BARC, BIGC, BLDE, TECR, TOMB, TOOK, WALK, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-02",
+    "end_datetime": "2024-07-06",
     "providers": [
       {
         "url": "pending",
@@ -72,9 +72,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Summaries",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "persistenceRW",
+      "Dissolved_oxygen",
+      "Daily"
     ],
     "table:columns": [
       {

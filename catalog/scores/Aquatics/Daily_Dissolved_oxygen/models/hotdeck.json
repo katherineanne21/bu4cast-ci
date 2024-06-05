@@ -29,9 +29,9 @@
   },
   "properties": {
     "title": "hotdeck",
-    "description": "\nmodel info: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h.\n\nSites: BARC, BIGC, BLDE, KING, MCRA, REDB, SUGG, SYCA, CRAM, LIRO, LEWI, MAYF, POSE, PRIN\n\nVariables: Daily Dissolved_oxygen",
+    "description": "This page includes scores for the Daily_Dissolved_oxygen variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, BIGC, BLDE, KING, MCRA, REDB, SUGG, SYCA, CRAM, LIRO, LEWI, MAYF, POSE, PRIN.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-04-05",
-    "end_datetime": "2024-05-28",
+    "end_datetime": "2024-06-01",
     "providers": [
       {
         "url": "pending",
@@ -52,9 +52,27 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "hotdeck",
+      "Dissolved_oxygen",
+      "oxygen",
+      "Daily",
+      "BARC",
+      "BIGC",
+      "BLDE",
+      "KING",
+      "MCRA",
+      "REDB",
+      "SUGG",
+      "SYCA",
+      "CRAM",
+      "LIRO",
+      "LEWI",
+      "MAYF",
+      "POSE",
+      "PRIN"
     ],
     "table:columns": [
       {

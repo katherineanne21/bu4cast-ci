@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "GAM_air_wind",
-    "description": "\nmodel info: I used a GAM (mgcv) with a linear relationship to air temperature and smoothing for eastward and northward winds.\n\nSites: \n\nVariables: ",
+    "description": "This page includes scores for the Daily_latent_heat_flux variable for the GAM_air_wind model. Information for the model is provided as follows: I used a GAM (mgcv) with a linear relationship to air temperature and smoothing for eastward and northward winds..\n                                    The model predicts this variable at the following sites: .\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,13 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Scores",
+      "neon4cast",
+      "Terrestrial",
+      "GAM_air_wind",
+      "latent_heat_flux",
+      "le",
+      "Daily"
     ],
     "table:columns": [
       {

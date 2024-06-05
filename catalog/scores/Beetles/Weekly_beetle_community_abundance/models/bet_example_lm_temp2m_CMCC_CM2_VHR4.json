@@ -16,7 +16,7 @@
   },
   "properties": {
     "title": "bet_example_lm_temp2m_CMCC_CM2_VHR4",
-    "description": [],
+    "description": "This page includes scores for the Weekly_beetle_community_abundance variable for the bet_example_lm_temp2m_CMCC_CM2_VHR4 model. Information for the model is provided as follows: .\n                                    The model predicts this variable at the following sites: OSBS.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-02-27",
     "end_datetime": "2024-05-13",
     "providers": [
@@ -39,9 +39,14 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Weekly beetle_community_abundance"
+      "Beetles",
+      "bet_example_lm_temp2m_CMCC_CM2_VHR4",
+      "beetle_community_abundance",
+      "abundance",
+      "Weekly",
+      "OSBS"
     ],
     "table:columns": [
       {

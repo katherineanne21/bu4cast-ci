@@ -14,7 +14,7 @@
   },
   "properties": {
     "title": "zimmerman_proj1",
-    "description": "\nmodel info: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature\n\nSites: \n\nVariables: ",
+    "description": "This page includes forecasts for the Daily_latent_heat_flux variable for the zimmerman_proj1 model. Information for the model is provided as follows: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature.\n                                    The model predicts this variable at the following sites: .\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "Inf",
     "end_datetime": "-Inf",
     "providers": [
@@ -37,8 +37,13 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
-      "neon4cast"
+      "Forecasts",
+      "neon4cast",
+      "Terrestrial",
+      "zimmerman_proj1",
+      "latent_heat_flux",
+      "le",
+      "Daily"
     ],
     "table:columns": [
       {

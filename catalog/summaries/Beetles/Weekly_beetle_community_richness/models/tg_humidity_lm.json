@@ -62,7 +62,7 @@
   },
   "properties": {
     "title": "tg_humidity_lm",
-    "description": "\nmodel info: NA\n\nSites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL\n\nVariables: Weekly beetle_community_richness",
+    "description": "This page includes summaries for the Weekly_beetle_community_richness variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: ABBY, BARR, BART, BLAN, BONA, CLBJ, CPER, DCFS, DEJU, DELA, DSNY, GRSM, GUAN, HARV, HEAL, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TOOL, TREE, UKFS, UNDE, WOOD, WREF, YELL.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-11-20",
     "end_datetime": "2024-02-05",
     "providers": [
@@ -85,9 +85,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Summaries",
       "neon4cast",
-      "Weekly beetle_community_richness"
+      "Beetles",
+      "tg_humidity_lm",
+      "beetle_community_richness",
+      "Weekly"
     ],
     "table:columns": [
       {
@@ -205,7 +208,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "type": "text/html",
       "title": "Link for Model Code"
     }
@@ -220,7 +223,7 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {

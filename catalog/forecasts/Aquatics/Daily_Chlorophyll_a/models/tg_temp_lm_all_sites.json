@@ -25,7 +25,7 @@
   },
   "properties": {
     "title": "tg_temp_lm_all_sites",
-    "description": "\nmodel info: The tg_temp_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation.This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together\n\nSites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK\n\nVariables: Daily Chlorophyll_a",
+    "description": "This page includes forecasts for the Daily_Chlorophyll_a variable for the tg_temp_lm_all_sites model. Information for the model is provided as follows: The tg_temp_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation.This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together.\n                                    The model predicts this variable at the following sites: BARC, BLWA, CRAM, FLNT, LIRO, PRLA, PRPO, SUGG, TOMB, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-02-16",
     "providers": [
@@ -48,9 +48,23 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Forecasts",
       "neon4cast",
-      "Daily Chlorophyll_a"
+      "Aquatics",
+      "tg_temp_lm_all_sites",
+      "Chlorophyll_a",
+      "chla",
+      "Daily",
+      "BARC",
+      "BLWA",
+      "CRAM",
+      "FLNT",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOMB",
+      "TOOK"
     ],
     "table:columns": [
       {

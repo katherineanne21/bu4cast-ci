@@ -47,7 +47,7 @@
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "\nmodel info: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term\n\nSites: BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, ARIK, BARC, BIGC, BLDE\n\nVariables: Daily Dissolved_oxygen",
+    "description": "This page includes summaries for the Daily_Dissolved_oxygen variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR, TOMB, WALK, WLOU, ARIK, BARC, BIGC, BLDE.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-11-14",
     "end_datetime": "2024-03-10",
     "providers": [
@@ -70,9 +70,12 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Summaries",
       "neon4cast",
-      "Daily Dissolved_oxygen"
+      "Aquatics",
+      "cb_prophet",
+      "Dissolved_oxygen",
+      "Daily"
     ],
     "table:columns": [
       {

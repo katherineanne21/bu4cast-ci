@@ -22,9 +22,9 @@
   },
   "properties": {
     "title": "zimmerman_proj1",
-    "description": "\nmodel info: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature\n\nSites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK\n\nVariables: Daily Water_temperature",
+    "description": "This page includes scores for the Daily_Water_temperature variable for the zimmerman_proj1 model. Information for the model is provided as follows: I used an ARIMA model with one autoregressive term. I also included air pressure and air temperature.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-02-28",
-    "end_datetime": "2024-05-28",
+    "end_datetime": "2024-06-01",
     "providers": [
       {
         "url": "pending",
@@ -45,9 +45,20 @@
     ],
     "license": "CC0-1.0",
     "keywords": [
-      "Forecasting",
+      "Scores",
       "neon4cast",
-      "Daily Water_temperature"
+      "Aquatics",
+      "zimmerman_proj1",
+      "Water_temperature",
+      "temperature",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

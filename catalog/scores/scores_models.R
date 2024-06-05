@@ -339,9 +339,12 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
         scores_sites <- c()
 
+        var_models <- var_models |>
+          filter(model_id %in% registered_model_id)
+
         ## loop over model ids and extract components if present in metadata table
 
-        for (m in theme_models$model_id){
+        for (m in var_models$model_id){
 
           # make model directory
           if (!dir.exists(paste0(catalog_config$scores_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))){

@@ -26,8 +26,8 @@
     "end_datetime": "2023-12-22",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": null,
+        "name": "Robert Ladwig",
         "roles": [
           "producer",
           "processor",

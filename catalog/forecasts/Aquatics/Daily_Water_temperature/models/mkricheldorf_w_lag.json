@@ -27,8 +27,8 @@
     "end_datetime": "2024-06-07",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "mkricheldorf@vt.edu",
+        "name": "Michael Kricheldorf",
         "roles": [
           "producer",
           "processor",

@@ -66,8 +66,8 @@
     "end_datetime": "2024-03-04",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "cboettig@berkeley.edu",
+        "name": "Carl Boettiger",
         "roles": [
           "producer",
           "processor",

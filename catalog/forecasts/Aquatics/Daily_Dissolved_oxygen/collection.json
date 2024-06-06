@@ -35,6 +35,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_lasso.json"
     },
     {
@@ -66,16 +76,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -202,6 +202,11 @@
   },
   "table:columns": [
     {
+      "name": "13 columns",
+      "type": null,
+      "description": {}
+    },
+    {
       "name": "datetime",
       "type": "timestamp[us, tz=UTC]",
       "description": "datetime of the forecasted value (ISO 8601)"
@@ -260,11 +265,6 @@
       "name": "model_id",
       "type": "string",
       "description": "unique model identifier"
-    },
-    {
-      "name": "reference_date",
-      "type": "string",
-      "description": "date that the forecast was initiated"
     }
   ],
   "assets": {

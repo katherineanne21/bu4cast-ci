@@ -22,8 +22,8 @@
     "end_datetime": "2024-06-20",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "dietze@bu.edu",
+        "name": "michael dietze",
         "roles": [
           "producer",
           "processor",

@@ -115,12 +115,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/bet_lm_temp_clim_ensemble.json"
+      "href": "./models/bet_lm_temp_precip_clim_ensemble.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/bet_lm_temp_precip_clim_ensemble.json"
+      "href": "./models/bet_lm_temp_clim_ensemble.json"
     },
     {
       "rel": "item",

@@ -51,11 +51,11 @@
     "title": "fTSLM_lag",
     "description": "This page includes forecasts for the Daily_Water_temperature variable for the fTSLM_lag model. Information for the model is provided as follows: This is a simple time series linear model in which water temperature is a function of air\ntemperature of that day and the previous day’s air temperature.\n                                    The model predicts this variable at the following sites: TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, COMO, CRAM, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, SYCA, TECR.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-01-08",
-    "end_datetime": "2024-07-08",
+    "end_datetime": "2024-07-10",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "freyao@vt.edu",
+        "name": "Freya Olsson",
         "roles": [
           "producer",
           "processor",

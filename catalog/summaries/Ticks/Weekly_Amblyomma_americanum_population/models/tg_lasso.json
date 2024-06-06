@@ -23,13 +23,13 @@
   },
   "properties": {
     "title": "tg_lasso",
-    "description": "This page includes summaries for the Weekly_Amblyomma_americanum_population variable for the tg_lasso model. Information for the model is provided as follows: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation..\n                                    The model predicts this variable at the following sites: BLAN, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
+    "description": "This database includes summaries for the Weekly_Amblyomma_americanum_population variable for the tg_lasso model. Information for the model is provided as follows: Lasso is a machine learning model implemented in the same workflow as tg_randfor, but with\ndifferent hyperparameter tuning. The model drivers are unlagged air temperature, air pressure, relative\nhumidity, surface downwelling longwave and shortwave radiation, precipitation, and northward and\neastward wind. Lasso regressions were fitted with the function glmnet() in\nthe package glmnet (Tay et al. 2023), where the regularization hyperparameter (lambda) is tuned and\nselected with 10-fold cross validation..\n                                    The model predicts this variable at the following sites: BLAN, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2023-11-20",
     "end_datetime": "2024-02-05",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "aslewis@vt.edu",
+        "name": "Abigail Lewis",
         "roles": [
           "producer",
           "processor",
@@ -51,7 +51,16 @@
       "Ticks",
       "tg_lasso",
       "Amblyomma_americanum_population",
-      "Weekly"
+      "amblyomma_americanum",
+      "Weekly",
+      "BLAN",
+      "KONZ",
+      "ORNL",
+      "OSBS",
+      "SCBI",
+      "SERC",
+      "TALL",
+      "UKFS"
     ],
     "table:columns": [
       {

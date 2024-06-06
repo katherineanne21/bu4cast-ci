@@ -22,13 +22,13 @@
   },
   "properties": {
     "title": "mkricheldorf_w_lag",
-    "description": "This page includes summaries for the Daily_Water_temperature variable for the mkricheldorf_w_lag model. Information for the model is provided as follows: I used an autoregressive linear model using the lm() function.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
+    "description": "This database includes summaries for the Daily_Water_temperature variable for the mkricheldorf_w_lag model. Information for the model is provided as follows: I used an autoregressive linear model using the lm() function.\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-03-06",
     "end_datetime": "2024-06-07",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "mkricheldorf@vt.edu",
+        "name": "Michael Kricheldorf",
         "roles": [
           "producer",
           "processor",
@@ -50,7 +50,15 @@
       "Aquatics",
       "mkricheldorf_w_lag",
       "Water_temperature",
-      "Daily"
+      "temperature",
+      "Daily",
+      "BARC",
+      "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
+      "SUGG",
+      "TOOK"
     ],
     "table:columns": [
       {

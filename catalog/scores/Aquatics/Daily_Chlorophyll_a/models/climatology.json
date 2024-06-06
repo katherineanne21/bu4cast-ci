@@ -30,8 +30,8 @@
     "end_datetime": "2024-06-01",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "rqthomas@vt.edu",
+        "name": "Quinn Thomas",
         "roles": [
           "producer",
           "processor",

@@ -27,8 +27,8 @@
     "end_datetime": "2024-06-01",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "poz3615@vt.edu",
+        "name": "Piper Zimmerman",
         "roles": [
           "producer",
           "processor",

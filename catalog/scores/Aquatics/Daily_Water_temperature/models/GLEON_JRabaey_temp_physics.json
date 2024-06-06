@@ -54,8 +54,8 @@
     "end_datetime": "2024-03-12",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": null,
+        "name": "Joseph Rabaey",
         "roles": [
           "producer",
           "processor",

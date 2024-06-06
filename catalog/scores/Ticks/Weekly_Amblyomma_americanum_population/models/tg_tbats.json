@@ -29,8 +29,8 @@
     "end_datetime": "2023-09-25",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "aslewis@vt.edu",
+        "name": "Abigail Lewis",
         "roles": [
           "producer",
           "processor",

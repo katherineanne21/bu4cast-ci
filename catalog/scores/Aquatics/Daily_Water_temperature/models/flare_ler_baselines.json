@@ -22,8 +22,8 @@
     "end_datetime": "2024-03-19",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "freyao@vt.edu",
+        "name": "Freya Olsson",
         "roles": [
           "producer",
           "processor",

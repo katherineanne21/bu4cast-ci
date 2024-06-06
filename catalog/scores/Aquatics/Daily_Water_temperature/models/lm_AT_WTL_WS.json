@@ -27,8 +27,8 @@
     "end_datetime": "2024-06-01",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "cevickery@vt.edu",
+        "name": "Caroline Vickery",
         "roles": [
           "producer",
           "processor",

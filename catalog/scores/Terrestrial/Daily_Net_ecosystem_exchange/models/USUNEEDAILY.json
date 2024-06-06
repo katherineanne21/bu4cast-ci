@@ -21,8 +21,8 @@
     "end_datetime": "2024-01-16",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "peter.adler@usu.edu",
+        "name": "Peter Adler",
         "roles": [
           "producer",
           "processor",

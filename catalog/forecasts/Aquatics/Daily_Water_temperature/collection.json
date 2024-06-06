@@ -224,11 +224,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_BKandel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/example_BK.json"
     },
     {
@@ -245,6 +240,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/example_climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/example_BKandel.json"
     },
     {
       "rel": "item",
@@ -269,12 +269,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_ID_VickeryFirstForecast_wUC.json"
+      "href": "./models/example_mkricheldorf_w_uncertainty.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/example_mkricheldorf_w_uncertainty.json"
+      "href": "./models/example_ID_VickeryFirstForecast_wUC.json"
     },
     {
       "rel": "item",
@@ -289,27 +289,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/MAL_model_unc.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tidymodels_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/zimmerman_proj1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/Sujan_forecast.json"
     },
     {
       "rel": "item",
@@ -319,17 +299,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tidymodels_ML.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/MALM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/Sujan_forecast.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/TSLM_seasonal_JM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/hotdeck.json"
     },
     {
       "rel": "item",
@@ -344,17 +334,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tidymodels_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tidymodels_ML.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/MAL_model_unc.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/mkricheldorf_w_lag.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/acp_fableLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/MALM.json"
     },
     {
       "rel": "parent",

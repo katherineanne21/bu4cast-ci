@@ -1,6 +1,6 @@
 {
   "id": "Daily_Net_ecosystem_exchange",
-  "description": "This page includes all models for the Daily_Net_ecosystem_exchange variable.",
+  "description": "All models for the Daily_Net_ecosystem_exchange variable.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -15,6 +15,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
@@ -25,32 +35,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_auto_adam.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_bag_mlp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",
@@ -101,11 +86,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/bookcast_forest.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/sustainseers.json"
     },
     {
       "rel": "parent",
@@ -233,12 +213,12 @@
       "description": "Use `arrow` for remote access to the database. This R code will return results for forecasts of the variable by the specific model .\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/duration=P1D/variable=nee?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n"
     },
     "thumbnail": {
-      "href": "pending",
+      "href": "https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg",
       "type": "image/JPEG",
       "roles": [
         "thumbnail"
       ],
-      "title": "pending"
+      "title": "Thumbnail Image"
     }
   }
 }

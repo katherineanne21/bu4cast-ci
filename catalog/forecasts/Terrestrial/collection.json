@@ -1,6 +1,6 @@
 {
   "id": "Terrestrial",
-  "description": "This page includes variables for the Terrestrial group.",
+  "description": "All variables for the Terrestrial group.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

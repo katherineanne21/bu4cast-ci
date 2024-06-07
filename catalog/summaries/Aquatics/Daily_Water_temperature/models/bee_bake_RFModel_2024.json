@@ -22,9 +22,9 @@
   },
   "properties": {
     "title": "bee_bake_RFModel_2024",
-    "description": "This database includes summaries for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: BARC, PRPO, CRAM, PRLA, LIRO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
+    "description": "All summaries for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: BARC, PRPO, CRAM, PRLA, LIRO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
     "start_datetime": "2024-02-29",
-    "end_datetime": "2024-07-09",
+    "end_datetime": "2024-07-10",
     "providers": [
       {
         "url": "rqthomas@vt.edu",

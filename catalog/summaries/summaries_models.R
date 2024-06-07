@@ -313,7 +313,10 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       var_min_date <- var_date_range$`min(date)`
       var_max_date <- var_date_range$`max(date)`
 
-      var_models <- var_data |> distinct(model_id)
+      var_models <- var_data |>
+        distinct(model_id) |>
+        filter(model_id %in% registered_model_id$model_id,
+               !grepl("example",model_id))
 
       find_var_sites <- summaries_data_df |>
         filter(variable == var_name) |>
@@ -358,9 +361,6 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
 
       forecast_sites <- c()
-
-      var_models <- var_models |>
-        filter(model_id %in% registered_model_id$model_id)
 
       ## LOOP OVER MODEL IDS AND CREATE JSONS
       for (m in var_models$model_id){

@@ -1,6 +1,6 @@
 {
   "id": "Beetles",
-  "description": "This page includes variables for the Beetles group.",
+  "description": "All variables for the Beetles group.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

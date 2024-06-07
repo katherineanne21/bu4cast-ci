@@ -234,7 +234,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
   var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
   ## CREATE VARIABLE GROUP JSONS
-  group_description <- paste0('This page includes variables for the ',names(config$variable_groups[i]),' group.')
+  group_description <- paste0('All variables for the ',names(config$variable_groups[i]),' group.')
 
   ## find group sites
   find_group_sites <- forecast_data_df |>
@@ -295,7 +295,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
         filter(variable == var_name) |>
         distinct(site_id)
 
-      var_description <- paste0('This page includes all models for the ',var_formal_name,' variable.')
+      var_description <- paste0('All models for the ',var_formal_name,' variable.')
 
       #var_path <- gsub('forecasts','scores',var_data$path[1])
       var_path <- var_data$path[1]
@@ -327,8 +327,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                        destination_path = file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name),
                                        aws_download_path = var_path,
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models$model_id),
-                                       thumbnail_link = 'pending',
-                                       thumbnail_title = 'pending',
+                                       thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
+                                       thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
                                        group_sites = find_var_sites$site_id,
                                        citation_values = var_citations,
@@ -402,7 +402,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
           model_code_link <- registered_model_id$`Web link to model code`[idx]
         }
 
-        model_description <- paste0("This page includes forecasts for the ",
+        model_description <- paste0("All forecasts for the ",
                                     var_formal_name,
                                     ' variable for the ',
                                     m,

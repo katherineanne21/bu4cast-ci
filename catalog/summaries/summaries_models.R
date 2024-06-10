@@ -434,7 +434,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                     The model predicts this variable at the following sites: ',
                                     model_site_text,
                                     '.
-                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset')
+                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)')
 
         model_keywords <- c(list('Summaries',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value),
                             as.list(model_sites$site_id))

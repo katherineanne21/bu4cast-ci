@@ -49,9 +49,9 @@ variable_duration <- arrow::open_dataset(s3_inv) |>
 #variable_duration <- variable_duration |>
 #  dplyr::filter(duration != "P1W" & duration != "PT30M")
 
-future::plan("future::multisession", workers = n_cores)
+#future::plan("future::multisession", workers = n_cores)
 
-#future::plan("future::sequential")
+future::plan("future::sequential")
 
 furrr::future_walk(1:nrow(variable_duration), function(k, variable_duration, config, endpoint){
 

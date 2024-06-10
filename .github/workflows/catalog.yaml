@@ -80,7 +80,7 @@ jobs:
 
   scores:
     needs: forecasts
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -115,7 +115,7 @@ jobs:
 
   inventory:
     needs: scores
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -150,7 +150,7 @@ jobs:
 
   summaries:
     needs: inventory
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -185,7 +185,7 @@ jobs:
 
   noaa:
     needs: summaries
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -220,7 +220,7 @@ jobs:
 
   targets_sites:
     needs: noaa
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

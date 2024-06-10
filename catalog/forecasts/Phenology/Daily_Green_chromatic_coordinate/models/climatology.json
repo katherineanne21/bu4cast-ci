@@ -62,9 +62,9 @@
   },
   "properties": {
     "title": "climatology",
-    "description": "This page includes forecasts for the Daily_Green_chromatic_coordinate variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BONA, DEJU, HEAL, TOOL, BARR.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
+    "description": "All forecasts for the Daily_Green_chromatic_coordinate variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: ABBY, BART, BLAN, CLBJ, CPER, DCFS, DELA, DSNY, GRSM, GUAN, HARV, JERC, JORN, KONA, KONZ, LAJA, LENO, MLBS, MOAB, NIWO, NOGP, OAES, ONAQ, ORNL, OSBS, PUUM, RMNP, SCBI, SERC, SJER, SOAP, SRER, STEI, STER, TALL, TEAK, TREE, UKFS, UNDE, WOOD, WREF, YELL, BONA, DEJU, HEAL, TOOL, BARR.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members). We provide the code to access the forecast data as an asset",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-10",
+    "end_datetime": "2024-07-14",
     "providers": [
       {
         "url": "rqthomas@vt.edu",

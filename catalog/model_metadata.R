@@ -106,7 +106,7 @@ for(i in 1:nrow(registered_models)){
     metadata$uncertainty$process_error$present <- TRUE
     metadata$uncertainty$process_error$data_driven <- TRUE
     metadata$uncertainty$process_error$progagates$type <- progagates_method
-  }else if(registered_models$`Does your forecast include uncertainty from the model (process uncertainty)?`[i] == c("Yes and the uncertainty was not estimated from data","Yes")){
+  }else if(registered_models$`Does your forecast include uncertainty from the model (process uncertainty)?`[i] %in% c("Yes and the uncertainty was not estimated from data","Yes")){
     metadata$uncertainty$process_error$present <- TRUE
     metadata$uncertainty$process_error$data_driven <- FALSE
     metadata$uncertainty$process_error$progagates$type <- progagates_method

@@ -49,7 +49,7 @@
   },
   "properties": {
     "title": "climatology",
-    "description": "All scores for the Daily_Dissolved_oxygen variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, CRAM, SYCA.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
+    "description": "All scores for the Daily_Dissolved_oxygen variable for the climatology model. Information for the model is provided as follows: Historical DOY mean and sd.  Assumes normal distribution.\n                                    The model predicts this variable at the following sites: COMO, CUPE, FLNT, GUIL, HOPB, KING, LECO, LEWI, LIRO, MART, MAYF, MCDI, MCRA, OKSR, POSE, PRIN, PRLA, PRPO, REDB, SUGG, TECR, TOMB, TOOK, WALK, WLOU, ARIK, BARC, BIGC, BLDE, BLUE, BLWA, CARI, CRAM, SYCA.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
     "start_datetime": "2023-01-09",
     "end_datetime": "2024-06-01",
     "providers": [
@@ -79,6 +79,7 @@
       "Dissolved_oxygen",
       "oxygen",
       "Daily",
+      "P1D",
       "COMO",
       "CUPE",
       "FLNT",

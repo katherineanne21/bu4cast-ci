@@ -24,7 +24,7 @@
   },
   "properties": {
     "title": "tg_ets",
-    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the tg_ets model. Information for the model is provided as follows: The tg_ets model is an Error, Trend, Seasonal (ETS) model fit using the function ets() from the\nforecast package in R (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series\nmodel with no covariates..\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). We provide the code to access the scores data as an asset",
+    "description": "All scores for the Weekly_Amblyomma_americanum_population variable for the tg_ets model. Information for the model is provided as follows: The tg_ets model is an Error, Trend, Seasonal (ETS) model fit using the function ets() from the\nforecast package in R (Hyndman et al. 2023; Hyndman et al., 2008). This is an empirical time series\nmodel with no covariates..\n                                    The model predicts this variable at the following sites: BLAN, KONZ, LENO, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
     "start_datetime": "2023-02-06",
     "end_datetime": "2023-09-25",
     "providers": [
@@ -54,6 +54,7 @@
       "Amblyomma_americanum_population",
       "amblyomma_americanum",
       "Weekly",
+      "P1W",
       "BLAN",
       "KONZ",
       "LENO",

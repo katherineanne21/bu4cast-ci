@@ -122,7 +122,7 @@ for(i in 1:nrow(registered_models)){
     metadata$uncertainty$obs_error$present <- TRUE
     metadata$uncertainty$obs_error$data_driven <- TRUE
     metadata$uncertainty$obs_error$progagates$type <- progagates_method
-  }else if(registered_models$`Does your forecast include uncertainty from measurement noise?`[i] == c("Yes and the noise was not estimated from data", "Yes")){
+  }else if(registered_models$`Does your forecast include uncertainty from measurement noise?`[i] %in% c("Yes and the noise was not estimated from data", "Yes")){
     metadata$uncertainty$obs_error$present <- TRUE
     metadata$uncertainty$obs_error$data_driven <- FALSE
     metadata$uncertainty$obs_error$progagates$type <- progagates_method

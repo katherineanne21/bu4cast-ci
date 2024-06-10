@@ -45,7 +45,7 @@ jobs:
 
   forecasts:
     needs: metadata_catalog
-    if: always()
+    #if: always()
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

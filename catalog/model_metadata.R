@@ -14,7 +14,8 @@ minioclient::mc_alias_set("osn",
 
 googlesheets4::gs4_deauth()
 registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
-  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id)
+  dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
+                !grepl("example",model_id))
 
 # registered_models <- gsheet::gsheet2tbl(config$model_metadata_gsheet) |>
 #   dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
@@ -37,6 +38,20 @@ for(i in 1:nrow(registered_models)){
   metadata$model_description$name <- registered_models$`Long name of the model`[i]
   metadata$model_description$type <- registered_models$`Which category best matches your modeling approach?`[i]
   metadata$model_description$repository <- registered_models$`Web link to model code`[i]
+
+
+  ## handle models with no metadata present
+  if (is.na(registered_models$`Which category best matches your modeling approach?`[i])){
+    print('Skipping model due to missing metadata')
+    metadata$uncertainty$initial_conditions$present <- "Unknown"
+    metadata$uncertainty$drivers$present <- "Unknown"
+    metadata$uncertainty$process$present <- "Unknown"
+    metadata$uncertainty$obs_error$present <- "Unknown"
+    metadata$uncertainty$structural_error$present <- "Unknown"
+    metadata$uncertainty$random_effects$present <- "Unknown"
+
+    next()
+  }
 
   # Initial Conditions
 

@@ -22,6 +22,8 @@ registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
 
 for(i in 1:nrow(registered_models)){
 
+  print(registered_models$model_id[i])
+
   #Need to get from forecast output
   progagates_method <- "Infer from family column in archived forecasts"
 

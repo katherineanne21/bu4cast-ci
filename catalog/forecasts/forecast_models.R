@@ -414,7 +414,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                     '.
                                     Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)')
 
-        model_keywords <- c(list('Forecasts',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value),
+        model_keywords <- c(list('Forecasts',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value, duration_name),
                             as.list(model_sites$site_id))
 
         stac4cast::build_model(model_id = m,

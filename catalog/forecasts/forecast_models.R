@@ -36,23 +36,11 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 
 print('FIND FORECAST TABLE SCHEMA')
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
-  #filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
-# NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
-    #(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))
-
-## identify model ids from bucket -- used in generate model items function
-# forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
-#                                   s3_endpoint = config$endpoint, anonymous=TRUE) |>
-#   collect()
 
 print('FIND INVENTORY BUCKET')
 forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
                               endpoint_override = "sdsc.osn.xsede.org",
                               anonymous=TRUE)
-
-# forecast_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts"),
-#                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
-#   collect()
 
 print('OPEN INVENTORY BUCKET')
 forecast_data_df <- arrow::open_dataset(forecast_s3) |>
@@ -91,41 +79,12 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       group_sites = forecast_sites,
                       model_child = FALSE)
 
-## create separate JSON for model landing page
-# if (!dir.exists(paste0(catalog_config$forecast_path,"models"))){
-#   dir.create(paste0(catalog_config$forecast_path,"models"))
-# }
-
-# stac4cast::build_group_variables(table_schema = forecast_theme_df,
-#                       table_description = forecast_description_create,
-#                       start_date = forecast_min_date,
-#                       end_date = forecast_max_date,
-#                       id_value = "models",
-#                       description_string = build_description,
-#                       about_string = catalog_config$about_string,
-#                       about_title = catalog_config$about_title,
-#                       dashboard_string = catalog_config$dashboard_url,
-#                       dashboard_title = catalog_config$dashboard_title,
-#                       theme_title = "Models",
-#                       destination_path = paste0(catalog_config$forecast_path,"models"),
-#                       aws_download_path = catalog_config$aws_download_path_forecasts,
-#                       group_var_items = stac4cast::generate_model_items(model_list = theme_models$model_id),
-#                       thumbnail_link = 'pending',
-#                       thumbnail_title = 'pending',
-#                       group_var_vector = NULL,
-#                       group_sites = NULL)
-
 ## READ IN GSHEET FILES
 variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
 
 ## READ IN MODEL METADATA
 # googlesheets4::gs4_deauth()
-#
 # registered_model_id <- googlesheets4::read_sheet(config$model_metadata_gsheet)
-
-# read in model metadata and filter for the relevant project
-# registered_model_id <- gsheet2tbl(config$model_metadata_gsheet) |>
-#   filter(`What forecasting challenge are you registering for?` == config$project_id)
 
 gsheet_read <- gsheet2tbl(config$model_metadata_gsheet)
 gsheet_read$row_non_na <- rowSums(!is.na(gsheet_read))
@@ -134,75 +93,9 @@ registered_model_id <- gsheet_read |>
   filter(`What forecasting challenge are you registering for?` == config$project_id) |>
   rename(project_id = `What forecasting challenge are you registering for?`) |>
   arrange(row_non_na) |>
-  distinct(model_id, project_id, .keep_all = TRUE)#|>
-  #filter(row_non_na > 20) ## estimate based on current number of rows assuming everything (minus model and project) are empty
+  distinct(model_id, project_id, .keep_all = TRUE)
 
-# forecast_sites <- c()
-#
-# ## LOOP OVER MODEL IDS AND CREATE JSONS
-# for (m in theme_models$model_id){
-#
-#   # make model items directory
-#   if (!dir.exists(paste0(catalog_config$forecast_path,"/models/model_items"))){
-#     dir.create(paste0(catalog_config$forecast_path,"/models/model_items"))
-#   }
-#
-#   print(m)
-#   model_date_range <- forecast_data_df |> filter(model_id == m) |> dplyr::summarise(min(date),max(date))
-#   model_min_date <- model_date_range$`min(date)`
-#   model_max_date <- model_date_range$`max(date)`
-#
-#   model_var_duration_df <- forecast_data_df |> filter(model_id == m) |> distinct(variable,duration, project_id) |>
-#     mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
-#     mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
-#     mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-#     mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
-#
-#   model_var_full_name <- model_var_duration_df |>
-#     left_join((variable_gsheet |>
-#                   select(variable = `"official" targets name`, full_name = `Variable name`) |>
-#                   distinct(variable, .keep_all = TRUE)), by = c('variable'))
-#
-#   model_sites <- forecast_data_df |> filter(model_id == m) |> distinct(site_id)
-#
-#   model_vars <- forecast_data_df |> filter(model_id == m) |> distinct(variable) |> left_join(model_var_full_name, by = 'variable')
-#   model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
-#
-#   forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
-#                                                             sites = model_sites$site_id))
-#
-#   idx = which(registered_model_id$model_id == m)
-#
-#   if (is.null(registered_model_id$`Web link to model code`[idx])){
-#     model_code_link <- 'https://projects.ecoforecast.org/neon4cast-ci/'
-#   } else{
-#     model_code_link <- registered_model_id$`Web link to model code`[idx]
-#   }
-#
-#   stac4cast::build_model(model_id = m,
-#               team_name = registered_model_id$`Long name of the model (can include spaces)`[idx],
-#               model_description = registered_model_id[idx,"Describe your modeling approach in your own words."][[1]],
-#               start_date = model_min_date,
-#               end_date = model_max_date,
-#               var_values = model_vars$var_duration_name,
-#               duration_names = model_var_duration_df$duration,
-#               site_values = model_sites$site_id,
-#               site_table = catalog_config$site_metadata_url,
-#               model_documentation = registered_model_id,
-#               destination_path = paste0(catalog_config$forecast_path,"/models/model_items"),
-#               aws_download_path = catalog_config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
-#               collection_name = 'forecasts',
-#               thumbnail_image_name = NULL,
-#               table_schema = forecast_theme_df,
-#               table_description = forecast_description_create,
-#               full_var_df = model_vars,
-#               code_web_link = model_code_link)
-#               #code_web_link = 'pending')
-# }
-
-
-## BUILD VARIABLE GROUPS
-#variable_gsheet <- gsheet2tbl(config$target_metadata_gsheet)
+## BUILD VARIABLE GROUPS (variables and models)
 
 for (i in 1:length(config$variable_groups)){ ## organize variable groups
   print(names(config$variable_groups)[i])

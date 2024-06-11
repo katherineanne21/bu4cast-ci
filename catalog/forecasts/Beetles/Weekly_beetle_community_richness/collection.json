@@ -1,6 +1,6 @@
 {
   "id": "Weekly_beetle_community_richness",
-  "description": "All models for the Weekly_beetle_community_richness variable.",
+  "description": "All models for the Weekly_beetle_community_richness variable. The variable description is as follows: Total number of unique ‘species’ in a sampling bout for each NEON site each week.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

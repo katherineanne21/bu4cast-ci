@@ -1,6 +1,6 @@
 {
   "id": "Daily_Dissolved_oxygen",
-  "description": "All models for the Daily_Dissolved_oxygen variable.",
+  "description": "All models for the Daily_Dissolved_oxygen variable. The variable description is as follows: Surface Mean Daily Dissolved Oxygen Concentration (mgL)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

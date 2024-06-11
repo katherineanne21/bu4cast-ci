@@ -23,7 +23,7 @@
   },
   "properties": {
     "title": "tg_randfor",
-    "description": "All summaries for the Weekly_Amblyomma_americanum_population variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
+    "description": "All summaries for the Weekly_Amblyomma_americanum_population variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: BLAN, KONZ, ORNL, OSBS, SCBI, SERC, TALL, UKFS.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
     "start_datetime": "2023-11-19",
     "end_datetime": "2024-02-09",
     "providers": [
@@ -53,6 +53,7 @@
       "Amblyomma_americanum_population",
       "amblyomma_americanum",
       "Weekly",
+      "P1W",
       "BLAN",
       "KONZ",
       "ORNL",

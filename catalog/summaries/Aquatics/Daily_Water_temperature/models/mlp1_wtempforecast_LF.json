@@ -22,7 +22,7 @@
   },
   "properties": {
     "title": "mlp1_wtempforecast_LF",
-    "description": "All summaries for the Daily_Water_temperature variable for the mlp1_wtempforecast_LF model. Information for the model is provided as follows: Modelling for water temperature using a single layer neural network (mlp() in tidymodels). Used relative humidity, precipitation flux and air temperature as drivers. Hypertuned parameters for models to be run with 100 epochs and penalty value of 0.01..\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals). We provide the code to access the scores data as an asset",
+    "description": "All summaries for the Daily_Water_temperature variable for the mlp1_wtempforecast_LF model. Information for the model is provided as follows: Modelling for water temperature using a single layer neural network (mlp() in tidymodels). Used relative humidity, precipitation flux and air temperature as drivers. Hypertuned parameters for models to be run with 100 epochs and penalty value of 0.01..\n                                    The model predicts this variable at the following sites: BARC, CRAM, LIRO, PRLA, PRPO, SUGG, TOOK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
     "start_datetime": "2024-03-01",
     "end_datetime": "2024-07-13",
     "providers": [
@@ -52,6 +52,7 @@
       "Water_temperature",
       "temperature",
       "Daily",
+      "P1D",
       "BARC",
       "CRAM",
       "LIRO",

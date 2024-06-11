@@ -1,6 +1,6 @@
 {
   "id": "Daily_Water_temperature",
-  "description": "All models for the Daily_Water_temperature variable.",
+  "description": "All models for the Daily_Water_temperature variable. The variable description is as follows: Surface Mean Daily Water Temperature (Celsius)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

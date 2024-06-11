@@ -1,6 +1,6 @@
 {
   "id": "Daily_Red_chromatic_coordinate",
-  "description": "All models for the Daily_Red_chromatic_coordinate variable.",
+  "description": "All models for the Daily_Red_chromatic_coordinate variable. The variable description is as follows: Red chromatic coordinate is the ratio of the Red digital number to the sum of the red, green, blue digital numbers from a digital camera.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

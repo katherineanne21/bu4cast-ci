@@ -1,6 +1,6 @@
 {
   "id": "Daily_Chlorophyll_a",
-  "description": "All models for the Daily_Chlorophyll_a variable.",
+  "description": "All models for the Daily_Chlorophyll_a variable. The variable description is as follows: daily mean Chlorophyll-a (ug/L)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -12,6 +12,31 @@
   "sci:doi": "10.1002/fee.2616",
   "sci:publications": {},
   "links": [
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/USGSHABs1.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/procBlanchardMonod.json"
+    },
     {
       "rel": "item",
       "type": "application/json",
@@ -61,31 +86,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/USGSHABs1.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/procBlanchardMonod.json"
     },
     {
       "rel": "item",

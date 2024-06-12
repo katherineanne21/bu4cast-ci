@@ -1,6 +1,6 @@
 {
   "id": "Weekly_beetle_community_abundance",
-  "description": "All models for the Weekly_beetle_community_abundance variable.",
+  "description": "All models for the Weekly_beetle_community_abundance variable. The variable description is as follows: Total number of carabid individuals per trap-night, estimated each week of the year at each NEON site",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

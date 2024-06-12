@@ -1,6 +1,6 @@
 {
   "id": "Weekly_Amblyomma_americanum_population",
-  "description": "All models for the Weekly_Amblyomma_americanum_population variable.",
+  "description": "All models for the Weekly_Amblyomma_americanum_population variable. The variable description is as follows: The density of Amblyomma americanum nymphs per week (ticks per 1600m^2)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

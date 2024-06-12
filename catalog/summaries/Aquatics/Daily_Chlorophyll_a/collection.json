@@ -1,6 +1,6 @@
 {
   "id": "Daily_Chlorophyll_a",
-  "description": "All models for the Daily_Chlorophyll_a variable.",
+  "description": "All models for the Daily_Chlorophyll_a variable. The variable description is as follows: daily mean Chlorophyll-a (ug/L)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -160,7 +160,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-07-14T00:00:00Z"
+          "2024-07-16T00:00:00Z"
         ]
       ]
     }

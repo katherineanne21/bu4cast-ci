@@ -1,6 +1,6 @@
 {
   "id": "Daily_latent_heat_flux",
-  "description": "All models for the Daily_latent_heat_flux variable.",
+  "description": "All models for the Daily_latent_heat_flux variable. The variable description is as follows: daily mean latent heat flux (W/m2)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -115,7 +115,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-07-15T00:00:00Z"
+          "2024-07-17T00:00:00Z"
         ]
       ]
     }

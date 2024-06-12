@@ -1,6 +1,6 @@
 {
   "id": "30min_latent_heat_flux",
-  "description": "All models for the 30min_latent_heat_flux variable.",
+  "description": "All models for the 30min_latent_heat_flux variable. The variable description is as follows: 30 minute mean latent heat flux (W/m2)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

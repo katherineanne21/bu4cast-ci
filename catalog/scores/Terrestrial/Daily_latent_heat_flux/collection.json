@@ -1,6 +1,6 @@
 {
   "id": "Daily_latent_heat_flux",
-  "description": "All models for the Daily_latent_heat_flux variable.",
+  "description": "All models for the Daily_latent_heat_flux variable. The variable description is as follows: daily mean latent heat flux (W/m2)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -30,17 +30,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",

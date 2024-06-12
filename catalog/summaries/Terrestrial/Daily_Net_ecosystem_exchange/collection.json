@@ -1,6 +1,6 @@
 {
   "id": "Daily_Net_ecosystem_exchange",
-  "description": "All models for the Daily_Net_ecosystem_exchange variable.",
+  "description": "All models for the Daily_Net_ecosystem_exchange variable. The variable description is as follows: daily mean Net ecosystem exchange (gC/m2/day)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -15,6 +15,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
@@ -26,16 +36,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",

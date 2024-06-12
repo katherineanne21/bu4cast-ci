@@ -1,6 +1,6 @@
 {
   "id": "Daily_Green_chromatic_coordinate",
-  "description": "All models for the Daily_Green_chromatic_coordinate variable.",
+  "description": "All models for the Daily_Green_chromatic_coordinate variable. The variable description is as follows: Green chromatic coordinate is the ratio of the green digital number to the sum of the red, green, blue digital numbers from a digital camera.",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [
@@ -59,6 +59,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_humidity_lm.json"
     },
     {
@@ -85,11 +90,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",
@@ -144,7 +144,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-07-14T00:00:00Z"
+          "2024-07-16T00:00:00Z"
         ]
       ]
     }

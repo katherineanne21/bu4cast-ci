@@ -1,6 +1,6 @@
 {
   "id": "30min_Net_ecosystem_exchange",
-  "description": "All models for the 30min_Net_ecosystem_exchange variable.",
+  "description": "All models for the 30min_Net_ecosystem_exchange variable. The variable description is as follows: 30 minute mean net ecosystem exchange (umol/m2/s)",
   "stac_version": "1.0.0",
   "license": "CC0-1.0",
   "stac_extensions": [

@@ -64,6 +64,13 @@ jobs:
           install.packages(c("neonstore","RCurl","duckdbfs","ISOweek"))
           source("targets/ticks_targets.R")
 
-      - name: Healthcheck
+  Healthcheck:
+    needs: [phenology, beetles, ticks]
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - name: Call Healthcheck
         run: |
           curl -m 10 --retry 5 https://hc-ping.com/95d7869d-538f-4145-9d1e-e6655320066d

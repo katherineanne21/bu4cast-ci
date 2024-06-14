@@ -141,11 +141,6 @@
     ],
     "table:columns": [
       {
-        "name": "13 columns",
-        "type": null,
-        "description": {}
-      },
-      {
         "name": "datetime",
         "type": "timestamp[us, tz=UTC]",
         "description": "datetime of the forecasted value (ISO 8601)"

@@ -179,22 +179,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/lm_AT_WTL_WS.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/GAM_air_wind.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",
@@ -255,11 +255,6 @@
     }
   },
   "table:columns": [
-    {
-      "name": "13 columns",
-      "type": null,
-      "description": {}
-    },
     {
       "name": "datetime",
       "type": "timestamp[us, tz=UTC]",

@@ -30,17 +30,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -121,11 +121,6 @@
     }
   },
   "table:columns": [
-    {
-      "name": "20 columns",
-      "type": null,
-      "description": {}
-    },
     {
       "name": "reference_datetime",
       "type": "timestamp[us, tz=UTC]",

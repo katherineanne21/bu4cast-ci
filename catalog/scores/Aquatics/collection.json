@@ -86,11 +86,6 @@
   },
   "table:columns": [
     {
-      "name": "20 columns",
-      "type": null,
-      "description": {}
-    },
-    {
       "name": "reference_datetime",
       "type": "timestamp[us, tz=UTC]",
       "description": "datetime that the forecast was initiated (horizon = 0)"

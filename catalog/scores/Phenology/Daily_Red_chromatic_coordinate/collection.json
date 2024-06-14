@@ -40,17 +40,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -141,11 +141,6 @@
     }
   },
   "table:columns": [
-    {
-      "name": "20 columns",
-      "type": null,
-      "description": {}
-    },
     {
       "name": "reference_datetime",
       "type": "timestamp[us, tz=UTC]",

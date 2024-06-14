@@ -144,17 +144,12 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-07-18T00:00:00Z"
+          "2024-07-19T00:00:00Z"
         ]
       ]
     }
   },
   "table:columns": [
-    {
-      "name": "17 columns",
-      "type": null,
-      "description": {}
-    },
     {
       "name": "reference_datetime",
       "type": "timestamp[us, tz=UTC]",

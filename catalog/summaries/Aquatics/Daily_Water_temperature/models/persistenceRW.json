@@ -51,7 +51,7 @@
     "title": "persistenceRW",
     "description": "All summaries for the Daily_Water_temperature variable for the persistenceRW model. Information for the model is provided as follows: Random walk from the fable package with ensembles used to represent uncertainty.\n                                    The model predicts this variable at the following sites: KING, LECO, LEWI, LIRO, MART, MAYF, ARIK, BARC, BIGC, BLDE, BLUE, MCDI, MCRA, OKSR, POSE, PRIN, WLOU, CUPE, FLNT, GUIL, HOPB, PRLA, PRPO, REDB, SUGG, SYCA, BLWA, CARI, COMO, CRAM, TECR, TOMB, TOOK, WALK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
     "start_datetime": "2023-11-15",
-    "end_datetime": "2024-07-18",
+    "end_datetime": "2024-07-19",
     "providers": [
       {
         "url": "rqthomas@vt.edu",

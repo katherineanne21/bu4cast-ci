@@ -39,16 +39,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/ChlorophyllCrusaders.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_arima.json"
     },
     {
@@ -59,17 +49,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm.json"
+      "href": "./models/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/PEG.json"
     },
     {
       "rel": "item",
@@ -95,6 +80,21 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",

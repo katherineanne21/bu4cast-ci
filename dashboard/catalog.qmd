@@ -2,6 +2,10 @@
 title: "Forecast catalog"
 ---
 
+The catalog of submitted forecasts, evaluations of the forecasts ("scores"), and summarized forecasts are available through the SpatioTemporal Asset Catalogs browser (below). The catalog also contains information and access to the metadata for the forecast sites, the NOAA weather forecasts at the forecast sites, and the targets (observational data) collected at the forecast sites. The full-page version can be found [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/LTREB-reservoirs/vera4cast/main/catalog/catalog.json)
+
+<br /> <br />
+
 ## What types of models are submitting forecasts?
 
 *Note: This figure will become more complete, as more models register and provide model descriptions*

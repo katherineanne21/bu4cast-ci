@@ -9,14 +9,13 @@ name: scoring
 
 jobs:
   docker:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on:  arc-runner-set
     timeout-minutes: 1440
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: eco4cast/rocker-neon4cast:latest
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v4
 

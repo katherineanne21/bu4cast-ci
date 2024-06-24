@@ -6,7 +6,7 @@
   "type": "Feature",
   "id": "fARIMA_clim_ensemble_temperature_P1D_forecast",
   "bbox": [
-    [-149.143, 18.1135, -66.7987, 68.6698]
+    [-149.6106, 18.1135, -66.7987, 68.6698]
   ],
   "geometry": {
     "type": "MultiPoint",
@@ -36,21 +36,22 @@
       [-88.1589, 31.8534],
       [-119.2575, 37.0597],
       [-110.5871, 44.9501],
-      [-89.4737, 46.2097],
       [-84.4374, 31.1854],
+      [-89.4737, 46.2097],
       [-111.5081, 33.751],
       [-89.7048, 45.9983],
       [-99.2531, 47.1298],
       [-99.1139, 47.1591],
       [-147.504, 65.1532],
-      [-149.143, 68.6698]
+      [-149.143, 68.6698],
+      [-149.6106, 68.6307]
     ]
   },
   "properties": {
     "title": "fARIMA_clim_ensemble",
-    "description": "All forecasts for the Daily_Water_temperature variable for the fARIMA_clim_ensemble model. Information for the model is provided as follows: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model.\n                                    The model predicts this variable at the following sites: LECO, LEWI, MART, MAYF, MCDI, MCRA, COMO, CUPE, GUIL, HOPB, KING, ARIK, BARC, BLUE, BLWA, WALK, WLOU, POSE, PRIN, REDB, SUGG, TECR, TOMB, BIGC, BLDE, CRAM, FLNT, SYCA, LIRO, PRPO, PRLA, CARI, OKSR.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_Water_temperature variable for the fARIMA_clim_ensemble model. Information for the model is provided as follows: The fAMIRA-DOY MME is a multi-model ensemble (MME) composed of two empirical\nmodels: an ARIMA model (fARIMA) and day-of-year model.\n                                    The model predicts this variable at the following sites: LECO, LEWI, MART, MAYF, MCDI, MCRA, COMO, CUPE, GUIL, HOPB, KING, ARIK, BARC, BLUE, BLWA, WALK, WLOU, POSE, PRIN, REDB, SUGG, TECR, TOMB, BIGC, BLDE, FLNT, CRAM, SYCA, LIRO, PRPO, PRLA, CARI, OKSR, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "start_datetime": "2023-11-10",
-    "end_datetime": "2024-07-21",
+    "end_datetime": "2024-07-23",
     "providers": [
       {
         "url": "freyao@vt.edu",
@@ -104,14 +105,15 @@
       "TOMB",
       "BIGC",
       "BLDE",
-      "CRAM",
       "FLNT",
+      "CRAM",
       "SYCA",
       "LIRO",
       "PRPO",
       "PRLA",
       "CARI",
-      "OKSR"
+      "OKSR",
+      "TOOK"
     ],
     "table:columns": [
       {

@@ -26,4 +26,6 @@ s3_inventory <- arrow::s3_bucket(config$inventory_bucket,
                                  access_key = Sys.getenv("OSN_KEY"),
                                  secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_dataset(inventory_df, path = s3_inventory$path(glue::glue("catalog/scores/project_id={config$project_id}")))
+arrow::write_dataset(inventory_df, path = tempdir())
+
+#arrow::write_dataset(inventory_df, path = s3_inventory$path(glue::glue("catalog/scores/project_id={config$project_id}")))

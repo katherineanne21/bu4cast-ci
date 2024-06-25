@@ -22,8 +22,8 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          remotes::install_deps(".", dep=TRUE)
-          remotes::install_github("eco4cast/score4cast")
+          remotes::install_deps(".", dep=TRUE, repos="https://cran.rstudio.com")
+          remotes::install_github("eco4cast/score4cast", repos="https://cran.rstudio.com")
 
       - name: Generate scores
         shell: Rscript {0}

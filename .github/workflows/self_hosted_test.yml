@@ -6,10 +6,8 @@ jobs:
   Explore-GitHub-Actions:
     # You need to use the INSTALLATION_NAME from the previous step
     runs-on: arc-runner-set
-    container: eco4cast/rocker-neon4cast:latest
+    # container: eco4cast/rocker-neon4cast:latest
     steps:
-      - run: git config --system --add safe.directory '*'
-      - uses: actions/checkout@v4
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
+      - run: apt-get update && apt-get -y install iproute2
+      - run: ip link
+      

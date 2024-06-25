@@ -8,6 +8,6 @@ jobs:
     runs-on: arc-runner-set
     # container: eco4cast/rocker-neon4cast:latest
     steps:
-      - run: apt-get update && apt-get -y install iproute2
+      - run: sudo apt-get update && sudo apt-get -y install iproute2
       - run: ip link
       

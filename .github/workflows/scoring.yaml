@@ -23,6 +23,7 @@ jobs:
         shell: Rscript {0}
         run: |
           print(options("repos"))
+          install.packages('arrow', repos = 'https://apache.r-universe.dev')
           remotes::install_deps(".", dep=TRUE, repos="https://cran.rstudio.com")
           remotes::install_github("eco4cast/score4cast", repos="https://cran.rstudio.com")
 

@@ -231,6 +231,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                        thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                                        thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
+                                       group_duration_value = duration_value,
                                        group_sites = find_var_sites$site_id,
                                        citation_values = var_citations,
                                        doi_values = doi_citations)
@@ -324,6 +325,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                end_date = model_max_date,
                                var_values = model_vars$var_duration_name,
                                duration_names = model_var_duration_df$duration,
+                               duration_value = duration_name,
                                site_values = model_sites$site_id,
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,
@@ -360,6 +362,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                    thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
                                    thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
                                    group_var_vector = unique(var_values),
+                                   group_duration_value = NULL,
                                    group_sites = find_group_sites$site_id,
                                    citation_values = citation_build,
                                    doi_values = doi_build)

@@ -1,16 +1,17 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  schedule:
-    - cron: '0 */2 * * *'
+#  schedule:
+#    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 
 name: process-submissions
 
 jobs:
-  docker:
+  submissions:
     runs-on: self-hosted #ubuntu-latest
+    timeout-minutes: 1440
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       AWS_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}

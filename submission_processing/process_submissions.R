@@ -90,7 +90,7 @@ if(length(submissions) > 0){
 
     # not_tg <- stringr::str_detect(curr_submission, "tg", negate = TRUE)
     not_tg <- TRUE
-    recent_date <- file_name_reference_datetime > (Sys.Date() - lubridate::days(30))
+    recent_date <- file_name_reference_datetime > lubridate::as_date("2023-12-31") #(Sys.Date() - lubridate::days(30))
 
     if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & recent_date & !is.na(file_name_reference_datetime)){
 

@@ -19,6 +19,7 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
                                           variable = 'name of forecasted variable',
                                           prediction = 'predicted value for variable',
                                           pub_datetime = 'datetime that forecast was submitted',
+                                          date = 'date of the forecasted value (ISO 8601)',
                                           reference_datetime = 'datetime that the forecast was initiated (horizon = 0)',
                                           model_id = 'unique model identifier',
                                           reference_date = 'date that the forecast was initiated',

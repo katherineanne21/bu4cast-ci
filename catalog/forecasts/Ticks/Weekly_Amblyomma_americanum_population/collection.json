@@ -150,7 +150,7 @@
     {
       "name": "date",
       "type": "date32[day]",
-      "description": {}
+      "description": "date of the forecasted value (ISO 8601)"
     },
     {
       "name": "project_id",

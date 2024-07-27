@@ -11,12 +11,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/USUNEEDAILY.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/bookcast_forest.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
@@ -26,7 +21,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/USUNEEDAILY.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/bookcast_forest.json"
     },
     {
       "rel": "item",
@@ -61,12 +61,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -76,12 +76,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm.json"
+      "href": "./models/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
+      "href": "./models/tg_temp_lm.json"
     },
     {
       "rel": "parent",
@@ -126,7 +126,7 @@
       "interval": [
         [
           "2023-01-01T00:00:00Z",
-          "2024-07-13T00:00:00Z"
+          "2024-07-14T00:00:00Z"
         ]
       ]
     }

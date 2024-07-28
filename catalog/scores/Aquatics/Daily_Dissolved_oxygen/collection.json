@@ -16,6 +16,21 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/AquaticEcosystemsOxygen.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/BBTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/BTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/GLEON_lm_lag_1day.json"
     },
     {
@@ -41,27 +56,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/AquaticEcosystemsOxygen.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/BBTW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/BTW.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
@@ -181,7 +181,7 @@
       "interval": [
         [
           "2017-08-27T00:00:00Z",
-          "2024-07-20T00:00:00Z"
+          "2024-07-24T00:00:00Z"
         ]
       ]
     }

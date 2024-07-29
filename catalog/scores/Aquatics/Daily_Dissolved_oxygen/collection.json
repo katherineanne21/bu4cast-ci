@@ -101,12 +101,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -181,7 +181,7 @@
       "interval": [
         [
           "2017-08-27T00:00:00Z",
-          "2024-07-24T00:00:00Z"
+          "2024-07-25T00:00:00Z"
         ]
       ]
     }

@@ -11,22 +11,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/PEG_RFR.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG_RFR0.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/Fourier.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/NEFIpheno.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",
@@ -36,22 +31,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/DALEC_SIP.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/EFI_U_P.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/PEG_RFR.json"
+      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",
@@ -66,12 +46,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/PEG_RFR0.json"
+      "href": "./models/DALEC_SIP.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/EFI_U_P.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/NEFIpheno.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/UCSC_P_EDM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/Fourier.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
@@ -191,7 +191,7 @@
       "interval": [
         [
           "2020-04-27T00:00:00Z",
-          "2024-07-25T00:00:00Z"
+          "2024-07-26T00:00:00Z"
         ]
       ]
     }

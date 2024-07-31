@@ -11,6 +11,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/AquaticEcosystemsOxygen.json"
     },
     {
@@ -27,11 +32,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -126,17 +126,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/xgboost_parallel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/wbears_gp.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/wbears_rnn.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/xgboost_parallel.json"
     },
     {
       "rel": "parent",
@@ -181,7 +181,7 @@
       "interval": [
         [
           "2017-08-27T00:00:00Z",
-          "2024-07-26T00:00:00Z"
+          "2024-07-28T00:00:00Z"
         ]
       ]
     }

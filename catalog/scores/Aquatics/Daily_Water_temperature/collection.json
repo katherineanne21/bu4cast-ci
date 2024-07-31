@@ -11,11 +11,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GLEON_JRabaey_temp_physics.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/BBTW.json"
     },
     {
@@ -31,7 +26,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/acp_fableLM.json"
+      "href": "./models/GLEON_JRabaey_temp_physics.json"
     },
     {
       "rel": "item",
@@ -41,7 +36,27 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/baseline_ensemble.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/acp_fableLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/GLEON_physics.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",
@@ -56,22 +71,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/GLEON_lm_lag_1day.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -136,12 +136,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/lm_AT_WTL_WS.json"
+      "href": "./models/mkricheldorf_w_lag.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/mkricheldorf_w_lag.json"
+      "href": "./models/lm_AT_WTL_WS.json"
     },
     {
       "rel": "item",
@@ -151,12 +151,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/precip_mod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/precip_mod.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -211,11 +211,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/xgboost_parallel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/wbears_gp.json"
     },
     {
@@ -227,6 +222,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/wtemp_lm_model.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/xgboost_parallel.json"
     },
     {
       "rel": "item",
@@ -276,7 +276,7 @@
       "interval": [
         [
           "2020-09-02T00:00:00Z",
-          "2024-07-26T00:00:00Z"
+          "2024-07-27T00:00:00Z"
         ]
       ]
     }

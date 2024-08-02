@@ -120,9 +120,14 @@
       "description": "datetime that forecast was submitted"
     },
     {
-      "name": "date",
-      "type": "date32[day]",
-      "description": "date of the forecasted value (ISO 8601)"
+      "name": "duration",
+      "type": "string",
+      "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
+    },
+    {
+      "name": "model_id",
+      "type": "string",
+      "description": "unique model identifier"
     },
     {
       "name": "project_id",
@@ -130,19 +135,9 @@
       "description": "unique identifier for the forecast project"
     },
     {
-      "name": "duration",
+      "name": "reference_date",
       "type": "string",
-      "description": "temporal duration of forecast (hourly, daily, etc.); follows ISO 8601 duration convention"
-    },
-    {
-      "name": "variable",
-      "type": "string",
-      "description": "name of forecasted variable"
-    },
-    {
-      "name": "model_id",
-      "type": "string",
-      "description": "unique model identifier"
+      "description": "date that the forecast was initiated"
     }
   ],
   "assets": {

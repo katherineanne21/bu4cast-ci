@@ -16,6 +16,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/DALEC_SIP.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/EFI_U_P.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/CSP_Gwave.json"
     },
     {
@@ -27,11 +37,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/ChlorophyllCrusaders.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/DALEC_SIP.json"
     },
     {
       "rel": "item",
@@ -56,11 +61,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/EFI_U_P.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
@@ -71,12 +71,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/VT_Ph_GDD.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/VT_Ph_GDD.json"
     },
     {
       "rel": "item",
@@ -86,12 +86,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/greenbears.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/greenbears.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",

@@ -11,6 +11,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/air2waterSat_2.json"
     },
     {
@@ -27,11 +32,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/BTW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",

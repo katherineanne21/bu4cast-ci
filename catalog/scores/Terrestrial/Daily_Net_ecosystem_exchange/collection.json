@@ -16,7 +16,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/USUNEEDAILY.json"
+      "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -26,7 +26,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
+      "href": "./models/USUNEEDAILY.json"
     },
     {
       "rel": "item",
@@ -66,12 +66,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_tbats.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",

@@ -23,8 +23,8 @@
     "end_datetime": "2022-06-05T00:00:00Z",
     "providers": [
       {
-        "url": "pending",
-        "name": "pending",
+        "url": "https://projects.ecoforecast.org/neon4cast-ci/",
+        "name": "NEON Ecological Forecasting Project",
         "roles": [
           "producer",
           "processor",

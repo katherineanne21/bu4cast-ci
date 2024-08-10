@@ -11,11 +11,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/GLEON_JRabaey_temp_physics.json"
     },
     {
@@ -31,7 +26,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/air2waterSat_2.json"
+      "href": "./models/GAM_air_wind.json"
     },
     {
       "rel": "item",
@@ -46,12 +41,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/JorritsCrystalBall.json"
+      "href": "./models/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/LSAMP_AWPC.json"
+      "href": "./models/air2waterSat_2.json"
     },
     {
       "rel": "item",
@@ -61,7 +56,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/TSLM_seasonal_JM.json"
+      "href": "./models/JorritsCrystalBall.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/LSAMP_AWPC.json"
     },
     {
       "rel": "item",
@@ -96,27 +96,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/flareGLM_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareSimstrat_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/flare_ler_baselines.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/hotdeck.json"
+      "href": "./models/flareGLM.json"
     },
     {
       "rel": "item",
@@ -126,17 +111,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/mkricheldorf_w_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/mlp1_wtempforecast_LF.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/flare_ler.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/hotdeck.json"
     },
     {
       "rel": "item",
@@ -146,17 +131,32 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/mkricheldorf_w_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flare_ler_baselines.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/precip_mod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/precip_mod.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -211,11 +211,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/xgboost_parallel.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/wbears_gp.json"
     },
     {
@@ -227,6 +222,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/wtemp_lm_model.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/xgboost_parallel.json"
     },
     {
       "rel": "item",

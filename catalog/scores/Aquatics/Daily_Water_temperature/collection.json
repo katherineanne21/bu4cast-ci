@@ -16,11 +16,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/BBTW.json"
     },
     {
@@ -31,12 +26,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GLEON_lm_lag_1day.json"
+      "href": "./models/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/air2waterSat_2.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/GLEON_lm_lag_1day.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/acp_fableLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -56,17 +66,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/acp_fableLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/baseline_ensemble.json"
     },
     {
       "rel": "item",
@@ -101,7 +101,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM_noDA.json"
+      "href": "./models/flare_ler.json"
     },
     {
       "rel": "item",
@@ -111,17 +111,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flare_ler.json"
+      "href": "./models/mlp1_wtempforecast_LF.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flare_ler_baselines.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/flareGOTM_noDA.json"
+      "href": "./models/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -131,12 +126,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/mlp1_wtempforecast_LF.json"
+      "href": "./models/flareGOTM_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/mkricheldorf_w_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flare_ler_baselines.json"
     },
     {
       "rel": "item",
@@ -201,17 +201,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_temp_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/xgboost_parallel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/zimmerman_proj1.json"
     },
     {
       "rel": "item",
@@ -227,11 +232,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/wtemp_lm_model.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/zimmerman_proj1.json"
     },
     {
       "rel": "parent",

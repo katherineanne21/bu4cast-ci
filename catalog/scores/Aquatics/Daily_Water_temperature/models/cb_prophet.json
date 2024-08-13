@@ -48,7 +48,7 @@
   "properties": {
     "title": "cb_prophet",
     "description": "All scores for the Daily_Water_temperature variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: BIGC, BARC, COMO, CRAM, MCDI, POSE, SYCA, OKSR, TOOK, CARI, PRLA, LIRO, PRPO, GUIL, LECO, TECR, ARIK, BLDE, BLWA, CUPE, FLNT, HOPB, KING, LEWI, MART, MAYF, MCRA, PRIN, REDB, SUGG, TOMB, WALK, WLOU, BLUE.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
-    "datetime": "2024-08-11T00:00:00Z",
+    "datetime": "2024-08-12T00:00:00Z",
     "start_datetime": "2021-12-18T00:00:00Z",
     "end_datetime": "2024-03-10T00:00:00Z",
     "providers": [

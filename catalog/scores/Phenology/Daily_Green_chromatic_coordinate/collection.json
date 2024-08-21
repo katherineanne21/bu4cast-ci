@@ -11,6 +11,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/PEG.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/Fourier.json"
     },
     {
@@ -31,26 +36,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/CU_Pheno.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/ChlorophyllCrusaders.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
@@ -66,7 +51,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/VT_Ph_GDD.json"
+      "href": "./models/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/CSP_Gwave.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/CU_Pheno.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
@@ -76,7 +76,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/VT_Ph_GDD.json"
     },
     {
       "rel": "item",

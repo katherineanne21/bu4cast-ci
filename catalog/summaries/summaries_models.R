@@ -100,7 +100,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   }
 
   ## REMOVE STALE OR UNUSED DIRECTORIES
-  current_var_path <- paste0(catalog_config$summaries_path,names(config$variable_groups[i]))
+  current_var_path <- paste0(catalog_config$summaries_path,'/',names(config$variable_groups[i]))
   current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
   unlink(current_var_dirs, recursive = TRUE)
 

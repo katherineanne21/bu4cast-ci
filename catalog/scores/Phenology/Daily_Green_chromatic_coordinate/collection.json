@@ -16,6 +16,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/Fourier.json"
     },
     {
@@ -36,7 +41,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
+      "href": "./models/UCSC_P_EDM.json"
     },
     {
       "rel": "item",
@@ -46,7 +51,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/UCSC_P_EDM.json"
+      "href": "./models/VT_Ph_GDD.json"
     },
     {
       "rel": "item",
@@ -72,11 +77,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/PEG_RFR.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/VT_Ph_GDD.json"
     },
     {
       "rel": "item",

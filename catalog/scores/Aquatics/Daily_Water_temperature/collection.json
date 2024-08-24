@@ -11,16 +11,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BBTW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/BTW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/GAM_air_wind.json"
     },
     {
@@ -31,22 +21,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/TSLM_seasonal_JM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/GLEON_lm_lag_1day.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GLEON_physics.json"
+      "href": "./models/air2waterSat_2.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/air2waterSat_2.json"
+      "href": "./models/BBTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/BTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/GLEON_physics.json"
     },
     {
       "rel": "item",
@@ -57,6 +52,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/LSAMP_AWPC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/TSLM_seasonal_JM.json"
     },
     {
       "rel": "item",
@@ -76,12 +76,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -96,17 +96,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/flareGOTM_noDA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/flareSimstrat_noDA.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/mkricheldorf_w_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/mlp1_wtempforecast_LF.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flareGLM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flareGLM_noDA.json"
     },
     {
       "rel": "item",
@@ -126,22 +141,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM_noDA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/lm_AT_WTL_WS.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/mkricheldorf_w_lag.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/mlp1_wtempforecast_LF.json"
     },
     {
       "rel": "item",
@@ -151,12 +151,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/precip_mod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/precip_mod.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -171,12 +171,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_lasso.json"
+      "href": "./models/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm_all_sites.json"
+      "href": "./models/tg_lasso.json"
     },
     {
       "rel": "item",
@@ -186,12 +186,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/tg_precip_lm_all_sites.json"
     },
     {
       "rel": "item",

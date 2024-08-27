@@ -5,12 +5,11 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
-name: scoring
+name: bundling
 
 jobs:
-  scores:
-    runs-on:  arc-runner-set
-    timeout-minutes: 1440
+  forecasts:
+    runs-on: arc-runner-set
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -25,30 +24,13 @@ jobs:
           print(options("repos"))
           remotes::install_deps(".", dep=TRUE)
 
-      - name: Generate scores
+      - name: Bundle summaries
         shell: Rscript {0}
         run: |
-          source("scoring/new-scoring.R")
+          source("scoring/bundled-summaries.R")
 
-  inventory:
-    needs: scores
-    runs-on:  arc-runner-set
-    timeout-minutes: 1440
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install
+      - name: Bundle forecasts
         shell: Rscript {0}
         run: |
-          print(options("repos"))
-          remotes::install_deps(".", dep=TRUE)
+          source("scoring/bundled-forecasts.R")
 
-      - name: Update inventory
-        shell: Rscript {0}
-        run: |
-          source("scoring/build_score_inventory.R")

@@ -3,6 +3,8 @@ library(duckdbfs)
 library(progress)
 library(bench)
 library(minioclient)
+
+install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 project <- "neon4cast"

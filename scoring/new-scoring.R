@@ -34,7 +34,7 @@ forecasts <-
          datetime > {cut_off_date},
          datetime <= {last_observed_date}
   )
-
+fs::dir_create("scores")
 ## Need all bundles to append anyway, so get them all now.
 bench::bench_time({
   mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",

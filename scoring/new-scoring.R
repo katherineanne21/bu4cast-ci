@@ -6,6 +6,7 @@ library(minioclient)
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+fs::dir_create("new_scores")
 
 project <- "neon4cast"
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)

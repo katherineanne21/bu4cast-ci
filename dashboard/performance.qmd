@@ -45,7 +45,7 @@ reference_datetimes <- arrow::open_dataset(s3_summaries_P1D) |>
 
 ```
 
-```{r}
+```{r echo = FALSE}
 
 s3_summaries_P1W <- arrow::s3_bucket(paste0(config$forecasts_bucket, "/bundled-summaries/project_id=", config$project_id, "/duration=P1W"), endpoint_override = config$endpoint, anonymous = TRUE)
 
@@ -60,10 +60,10 @@ reference_datetimes_P1W <- arrow::open_dataset(s3_summaries_P1W) |>
 
 ```
 
-```{r}
+```{r echo = FALSE}
 
 df_P1D <- arrow::open_dataset(s3_summaries_P1D) |> 
-  select(-project_id, -family, -sd, -duration, -reference_date, -pub_datetime) |> 
+  select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
   left_join(reference_datetimes, by = "variable") |> 
   filter(reference_datetime == reference_datetime_max) |> 
   left_join(sites, by = "site_id") |> 
@@ -75,10 +75,10 @@ df_P1D <- arrow::open_dataset(s3_summaries_P1D) |>
 
 ```
 
-```{r}
+```{r echo = FALSE}
 
 df_P1W <- arrow::open_dataset(s3_summaries_P1W) |> 
-  select(-project_id, -family, -sd, -duration, -reference_date, -pub_datetime) |> 
+  select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
   left_join(reference_datetimes_P1W, by = "variable") |> 
   filter(reference_datetime == reference_datetime_max) |> 
   left_join(sites, by = "site_id") |> 
@@ -89,32 +89,35 @@ df_P1W <- arrow::open_dataset(s3_summaries_P1W) |>
   collect()
 ```
 
-```{r}
+```{r echo = FALSE}
 
 s3_scores_P1D <- arrow::s3_bucket(paste0(config$scores_bucket, "/bundled-parquet/project_id=", config$project_id, "/duration=P1D"), endpoint_override = config$endpoint, anonymous = TRUE)
 
 cutoff <- Sys.Date() - lubridate::days(30)
 df_P1D_scores <- arrow::open_dataset(s3_scores_P1D) |> 
-  select(-project_id, -family, -sd, -duration, -reference_date, -pub_datetime) |> 
+  select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
   left_join(sites, by = "site_id") |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |>
   filter(reference_datetime > cutoff) |> 
   collect() 
+```
 
-
+```{r}
 cutoff <- Sys.Date() - lubridate::days(365)
 
 s3_scores_P1W <- arrow::s3_bucket(paste0(config$scores_bucket, "/bundled-parquet/project_id=", config$project_id, "/duration=P1W"), endpoint_override = config$endpoint, anonymous = TRUE)
 
 df_P1W_scores <- arrow::open_dataset(s3_scores_P1D) |> 
-  select(-project_id, -family, -sd, -duration, -reference_date, -pub_datetime) |> 
+  select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
   left_join(sites, by = "site_id") |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |> 
   filter(reference_datetime > cutoff) |> 
   collect() 
+```
 
+```{r}
 ref <- Sys.Date() - lubridate::days(30)
 
 ref_P1D <- min(c(Sys.Date() - lubridate::days(30), 

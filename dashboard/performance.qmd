@@ -42,6 +42,10 @@ reference_datetimes <- arrow::open_dataset(s3_summaries_P1D) |>
   group_by(variable) |>
   dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(2))))
 
+```
+
+```{r}
+
 s3_summaries_P1W <- arrow::s3_bucket(paste0(config$forecasts_bucket, "/bundled-summaries/project_id=", config$project_id, "/duration=P1W"), endpoint_override = config$endpoint, anonymous = TRUE)
 
 reference_datetimes_P1W <- arrow::open_dataset(s3_summaries_P1W) |> 
@@ -52,7 +56,9 @@ reference_datetimes_P1W <- arrow::open_dataset(s3_summaries_P1W) |>
   group_by(variable) |>
   dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(2))))
 
+```
 
+```{r}
 
 df_P1D <- arrow::open_dataset(s3_summaries_P1D) |> 
   left_join(reference_datetimes, by = "variable") |> 
@@ -63,6 +69,10 @@ df_P1D <- arrow::open_dataset(s3_summaries_P1D) |>
          datetime = lubridate::as_datetime(datetime)) |> 
   filter(lubridate::as_date(datetime) > lubridate::as_date(reference_datetime)) |> 
   collect()
+
+```
+
+```{r}
 
 df_P1W <- arrow::open_dataset(s3_summaries_P1W) |> 
   left_join(reference_datetimes_P1W, by = "variable") |> 

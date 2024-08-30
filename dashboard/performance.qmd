@@ -30,6 +30,7 @@ Only the top-performing models from the last 30 days are shown.
 
 ```{r echo = FALSE}
 ### GET FORECASTS
+config <- yaml::read_yaml("../challenge_configuration.yaml")
 
 s3_summaries_P1D <- arrow::s3_bucket(paste0(config$forecasts_bucket, "/bundled-summaries/project_id=", config$project_id, "/duration=P1D"), endpoint_override = config$endpoint, anonymous = TRUE)
 

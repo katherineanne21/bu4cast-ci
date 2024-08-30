@@ -88,6 +88,7 @@ message(date_range)
 
 
 ## Drop old forecasts so we don't keep rebundling them.  (keep last month for safety?)
+## Instead of remove, we could push to archive
 all_fc_files <- fs::dir_ls("forecasts/parquet/project_id=neon4cast", type="file", recurse = TRUE)
 dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
 drop <- dates < Sys.Date() - lubridate::dmonths(1)
@@ -97,14 +98,12 @@ all_fc_files[drop] |> fs::file_delete()
 
 bench::bench_time({ # 12.1m
   mc_mirror("forecasts/bundled-parquet", "osn/bio230014-bucket01/challenges/forecasts/bundled-parquet",
-            # remove = TRUE,
             overwrite = TRUE)
+## NEED to reactivate purge eventually
 #  mc_mirror("forecasts/parquet",  "osn/bio230014-bucket01/challenges/forecasts/parquet", remove = TRUE)
 })
 
 ## We are done.
-
-# df = duckdbfs::open_dataset("forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=oxygen/")
 
 
 ## online tests

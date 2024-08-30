@@ -30,21 +30,21 @@
       [-105.5442, 40.035],
       [-105.9154, 39.8914],
       [-89.4737, 46.2097],
+      [-89.7048, 45.9983],
+      [-99.1139, 47.1591],
+      [-99.2531, 47.1298],
       [-147.504, 65.1532],
       [-119.2575, 37.0597],
       [-96.6242, 34.4442],
       [-66.9868, 18.1135],
       [-66.7987, 18.1741],
-      [-84.2793, 35.9574],
-      [-89.7048, 45.9983],
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298]
+      [-84.2793, 35.9574]
     ]
   },
   "properties": {
     "title": "hotdeck",
-    "description": "All summaries for the Daily_Water_temperature variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, SUGG, TOMB, BLWA, FLNT, MCRA, KING, SYCA, POSE, PRIN, MAYF, LEWI, LECO, ARIK, HOPB, REDB, TECR, BLDE, COMO, WLOU, CRAM, CARI, BIGC, BLUE, CUPE, GUIL, WALK, LIRO, PRLA, PRPO.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
-    "datetime": "2024-08-29T00:00:00Z",
+    "description": "All summaries for the Daily_Water_temperature variable for the hotdeck model. Information for the model is provided as follows: Uses a hot deck approach: - Take the latest observation/forecast. - Past observations from around the same window of the season are collected. - Values close to the latest observation/forecast are collected. - One of these is randomly sampled. - Its \"tomorrow\" observation is used as the forecast. - Repeat until forecast at step h..\n                                    The model predicts this variable at the following sites: BARC, SUGG, TOMB, BLWA, FLNT, MCRA, KING, SYCA, POSE, PRIN, MAYF, LEWI, LECO, ARIK, HOPB, REDB, TECR, BLDE, COMO, WLOU, CRAM, LIRO, PRLA, PRPO, CARI, BIGC, BLUE, CUPE, GUIL, WALK.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "datetime": "2024-08-30T00:00:00Z",
     "start_datetime": "2024-02-28T00:00:00Z",
     "end_datetime": "2024-09-21T00:00:00Z",
     "providers": [
@@ -96,15 +96,15 @@
       "COMO",
       "WLOU",
       "CRAM",
+      "LIRO",
+      "PRLA",
+      "PRPO",
       "CARI",
       "BIGC",
       "BLUE",
       "CUPE",
       "GUIL",
-      "WALK",
-      "LIRO",
-      "PRLA",
-      "PRPO"
+      "WALK"
     ],
     "table:columns": [
       {

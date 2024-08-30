@@ -96,11 +96,12 @@ s3_scores_P1D <- arrow::s3_bucket(paste0(config$scores_bucket, "/bundled-parquet
 cutoff <- Sys.Date() - lubridate::days(30)
 df_P1D_scores <- arrow::open_dataset(s3_scores_P1D) |> 
   select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
+  filter(reference_datetime > cutoff) |> 
+  collect() |> 
   left_join(sites, by = "site_id") |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
-         datetime = lubridate::as_datetime(datetime)) |>
-  filter(reference_datetime > cutoff) |> 
-  collect() 
+         datetime = lubridate::as_datetime(datetime))
+
 ```
 
 ```{r}
@@ -110,11 +111,11 @@ s3_scores_P1W <- arrow::s3_bucket(paste0(config$scores_bucket, "/bundled-parquet
 
 df_P1W_scores <- arrow::open_dataset(s3_scores_P1D) |> 
   select(-project_id, -family, -sd, -duration, -pub_datetime) |> 
+    filter(reference_datetime > cutoff) |> 
+  collect() |> 
   left_join(sites, by = "site_id") |> 
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
-         datetime = lubridate::as_datetime(datetime)) |> 
-  filter(reference_datetime > cutoff) |> 
-  collect() 
+         datetime = lubridate::as_datetime(datetime))
 ```
 
 ```{r}

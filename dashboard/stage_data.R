@@ -13,6 +13,7 @@ cutoff <- Sys.Date() - lubridate::days(2)
 
 reference_datetimes_P1D <- s3_summaries_P1D |>
   select(reference_datetime, variable) |>
+  filter(reference_datetime < cutoff) |>
   summarize(reference_datetime = max(reference_datetime), .by = "variable")
 
 df_P1D <- s3_summaries_P1D |>
@@ -28,6 +29,7 @@ s3_summaries_P1W <- open_dataset(paste0("s3://", config$forecasts_bucket,"/bundl
 
 reference_datetimes_P1W <- s3_summaries_P1W |>
   select(reference_datetime, variable) |>
+  filter(reference_datetime < cutoff) |>
   summarize(reference_datetime = max(reference_datetime), .by = "variable")
 
 s3_summaries_P1W |>

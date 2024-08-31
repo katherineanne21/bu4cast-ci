@@ -39,7 +39,7 @@ s3_summaries_P1W |>
 
 message("P1D scores")
 
-s3_scores_P1D <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquets/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+s3_scores_P1D <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
 
 cutoff <- Sys.Date() - lubridate::days(30)
 
@@ -55,7 +55,7 @@ message("P1W forecast summaries")
 
 cutoff <- Sys.Date() - lubridate::days(365)
 
-s3_scores_P1W <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquets/project_id=",  config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+s3_scores_P1W <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
 
 s3_scores_P1W |>
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
@@ -67,7 +67,7 @@ s3_scores_P1W |>
 
 message("high level stats")
 
-s3_forecasts_all <- open_dataset(paste0("s3://", config$scores_bucket,"/scores/bundled-forecasts/project_id=",  config$project_id), s3_endpoint = config$endpoint, anonymous = TRUE)
+s3_forecasts_all <- open_dataset(paste0("s3://", config$forecasts_bucket,"/scores/bundled-parquet/project_id=",  config$project_id), s3_endpoint = config$endpoint, anonymous = TRUE)
 
 s3_forecasts_all |>
   select(model_id, reference_date) |>

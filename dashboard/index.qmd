@@ -31,11 +31,10 @@ library(leaflet)
 library(tidyverse)
 config <- yaml::read_yaml("../challenge_configuration.yaml")
 sites <- suppressMessages(sf::st_read("sites.json"))
-s3_all <- arrow::s3_bucket(paste0(config$forecasts_bucket, "/bundled-summaries/project_id=", config$project_id), endpoint_override = config$endpoint, anonymous = TRUE)
 
-forecasts <- arrow::open_dataset(s3_all) 
-n_forecasts <- forecasts |> distinct(model_id, reference_date) |> collect() |> nrow()
-n_models <- forecasts |> distinct(model_id) |> collect() |> nrow()
+forecasts <- arrow::open_dataset("../stats_all.parquet") collect()
+n_forecasts <- forecasts |> nrow()
+n_models <- forecasts |> distinct(model_id) |> nrow()
 
 s3_targets <- arrow::s3_bucket(config$targets_bucket, endpoint_override = config$endpoint, anonymous = TRUE)
 

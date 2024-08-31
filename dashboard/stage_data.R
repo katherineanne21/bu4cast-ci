@@ -70,8 +70,8 @@ message("high level stats")
 s3_forecasts_all <- open_dataset(paste0("s3://", config$forecasts_bucket,"/bundled-parquet/project_id=",  config$project_id), s3_endpoint = config$endpoint, anonymous = TRUE)
 
 s3_forecasts_all |>
-  select(model_id, reference_date) |>
-  distinct(model_id, reference_date) |>
+  select(model_id, reference_datetime) |>
+  distinct(model_id, reference_datetime) |>
   write_dataset("stats_all.parquet")
 
 

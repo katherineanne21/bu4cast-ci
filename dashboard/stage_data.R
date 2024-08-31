@@ -18,7 +18,7 @@ reference_datetimes_P1D <- s3_summaries_P1D |>
 df_P1D <- s3_summaries_P1D |>
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
   filter(datetime > reference_datetime) |>
-  inner_join(reference_datetimes_P1D) |>
+  inner_join(reference_datetimes_P1D, by = join_by(reference_datetime, variable)) |>
   inner_join(sites, by = "site_id") |>
   write_dataset("forecasts_P1D.parquet")
 
@@ -33,16 +33,9 @@ reference_datetimes_P1W <- s3_summaries_P1W |>
 s3_summaries_P1W |>
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
   filter(datetime > reference_datetime) |>
-  inner_join(reference_datetimes_P1W) |>
+  inner_join(reference_datetimes_P1W, by = join_by(reference_datetime, variable)) |>
   inner_join(sites, by = "site_id") |>
   write_dataset("forecasts_P1W.parquet")
-
-reference_datetimes <- arrow::open_dataset(s3_summaries_P1D) |>
-  select(reference_datetime, variable) |>
-  dplyr::summarize(reference_datetime_max = max(reference_datetime), .by = "variable") |>
-  dplyr::collect() |>
-  group_by(variable) |>
-  dplyr::mutate(reference_datetime_max = min(c(reference_datetime_max, Sys.Date() - lubridate::days(2))))
 
 message("P1D scores")
 

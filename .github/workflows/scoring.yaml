@@ -26,7 +26,7 @@ jobs:
           remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
           
       - name: really-install
-        run: install2.r duckdbfs
+        run: install2.r --error duckdbfs
 
       - name: Generate scores
         shell: Rscript {0}

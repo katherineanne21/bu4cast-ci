@@ -30,9 +30,9 @@ jobs:
         with:
           version: 1.4.146
 
-      #- name: pull scores cache
-      #  shell: Rscript {0}
-      #  run: source("dashboard/cache.R")
+      - name: Staging data
+        shell: Rscript {0}
+        run: source("dashboard/stage_data.R")
 
       #- name: Cache scores
       #  id: cache-scores

@@ -23,7 +23,10 @@ jobs:
         shell: Rscript {0}
         run: |
           print(options("repos"))
-          remotes::install_deps(".", dep=TRUE)
+          remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
+          
+      - name: really-install
+        run: install2.r duckdbfs
 
       - name: Generate scores
         shell: Rscript {0}

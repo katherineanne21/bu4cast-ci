@@ -24,10 +24,10 @@ jobs:
           print(options("repos"))
           remotes::install_deps(".", dep=TRUE)
 
-#      - name: Bundle summaries
-#        shell: Rscript {0}
-#        run: |
-#          source("scoring/bundled-summaries.R")
+      - name: Bundle summaries
+        shell: Rscript {0}
+        run: |
+          source("scoring/bundled-summaries.R")
 
       - name: Bundle forecasts
         shell: Rscript {0}

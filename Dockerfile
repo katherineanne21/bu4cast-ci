@@ -53,3 +53,6 @@ RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench contentid yaml
 #RUN R -e "reticulate::install_python(version = '3.9:latest', list = FALSE, force = FALSE)"
 
 COPY cron.sh /etc/services.d/cron/run
+
+COPY DESCRIPTION /tmp/DESCRIPTION
+RUN R -e 'remotes::install_deps("/tmp", dep=TRUE, upgrade=TRUE)'

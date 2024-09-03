@@ -5,6 +5,7 @@ library(bench)
 library(glue)
 library(fs)
 
+install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 

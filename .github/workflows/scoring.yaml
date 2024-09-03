@@ -26,7 +26,8 @@ jobs:
           remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
           
       - name: really-install
-        run: install2.r --error -r https://cran.rstudio.com duckdbfs
+        shell: Rscript {0}
+        run: remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
       - name: Generate scores
         shell: Rscript {0}

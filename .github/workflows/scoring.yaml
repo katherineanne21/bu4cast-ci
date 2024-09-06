@@ -5,7 +5,7 @@ on:
     - cron: '0 1 * * *'
   workflow_dispatch:
 
-name: bundling
+name: scoring
 
 jobs:
   forecasts:
@@ -27,4 +27,7 @@ jobs:
       - name: Bundle summaries
         shell: Rscript {0}
         run: |
-          source("scoring/bundled-summaries.R")
+          online <- duckdbfs::open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+                       s3_endpoint = "sdsc.osn.xsede.org",
+                       anonymous = TRUE)
+          online |> dplyr::count()

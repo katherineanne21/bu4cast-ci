@@ -8,7 +8,7 @@ on:
 name: scoring
 
 jobs:
-  forecasts:
+  scoring:
     runs-on: arc-runner-set
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
           print(options("repos"))
           remotes::install_deps(".", dep=TRUE)
 
-      - name: Bundle summaries
+      - name: scoring
         shell: Rscript {0}
         run: |
           source("scoring/new-scoring.R")

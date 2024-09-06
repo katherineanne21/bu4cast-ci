@@ -2,36 +2,14 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 1 * * *'
   workflow_dispatch:
 
-name: scoring
+name: bundling
 
 jobs:
-  scores:
-    runs-on:  arc-runner-set
-    timeout-minutes: 1440
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
-    steps:
-      - uses: actions/checkout@v4
-
-
-      - name: Generate scores
-        shell: Rscript {0}
-        run: |
-          online <- duckdbfs::open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-                       s3_endpoint = "sdsc.osn.xsede.org",
-                       anonymous = TRUE)
-          online |> dplyr::count()
-
-  inventory:
-    needs: scores
-    runs-on:  arc-runner-set
-    timeout-minutes: 1440
+  forecasts:
+    runs-on: arc-runner-set
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -44,9 +22,9 @@ jobs:
         shell: Rscript {0}
         run: |
           print(options("repos"))
-          remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
+          remotes::install_deps(".", dep=TRUE)
 
-      - name: Update inventory
+      - name: Bundle summaries
         shell: Rscript {0}
         run: |
-#          source("scoring/build_score_inventory.R")
+          source("scoring/bundled-summaries.R")

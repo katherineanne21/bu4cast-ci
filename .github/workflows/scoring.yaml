@@ -23,7 +23,10 @@ jobs:
       - name: Generate scores
         shell: Rscript {0}
         run: |
-          source("scoring/new-scoring.R")
+          online <- duckdbfs::open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+                       s3_endpoint = "sdsc.osn.xsede.org",
+                       anonymous = TRUE)
+          online |> dplyr::count()
 
   inventory:
     needs: scores

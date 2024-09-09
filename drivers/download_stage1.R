@@ -27,7 +27,6 @@ bench::bench_time({ # thelio
   s3 <- gefs_s3_dir("stage1-stats")
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
-  missing_dates <- "2024-09-03"
   gefs_to_parquet(missing_dates,
                   ensemble=c("geavg", "gespr"),
                   path = s3,
@@ -39,6 +38,5 @@ bench::bench_time({ # cirrus ~ 6days for full set
   s3 <- gefs_s3_dir("stage1")
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
-  missing_dates <- "2024-09-03"
   gefs_to_parquet(missing_dates, path = s3, sites = sites)
 })

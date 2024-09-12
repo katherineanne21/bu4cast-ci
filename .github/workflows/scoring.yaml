@@ -21,8 +21,7 @@ jobs:
       - name: Install
         shell: Rscript {0}
         run: |
-          print(options("repos"))
-          remotes::install_deps(".", dep=TRUE)
+          remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
 
       - name: scoring
         shell: Rscript {0}

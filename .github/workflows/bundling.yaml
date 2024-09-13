@@ -23,13 +23,14 @@ jobs:
         run: |
           remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
 
+      - name: Bundle forecasts
+        shell: Rscript {0}
+        run: |
+          source("scoring/bundled-forecasts.R")
+          
       - name: Bundle summaries
         shell: Rscript {0}
         run: |
           source("scoring/bundled-summaries.R")
 
-      - name: Bundle forecasts
-        shell: Rscript {0}
-        run: |
-          source("scoring/bundled-forecasts.R")
 

@@ -9,6 +9,11 @@ library(bench)
 library(glue)
 library(fs)
 
+open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+             s3_endpoint = "sdsc.osn.xsede.org",
+             anonymous = TRUE) |>
+  count()
+
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 

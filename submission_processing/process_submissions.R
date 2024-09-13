@@ -118,6 +118,9 @@ if(length(submissions) > 0){
           }
         }
 
+        fc <- fc |>
+          mutate(duration = ifelse(duration == "PT30", "PT30M", duration))
+
         if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }else if(fc$model_id[1] == "null"){

@@ -39,7 +39,7 @@ fs::dir_create("scores")
 ## Need all bundles to append anyway, so get them all now.
 bench::bench_time({
   mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",
-            "scores/bundled-parquet", overwrite = TRUE)
+            "scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
 })
 scores <-
   # open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/", s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE)
@@ -193,7 +193,7 @@ open_dataset(fs::path("scores/bundled-parquet/")) |>
             first_prediction = min(datetime), last_prediction = max(datetime))
 
 
-mc_mirror("scores/bundled-parquet", "osn/bio230014-bucket01/challenges/scores/bundled-parquet", overwrite = TRUE)
+mc_mirror("scores/bundled-parquet", "osn/bio230014-bucket01/challenges/scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
 
 ## And tidy up
 unlink("scores.parquet")

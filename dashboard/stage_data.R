@@ -1,3 +1,6 @@
+options("duckdbfs_use_nightly"=TRUE) #temporary duckdb issue: https://github.com/duckdb/duckdb-r/issues/600
+
+
 library(dplyr)
 library(duckdbfs)
 

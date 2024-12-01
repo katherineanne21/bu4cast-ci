@@ -38,5 +38,4 @@ Remotes:
     github::cboettig/minioclient,
     github::eco4cast/neon4cast,
     github::eco4cast/stac4cast,
-    github::cboettig/duckdbfs,
-    github::duckdb/duckdb-r
+    github::cboettig/duckdbfs

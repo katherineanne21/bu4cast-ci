@@ -1,3 +1,6 @@
+options("duckdbfs_use_nightly"=TRUE)
+
+
 library(dplyr)
 library(duckdbfs)
 library(progress)

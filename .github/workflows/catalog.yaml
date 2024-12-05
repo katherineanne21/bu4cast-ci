@@ -24,7 +24,7 @@ jobs:
 
       - name: install validator
         run: |
-          pip install stac-validator
+          install python3-stac-validator
 
       - name: Render metadata
         shell: Rscript {0}

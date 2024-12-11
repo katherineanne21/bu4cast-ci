@@ -2,7 +2,7 @@
 # remotes::install_github("cboettig/duckdbfs", upgrade=TRUE)
 #install.packages(c("bench", "minioclient"))
 
-options("duckdbfs_use_nightly"=TRUE)
+options("duckdbfs_use_nightly"=FALSE)
 
 library(dplyr)
 library(duckdbfs)

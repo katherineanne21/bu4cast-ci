@@ -1,4 +1,4 @@
-options("duckdbfs_use_nightly"=TRUE)
+options("duckdbfs_use_nightly"=FALSE)
 
 
 library(dplyr)

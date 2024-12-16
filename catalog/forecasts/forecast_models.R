@@ -39,13 +39,17 @@ print('FIND FORECAST TABLE SCHEMA')
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$forecasts_bucket, endpoint_override = config$endpoint, anonymous = TRUE)) #|>
 
 print('FIND INVENTORY BUCKET')
-forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
-                              endpoint_override = "sdsc.osn.xsede.org",
-                              anonymous=TRUE)
+# forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
+#                               endpoint_override = "sdsc.osn.xsede.org",
+#                               anonymous=TRUE)
+
+forecast_s3 <- arrow::s3_bucket(glue::glue("{config$forecasts_bucket}/bundled-parquet/project_id={config$project_id}"),
+                                endpoint_override = "sdsc.osn.xsede.org",
+                                anonymous=TRUE)
 
 print('OPEN INVENTORY BUCKET')
 forecast_data_df <- arrow::open_dataset(forecast_s3) |>
-  filter(project_id == config$project_id) |>
+  #filter(project_id == config$project_id) |>
   collect()
 
 theme_models <- forecast_data_df |>

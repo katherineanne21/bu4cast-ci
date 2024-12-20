@@ -12,8 +12,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -51,8 +52,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -86,8 +88,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -121,8 +124,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -156,8 +160,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -191,8 +196,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -226,8 +232,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: rocker/geospatial:latest
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 

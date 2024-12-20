@@ -7,7 +7,7 @@ name: catalog
 
 jobs:
   metadata_catalog:
-    runs-on: arc-runner-set
+    runs-on: efi-cirrus
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}

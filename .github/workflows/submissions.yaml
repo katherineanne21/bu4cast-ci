@@ -10,7 +10,7 @@ name: process-submissions
 
 jobs:
   submissions:
-    runs-on: self-hosted #ubuntu-latest
+    runs-on: efi-cirrus
     timeout-minutes: 14400
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

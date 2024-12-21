@@ -18,7 +18,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY_SUBMISSIONS: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    #container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 15120m
     steps:
       - uses: actions/checkout@v4
 

@@ -5,8 +5,10 @@ on:
 jobs:
   Explore-GitHub-Actions:
     # You need to use the INSTALLATION_NAME from the previous step
-    runs-on: arc-runner-set
-    # container: eco4cast/rocker-neon4cast:latest
+    runs-on: efi-cirrus
+    # container: 
+    #  image: eco4cast/rocker-neon4cast:latest
+    #  options: --memory 15g
     steps:
       - run: sudo apt-get update && sudo apt-get -y install iproute2
       - run: ip link

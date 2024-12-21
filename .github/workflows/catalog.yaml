@@ -54,7 +54,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      # options: --memory 15120m
+      options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -90,7 +90,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-#      options: --memory 15120m
+      options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -126,7 +126,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      # options: --memory 15120m
+      options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -162,7 +162,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      # options: --memory 15120m
+      options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -198,7 +198,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      # options: --memory 15120m
+      options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
@@ -269,7 +269,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 35g
     steps:
       - name: Call Healthcheck
         run: |

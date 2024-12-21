@@ -14,7 +14,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: eco4cast/rocker-neon4cast:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 35g
     steps:
       - uses: actions/checkout@v4
 

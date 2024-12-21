@@ -119,7 +119,7 @@ jobs:
   inventory:
     needs: scores
     if: success() || failure()
-    runs-on: arc-runner-set
+    runs-on: efi-cirrus
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}

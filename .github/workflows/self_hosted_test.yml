@@ -4,12 +4,13 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    # You need to use the INSTALLATION_NAME from the previous step
     runs-on: efi-cirrus
-    # container: 
-    #  image: eco4cast/rocker-neon4cast:latest
-    #  options: --memory 15g
+    container: 
+      # IMPORTANT.  Please set a memory limit <= 45 GB.
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 15g
     steps:
+      # Dummy tests
       - run: sudo apt-get update && sudo apt-get -y install iproute2
       - run: ip link
       

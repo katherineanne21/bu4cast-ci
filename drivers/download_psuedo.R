@@ -2,7 +2,7 @@
 library(gdalcubes)
 library(gefs4cast)
 
-gdalcubes::gdalcubes_options(parallel=2*parallel::detectCores())
+gdalcubes::gdalcubes_options(parallel=20)
 #gdalcubes::gdalcubes_options(parallel=TRUE)
 
 sites <-

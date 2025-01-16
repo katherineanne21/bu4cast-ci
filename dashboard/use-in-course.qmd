@@ -1,0 +1,51 @@
+# Using the Challenge in Classes
+
+The NEON Ecological Forecasting Challenge is a powerful resource for teaching. We encourage courses to have students submit to the challenge as projects in traditional courses or training workshops.
+
+If you are interested in using the Challenge in a class or workshop, we welcome you to contact us at eco4cast.initiative\@gmail.com
+
+NEON wrote a blog post about using the Challenge in courses [here](https://www.neonscience.org/impact/observatory-blog/efi-neon-forecasting-challenge-classroom)
+
+Based on the experiences of 10+ courses using the Challenge, we have an evolving set of best practices.
+
+-   Consider data lags: The Phenology, Terrestrial, and Aquatic challenges have data available in near real-time, so students submitting to these Challenges will have multiple opportunities to see how their forecasts perform: Phenology is 1 day, Terrestrial is 5 days, and Aquatics is 2 days. In contrast, the Beetles and Ticks challenges have 60 - 300 day latency, so students may not see their forecasts evaluated in the workshop or semester.
+-   Focus on one site to start: There is no expectation that students submit forecasts for all sites in a theme.  The "What to forecast" page provides a list of focal NEON sites to start forecasts
+-   Start simple: Encourage students to start with simple models (e.g., linear regression).
+-   Don't forget about uncertainty:  the forecasting challenge requires estimates of forecast uncertainty to be submitted.  
+-   Normalize imperfection: Work with students to embrace the fact that all models are wrong, and the key step is to put the forecast out there.  Use the capacity to submit "example forecast" using a model_id with "example" in the name so that students can prototype their forecasts without registering. 
+-   Use available resources: We have created workshop materials that teach all the key steps for generating, submitting, and automating forecasts (https://github.com/eco4cast/NEON-forecast-challenge-workshop).  The materials have been peer-reviewed and published at [Olsson et al. 2024.](https://doi.org/10.21105/jose.00259).
+-   Use the R programming language: The challenge materials rely heavily on the R programming language.  We aim to make the materials available using Python.
+-   Use the forecasted weather data that we provide.  
+-   Point students to documentation on this website
+-   Reach out: Reach out to the Challenge organizers for questions when planning your course or workshop (eco4cast.initiative\@gmail.com)
+
+## Materials for use courses that have used the challenge
+
+Materials for Mike Dietze's Ecological Forecasting courses are at <https://github.com/EcoForecast/EF_Activities>
+
+Materials for Quinn Thomas's Ecological Modeling and Forecasting course are available through an online book: <https://frec-5174.github.io/eco4cast-in-R-book/>
+
+Materials for the Macrosystems EDDIE online ecological forecasting modules are at <https://http://macrosystemseddie.org>
+
+## You can efficiently run a forecasting competition that is internal to your class
+
+Here is an example of code that generates a leaderboard for class submissions.  The example is for water temperature at a single site.
+
+```
+library(tidyverse)
+
+model_ids <- c(<ADD model_id's from class>)
+starting_date <- "2024-04-01"
+focal_site <- "BARC"
+
+scores <- arrow::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature?endpoint_override=sdsc.osn.xsede.org") |>
+  filter(model_id %in% model_ids,
+         reference_datetime > starting_date,
+         site_id == focal_site) |>
+  dplyr::collect()
+
+scores |>
+  summarise(mean_crps = mean(crps, na.rm = TRUE), .by = c("model_id")) |>
+  arrange(mean_crps)
+
+```

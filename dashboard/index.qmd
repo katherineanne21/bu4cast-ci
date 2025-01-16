@@ -115,6 +115,6 @@ eco4cast.initiative@gmail.com
 
 Thomas, R. Q., Boettiger, C., Carey, C. C., Dietze, M. C., Johnson, L. R., Kenney, M. A., et al. (2023). The NEON Ecological Forecasting Challenge. Frontiers in Ecology and the Environment, 21(3), 112–113. [https://doi.org/10.1002/fee.2616](https://doi.org/10.1002/fee.2616)
 <br /> <br /> 
-We thank NEON for providing the freely available data and the EFI community for feedback on the design of the Challenge. This material is based upon work supported by the National Science Foundation under Grant DEB-1926388.
+We thank NEON for providing the freely available data and the EFI community for feedback on the challenge's design. This material is based upon work supported by the National Science Foundation under Grants DEB-1926388 and OAC-2209866.
 <br /> <br /> 
 Page last updated on `r Sys.Date()`

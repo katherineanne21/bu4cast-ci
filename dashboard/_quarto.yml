@@ -21,9 +21,9 @@ website:
       - href: catalog.qmd
         icon: book
       - href: learn-more.qmd
-        icon: people
+        icon: check2-circle
       - href: use-in-course.qmd
-        icon
+        icon: people
   page-footer:
     left: "CC-BY"
     right:

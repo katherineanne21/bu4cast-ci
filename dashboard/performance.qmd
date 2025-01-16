@@ -244,9 +244,9 @@ df_P1W |>
 
 :::
 
-## Forecast analysis
+## Forecast Analysis
 
-Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, scroll to zoom.  Only the top five performing models are shown. Information on how to access the scores can be found in our [catalog](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/collection.json)
+Below are forecasts submitted 30 days ago and include the observations used to evaluate them. Mouse over to see the team id, and scroll to zoom.  Only the top five performing models are shown. Information on how to access the scores can be found in our [catalog](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/scores/collection.json)
 
 ::: panel-tabset
 ### Terrestrial: net ecosystem exchange
@@ -389,7 +389,7 @@ Scores are shown by reference date and forecast horizon (in days).\
 
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` using submissions made since in the last 30 days for the daily or sub-daily variables and the past year for the weekly variables\
 
-Learn about the continuous ranked probability score [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
+Learn about the Continuous Ranked Probability Score [here](https://projects.ecoforecast.org/neon4cast-docs/Evaluation.html)
 
 ::: panel-tabset
 
@@ -404,7 +404,7 @@ leaderboard_plots(df_P1D_scores, "nee")
 ```{r}
 leaderboard_plots(df_P1D_scores, "le")
 ```
-### Phenology: Greeness
+### Phenology: Greenness
 
 ```{r}
 leaderboard_plots(df_P1D_scores, "gcc_90")
@@ -417,19 +417,19 @@ leaderboard_plots(df_P1D_scores, "gcc_90")
 leaderboard_plots(df_P1D_scores, "rcc_90")
 ```
 
-### Aquatics: water temperature
+### Aquatics: Water temperature
 
 ```{r}
 leaderboard_plots(df_P1D_scores, "temperature")
 ```
 
-### Aquatics: dissolved oxygen
+### Aquatics: Dissolved oxygen
 
 ```{r}
 leaderboard_plots(df_P1D_scores, "oxygen")
 ```
 
-### Aquatics: chrophyll-a
+### Aquatics: Chlorophyll-a
 
 ```{r}
 leaderboard_plots(df_P1D_scores, "chla")

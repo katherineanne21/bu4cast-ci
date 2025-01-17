@@ -19,7 +19,7 @@ Based on the experiences of 10+ courses using the Challenge, we have an evolving
 -   Point students to documentation on this website
 -   Reach out: Reach out to the Challenge organizers for questions when planning your course or workshop (eco4cast.initiative\@gmail.com)
 
-## Materials for use courses that have used the challenge
+## Materials from courses that have used the challenge
 
 Materials for Mike Dietze's Ecological Forecasting courses are at <https://github.com/EcoForecast/EF_Activities>
 
@@ -49,3 +49,12 @@ scores |>
   arrange(mean_crps)
 
 ```
+## List of Universities that have used the challenge
+
+- Virginia Tech
+- Boston University
+- University of California Berkeley
+- Indiana University
+- University of Colorado 
+- Utah State University
+- University of Utah

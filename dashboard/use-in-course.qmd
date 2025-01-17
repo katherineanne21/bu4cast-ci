@@ -1,6 +1,6 @@
 # Using the Challenge in Classes
 
-The NEON Ecological Forecasting Challenge is a powerful resource for teaching. We encourage courses to have students submit to the challenge as projects in traditional courses or training workshops.
+The NEON Ecological Forecasting Challenge is a powerful teaching resource. We encourage courses to have students submit to the challenge as projects in traditional courses or training workshops.
 
 If you are interested in using the Challenge in a class or workshop, we welcome you to contact us at eco4cast.initiative\@gmail.com
 
@@ -13,7 +13,7 @@ Based on the experiences of 10+ courses using the Challenge, we have an evolving
 -   Start simple: Encourage students to start with simple models (e.g., linear regression).
 -   Don't forget about uncertainty:  the forecasting challenge requires estimates of forecast uncertainty to be submitted.  
 -   Normalize imperfection: Work with students to embrace the fact that all models are wrong, and the key step is to put the forecast out there.  Use the capacity to submit "example forecast" using a model_id with "example" in the name so that students can prototype their forecasts without registering. 
--   Use available resources: We have created workshop materials that teach all the key steps for generating, submitting, and automating forecasts (https://github.com/eco4cast/NEON-forecast-challenge-workshop).  The materials have been peer-reviewed and published at [Olsson et al. 2024.](https://doi.org/10.21105/jose.00259).
+-   Use available resources: We have created workshop materials that teach all the key steps for generating, submitting, and automating forecasts (https://github.com/eco4cast/NEON-forecast-challenge-workshop).  The materials have been peer-reviewed and published at [Olsson et al. 2024.](https://doi.org/10.21105/jose.00259).  There are parallel workshop materials for the beetle theme that are hosted by [NEON Learning Hub](https://www.neonscience.org/resources/learning-hub/tutorials/neon-beetle-forecasting)
 -   Use the R programming language: The challenge materials rely heavily on the R programming language.  We aim to make the materials available using Python.
 -   Use the forecasted weather data that we provide.  
 -   Point students to documentation on this website
@@ -58,3 +58,5 @@ scores |>
 - University of Colorado 
 - Utah State University
 - University of Utah
+- University of Notre Dame
+

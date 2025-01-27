@@ -129,6 +129,8 @@ registered_model_id <- gsheet_read |>
 for (i in 1:length(config$variable_groups)){ ## organize variable groups
   print(names(config$variable_groups)[i])
 
+  group_var_values <- config$variable_groups[[i]]$variable
+
   # check data and skip if no data found
   var_group_data_check <- forecast_duck_df |>
     filter(variable %in% group_var_values) |>

@@ -7,12 +7,12 @@ name: catalog
 
 jobs:
   metadata_catalog:
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -47,12 +47,12 @@ jobs:
   forecasts:
     needs: metadata_catalog
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -83,12 +83,12 @@ jobs:
   scores:
     needs: forecasts
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -119,12 +119,12 @@ jobs:
   inventory:
     needs: scores
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -155,12 +155,12 @@ jobs:
   summaries:
     needs: inventory
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -191,12 +191,12 @@ jobs:
   noaa:
     needs: summaries
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 15120m
     steps:
@@ -227,12 +227,12 @@ jobs:
   targets_sites:
     needs: noaa
     if: success() || failure()
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       # options: --memory 15120m
     steps:
@@ -269,7 +269,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 35g
     steps:

@@ -165,7 +165,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         summarise(n = n()) |>
         pull(n)
 
-      if (nrow(var_data_check) == 0){
+      if (var_data_check == 0){
         print('No data available for variable')
         next
       }

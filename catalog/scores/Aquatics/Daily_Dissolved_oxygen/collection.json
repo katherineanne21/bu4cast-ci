@@ -11,27 +11,42 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm.json"
+      "href": "./models/MSU_ARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm.json"
+      "href": "./models/NDWaterTempDO.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/xgboost_parallel.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BTW.json"
+      "href": "./models/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/LSAMP_AWPC.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -56,6 +71,31 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/xgboost_parallel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/BTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/GLEON_lm_lag_1day.json"
     },
     {
@@ -71,12 +111,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/AquaticEcosystemsOxygen.json"
+      "href": "./models/BBTW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BBTW.json"
+      "href": "./models/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",
@@ -97,46 +137,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/LSAMP_AWPC.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/MSU_ARIMA.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/NDWaterTempDO.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "parent",
@@ -181,7 +181,7 @@
       "interval": [
         [
           "2017-08-27T00:00:00Z",
-          "2025-01-25T00:00:00Z"
+          "2025-01-26T00:00:00Z"
         ]
       ]
     }

@@ -31,6 +31,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/fARIMA_clim_ensemble.json"
     },
     {
@@ -96,11 +101,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/acp_fableLM.json"
     },
     {
@@ -122,6 +122,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/fTSLM_lag.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/flare_ler.json"
     },
     {
       "rel": "item",
@@ -161,11 +166,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/GAM_air_wind.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/JorritsCrystalBall.json"
     },
     {
@@ -176,22 +176,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flare_ler.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/flare_ler_baselines.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM.json"
+      "href": "./models/GAM_air_wind.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/flareGLM_noDA.json"
+      "href": "./models/flareGLM.json"
     },
     {
       "rel": "item",
@@ -202,6 +197,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/precip_mod.json"
     },
     {
       "rel": "item",
@@ -221,12 +221,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/precip_mod.json"
+      "href": "./models/BBTW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BBTW.json"
+      "href": "./models/flareGLM_noDA.json"
     },
     {
       "rel": "item",

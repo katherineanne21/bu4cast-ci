@@ -11,21 +11,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/procBlanchardMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/procEppleyNorbergMonod.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_precip_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/climatology.json"
     },
     {
@@ -41,7 +26,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/USGSHABs1.json"
     },
     {
       "rel": "item",
@@ -51,7 +36,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/USGSHABs1.json"
+      "href": "./models/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/procEppleyNorbergSteele.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm.json"
     },
     {
       "rel": "item",
@@ -71,11 +71,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_lasso.json"
     },
     {
@@ -86,12 +81,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm.json"
+      "href": "./models/procBlanchardMonod.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/procEppleyNorbergSteele.json"
+      "href": "./models/tg_precip_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/procEppleyNorbergMonod.json"
     },
     {
       "rel": "item",
@@ -111,7 +111,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm_all_sites.json"
+      "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",
@@ -121,7 +121,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_ets.json"
+      "href": "./models/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "parent",

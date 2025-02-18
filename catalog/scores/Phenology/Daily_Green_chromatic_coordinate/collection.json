@@ -16,11 +16,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_temp_lm_all_sites.json"
     },
     {
@@ -31,22 +26,27 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/PEG_RFR.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_lasso.json"
+      "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_tbats.json"
+      "href": "./models/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG_RFR.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_lasso.json"
     },
     {
       "rel": "item",
@@ -66,17 +66,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/Fourier.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/EFI_U_P.json"
+      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",
@@ -86,12 +81,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
@@ -106,22 +106,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/CU_Pheno.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/greenbears.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_ets.json"
+      "href": "./models/EFI_U_P.json"
     },
     {
       "rel": "item",
@@ -136,17 +121,32 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/greenbears.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_ets.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/CU_Pheno.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG_RFR0.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/persistenceRW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_humidity_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/PEG_RFR0.json"
     },
     {
       "rel": "parent",
@@ -191,7 +191,7 @@
       "interval": [
         [
           "2020-04-27T00:00:00Z",
-          "2025-02-14T00:00:00Z"
+          "2025-02-15T00:00:00Z"
         ]
       ]
     }

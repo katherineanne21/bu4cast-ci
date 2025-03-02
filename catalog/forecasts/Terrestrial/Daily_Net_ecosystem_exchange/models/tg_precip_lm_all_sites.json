@@ -9,16 +9,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-155.3173, 19.5531],
-      [-78.0418, 39.0337],
-      [-67.0769, 18.0213],
-      [-119.7323, 37.1088],
-      [-72.1727, 42.5369],
-      [-109.3883, 38.2483],
-      [-76.56, 38.8901],
-      [-81.4362, 28.1251],
-      [-99.2413, 47.1282],
-      [-66.8687, 17.9696],
       [-106.8425, 32.5907],
       [-96.5631, 39.1008],
       [-78.1395, 38.8929],
@@ -55,12 +45,22 @@
       [-149.2133, 63.8758],
       [-156.6194, 71.2824],
       [-84.4686, 31.1948],
-      [-105.546, 40.2759]
+      [-105.546, 40.2759],
+      [-155.3173, 19.5531],
+      [-78.0418, 39.0337],
+      [-67.0769, 18.0213],
+      [-119.7323, 37.1088],
+      [-72.1727, 42.5369],
+      [-109.3883, 38.2483],
+      [-76.56, 38.8901],
+      [-81.4362, 28.1251],
+      [-99.2413, 47.1282],
+      [-66.8687, 17.9696]
     ]
   },
   "properties": {
     "title": "tg_precip_lm_all_sites",
-    "description": "All forecasts for the Daily_Net_ecosystem_exchange variable for the tg_precip_lm_all_sites model. Information for the model is provided as follows: The tg_precip_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation. y. This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together..\n                                    The model predicts this variable at the following sites: PUUM, BLAN, LAJA, SJER, HARV, MOAB, SERC, DSNY, WOOD, GUAN, JORN, KONZ, SCBI, OAES, CLBJ, UKFS, STER, STEI, BONA, DCFS, DEJU, YELL, TEAK, NOGP, ORNL, TREE, LENO, ABBY, NIWO, SOAP, WREF, GRSM, MLBS, UNDE, OSBS, KONA, CPER, DELA, TALL, BART, SRER, TOOL, ONAQ, HEAL, BARR, JERC, RMNP.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_Net_ecosystem_exchange variable for the tg_precip_lm_all_sites model. Information for the model is provided as follows: The tg_precip_lm_all_sites model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation. y. This model was used to forecast water temperature and dissolved oxygen\nconcentration at the seven lake sites, with the model fitted for all sites together..\n                                    The model predicts this variable at the following sites: JORN, KONZ, SCBI, OAES, CLBJ, UKFS, STER, STEI, BONA, DCFS, DEJU, YELL, TEAK, NOGP, ORNL, TREE, LENO, ABBY, NIWO, SOAP, WREF, GRSM, MLBS, UNDE, OSBS, KONA, CPER, DELA, TALL, BART, SRER, TOOL, ONAQ, HEAL, BARR, JERC, RMNP, PUUM, BLAN, LAJA, SJER, HARV, MOAB, SERC, DSNY, WOOD, GUAN.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "datetime": "2024-08-16",
     "updated": "2024-08-29 18:03:09",
     "start_datetime": "2023-11-14T00:00:00Z",
@@ -93,16 +93,6 @@
       "nee",
       "Daily",
       "P1D",
-      "PUUM",
-      "BLAN",
-      "LAJA",
-      "SJER",
-      "HARV",
-      "MOAB",
-      "SERC",
-      "DSNY",
-      "WOOD",
-      "GUAN",
       "JORN",
       "KONZ",
       "SCBI",
@@ -139,7 +129,17 @@
       "HEAL",
       "BARR",
       "JERC",
-      "RMNP"
+      "RMNP",
+      "PUUM",
+      "BLAN",
+      "LAJA",
+      "SJER",
+      "HARV",
+      "MOAB",
+      "SERC",
+      "DSNY",
+      "WOOD",
+      "GUAN"
     ],
     "table:columns": [
       {
@@ -256,7 +256,7 @@
       "type": "application/x-parquet",
       "title": "Database Access for Daily Net_ecosystem_exchange",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_precip_lm_all_sites?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_precip_lm_all_sites?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```# Use code below\n\n\nimport ibis\n\n       con = ibis.duckdbf.connect()\n\n\n       con.raw_sql(f'''\n\n       CREATE OR REPLACE SECRET secret (\n\n       TYPE S3,\n\n       ENDPOINT 'sdsc.osn.xsede.org',\n\n       URL_STYLE 'path'\n\n\n       ''');\n       \n\n\n       path = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_precip_lm_all_sites\"\ncon.read_parquet(path + \"/**\")"
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_precip_lm_all_sites?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\n\n       con = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_precip_lm_all_sites\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

@@ -155,6 +155,7 @@ for (i in seq_along(row_number(groups))) {
   }
 
   new_scores |>
+    distinct() |>
     group_by(project_id, duration, variable, model_id) |>
     write_dataset("new_scores/")
 

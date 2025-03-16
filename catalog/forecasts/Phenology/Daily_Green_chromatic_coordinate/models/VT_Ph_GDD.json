@@ -9,19 +9,19 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-72.1727, 42.5369],
       [-97.57, 33.4012],
       [-78.1395, 38.8929],
       [-89.5864, 45.5089],
       [-95.1921, 39.0404],
-      [-83.5019, 35.689],
-      [-72.1727, 42.5369],
       [-71.2874, 44.0639],
-      [-87.8039, 32.5417]
+      [-87.8039, 32.5417],
+      [-83.5019, 35.689]
     ]
   },
   "properties": {
     "title": "VT_Ph_GDD",
-    "description": "All forecasts for the Daily_Green_chromatic_coordinate variable for the VT_Ph_GDD model. Information for the model is provided as follows: The model was built using a logistic growth process model (Eq. S14) fit in a Bayesian framework to predict spring greenness, where = cumulative growing degree day (GDD) on the 𝑥𝑡 day being predicted. GDD was calculated using Eq. (S15) on each day a forecast was made, where is the maximum air temperature and is the minimum air temperature on 𝑚𝑎𝑥𝑡𝑒𝑚𝑝 𝑚𝑖𝑛𝑡𝑒𝑚𝑝 a given day, and 𝑇 was a constant set at 10°C.\n                                    The model predicts this variable at the following sites: CLBJ, SCBI, STEI, UKFS, GRSM, HARV, BART, DELA.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_Green_chromatic_coordinate variable for the VT_Ph_GDD model. Information for the model is provided as follows: The model was built using a logistic growth process model (Eq. S14) fit in a Bayesian framework to predict spring greenness, where = cumulative growing degree day (GDD) on the 𝑥𝑡 day being predicted. GDD was calculated using Eq. (S15) on each day a forecast was made, where is the maximum air temperature and is the minimum air temperature on 𝑚𝑎𝑥𝑡𝑒𝑚𝑝 𝑚𝑖𝑛𝑡𝑒𝑚𝑝 a given day, and 𝑇 was a constant set at 10°C.\n                                    The model predicts this variable at the following sites: HARV, CLBJ, SCBI, STEI, UKFS, BART, DELA, GRSM.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "datetime": "2021-04-25",
     "updated": null,
     "start_datetime": "2021-04-15T00:00:00Z",
@@ -54,14 +54,14 @@
       "gcc_90",
       "Daily",
       "P1D",
+      "HARV",
       "CLBJ",
       "SCBI",
       "STEI",
       "UKFS",
-      "GRSM",
-      "HARV",
       "BART",
-      "DELA"
+      "DELA",
+      "GRSM"
     ],
     "table:columns": [
       {

@@ -11,6 +11,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_lasso.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_temp_lm.json"
     },
     {
@@ -26,17 +31,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/PEG_RFR.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_lasso.json"
     },
     {
       "rel": "item",
@@ -47,6 +42,11 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_tbats.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG_RFR.json"
     },
     {
       "rel": "item",
@@ -71,17 +71,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/NEFIpheno.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/EFI_U_P.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/NEFIpheno.json"
     },
     {
       "rel": "item",
@@ -101,12 +101,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
+      "href": "./models/UCSC_P_EDM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/UCSC_P_EDM.json"
+      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",

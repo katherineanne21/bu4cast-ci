@@ -32,16 +32,6 @@
       [-88.1612, 31.8539],
       [-83.5019, 35.689],
       [-89.5857, 45.4937],
-      [-67.0769, 18.0213],
-      [-155.3173, 19.5531],
-      [-119.7323, 37.1088],
-      [-72.1727, 42.5369],
-      [-81.4362, 28.1251],
-      [-78.0418, 39.0337],
-      [-66.8687, 17.9696],
-      [-109.3883, 38.2483],
-      [-76.56, 38.8901],
-      [-99.2413, 47.1282],
       [-84.4686, 31.1948],
       [-110.8355, 31.9107],
       [-149.3705, 68.6611],
@@ -55,12 +45,22 @@
       [-81.9934, 29.6893],
       [-104.7456, 40.8155],
       [-87.8039, 32.5417],
-      [-96.6129, 39.1104]
+      [-96.6129, 39.1104],
+      [-67.0769, 18.0213],
+      [-155.3173, 19.5531],
+      [-119.7323, 37.1088],
+      [-72.1727, 42.5369],
+      [-81.4362, 28.1251],
+      [-78.0418, 39.0337],
+      [-66.8687, 17.9696],
+      [-109.3883, 38.2483],
+      [-76.56, 38.8901],
+      [-99.2413, 47.1282]
     ]
   },
   "properties": {
     "title": "tg_temp_lm",
-    "description": "All forecasts for the Daily_Red_chromatic_coordinate variable for the tg_temp_lm model. Information for the model is provided as follows: The tg_temp_lm model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation..\n                                    The model predicts this variable at the following sites: STER, YELL, KONZ, STEI, BONA, CLBJ, UKFS, DEJU, OAES, JORN, DCFS, SCBI, NIWO, SOAP, MLBS, ABBY, TEAK, ORNL, NOGP, WREF, LENO, GRSM, TREE, LAJA, PUUM, SJER, HARV, DSNY, BLAN, GUAN, MOAB, SERC, WOOD, JERC, SRER, TOOL, RMNP, TALL, BART, BARR, UNDE, HEAL, ONAQ, OSBS, CPER, DELA, KONA.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_Red_chromatic_coordinate variable for the tg_temp_lm model. Information for the model is provided as follows: The tg_temp_lm model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation..\n                                    The model predicts this variable at the following sites: STER, YELL, KONZ, STEI, BONA, CLBJ, UKFS, DEJU, OAES, JORN, DCFS, SCBI, NIWO, SOAP, MLBS, ABBY, TEAK, ORNL, NOGP, WREF, LENO, GRSM, TREE, JERC, SRER, TOOL, RMNP, TALL, BART, BARR, UNDE, HEAL, ONAQ, OSBS, CPER, DELA, KONA, LAJA, PUUM, SJER, HARV, DSNY, BLAN, GUAN, MOAB, SERC, WOOD.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "datetime": "2024-02-03",
     "updated": "2024-07-03 07:59:23",
     "start_datetime": "2023-01-01T00:00:00Z",
@@ -116,16 +116,6 @@
       "LENO",
       "GRSM",
       "TREE",
-      "LAJA",
-      "PUUM",
-      "SJER",
-      "HARV",
-      "DSNY",
-      "BLAN",
-      "GUAN",
-      "MOAB",
-      "SERC",
-      "WOOD",
       "JERC",
       "SRER",
       "TOOL",
@@ -139,7 +129,17 @@
       "OSBS",
       "CPER",
       "DELA",
-      "KONA"
+      "KONA",
+      "LAJA",
+      "PUUM",
+      "SJER",
+      "HARV",
+      "DSNY",
+      "BLAN",
+      "GUAN",
+      "MOAB",
+      "SERC",
+      "WOOD"
     ],
     "table:columns": [
       {
@@ -255,8 +255,8 @@
     "3": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm\"\ncon.read_parquet(path + \"/**\")"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_temp_lm\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

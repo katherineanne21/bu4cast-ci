@@ -40,7 +40,7 @@ s3_current_month <- arrow::s3_bucket("bio230014-bucket01/flux_staging/current_mo
 
 existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets-test.csv.gz"))
 
-start_date <- as_date(max(targets_daily$datetime) - months(3))
+start_date <- as_date(max(existing_targets_daily$datetime) - months(3))
 
 # Terrestrial
 
@@ -187,8 +187,6 @@ flux_target_daily <- flux_target_30m %>%
 #  geom_point() +
 #  facet_grid(variable~site_id, scale = "free")
 
-
-readRenviron("~/.Renviron") # compatible with littler
 # Write 30 minute data
 
 #flux_target_30m <- flux_target_30m |>

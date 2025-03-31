@@ -5,8 +5,6 @@ print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
 
 Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore_temp")
 
-readRenviron("~/.Renviron") # compatible with littler
-
 non_store_dir <- "/home/rstudio/data/neon_flux_data"
 use_5day_data <- TRUE
 

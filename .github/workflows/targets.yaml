@@ -83,7 +83,7 @@ jobs:
           source("targets/ticks_targets.R")
 
   Healthcheck:
-    needs: [phenology, beetles, ticks]
+    needs: [phenology, beetles, ticks, terrestrial]
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

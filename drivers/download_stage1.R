@@ -10,10 +10,10 @@ sites <-
     readr::read_csv(paste0("https://github.com/eco4cast/",
                            "neon4cast-noaa-download/",
                            "raw/master/noaa_download_site_list.csv"),
-                    col_select = c("site_id", "latitude", "longitude")),
-    readr::read_csv(paste0("https://github.com/eco4cast/neon4cast-targets/",
-                           "raw/main/tern_field_site_metadata.csv"),
-                    col_select = c("site_id", "latitude", "longitude"))
+                    col_select = c("site_id", "latitude", "longitude"))#,
+    #readr::read_csv(paste0("https://github.com/eco4cast/neon4cast-targets/",
+    #                       "raw/main/tern_field_site_metadata.csv"),
+    #                col_select = c("site_id", "latitude", "longitude"))
   )
 
 

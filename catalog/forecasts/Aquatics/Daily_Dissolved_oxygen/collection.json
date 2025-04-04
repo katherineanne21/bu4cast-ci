@@ -11,12 +11,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/LSAMP_AWPC.json"
+      "href": "./models/NDWaterTempDO.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/hotdeck.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/LSAMP_AWPC.json"
     },
     {
       "rel": "item",
@@ -31,27 +41,22 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/NDWaterTempDO.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/hotdeck.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/MSU_ARIMA.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
+      "href": "./models/climatology.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/BTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_humidity_lm.json"
     },
     {
       "rel": "item",
@@ -96,12 +101,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BTW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_humidity_lm.json"
+      "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
@@ -111,12 +111,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/AquaticEcosystemsOxygen.json"
+      "href": "./models/BBTW.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_ets.json"
+      "href": "./models/wbears_gp.json"
     },
     {
       "rel": "item",
@@ -131,12 +131,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/wbears_gp.json"
+      "href": "./models/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BBTW.json"
+      "href": "./models/tg_ets.json"
     },
     {
       "rel": "parent",

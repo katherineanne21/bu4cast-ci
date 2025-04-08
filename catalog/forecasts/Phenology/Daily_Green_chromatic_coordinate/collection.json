@@ -11,16 +11,6 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/PEG_RFR.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/cb_prophet.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_humidity_lm.json"
     },
     {
@@ -51,32 +41,17 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/cb_prophet.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG_RFR.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/EFI_U_P.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/climatology.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_arima.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_precip_lm_all_sites.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/PEG.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
@@ -86,12 +61,32 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm.json"
+      "href": "./models/tg_precip_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_randfor.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/PEG.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_arima.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",
@@ -101,17 +96,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/UCSC_P_EDM.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/Fourier.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_ets.json"
+      "href": "./models/UCSC_P_EDM.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -121,12 +116,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/ChlorophyllCrusaders.json"
+      "href": "./models/VT_Ph_GDD.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/VT_Ph_GDD.json"
+      "href": "./models/greenbears.json"
     },
     {
       "rel": "item",
@@ -141,12 +136,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/greenbears.json"
+      "href": "./models/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/PEG_RFR0.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_ets.json"
     },
     {
       "rel": "parent",
@@ -191,7 +191,7 @@
       "interval": [
         [
           "2020-04-27T00:00:00Z",
-          "2025-04-04T00:00:00Z"
+          "2025-04-05T00:00:00Z"
         ]
       ]
     }

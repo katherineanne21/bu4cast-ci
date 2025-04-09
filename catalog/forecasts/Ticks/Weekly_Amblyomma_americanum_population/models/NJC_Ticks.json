@@ -171,6 +171,12 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "KONZ, SCBI, UKFS, ORNL, SERC, TALL",
+      "description": "Sites where the model predicts this variable"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Weekly Amblyomma_americanum_population",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1W/variable=amblyomma_americanum/model_id=NJC_Ticks?endpoint_override=sdsc.osn.xsede.org",

@@ -253,6 +253,12 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "NIWO, MLBS, TEAK, ABBY, SOAP, WREF, GRSM, LENO, TREE, NOGP, ORNL, STEI, DEJU, UKFS, SCBI, YELL, DCFS, KONZ, OAES, STER, BONA, JORN, CLBJ, SERC, SJER, HARV, GUAN, BLAN, LAJA, PUUM, DSNY, WOOD, MOAB, JERC, OSBS, TALL, BARR, CPER, TOOL, RMNP, HEAL, KONA, BART, SRER, UNDE, ONAQ, DELA",
+      "description": "Sites where the model predicts this variable"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily latent_heat_flux",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=le/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org",

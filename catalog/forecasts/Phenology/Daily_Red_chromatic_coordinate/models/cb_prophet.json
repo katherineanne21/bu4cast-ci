@@ -253,6 +253,12 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "DEJU, YELL, JORN, SCBI, STER, BONA, UKFS, CLBJ, OAES, KONZ, STEI, DCFS, WOOD, MOAB, DSNY, HARV, SERC, GUAN, PUUM, LAJA, SJER, BLAN, GRSM, LENO, SOAP, ABBY, NOGP, TREE, ORNL, MLBS, WREF, NIWO, TEAK, SRER, RMNP, TOOL, KONA, TALL, HEAL, CPER, UNDE, ONAQ, BARR, DELA, OSBS, BART, JERC",
+      "description": "Sites where the model predicts this variable"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",

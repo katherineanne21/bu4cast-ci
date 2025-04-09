@@ -227,6 +227,12 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "CUPE, MCRA, BLWA, MAYF, HOPB, FLNT, KING, POSE, CRAM, LECO, BLDE, BLUE, WALK, BIGC, SYCA, ARIK, COMO, BARC, PRIN, MCDI, LEWI, CARI, SUGG, TOOK, OKSR, GUIL, PRLA, REDB, TECR, TOMB, PRPO, MART, LIRO, WLOU",
+      "description": "Sites where the model predicts this variable"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
       "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=GLEON_JRabaey_temp_physics?endpoint_override=sdsc.osn.xsede.org",

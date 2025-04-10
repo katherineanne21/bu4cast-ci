@@ -177,8 +177,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "HARV, GRSM, CLBJ, SCBI, STEI, UKFS, BART, DELA",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "HARV, GRSM, CLBJ, SCBI, STEI, UKFS, BART, DELA"
     },
     "4": {
       "type": "application/x-parquet",

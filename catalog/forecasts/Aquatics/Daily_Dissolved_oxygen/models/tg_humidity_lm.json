@@ -229,8 +229,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "CUPE, KING, MCRA, BLWA, FLNT, MAYF, HOPB, POSE, COMO, GUIL, PRIN, CARI, SUGG, ARIK, OKSR, BARC, TOOK, LEWI, MCDI, PRLA, TOMB, REDB, PRPO, MART, TECR, LIRO, WLOU, SYCA, LECO, WALK, BLUE, BLDE, CRAM, BIGC",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "CUPE, KING, MCRA, BLWA, FLNT, MAYF, HOPB, POSE, COMO, GUIL, PRIN, CARI, SUGG, ARIK, OKSR, BARC, TOOK, LEWI, MCDI, PRLA, TOMB, REDB, PRPO, MART, TECR, LIRO, WLOU, SYCA, LECO, WALK, BLUE, BLDE, CRAM, BIGC"
     },
     "4": {
       "type": "application/x-parquet",

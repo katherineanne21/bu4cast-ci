@@ -255,8 +255,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "WREF, ORNL, ABBY, GRSM, LENO, MLBS, NIWO, NOGP, SOAP, TEAK, TREE, CLBJ, KONZ, BONA, DCFS, DEJU, JORN, YELL, OAES, SCBI, STEI, STER, UKFS, SJER, BLAN, DSNY, GUAN, HARV, WOOD, LAJA, MOAB, PUUM, SERC, BART, OSBS, SRER, TALL, UNDE, BARR, CPER, DELA, HEAL, JERC, KONA, ONAQ, RMNP, TOOL",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "WREF, ORNL, ABBY, GRSM, LENO, MLBS, NIWO, NOGP, SOAP, TEAK, TREE, CLBJ, KONZ, BONA, DCFS, DEJU, JORN, YELL, OAES, SCBI, STEI, STER, UKFS, SJER, BLAN, DSNY, GUAN, HARV, WOOD, LAJA, MOAB, PUUM, SERC, BART, OSBS, SRER, TALL, UNDE, BARR, CPER, DELA, HEAL, JERC, KONA, ONAQ, RMNP, TOOL"
     },
     "4": {
       "type": "application/x-parquet",

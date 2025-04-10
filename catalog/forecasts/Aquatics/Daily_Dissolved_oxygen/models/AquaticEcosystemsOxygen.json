@@ -167,8 +167,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "ARIK, BARC, WLOU",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "ARIK, BARC, WLOU"
     },
     "4": {
       "type": "application/x-parquet",

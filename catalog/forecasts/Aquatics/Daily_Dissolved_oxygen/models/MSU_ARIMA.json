@@ -163,8 +163,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "POSE",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "POSE"
     },
     "4": {
       "type": "application/x-parquet",

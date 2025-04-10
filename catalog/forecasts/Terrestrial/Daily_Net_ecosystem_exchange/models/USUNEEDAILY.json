@@ -163,8 +163,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "PUUM",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "PUUM"
     },
     "4": {
       "type": "application/x-parquet",

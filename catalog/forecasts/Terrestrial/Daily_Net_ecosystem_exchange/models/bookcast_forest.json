@@ -165,8 +165,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "OSBS, TALL",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "OSBS, TALL"
     },
     "4": {
       "type": "application/x-parquet",

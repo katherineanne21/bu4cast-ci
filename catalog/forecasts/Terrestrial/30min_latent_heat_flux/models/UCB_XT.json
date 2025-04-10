@@ -169,8 +169,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "KONZ, OSBS, SRER, BART",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "KONZ, OSBS, SRER, BART"
     },
     "4": {
       "type": "application/x-parquet",

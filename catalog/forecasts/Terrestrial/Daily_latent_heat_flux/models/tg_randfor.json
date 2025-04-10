@@ -32,6 +32,16 @@
       [-99.0588, 35.4106],
       [-106.8425, 32.5907],
       [-78.1395, 38.8929],
+      [-78.0418, 39.0337],
+      [-67.0769, 18.0213],
+      [-119.7323, 37.1088],
+      [-81.4362, 28.1251],
+      [-76.56, 38.8901],
+      [-155.3173, 19.5531],
+      [-72.1727, 42.5369],
+      [-66.8687, 17.9696],
+      [-99.2413, 47.1282],
+      [-109.3883, 38.2483],
       [-84.4686, 31.1948],
       [-110.8355, 31.9107],
       [-71.2874, 44.0639],
@@ -45,22 +55,12 @@
       [-87.3933, 32.9505],
       [-89.5373, 46.2339],
       [-149.3705, 68.6611],
-      [-96.6129, 39.1104],
-      [-78.0418, 39.0337],
-      [-67.0769, 18.0213],
-      [-119.7323, 37.1088],
-      [-81.4362, 28.1251],
-      [-76.56, 38.8901],
-      [-155.3173, 19.5531],
-      [-72.1727, 42.5369],
-      [-66.8687, 17.9696],
-      [-99.2413, 47.1282],
-      [-109.3883, 38.2483]
+      [-96.6129, 39.1104]
     ]
   },
   "properties": {
     "title": "tg_randfor",
-    "description": "All forecasts for the Daily_latent_heat_flux variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: SOAP, NOGP, WREF, TEAK, LENO, MLBS, TREE, NIWO, ABBY, ORNL, GRSM, STEI, UKFS, CLBJ, DEJU, BONA, KONZ, DCFS, STER, YELL, OAES, JORN, SCBI, JERC, SRER, BART, DELA, OSBS, RMNP, HEAL, ONAQ, BARR, CPER, TALL, UNDE, TOOL, KONA, BLAN, LAJA, SJER, DSNY, SERC, PUUM, HARV, GUAN, WOOD, MOAB.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_latent_heat_flux variable for the tg_randfor model. Information for the model is provided as follows: Random Forest is a machine learning model that is fitted with the ranger() function in the ranger\nR package (Wright & Ziegler 2017) within the tidymodels framework (Kuhn & Wickham 2020). The\nmodel drivers are unlagged air temperature, air pressure, relative humidity, surface downwelling\nlongwave and shortwave radiation, precipitation, and northward and eastward wind.\n                                    The model predicts this variable at the following sites: SOAP, NOGP, WREF, TEAK, LENO, MLBS, TREE, NIWO, ABBY, ORNL, GRSM, STEI, UKFS, CLBJ, DEJU, BONA, KONZ, DCFS, STER, YELL, OAES, JORN, SCBI, BLAN, LAJA, SJER, DSNY, SERC, PUUM, HARV, GUAN, WOOD, MOAB, JERC, SRER, BART, DELA, OSBS, RMNP, HEAL, ONAQ, BARR, CPER, TALL, UNDE, TOOL, KONA.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "datetime": "2024-08-16",
     "updated": "2024-08-29 18:03:27",
     "start_datetime": "2023-11-14T00:00:00Z",
@@ -116,6 +116,16 @@
       "OAES",
       "JORN",
       "SCBI",
+      "BLAN",
+      "LAJA",
+      "SJER",
+      "DSNY",
+      "SERC",
+      "PUUM",
+      "HARV",
+      "GUAN",
+      "WOOD",
+      "MOAB",
       "JERC",
       "SRER",
       "BART",
@@ -129,17 +139,7 @@
       "TALL",
       "UNDE",
       "TOOL",
-      "KONA",
-      "BLAN",
-      "LAJA",
-      "SJER",
-      "DSNY",
-      "SERC",
-      "PUUM",
-      "HARV",
-      "GUAN",
-      "WOOD",
-      "MOAB"
+      "KONA"
     ],
     "table:columns": [
       {
@@ -255,8 +255,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "SOAP, NOGP, WREF, TEAK, LENO, MLBS, TREE, NIWO, ABBY, ORNL, GRSM, STEI, UKFS, CLBJ, DEJU, BONA, KONZ, DCFS, STER, YELL, OAES, JORN, SCBI, JERC, SRER, BART, DELA, OSBS, RMNP, HEAL, ONAQ, BARR, CPER, TALL, UNDE, TOOL, KONA, BLAN, LAJA, SJER, DSNY, SERC, PUUM, HARV, GUAN, WOOD, MOAB",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "SOAP, NOGP, WREF, TEAK, LENO, MLBS, TREE, NIWO, ABBY, ORNL, GRSM, STEI, UKFS, CLBJ, DEJU, BONA, KONZ, DCFS, STER, YELL, OAES, JORN, SCBI, BLAN, LAJA, SJER, DSNY, SERC, PUUM, HARV, GUAN, WOOD, MOAB, JERC, SRER, BART, DELA, OSBS, RMNP, HEAL, ONAQ, BARR, CPER, TALL, UNDE, TOOL, KONA"
     },
     "4": {
       "type": "application/x-parquet",

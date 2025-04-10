@@ -175,8 +175,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "CRAM, BARC, SUGG, TOOK, LIRO, PRLA, PRPO",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "CRAM, BARC, SUGG, TOOK, LIRO, PRLA, PRPO"
     },
     "4": {
       "type": "application/x-parquet",

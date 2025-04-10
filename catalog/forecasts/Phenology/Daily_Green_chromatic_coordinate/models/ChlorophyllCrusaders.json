@@ -165,8 +165,8 @@
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
-      "href": "HEAL, HARV",
-      "description": "Sites where the model predicts this variable"
+      "href": {},
+      "description": "HEAL, HARV"
     },
     "4": {
       "type": "application/x-parquet",

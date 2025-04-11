@@ -9,25 +9,25 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-82.0177, 29.6878],
+      [-82.0084, 29.676],
+      [-149.6106, 68.6307],
       [-89.7048, 45.9983],
       [-99.1139, 47.1591],
       [-99.2531, 47.1298],
-      [-89.4737, 46.2097],
-      [-82.0177, 29.6878],
-      [-82.0084, 29.676],
-      [-149.6106, 68.6307]
+      [-89.4737, 46.2097]
     ]
   },
   "properties": {
     "title": "procBlanchardMonod",
-    "description": "All scores for the Daily_Chlorophyll_a variable for the procBlanchardMonod model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: LIRO, PRLA, PRPO, CRAM, SUGG, BARC, TOOK.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "description": "All scores for the Daily_Chlorophyll_a variable for the procBlanchardMonod model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: SUGG, BARC, TOOK, LIRO, PRLA, PRPO, CRAM.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
     "datetime": "2024-02-05",
     "updated": "2024-02-07 05:07:01",
     "start_datetime": "2023-01-01T00:00:00Z",
     "end_datetime": "2024-03-06T00:00:00Z",
     "providers": [
       {
-        "url": null,
+        "url": "https://github.com/melofton/NEON-process-models/blob/main/Models/procBlanchardMonod.R",
         "name": "Abigail Lewis",
         "roles": [
           "producer",
@@ -53,13 +53,13 @@
       "chla",
       "Daily",
       "P1D",
+      "SUGG",
+      "BARC",
+      "TOOK",
       "LIRO",
       "PRLA",
       "PRPO",
-      "CRAM",
-      "SUGG",
-      "BARC",
-      "TOOK"
+      "CRAM"
     ],
     "table:columns": [
       {
@@ -182,7 +182,7 @@
     },
     {
       "rel": "item",
-      "href": null,
+      "href": "https://github.com/melofton/NEON-process-models/blob/main/Models/procBlanchardMonod.R",
       "type": "text/html",
       "title": "Link for Model Code"
     },
@@ -209,14 +209,14 @@
     "2": {
       "type": "text/html",
       "title": "Link for Model Code",
-      "href": null,
+      "href": "https://github.com/melofton/NEON-process-models/blob/main/Models/procBlanchardMonod.R",
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
       "type": "text/plain",
       "title": "Model Sites",
       "href": {},
-      "description": "LIRO, PRLA, PRPO, CRAM, SUGG, BARC, TOOK"
+      "description": "SUGG, BARC, TOOK, LIRO, PRLA, PRPO, CRAM"
     },
     "4": {
       "type": "application/x-parquet",

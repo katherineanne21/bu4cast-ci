@@ -56,6 +56,16 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm_all_sites.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/xgboost_parallel.json"
     },
     {
@@ -82,16 +92,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_tbats.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_temp_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "parent",
@@ -136,7 +136,7 @@
       "interval": [
         [
           "2021-01-01T00:00:00Z",
-          "2025-04-12T00:00:00Z"
+          "2025-04-14T00:00:00Z"
         ]
       ]
     }

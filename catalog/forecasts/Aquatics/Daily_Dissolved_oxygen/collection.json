@@ -11,17 +11,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm.json"
+      "href": "./models/cb_prophet.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/BTW.json"
+      "href": "./models/tg_lasso.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_temp_lm_all_sites.json"
+      "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -36,12 +36,22 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/BTW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_humidity_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
       "href": "./models/tg_temp_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_temp_lm_all_sites.json"
     },
     {
       "rel": "item",
@@ -56,17 +66,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/cb_prophet.json"
+      "href": "./models/LSAMP_AWPC.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_tbats.json"
+      "href": "./models/tg_arima.json"
     },
     {
       "rel": "item",
@@ -101,12 +106,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/LSAMP_AWPC.json"
+      "href": "./models/tg_precip_lm.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_arima.json"
+      "href": "./models/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",
@@ -122,11 +127,6 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/wbears_gp.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/AquaticEcosystemsOxygen.json"
     },
     {
       "rel": "item",
@@ -181,7 +181,7 @@
       "interval": [
         [
           "2017-08-27T00:00:00Z",
-          "2025-04-12T00:00:00Z"
+          "2025-04-14T00:00:00Z"
         ]
       ]
     }

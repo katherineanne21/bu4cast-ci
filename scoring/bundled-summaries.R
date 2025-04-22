@@ -1,4 +1,3 @@
-options("duckdbfs_use_nightly"=FALSE)
 
 
 library(dplyr)
@@ -14,6 +13,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 
 fs::dir_create("forecasts/")
 fs::dir_create("forecasts/bundled-summaries")
+fs::dir_create("new-forecasts/bundled-summaries")
 
 # Sync to local, fastest way to access all the bytes.
 bench::bench_time({ # 17.5 min from scratch, 114 GB
@@ -28,13 +28,16 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
 grouping <- c("model_id", "reference_datetime", "site_id",
               "datetime", "family", "variable", "duration", "project_id")
 
+
 bench::bench_time({
   bundled_summaries <- open_dataset("./forecasts/bundled-summaries/project_id=neon4cast")
   new_summaries <- open_dataset("./forecasts/summaries/project_id=neon4cast/")
   union(bundled_summaries, new_summaries) |>
+    filter(!is.na(model_id)) |>  ## model_id CANNOT BE NA!
     group_by(across(any_of(grouping))) |>
     slice_max(pub_datetime) |>
-      write_dataset("forecasts/bundled-summaries/project_id=neon4cast",
+    distinct() |>
+      write_dataset("new-forecasts/bundled-summaries/project_id=neon4cast",
                     partitioning = c("duration", 'variable', "model_id"))
 
 })
@@ -42,16 +45,21 @@ bench::bench_time({
 
 
 # check that we have no corruption
-n_bundled <- open_dataset(fs::path("forecasts", "bundled-summaries/")) |> count() |> collect()
-n_groups <- open_dataset(fs::path("forecasts", "bundled-summaries/")) |>
+n_bundled <- open_dataset(fs::path("new-forecasts", "bundled-summaries/")) |> count() |> collect()
+n_groups <- open_dataset(fs::path("new-forecasts", "bundled-summaries/")) |>
   distinct(duration, variable, model_id) |> count() |> collect()
 
 
 # PURGE all but last 2 months from un-bundled
 all_fc_files <- fs::dir_ls("forecasts/summaries/project_id=neon4cast", type="file", recurse = TRUE)
-dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> as.Date()
-drop <- dates < Sys.Date() - lubridate::dmonths(2)
+dates <- all_fc_files |> stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})/", 1)  |> lubridate::as_date()
+drop <- dates < (Sys.Date() - lubridate::dmonths(2))
 all_fc_files[drop] |> fs::file_delete()
+
+
+fs::dir_delete("forecasts/bundled-summaries/")
+fs::dir_copy("new-forecasts/bundled-summaries/", "forecasts/bundled-summaries/", overwrite =TRUE)
+
 
 
 ## upload new bundles, overwriting old ones.

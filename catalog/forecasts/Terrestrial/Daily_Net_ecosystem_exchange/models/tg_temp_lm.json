@@ -21,17 +21,6 @@
       [-96.5631, 39.1008],
       [-110.5391, 44.9535],
       [-103.0293, 40.4619],
-      [-83.5019, 35.689],
-      [-100.9154, 46.7697],
-      [-119.2622, 37.0334],
-      [-89.5857, 45.4937],
-      [-80.5248, 37.3783],
-      [-84.2826, 35.9641],
-      [-122.3303, 45.7624],
-      [-121.9519, 45.8205],
-      [-88.1612, 31.8539],
-      [-119.006, 37.0058],
-      [-105.5824, 40.0543],
       [-81.4362, 28.1251],
       [-67.0769, 18.0213],
       [-155.3173, 19.5531],
@@ -55,12 +44,23 @@
       [-87.3933, 32.9505],
       [-87.8039, 32.5417],
       [-105.546, 40.2759],
-      [-89.5373, 46.2339]
+      [-89.5373, 46.2339],
+      [-83.5019, 35.689],
+      [-100.9154, 46.7697],
+      [-119.2622, 37.0334],
+      [-89.5857, 45.4937],
+      [-80.5248, 37.3783],
+      [-84.2826, 35.9641],
+      [-122.3303, 45.7624],
+      [-121.9519, 45.8205],
+      [-88.1612, 31.8539],
+      [-119.006, 37.0058],
+      [-105.5824, 40.0543]
     ]
   },
   "properties": {
     "title": "tg_temp_lm",
-    "description": "All forecasts for the Daily_Net_ecosystem_exchange variable for the tg_temp_lm model. Information for the model is provided as follows: The tg_temp_lm model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation..\n                                    The model predicts this variable at the following sites: CLBJ, OAES, SCBI, STEI, DEJU, JORN, DCFS, UKFS, BONA, KONZ, YELL, STER, GRSM, NOGP, SOAP, TREE, MLBS, ORNL, ABBY, WREF, LENO, TEAK, NIWO, DSNY, LAJA, PUUM, HARV, MOAB, WOOD, BLAN, SERC, SJER, GUAN, OSBS, TOOL, HEAL, JERC, ONAQ, BARR, KONA, SRER, CPER, BART, TALL, DELA, RMNP, UNDE.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "description": "All forecasts for the Daily_Net_ecosystem_exchange variable for the tg_temp_lm model. Information for the model is provided as follows: The tg_temp_lm model is a linear model fit using the function lm() in R. This is a very\nsimple model with only one covariate: total precipitation..\n                                    The model predicts this variable at the following sites: CLBJ, OAES, SCBI, STEI, DEJU, JORN, DCFS, UKFS, BONA, KONZ, YELL, STER, DSNY, LAJA, PUUM, HARV, MOAB, WOOD, BLAN, SERC, SJER, GUAN, OSBS, TOOL, HEAL, JERC, ONAQ, BARR, KONA, SRER, CPER, BART, TALL, DELA, RMNP, UNDE, GRSM, NOGP, SOAP, TREE, MLBS, ORNL, ABBY, WREF, LENO, TEAK, NIWO.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
     "datetime": "2024-02-03",
     "updated": "2024-07-04 03:27:34",
     "start_datetime": "2023-11-14T00:00:00Z",
@@ -105,17 +105,6 @@
       "KONZ",
       "YELL",
       "STER",
-      "GRSM",
-      "NOGP",
-      "SOAP",
-      "TREE",
-      "MLBS",
-      "ORNL",
-      "ABBY",
-      "WREF",
-      "LENO",
-      "TEAK",
-      "NIWO",
       "DSNY",
       "LAJA",
       "PUUM",
@@ -139,7 +128,18 @@
       "TALL",
       "DELA",
       "RMNP",
-      "UNDE"
+      "UNDE",
+      "GRSM",
+      "NOGP",
+      "SOAP",
+      "TREE",
+      "MLBS",
+      "ORNL",
+      "ABBY",
+      "WREF",
+      "LENO",
+      "TEAK",
+      "NIWO"
     ],
     "table:columns": [
       {
@@ -253,10 +253,16 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv",
+      "description": "CLBJ, OAES, SCBI, STEI, DEJU, JORN, DCFS, UKFS, BONA, KONZ, YELL, STER, DSNY, LAJA, PUUM, HARV, MOAB, WOOD, BLAN, SERC, SJER, GUAN, OSBS, TOOL, HEAL, JERC, ONAQ, BARR, KONA, SRER, CPER, BART, TALL, DELA, RMNP, UNDE, GRSM, NOGP, SOAP, TREE, MLBS, ORNL, ABBY, WREF, LENO, TEAK, NIWO"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Net_ecosystem_exchange",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet//project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm\"\ncon.read_parquet(path + \"/**\")"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=nee/model_id=tg_temp_lm\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

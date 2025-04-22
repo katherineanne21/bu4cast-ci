@@ -1,4 +1,4 @@
-# Using the Challenge in Classes
+# Using the Challenge in Classes {#sec-in-class}
 
 The NEON Ecological Forecasting Challenge is a powerful teaching resource. We encourage courses to have students submit to the challenge as projects in traditional courses or training workshops.
 

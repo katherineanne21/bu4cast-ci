@@ -9,16 +9,6 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-72.1727, 42.5369],
-      [-155.3173, 19.5531],
-      [-119.7323, 37.1088],
-      [-109.3883, 38.2483],
-      [-66.8687, 17.9696],
-      [-99.2413, 47.1282],
-      [-78.0418, 39.0337],
-      [-67.0769, 18.0213],
-      [-81.4362, 28.1251],
-      [-76.56, 38.8901],
       [-122.3303, 45.7624],
       [-105.5824, 40.0543],
       [-121.9519, 45.8205],
@@ -30,6 +20,16 @@
       [-89.5857, 45.4937],
       [-100.9154, 46.7697],
       [-119.2622, 37.0334],
+      [-72.1727, 42.5369],
+      [-155.3173, 19.5531],
+      [-119.7323, 37.1088],
+      [-109.3883, 38.2483],
+      [-66.8687, 17.9696],
+      [-99.2413, 47.1282],
+      [-78.0418, 39.0337],
+      [-67.0769, 18.0213],
+      [-81.4362, 28.1251],
+      [-76.56, 38.8901],
       [-106.8425, 32.5907],
       [-103.0293, 40.4619],
       [-97.57, 33.4012],
@@ -60,7 +60,7 @@
   },
   "properties": {
     "title": "tg_humidity_lm",
-    "description": "All scores for the Daily_Red_chromatic_coordinate variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: HARV, PUUM, SJER, MOAB, GUAN, WOOD, BLAN, LAJA, DSNY, SERC, ABBY, NIWO, WREF, MLBS, GRSM, LENO, TEAK, ORNL, TREE, NOGP, SOAP, JORN, STER, CLBJ, DCFS, STEI, SCBI, BONA, OAES, KONZ, DEJU, YELL, UKFS, BARR, KONA, UNDE, HEAL, RMNP, SRER, OSBS, TOOL, TALL, BART, DELA, JERC, ONAQ, CPER.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "description": "All scores for the Daily_Red_chromatic_coordinate variable for the tg_humidity_lm model. Information for the model is provided as follows: The tg_humidity_lm model is a linear model fit using the function lm() in R. This is a very simple\nmodel with only one covariate: relative humidity.\n                                    The model predicts this variable at the following sites: ABBY, NIWO, WREF, MLBS, GRSM, LENO, TEAK, ORNL, TREE, NOGP, SOAP, HARV, PUUM, SJER, MOAB, GUAN, WOOD, BLAN, LAJA, DSNY, SERC, JORN, STER, CLBJ, DCFS, STEI, SCBI, BONA, OAES, KONZ, DEJU, YELL, UKFS, BARR, KONA, UNDE, HEAL, RMNP, SRER, OSBS, TOOL, TALL, BART, DELA, JERC, ONAQ, CPER.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
     "datetime": "2024-02-03",
     "updated": "2024-07-03 07:55:38",
     "start_datetime": "2023-01-01T00:00:00Z",
@@ -68,7 +68,7 @@
     "providers": [
       {
         "url": "https://github.com/eco4cast/Forecast_submissions/blob/main/Generate_forecasts",
-        "name": "Gregory Harrison",
+        "name": "Abigail Lewis",
         "roles": [
           "producer",
           "processor",
@@ -93,16 +93,6 @@
       "rcc_90",
       "Daily",
       "P1D",
-      "HARV",
-      "PUUM",
-      "SJER",
-      "MOAB",
-      "GUAN",
-      "WOOD",
-      "BLAN",
-      "LAJA",
-      "DSNY",
-      "SERC",
       "ABBY",
       "NIWO",
       "WREF",
@@ -114,6 +104,16 @@
       "TREE",
       "NOGP",
       "SOAP",
+      "HARV",
+      "PUUM",
+      "SJER",
+      "MOAB",
+      "GUAN",
+      "WOOD",
+      "BLAN",
+      "LAJA",
+      "DSNY",
+      "SERC",
       "JORN",
       "STER",
       "CLBJ",
@@ -293,10 +293,16 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv",
+      "description": "ABBY, NIWO, WREF, MLBS, GRSM, LENO, TEAK, ORNL, TREE, NOGP, SOAP, HARV, PUUM, SJER, MOAB, GUAN, WOOD, BLAN, LAJA, DSNY, SERC, JORN, STER, CLBJ, DCFS, STEI, SCBI, BONA, OAES, KONZ, DEJU, YELL, UKFS, BARR, KONA, UNDE, HEAL, RMNP, SRER, OSBS, TOOL, TALL, BART, DELA, JERC, ONAQ, CPER"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Red_chromatic_coordinate",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm\"\ncon.read_parquet(path + \"/**\")"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=rcc_90/model_id=tg_humidity_lm\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

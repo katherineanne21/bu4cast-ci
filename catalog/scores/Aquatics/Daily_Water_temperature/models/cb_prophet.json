@@ -9,6 +9,14 @@
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
+      [-72.3295, 42.4719],
+      [-96.6038, 39.1051],
+      [-87.4077, 32.9604],
+      [-78.1473, 38.8943],
+      [-87.7982, 32.5415],
+      [-66.9868, 18.1135],
+      [-84.4374, 31.1854],
+      [-122.1655, 44.2596],
       [-83.5038, 35.6904],
       [-111.5081, 33.751],
       [-89.4737, 46.2097],
@@ -27,14 +35,6 @@
       [-149.143, 68.6698],
       [-102.4471, 39.7582],
       [-149.6106, 68.6307],
-      [-72.3295, 42.4719],
-      [-96.6038, 39.1051],
-      [-87.4077, 32.9604],
-      [-78.1473, 38.8943],
-      [-87.7982, 32.5415],
-      [-66.9868, 18.1135],
-      [-84.4374, 31.1854],
-      [-122.1655, 44.2596],
       [-121.9338, 45.7908],
       [-99.2531, 47.1298],
       [-89.7048, 45.9983],
@@ -47,7 +47,7 @@
   },
   "properties": {
     "title": "cb_prophet",
-    "description": "All scores for the Daily_Water_temperature variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: LECO, SYCA, CRAM, WALK, BLDE, BIGC, BLUE, LEWI, MCDI, SUGG, CARI, GUIL, PRIN, COMO, BARC, OKSR, ARIK, TOOK, HOPB, KING, MAYF, POSE, BLWA, CUPE, FLNT, MCRA, MART, PRPO, LIRO, REDB, PRLA, WLOU, TOMB, TECR.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
+    "description": "All scores for the Daily_Water_temperature variable for the cb_prophet model. Information for the model is provided as follows: The Prophet model is an empirical model, specifically a non-linear regression model that includes\nseasonality effects (Taylor & Letham, 2018). The model relies on Bayesian estimation with an additive\nwhite noise error term.\n                                    The model predicts this variable at the following sites: HOPB, KING, MAYF, POSE, BLWA, CUPE, FLNT, MCRA, LECO, SYCA, CRAM, WALK, BLDE, BIGC, BLUE, LEWI, MCDI, SUGG, CARI, GUIL, PRIN, COMO, BARC, OKSR, ARIK, TOOK, MART, PRPO, LIRO, REDB, PRLA, WLOU, TOMB, TECR.\n                                    Scores are metrics that describe how well forecasts compare to observations. The scores catalog includes are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations)",
     "datetime": "2024-02-06",
     "updated": "2024-02-07 05:13:58",
     "start_datetime": "2021-12-18T00:00:00Z",
@@ -55,7 +55,7 @@
     "providers": [
       {
         "url": "https://github.com/cboettig/forecasts-darts-framework",
-        "name": "Freya Olsson",
+        "name": "Carl Boettiger",
         "roles": [
           "producer",
           "processor",
@@ -80,6 +80,14 @@
       "temperature",
       "Daily",
       "P1D",
+      "HOPB",
+      "KING",
+      "MAYF",
+      "POSE",
+      "BLWA",
+      "CUPE",
+      "FLNT",
+      "MCRA",
       "LECO",
       "SYCA",
       "CRAM",
@@ -98,14 +106,6 @@
       "OKSR",
       "ARIK",
       "TOOK",
-      "HOPB",
-      "KING",
-      "MAYF",
-      "POSE",
-      "BLWA",
-      "CUPE",
-      "FLNT",
-      "MCRA",
       "MART",
       "PRPO",
       "LIRO",
@@ -267,10 +267,16 @@
       "description": "The link to the model code provided by the model submission team"
     },
     "3": {
+      "type": "text/plain",
+      "title": "Model Sites",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv",
+      "description": "HOPB, KING, MAYF, POSE, BLWA, CUPE, FLNT, MCRA, LECO, SYCA, CRAM, WALK, BLDE, BIGC, BLUE, LEWI, MCDI, SUGG, CARI, GUIL, PRIN, COMO, BARC, OKSR, ARIK, TOOK, MART, PRPO, LIRO, REDB, PRLA, WLOU, TOMB, TECR"
+    },
+    "4": {
       "type": "application/x-parquet",
       "title": "Database Access for Daily Water_temperature",
-      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/scores/bundled-parquet//project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet\"\ncon.read_parquet(path + \"/**\")"
+      "href": "s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3://bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=cb_prophet\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

@@ -37,6 +37,10 @@ bench::bench_time({
     group_by(across(any_of(grouping))) |>
     slice_max(pub_datetime) |>
     distinct() |>
+    write_dataset("tmp.parquet")
+
+# Ensures partitions are written as a single shard
+  open_dataset("tmp.parquet") |>
       write_dataset("new-forecasts/bundled-summaries/project_id=neon4cast",
                     partitioning = c("duration", 'variable', "model_id"))
 

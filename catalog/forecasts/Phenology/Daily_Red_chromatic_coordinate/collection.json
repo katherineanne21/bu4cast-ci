@@ -11,7 +11,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/climatology.json"
+      "href": "./models/PEG.json"
     },
     {
       "rel": "item",
@@ -26,12 +26,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/PEG.json"
+      "href": "./models/tg_randfor.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_randfor.json"
+      "href": "./models/climatology.json"
     },
     {
       "rel": "item",
@@ -136,7 +136,7 @@
       "interval": [
         [
           "2021-01-01T00:00:00Z",
-          "2025-04-18T00:00:00Z"
+          "2025-04-20T00:00:00Z"
         ]
       ]
     }

@@ -1,3 +1,7 @@
+
+.tmp
+*.swp
+
 # History files
 .Rhistory
 .Rapp.history

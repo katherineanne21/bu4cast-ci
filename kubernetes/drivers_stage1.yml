@@ -1,0 +1,55 @@
+# gefs-osn-cronjob.yaml
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gefs-osn-cronjob
+  namespace: eco4cast
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: gefs-osn-container
+            image: eco4cast/rocker-neon4cast:latest
+            resources:
+              limits:
+                memory: 6Gi
+                cpu: "1"
+              requests:
+                memory: 6Gi
+                cpu: "1"
+            env:
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: github-secrets
+                  key: GITHUB_PAT
+            - name: OSN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: osn-secrets
+                  key: OSN_KEY
+            - name: OSN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: osn-secrets
+                  key: OSN_SECRET
+            command:
+            - /bin/bash
+            - -c
+            - |
+              mkdir -p /app
+              git clone https://$GITHUB_PAT@github.com/eco4cast/neon4cast-ci.git /app
+              cd /app
+              R -e "install.packages('remotes')"
+              R -e "install.packages('devtools')"
+              R -e "remotes::install_github('eco4cast/gefs4cast')"
+              Rscript -e "source('drivers/download_stage1.R')"
+              Rscript -e "source('drivers/generate_stage2.R')"
+              
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1

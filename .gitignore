@@ -63,4 +63,12 @@ archive/
 *.gz
 *.csv
 *.parquet
-new-scoring.log
+*.log
+
+.tmp
+
+*secret*
+
+
+
+

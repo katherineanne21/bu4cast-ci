@@ -28,7 +28,6 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
 grouping <- c("model_id", "reference_datetime", "site_id",
               "datetime", "family", "variable", "duration", "project_id")
 
-fs::file_delete("tmp.parquet")
 bench::bench_time({
   bundled_summaries <- open_dataset("./forecasts/bundled-summaries/project_id=neon4cast")
   new_summaries <- open_dataset("./forecasts/summaries/project_id=neon4cast/")

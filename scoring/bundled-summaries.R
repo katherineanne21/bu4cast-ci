@@ -28,19 +28,19 @@ bench::bench_time({ # 17.5 min from scratch, 114 GB
 grouping <- c("model_id", "reference_datetime", "site_id",
               "datetime", "family", "variable", "duration", "project_id")
 
-
+fs::file_delete("tmp.parquet")
 bench::bench_time({
   bundled_summaries <- open_dataset("./forecasts/bundled-summaries/project_id=neon4cast")
   new_summaries <- open_dataset("./forecasts/summaries/project_id=neon4cast/")
   union(bundled_summaries, new_summaries) |>
     filter(!is.na(model_id)) |>  ## model_id CANNOT BE NA!
-    group_by(across(any_of(grouping))) |>
-    slice_max(pub_datetime) |>
-    distinct() |>
     write_dataset("tmp.parquet")
 
 # Ensures partitions are written as a single shard
   open_dataset("tmp.parquet") |>
+      group_by(across(any_of(grouping))) |>
+      slice_max(pub_datetime) |>
+      distinct() |>
       write_dataset("new-forecasts/bundled-summaries/project_id=neon4cast",
                     partitioning = c("duration", 'variable', "model_id"))
 

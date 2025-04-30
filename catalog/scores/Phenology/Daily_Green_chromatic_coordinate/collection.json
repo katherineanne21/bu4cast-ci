@@ -16,17 +16,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_lasso.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -42,6 +32,16 @@
       "rel": "item",
       "type": "application/json",
       "href": "./models/xgboost_parallel.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_humidity_lm.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_tbats.json"
     },
     {
       "rel": "item",
@@ -66,6 +66,11 @@
     {
       "rel": "item",
       "type": "application/json",
+      "href": "./models/NEFIpheno.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
       "href": "./models/tg_precip_lm_all_sites.json"
     },
     {
@@ -81,7 +86,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/NEFIpheno.json"
+      "href": "./models/CSP_Gwave.json"
     },
     {
       "rel": "item",
@@ -91,12 +96,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_precip_lm.json"
+      "href": "./models/UCSC_P_EDM.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CSP_Gwave.json"
+      "href": "./models/tg_precip_lm.json"
     },
     {
       "rel": "item",
@@ -106,7 +111,7 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/UCSC_P_EDM.json"
+      "href": "./models/CU_Pheno.json"
     },
     {
       "rel": "item",
@@ -116,27 +121,17 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/greenbears.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
-      "href": "./models/persistenceRW.json"
-    },
-    {
-      "rel": "item",
-      "type": "application/json",
       "href": "./models/tg_ets.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/tg_humidity_lm_all_sites.json"
+      "href": "./models/greenbears.json"
     },
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/CU_Pheno.json"
+      "href": "./models/ChlorophyllCrusaders.json"
     },
     {
       "rel": "item",
@@ -146,7 +141,12 @@
     {
       "rel": "item",
       "type": "application/json",
-      "href": "./models/ChlorophyllCrusaders.json"
+      "href": "./models/persistenceRW.json"
+    },
+    {
+      "rel": "item",
+      "type": "application/json",
+      "href": "./models/tg_humidity_lm_all_sites.json"
     },
     {
       "rel": "parent",
@@ -191,7 +191,7 @@
       "interval": [
         [
           "2020-04-27T00:00:00Z",
-          "2025-04-26T00:00:00Z"
+          "2025-04-27T00:00:00Z"
         ]
       ]
     }

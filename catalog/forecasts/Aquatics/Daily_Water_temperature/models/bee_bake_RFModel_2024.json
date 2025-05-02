@@ -13,18 +13,18 @@
       [-89.7048, 45.9983],
       [-99.2531, 47.1298],
       [-99.1139, 47.1591],
-      [-82.0084, 29.676],
       [-82.0177, 29.6878],
+      [-82.0084, 29.676],
       [-149.6106, 68.6307]
     ]
   },
   "properties": {
     "title": "bee_bake_RFModel_2024",
-    "description": "All forecasts for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: CRAM, LIRO, PRPO, PRLA, BARC, SUGG, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
-    "datetime": "2025-04-25",
-    "updated": "2025-04-25 14:03:37",
+    "description": "All forecasts for the Daily_Water_temperature variable for the bee_bake_RFModel_2024 model. Information for the model is provided as follows: Random Forest.\n                                    The model predicts this variable at the following sites: CRAM, LIRO, PRPO, PRLA, SUGG, BARC, TOOK.\n                                    Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the forecast summaries or scores to analyze forecasts (unless you need the individual ensemble members)",
+    "datetime": "2025-04-28",
+    "updated": "2025-04-28 14:03:43",
     "start_datetime": "2024-02-29T00:00:00Z",
-    "end_datetime": "2025-04-26T00:00:00Z",
+    "end_datetime": "2025-04-29T00:00:00Z",
     "providers": [
       {
         "url": null,
@@ -57,8 +57,8 @@
       "LIRO",
       "PRPO",
       "PRLA",
-      "BARC",
       "SUGG",
+      "BARC",
       "TOOK"
     ],
     "table:columns": [
@@ -176,7 +176,7 @@
       "type": "text/plain",
       "title": "Model Sites",
       "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv",
-      "description": "CRAM, LIRO, PRPO, PRLA, BARC, SUGG, TOOK"
+      "description": "CRAM, LIRO, PRPO, PRLA, SUGG, BARC, TOOK"
     },
     "4": {
       "type": "application/x-parquet",

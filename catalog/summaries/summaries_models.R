@@ -231,7 +231,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                        dashboard_string = catalog_config$dashboard_url,
                                        dashboard_title = catalog_config$dashboard_title,
                                        theme_title = var_formal_name,
-                                       destination_path = file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name),
+                                       destination_path = file.path('.',catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name),
                                        aws_download_path = catalog_config$aws_download_path_summaries,
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models),
                                        thumbnail_link = config$variable_groups[[i]]$thumbnail_link,

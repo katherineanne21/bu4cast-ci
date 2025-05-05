@@ -419,11 +419,18 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
   } ## end variable loop
 
+  group_date_range <- arrow::open_dataset(arrow::s3_bucket(paste0(config$scores_bucket,'/bundled-parquet'), endpoint_override = config$endpoint, anonymous = TRUE)) |>
+    filter(variable %in% names(config$variable_groups[[i]]$group_vars)) |> ## filter by group varibles
+    summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
+    collect()
+  group_min_date <- group_date_range$datetime_min
+  group_max_date <- group_date_range$datetime_max
+
   ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
   stac4cast::build_group_variables(table_schema = forecast_theme_df,
                                    table_description = forecast_description_create,
-                                   start_date = forecast_min_date,
-                                   end_date = forecast_max_date,
+                                   start_date = group_min_date,
+                                   end_date = group_max_date,
                                    id_value = names(config$variable_groups)[i],
                                    description_string = group_description,
                                    about_string = catalog_config$about_string,

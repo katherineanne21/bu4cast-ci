@@ -170,8 +170,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         next
       }
 
-      if (!dir.exists(file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name))){
-        dir.create(file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name))
+      if (!dir.exists(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))){
+        dir.create(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))
       }
 
       # var_data <- forecast_data_df |>

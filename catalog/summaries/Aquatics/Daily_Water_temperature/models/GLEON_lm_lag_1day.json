@@ -4,23 +4,23 @@
     "https://stac-extensions.github.io/table/v1.2.0/schema.json"
   ],
   "type": "Feature",
-  "id": "GLEON_lm_lag_1day_oxygen_P1D_summaries",
+  "id": "GLEON_lm_lag_1day_temperature_P1D_summaries",
   "bbox": [-149.6106, 29.676, -82.0084, 68.6307],
   "geometry": {
     "type": "MultiPoint",
     "coordinates": [
-      [-99.1139, 47.1591],
-      [-99.2531, 47.1298],
-      [-149.6106, 68.6307],
-      [-89.7048, 45.9983],
       [-82.0084, 29.676],
       [-89.4737, 46.2097],
+      [-99.2531, 47.1298],
+      [-99.1139, 47.1591],
+      [-149.6106, 68.6307],
+      [-89.7048, 45.9983],
       [-82.0177, 29.6878]
     ]
   },
   "properties": {
     "title": "GLEON_lm_lag_1day",
-    "description": "All summaries for the Daily_Dissolved_oxygen variable for the GLEON_lm_lag_1day model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: PRLA, PRPO, TOOK, LIRO, BARC, CRAM, SUGG.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
+    "description": "All summaries for the Daily_Water_temperature variable for the GLEON_lm_lag_1day model. Information for the model is provided as follows: NA.\n                                    The model predicts this variable at the following sites: BARC, CRAM, PRPO, PRLA, TOOK, LIRO, SUGG.\n                                    Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)",
     "datetime": "2023-12-29",
     "updated": "2024-01-01",
     "start_datetime": "2023-11-14T00:00:00Z",
@@ -49,16 +49,16 @@
       "neon4cast",
       "Aquatics",
       "GLEON_lm_lag_1day",
-      "Dissolved_oxygen",
-      "oxygen",
+      "Water_temperature",
+      "temperature",
       "Daily",
       "P1D",
-      "PRLA",
-      "PRPO",
-      "TOOK",
-      "LIRO",
       "BARC",
       "CRAM",
+      "PRPO",
+      "PRLA",
+      "TOOK",
+      "LIRO",
       "SUGG"
     ],
     "table:columns": [
@@ -178,13 +178,13 @@
     },
     {
       "rel": "item",
-      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/GLEON_lm_lag_1day.json",
+      "href": "https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GLEON_lm_lag_1day.json",
       "type": "text/html",
       "title": "Link for rendered STAC item"
     },
     {
       "rel": "item",
-      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Dissolved_oxygen/models/GLEON_lm_lag_1day.json",
+      "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/Aquatics/Daily_Water_temperature/models/GLEON_lm_lag_1day.json",
       "type": "text/html",
       "title": "Link for raw JSON file"
     }
@@ -206,13 +206,13 @@
       "type": "text/plain",
       "title": "Model Sites",
       "href": "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv",
-      "description": "PRLA, PRPO, TOOK, LIRO, BARC, CRAM, SUGG"
+      "description": "BARC, CRAM, PRPO, PRLA, TOOK, LIRO, SUGG"
     },
     "4": {
       "type": "application/x-parquet",
-      "title": "Database Access for Daily Dissolved_oxygen",
-      "href": "s3://anonymous@/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=GLEON_lm_lag_1day?endpoint_override=sdsc.osn.xsede.org",
-      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=oxygen/model_id=GLEON_lm_lag_1day?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3:///project_id=neon4cast/duration=P1D/variable=oxygen/model_id=GLEON_lm_lag_1day\"\ncon.read_parquet(path + \"/**\")"
+      "title": "Database Access for Daily Water_temperature",
+      "href": "s3://anonymous@/project_id=neon4cast/duration=P1D/variable=temperature/model_id=GLEON_lm_lag_1day?endpoint_override=sdsc.osn.xsede.org",
+      "description": "Use `R` or `Python` code for remote access to the database. This code will return results for this variable and model combination.\n\n### R\n\n```{r}\n# Use code below\n\nall_results <- arrow::open_dataset(\"s3://anonymous@/project_id=neon4cast/duration=P1D/variable=temperature/model_id=GLEON_lm_lag_1day?endpoint_override=sdsc.osn.xsede.org\")\ndf <- all_results |> dplyr::collect()\n\n```\n       \n\nYou can use dplyr operations before calling `dplyr::collect()` to `summarise`, `select` columns, and/or `filter` rows prior to pulling the data into a local `data.frame`. Reducing the data that is pulled locally will speed up the data download speed and reduce your memory usage.\n\n\n### Python\n\n```{python}# Use code below\nimport ibis\ncon = ibis.duckdbf.connect()\ncon.raw_sql(f'''\nCREATE OR REPLACE SECRET secret (\nTYPE S3,\nENDPOINT 'sdsc.osn.xsede.org',\nURL_STYLE 'path'\n\n''');\npath = \"s3:///project_id=neon4cast/duration=P1D/variable=temperature/model_id=GLEON_lm_lag_1day\"\ncon.read_parquet(path + \"/**\")"
     }
   }
 }

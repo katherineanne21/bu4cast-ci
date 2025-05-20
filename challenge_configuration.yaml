@@ -28,15 +28,15 @@ challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 github_repo: eco4cast/neon4cast-ci
 target_groups:
   Aquatics:
-    targets_file: "https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
   Terrestrial:
-    targets_file: "https://data.ecoforecast.org/neon4cast-targets/terrestrial/terrestrial-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
   Beetles:
-    targets_file: "https://data.ecoforecast.org/neon4cast-targets/beetles/beetles-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
   Phenology:
-    targets_file: "https://data.ecoforecast.org/neon4cast-targets/phenology/phenology-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
   Ticks:
-    targets_file: "https://data.ecoforecast.org/neon4cast-targets/ticks/ticks-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
 noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
 noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
 variable_groups:

@@ -34,7 +34,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 45g
     steps:
       - uses: actions/checkout@v3
 

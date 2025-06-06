@@ -102,12 +102,12 @@ targets <- effort %>%
 targets <- targets |>
   rename(datetime = time)
 
-s3 <- arrow::s3_bucket("neon4cast-targets/beetles",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(targets, sink = s3$path("beetles-targets.csv.gz"))
+#s3 <- arrow::s3_bucket("neon4cast-targets/beetles",
+#                       endpoint_override = "data.ecoforecast.org",
+#                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
+#                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
+#
+#arrow::write_csv_arrow(targets, sink = s3$path("beetles-targets.csv.gz"))
 
 targets2 <- targets |>
   mutate(datetime = lubridate::as_datetime(datetime),

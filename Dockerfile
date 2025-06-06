@@ -22,7 +22,7 @@ RUN sudo update-ca-certificates
 
 RUN apt-get -y install python3 python3-pip
 
-RUN install2.r devtools remotes reticulate
+RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid
 
 RUN R -e "remotes::install_github('cboettig/minioclient')"
 RUN sleep 180

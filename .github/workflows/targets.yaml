@@ -43,7 +43,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages(c("neonstore","RCurl", "neonUtilities", "contentid"))
+          #install.packages(c("neonstore","RCurl", "neonUtilities", "contentid"))
           source("targets/terrestrial_targets.R")
 
   beetles:

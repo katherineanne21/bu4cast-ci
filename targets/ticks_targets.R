@@ -127,12 +127,12 @@ ggplot(tick_targets, aes(x = time, y = observation, color = variable)) +
 tick_targets <- tick_targets |>
   rename(datetime = time)
 
-s3 <- arrow::s3_bucket("neon4cast-targets/ticks",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(tick_targets, sink = s3$path("ticks-targets.csv.gz"))
+#s3 <- arrow::s3_bucket("neon4cast-targets/ticks",
+#                       endpoint_override = "data.ecoforecast.org",
+#                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
+#                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
+#
+#arrow::write_csv_arrow(tick_targets, sink = s3$path("ticks-targets.csv.gz"))
 
 tick_targets2 <- tick_targets |>
   mutate(datetime = lubridate::as_datetime(datetime),

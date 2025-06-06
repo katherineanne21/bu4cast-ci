@@ -746,12 +746,12 @@ hourly_temp_profile_lakes <- hourly_temp_profile_lakes |>
 
 readRenviron("~/.Renviron") # compatible with littler
 
-s3 <- arrow::s3_bucket("neon4cast-targets/aquatics",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
-
-arrow::write_csv_arrow(targets_long, sink = s3$path("aquatics-targets.csv.gz"))
+#s3 <- arrow::s3_bucket("neon4cast-targets/aquatics",
+#                       endpoint_override = "data.ecoforecast.org",
+#                       access_key = Sys.getenv("AWS_ACCESS_KEY"),
+#                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
+#
+#arrow::write_csv_arrow(targets_long, sink = s3$path("aquatics-targets.csv.gz"))
 
 targets_long2 <- targets_long |>
   mutate(datetime = lubridate::as_datetime(datetime),
@@ -767,12 +767,12 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 arrow::write_csv_arrow(targets_long2, sink = s3$path("aquatics-targets.csv.gz"))
 
 
-s3 <- arrow::s3_bucket("neon4cast-targets/aquatics",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
-
-arrow::write_csv_arrow(hourly_temp_profile_lakes, sink = s3$path("aquatics-expanded-observations.csv.gz"))
+#s3 <- arrow::s3_bucket("neon4cast-targets/aquatics",
+#                       endpoint_override = "data.ecoforecast.org",
+#                       access_key = Sys.getenv("AWS_ACCESS_KEY"),
+#                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY"))
+#
+#arrow::write_csv_arrow(hourly_temp_profile_lakes, sink = s3$path("aquatics-expanded-observations.csv.gz"))
 
 hourly_temp_profile_lakes2 <- hourly_temp_profile_lakes |>
   mutate(datetime = lubridate::as_datetime(datetime),

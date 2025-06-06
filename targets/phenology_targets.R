@@ -64,12 +64,12 @@ allData2 <- allData2 |>
   select("time", "site_id", "variable", "observation") |>
   rename(datetime = time)
 
-s3 <- arrow::s3_bucket("neon4cast-targets/phenology",
-                              endpoint_override = "data.ecoforecast.org",
-                              access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                              secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(allData2, sink = s3$path("phenology-targets.csv.gz"))
+#s3 <- arrow::s3_bucket("neon4cast-targets/phenology",
+#                              endpoint_override = "data.ecoforecast.org",
+#                              access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
+#                              secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
+#
+#arrow::write_csv_arrow(allData2, sink = s3$path("phenology-targets.csv.gz"))
 
 allData3 <- allData2 |>
   mutate(datetime = lubridate::as_datetime(datetime),

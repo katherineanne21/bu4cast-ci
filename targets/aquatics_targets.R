@@ -54,7 +54,7 @@ aq_sites <- site_data |> filter(aquatics == 1) |> pull(field_site_id)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
-sites <- readr::read_csv("NEON_Field_Site_Metadata_20220412.csv") |> 
+sites <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |> 
   dplyr::filter(aquatics == 1)
 
 nonwadable_rivers <- sites$field_site_id[(which(sites$field_site_subtype == "Non-wadeable River"))]
@@ -208,47 +208,6 @@ wq_cleaned <- wq_full  |>
   tidyr::pivot_wider(names_from = variable, 
                      values_from = observation, 
                      id_cols = c(time, site_id)) |> 
-  # this was the fix implemented when the 
-  # dplyr::mutate(chla = ifelse(site_id == "BARC" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") & 
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "BLWA" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-15") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "CRAM" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "FLNT" & (lubridate::as_date(time) >= lubridate::as_date("2021-11-09") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "LIRO" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "PRLA" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "PRPO" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "SUGG" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "TOMB" & (lubridate::as_date(time) >= lubridate::as_date("2021-09-21") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla),
-  #               chla = ifelse(site_id == "TOOK" & (lubridate::as_date(time) >= lubridate::as_date("2022-04-01") &
-  #                                                    lubridate::as_date(time) <= lubridate::as_date("2023-03-16")),
-  #                             chla_RFU,                               
-  #                             chla)) |> 
   tidyr::pivot_longer(cols = -c("time", "site_id"), names_to = 'variable', values_to = 'observation') |> 
   dplyr::filter(variable != 'chla_RFU') %>%
   dplyr::mutate(observation = ifelse(is.na(observation),

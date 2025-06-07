@@ -22,10 +22,8 @@ RUN sudo update-ca-certificates
 
 RUN apt-get -y install python3 python3-pip
 
-RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid
+RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid sparklyr sparkavro minioclient fs
 
-RUN R -e "remotes::install_github('cboettig/minioclient')"
-RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/stac4cast')"
 RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/EFIstandards')"
@@ -48,7 +46,7 @@ RUN R -e "remotes::install_github('mitchelloharawild/distributional', ref = 'bb0
 
 RUN install2.r arrow renv rjags neonstore ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet
 
-RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench contentid yaml RCurl here feasts future furrr jsonlite
+RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite
 
 #RUN R -e "reticulate::install_python(version = '3.9:latest', list = FALSE, force = FALSE)"
 

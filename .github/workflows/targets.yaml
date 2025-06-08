@@ -27,6 +27,25 @@ jobs:
           source("targets/phenology_targets.R")
 
   terrestrial:
+    runs-on: efi-cirrus
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_SUBMISSIONS }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    container: 
+      image: eco4cast/rocker-neon4cast:latest
+      options: --memory 45g
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate targets
+        shell: Rscript {0}
+        run: |
+          source("targets/terrestrial_targets.R")
+
+  aquatics:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -34,15 +53,17 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: rocker/geospatial:latest
+      NEON_TOKEN: ${{ secrets.NEON_TOKEN }}
+      EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
+      EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
+    container: eco4cast/rocker-neon4cast:latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages(c("neonstore","RCurl", "neonUtilities", "contentid"))
-          source("targets/terrestrial_targets.R")
+          source("targets/aquatics_targets.R")
 
   beetles:
     runs-on: ubuntu-latest
@@ -83,7 +104,7 @@ jobs:
           source("targets/ticks_targets.R")
 
   Healthcheck:
-    needs: [phenology, beetles, ticks, terrestrial]
+    needs: [phenology, beetles, ticks, terrestrial, aquatics]
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

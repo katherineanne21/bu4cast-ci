@@ -2,7 +2,7 @@ challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: neon4cast
 endpoint: sdsc.osn.xsede.org
 noaa_endpoint: sdsc.osn.xsede.org
-submissions_endpoint: submit.ecoforecast.org
+submissions_endpoint: s3-west.nrp-nautilus.io
 scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts
 summaries_bucket: bio230014-bucket01/challenges/forecasts/summaries

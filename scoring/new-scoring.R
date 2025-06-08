@@ -125,46 +125,52 @@ pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
 # If we have lots to score this can take a while
 for (i in seq_along(row_number(groups))) {
   pb$tick()
-  # filtering join, could have used filter on duration/variable/model_id
-  new_scores <- fc |>
-    inner_join(groups[i,], copy=TRUE,
-               by = join_by(project_id, duration, variable, model_id)
-               ) |>
-    collect() |>
-    score_joined_table()
 
-  ## Append to existing scores
-  dur <- groups$duration[i]
-  var <- groups$variable[i]
-  model <- groups$model_id[i]
-  path <- glue::glue("scores/bundled-parquet/project_id={project}",
-                     "/duration={dur}/variable={var}/model_id={model}")
+  tryCatch({
 
-  if(fs::dir_exists(path)) {
-    log <- glue::glue("Joining to existing scores of variable {var} for model {model}")
-    #message(log)
-    readr::write_lines(log, "new-scoring.log", append=TRUE)
-    new_scores <- as_dataset(new_scores, conn = con)
-    bundled_scores <- open_dataset(path, conn = con) |>
-      anti_join(new_scores,
-                by = join_by(reference_datetime, site_id, datetime, family, pub_datetime, observation,
-                             crps, logs, mean, median, sd, quantile97.5, quantile02.5, quantile90, quantile10,
-                             duration, model_id, project_id, variable)) |>
-      compute()
-    new_scores <- union_all(bundled_scores, new_scores)
-  }
+    # filtering join, could have used filter on duration/variable/model_id
+    new_scores <- fc |>
+      inner_join(groups[i,], copy=TRUE,
+                 by = join_by(project_id, duration, variable, model_id)
+                 ) |>
+      collect() |>
+      score_joined_table()
 
-  new_scores |>
-    distinct() |>
-    group_by(project_id, duration, variable, model_id) |>
-    write_dataset("new_scores/")
+    ## Append to existing scores
+    dur <- groups$duration[i]
+    var <- groups$variable[i]
+    model <- groups$model_id[i]
+    path <- glue::glue("scores/bundled-parquet/project_id={project}",
+                       "/duration={dur}/variable={var}/model_id={model}")
 
-  # if we want to clear connection manually we need to re-open fc
-  duckdbfs::close_connection(con)
-  gc()
-  con <- duckdbfs::cached_connection(tempfile())
-  fc <- open_dataset("score_me.parquet", conn=con) |> filter(!is.na(model_id))
+    if(fs::dir_exists(path)) {
+      log <- glue::glue("Joining to existing scores of variable {var} for model {model}")
+      #message(log)
+      readr::write_lines(log, "new-scoring.log", append=TRUE)
+      new_scores <- as_dataset(new_scores, conn = con)
+      bundled_scores <- open_dataset(path, conn = con) |>
+        anti_join(new_scores,
+                  by = join_by(reference_datetime, site_id, datetime, family, pub_datetime, observation,
+                               crps, logs, mean, median, sd, quantile97.5, quantile02.5, quantile90, quantile10,
+                               duration, model_id, project_id, variable)) |>
+        compute()
+      new_scores <- union_all(bundled_scores, new_scores)
+    }
 
+    new_scores |>
+      distinct() |>
+      group_by(project_id, duration, variable, model_id) |>
+      write_dataset("new_scores/")
+
+    # if we want to clear connection manually we need to re-open fc
+    duckdbfs::close_connection(con)
+    gc()
+    con <- duckdbfs::cached_connection(tempfile())
+    fc <- open_dataset("score_me.parquet", conn=con) |> filter(!is.na(model_id))
+  },
+  error = function(e) warning(paste("error on model", model, "variable", variable, "msg:", e)),
+  finally = NULL
+  )
 }
 
 duckdbfs::close_connection(con)

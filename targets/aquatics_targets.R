@@ -21,7 +21,7 @@ if(!dir.exists("~/google-cloud-sdk")) {
 install_mc()
 mc_alias_set("efi", "s3-west.nrp-nautilius.io", 
              access_key = Sys.getenv("EFI_NRP_KEY"), 
-             secret_key = sys.getenv("EFI_NRP_SECRET"))
+             secret_key = Sys.getenv("EFI_NRP_SECRET"))
 mc_mirror("efi/gcs-creds/config/", "~/.config/")
 mc_mirror("efi/aquatics-targets",  "~/data")
 

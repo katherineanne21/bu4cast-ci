@@ -18,7 +18,7 @@ library(arrow)
 
 library(minioclient)
 install_mc()
-mc_alias_add("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET")))
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 
 mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", "/home/rstudio/data/neonstore_temp")

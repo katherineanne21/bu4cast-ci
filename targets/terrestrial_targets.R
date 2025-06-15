@@ -254,7 +254,7 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 
 arrow::write_csv_arrow(combined_daily, sink = s3$path("terrestrial_daily-targets-test.csv.gz"))
 
-
+fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
 mc_mirror(neonstore::neon_db_dir(), "osn/bio230014-bucket01/neonstore/db")
 mc_mirror(neonstore::neon_dir(), "osn/bio230014-bucket01/flux_staging/neonstore_temp")
 

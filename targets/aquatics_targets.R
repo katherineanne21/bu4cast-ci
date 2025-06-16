@@ -34,8 +34,8 @@ Sys.setenv(TZ = 'UTC')
 ## 02_generate_targets_aquatics
 ## Process the raw data into the target variable product
 
-source('R/avro_functions.R')
-source('R/data_processing.R')
+source('targets/R/avro_functions.R')
+source('targets/R/data_processing.R')
 # spark_install(version = '3.0')
 
 `%!in%` <- Negate(`%in%`) # not in function

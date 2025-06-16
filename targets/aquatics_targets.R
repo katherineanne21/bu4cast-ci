@@ -9,10 +9,6 @@ library(fs)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
-dir.create("data/aquatic_parquet/wq", showWarnings = FALSE, recursive = TRUE)
-
-
-
 ## install google cloud SDK
 if(!dir.exists("~/google-cloud-sdk")) {
   download.file("https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz", "~/google-cloud-cli-linux-x86_64.tar.gz")
@@ -49,6 +45,7 @@ EDI_file_directory <- "~/data/aquatic_EDI"
 dir.create(avro_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(parquet_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(EDI_file_directory, showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(avro_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
 
 readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")

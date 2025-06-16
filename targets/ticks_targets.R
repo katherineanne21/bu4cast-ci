@@ -66,8 +66,8 @@ tick_taxon_wide <- tick_taxon_raw %>%
               values_fill = 0)
 
 # join taxonomy and field data
-tick_joined <- left_join(tick_taxon_wide, tick_field, by = "occasionID") %>%
-  select(-NA_NA)
+tick_joined <- left_join(tick_taxon_wide, tick_field, by = "occasionID") |>
+  select(-any_of("NA_NA"))
 
 # all the species column names
 spp_cols <- tick_joined %>%
@@ -121,7 +121,7 @@ tick_targets <- tick_standard %>%
   select(time, site_id, variable, observation, iso_week)
 
 ggplot(tick_targets, aes(x = time, y = observation, color = variable)) +
-  geom_line() +
+  geom_point() +
   facet_wrap(~site_id, scale = "free")
 
 tick_targets <- tick_targets |>

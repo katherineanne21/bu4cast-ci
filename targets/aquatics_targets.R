@@ -9,6 +9,8 @@ library(fs)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
+dir.create("data/aquatic_parquet/wq", showWarnings = FALSE, recursive = TRUE)
+
 
 
 ## install google cloud SDK
@@ -43,6 +45,10 @@ source('targets/R/data_processing.R')
 avro_file_directory <- "~/data/aquatic_avro"
 parquet_file_directory <- "~/data/aquatic_parquet"
 EDI_file_directory <- "~/data/aquatic_EDI"
+
+dir.create(avro_file_directory, showWarnings = FALSE, recursive = TRUE)
+dir.create(parquet_file_directory, showWarnings = FALSE, recursive = TRUE)
+dir.create(EDI_file_directory, showWarnings = FALSE, recursive = TRUE)
 
 readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")

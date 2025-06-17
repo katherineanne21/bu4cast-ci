@@ -251,10 +251,12 @@ urls <- df |>
   dplyr::pull(url)
 
 
-hourly_temp_profile_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+hourly_temp_profile_portal <-
+  duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
   dplyr::mutate(site_id = stringr::str_sub(filename, 77,80),
                 verticalPosition = stringr::str_sub(filename, 153,155)) |>
-  dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth, tsdWaterTempFinalQF, verticalPosition) |>
+  dplyr::select(startDateTime, site_id, tsdWaterTempMean, thermistorDepth,
+                tsdWaterTempFinalQF, verticalPosition) |>
   dplyr::mutate(tsdWaterTempMean = as.numeric(tsdWaterTempMean),
                 thermistorDepth = as.numeric(thermistorDepth),
                 tsdWaterTempFinalQF = as.numeric(tsdWaterTempFinalQF),
@@ -262,9 +264,10 @@ hourly_temp_profile_portal <- duckdbfs::open_dataset(urls, format="csv", filenam
   dplyr::mutate(tsdWaterTempMean = ifelse(tsdWaterTempFinalQF == 1, NA, tsdWaterTempMean)) %>%
   dplyr::rename(depth = thermistorDepth) |>
   dplyr::mutate(date = as_date(startDateTime),
-                hour = str_pad(hour(startDateTime), width = 2, side = "left", pad = "0"),
+                hour = str_pad(as.character(hour(startDateTime)), width = 2, side = "left", pad = "0"),
                 depth = round(depth, 1)) %>% # round to the nearest 0.1 m
-  dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE),.by = c("site_id", "depth", "date", "hour")) %>%
+  dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE),
+                   .by = c("site_id", "depth", "date", "hour")) %>%
   dplyr::select(date, hour, site_id, temperature, depth) |>
   rename(observation = temperature) |>
   mutate(variable = "temperature",

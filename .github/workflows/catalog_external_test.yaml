@@ -29,9 +29,9 @@ jobs:
         shell: Rscript {0}
         run: source("catalog/model_metadata.R")
 
-      - name: Render catalog
-        shell: Rscript {0}
-        run: source("catalog/catalog.R")
+      # - name: Render catalog
+      #   shell: Rscript {0}
+      #   run: source("catalog/catalog.R")
 
       - name: checkout destination repository
         uses: actions/checkout@v4

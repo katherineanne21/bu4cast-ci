@@ -26,6 +26,4 @@ jobs:
           remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
 
       - name: scoring
-        shell: Rscript {0}
-        run: |
-          source("scoring/new-scoring.R")
+        run: r scoring/new-scoring.R

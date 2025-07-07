@@ -15,15 +15,10 @@ jobs:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
-      image: eco4cast/rocker-neon4cast:latest
+      image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
       options: --memory 110g
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
 
       - name: scoring
         run: r scoring/new-scoring.R

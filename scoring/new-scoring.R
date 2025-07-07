@@ -140,7 +140,7 @@ pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
 for (i in seq_along(row_number(groups))) {
   pb$tick()
 
-  paste("Scoring model:", groups$model_id[i], "variable:", groups$variable[i])
+  print(paste("Scoring model:", groups$model_id[i], "variable:", groups$variable[i]))
 
   tryCatch({
 

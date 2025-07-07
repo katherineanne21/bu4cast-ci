@@ -34,7 +34,7 @@ jobs:
           path: neon4cast-catalog
           token: ${{ secrets.PAT }} # Use the PAT from secrets
 
-      - name: Render metadata
+      - name: Render sites
         shell: Rscript {0}
         run: |
           install.packages('gsheet')

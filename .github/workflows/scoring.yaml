@@ -14,14 +14,14 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
       options: --memory 110g --user root
     steps:
       - uses: actions/checkout@v4
 
       - name: install
-        run: R -e "install.packages('bench'); remotes::install_github('eco4cast/score4cast')"
-        
+        run: R -e "install.packages(c('bench', 'minioclient')); remotes::install_github('eco4cast/score4cast')"
+
       - name: scoring
         run: r scoring/new-scoring.R

@@ -100,6 +100,9 @@ bench::bench_time({ # ~ 13s
 
 })
 
+
+print("Successfully computed which forecasts are ready to score.")
+
 ## Now score it.  score4cast is all in RAM, so we must score in chunks.
 ## But we can chunk naturally with dplyr distinct
 # remotes::install_github("eco4cast/score4cast", upgrade=FALSE)
@@ -120,11 +123,17 @@ source("R/score_joined_table.R") #crps_logs_score slightly modified
 #fs::dir_delete("new_scores/")
 
 
+
+
+print("Computing new scores....")
+
 pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
                        total = total, clear = FALSE, width= 60)
 # If we have lots to score this can take a while
 for (i in seq_along(row_number(groups))) {
   pb$tick()
+
+  paste("Scoring model:", groups$model_id[i], "variable:", groups$variable[i])
 
   tryCatch({
 

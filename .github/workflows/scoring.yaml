@@ -16,7 +16,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      options: --memory 35g
+      options: --memory 110g
     steps:
       - uses: actions/checkout@v4
 
@@ -26,6 +26,4 @@ jobs:
           remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
 
       - name: scoring
-        shell: Rscript {0}
-        run: |
-          source("scoring/new-scoring.R")
+        run: r scoring/new-scoring.R

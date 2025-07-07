@@ -16,7 +16,7 @@ jobs:
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container: 
       image: eco4cast/rocker-neon4cast:latest
-      options: --memory 70g
+      options: --memory 110g
     steps:
       - uses: actions/checkout@v4
 

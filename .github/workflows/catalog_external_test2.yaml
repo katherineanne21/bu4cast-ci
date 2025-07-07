@@ -36,7 +36,7 @@ jobs:
 
       - name: Render metadata
         shell: Rscript {0}
-        run: source("catalog/model_metadata.R")
+        run: source("catalog/sites/build_sites_page.R")
 
       - name: Commit and Push
         run: |

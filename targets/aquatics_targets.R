@@ -47,6 +47,7 @@ dir.create(parquet_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(EDI_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(avro_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(parquet_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(parquet_file_directory, "tsd"), showWarnings = FALSE, recursive = TRUE)
 
 readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")

@@ -2,7 +2,6 @@ options("duckdbfs_use_nightly"=FALSE)
 
 #devtools::install_version("duckdb", "1.2.2")
 
-install.packages("duckdb")
 
 library(dplyr)
 library(duckdbfs)
@@ -46,13 +45,13 @@ fs::dir_create("scores")
 ## Need all bundles to append anyway, so get them all now.
 
 print("Downloading bundled scores...")
-bench::bench_time({
-  mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",
-            "scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
-})
+#bench::bench_time({
+#  mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",
+#            "scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
+#})
 scores <-
-  # open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/", s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE)
-  open_dataset("scores/bundled-parquet/") |>
+  open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/", s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE)
+  # open_dataset("scores/bundled-parquet/") |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)

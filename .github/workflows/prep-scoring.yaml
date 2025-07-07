@@ -18,6 +18,12 @@ jobs:
       image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
       options: --user root
     steps:
+
+      - name: cleanup disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h
+
       - uses: actions/checkout@v4
 
       - name: install

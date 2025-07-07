@@ -1,6 +1,6 @@
 options("duckdbfs_use_nightly"=FALSE)
 
-devtools::install_version("duckdb", "1.2.2")
+# devtools::install_version("duckdb", "1.2.2")
 
 library(dplyr)
 library(duckdbfs)

@@ -49,9 +49,11 @@ print("Downloading bundled scores...")
 #  mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",
 #            "scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
 #})
+
+
 scores <-
-  open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/", s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE)
-  # open_dataset("scores/bundled-parquet/") |>
+  open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/",
+               s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)

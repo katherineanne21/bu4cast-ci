@@ -4,7 +4,7 @@ score_joined_table <- function (joined,
 {
 
   joined <- joined |>
-    dplyr::mutate(family = case_match(family,
+    dplyr::mutate(family = dplyr::case_match(family,
                                       "ensemble" ~ "sample",
                                       .default = family))
 

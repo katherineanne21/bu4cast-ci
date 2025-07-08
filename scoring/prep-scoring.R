@@ -9,7 +9,7 @@ library(progress)
 library(bench)
 
 library(DBI)
-con <- duckdbfs::cached_connection()
+con <- duckdbfs::cached_connection(tempfile())
 DBI::dbExecute(con, "SET THREADS=64;")
 
 #library(minioclient)
@@ -23,14 +23,24 @@ cut_off_date <- Sys.Date() - lubridate::dmonths(6)
 rescore <- FALSE
 obs_key_cols <- c("project_id", "site_id", "datetime", "duration", "variable")
 
+
+
+duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+                         key = "",
+                         secret = "",
+                         bucket = "bio230014-bucket01")
+
+
 ### Access the targets, forecasts, and scores subsets
 targets <-
   open_dataset("s3://bio230014-bucket01/challenges/targets/",
-               format="csv",  # set mode to TABLE to download first
+               format = "csv",  # set mode to TABLE to download first
                s3_endpoint = "sdsc.osn.xsede.org",
-               anonymous=TRUE) |>
+               anonymous = TRUE) |>
   filter(project_id == {project},
-         datetime > {cut_off_date})
+         datetime > {cut_off_date},
+         !is.na(observation)
+         )
 
 
 # No point in trying to score any forecasts still in future (relative to last observed)
@@ -44,16 +54,10 @@ forecasts <-
                anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
-         datetime <= {last_observed_date}
+         datetime <= {last_observed_date},
+         !is.na(model_id),
+         !is.na(parameter)
   )
-fs::dir_create("scores")
-## Need all bundles to append anyway, so get them all now.
-
-print("Downloading bundled scores...")
-#bench::bench_time({
-#  mc_mirror("osn/bio230014-bucket01/challenges/scores/bundled-parquet",
-#            "scores/bundled-parquet", overwrite = TRUE, flags = "--retry")
-#})
 
 
 scores <-
@@ -101,15 +105,21 @@ duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
 ## INSTEAD, we pull our subset to local disk first.
 ## This looks silly but is much better for RAM and speed!!
 bench::bench_time({ # ~ 5.4m (w/ 6mo cutoff)
-  forecasts |> write_dataset("s3://efi-scores/tmp/forecasts.parquet")
-  scores |> write_dataset("s3://efi-scores/tmp/scores.parquet")
-  targets |> write_dataset("s3://efi-scores/tmp/targets.parquet")
+  forecasts |> group_by(variable) |> write_dataset("s3://efi-scores/tmp/forecasts")
 })
 
 bench::bench_time({
-  forecasts <- open_dataset("s3://efi-scores/tmp/forecasts.parquet", recursive = FALSE)
-  scores <- open_dataset("s3://efi-scores/tmp/scores.parquet", recursive = FALSE)
-  targets <- open_dataset("s3://efi-scores/tmp/targets.parquet", recursive = FALSE)
+  scores |> group_by(variable) |> write_dataset("s3://efi-scores/tmp/scores")
+})
+
+bench::bench_time({
+    targets |> group_by(variable) |> write_dataset("s3://efi-scores/tmp/targets")
+})
+
+bench::bench_time({
+  forecasts <- open_dataset("s3://efi-scores/tmp/forecasts/**")
+  scores <- open_dataset("s3://efi-scores/tmp/scores/**")
+  targets <- open_dataset("s3://efi-scores/tmp/targets/**")
 })
 
 ## Magic rock&roll time: Subset unscored + targets available:
@@ -118,6 +128,7 @@ bench::bench_time({ # ~ 13s
   forecasts |>
     anti_join(scores) |> # forecast is unscored
     inner_join(targets) |> # forecast has targets available
-    write_dataset("s3://efi-scores/tmp/score_me.parquet")
+    group_by(variable) |>
+    write_dataset("s3://efi-scores/tmp/score_me")
 
 })

@@ -7,11 +7,16 @@ library(dplyr)
 library(duckdbfs)
 library(progress)
 library(bench)
-library(minioclient)
 
-install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
-fs::dir_create("new_scores")
+library(DBI)
+con <- duckdbfs::cached_connection()
+DBI::dbExecute(con, "SET THREADS=32;")
+
+#library(minioclient)
+
+#install_mc()
+#mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+#fs::dir_create("new_scores")
 
 project <- "neon4cast"
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)
@@ -86,18 +91,25 @@ if(rescore) {
 
 
 print("Caching forecasts, scores, targets...")
+
+duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
+                         key = Sys.getenv("EFI_NRP_KEY"),
+                         secret = Sys.getenv("EFI_NRP_SECRET"),
+                         bucket = "efi-scores")
+
+
 ## INSTEAD, we pull our subset to local disk first.
 ## This looks silly but is much better for RAM and speed!!
 bench::bench_time({ # ~ 5.4m (w/ 6mo cutoff)
-  forecasts |> write_dataset("forecasts.parquet")
-  scores |> write_dataset("scores.parquet")
-  targets |> write_dataset("targets.parquet")
+  forecasts |> write_dataset("s3://efi-scores/tmp/forecasts.parquet")
+  scores |> write_dataset("s3://efi-scores/tmp/scores.parquet")
+  targets |> write_dataset("s3://efi-scores/tmp/targets.parquet")
 })
 
 bench::bench_time({
-  forecasts <- open_dataset("forecasts.parquet")
-  scores <- open_dataset("scores.parquet")
-  targets <- open_dataset("targets.parquet")
+  forecasts <- open_dataset("s3://efi-scores/tmp/forecasts.parquet")
+  scores <- open_dataset("s3://efi-scores/tmp/scores.parquet")
+  targets <- open_dataset("s3://efi-scores/tmp/targets.parquet")
 })
 
 ## Magic rock&roll time: Subset unscored + targets available:
@@ -106,6 +118,6 @@ bench::bench_time({ # ~ 13s
   forecasts |>
     anti_join(scores) |> # forecast is unscored
     inner_join(targets) |> # forecast has targets available
-    write_dataset("score_me.parquet")
+    write_dataset("s3://efi-scores/tmp/score_me.parquet")
 
 })

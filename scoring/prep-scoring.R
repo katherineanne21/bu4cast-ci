@@ -48,6 +48,7 @@ targets <-
 last_observed_date <- targets |> select(datetime) |> distinct() |>
   filter(datetime == max(datetime)) |> pull(datetime)
 
+# Omit scoring of daily forecasts that have a horizon > 35
 forecasts <-
   open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/",
                s3_endpoint = "sdsc.osn.xsede.org",
@@ -57,7 +58,9 @@ forecasts <-
          datetime <= {last_observed_date},
          !is.na(model_id),
          !is.na(parameter)
-  )
+  ) |>
+  mutate(horizon = date_diff('day', as.POSIXct(reference_datetime), as.POSIXct(datetime))) |>
+  filter(! (duration == "P1D" & horizon > 35))
 
 
 scores <-

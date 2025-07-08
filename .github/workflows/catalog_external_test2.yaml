@@ -30,7 +30,7 @@ jobs:
         with:
           fetch-depth: 0
           set-safe-directory: '*'
-          repository: eco4cast/neon4cast-catalog # Replace with your destination repo details
+          repository: eco4cast/neon4cast-catalog # destination repo
           path: neon4cast-catalog
           token: ${{ secrets.PAT }} # Use the PAT from secrets
 
@@ -47,9 +47,7 @@ jobs:
           cd neon4cast-catalog
           git config user.name github-actions
           git config user.email github-actions@github.com
-
           git pull
           git add .
           git commit -a -m "update catalog" || echo "nothing to commit"
           git push origin main
-

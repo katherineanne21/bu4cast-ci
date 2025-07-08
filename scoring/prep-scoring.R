@@ -10,7 +10,7 @@ library(bench)
 
 library(DBI)
 con <- duckdbfs::cached_connection()
-DBI::dbExecute(con, "SET THREADS=32;")
+DBI::dbExecute(con, "SET THREADS=64;")
 
 #library(minioclient)
 
@@ -107,9 +107,9 @@ bench::bench_time({ # ~ 5.4m (w/ 6mo cutoff)
 })
 
 bench::bench_time({
-  forecasts <- open_dataset("s3://efi-scores/tmp/forecasts.parquet")
-  scores <- open_dataset("s3://efi-scores/tmp/scores.parquet")
-  targets <- open_dataset("s3://efi-scores/tmp/targets.parquet")
+  forecasts <- open_dataset("s3://efi-scores/tmp/forecasts.parquet", recursive = FALSE)
+  scores <- open_dataset("s3://efi-scores/tmp/scores.parquet", recursive = FALSE)
+  targets <- open_dataset("s3://efi-scores/tmp/targets.parquet", recursive = FALSE)
 })
 
 ## Magic rock&roll time: Subset unscored + targets available:

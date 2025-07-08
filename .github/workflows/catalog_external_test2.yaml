@@ -51,5 +51,4 @@ jobs:
           git pull
           git add .
           git commit -a -m "update catalog" || echo "nothing to commit"
-          git push origin main
-
+          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/eco4cast/neon4cast-catalog

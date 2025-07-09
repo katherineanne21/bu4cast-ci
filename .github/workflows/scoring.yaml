@@ -21,7 +21,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install
-        run: R -e "install.packages(c('bench', 'minioclient')); remotes::install_github('eco4cast/score4cast')"
+        run: R -e "install.packages(c('bench', 'minioclient', 'callr')); remotes::install_github('eco4cast/score4cast')"
 
-      - name: scoring
-        run: r scoring/new-scoring.R
+# pause
+
+#      - name: scoring
+#        run: r scoring/new-scoring.R

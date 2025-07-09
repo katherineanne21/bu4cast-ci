@@ -29,9 +29,9 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
 
-      - name: Render metadata
-        shell: Rscript {0}
-        run: source("catalog/model_metadata.R")
+      #- name: Render metadata
+       # shell: Rscript {0}
+       # run: source("catalog/model_metadata.R")
 
       - name: Render catalog
         shell: Rscript {0}
@@ -39,7 +39,7 @@ jobs:
 
       - name: Commit and Push
         run: |
-          cd .../neon4cast-catalog
+          cd ../neon4cast-catalog
           git config user.name github-actions
           git config user.email github-actions@github.com
 

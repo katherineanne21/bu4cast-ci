@@ -57,7 +57,7 @@ score_group <- function(i, groups, project = "neon4cast") {
   # filtering join, could have used filter on duration/variable/model_id
   new_scores <- fc |>
     dplyr::inner_join(groups[i,], copy=TRUE,
-                      by = dplyr::join_by(project_id, duration, variable, model_id)
+                      by = dplyr::join_by(project_id, duration, variable, model_id, family)
     ) |>
     dplyr::collect() |>
     score_joined_table()

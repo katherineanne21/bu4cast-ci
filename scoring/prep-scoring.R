@@ -22,7 +22,7 @@ project <- "neon4cast"
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)
 rescore <- FALSE
 obs_key_cols <- c("project_id", "site_id", "datetime", "duration", "variable")
-
+score_key_cols <- c(obs_key_cols, "model_id", "family", "reference_datetime")
 
 
 duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
@@ -61,6 +61,9 @@ forecasts <-
          !is.na(prediction)
 
   ) |>
+  # if necessary, enforce naming convention on "family" to avoid perpetual rescoring
+  mutate(family = ifelse(family == 'ensemble', "sample", family)) |>
+  # enforce horizon filter
   mutate(horizon = date_diff('day', as.POSIXct(reference_datetime), as.POSIXct(datetime))) |>
   filter(! (duration == "P1D" & horizon > 35))
 
@@ -131,7 +134,7 @@ bench::bench_time({
 print("Compute who needs to be scored...")
 bench::bench_time({ # ~ 13s
   forecasts |>
-    anti_join(scores) |> # forecast is unscored
+    anti_join(select(scores, allof(score_key_cols))) |> # forecast is unscored
     inner_join(targets) |> # forecast has targets available
     group_by(variable) |>
     write_dataset("s3://efi-scores/tmp/score_me")

@@ -57,7 +57,9 @@ forecasts <-
          datetime > {cut_off_date},
          datetime <= {last_observed_date},
          !is.na(model_id),
-         !is.na(parameter)
+         !is.na(parameter),
+         !is.na(prediction)
+
   ) |>
   mutate(horizon = date_diff('day', as.POSIXct(reference_datetime), as.POSIXct(datetime))) |>
   filter(! (duration == "P1D" & horizon > 35))

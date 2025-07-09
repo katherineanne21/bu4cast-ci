@@ -46,4 +46,4 @@ jobs:
           git pull
           git add catalog/* .
           git commit -a -m "update catalog" || echo "nothing to commit"
-          git push
+          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}

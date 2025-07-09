@@ -15,7 +15,7 @@ archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_path: 'catalog/sites'
+site_path: '../neon4cast-catalog/catalog/sites'
 site_table: neon4cast_field_site_metadata.csv
 site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
 site_thumbnail_title: "NEON Sites Map"
@@ -23,7 +23,7 @@ site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/n
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
 targets_thumbnail_title: 'Test Image'
-targets_path: 'catalog/targets/'
+targets_path: '../neon4cast-catalog/catalog/targets/'
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 github_repo: eco4cast/neon4cast-ci
 target_groups:
@@ -105,15 +105,15 @@ catalog_config:
   scores_thumbnail_title: "NEON Buoy Image"
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
-  forecast_path: 'catalog/forecasts'
-  scores_path: 'catalog/scores'
-  summaries_path: 'catalog/summaries'
+  forecast_path: '../neon4cast-catalog/catalog/forecasts'
+  scores_path: '../neon4cast-catalog/catalog/scores'
+  summaries_path: '../neon4cast-catalog/catalog/summaries'
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
   inventory_path: 'catalog/inventory'
   inventory_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_forest.jpg'
   inventory_thumbnail_title: "NEON Image"
-  noaa_path: 'catalog/noaa_forecasts/'
+  noaa_path: '../neon4cast-catalog/catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
   aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet'

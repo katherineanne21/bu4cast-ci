@@ -69,7 +69,7 @@ build_catalog <- function(){
     )
   )
 
-  dest <- "catalog/"
+  dest <- "../neon4cast-catalog/catalog/"
   jsonlite::write_json(catalog, file.path(dest, "catalog.json"),
                        pretty=TRUE, auto_unbox=TRUE)
   #stac4cast::stac_validate(file.path(dest, "catalog.json"))

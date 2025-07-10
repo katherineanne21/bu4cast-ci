@@ -51,3 +51,5 @@ COPY cron.sh /etc/services.d/cron/run
 
 COPY DESCRIPTION /tmp/DESCRIPTION
 RUN R -e 'remotes::install_deps("/tmp", dep=TRUE, upgrade=TRUE)'
+
+EXPOSE 8880

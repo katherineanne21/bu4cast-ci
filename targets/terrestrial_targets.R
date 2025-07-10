@@ -249,9 +249,9 @@ combined_daily <- bind_rows(flux_target_daily, old_fluxes) |>
 write_csv(combined_daily, "terrestrial_daily-targets.csv.gz")
 
 #s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
-endpoint_override = "sdsc.osn.xsede.org",
-access_key = Sys.getenv("OSN_KEY"),
-secret_key = Sys.getenv("OSN_SECRET"))
+#endpoint_override = "sdsc.osn.xsede.org",
+#access_key = Sys.getenv("OSN_KEY"),
+#secret_key = Sys.getenv("OSN_SECRET"))
 
 
 #arrow::write_csv_arrow(combined_daily, sink = s3$path("terrestrial_daily-targets.csv.gz"))

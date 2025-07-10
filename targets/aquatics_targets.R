@@ -7,7 +7,11 @@ library(sparkavro)
 library(minioclient)
 library(fs)
 install_mc()
-spark_install(version = '3.0')
+spark_install(version = '4.0')
+
+options(sparklyr.console.log = TRUE)
+sc <- sparklyr::spark_connect(master = "local")
+spark_disconnect(sc)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 

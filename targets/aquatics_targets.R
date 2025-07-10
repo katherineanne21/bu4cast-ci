@@ -6,13 +6,14 @@ library(sparklyr)
 library(sparkavro)
 library(minioclient)
 library(fs)
-install_mc()
-spark_install(version = '4.0')
 
-options(sparklyr.console.log = TRUE)
-sc <- sparklyr::spark_connect(master = "local", version = "4.0")
-print(sc)
-spark_disconnect(sc)
+install.packages("reticulate")
+library(reticulate)
+py_install("fastavro",pip=TRUE)
+py_require(c("fastavro"))
+py_require(c("pandas"))
+
+install_mc()
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
@@ -46,7 +47,6 @@ Sys.setenv(TZ = 'UTC')
 
 source('targets/R/avro_functions.R')
 source('targets/R/data_processing.R')
-# spark_install(version = '3.0')
 
 `%!in%` <- Negate(`%in%`) # not in function
 
@@ -185,13 +185,14 @@ new_files <- map_lgl(wq_avro_files, function(x){
 wq_avro_files <- wq_avro_files[which(new_files)]
 
 if(length(wq_avro_files) > 0){
-  sc <- sparklyr::spark_connect(master = "local")
+  #sc <- sparklyr::spark_connect(master = "local")
   # Read in each of the files and then bind by rows
+  sc <- NULL
   purrr::walk(.x = wq_avro_files, ~ read.avro.wq(sc= sc,
                                                  path = .x,
                                                  columns_keep = columns_keep,
                                                  dir = file.path(parquet_file_directory, "wq")))
-  spark_disconnect(sc)
+  #spark_disconnect(sc)
 }
 
 
@@ -411,8 +412,9 @@ new_files <- map_lgl(lake_avro_files, function(x){
 lake_avro_files <- lake_avro_files[which(new_files)]
 
 if(length(lake_avro_files) > 0){
-  sc <- sparklyr::spark_connect(master = "local")
+  #sc <- sparklyr::spark_connect(master = "local")
   message("# Read in each of the files and then bind by rows")
+  sc <- NULL
   hourly_temp_profile_avro <- purrr::walk(.x = lake_avro_files,
                                           ~ read.avro.tsd.profile(sc= sc,
                                                                   path = .x,
@@ -420,7 +422,7 @@ if(length(lake_avro_files) > 0){
                                                                   columns_keep = columns_keep,
                                                                   dir = file.path(parquet_file_directory, "tsd"),
                                                                   delete_files = FALSE))
-  spark_disconnect(sc)
+  #spark_disconnect(sc)
 }
 
 # Read in the pre-release
@@ -562,13 +564,14 @@ if(any(problem_files == TRUE)){
 
 
 if(length(prt_avro_files > 0)){
-  sc <- sparklyr::spark_connect(master = "local")
+ # sc <- sparklyr::spark_connect(master = "local")
   # Read in each of the files and then bind by rows
+  sc <- NULL
   purrr::walk(.x = prt_avro_files, ~ read.avro.prt(sc= sc,
                                                    path = .x,
                                                    columns_keep = columns_keep,
                                                    dir = file.path(parquet_file_directory, "prt")))
-  spark_disconnect(sc)
+  #spark_disconnect(sc)
 }
 
 
@@ -682,14 +685,15 @@ river_avro_files <- river_avro_files[which(new_files)]
 
 
 if(length(river_avro_files) > 0){
-  sc <- sparklyr::spark_connect(master = "local")
+  #sc <- sparklyr::spark_connect(master = "local")
   # Read in each of the files and then bind by rows
+  sc <- NULL
   purrr::walk(.x = river_avro_files,  ~ read.avro.tsd(sc= sc,
                                                       path = .x,
                                                       thermistor_depths = thermistor_depths,
                                                       dir = file.path(parquet_file_directory, "river_tsd"),
                                                       delete_files = FALSE))
-  spark_disconnect(sc)
+  #spark_disconnect(sc)
 }
 
 

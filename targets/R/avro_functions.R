@@ -1,3 +1,22 @@
+read.avro <- function(file){
+  string <- glue(
+    "from fastavro import reader\
+import pandas as pd\
+with open('{file}', 'rb') as f:\
+  \tavro_reader = reader(f)\
+  \trecords = list(avro_reader)\
+df = pd.DataFrame(records)\
+")
+
+  py_run_string(string)
+
+  avro_data <- py$df
+
+  return(avro_data)
+}
+
+
+
 download.neon.avro <- function(months, data_product, path) {
   for (i in 1:length(months$site_id)) {
     # create a directory for each site (if one doesn't already exist)
@@ -87,10 +106,12 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
-  wq_avro <- sparkavro::spark_read_avro(sc,
-                                        name = "name",
-                                        path = path,
-                                        memory = FALSE) |>
+
+  wq_avro <- read.avro(path) |>
+    #wq_avro <- sparkavro::spark_read_avro(sc,
+    #                                    name = "name",
+    #                                    path = path,
+    #                                    memory = FALSE) |>
     dplyr::filter(termName %in% wq_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -178,10 +199,12 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 
 read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delete_files) {
   message(paste0('reading file ', path))
-  tsd_avro <- sparkavro::spark_read_avro(sc,
-                                         name = "name",
-                                         path = path,
-                                         memory = FALSE) |>
+
+  tsd_avro <- read.avro(path) |>
+  #tsd_avro <- sparkavro::spark_read_avro(sc,
+  #                                       name = "name",
+  #                                       path = path,
+  #                                       memory = FALSE) |>
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -261,10 +284,11 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
 read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, columns_keep, dir, delete_files) {
   message(paste0('reading file ', path))
 
-  tsd_avro <- sparkavro::spark_read_avro(sc,
-                                         name = "name",
-                                         path = path,
-                                         memory = FALSE) %>%
+  tsd_avro <- read.avro(path) |>
+  #tsd_avro <- sparkavro::spark_read_avro(sc,
+  #                                       name = "name",
+  #                                       path = path,
+  #                                       memory = FALSE) %>%
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -343,8 +367,10 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 
 read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
-  prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
-                                         path = path) |>
+
+  prt_avro <- read.avro(path) |>
+  #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
+  #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103

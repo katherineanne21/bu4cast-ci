@@ -103,6 +103,7 @@ print("Computing new scores....")
 pb <- progress_bar$new(format = "  scoring [:bar] :percent in :elapsed",
                        total = total, clear = FALSE, width= 60)
 
+
 # If we have lots to score this can take a while
 for (i in seq_along(row_number(groups))) {
   pb$tick()

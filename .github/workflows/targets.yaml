@@ -34,7 +34,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_SUBMISSIONS }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 45g
     steps:
@@ -77,10 +77,6 @@ jobs:
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: apt-get
-        run: apt-get install openjdk-8-jdk
-
       - name: Generate targets
         shell: Rscript {0}
         run: |

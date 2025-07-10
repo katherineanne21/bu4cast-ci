@@ -6,17 +6,18 @@ library(sparklyr)
 library(sparkavro)
 library(minioclient)
 library(fs)
+install_mc()
+spark_install()
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
-## install google cloud SDK
+message("Installing and configuration Google Cloud SDK")
+
 if(!dir.exists(path.expand("~/google-cloud-sdk"))) {
   download.file("https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz", path.expand("~/google-cloud-cli-linux-x86_64.tar.gz"))
   untar(path.expand("~/google-cloud-cli-linux-x86_64.tar.gz"), exdir = path.expand("~"))
   system2(path.expand("~/google-cloud-sdk/install.sh"))
 }
-
-install_mc()
 mc_alias_set("efi", "s3-west.nrp-nautilus.io",
              access_key = Sys.getenv("EFI_NRP_KEY"),
              secret_key = Sys.getenv("EFI_NRP_SECRET"))
@@ -26,7 +27,7 @@ gcloud <- path.expand("~/google-cloud-sdk/bin/gcloud")
 cmd <- paste0(gcloud," auth activate-service-account neon4cast@phonic-formula-364513.iam.gserviceaccount.com --key-file=", creds," --project=phonic-formula-364513")
 system(cmd)
 
-
+message("Copying over already downloaded raw data")
 mc_mirror("efi/aquatics-targets",  path.expand("~/data/"))
 
 
@@ -73,6 +74,8 @@ lake_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Lake"))]
 stream_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Wadeable Stream"))]
 profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
+message("Getting list of data from NEON Portal")
+
 df <-  neonstore:::neon_data(product = "DP1.20288.001",
                              # start_date = "2023-01-01",
                              # end_date = "2023-10-01",
@@ -81,6 +84,8 @@ df <-  neonstore:::neon_data(product = "DP1.20288.001",
 urls <- df |>
   dplyr::filter(grepl("waq_instantaneous", name)) |>
   dplyr::pull(url)
+
+message("Downloading and processing data from NEON Portal")
 
 wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
   dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>

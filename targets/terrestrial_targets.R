@@ -21,7 +21,7 @@ install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 mc_mirror("osn/bio230014-bucket01/neonstore/db", neonstore::neon_db_dir())
-#mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
+mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
 
 
 sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", show_col_types = FALSE) |>
@@ -49,8 +49,6 @@ s3_current_month <- arrow::s3_bucket("bio230014-bucket01/flux_staging/current_mo
 existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets-test.csv.gz"))
 
 start_date <- as_date(max(existing_targets_daily$datetime)) - dmonths(3)
-print(start_date)
-
 
 # Terrestrial
 

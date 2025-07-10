@@ -10,18 +10,23 @@ library(fs)
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
 ## install google cloud SDK
-if(!dir.exists("~/google-cloud-sdk")) {
-  download.file("https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz", "~/google-cloud-cli-linux-x86_64.tar.gz")
-  untar("~/google-cloud-cli-linux-x86_64.tar.gz")
-  system2("./google-cloud-sdk/install.sh")
+if(!dir.exists(path.expand("~/google-cloud-sdk"))) {
+  download.file("https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz", path.expand("~/google-cloud-cli-linux-x86_64.tar.gz"))
+  untar(path.expand("~/google-cloud-cli-linux-x86_64.tar.gz"), exdir = path.expand("~"))
+  system2(path.expand("~/google-cloud-sdk/install.sh"))
 }
 
 install_mc()
 mc_alias_set("efi", "s3-west.nrp-nautilus.io",
              access_key = Sys.getenv("EFI_NRP_KEY"),
              secret_key = Sys.getenv("EFI_NRP_SECRET"))
-mc_mirror("efi/gcs-creds/config/", "~/.config/")
-mc_mirror("efi/aquatics-targets",  "~/data")
+mc_mirror("efi/gcs-creds", path.expand("~/.config"))
+creds <- path.expand("~/.config/phonic-formula-364513-f209e55945f2.json")
+cmd <- paste0("/home/rstudio/google-cloud-sdk/bin/gcloud auth activate-service-account neon4cast@phonic-formula-364513.iam.gserviceaccount.com --key-file=", creds," --project=phonic-formula-364513")
+system(cmd)
+
+
+mc_mirror("efi/aquatics-targets",  path.expand("~/data/"))
 
 
 Sys.unsetenv("AWS_DEFAULT_REGION")
@@ -38,17 +43,18 @@ source('targets/R/data_processing.R')
 
 `%!in%` <- Negate(`%in%`) # not in function
 
-avro_file_directory <- "~/data/aquatic_avro"
-parquet_file_directory <- "~/data/aquatic_parquet"
-EDI_file_directory <- "~/data/aquatic_EDI"
+avro_file_directory <- path.expand("~/data/aquatic_avro")
+parquet_file_directory <- path.expand("~/data/aquatic_parquet")
+EDI_file_directory <- path.expand("~/data/aquatic_EDI")
 
 dir.create(avro_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(parquet_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(EDI_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(avro_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(parquet_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(parquet_file_directory, "tsd"), showWarnings = FALSE, recursive = TRUE)
 
-readRenviron("~/.Renviron") # compatible with littler
+#readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")
 Sys.getenv("NEONSTORE_DB")
 
@@ -75,7 +81,7 @@ urls <- df |>
   dplyr::filter(grepl("waq_instantaneous", name)) |>
   dplyr::pull(url)
 
- wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
+wq_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE) |>
   dplyr::mutate(siteID = stringr::str_sub(filename, 77,80)) |>
   dplyr::select(siteID, startDateTime, sensorDepth,
                 dissolvedOxygen,dissolvedOxygenFinalQF,
@@ -784,7 +790,7 @@ arrow::write_csv_arrow(hourly_temp_profile_lakes2, sink = s3$path("supporting_da
 #arrow::write_csv_arrow(hourly_temp_profile_lakes2, sink = s3$path("aquatics-expanded-observations.csv.gz"))
 
 # sync the data back to the S3 cache
-mc_mirror("~/data", "efi/aquatics-targets")
+mc_mirror( path.expand("~/data/"), "efi/aquatics-targets")
 
 
 message(paste0("Completed Aquatics Target at ", Sys.time()))

@@ -1,4 +1,3 @@
-
 download.neon.avro <- function(months, data_product, path) {
   for (i in 1:length(months$site_id)) {
     # create a directory for each site (if one doesn't already exist)
@@ -6,23 +5,24 @@ download.neon.avro <- function(months, data_product, path) {
       dir.create(path = paste0(path, '/site=', months$site_id[i]), recursive = TRUE, showWarnings = FALSE)
       message('creating new directory')
     }
-    
-    message(paste0('downloading site ', i, '/', length(months$site_id)))
-    
+
+    message(paste0('downloading ',months$site_id[i],": ", i, '/', length(months$site_id)))
+
     # month_use <- format(seq.Date(months$new_date[i], floor_date(Sys.Date() - days(2), 'month'), by = 'month'),
     #                     "%Y-%m")
-    # 
+    #
     month_use <- format(seq.Date(sort(c(months$new_date[i], floor_date(Sys.Date() - days(2), 'month')))[1],
                                  sort(c(months$new_date[i], floor_date(Sys.Date() - days(2), 'month')))[2],
                                  by = 'month'),
                         "%Y-%m")
     # loop through each month (max 2) and each dp listed
     for (j in 1:length(month_use)) {
-      
+
       for (dp in data_product) {
         # download the provisional files from Google Cloud Storage using the gsutils tool from cmd
         # -n argument skips files already downloaded
-        system(paste0('~/google-cloud-sdk/bin/gsutil -m cp -n gs://neon-is-transition-output/provisional/dpid=DP1.',
+        dir <- path.expand('~/google-cloud-sdk/bin/gsutil')
+        cmd <- paste0(dir,' -m cp -n gs://neon-is-transition-output/provisional/dpid=DP1.',
                       dp,
                       '.001/ms=',
                       # -n excludes already downloaded files
@@ -33,29 +33,29 @@ download.neon.avro <- function(months, data_product, path) {
                       "/* ",
                       path,
                       '/site=',
-                      months$site_id[i]),
-               ignore.stderr = T)
-        
+                      months$site_id[i])
+        system(cmd, ignore.stderr = T)
+
       }
-      
+
     }
-   
+
   }
 }
 # no error is thrown if the data product doesn't exist for that site
- 
+
 
 # delete the superseded files
 delete.neon.parquet <- function(months, path, data_product) {
-  
+
   for (i in 1:nrow(months)) {
     site_parquet <- dir(path = path,
-                       pattern = months$site_id[i])
-    
-    superseded <- site_parquet[which(lubridate::as_date(str_match(site_parquet, 
-                                                    "__\\s*(.*?)\\s*.avro")[,2]) <= 
-                         months$cur_wq_date[i])]
-    
+                        pattern = months$site_id[i])
+
+    superseded <- site_parquet[which(lubridate::as_date(str_match(site_parquet,
+                                                                  "__\\s*(.*?)\\s*.avro")[,2]) <=
+                                       months$cur_wq_date[i])]
+
     if (length(superseded) != 0) {
       file.remove(paste0(path, '/',superseded))
     }
@@ -64,16 +64,16 @@ delete.neon.parquet <- function(months, path, data_product) {
 
 # delete the superseded files
 delete.neon.avro <- function(months, path, data_product) {
-  
+
   for (i in 1:nrow(months)) {
-    
+
     site_avro <- dir(path = paste0(path, '/site=', months$site_id[i]),
-                     pattern = data_product) 
-    
-    superseded <- site_avro[which(lubridate::as_date(str_match(site_avro, 
-                                                               "__\\s*(.*?)\\s*.avro")[,2]) <= 
-                                    months$cur_wq_date[i])] 
-    
+                     pattern = data_product)
+
+    superseded <- site_avro[which(lubridate::as_date(str_match(site_avro,
+                                                               "__\\s*(.*?)\\s*.avro")[,2]) <=
+                                    months$cur_wq_date[i])]
+
     if (length(superseded) != 0) {
       file.remove(paste0(path,'/site=', months$site_id[i], '/',superseded))
     }
@@ -86,21 +86,21 @@ delete.neon.avro <- function(months, path, data_product) {
 read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
-  
-  wq_avro <- sparkavro::spark_read_avro(sc, 
+
+  wq_avro <- sparkavro::spark_read_avro(sc,
                                         name = "name",
                                         path = path,
-                                        memory = FALSE) |> 
+                                        memory = FALSE) |>
     dplyr::filter(termName %in% wq_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
     dplyr::filter(horizontalIndex %in% c('101', '111', '103')) %>%
-    dplyr::select(siteName, termName, startDate, 
+    dplyr::select(siteName, termName, startDate,
                   doubleValue, intValue) %>%
-    dplyr::collect() |> 
+    dplyr::collect() |>
     # combine the value fields to one
-    dplyr::mutate(Value = ifelse(is.na(doubleValue), 
-                          intValue, doubleValue)) %>%
+    dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                 intValue, doubleValue)) %>%
     dplyr::select(any_of(columns_keep))
 
   if (nrow(wq_avro) != 0) {
@@ -108,22 +108,22 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
       as.data.frame() %>%
       suppressWarnings()  %>%
       arrange(startDate, termName) %>%
-      pivot_wider(names_from = termName, values_from = Value) |> 
+      pivot_wider(names_from = termName, values_from = Value) |>
       filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
   } else {
     wq_tibble <- data.frame()
   }
-  
-  
+
+
   if (nrow(wq_tibble) >=1 ) {
     wq_tibble_wider <- wq_tibble %>%
       # arrange(startDate, termName) %>%
       # pivot_wider(names_from = termName, values_from = Value)  %>%
-      dplyr::mutate(sensorDepth = ifelse(siteName %in% profiling_sites, 
+      dplyr::mutate(sensorDepth = ifelse(siteName %in% profiling_sites,
                                          sensorDepth,
-                                         0.5)) |> 
-      dplyr::filter(sensorDepth > 0 & sensorDepth < 1)# |> 
-      # filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
+                                         0.5)) |>
+      dplyr::filter(sensorDepth > 0 & sensorDepth < 1)# |>
+    # filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
 
     # if the filtering has left rows then find the mean
     if (nrow(wq_tibble_wider) >= 1) {
@@ -137,84 +137,84 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
                   chla = mean(chlorophyll, na.rm = TRUE),.groups = "drop") %>%
         rename(site_id = siteName) %>%
         # get in the same long format as the NEON portal data
-        pivot_longer(cols = -c("time", "site_id"), 
-                     names_to = "variable", 
+        pivot_longer(cols = -c("time", "site_id"),
+                     names_to = "variable",
                      values_to = "observation")
-    } 
+    }
   }
-  
+
   if (exists('daily_wq')) {
     if (unique(daily_wq$site_id) %in% stream_sites) {
       daily_wq <- daily_wq %>% dplyr::filter(variable == "oxygen")
     }
   }
-  
+
   fs::dir_create(dir)
-  
+
   file_name <- file.path(file.path(dir, paste0(basename(path), ".parquet")))
-  
+
   if (exists('daily_wq')) {
     arrow::write_parquet(x = daily_wq, sink = file_name)
     if(fs::file_exists(file_name)){
-    #fs::file_delete(path)
+      #fs::file_delete(path)
     }
   } else {
-      # create an empty df to return
-      empty <- data.frame(site_id = NA, 
-                          time = NA, 
-                          variable = NA,
-                          observation = NA)  %>%
-        mutate(site_id = as.character(site_id),
-               time = as.Date(time),
-               variable = as.character(variable),
-               observation = as.numeric(observation)) %>%
-        dplyr::filter(rowSums(is.na(.)) != ncol(.)) # remove the empty row
-      arrow::write_parquet(x = empty, sink = file_name)
-      if(fs::file_exists(file_name)){
-        #fs::file_delete(path)
-      }
+    # create an empty df to return
+    empty <- data.frame(site_id = NA,
+                        time = NA,
+                        variable = NA,
+                        observation = NA)  %>%
+      mutate(site_id = as.character(site_id),
+             time = as.Date(time),
+             variable = as.character(variable),
+             observation = as.numeric(observation)) %>%
+      dplyr::filter(rowSums(is.na(.)) != ncol(.)) # remove the empty row
+    arrow::write_parquet(x = empty, sink = file_name)
+    if(fs::file_exists(file_name)){
+      #fs::file_delete(path)
+    }
   }
 }
 
 read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delete_files) {
   message(paste0('reading file ', path))
-  tsd_avro <- sparkavro::spark_read_avro(sc, 
+  tsd_avro <- sparkavro::spark_read_avro(sc,
                                          name = "name",
                                          path = path,
-                                         memory = FALSE) |> 
+                                         memory = FALSE) |>
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
-    dplyr::filter(horizontalIndex %in% c('101','111', '103'), 
-           temporalIndex == "030") %>% # take the 30-minutely data only
-    dplyr::select(siteName, termName, startDate, 
-           doubleValue, intValue, verticalIndex) %>%
-    collect() |> 
+    dplyr::filter(horizontalIndex %in% c('101','111', '103'),
+                  temporalIndex == "030") %>% # take the 30-minutely data only
+    dplyr::select(siteName, termName, startDate,
+                  doubleValue, intValue, verticalIndex) %>%
+    collect() |>
     # combine the value fields to one
-    dplyr::mutate(Value = ifelse(is.na(doubleValue), 
-                          intValue, doubleValue)) %>%
-    dplyr::select(any_of(columns_keep)) 
-  
-  
+    dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                 intValue, doubleValue)) %>%
+    dplyr::select(any_of(columns_keep))
+
+
   tsd_tibble <- tsd_avro %>%
     as.data.frame() %>%
     suppressWarnings() %>%
     inner_join(., thermistor_depths, by = c('siteName', 'verticalIndex')) %>%
     # only want temperatures in the surface (< 1 m) of the water column
-    dplyr::filter(thermistorDepth <= 1.0) 
-  
+    dplyr::filter(thermistorDepth <= 1.0)
+
   if (nrow(tsd_tibble) >=1) {
     tsd_tibble_wider <- tsd_tibble %>%
       arrange(startDate, termName) %>%
       pivot_wider(names_from = termName, values_from = Value) %>%
       filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
-    
+
     # if the filtering has left rows then find the mean
     if (nrow(tsd_tibble_wider) >= 1) {
       daily_tsd <- tsd_tibble_wider  %>%
         mutate(time = as.Date(startDate)) %>%
         # add missing columns (sites with no tsdWaterTempMean), need all otherwise function won't run
-        # tsdWaterTempMean = ifelse('tsdWaterTempMean' %in% colnames(tsd_tibble_wider), 
+        # tsdWaterTempMean = ifelse('tsdWaterTempMean' %in% colnames(tsd_tibble_wider),
         #                           tsdWaterTempMean, NA),
         # tsdWaterTempExpUncert = ifelse('tsdWaterTempExpUncert' %in% colnames(tsd_tibble_wider),
         #                                tsdWaterTempExpUncert, NA)) %>%
@@ -223,19 +223,19 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
                   .groups = "drop") %>%
         rename(site_id = siteName) %>%
         # get in the same long format as the NEON portal data
-        pivot_longer(cols = -c("time", "site_id"), 
-                     names_to = "variable", 
+        pivot_longer(cols = -c("time", "site_id"),
+                     names_to = "variable",
                      values_to = "observation")
-      
-    } 
+
+    }
   }
-  
+
   fs::dir_create(dir)
   file_name <- file.path(file.path(dir, paste0(basename(path), ".parquet")))
-  
+
   if (exists('daily_tsd')) {
     daily_tsd <- daily_tsd |> QC.temp(range = c(-5, 40), spike = 5, by.depth = F)
-    
+
     arrow::write_parquet(x = daily_tsd, sink = file_name)
     if(fs::file_exists(file_name) & delete_files){
       fs::file_delete(path)
@@ -243,8 +243,8 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
   } else {
     # create an empty df to return
     empty <- data.frame(site_id = NA,
-                        time = NA, 
-                        variable = NA, 
+                        time = NA,
+                        variable = NA,
                         observation = NA)  %>%
       mutate(site_id = as.character(site_id),
              time = as.Date(time),
@@ -261,35 +261,35 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
 read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, columns_keep, dir, delete_files) {
   message(paste0('reading file ', path))
 
-    tsd_avro <- sparkavro::spark_read_avro(sc, 
-                                           name = "name",
-                                           path = path,
-                                           memory = FALSE) %>%
+  tsd_avro <- sparkavro::spark_read_avro(sc,
+                                         name = "name",
+                                         path = path,
+                                         memory = FALSE) %>%
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
-    dplyr::filter(horizontalIndex %in% c('101', '111', '103'), 
-           temporalIndex == "030") %>% # take the 30-minutely data only
-    dplyr::select(siteName, termName, startDate, 
-           doubleValue, intValue, verticalIndex) %>%
-    collect() |> 
+    dplyr::filter(horizontalIndex %in% c('101', '111', '103'),
+                  temporalIndex == "030") %>% # take the 30-minutely data only
+    dplyr::select(siteName, termName, startDate,
+                  doubleValue, intValue, verticalIndex) %>%
+    collect() |>
     # combine the value fields to one
-    dplyr::mutate(Value = ifelse(is.na(doubleValue), 
-                          intValue, doubleValue)) %>%
-    dplyr::select(any_of(columns_keep)) 
-  
-  
+    dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                 intValue, doubleValue)) %>%
+    dplyr::select(any_of(columns_keep))
+
+
   tsd_tibble <- tsd_avro %>%
     as.data.frame() %>%
     suppressWarnings() %>%
-    inner_join(., thermistor_depths, by = c('siteName', 'verticalIndex')) 
-  
+    inner_join(., thermistor_depths, by = c('siteName', 'verticalIndex'))
+
   if (nrow(tsd_tibble) >=1) {
     tsd_tibble_wider <- tsd_tibble %>%
       arrange(startDate, termName) %>%
       pivot_wider(names_from = termName, values_from = Value) %>%
       filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
-    
+
     # if the filtering has left rows then find the mean
     if (nrow(tsd_tibble_wider) >= 1) {
       hourly_tsd <- tsd_tibble_wider  %>%
@@ -300,22 +300,22 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
         rename(site_id = siteName,
                depth = thermistorDepth) %>%
         # get in the same long format as the NEON portal data
-        pivot_longer(cols = -c("time", "site_id", "depth"), 
-                     names_to = "variable", 
+        pivot_longer(cols = -c("time", "site_id", "depth"),
+                     names_to = "variable",
                      values_to = "observation")
-      
-    } 
+
+    }
   }
-  
+
   fs::dir_create(dir)
   file_name <- file.path(file.path(dir, paste0(basename(path), ".parquet")))
-  
-  
+
+
   if (exists('hourly_tsd')) {
-    hourly_tsd <- hourly_tsd |> 
-      QC.temp(range = c(-5, 40), spike = 5, by.depth = T) |> 
+    hourly_tsd <- hourly_tsd |>
+      QC.temp(range = c(-5, 40), spike = 5, by.depth = T) |>
       mutate(data_source = 'NEON_pre_release')
-    
+
     arrow::write_parquet(x = hourly_tsd, sink = file_name)
     if(fs::file_exists(file_name) & delete_files){
       fs::file_delete(path)
@@ -323,9 +323,9 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
   } else {
     # create an empty df to return
     empty <- data.frame(site_id = NA,
-                        time = NA, 
+                        time = NA,
                         depth = NA,
-                        variable = NA, 
+                        variable = NA,
                         observation = NA)  %>%
       mutate(site_id = as.character(site_id),
              time = as.Date(time),
@@ -343,32 +343,32 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 
 read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
-  prt_avro <- sparkavro::spark_read_avro(sc, name = 'name', 
-                                         path = path) |> 
+  prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
+                                         path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
-      dplyr::filter(horizontalIndex %in% c('101', '111', '103'), 
-           temporalIndex == "030") %>% # take the 30-minutely data only
-      dplyr::select(siteName, termName, startDate, 
-           doubleValue, intValue) %>%
-    collect() |> 
+    dplyr::filter(horizontalIndex %in% c('101', '111', '103'),
+                  temporalIndex == "030") %>% # take the 30-minutely data only
+    dplyr::select(siteName, termName, startDate,
+                  doubleValue, intValue) %>%
+    collect() |>
     # combine the value fields to one
-      dplyr::mutate(Value = ifelse(is.na(doubleValue), 
-                          intValue, doubleValue)) %>%
-      dplyr::select(any_of(columns_keep)) 
-  
-  
+    dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                 intValue, doubleValue)) %>%
+    dplyr::select(any_of(columns_keep))
+
+
   prt_tibble <- prt_avro %>%
     as.data.frame() %>%
     suppressWarnings()
-  
+
   if (nrow(prt_tibble) >=1) {
     prt_tibble_wider <- prt_tibble %>%
       arrange(startDate, termName) %>%
       pivot_wider(names_from = termName, values_from = Value) %>%
       filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
-    
+
     # if the filtering has left rows then find the mean
     if (nrow(prt_tibble_wider) >= 1) {
       daily_prt <- prt_tibble_wider  %>%
@@ -377,29 +377,29 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
         summarize(temperature = mean(surfWaterTempMean, na.rm = TRUE),
                   .groups = "drop") %>%
         rename(site_id = siteName) %>%
-        rename(observation = temperature) |> 
+        rename(observation = temperature) |>
         mutate(variable = "temperature")
-      
-    } 
+
+    }
   }
-  
+
   fs::dir_create(dir)
   file_name <- file.path(file.path(dir, paste0(basename(path), ".parquet")))
-  
-  
+
+
   if (exists('daily_prt')) {
-    
+
     daily_prt <- daily_prt |> QC.temp(range = c(-5, 40), spike = 5, by.depth = F)
-    
+
     arrow::write_parquet(x = daily_prt, sink = file_name)
     if(fs::file_exists(file_name)){
       #fs::file_delete(path)
     }
   } else {
     # create an empty df to return
-    empty <- data.frame(site_id = NA, 
-                        time = NA, 
-                        variable = NA, 
+    empty <- data.frame(site_id = NA,
+                        time = NA,
+                        variable = NA,
                         observation = NA)  %>%
       mutate(site_id = as.character(site_id),
              time = as.Date(time),
@@ -414,8 +414,8 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
 }
 
 
-# wrapper function for a generic read avro function that selects the right 
-  # read_avro_... depending on the data product
+# wrapper function for a generic read avro function that selects the right
+# read_avro_... depending on the data product
 read.neon.avro <- function(path, sc, data_product, columns_keep, ...) {
   # the function is only available for 3 data products (wq, tsd, and prt)
   if (data_product != '20288' |
@@ -423,12 +423,12 @@ read.neon.avro <- function(path, sc, data_product, columns_keep, ...) {
       data_product != '20053') {
     stop('No read avro function for this data product')
   }
-  
-  #does the data product match the file path specified 
+
+  #does the data product match the file path specified
   if (str_detect(path, data_product) == FALSE) {
     stop('Data product does not match path')
   }
-  
+
   # use the right function based on the data product specified
   if (data_product == '20288') {
     message('running read.avro for water quality')
@@ -441,4 +441,4 @@ read.neon.avro <- function(path, sc, data_product, columns_keep, ...) {
     df <- read.avro.prt(path = path, sc = sc, columns_keep = columns_keep)
   }
   return(df)
-} 
+}

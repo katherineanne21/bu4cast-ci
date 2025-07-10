@@ -10,7 +10,8 @@ install_mc()
 spark_install(version = '4.0')
 
 options(sparklyr.console.log = TRUE)
-sc <- sparklyr::spark_connect(master = "local")
+sc <- sparklyr::spark_connect(master = "local", version = "4.0")
+print(sc)
 spark_disconnect(sc)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))

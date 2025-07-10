@@ -7,7 +7,7 @@ library(sparkavro)
 library(minioclient)
 library(fs)
 install_mc()
-spark_install()
+spark_install(version = '3.0')
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
 
@@ -61,13 +61,10 @@ Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")
 Sys.getenv("NEONSTORE_DB")
 
 #temporary aquatic repo during test of new workflow
-site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv")
-aq_sites <- site_data |> filter(aquatics == 1) |> pull(field_site_id)
+site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", show_col_types = FALSE)
+sites <- site_data |> dplyr::filter(aquatics == 1)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))
-
-sites <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |>
-  dplyr::filter(aquatics == 1)
 
 nonwadable_rivers <- sites$field_site_id[(which(sites$field_site_subtype == "Non-wadeable River"))]
 lake_sites <- sites$field_site_id[(which(sites$field_site_subtype == "Lake"))]

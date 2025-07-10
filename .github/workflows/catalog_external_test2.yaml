@@ -30,22 +30,24 @@ jobs:
         with:
           fetch-depth: 0
           set-safe-directory: '*'
-          repository: eco4cast/neon4cast-catalog # Replace with your destination repo details
+          repository: eco4cast/neon4cast-catalog # destination repo
           path: neon4cast-catalog
           token: ${{ secrets.PAT }} # Use the PAT from secrets
 
-      - name: Render metadata
+      - name: Render sites
         shell: Rscript {0}
-        run: source("catalog/model_metadata.R")
+        run: |
+          install.packages('gsheet')
+          install.packages('jsonlite')
+          devtools::install_github('eco4cast/stac4cast')
+          source("catalog/sites/build_sites_page.R")
 
       - name: Commit and Push
         run: |
           cd neon4cast-catalog
           git config user.name github-actions
           git config user.email github-actions@github.com
-
           git pull
           git add .
           git commit -a -m "update catalog" || echo "nothing to commit"
           git push origin main
-

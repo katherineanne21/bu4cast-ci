@@ -134,7 +134,7 @@ bench::bench_time({
 print("Compute who needs to be scored...")
 bench::bench_time({ # ~ 13s
   forecasts |>
-    anti_join(select(scores, allof(score_key_cols))) |> # forecast is unscored
+    anti_join(select(scores, all_of(score_key_cols))) |> # forecast is unscored
     inner_join(targets) |> # forecast has targets available
     group_by(variable) |>
     write_dataset("s3://efi-scores/tmp/score_me")

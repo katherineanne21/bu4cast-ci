@@ -21,7 +21,7 @@ install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 mc_mirror("osn/bio230014-bucket01/neonstore/db", neonstore::neon_db_dir())
-mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
+#mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
 
 
 sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", show_col_types = FALSE) |>
@@ -246,13 +246,18 @@ combined_daily <- bind_rows(flux_target_daily, old_fluxes) |>
   arrange(project_id, site_id, datetime, duration, variable) |>
   distinct()
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
-                       endpoint_override = "sdsc.osn.xsede.org",
-                       access_key = Sys.getenv("OSN_KEY"),
-                       secret_key = Sys.getenv("OSN_SECRET"))
+write_csv(combined_daily, "terrestrial_daily-targets.csv.gz")
+
+#s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
+endpoint_override = "sdsc.osn.xsede.org",
+access_key = Sys.getenv("OSN_KEY"),
+secret_key = Sys.getenv("OSN_SECRET"))
 
 
-arrow::write_csv_arrow(combined_daily, sink = s3$path("terrestrial_daily-targets-test.csv.gz"))
+#arrow::write_csv_arrow(combined_daily, sink = s3$path("terrestrial_daily-targets.csv.gz"))
+
+
+mc_cp("terrestrial_daily-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 
 fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
 mc_mirror(neonstore::neon_db_dir(), "osn/bio230014-bucket01/neonstore/db")

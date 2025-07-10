@@ -22,7 +22,8 @@ mc_alias_set("efi", "s3-west.nrp-nautilus.io",
              secret_key = Sys.getenv("EFI_NRP_SECRET"))
 mc_mirror("efi/gcs-creds", path.expand("~/.config"))
 creds <- path.expand("~/.config/phonic-formula-364513-f209e55945f2.json")
-cmd <- paste0("/home/rstudio/google-cloud-sdk/bin/gcloud auth activate-service-account neon4cast@phonic-formula-364513.iam.gserviceaccount.com --key-file=", creds," --project=phonic-formula-364513")
+gcloud <- path.expand("~/google-cloud-sdk/bin/gcloud")
+cmd <- paste0(gcloud," auth activate-service-account neon4cast@phonic-formula-364513.iam.gserviceaccount.com --key-file=", creds," --project=phonic-formula-364513")
 system(cmd)
 
 

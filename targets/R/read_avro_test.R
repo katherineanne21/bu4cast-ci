@@ -3,6 +3,7 @@ library(reticulate)
 
 
 py_install("fastavro",pip=TRUE)
+py_install("pandas",pip=TRUE)
 py_require(c("fastavro"))
 py_require(c("pandas"))
 

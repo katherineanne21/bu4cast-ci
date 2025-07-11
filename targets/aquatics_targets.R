@@ -5,6 +5,7 @@ library(contentid)
 library(sparklyr)
 library(sparkavro)
 library(minioclient)
+library(reticulate)
 library(fs)
 
 py_install("fastavro",pip=TRUE)

@@ -1,16 +1,16 @@
-read.avro <- function(file){
-  string <- glue::glue(
+read.avro <- function(path){
+  d <- glue::glue(
     "from fastavro import reader\
 import pandas as pd\
-with open('{file}', 'rb') as f:\
+with open('{path}', 'rb') as f:\
   \tavro_reader = reader(f)\
   \trecords = list(avro_reader)\
 df = pd.DataFrame(records)\
 ")
 
-  py_run_string(string)
+  py_run_string(d)
 
-  avro_data <- as_tibble(py$df)
+  avro_data <- tibble::as_tibble(py$df)
 
   return(avro_data)
 }

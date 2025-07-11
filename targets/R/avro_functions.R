@@ -1,22 +1,3 @@
-read.avro <- function(path){
-  d <- glue::glue(
-    "from fastavro import reader\
-import pandas as pd\
-with open('{path}', 'rb') as f:\
-  \tavro_reader = reader(f)\
-  \trecords = list(avro_reader)\
-df = pd.DataFrame(records)\
-")
-
-  py_run_string(d)
-
-  avro_data <- tibble::as_tibble(py$df)
-
-  return(avro_data)
-}
-
-
-
 download.neon.avro <- function(months, data_product, path) {
   for (i in 1:length(months$site_id)) {
     # create a directory for each site (if one doesn't already exist)
@@ -107,7 +88,7 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
 
-  wq_avro <- read.avro(path) |>
+  wq_avro <- read_avro_file(path) |>
     #wq_avro <- sparkavro::spark_read_avro(sc,
     #                                    name = "name",
     #                                    path = path,
@@ -200,7 +181,7 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delete_files) {
   message(paste0('reading file ', path))
 
-  tsd_avro <- read.avro(path) |>
+  tsd_avro <- read_avro_file(path) |>
   #tsd_avro <- sparkavro::spark_read_avro(sc,
   #                                       name = "name",
   #                                       path = path,
@@ -284,7 +265,7 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
 read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, columns_keep, dir, delete_files) {
   message(paste0('reading file ', path))
 
-  tsd_avro <- read.avro(path) |>
+  tsd_avro <- read_avro_file(path) |>
   #tsd_avro <- sparkavro::spark_read_avro(sc,
   #                                       name = "name",
   #                                       path = path,
@@ -368,7 +349,7 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
 
-  prt_avro <- read.avro(path) |>
+  prt_avro <- read_avro_file(path) |>
   #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
   #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%

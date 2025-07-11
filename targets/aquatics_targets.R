@@ -7,11 +7,11 @@ library(sparkavro)
 library(minioclient)
 library(fs)
 
-#install.packages("reticulate")
-library(reticulate)
 py_install("fastavro",pip=TRUE)
+py_install("pandas",pip=TRUE)
 py_require(c("fastavro"))
 py_require(c("pandas"))
+source_python("targets/R/read_avro.py")
 
 install_mc()
 

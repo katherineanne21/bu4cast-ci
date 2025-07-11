@@ -42,36 +42,45 @@ noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
 variable_groups:
   Aquatics:
     variable: ['oxygen','temperature','chla']
+    max_horizon: [35, 35, 35]
     duration: ['P1D','P1D','P1D']
     thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg'
     thumbnail_title: 'NEON Aquatics Buoy'
     group_vars:
       oxygen:
         duration: "P1D"
+        max_horizon: 35
       temperature:
         duration: 'P1D'
+        max_horizon: 35
         var_doi: "10.1002/ecs2.4686"
         var_citation: "Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 https://doi.org/10.1002/ecs2.4686"
       chla:
         duration: "P1D"
+        max_horizon: 35
   Terrestrial:
     variable: ['nee','le','nee','le']
     duration: ['P1D','P1D','PT30M','PT30M']
+    max_horizon: [35, 35, 35, 35]
     thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
     thumbnail_title: 'NEON Field Tower'
     group_vars:
       nee:
         duration: ["P1D", "PT30M"]
+        max_horizon: [35, 35]
       le:
         duration: ["P1D", "PT30M"]
+        max_horizon: [35, 35]
   Phenology:
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
+    max_horizon: [35, 35, 35, 35]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
     thumbnail_title: 'Phenology Image'
     group_vars:
       gcc_90:
         duration: "P1D"
+        max_horizon: 35
         var_doi: '10.1016/j.agrformet.2023.109810.'
         var_citation: 'Kathryn I. Wheeler, Michael C. Dietze, David LeBauer, Jody A. Peters, Andrew D. Richardson, Arun A. Ross, R. Quinn Thomas,
         Kai Zhu, Uttam Bhat, Stephan Munch, Raphaela Floreani Buzbee, Min Chen, Benjamin Goldstein, Jessica Guo, Dalei Hao, Chris Jones, Mira Kelly-Fair,
@@ -83,21 +92,26 @@ variable_groups:
   Beetles:
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
+    max_horizon: [730, 730]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_width_1170px/public/image-content-images/Beetles_pinned.jpg'
     thumbnail_title: 'Beetle Image'
     group_vars:
       abundance:
         duration: "P1W"
+        max_horizon: 730
       richness:
         duration: 'P1W'
+        max_horizon: 730
   Ticks:
     variable: ['amblyomma_americanum']
     duration: ['P1W']
+    max_horizon: [730]
     thumbnail_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/tick_drag.jpg'
     thumbnail_title: 'NEON Ticks'
     group_vars:
       amblyomma_americanum:
         duration: "P1W"
+        max_horizon: 730
 catalog_config:
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'

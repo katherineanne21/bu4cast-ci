@@ -121,12 +121,22 @@ if(length(submissions) > 0){
         fc <- fc |>
           mutate(duration = ifelse(duration == "PT30", "PT30M", duration))
 
+        # FILTER HORIZONS LONGER THAN ALLOWED
+
+        fc <- fc |>
+          mutate(horizon = as.integer(as.POSIXct(datetime) - as.POSIXct(reference_datetime))/ (60*60*24),
+                 max_horizon = ifelse(variable %in% c("amblyomma_americanum", "richness", "abundance"), 720, 35)) |>
+          filter(horizon <= max_horizon) |>
+          select(-horizon, -max_horizon)
+
+        fc <- fc |>
+          mutate(family = ifelse(family == "ensemble", "sample", family))
+
         if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }else if(fc$model_id[1] == "null"){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }
-
 
         if(!("reference_datetime" %in% colnames(fc))){
           fc <- fc |> mutate(reference_datetime = file_name_reference_datetime)

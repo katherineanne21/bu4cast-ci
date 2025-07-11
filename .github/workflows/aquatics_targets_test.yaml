@@ -30,4 +30,4 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          source("targets/aquatics_targets.R")
+          source("targets/R/read_avro_test.R")

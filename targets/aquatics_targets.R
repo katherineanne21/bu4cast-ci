@@ -7,7 +7,7 @@ library(sparkavro)
 library(minioclient)
 library(fs)
 
-install.packages("reticulate")
+#install.packages("reticulate")
 library(reticulate)
 py_install("fastavro",pip=TRUE)
 py_require(c("fastavro"))

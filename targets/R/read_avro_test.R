@@ -6,22 +6,15 @@ py_install("fastavro",pip=TRUE)
 py_require(c("fastavro"))
 py_require(c("pandas"))
 
-read.avro <- function(path){
-  d <- glue::glue(
-    "from fastavro import reader\
-import pandas as pd\
-with open('{path}', 'rb') as f:\
-  \tavro_reader = reader(f)\
-  \trecords = list(avro_reader)\
-df = pd.DataFrame(records)\
-")
 
-  py_run_string(d)
+# Source the Python script
+source_python("targets/R/read_avro.py")
 
-  avro_data <- tibble::as_tibble(py$df)
+# Call the Python function from R
+avro_data <- read_avro_file("targets/R/CRAM_L0_to_L1_Water_Quality_DP1.20288.001__2025-07-01.avro")
 
-  return(avro_data)
-}
+# View the data
+print(avro_data)
 
-df <- read.avro("targets/R/CRAM_L0_to_L1_Water_Quality_DP1.20288.001__2025-07-01.avro")
+
 

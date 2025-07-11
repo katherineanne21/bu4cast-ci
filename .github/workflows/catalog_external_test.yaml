@@ -38,6 +38,7 @@ jobs:
         shell: Rscript {0}
         run: |
           install.packages('gsheet')
+          devtools::install_github('eco4cast/stac4cast')
 
       - name: Render catalog
         shell: Rscript {0}

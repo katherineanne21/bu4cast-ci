@@ -154,7 +154,7 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
 
 write_csv(targets2, "beetles-targets.csv.gz")
 
-mc_cp("beetles-targets.csv.g", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
+mc_cp("beetles-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
 
 mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/")
 

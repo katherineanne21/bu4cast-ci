@@ -18,11 +18,11 @@ target_sites <- sites_df %>% pull(field_site_id)
 
 source("targets/R/resolve_taxonomy.R")
 
-for(y in 2015:year(Sys.Date())){
+for(y in 2024:year(Sys.Date())){
   print(y)
   pass <- TRUE
   iter <- 0
-  while(pass & iter < 4){
+  while(pass & iter < 10){
     iter <- iter + 1
 
     df <-  neonstore:::neon_data(product = "DP1.10093.001",
@@ -31,8 +31,8 @@ for(y in 2015:year(Sys.Date())){
                                  site = target_sites,
                                  type="expanded")
 
-    if(file.exists(path.expand("~/data/ticks_urls/DP1.10093.001.csv"))){
-      full_df_old <- read_csv(path.expand("~/data/ticks_urls/DP1.10093.001.csv"), show_col_types = FALSE)
+    if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
+      full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
     }else{
       full_df_old <- NULL
     }
@@ -44,7 +44,7 @@ for(y in 2015:year(Sys.Date())){
     print(nrow(full_df_old))
     pass <- nrow(full_df) != nrow(full_df_old)
 
-    write_csv(full_df, path.expand("~/data/ticks_urls/DP1.10093.001.csv"))
+    write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
   }
 }
 

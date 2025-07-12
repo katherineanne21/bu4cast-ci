@@ -18,37 +18,37 @@ target_sites <- sites_df %>% pull(field_site_id)
 
 source("targets/R/resolve_taxonomy.R")
 
-for(curr_year in 2015:year(Sys.Date())){
-  print(curr_year)
-  pass <- TRUE
-  iter <- 0
-  while(pass & iter < 10){
-    iter <- iter + 1
+# for(curr_year in 2015:year(Sys.Date())){
+#   print(curr_year)
+#   pass <- TRUE
+#   iter <- 0
+#   while(pass & iter < 10){
+#     iter <- iter + 1
+#
+#     df <-  neonstore:::neon_data(product = "DP1.10093.001",
+#                                  start_date = paste0(curr_year, "-01-01"),
+#                                  end_date = paste0(curr_year, "-12-31"),
+#                                  site = target_sites,
+#                                  type="expanded")
+#
+#     if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
+#       full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
+#     }else{
+#       full_df_old <- NULL
+#     }
+#
+#     full_df <- bind_rows(full_df_old, df) %>%
+#       distinct()
+#
+#     print(nrow(full_df))
+#     print(nrow(full_df_old))
+#     pass <- nrow(full_df) != nrow(full_df_old)
+#
+#     write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
+#   }
+# }
 
-    df <-  neonstore:::neon_data(product = "DP1.10093.001",
-                                 start_date = paste0(curr_year, "-01-01"),
-                                 end_date = paste0(curr_year, "-12-31"),
-                                 site = target_sites,
-                                 type="expanded")
-
-    if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
-      full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
-  }
-}
-
-#full_df <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
+full_df <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
 
 
 fielddata_urls <- full_df |>

@@ -87,26 +87,25 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
-
-  wq_avro <- read_avro_file(path) |>
-    #wq_avro <- sparkavro::spark_read_avro(sc,
-    #                                    name = "name",
-    #                                    path = path,
-    #                                    memory = FALSE) |>
-    dplyr::filter(termName %in% wq_vars) %>%
-    # for streams want to omit the downstream measurement (102) and retain upstream (101)
-    # rivers and lakes horizontal index is 103
-    dplyr::filter(horizontalIndex %in% c('101', '111', '103')) %>%
-    dplyr::select(siteName, termName, startDate,
-                  doubleValue, intValue) %>%
-    dplyr::collect() |>
-    # combine the value fields to one
-    dplyr::mutate(Value = ifelse(is.na(doubleValue),
-                                 intValue, doubleValue)) %>%
-    dplyr::select(any_of(columns_keep))
+  wq_avro <- read_avro_file(path)
 
   if (nrow(wq_avro) != 0) {
-    wq_tibble <- wq_avro %>%
+    wq_tibble <- wq_avro |>
+      #wq_avro <- sparkavro::spark_read_avro(sc,
+      #                                    name = "name",
+      #                                    path = path,
+      #                                    memory = FALSE) |>
+      dplyr::filter(termName %in% wq_vars) %>%
+      # for streams want to omit the downstream measurement (102) and retain upstream (101)
+      # rivers and lakes horizontal index is 103
+      dplyr::filter(horizontalIndex %in% c('101', '111', '103')) %>%
+      dplyr::select(siteName, termName, startDate,
+                    doubleValue, intValue) %>%
+      dplyr::collect() |>
+      # combine the value fields to one
+      dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                   intValue, doubleValue)) %>%
+      dplyr::select(any_of(columns_keep)) %>%
       as.data.frame() %>%
       suppressWarnings()  %>%
       arrange(startDate, termName) %>%
@@ -182,10 +181,10 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
   message(paste0('reading file ', path))
 
   tsd_avro <- read_avro_file(path) |>
-  #tsd_avro <- sparkavro::spark_read_avro(sc,
-  #                                       name = "name",
-  #                                       path = path,
-  #                                       memory = FALSE) |>
+    #tsd_avro <- sparkavro::spark_read_avro(sc,
+    #                                       name = "name",
+    #                                       path = path,
+    #                                       memory = FALSE) |>
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -266,10 +265,10 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
   message(paste0('reading file ', path))
 
   tsd_avro <- read_avro_file(path) |>
-  #tsd_avro <- sparkavro::spark_read_avro(sc,
-  #                                       name = "name",
-  #                                       path = path,
-  #                                       memory = FALSE) %>%
+    #tsd_avro <- sparkavro::spark_read_avro(sc,
+    #                                       name = "name",
+    #                                       path = path,
+    #                                       memory = FALSE) %>%
     dplyr::filter(termName %in% tsd_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103
@@ -350,8 +349,8 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
 
   prt_avro <- read_avro_file(path) |>
-  #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
-  #                                       path = path) |>
+    #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
+    #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
     # for streams want to omit the downstream measurement (102) and retain upstream (101)
     # rivers and lakes horizontal index is 103

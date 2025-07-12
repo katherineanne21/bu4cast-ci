@@ -1,14 +1,45 @@
 library(neonstore)
 library(tidyverse)
 library(ISOweek)
+library(minioclient)
 source("targets/R/resolve_taxonomy.R")
 
-df <-  neonstore:::neon_data(product = "DP1.10022.001",
-                             #start_date = "2023-06-01",
-                             #end_date = "2023-08-01",
-                             type="expanded")
+install_mc()
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
-sorting_urls <- df |>
+
+mc_mirror("osn/bio230014-bucket01/beetles-data/",  path.expand("~/beetles-data/"))
+
+for(y in 2015:year(Sys.Date())){
+  print(y)
+  pass <- TRUE
+  iter <- 0
+  while(pass & iter < 10){
+    iter <- iter + 1
+
+    df <-  neonstore:::neon_data(product = "DP1.10022.001",
+                                 start_date = paste0(y, "-01-01"),
+                                 end_date = paste0(y, "-12-31"),
+                                 type="expanded")
+
+    if(file.exists(path.expand("~/beetles-data/DP1.10022.001.csv"))){
+      full_df_old <- read_csv(path.expand("~/beetles-data/DP1.10022.001.csv"), show_col_types = FALSE)
+    }else{
+      full_df_old <- NULL
+    }
+
+    full_df <- bind_rows(full_df_old, df) %>%
+      distinct()
+
+    print(nrow(full_df))
+    print(nrow(full_df_old))
+    pass <- nrow(full_df) != nrow(full_df_old)
+
+    write_csv(full_df, path.expand("~/beetles-data/DP1.10022.001.csv"))
+  }
+}
+
+sorting_urls <- full_df |>
   dplyr::filter(grepl("bet_sorting", name)) |>
   pull(url)
 
@@ -18,7 +49,7 @@ sorting <- duckdbfs::open_dataset(sorting_urls, format="csv") |>
          nativeStatusCode, sampleCondition) |>
   collect()
 
-para_urls <- df |>
+para_urls <- full_df |>
   dplyr::filter(grepl("bet_parataxonomistID", name)) |>
   pull(url)
 
@@ -26,7 +57,7 @@ para <- duckdbfs::open_dataset(para_urls, format="csv") |>
   select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID) |>
   collect()
 
-expert_urls <- df |>
+expert_urls <- full_df |>
   dplyr::filter(grepl("bet_expertTaxonomistIDProcessed", name)) |>
   pull(url)
 
@@ -34,7 +65,7 @@ expert <- duckdbfs::open_dataset(expert_urls, format="csv") |>
   select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate) |>
   collect()
 
-field_urls <- df |>
+field_urls <- full_df |>
   dplyr::filter(grepl("bet_fielddata", name)) |>
   pull(url)
 
@@ -120,6 +151,11 @@ s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4ca
                        access_key = Sys.getenv("OSN_KEY"),
                        secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_csv_arrow(targets2, sink = s3$path("beetles-targets.csv.gz"))
+
+write_csv(targets2, "beetles-targets.csv.gz")
+
+mc_cp("beetles-targets.csv.g", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
+
+mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/")
 
 RCurl::getURL("https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99")

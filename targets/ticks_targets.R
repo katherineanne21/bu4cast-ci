@@ -18,7 +18,7 @@ target_sites <- sites_df %>% pull(field_site_id)
 
 source("targets/R/resolve_taxonomy.R")
 
-for(y in 2024:year(Sys.Date())){
+for(y in 2015:year(Sys.Date())){
   print(y)
   pass <- TRUE
   iter <- 0
@@ -165,9 +165,9 @@ tick_targets2 <- tick_targets |>
   select(project_id, site_id, datetime, duration, variable, observation)
 
 write_csv(tick_targets2, "ticks-targets.csv.gz")
-
+message("Writing targets to S3")
 mc_cp("ticks-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/")
-
+message("Writing data catalog to S3")
 mc_mirror(path.expand("~/ticks-data"), "osn/bio230014-bucket01/ticks-data/")
 
 RCurl::getURL("https://hc-ping.com/09c7ab10-eb4e-40ef-a029-7a4addc3295b")

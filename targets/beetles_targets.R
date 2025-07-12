@@ -10,36 +10,36 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 
 mc_mirror("osn/bio230014-bucket01/beetles-data/",  path.expand("~/beetles-data/"))
 
-# for(y in 2015:year(Sys.Date())){
-#   print(y)
-#   pass <- TRUE
-#   iter <- 0
-#   while(pass & iter < 10){
-#     iter <- iter + 1
-#
-#     df <-  neonstore:::neon_data(product = "DP1.10022.001",
-#                                  start_date = paste0(y, "-01-01"),
-#                                  end_date = paste0(y, "-12-31"),
-#                                  type="expanded")
-#
-#     if(file.exists(path.expand("~/beetles-data/DP1.10022.001.csv"))){
-#       full_df_old <- read_csv(path.expand("~/beetles-data/DP1.10022.001.csv"), show_col_types = FALSE)
-#     }else{
-#       full_df_old <- NULL
-#     }
-#
-#     full_df <- bind_rows(full_df_old, df) %>%
-#       distinct()
-#
-#     print(nrow(full_df))
-#     print(nrow(full_df_old))
-#     pass <- nrow(full_df) != nrow(full_df_old)
-#
-#     write_csv(full_df, path.expand("~/beetles-data/DP1.10022.001.csv"))
-#   }
-# }
+for(curr_year in 2015:year(Sys.Date())){
+  print(curr_year)
+  pass <- TRUE
+  iter <- 0
+  while(pass & iter < 10){
+    iter <- iter + 1
 
-full_df <- read_csv(path.expand("~/beetles-data/DP1.10022.001.csv"), show_col_types = FALSE)
+    df <-  neonstore:::neon_data(product = "DP1.10022.001",
+                                 start_date = paste0(curr_year, "-01-01"),
+                                 end_date = paste0(curr_year, "-12-31"),
+                                 type="expanded")
+
+    if(file.exists(path.expand("~/beetles-data/DP1.10022.001.csv"))){
+      full_df_old <- read_csv(path.expand("~/beetles-data/DP1.10022.001.csv"), show_col_types = FALSE)
+    }else{
+      full_df_old <- NULL
+    }
+
+    full_df <- bind_rows(full_df_old, df) %>%
+      distinct()
+
+    print(nrow(full_df))
+    print(nrow(full_df_old))
+    pass <- nrow(full_df) != nrow(full_df_old)
+
+    write_csv(full_df, path.expand("~/beetles-data/DP1.10022.001.csv"))
+  }
+}
+
+#full_df <- read_csv(path.expand("~/beetles-data/DP1.10022.001.csv"), show_col_types = FALSE)
 
 sorting_urls <- full_df |>
   dplyr::filter(grepl("bet_sorting", name)) |>

@@ -5,7 +5,7 @@ library(minioclient)
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
-#mc_mirror("osn/bio230014-bucket01/ticks-data/",  path.expand("~/ticks-data/"))
+mc_mirror("osn/bio230014-bucket01/ticks-data/",  path.expand("~/ticks-data/"))
 
 # select target species and life stage
 target_species <- c("Amblyomma americanum") # NEON species name

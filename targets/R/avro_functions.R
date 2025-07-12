@@ -96,21 +96,25 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
       #                                    path = path,
       #                                    memory = FALSE) |>
       dplyr::filter(termName %in% wq_vars) %>%
+      dplyr::filter(horizontalIndex %in% c('101', '111', '103'))
+
+    if(nrow(wq_tibble) > 0){
       # for streams want to omit the downstream measurement (102) and retain upstream (101)
       # rivers and lakes horizontal index is 103
-      dplyr::filter(horizontalIndex %in% c('101', '111', '103')) %>%
-      dplyr::select(siteName, termName, startDate,
-                    doubleValue, intValue) %>%
-      dplyr::collect() |>
-      # combine the value fields to one
-      dplyr::mutate(Value = ifelse(is.na(doubleValue),
-                                   intValue, doubleValue)) %>%
-      dplyr::select(any_of(columns_keep)) %>%
-      as.data.frame() %>%
-      suppressWarnings()  %>%
-      arrange(startDate, termName) %>%
-      pivot_wider(names_from = termName, values_from = Value) |>
-      filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
+      wq_tibble <- wq_tibble %>%
+
+        dplyr::select(siteName, termName, startDate,
+                      doubleValue, intValue) %>%
+        # combine the value fields to one
+        dplyr::mutate(Value = ifelse(is.na(doubleValue),
+                                     intValue, doubleValue)) %>%
+        dplyr::select(any_of(columns_keep)) %>%
+        as.data.frame() %>%
+        suppressWarnings()  %>%
+        arrange(startDate, termName) %>%
+        pivot_wider(names_from = termName, values_from = Value) |>
+        filter_at(vars(ends_with('QF')), any_vars(. != 1)) # checks to see if any of the QF cols have a 1
+    }
   } else {
     wq_tibble <- data.frame()
   }

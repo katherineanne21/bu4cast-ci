@@ -26,8 +26,8 @@ source("targets/R/resolve_taxonomy.R")
      iter <- iter + 1
 
     df <-  neonstore:::neon_data(product = "DP1.10093.001",
-                                 start_date = paste0(curr_year, "-01-01"),
-                                 end_date = paste0(curr_year, "-12-31"),
+                                 #start_date = paste0(curr_year, "-01-01"),
+                                 #end_date = paste0(curr_year, "-12-31"),
                                  site = target_sites,
                                  type="expanded")
 

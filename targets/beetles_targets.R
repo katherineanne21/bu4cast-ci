@@ -158,6 +158,6 @@ write_csv(targets2, "beetles-targets.csv.gz")
 
 mc_cp("beetles-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
 
-mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/")
+mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/", overwrite = TRUE, remove = TRUE)
 
 RCurl::getURL("https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99")

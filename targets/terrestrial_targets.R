@@ -258,8 +258,8 @@ write_csv(combined_daily, "terrestrial_daily-targets.csv.gz")
 mc_cp("terrestrial_daily-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 
 fs::dir_delete(fs::path(neon_dir(), "DP4.00200.001"))
-mc_mirror(neonstore::neon_db_dir(), "osn/bio230014-bucket01/neonstore/db")
-mc_mirror(neonstore::neon_dir(), "osn/bio230014-bucket01/flux_staging/neonstore_temp")
+mc_mirror(neonstore::neon_db_dir(), "osn/bio230014-bucket01/neonstore/db", overwrite = TRUE, remove = TRUE)
+mc_mirror(neonstore::neon_dir(), "osn/bio230014-bucket01/flux_staging/neonstore_temp", overwrite = TRUE, remove = TRUE)
 
 
 message(paste0("Completed Terrestrial Target at ", Sys.time()))

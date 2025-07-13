@@ -879,7 +879,7 @@ write_csv(hourly_temp_profile_lakes, "aquatics-expanded-observations.csv.gz")
 mc_cp("aquatics-expanded-observations.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 
 # sync the data back to the S3 cache
-mc_mirror( path.expand("~/data/"), "efi/aquatics-targets")
+mc_mirror( path.expand("~/data/"), "efi/aquatics-targets", overwrite = TRUE, remove = TRUE)
 
 
 message(paste0("Completed Aquatics Target at ", Sys.time()))

@@ -80,7 +80,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek"))
+          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek", "minioclient"))
           source("targets/beetles_targets.R")
 
   ticks:
@@ -99,7 +99,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
-          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek"))
+          install.packages(c("neonstore","RCurl","duckdbfs","ISOweek", "minioclient"))
           source("targets/ticks_targets.R")
 
   Healthcheck:

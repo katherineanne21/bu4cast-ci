@@ -46,7 +46,7 @@ s3_current_month <- arrow::s3_bucket("bio230014-bucket01/flux_staging/current_mo
                                      secret_key = Sys.getenv("OSN_SECRET"))
 
 
-existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets-test.csv.gz"))
+existing_targets_daily <- arrow::read_csv_arrow(s3$path("terrestrial_daily-targets.csv.gz"))
 
 start_date <- as_date(max(existing_targets_daily$datetime)) - dmonths(3)
 

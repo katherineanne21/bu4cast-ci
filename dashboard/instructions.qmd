@@ -6,7 +6,7 @@ editor:
     wrap: sentence
 ---
 
-## tl;dr: How to submit a forecast
+## Overview: How to submit a forecast
 
 We provide an overview of the steps for submitting with the details below:
 
@@ -45,8 +45,7 @@ Since forecasts can be submitted every day, automation is essential.
 We provide an [example GitHub](https://github.com/eco4cast/neon4cast-example) repository that can be used to automate your forecast with GitHub Actions.
 It also includes using a custom Docker Container [eco4cast/rocker-neon4cast:latest](https://github.com/eco4cast/neon4cast-ci/blob/main/Dockerfile) that contains many of the packages and functions needed to generate and submit forecasts.
 
-We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week.
-So, we recommend only submitting forecasts of the weekly variables on Sundays.
+We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) that were submitted on the Sunday of each week. Therefore, we recommend only submitting forecasts of the weekly variables on Sundays.
 
 ## You can forecast at any of the NEON sites
 
@@ -72,7 +71,7 @@ The file is a CSV format with the following columns:
     Forecasts submitted with a `%Y-%m-%d` format will be converted to a full datetime assuming UTC mid-night.
 
 -   `duration`: the time-step of the forecast.
-    Use the value of `P1D` for a daily forecast, `P1W` for a weekly forecast, and `PT30M` for 30 minute forecast.
+    Use the value of `P1D` for a daily forecast and `P1W` for a weekly forecast.
     This value should match the duration of the target variable you are forecasting.
     Formatted as [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 
@@ -187,8 +186,8 @@ neon4cast::submit(forecast_file = "theme_name-year-month-day-model_id.csv")
 
 ### Processing
 
-After submission, our servers will process uploaded files by converting them to a [parquet format](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/collection.json) on our public s3 storage.
-A `pub_datetime` column will be added that denotes when a forecast was submitted.  [Summaries](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/collection.json) are generated of the forecasts provide descriptive statistics of the forecast.  
+After submission, our servers will process uploaded files by converting them to a [parquet format](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/forecasts/collection.json) on our public s3 storage.
+A `pub_datetime` column will be added that denotes when a forecast was submitted.  [Summaries](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/summaries/collection.json) are generated of the forecasts provide descriptive statistics of the forecast.  
 
 ### Evaluation
 

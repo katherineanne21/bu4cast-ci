@@ -2,7 +2,9 @@
 
 ## Tutorials
 
-An introductory tutorial for submitting to Challenge focused on aquatics theme: [https://github.com/OlssonF/NEON-forecast-challenge-workshop](https://github.com/OlssonF/NEON-forecast-challenge-workshop). [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
+An introductory tutorial for submitting to Challenge focused on aquatics theme: [https://github.com/eco4cast/NEON-forecast-challenge-workshop](https://github.com/eco4cast/NEON-forecast-challenge-workshop). [A webinar version of tutorial](https://www.youtube.com/watch?v=-5iPNr19g-4)
+
+An introduction to forecast evaluation: [https://github.com/OlssonF/Forecast-evaluation-EFI25](https://github.com/OlssonF/Forecast-evaluation-EFI25)
 
 More advanced tutorial for submitting to Challenge focused on the terrestrial theme: [https://github.com/rqthomas/FluxCourseForecast](https://github.com/mdietze/FluxCourseForecast)
 
@@ -30,7 +32,7 @@ Thomas, R.Q, R.P. McClure, T.N. Moore, W.M. Woelmer, C. Boettiger, R.J. Figueire
 
 Wheeler, K., M. Dietze, D. LeBauer, J. Peters, A.D. Richardson, R.Q. Thomas, K. Zhu, U. Bhat, S. Munch, R.F Buzbee, M. Chen, B. Goldstein, J.S. Guo, D. Hao, C. Jones, M. Kelly-Fair, H. Liu, C. Malmborg, N. Neupane. D. Pal, A. Ross, V. Shirey, Y. Song, M. Steen, E.A. Vance, W.M. Woelmer, J. Wynne and L. Zachmann. 2024. Predicting Spring Phenology in Deciduous Broadleaf Forests: An Open Community Forecast Challenge. *Agricultural and Forest Meteorology* 345: 09810 [https://doi.org/10.1016/j.agrformet.2023.109810](https://doi.org/10.1016/j.agrformet.2023.109810)
 
-### Details about the standards used in the challenge
+### Details about the data standards used in the challenge
 
 Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 [https://doi.org/10.1002/ecs2.4686](https://doi.org/10.1002/ecs2.4686)
 

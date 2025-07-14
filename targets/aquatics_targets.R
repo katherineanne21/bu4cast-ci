@@ -83,31 +83,31 @@ message("Getting list of data from NEON Portal")
 
 # for(y in 2016:year(Sys.Date())){
 #   print(y)
-  pass <- TRUE
-  iter <- 0
-  while(pass & iter < 4){
-    iter <- iter + 1
+pass <- TRUE
+iter <- 0
+while(pass & iter < 4){
+  iter <- iter + 1
 
-    df <-  neonstore:::neon_data(product = "DP1.20288.001",
-                                 #start_date = paste0(y, "-01-01"),
-                                 #end_date = paste0(y, "-12-31"),
-                                 type="basic")
+  df <-  neonstore:::neon_data(product = "DP1.20288.001",
+                               #start_date = paste0(y, "-01-01"),
+                               #end_date = paste0(y, "-12-31"),
+                               type="basic")
 
-    if(file.exists(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))){
-      full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))
+  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))){
+    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
+  }else{
+    full_df_old <- NULL
   }
+
+  full_df <- bind_rows(full_df_old, df) %>%
+    distinct()
+
+  print(nrow(full_df))
+  print(nrow(full_df_old))
+  pass <- nrow(full_df) != nrow(full_df_old)
+
+  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))
+}
 
 #full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
 
@@ -285,32 +285,32 @@ message("##### NEON portal data #####")
 
 # for(y in 2017:year(Sys.Date())){
 #   print(y)
-  pass <- TRUE
-  iter <- 0
-  while(pass & iter < 10){
-    iter <- iter + 1
+pass <- TRUE
+iter <- 0
+while(pass & iter < 10){
+  iter <- iter + 1
 
-    df <-  neonstore:::neon_data(product = "DP1.20264.001",
-                                 #start_date = paste0(y, "-01-01"),
-                                 #end_date = paste0(y, "-12-31"),
-                                 type="basic",
-                                 site = lake_sites)
+  df <-  neonstore:::neon_data(product = "DP1.20264.001",
+                               #start_date = paste0(y, "-01-01"),
+                               #end_date = paste0(y, "-12-31"),
+                               type="basic",
+                               site = lake_sites)
 
-    if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))){
-      full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))
+  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))){
+    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"), show_col_types = FALSE)
+  }else{
+    full_df_old <- NULL
   }
+
+  full_df <- bind_rows(full_df_old, df) %>%
+    distinct()
+
+  print(nrow(full_df))
+  print(nrow(full_df_old))
+  pass <- nrow(full_df) != nrow(full_df_old)
+
+  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"))
+}
 # }
 
 #full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_lake_sites.csv"), show_col_types = FALSE)
@@ -509,32 +509,32 @@ message("##### Stream temperatures #####")
 
 # for(y in 2016:year(Sys.Date())){
 #   print(y)
-  pass <- TRUE
-  iter <- 0
-  while(pass & iter < 10){
-    iter <- iter + 1
+pass <- TRUE
+iter <- 0
+while(pass & iter < 10){
+  iter <- iter + 1
 
-    df <-  neonstore:::neon_data(product = "DP1.20053.001",
-                                 #start_date = paste0(y, "-01-01"),
-                                 #end_date = paste0(y, "-12-31"),
-                                 type="basic",
-                                 site = stream_sites)
+  df <-  neonstore:::neon_data(product = "DP1.20053.001",
+                               #start_date = paste0(y, "-01-01"),
+                               #end_date = paste0(y, "-12-31"),
+                               type="basic",
+                               site = stream_sites)
 
-    if(file.exists(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))){
-      full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))
+  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))){
+    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"), show_col_types = FALSE)
+  }else{
+    full_df_old <- NULL
   }
+
+  full_df <- bind_rows(full_df_old, df) %>%
+    distinct()
+
+  print(nrow(full_df))
+  print(nrow(full_df_old))
+  pass <- nrow(full_df) != nrow(full_df_old)
+
+  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20053.001.csv"))
+}
 # }
 
 #full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20053.001.csv"), show_col_types = FALSE)
@@ -667,32 +667,32 @@ message("##### River temperature ######")
 
 # for(y in 2016:year(Sys.Date())){
 #   print(y)
-  pass <- TRUE
-  iter <- 0
-  while(pass & iter < 10){
-    iter <- iter + 1
+pass <- TRUE
+iter <- 0
+while(pass & iter < 10){
+  iter <- iter + 1
 
-    df <-  neonstore:::neon_data(product = "DP1.20264.001",
-                                 #start_date = paste0(y, "-01-01"),
-                                 #end_date = paste0(y, "-12-31"),
-                                 type="basic",
-                                 site = nonwadable_rivers)
+  df <-  neonstore:::neon_data(product = "DP1.20264.001",
+                               #start_date = paste0(y, "-01-01"),
+                               #end_date = paste0(y, "-12-31"),
+                               type="basic",
+                               site = nonwadable_rivers)
 
-    if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))){
-      full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))
+  if(file.exists(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))){
+    full_df_old <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"), show_col_types = FALSE)
+  }else{
+    full_df_old <- NULL
   }
+
+  full_df <- bind_rows(full_df_old, df) %>%
+    distinct()
+
+  print(nrow(full_df))
+  print(nrow(full_df_old))
+  pass <- nrow(full_df) != nrow(full_df_old)
+
+  write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"))
+}
 # }
 
 #full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20264.001_nonwadable_rivers.csv"), show_col_types = FALSE)
@@ -710,13 +710,15 @@ temp_rivers_portal <- duckdbfs::open_dataset(urls, format="csv", filename = TRUE
                 tsdWaterTempMean = as.numeric(tsdWaterTempMean),
                 tsdWaterTempFinalQF = as.numeric(tsdWaterTempFinalQF)) %>%
   dplyr::select(startDateTime, site_id, tsdWaterTempMean, depth, tsdWaterTempFinalQF) %>%
+  rename(time = startDateTime) %>%
   dplyr::filter(tsdWaterTempFinalQF == 0) %>%
-  dplyr::mutate(time = as_date(startDateTime)) %>%
   dplyr::summarize(temperature = mean(tsdWaterTempMean, na.rm = TRUE), .by = c("time", "site_id")) %>%
   dplyr::select(time, site_id, temperature) %>%
   rename(observation = temperature) |>
   mutate(variable = "temperature") |>
-  collect()
+  collect() %>%
+  dplyr::mutate(time = as_date(time))
+
 
 temp_rivers_portal_QC <- temp_rivers_portal %>%
   QC.temp(range = c(-5, 40), spike = 7, by.depth = F)

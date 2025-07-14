@@ -855,7 +855,8 @@ targets_long <- dplyr::bind_rows(wq_cleaned, temp_cleaned) %>%
   dplyr::arrange(site_id, time, variable) %>%
   dplyr::mutate(observation = ifelse(is.nan(observation), NA, observation))
 
-message("#### Writing forecasts to file ####")
+message("#### Writing Targets to file ####")
+
 
 targets_long <- targets_long |>
   rename(datetime = time) |>
@@ -866,8 +867,9 @@ targets_long <- targets_long |>
 
 write_csv(targets_long, "aquatics-targets.csv.gz")
 
-mc_cp("aquatics-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/",)
+mc_cp("aquatics-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 
+message("#### Writing Hourly Targets to file ####")
 hourly_temp_profile_lakes <- hourly_temp_profile_lakes |>
   rename(datetime = time) |>
   mutate(datetime = lubridate::as_datetime(datetime),

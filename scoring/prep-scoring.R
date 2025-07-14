@@ -32,8 +32,10 @@ duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
 
 
 ### Access the targets, forecasts, and scores subsets
+## targets has some non-schema-conforming additions, use globs
 targets <-
-  open_dataset("s3://bio230014-bucket01/challenges/targets/",
+  open_dataset("s3://bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=*/*-targets.csv.gz",
+               recursive = FALSE,
                format = "csv",  # set mode to TABLE to download first
                s3_endpoint = "sdsc.osn.xsede.org",
                anonymous = TRUE) |>

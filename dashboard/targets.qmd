@@ -65,7 +65,7 @@ In the tables,
 ::: panel-tabset
 ### Terrestrial fluxes
 
-![](https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg)
+![](https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg?h=d1cb525d&itok=0SkNONOu)
 
 The exchange of water and carbon dioxide between the atmosphere and the land is akin to the breathing rate and lung capacity of Earth's terrestrial ecosystems. 
 

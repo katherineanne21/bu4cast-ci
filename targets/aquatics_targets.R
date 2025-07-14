@@ -866,7 +866,7 @@ targets_long <- targets_long |>
 
 write_csv(targets_long, "aquatics-targets.csv.gz")
 
-mc_cp("aquatics-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
+mc_cp("aquatics-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/",)
 
 hourly_temp_profile_lakes <- hourly_temp_profile_lakes |>
   rename(datetime = time) |>
@@ -877,7 +877,7 @@ hourly_temp_profile_lakes <- hourly_temp_profile_lakes |>
 
 write_csv(hourly_temp_profile_lakes, "aquatics-expanded-observations.csv.gz")
 
-mc_cp("aquatics-expanded-observations.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
+mc_cp("aquatics-expanded-observations.csv.gz", "osn/bio230014-bucket01/challenges/supporting_data/project_id=neon4cast/")
 
 # sync the data back to the S3 cache
 mc_mirror( path.expand("~/data/"), "efi/aquatics-targets", overwrite = TRUE, remove = TRUE)

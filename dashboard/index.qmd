@@ -23,6 +23,8 @@ The Challenge is [an excellent focal project in university courses](use-in-class
 
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+install.packages("remotes")
+remotes::install_github('cboettig/duckdbfs', upgrade = 'never')
 library(dplyr)
 library(arrow)
 library(bslib)

@@ -5,7 +5,7 @@ noaa_endpoint: sdsc.osn.xsede.org
 submissions_endpoint: s3-west.nrp-nautilus.io
 scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast
-summaries_bucket: bio230014-bucket01/challenges/forecasts/bundled-summaries/project_id=neon4cast
+summaries_bucket: bio230014-bucket01/challenges/forecasts/bundled-summaries
 submissions_bucket: submissions
 inventory_bucket: bio230014-bucket01/challenges/inventory
 noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12

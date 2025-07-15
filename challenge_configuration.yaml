@@ -4,7 +4,7 @@ endpoint: sdsc.osn.xsede.org
 noaa_endpoint: sdsc.osn.xsede.org
 submissions_endpoint: s3-west.nrp-nautilus.io
 scores_bucket: bio230014-bucket01/challenges/scores
-forecasts_bucket: bio230014-bucket01/challenges/forecasts
+forecasts_bucket: bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast
 summaries_bucket: bio230014-bucket01/challenges/forecasts/summaries
 submissions_bucket: submissions
 inventory_bucket: bio230014-bucket01/challenges/inventory
@@ -44,7 +44,7 @@ variable_groups:
     variable: ['oxygen','temperature','chla']
     max_horizon: [35, 35, 35]
     duration: ['P1D','P1D','P1D']
-    thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg'
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/_edit_list_additional_actions_max_width_300/public/image-content-images/06092015-BarcoBuoy-400.jpg?itok=t1xTVkX3'
     thumbnail_title: 'NEON Aquatics Buoy'
     group_vars:
       oxygen:

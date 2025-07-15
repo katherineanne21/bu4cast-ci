@@ -3,7 +3,7 @@
 print(paste0("Running Creating Terrestrial baselines at ", Sys.time()))
 
 generate_null_daily <- TRUE
-generate_null_30min <- TRUE
+generate_null_30min <- FALSE
 
 if(generate_null_daily){
   print(paste0("Running daily climatology at ", Sys.time()))

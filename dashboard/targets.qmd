@@ -25,7 +25,7 @@ target_metadata <- target_metadata |>
   select(variable, duration, class, Description, horizon, Latency)
 ```
 
-## tl;dr: Forecast the targets!
+## Overiew: Forecast the targets!
 
 The "targets" are time-series of National Ecological Observatory Network ([NEON](https://www.neonscience.org)) data for use in model development and forecast evaluation.
 
@@ -36,8 +36,7 @@ The themes and links to the target files are included below.
 
 ## Where to start {#sec-starting-sites}
 
-If you are just getting started, we recommend the following focal sites for each of the five "themes."
-The first site in the list is the recommended starting site.
+If you are just getting started, we recommend the following focal sites for each of the five "themes." The first site in the list is the recommended starting site.
 
 -   Terrestrial: `r terrestrial_focal_sites`
 -   Aquatics: `r aquatics_focal_sites`
@@ -56,7 +55,7 @@ More information about NEON sites can be found in the [site metadata](https://ra
 Information on the target files for the five "themes" is below.
 In the tables,
 
--   "duration" is the time-step of the variable where `PT30M` is a 30-minute mean, `P1D` is a daily mean, and `P1W` is a weekly total.
+-   "duration" is the time-step of the variable where `P1D` is a daily mean, and `P1W` is a weekly total.
 
 -   The "forecast horizon" is the number of days-ahead that we want you to forecast.
 
@@ -65,13 +64,13 @@ In the tables,
 ::: panel-tabset
 ### Terrestrial fluxes
 
-![](https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg)
+![](https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg?h=d1cb525d&itok=0SkNONOu)
 
 The exchange of water and carbon dioxide between the atmosphere and the land is akin to the breathing rate and lung capacity of Earth's terrestrial ecosystems. 
 
 The terrestrial flux theme challenges you to forecast the gas exchange at up to 47 sites across the U.S.
 
-There are two variables and two time-steps (or duration) that you can forecast.
+There are two variables that you can forecast.
 
 ```{r echo = FALSE}
 url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
@@ -123,10 +122,11 @@ terrestrial_targets |>
   theme_bw()
 ```
 
-#### 30 minute
+#### Supporting data
 
-The 30-minute duration targets are designed to forecast sub-daily carbon and water dynamics.
-The URL is found at:
+The 30-minute duration targets are designed support models that require sub-daily data.
+Forecasts from sub-daily models should be aggregated to a daily mean before submitting to the Challenge.
+The 30-minute data URL is found at:
 
 ```{r}
 url_PT30M <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
@@ -136,7 +136,7 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Terrestrial.html
 
 ### Aquatics
 
-![](https://projects.ecoforecast.org/neon4cast-catalog/img/neon_buoy.jpg)
+![](https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-11/lake-buoy_750x250.jpg?h=497e7e4f&itok=w40ajTZ5)
 
 Freshwater surface water temperature, dissolved oxygen, and chlorophyll-a all influence drinking water quality, are critical for life in aquatic environments, and can represent the health of the ecosystem.
 
@@ -183,6 +183,8 @@ aquatics_targets |>
   facet_grid(variable~site_id, scales = "free_y") +
   theme_bw()
 ```
+
+#### Supporting Data
 
 Water temperatures at multiple depths measured at the UTC 00 hour are available for the 7 NEON lake sites.
 These data can be used for model development but will not be used for forecast evaluation.
@@ -303,7 +305,11 @@ Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Beetles.html>
 
 ![](https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/image-content-images/tick-image.jpg)
 
-The target species for the tick population forecasts are **Amblyomma americanum** nymphal ticks. A. americanum is a vector of ehrlichiosis, tularemia, and southern tick-associated rash illness. The species is present in the eastern United States, and their populations are expanding. There is a correlation between tick population abundance and disease incidence, meaning forecasts for tick abundance have the potential to aid in our understanding of disease risk through time and space.
+The target species for the tick population forecasts are **Amblyomma americanum** nymphal ticks.
+A.
+americanum is a vector of ehrlichiosis, tularemia, and southern tick-associated rash illness.
+The species is present in the eastern United States, and their populations are expanding.
+There is a correlation between tick population abundance and disease incidence, meaning forecasts for tick abundance have the potential to aid in our understanding of disease risk through time and space.
 
 The tick theme challenges you to forecast weekly Amblyomma americanum nymphal tick abundance at up-to 9 terrestrial NEON sites.
 
@@ -351,7 +357,7 @@ ticks_targets |>
 Learn more at: <https://projects.ecoforecast.org/neon4cast-docs/Ticks.html>
 :::
 
-## Explore the sites
+## Explore the NEON sites
 
 ```{r include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
 library(leaflet)

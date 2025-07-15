@@ -1,5 +1,5 @@
 #devtools::install_version("duckdb", "1.2.2")
-
+remotes::install_github('cboettig/duckdb', upgrade = 'never')
 
 library(dplyr)
 library(duckdbfs)

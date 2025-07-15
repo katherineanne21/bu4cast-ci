@@ -1,5 +1,3 @@
-options("duckdbfs_use_nightly"=FALSE)
-
 #devtools::install_version("duckdb", "1.2.2")
 
 
@@ -31,14 +29,24 @@ duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
                          bucket = "bio230014-bucket01")
 
 
+
+target_files <-
+  c("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz",
+  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz",
+  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz",
+  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz",
+  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz",
+  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
+)
+
 ### Access the targets, forecasts, and scores subsets
-## targets has some non-schema-conforming additions, use globs
 targets <-
-  open_dataset("s3://bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=*/*-targets.csv.gz",
+  open_dataset(target_files,
                recursive = FALSE,
-               format = "csv",  # set mode to TABLE to download first
-               s3_endpoint = "sdsc.osn.xsede.org",
-               anonymous = TRUE) |>
+               format = "csv",
+               parser_options = list(nullstr = "NA"),
+               anonymous = TRUE,
+               ) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)

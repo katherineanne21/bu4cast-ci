@@ -130,7 +130,7 @@ catalog_config:
   noaa_path: '../neon4cast-catalog/catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
-  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet/'
+  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet'
   aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet'
   aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries/'
   host_url: "www.neon4cast.org"

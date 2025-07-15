@@ -153,8 +153,18 @@ if(use_5day_data){
 #  arrange(min) |>
 #  print(n = 50)
 
+#2025-07-15: Per Dave Durden - there was overflagging of QC on SRER in the latest relesae.
+#He recommend using the Ameriflux release because it has the correct QC flags.
+#This files contains the GC flags for SRER from AMF_US-xSR_FLUXNET_SUBSET_HH_2019-2024_4-7.csv
+srer_qc_update <- read_csv("targets/AF_SRER_QC_CODES.csv", show_col_types = FALSE) %>%
+  rename(time = datetime,
+         siteID = site_id)
+
 flux_data <- flux_data %>%
-  mutate(time = as_datetime(timeBgn))
+  mutate(time = as_datetime(timeBgn)) |>
+  left_join(srer_qc_update, by = c("time", "siteID")) %>%
+  mutate(qfqm.fluxCo2.turb.qfFinl = ifelse(!is.na(nee_AF_qc_flag), nee_AF_qc_flag, qfqm.fluxCo2.turb.qfFinl))
+
 
 co2_data <- flux_data %>%
   filter(qfqm.fluxCo2.turb.qfFinl == 0 & data.fluxCo2.turb.flux > -50 & data.fluxCo2.turb.flux < 50) %>%

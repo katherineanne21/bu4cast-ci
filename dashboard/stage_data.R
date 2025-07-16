@@ -9,7 +9,7 @@ sites <- open_dataset(paste0("https://raw.githubusercontent.com/eco4cast/neon4ca
 
 message("P1D forecast summaries")
 
-s3_summaries_P1D <- open_dataset(paste0("s3://", config$forecasts_bucket,"/bundled-summaries/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+s3_summaries_P1D <- open_dataset(paste0("s3://", config$summaries_bucket, "/bundled-summaries/project_id=", config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
 cutoff <- Sys.Date() - lubridate::days(2)
 
 
@@ -27,7 +27,7 @@ df_P1D <- s3_summaries_P1D |>
 
 message("P1W forecast summaries")
 
-s3_summaries_P1W <- open_dataset(paste0("s3://", config$forecasts_bucket,"/bundled-summaries/project_id=",  config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+s3_summaries_P1W <- open_dataset(paste0("s3://", config$summaries_bucket, "/bundled-summaries/project_id=", config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
 
 reference_datetimes_P1W <- s3_summaries_P1W |>
   select(reference_datetime, variable) |>

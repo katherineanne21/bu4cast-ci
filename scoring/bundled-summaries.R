@@ -1,3 +1,4 @@
+remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
 
 library(dplyr)
@@ -11,22 +12,36 @@ install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 
+fs::dir_delete("new-forecasts/")
 fs::dir_create("forecasts/")
 fs::dir_create("forecasts/bundled-summaries")
 fs::dir_create("new-forecasts/bundled-summaries")
 
 # Sync to local, fastest way to access all the bytes.
-bench::bench_time({ # 17.5 min from scratch, 114 GB
-
+bench::bench_time({
   # mirror everything(!) crazy
   # Could focus on summaries here
-  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/summaries/", "forecasts/summaries/", overwrite = TRUE)
-  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-summaries/", "forecasts/bundled-summaries/", overwrite = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/summaries/", "forecasts/summaries/", overwrite = TRUE, remove = TRUE)
+  mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-summaries/", "forecasts/bundled-summaries/", overwrite = TRUE, remove = TRUE)
 
 })
 
+
 grouping <- c("model_id", "reference_datetime", "site_id",
               "datetime", "family", "variable", "duration", "project_id")
+
+
+## Tidy the current bundled summaries
+#bundled_summmaries <- duckdbfs::open_dataset("forecasts/bundled-summaries/")
+#bundled_summmaries |>
+#  distinct() |>
+#  write_dataset("new-forecasts/bundled-summaries/project_id=neon4cast",
+#                partitioning = c("duration", 'variable', "model_id"),
+#                options = list("PER_THREAD_OUTPUT false"))
+#mc_mirror("new-forecasts/bundled-summaries/", "forecasts/bundled-summaries/", overwrite = TRUE, remove = TRUE)
+#mc_mirror("forecasts/bundled-summaries/", "osn/bio230014-bucket01/challenges/forecasts/bundled-summaries/", overwrite = TRUE, remove = TRUE)
+
+
 
 bench::bench_time({
   bundled_summaries <- open_dataset("./forecasts/bundled-summaries/project_id=neon4cast")
@@ -41,7 +56,8 @@ bench::bench_time({
       slice_max(pub_datetime) |>
       distinct() |>
       write_dataset("new-forecasts/bundled-summaries/project_id=neon4cast",
-                    partitioning = c("duration", 'variable', "model_id"))
+                    partitioning = c("duration", 'variable', "model_id"),
+                    options = list("PER_THREAD_OUTPUT false"))
 
 })
 

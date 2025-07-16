@@ -133,8 +133,16 @@ bench::bench_time({ # 12.1m
 
 
 ## Instead of remove, we could move to archive.  Only once we have successfully updated the bundles!
+## really really slow
 s3_drop_paths <- paste0("osn/bio230014-bucket01/challenges/", gsub("^\\./", "", drop_paths))
-lapply(s3_drop_paths, function(path) mc_mv(path, gsub("forecasts\\/parquet", "forecasts/archive-parquet",  path)))
+
+drop_f <- function(path) {
+  if(is.character(mc_ls(path)))
+    mc_mv(path, gsub("forecasts\\/parquet", "forecasts/archive-parquet",  path))
+  else
+    invisible(NULL)
+}
+parallel::mclapply(s3_drop_paths, drop_f, mc.cores = parallel::detectCores)
 
 
 ## no need to mirror unchanged unbundled forecasts.

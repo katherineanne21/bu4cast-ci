@@ -12,8 +12,8 @@ install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 
-fs::dir_delete("new-forecasts/")
-fs::dir_create("forecasts/")
+# make sure new-forecasts location exists and is empty.
+fs::dir_create("new-forecasts"); fs::dir_delete("new-forecasts")
 fs::dir_create("forecasts/bundled-summaries")
 fs::dir_create("new-forecasts/bundled-summaries")
 

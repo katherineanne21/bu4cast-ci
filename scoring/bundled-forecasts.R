@@ -21,8 +21,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 #mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 
 # make sure new-forecasts location exists and is empty.
-fs::dir_create("new-forecasts/bundled-parquet"); fs::dir_delete("new-forecasts/bundled-parquet")
-
+fs::dir_create("new-forecasts"); fs::dir_delete("new-forecasts")
 fs::dir_create("forecasts/parquet")
 fs::dir_create("new-forecasts/bundled-parquet")
 

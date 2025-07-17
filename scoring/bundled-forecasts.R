@@ -20,13 +20,17 @@ install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 #mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 
+# make sure new-forecasts location exists and is empty.
+fs::dir_create("new-forecasts/bundled-parquet"); fs::dir_delete("new-forecasts/bundled-parquet")
 
-# Sync local scores, fastest way to access all the bytes.
-fs::dir_delete("new-forecasts/bundled-parquet")
 fs::dir_create("forecasts/parquet")
 fs::dir_create("new-forecasts/bundled-parquet")
 
-bench::bench_time({ # 11.4 min from scratch, 114 GB
+# Sync local scores, fastest way(?)
+# We could avoid this.  We could stream from both of these.
+# Would still need to create new-forecasts locally and mc_mirror them back with overwrite but not remove.
+
+bench::bench_time({
   # mirror everything(!) crazy
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE, remove=TRUE)
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-parquet/", "forecasts/bundled-parquet/", overwrite = TRUE, remove=TRUE)
@@ -59,12 +63,21 @@ bench::bench_time({ # 18m w/ union, ~ 50 GB used at times
                     !is.na(prediction)) |>
             select(-any_of(c("date", "reference_date", "...1")))  # (date is a short version of datetime from partitioning, drop it)
 
-          # force eval and offload to disk
-          new |> write_dataset("tmp_new.parquet")
+
 
 
           bundles <- glue("forecasts/bundled-parquet/project_id=neon4cast/{dur}{var}{model_id}")
+
+          ## if this model (dur/var/model) has submitted before, we need
+          ## to 'append' any new forecasts via union() to retain bundle
+
+
           if (fs::dir_exists(bundles)) {
+
+             # force eval and offload to disk
+             new |> write_dataset("tmp_new.parquet")
+
+             # do some clean-up of old as well
              old <- open_dataset(bundles, conn = con) |>
                filter( !is.na(model_id),
                        !is.na(parameter),

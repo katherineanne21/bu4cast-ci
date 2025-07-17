@@ -25,16 +25,13 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 fs::dir_delete("new-forecasts/bundled-parquet")
 fs::dir_create("forecasts/parquet")
 fs::dir_create("new-forecasts/bundled-parquet")
+
 bench::bench_time({ # 11.4 min from scratch, 114 GB
   # mirror everything(!) crazy
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/parquet/", "forecasts/parquet/", overwrite = TRUE, remove=TRUE)
   mc_mirror("osn/bio230014-bucket01/challenges/forecasts/bundled-parquet/", "forecasts/bundled-parquet/", overwrite = TRUE, remove=TRUE)
 
 })
-
-
-open_dataset("forecasts/bundled-parquet") |>
-  count()
 
 
 ##OOOF, still fragile!

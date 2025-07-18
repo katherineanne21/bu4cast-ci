@@ -127,6 +127,11 @@ if(length(fs::dir_ls("new-forecasts/bundled-parquet/")) > 0) {
     summarise(first_fc = min(reference_datetime), last_fc = max(reference_datetime),
               first_prediction = min(datetime), last_prediction = max(datetime))
 
+  mc_mirror("new-forecasts/bundled-parquet/project_id=neon4cast/", remote_bundles, overwrite =TRUE)
+
+
+} else {
+  print("No new forecasts found")
 }
 
 #s3_bundles <- gsub("^osn\\/", "s3://", remote_bundles)
@@ -135,7 +140,6 @@ if(length(fs::dir_ls("new-forecasts/bundled-parquet/")) > 0) {
 #            first_prediction = min(datetime), last_prediction = max(datetime))
 
 
-mc_mirror("new-forecasts/bundled-parquet/project_id=neon4cast/", remote_bundles, overwrite =TRUE)
 
 ## online tests
 online <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",

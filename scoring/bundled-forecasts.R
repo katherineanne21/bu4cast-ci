@@ -25,7 +25,6 @@ open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
 
 # make sure new-forecasts location exists and is empty.
 fs::dir_create("new-forecasts"); fs::dir_delete("new-forecasts")
-fs::dir_create("forecasts/parquet")
 fs::dir_create("new-forecasts/bundled-parquet")
 
 
@@ -41,8 +40,14 @@ remote_bundles <- "osn/bio230014-bucket01/challenges/forecasts/bundled-parquet/p
 
 
 contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
-
 data_paths <- contents |> filter(!is_folder) |> pull(path)
+
+# model paths are paths with at least one reference_datetime containing data files
+model_paths <-
+  data_paths |>
+  str_replace_all("reference_date=\\d{4}-\\d{2}-\\d{2}/.*", "") |>
+  str_replace("^osn\\/", "s3://") |>
+  unique()
 
 
 
@@ -53,8 +58,7 @@ bundle_me <- function(path) {
   con = duckdbfs::cached_connection(tempfile())
   duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
 
-  s3_path <- gsub("^osn\\/", "s3://", path)
-  new <- open_dataset(s3_path, conn = con, recursive = FALSE) |>
+  new <- open_dataset(path, conn = con) |>
   filter( !is.na(model_id),
           !is.na(parameter),
           !is.na(prediction)) |>
@@ -64,10 +68,8 @@ bundle_me <- function(path) {
 
 
   bundled_path <- path |>
-    str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet") |>
-    str_replace("reference_date=\\d{4}-\\d{2}-\\d{2}/", "") |>
-    str_replace("\\/[\\w-]+\\.parquet$", "") |>
-    str_replace("^osn\\/", "s3://")
+    str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet")
+
 
   old <-
      open_dataset(bundled_path, conn = con) |>

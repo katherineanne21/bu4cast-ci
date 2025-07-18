@@ -4,7 +4,7 @@ remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
 
 
-library(dplyr)
+library(tidyverse)
 library(duckdbfs)
 library(minioclient)
 library(bench)
@@ -37,83 +37,68 @@ fs::dir_create("new-forecasts/bundled-parquet")
 
 remote_path <- "osn/bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/"
 remote_bundles <- "osn/bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/"
-##OOOF, still fragile!
-
-by <- join_by(datetime, site_id, prediction, parameter, family,
-              reference_datetime, pub_datetime, duration, model_id,
-              project_id, variable)
-
-bench::bench_time({ # 18m w/ union, ~ 50 GB used at times
-
-  durations <- mc_ls(remote_path)
-  durations <- durations[grepl("duration", durations)]
-
-  for (dur in durations) {
-
-    variables <- mc_ls(glue(remote_path, "{dur}"))
-    variables <- variables[grepl("variable", variables)]
-
-    for (var in variables) {
-
-      models <- mc_ls(glue(remote_path, "{dur}{var}"))
-      models <- models[grepl("model_id", models)]
-
-      for (model_id in models) {
-        path = glue(remote_path, "{dur}{var}{model_id}")
-        print(path)
-
-        if(length(mc_ls(path)) > 0) {
-        if(any(grepl("[.]parquet$", mc_ls(path)))) {
-
-          con = duckdbfs::cached_connection(tempfile())
-          duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
-
-          s3_path <- gsub("^osn\\/", "s3://", path)
-          new <- open_dataset(s3_path, conn = con) |>
-            filter( !is.na(model_id),
-                    !is.na(parameter),
-                    !is.na(prediction)) |>
-            select(-any_of(c("date", "reference_date", "...1")))  # (date is a short version of datetime from partitioning, drop it)
 
 
-          bundles <- glue(remote_bundles, "{dur}{var}{model_id}")
 
-          ## if this model (dur/var/model) has submitted before, we need
-          ## to 'append' any new forecasts via union() to retain bundle
+contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
+
+data_paths <- contents |> filter(!is_folder) |> pull(path)
 
 
-          if (is.character(mc_ls(bundles))) {
 
-             # force eval and offload to disk
-             new |> write_dataset("tmp_new.parquet")
 
-             # do some clean-up of old as well
-            s3_bundles <- gsub("^osn\\/", "s3://", bundles)
+bundle_me <- function(path) {
 
-             old <- open_dataset(s3_bundles, conn = con) |>
-               filter( !is.na(model_id),
-                       !is.na(parameter),
-                       !is.na(prediction)) |>
-                    select(-any_of(c("date", "reference_date", "...1"))) |>
-               write_dataset("tmp_old.parquet")
+  print(path)
+  con = duckdbfs::cached_connection(tempfile())
+  duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
 
-             new <- open_dataset("tmp_new.parquet")
-             old <- open_dataset("tmp_old.parquet") |>
-                    anti_join(new, by = by) # old and not duplicated in new
-             new <- union_all(old, new)
+  s3_path <- gsub("^osn\\/", "s3://", path)
+  new <- open_dataset(s3_path, conn = con, recursive = FALSE) |>
+  filter( !is.na(model_id),
+          !is.na(parameter),
+          !is.na(prediction)) |>
+  select(-any_of(c("date", "reference_date", "...1")))  # (date is a short version of datetime from partitioning, drop it)
 
-             # anti_join |> union_all() may be more efficient than union()
-          }
-          new |>
+  new |> write_dataset("tmp_new.parquet")
+
+
+  bundled_path <- path |>
+    str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet") |>
+    str_replace("reference_date=\\d{4}-\\d{2}-\\d{2}/", "") |>
+    str_replace("\\/[\\w-]+\\.parquet$", "") |>
+    str_replace("^osn\\/", "s3://")
+
+  old <-
+     open_dataset(bundled_path, conn = con) |>
+     filter( !is.na(model_id),
+             !is.na(parameter),
+             !is.na(prediction)) |>
+     select(-any_of(c("date", "reference_date", "...1"))) |>
+     write_dataset("tmp_old.parquet")
+
+  by <- join_by(datetime, site_id, prediction, parameter, family,
+            reference_datetime, pub_datetime, duration, model_id,
+            project_id, variable)
+
+  new <- open_dataset("tmp_new.parquet")
+  old <- open_dataset("tmp_old.parquet") |>
+        anti_join(new, by = by) # old and not duplicated in new
+
+
+         # anti_join |> union_all() may be more efficient than union()
+
+          union_all(old, new) |>
             write_dataset("new-forecasts/bundled-parquet/project_id=neon4cast",
                           partitioning = c("duration", 'variable', "model_id"),
                           options = list("PER_THREAD_OUTPUT false"))
 
           duckdbfs::close_connection(con); gc()
-        }}
-      }
-    }
-  }
+}
+
+
+bench::bench_time({
+lapply(data_paths, bundle_me)
 })
 
 # only if we have new stuff!

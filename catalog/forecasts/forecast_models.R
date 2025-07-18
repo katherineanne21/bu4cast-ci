@@ -220,7 +220,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
       # check data and skip if no data found
       var_data_check <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                       "/project_id=",config$project_id,
-                                                      "/duration=", duration_value,
+                                                      "/duration=", duration_name,
                                                       "/variable=", var_name,
                                                       '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
         #forecast_duck_df |>
@@ -243,7 +243,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
       var_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                       "/project_id=",config$project_id,
-                                                      "/duration=", duration_value,
+                                                      "/duration=", duation_name,
                                                       "/variable=", var_name,
                                                       '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
         #forecast_duck_df|>
@@ -257,7 +257,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
       var_models <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                   "/project_id=",config$project_id,
-                                                  "/duration=", duration_value,
+                                                  "/duration=", duation_name,
                                                   "/variable=", var_name,
                                                   '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
         #forecast_duck_df |>
@@ -269,7 +269,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
       find_var_sites <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                       "/project_id=",config$project_id,
-                                                      "/duration=", duration_value,
+                                                      "/duration=", duation_name,
                                                       "/variable=", var_name,
                                                       '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
         #forecast_duck_df |>
@@ -342,7 +342,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
         model_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                           "/project_id=",config$project_id,
-                                                          "/duration=", duration_value,
+                                                          "/duration=", duation_name,
                                                           "/variable=", var_name,
                                                           "/model_id=", m,
                                                           '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
@@ -364,7 +364,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
         model_var_duration_df <-  duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                                 "/project_id=",config$project_id,
-                                                                "/duration=", duration_value,
+                                                                "/duration=", duation_name,
                                                                 "/variable=", var_name,
                                                                 "/model_id=", m,
                                                                 '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
@@ -387,7 +387,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
         model_sites <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                      "/project_id=",config$project_id,
-                                                     "/duration=", duration_value,
+                                                     "/duration=", duation_name,
                                                      "/variable=", var_name,
                                                      "/model_id=", m,
                                                      '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
@@ -402,7 +402,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
         model_vars <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                     "/project_id=",config$project_id,
-                                                    "/duration=", duration_value,
+                                                    "/duration=", duation_name,
                                                     "/variable=", var_name,
                                                     "/model_id=", m,
                                                     '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
@@ -491,7 +491,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
   group_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                     "/project_id=",config$project_id,
-                                                    "/duration=", duration_value,
+                                                    "/duration=", duation_name,
                                                     '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
     #forecast_duck_df |>
     filter(variable %in% names(config$variable_groups[[i]]$group_vars)) |> ## filter by group

@@ -29,7 +29,6 @@ jobs:
         run: r scoring/bundled-forecasts.R
 
       - name: Bundle summaries
-        shell: Rscript {0}
         run: r scoring/bundled-summaries.R
 
 

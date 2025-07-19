@@ -14,7 +14,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 60g
     steps:
@@ -26,13 +26,10 @@ jobs:
           remotes::install_deps(".", dep=TRUE, upgrade=TRUE)
 
       - name: Bundle forecasts
-        shell: Rscript {0}
-        run: |
-          source("scoring/bundled-forecasts.R")
-          
+        run: r scoring/bundled-forecasts.R
+
       - name: Bundle summaries
         shell: Rscript {0}
-        run: |
-          source("scoring/bundled-summaries.R")
+        run: r scoring/bundled-summaries.R
 
 

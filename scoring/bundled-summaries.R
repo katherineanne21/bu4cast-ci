@@ -45,9 +45,11 @@ bench::bench_time({
 
 
 archive_older <- function(remote_path = "osn/bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/",
-                          keep_months = 6) {
+                          keep_months = 0.25) {
   cutoff <- lubridate::dmonths(keep_months)
-  all_fc_files <- fs::path(remote_path, mc_ls(remote_path, recursive = TRUE))
+  contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
+  all_fc_files <- contents |> filter(!is_folder) |> pull(path)
+
   dates <- all_fc_files |>
     stringr::str_extract("reference_date=(\\d{4}-\\d{2}-\\d{2})", 1)  |>
     as.Date()
@@ -68,6 +70,6 @@ drop_f <- function(path,
   invisible("success")
 }
 
-drop_paths <- archive_older("osn/bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/", 1)
-parallel::mclapply(drop_paths, drop_f, from_pattern = "forecasts\\/summaries", dest_pattern =  "forecasts/archive-summaries", mc.cores = 12)
+drop_paths <- archive_older("osn/bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/")
+out <- parallel::mclapply(drop_paths, drop_f, from_pattern = "forecasts\\/summaries", dest_pattern =  "forecasts/archive-summaries", mc.cores = 12)
 

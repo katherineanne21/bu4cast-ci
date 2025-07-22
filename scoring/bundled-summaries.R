@@ -1,4 +1,4 @@
-
+remotes::install_cran(c("future.apply", "progressr"))
 remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
 library(tidyverse)
@@ -64,18 +64,35 @@ bundle_me <- function(path) {
   mc_rm(mc_path, recursive = TRUE)
 
   duckdbfs::close_connection(con); gc()
-  invisible(0)
+  invisible(path)
 }
 
-try_bundles <- purrr::possibly(bundle_me)
+
+
+# We use future_apply framework to show progress while being robust to OOM kils.
+# We are not actually running on multi-core, which would be RAM-inefficient
+future::plan(future::sequential)
+
+safe_bundles <- function(xs) {
+  p <- progressor(along = xs)
+  future_lapply(xs, function(x, ...) {
+    p(sprintf("x=%s", x))
+    bundle_me(x)
+  },  future.seed = TRUE)
+}
+
 
 bench::bench_time({
-  out <- purrr::map(model_paths, try_bundles)
+  safe_bundles(model_paths)
 })
 
 
+
+
 # bundled count at start
-open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
-             s3_endpoint = "sdsc.osn.xsede.org",
-             anonymous = TRUE) |>
+count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
+                      s3_endpoint = "sdsc.osn.xsede.org",
+                      anonymous = TRUE) |>
   count()
+
+print(count)

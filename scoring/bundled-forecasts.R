@@ -1,4 +1,4 @@
-
+remotes::install_cran(c("future.apply", "progressr"))
 remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
 library(tidyverse)
@@ -7,7 +7,10 @@ library(minioclient)
 library(bench)
 library(glue)
 library(fs)
-
+library(future.apply)
+library(progressr)
+handlers(global = TRUE)
+handlers("cli")
 
 
 install_mc()
@@ -17,11 +20,11 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
 
 # bundled count at start
-open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
              s3_endpoint = "sdsc.osn.xsede.org",
              anonymous = TRUE) |>
-  count()
-
+          count()
+print(count)
 
 remote_path <- "osn/bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/"
 contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
@@ -79,19 +82,39 @@ bundle_me <- function(path) {
 
   duckdbfs::close_connection(con); gc()
 
-  invisible(0)
+  invisible(path)
 }
 
-try_bundles <- purrr::possibly(bundle_me)
+
+
+
+# We use future_apply framework to show progress while being robust to OOM kils.
+# We are not actually running on multi-core, which would be RAM-inefficient
+future::plan(future::sequential)
+
+safe_bundles <- function(xs) {
+  p <- progressor(along = xs)
+  future_lapply(xs, function(x, ...) {
+    p(sprintf("x=%s", x))
+    bundle_me(x)
+  })
+}
+
 
 bench::bench_time({
-out <- purrr::map(model_paths, try_bundles)
+  safe_bundles(model_paths)
 })
 
 
 
 
 
+# bundled count at end
+count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+                      s3_endpoint = "sdsc.osn.xsede.org",
+                      anonymous = TRUE) |>
+  count()
+print(count)
 
 
 # should we slice_max(pub_time) to ensure only most recent pub_time if duplicates submitted?

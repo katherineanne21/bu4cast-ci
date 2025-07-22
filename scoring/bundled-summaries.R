@@ -6,6 +6,11 @@ library(minioclient)
 library(bench)
 library(glue)
 library(fs)
+library(future.apply)
+library(progressr)
+handlers(global = TRUE)
+handlers("cli")
+
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))

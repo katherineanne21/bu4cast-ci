@@ -1,4 +1,3 @@
-remotes::install_cran(c("future.apply", "progressr"))
 remotes::install_github("cboettig/duckdbfs", upgrade=FALSE)
 
 library(tidyverse)

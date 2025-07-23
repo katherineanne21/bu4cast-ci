@@ -17,20 +17,20 @@ RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feas
 
 RUN R -e "remotes::install_github('eco4cast/stac4cast')"
 RUN sleep 180
-RUN R -e "remotes::install_github('eco4cast/EFIstandards')"
-RUN sleep 180
-RUN R -e "remotes::install_github('cboettig/aws.s3')"
-RUN sleep 180
+#RUN R -e "remotes::install_github('eco4cast/EFIstandards')"
+#RUN sleep 180
+#RUN R -e "remotes::install_github('cboettig/aws.s3')"
+#RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/score4cast')"
 RUN sleep 180
-RUN R -e "remotes::install_github('EcoForecast/ecoforecastR')"
-RUN sleep 180
+#RUN R -e "remotes::install_github('EcoForecast/ecoforecastR')"
+#RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/neon4cast')"
 RUN sleep 180
-RUN R -e "remotes::install_github('cboettig/prov')"
-RUN sleep 180
-RUN R -e "remotes::install_github('eco4cast/read4cast')"
-RUN sleep 180
+#RUN R -e "remotes::install_github('cboettig/prov')"
+#RUN sleep 180
+#RUN R -e "remotes::install_github('eco4cast/read4cast')"
+#RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/gefs4cast')"
 RUN sleep 180
 RUN R -e "remotes::install_github('mitchelloharawild/distributional', ref = 'bb0427e')"

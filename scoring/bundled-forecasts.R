@@ -31,7 +31,7 @@ model_paths <-
   str_replace("^osn\\/", "s3://") |>
   unique()
 
-
+print(model_paths)
 
 # bundled count at start
 count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
@@ -43,8 +43,8 @@ print(count)
 most_recent <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
              s3_endpoint = "sdsc.osn.xsede.org",
              anonymous = TRUE) |>
-  distinct(reference_datetime) |>
-  summarise(max(reference_datetime))
+  group_by(model_id, variable) |>
+  summarise(most_recent = max(reference_datetime))
 print(most_recent)
 
 
@@ -118,9 +118,10 @@ safe_bundles <- function(xs) {
 
 
 bench::bench_time({
-  safe_bundles(model_paths)
+  out <- safe_bundles(model_paths)
 })
 
+print(out)
 
 
 

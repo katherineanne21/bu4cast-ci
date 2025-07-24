@@ -12,6 +12,15 @@ handlers(global = TRUE)
 handlers("cli")
 
 
+# bundled count at start
+count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
+                      s3_endpoint = "sdsc.osn.xsede.org",
+                      anonymous = TRUE) |>
+  count()
+
+print(count)
+
+
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 # mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
@@ -80,8 +89,8 @@ future::plan(future::sequential)
 safe_bundles <- function(xs) {
   p <- progressor(along = xs)
   future_lapply(xs, function(x, ...) {
-    p(sprintf("x=%s", x))
     bundle_me(x)
+    p(sprintf("x=%s", x))
   },  future.seed = TRUE)
 }
 
@@ -93,7 +102,7 @@ bench::bench_time({
 
 
 
-# bundled count at start
+# bundled count at end
 count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
                       s3_endpoint = "sdsc.osn.xsede.org",
                       anonymous = TRUE) |>

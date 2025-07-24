@@ -18,12 +18,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 
 duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
 
-# bundled count at start
-count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-             s3_endpoint = "sdsc.osn.xsede.org",
-             anonymous = TRUE) |>
-          count()
-print(count)
+
 
 remote_path <- "osn/bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/"
 contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
@@ -37,6 +32,22 @@ model_paths <-
   unique()
 
 
+
+# bundled count at start
+count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+                      s3_endpoint = "sdsc.osn.xsede.org",
+                      anonymous = TRUE) |>
+  count()
+print(count)
+
+most_recent <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+             s3_endpoint = "sdsc.osn.xsede.org",
+             anonymous = TRUE) |>
+  distinct(reference_datetime) |>
+  summarise(max(reference_datetime))
+print(most_recent)
+
+
 bundle_me <- function(path) {
 
   print(path)
@@ -48,13 +59,11 @@ bundle_me <- function(path) {
     filter( !is.na(model_id),
             !is.na(parameter),
             !is.na(prediction)) |>
-    select(-any_of(c("date", "reference_date", "...1"))) |>
     write_dataset("tmp_new.parquet")
 
   # special filters should not be needed on bundled copy
   open_dataset(bundled_path, conn = con) |>
      write_dataset("tmp_old.parquet")
-
 
   # these are both local, so we can stream back.
   new <- open_dataset("tmp_new.parquet")
@@ -66,9 +75,17 @@ bundle_me <- function(path) {
 #  previous_n <- open_dataset("tmp_old.parquet") |> count() |> pull(n)
 #  stopifnot(previous_n - filtered_n == 0)
 
+  ## no partition levels left so we must write to an explicit .parquet
+  bundled_dir <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
+  mc_bundled_path <- bundled_dir |> filter(!is_folder) |> pull(path)
+  stopifnot(length(mc_bundled_path) == 1)
+  bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
+
+  ## once running consistently we can "append" with union_all instead of union
+  # uses less RAM. since mc_rm / mc_mv removes anything we have already read
   union_all(old, new) |>
-            write_dataset(bundled_path,
-                          options = list("PER_THREAD_OUTPUT false"))
+    write_dataset(bundled_path,
+                  options = list("PER_THREAD_OUTPUT false"))
 
   #We should now archive anything we have bundled:
   mc_path <- path |> str_replace(fixed("s3://"), "osn/")
@@ -94,9 +111,9 @@ future::plan(future::sequential)
 safe_bundles <- function(xs) {
   p <- progressor(along = xs)
   future_lapply(xs, function(x, ...) {
-    p(sprintf("x=%s", x))
     bundle_me(x)
-  })
+    p(sprintf("x=%s", x))
+  },  future.seed = TRUE)
 }
 
 
@@ -115,6 +132,11 @@ count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parq
   count()
 print(count)
 
+
+open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+                      s3_endpoint = "sdsc.osn.xsede.org",
+                      anonymous = TRUE) |>
+filter()
 
 # should we slice_max(pub_time) to ensure only most recent pub_time if duplicates submitted?
 # grouping <- c("model_id", "reference_datetime", "site_id", "datetime", "family", "variable", "duration", "project_id")

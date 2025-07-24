@@ -9,12 +9,12 @@ name: gefs_osn_stage3
 
 jobs:
   docker:
-    runs-on: efi-cirrus
+    runs-on: arc-runner-eco4cast
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
+    container:
       image: eco4cast/rocker-neon4cast:latest
       options: --memory 45g
     steps:

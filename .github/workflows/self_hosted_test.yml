@@ -4,7 +4,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: efi-cirrus
+    runs-on: arc-runner-eco4cast
     container: 
       # IMPORTANT.  Please set a memory limit <= 45 GB.
       image: eco4cast/rocker-neon4cast:latest

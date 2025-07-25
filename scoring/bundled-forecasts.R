@@ -31,7 +31,7 @@ model_paths <-
   str_replace("^osn\\/", "s3://") |>
   unique()
 
-
+print(model_paths)
 
 # bundled count at start
 count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
@@ -39,13 +39,6 @@ count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parq
                       anonymous = TRUE) |>
   count()
 print(count)
-
-most_recent <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-             s3_endpoint = "sdsc.osn.xsede.org",
-             anonymous = TRUE) |>
-  distinct(reference_datetime) |>
-  summarise(max(reference_datetime))
-print(most_recent)
 
 
 bundle_me <- function(path) {
@@ -111,17 +104,17 @@ future::plan(future::sequential)
 safe_bundles <- function(xs) {
   p <- progressor(along = xs)
   future_lapply(xs, function(x, ...) {
-    bundle_me(x)
+    out <- bundle_me(x)
     p(sprintf("x=%s", x))
+    out
   },  future.seed = TRUE)
 }
 
 
 bench::bench_time({
-  safe_bundles(model_paths)
+  out <- safe_bundles(model_paths)
 })
-
-
+# print(out)
 
 
 
@@ -133,10 +126,16 @@ count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parq
 print(count)
 
 
-open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-                      s3_endpoint = "sdsc.osn.xsede.org",
-                      anonymous = TRUE) |>
-filter()
+
+most_recent <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
+             s3_endpoint = "sdsc.osn.xsede.org",
+             anonymous = TRUE) |>
+  group_by(model_id, variable) |>
+  summarise(most_recent = max(reference_datetime)) |>
+  arrange(desc(most_recent))
+print(most_recent)
+
+
 
 # should we slice_max(pub_time) to ensure only most recent pub_time if duplicates submitted?
 # grouping <- c("model_id", "reference_datetime", "site_id", "datetime", "family", "variable", "duration", "project_id")

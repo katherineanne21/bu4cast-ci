@@ -22,6 +22,7 @@ jobs:
       - name: Generate forecasts
         shell: Rscript {0}
         run: |
+          remotes::install_github("eco4cast/EFIstandards")
           source("baseline_models/run_terrestrial_baselines.R")
 
   aquatics:

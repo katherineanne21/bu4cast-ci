@@ -1,4 +1,4 @@
-library(neon4cast) #project_specific
+library(neon4cast) #  remotes::install_github("eco4cast/neon4cast")
 
 
 library(readr)
@@ -51,6 +51,12 @@ if(length(submissions) > 0){
   Sys.unsetenv("AWS_DEFAULT_REGION")
   Sys.unsetenv("AWS_S3_ENDPOINT")
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
+
+
+  duckdbfs::duckdb_secrets(
+                         endpoint = config$endpoint,
+                         key = Sys.getenv("OSN_KEY"),
+                         secret = Sys.getenv("OSN_SECRET"))
 
   s3 <- arrow::s3_bucket(config$forecasts_bucket,
                          endpoint_override = config$endpoint,
@@ -153,7 +159,10 @@ if(length(submissions) > 0){
 
         print(head(fc))
         s3$CreateDir(paste0("parquet/"))
-        fc |> arrow::write_dataset(s3$path(paste0("parquet")), format = 'parquet',
+
+        ## arrow write has gone nuts... let's update
+        fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
+                                      format = 'parquet',
                                    partitioning = c("project_id",
                                                     "duration",
                                                     "variable",
@@ -167,7 +176,7 @@ if(length(submissions) > 0){
                                                                                 "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
           score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
           dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
-          arrow::write_dataset(s3$path("summaries"), format = 'parquet',
+          duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/summaries"), format = 'parquet',
                                partitioning = c("project_id",
                                                 "duration",
                                                 "variable",

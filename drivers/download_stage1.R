@@ -49,5 +49,5 @@ bench::bench_time({ # cirrus ~ 6days for full set
   gefs_to_parquet(missing_dates,
                   path = parquet_path,
                   sites = sites,
-                  s3_endpoint = 'https://sdsc.osn.xsede.org')
+                  s3_endpoint = 'sdsc.osn.xsede.org')
 })

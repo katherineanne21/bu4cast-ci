@@ -5,6 +5,11 @@ source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R"
 mc_alias_set("osn", "sdsc.osn.xsede.org", "", "")
 mc_mirror("osn/bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo", "pseudo")
 
+duckdbfs::duckdb_secrets(
+  endpoint = 'https://sdsc.osn.xsede.org',
+  key = Sys.getenv("OSN_KEY"),
+  secret = Sys.getenv("OSN_SECRET"))
+
 df <- arrow::open_dataset("pseudo") |>
   dplyr::filter(variable %in% c("PRES","TMP","RH","UGRD","VGRD","APCP","DSWRF","DLWRF"))
 
@@ -54,5 +59,7 @@ furrr::future_walk(site_list, function(curr_site_id){
     to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
     dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) |>
     dplyr::rename(parameter = ensemble) |>
-    arrow::write_dataset(path = s3, partitioning = "site_id")
+    #arrow::write_dataset(path = s3, partitioning = "site_id")
+    duckdbfs::write_dataset(path = "s3://bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage3", format = 'parquet',
+                            partitioning = "site_id")
 })

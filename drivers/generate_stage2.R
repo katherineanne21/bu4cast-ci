@@ -10,7 +10,7 @@ s3_stage2 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v1
                               secret_key= Sys.getenv("OSN_SECRET"))
 
 duckdbfs::duckdb_secrets(
-  endpoint = 'https://sdsc.osn.xsede.org',
+  endpoint = 'sdsc.osn.xsede.org',
   key = Sys.getenv("OSN_KEY"),
   secret = Sys.getenv("OSN_SECRET"))
 

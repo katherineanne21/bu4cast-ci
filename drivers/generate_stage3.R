@@ -6,7 +6,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", "", "")
 mc_mirror("osn/bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo", "pseudo")
 
 duckdbfs::duckdb_secrets(
-  endpoint = 'https://sdsc.osn.xsede.org',
+  endpoint = 'sdsc.osn.xsede.org',
   key = Sys.getenv("OSN_KEY"),
   secret = Sys.getenv("OSN_SECRET"))
 

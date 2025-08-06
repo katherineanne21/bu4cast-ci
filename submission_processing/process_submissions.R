@@ -168,7 +168,7 @@ if(length(submissions) > 0){
                                                     "variable",
                                                     "model_id",
                                                     "reference_date"),
-                                      options = list("PER_THREAD_OUTPUT false")))
+                                      options = list("PER_THREAD_OUTPUT false"))
         print("creating summaries")
 
         s3$CreateDir(paste0("summaries"))

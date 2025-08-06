@@ -163,11 +163,12 @@ if(length(submissions) > 0){
         ## arrow write has gone nuts... let's update
         fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
                                       format = 'parquet',
-                                   partitioning = c("project_id",
+                                      partitioning = c("project_id",
                                                     "duration",
                                                     "variable",
                                                     "model_id",
-                                                    "reference_date"))
+                                                    "reference_date"),
+                                      options = list("PER_THREAD_OUTPUT false")))
         print("creating summaries")
 
         s3$CreateDir(paste0("summaries"))
@@ -181,7 +182,8 @@ if(length(submissions) > 0){
                                                 "duration",
                                                 "variable",
                                                 "model_id",
-                                                "reference_date"))
+                                                "reference_date"),
+                                 options = list("PER_THREAD_OUTPUT false"))
 
         #print("updating inventory")
 

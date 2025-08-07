@@ -19,6 +19,9 @@ library(ncdf4)
 library(arrow)
 
 library(minioclient)
+
+sessioninfo::package_info()
+
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 

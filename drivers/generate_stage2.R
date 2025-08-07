@@ -1,4 +1,5 @@
 source("https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R")
+install.packages('arrow', version = '20.0.0')
 
 site_list <- readr::read_csv("neon4cast_field_site_metadata.csv",
                              show_col_types = FALSE) |>
@@ -9,10 +10,10 @@ s3_stage2 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v1
                               access_key= Sys.getenv("OSN_KEY"),
                               secret_key= Sys.getenv("OSN_SECRET"))
 
-duckdbfs::duckdb_secrets(
-  endpoint = 'sdsc.osn.xsede.org',
-  key = Sys.getenv("OSN_KEY"),
-  secret = Sys.getenv("OSN_SECRET"))
+#duckdbfs::duckdb_secrets(
+#  endpoint = 'sdsc.osn.xsede.org',
+#  key = Sys.getenv("OSN_KEY"),
+#  secret = Sys.getenv("OSN_SECRET"))
 
 df <- arrow::open_dataset(s3_stage2) |>
   dplyr::distinct(reference_datetime) |>
@@ -59,9 +60,9 @@ if(length(missing_dates) > 0){
                     reference_datetime = lubridate::as_date(reference_datetime)) |>
       dplyr::rename(parameter = ensemble)
 
-    #arrow::write_dataset(hourly_df, path = s3_stage2, partitioning = c("reference_datetime", "site_id"))
-    duckdbfs::write_dataset(hourly_df, path = "s3://bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage2", format = 'parquet',
-                            partitioning = c("reference_datetime", "site_id"))
+    arrow::write_dataset(hourly_df, path = s3_stage2, partitioning = c("reference_datetime", "site_id"))
+    #duckdbfs::write_dataset(hourly_df, path = "s3://bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage2", format = 'parquet',
+     #                       partitioning = c("reference_datetime", "site_id"))
   }
 }
 

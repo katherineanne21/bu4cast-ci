@@ -26,7 +26,7 @@ jobs:
           install.packages("devtools")
           #devtools::install(dependencies=TRUE, upgrade="never")
           #install.packages("remotes")
-          remotes::install_github("eco4cast/gefs4cast")
+          #remotes::install_github("eco4cast/gefs4cast")
 
       - name: Update GEFS
         shell: Rscript {0}

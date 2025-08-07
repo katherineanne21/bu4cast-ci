@@ -44,10 +44,12 @@ bench::bench_time({ # cirrus ~ 6days for full set
   s3 <- gefs_s3_dir("stage1")
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
-  #gefs_to_parquet(missing_dates, path = s3, sites = sites)
-  parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1'
-  gefs_to_parquet(missing_dates,
-                  path = parquet_path,
-                  sites = sites,
-                  s3_endpoint = 'sdsc.osn.xsede.org')
+  
+  gefs_to_parquet(missing_dates, path = s3, sites = sites)
+  
+  #parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1'
+  #gefs_to_parquet(missing_dates,
+  #                path = parquet_path,
+  #                sites = sites,
+  #                s3_endpoint = 'sdsc.osn.xsede.org')
 })

@@ -43,6 +43,7 @@ jobs:
       - name: Generate targets
         shell: Rscript {0}
         run: |
+          remotes::install_version("arrow", version = "20.0.0")
           source("targets/terrestrial_targets.R")
 
   aquatics:

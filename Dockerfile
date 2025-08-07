@@ -11,7 +11,7 @@ RUN apt-get -y install python3 python3-venv python3-pip python3-dev
 
 RUN R - "install.packages('devtools')"
 RUN R - "devtools::install(dependencies=TRUE, upgrade='never')"
-#RUN R - "remotes::install.packages('arrow', version='20.0.0')"
+RUN R - "remotes::install.packages('arrow', version='20.0.0')"
 RUN R - "remotes::install_version('arrow', version='20.0.0')"
 
 RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid minioclient fs glue

@@ -19,8 +19,6 @@ RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duc
 
 RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib
 
-RUN R -e "remotes::install_version('arrow', version = '20.0.0')"
-
 RUN R -e "remotes::install_github('eco4cast/stac4cast')"
 RUN sleep 180
 #RUN R -e "remotes::install_github('eco4cast/EFIstandards')"
@@ -40,6 +38,8 @@ RUN sleep 180
 RUN R -e "remotes::install_github('eco4cast/gefs4cast', upgrade = FALSE)"
 RUN sleep 180
 RUN R -e "remotes::install_github('mitchelloharawild/distributional', ref = 'bb0427e')"
+
+RUN R -e "remotes::install_version('arrow', version = '20.0.0')"
 
 #RUN R -e "reticulate::install_python(version = '3.9:latest', list = FALSE, force = FALSE)"
 

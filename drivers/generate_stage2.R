@@ -1,5 +1,7 @@
 source("https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R")
-install.packages('arrow', version = '20.0.0')
+library(arrow)
+print(sessioninfo::package_info())
+
 
 site_list <- readr::read_csv("neon4cast_field_site_metadata.csv",
                              show_col_types = FALSE) |>

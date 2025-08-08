@@ -21,10 +21,8 @@ s3_stage2 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v1
   #dplyr::distinct(reference_datetime) |>
   #dplyr::collect()
 
-s3 <- gefs_s3_dir("stage2")
-have_dates <- gsub("reference_datetime=", "", s3$ls())
-missing_dates <- dates[!(as.character(dates) %in% have_dates)]
-
+s3 <- arrow::open_dataset(s3_stage2)
+have_dates <- dplyr::tibble(reference_datetime = gsub("reference_datetime=", "", s3_stage2$ls()))
 
 #stage1_s3 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1",
 #                       endpoint_override = "sdsc.osn.xsede.org",

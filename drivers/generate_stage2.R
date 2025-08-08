@@ -17,9 +17,13 @@ s3_stage2 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v1
 #  key = Sys.getenv("OSN_KEY"),
 #  secret = Sys.getenv("OSN_SECRET"))
 
-df <- arrow::open_dataset(s3_stage2) |>
-  dplyr::distinct(reference_datetime) |>
-  dplyr::collect()
+#df <- arrow::open_dataset(s3_stage2) #|>
+  #dplyr::distinct(reference_datetime) |>
+  #dplyr::collect()
+
+s3 <- gefs_s3_dir("stage2")
+have_dates <- gsub("reference_datetime=", "", s3$ls())
+missing_dates <- dates[!(as.character(dates) %in% have_dates)]
 
 
 #stage1_s3 <- arrow::s3_bucket("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1",
@@ -35,9 +39,9 @@ df <- arrow::open_dataset(s3_stage2) |>
 #  dplyr::collect()
 
 curr_date <- Sys.Date()
-last_week <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(7), curr_date - lubridate::days(1), by = "1 day")))
+last_week <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(14), curr_date - lubridate::days(1), by = "1 day")))
 
-missing_dates <- dplyr::anti_join(last_week, df, by = "reference_datetime") |> dplyr::pull(reference_datetime)
+missing_dates <- dplyr::anti_join(last_week, have_dates, by = "reference_datetime") |> dplyr::pull(reference_datetime)
 
 if(length(missing_dates) > 0){
   for(i in 1:length(missing_dates)){

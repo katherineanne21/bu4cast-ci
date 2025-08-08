@@ -46,6 +46,8 @@ bench::bench_time({ # cirrus ~ 6days for full set
   s3 <- gefs_s3_dir("stage1")
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
+
+  missing_dates <- "2025-08-03"
   
   gefs_to_parquet(missing_dates, path = s3, sites = sites)
   

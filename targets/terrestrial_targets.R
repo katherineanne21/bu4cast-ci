@@ -1,6 +1,7 @@
 #renv::restore()
 print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
 
+install.versions(c('arrow'), c('20.0.0'))
 #install.packages("arrow", version='20.0.0')
 #remotes::install_version('arrow', version = '20.0.0')
 

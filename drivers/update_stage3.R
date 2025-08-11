@@ -1,3 +1,5 @@
+library(arrow)
+
 source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
 
 print(sessioninfo::package_info())

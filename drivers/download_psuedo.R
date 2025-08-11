@@ -1,6 +1,7 @@
 ## setup
 library(gdalcubes)
 library(gefs4cast)
+library(arrow)
 
 print(sessioninfo::package_info())
 

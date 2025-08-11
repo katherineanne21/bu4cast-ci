@@ -26,6 +26,8 @@ jobs:
           install.packages("remotes")
           #devtools::install_deps(upgrade="never")
           remotes::install_github("eco4cast/gefs4cast")
+          remotes::install_version('arrow', version = '20.0.0')
+          
       - name: Download Pseudo
         shell: Rscript {0}
         run: |

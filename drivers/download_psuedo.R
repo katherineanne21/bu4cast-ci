@@ -2,6 +2,8 @@
 library(gdalcubes)
 library(gefs4cast)
 
+print(sessioninfo::package_info())
+
 gdalcubes::gdalcubes_options(parallel=20)
 #gdalcubes::gdalcubes_options(parallel=TRUE)
 

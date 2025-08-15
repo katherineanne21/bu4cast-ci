@@ -57,52 +57,52 @@ jobs:
 
 
 
-  forecasts:
-    needs: metadata_catalog
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      EXTERNAL_GH_PAT: ${{ secrets.CATALOG_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      #image: eco4cast/rocker-neon4cast:latest
-      image: rocker/ml-verse
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
+  #forecasts:
+  #  needs: metadata_catalog
+  #  if: success() || failure()
+  #  runs-on: ubuntu-latest
+  #  env:
+  #    GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  #    EXTERNAL_GH_PAT: ${{ secrets.CATALOG_TOKEN }}
+  #    OSN_KEY: ${{ secrets.OSN_KEY }}
+  #    OSN_SECRET: ${{ secrets.OSN_SECRET }}
+  #  container:
+  #    #image: eco4cast/rocker-neon4cast:latest
+  #    image: rocker/ml-verse
+  #    options: --memory 15120m
+  #  steps:
+  #    - run: git config --system --add safe.directory '*'
+#
+ #     - name: checkout source repository
+  #      uses: actions/checkout@v4
+  #      with:
+  #         fetch-depth: 0
+  #         set-safe-directory: '*'
 
-      - name: checkout source repository
-        uses: actions/checkout@v4
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
+#      - name: clone catalog destination repository
+ #       run: |
+ #         git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
+#
+#      - name: Install
+#        shell: Rscript {0}
+#        run: |
+#          install.packages('gsheet')
+#          devtools::install_github('eco4cast/stac4cast')
 
-      - name: clone catalog destination repository
-        run: |
-          git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
+ #     - name: Render Forecasts
+ #       shell: Rscript {0}
+ #       run: source('catalog/forecasts/forecast_models.R')
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          install.packages('gsheet')
-          devtools::install_github('eco4cast/stac4cast')
+ #     - name: Commit and Push
+ #       run: |
+ #         cd ../neon4cast-catalog
+ #         git config user.name github-actions
+ #         git config user.email github-actions@github.com
 
-      - name: Render Forecasts
-        shell: Rscript {0}
-        run: source('catalog/forecasts/forecast_models.R')
-
-      - name: Commit and Push
-        run: |
-          cd ../neon4cast-catalog
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-          git pull
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${EXTERNAL_GH_PAT}:${EXTERNAL_GH_PAT}@github.com/eco4cast/neon4cast-catalog
+ #         git pull
+ #         git add catalog/* .
+ #         git commit -a -m "update catalog" || echo "nothing to commit"
+ #         git push https://${EXTERNAL_GH_PAT}:${EXTERNAL_GH_PAT}@github.com/eco4cast/neon4cast-catalog
 
 
   summaries:

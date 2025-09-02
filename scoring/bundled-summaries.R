@@ -13,25 +13,21 @@ handlers("cli")
 
 
 # bundled count at start
-count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
+b <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/backup-bundled-summaries",
                       s3_endpoint = "sdsc.osn.xsede.org",
-                      anonymous = TRUE) |>
-  count()
+                      anonymous = TRUE)
 
-print(count)
+b |> count() |> print()
+b |> summarise(date = max(reference_datetime)) |> print()
 
 
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
-# mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 
-duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
-
-# bundled count at start
-open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
-             s3_endpoint = "sdsc.osn.xsede.org",
-             anonymous = TRUE) |>
-  count()
+duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+               key = Sys.getenv("OSN_KEY"),
+               secret = Sys.getenv("OSN_SECRET"),
+               bucket = "bio230014-bucket01")
 
 
 remote_path <- "osn/bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/"
@@ -50,11 +46,15 @@ bundle_me <- function(path) {
 
   print(path)
   con = duckdbfs::cached_connection(tempfile())
-  duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
+  duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+                 key = Sys.getenv("OSN_KEY"),
+                 secret = Sys.getenv("OSN_SECRET"),
+                 bucket = "bio230014-bucket01")
 
 
   bundled_path <- path |>
-    str_replace(fixed("forecasts/summaries"), "forecasts/bundled-summaries")
+    str_replace(fixed("forecasts/summaries"),
+                "forecasts/backup-bundled-summaries")
 
   open_dataset(path, conn = con) |> write_dataset("tmp_new.parquet")
   open_dataset(bundled_path, conn = con) |> write_dataset("tmp_old.parquet")
@@ -64,7 +64,7 @@ bundle_me <- function(path) {
   old <- open_dataset("tmp_old.parquet")
 
   union_all(old, new) |>
-    write_dataset(bundled_path,
+    write_dataset(paste0(bundled_path,"/data_0.parquet"),
                   options = list("PER_THREAD_OUTPUT false"))
 
   #We should now archive anything we have bundled:

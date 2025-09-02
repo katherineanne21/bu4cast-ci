@@ -75,18 +75,13 @@ forecast_sites <- c("BARC", "USGS-14181500", "USGS-05543010", "CARI", "LEWI","OR
 
 message('forecast dates...')
 
-# forecast_date_range <- forecast_duck_df |>
-#   summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
-#   pull(datetime_min, datetime_max)
-#
-# forecast_min_date <-  forecast_date_range$datetime_min
-# forecast_max_date <-  forecast_date_range$datetime_max
+forecast_date_range <- forecast_duck_df |>
+  filter(model_id == 'climatology') |> ## included to try and speed things up
+  summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
+  collect()
 
-#forecast_min_date <-  forecast_date_range |> pull(datetime_min)
-#forecast_max_date <-  forecast_date_range |> pull(datetime_max)
-
-forecast_min_date <- '2017-02-01'
-forecast_max_date <- '2026-12-27'
+forecast_min_date <-  forecast_date_range$datetime_min
+forecast_max_date <-  forecast_date_range$datetime_max
 
 
 # theme_models <- arrow::open_dataset(arrow::s3_bucket(paste0(config$forecasts_bucket,'/bundled-parquet'), endpoint_override = config$endpoint, anonymous = TRUE)) |>
@@ -186,7 +181,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
   ## find group sites
   find_group_sites <- forecast_duck_df |>
-    filter(variable %in% var_values) |>
+    filter(variable %in% var_values,
+           model_id == 'climatology') |>
     distinct(site_id) |>
     pull(site_id)
 
@@ -237,23 +233,6 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
         dir.create(file.path(catalog_config$forecast_path,names(config$variable_groups)[i],var_formal_name))
       }
 
-      # var_data <- forecast_data_df |>
-      #   filter(variable == var_name,
-      #          duration == duration_name)
-
-      var_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                      "/project_id=",config$project_id,
-                                                      "/duration=", duration_name,
-                                                      "/variable=", var_name,
-                                                      '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
-        #forecast_duck_df|>
-        #filter(variable == var_name,
-               #duration == duration_name) |>
-        summarize(across(all_of(c('datetime')), list(min = min, max = max))) #|>
-      #collect()
-
-      var_min_date <- var_date_range |> pull(datetime_min)
-      var_max_date <- var_date_range |> pull(datetime_max)
 
       var_models <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                   "/project_id=",config$project_id,
@@ -267,13 +246,28 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                !grepl("example",model_id)) |>
         pull(model_id)
 
+      var_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
+                                                      "/project_id=",config$project_id,
+                                                      "/duration=", duration_name,
+                                                      "/variable=", var_name,
+                                                      '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
+        filter(model_id %in% var_models) |>
+        #forecast_duck_df|>
+        # filter(variable == var_name,
+        #        duration == duration_name) |>
+        summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
+        collect()
+
+      var_min_date <- var_date_range$datetime_min
+      var_max_date <- var_date_range$datetime_max
+
       find_var_sites <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
                                                       "/project_id=",config$project_id,
                                                       "/duration=", duration_name,
                                                       "/variable=", var_name,
                                                       '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
         #forecast_duck_df |>
-        #filter(variable == var_name) |>
+        filter(model_id == 'climatology') |>
         distinct(site_id) |>
         pull(site_id)
 
@@ -494,11 +488,14 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                                     "/duration=", duration_name,
                                                     '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
     #forecast_duck_df |>
-    filter(variable %in% names(config$variable_groups[[i]]$group_vars)) |> ## filter by group
-    summarize(across(all_of(c('datetime')), list(min = min, max = max)))
+    #filter(variable %in% names(config$variable_groups[[i]]$group_vars)) |> ## filter by group
+    filter(variable %in% var_values,
+           model_id == 'climatology') |>
+    summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
+    collect()
 
-  group_min_date <-  group_date_range |> pull(datetime_min)
-  group_max_date <-  group_date_range |> pull(datetime_max)
+  group_min_date <-  group_date_range$datetime_min
+  group_max_date <-  group_date_range$datetime_max
 
   ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
   stac4cast::build_group_variables(table_schema = forecast_theme_df,

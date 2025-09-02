@@ -132,7 +132,7 @@ catalog_config:
   noaa_thumbnail_title: "NEON Image"
   aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet'
   aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet'
-  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries/'
+  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries'
   host_url: "www.neon4cast.org"
   host_name: "Ecoforecast Challenge"
   bbox:

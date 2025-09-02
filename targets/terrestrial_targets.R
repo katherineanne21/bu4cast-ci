@@ -1,7 +1,12 @@
 #renv::restore()
 print(paste0("Running Creating Terrestrial Targets at ", Sys.time()))
 
-install.packages("arrow", version='20.0.0')
+
+print(sessionInfo())
+
+#install.versions(c('arrow'), c('20.0.0'))
+#install.packages("arrow", version='20.0.0')
+#remotes::install_version('arrow', version = '20.0.0')
 
 #Sys.setenv("NEONSTORE_HOME" = "/home/rstudio/data/neonstore")
 
@@ -19,6 +24,9 @@ library(ncdf4)
 library(arrow)
 
 library(minioclient)
+
+print(sessioninfo::package_info())
+
 install_mc()
 mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 

@@ -13,7 +13,7 @@ handlers("cli")
 
 
 # bundled count at start
-b <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/backup-bundled-summaries",
+b <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
                       s3_endpoint = "sdsc.osn.xsede.org",
                       anonymous = TRUE)
 
@@ -54,7 +54,7 @@ bundle_me <- function(path) {
 
   bundled_path <- path |>
     str_replace(fixed("forecasts/summaries"),
-                "forecasts/backup-bundled-summaries")
+                "forecasts/bundled-summaries")
 
   open_dataset(path, conn = con) |> write_dataset("tmp_new.parquet")
   open_dataset(bundled_path, conn = con) |> write_dataset("tmp_old.parquet")

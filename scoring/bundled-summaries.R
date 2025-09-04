@@ -64,7 +64,7 @@ bundle_me <- function(path) {
   old <- open_dataset("tmp_old.parquet")
 
   union_all(old, new) |>
-    write_dataset(paste0(bundled_path,"/data_0.parquet"),
+    write_dataset(fs::path(bundled_path,"data_0.parquet"),
                   options = list("PER_THREAD_OUTPUT false"))
 
   #We should now archive anything we have bundled:

@@ -27,6 +27,6 @@ jobs:
       - name: Process submissions
         shell: Rscript {0}
         run: |
-          #devtools::install_deps(upgrade="never")
+          remotes::install_github("cboettig/duckdbfs", upgrade="never")
           remotes::install_github("eco4cast/score4cast")
           source("submission_processing/process_submissions.R")

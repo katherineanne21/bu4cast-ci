@@ -166,7 +166,7 @@ if(use_5day_data){
 #2025-07-15: Per Dave Durden - there was overflagging of QC on SRER in the latest relesae.
 #He recommend using the Ameriflux release because it has the correct QC flags.
 #This files contains the GC flags for SRER from AMF_US-xSR_FLUXNET_SUBSET_HH_2019-2024_4-7.csv
-srer_qc_update <- read_csv("targets/AF_SRER_QC_CODES.csv", show_col_types = FALSE) %>%
+srer_qc_update <- read_csv("targets/supporting-data/AF_SRER_QC_CODES.csv", show_col_types = FALSE) %>%
   rename(time = datetime,
          siteID = site_id)
 

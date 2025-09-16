@@ -1,5 +1,7 @@
 challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: neon4cast
+github_repo: eco4cast/neon4cast-ci
+#S3 bucket information
 endpoint: sdsc.osn.xsede.org
 noaa_endpoint: sdsc.osn.xsede.org
 submissions_endpoint: s3-west.nrp-nautilus.io
@@ -7,26 +9,21 @@ scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts
 summaries_bucket: bio230014-bucket01/challenges/forecasts
 submissions_bucket: submissions
-inventory_bucket: bio230014-bucket01/challenges/inventory
 noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
-prov_bucket: bio230014-bucket01/challenges/prov
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_path: '../neon4cast-catalog/catalog/sites'
-site_table: neon4cast_field_site_metadata.csv
-site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
-site_thumbnail_title: "NEON Sites Map"
-site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
-target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
-targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
-targets_thumbnail_title: 'Test Image'
-targets_path: '../neon4cast-catalog/catalog/targets/'
-challenge_url: https://projects.ecoforecast.org/neon4cast-ci
-github_repo: eco4cast/neon4cast-ci
-target_groups:
+site_path: '../neon4cast-catalog/catalog/sites'. #IS THIS USED?
+site_table: neon4cast_field_site_metadata.csv #IS THIS USED?
+site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ' #MOVE TO CATALOG SECTION
+site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv' #HAVE A SINGLE SITE DESCRIPTION FILE AND MOVE UP
+target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing. #IS THIS USED?
+targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg' #MOVE TO CATALOG SECTION
+targets_path: '../neon4cast-catalog/catalog/targets/' #WHAT IS THIS
+challenge_url: https://projects.ecoforecast.org/neon4cast-ci #COMBINE WITH THE ONE BELOW
+target_groups: #MOVE THESE TO THE VARIABLE GROUPS SECTION
   Aquatics:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
   Terrestrial:
@@ -39,6 +36,7 @@ target_groups:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
 noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
 noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
+#TARGET CONFIGURATIONS
 variable_groups:
   Aquatics:
     variable: ['oxygen','temperature','chla']
@@ -112,6 +110,9 @@ variable_groups:
       amblyomma_americanum:
         duration: "P1W"
         max_horizon: 730
+#DASHBOARD
+
+#CATALOG CONFIGURATIONS
 catalog_config:
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
@@ -119,9 +120,9 @@ catalog_config:
   scores_thumbnail_title: "NEON Buoy Image"
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
-  forecast_path: '../neon4cast-catalog/catalog/forecasts'
-  scores_path: '../neon4cast-catalog/catalog/scores'
-  summaries_path: '../neon4cast-catalog/catalog/summaries'
+  forecast_path: '../neon4cast-catalog/catalog/forecasts' #RELATIVE PATHS ARE HARD???
+  scores_path: '../neon4cast-catalog/catalog/scores' #RELATIVE PATHS ARE HARD???
+  summaries_path: '../neon4cast-catalog/catalog/summaries' #RELATIVE PATHS ARE HARD???
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
   inventory_path: 'catalog/inventory'
@@ -130,9 +131,9 @@ catalog_config:
   noaa_path: '../neon4cast-catalog/catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
-  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet'
-  aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet'
-  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries'
+  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet' #COMBINE WITH THE S3 INFO ABOVE
+  aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet' #COMBINE WITH THE S3 INFO ABOVE
+  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries' #COMBINE WITH THE S3 INFO ABOVE
   host_url: "www.neon4cast.org"
   host_name: "Ecoforecast Challenge"
   bbox:
@@ -141,10 +142,9 @@ catalog_config:
     max_lon: -66.7987
     min_lon: -156.6194
   site_type: 'MultiPoint'
-  base_image_path: 'https://data.ecoforecast.org/neon4cast-catalog'
   citation_doi_link: "https://doi.org/10.1002/fee.2616"
   citation_doi: "10.1002/fee.2616"
   citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
-  dashboard_url: "https://projects.ecoforecast.org/neon4cast-docs/"
-  dashboard_title: "NEON Forecast Challenge Dashboard"
+  dashboard_url: "https://projects.ecoforecast.org/neon4cast-docs/" #IS THIS USED?
+  dashboard_title: "NEON Forecast Challenge Dashboard" #IS THIS USED?
   site_metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'

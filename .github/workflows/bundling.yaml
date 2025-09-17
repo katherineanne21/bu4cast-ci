@@ -28,9 +28,9 @@ jobs:
 
 
       - name: Bundle forecasts
-        run: r scoring/bundled-forecasts.R
+        run: r submission_processing/bundled-forecasts.R
 
       - name: Bundle summaries
-        run: r scoring/bundled-summaries.R
+        run: r submission_processing/bundled-summaries.R
 
 

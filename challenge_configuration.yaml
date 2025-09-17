@@ -15,11 +15,11 @@ archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_path: '../neon4cast-catalog/catalog/sites'. #IS THIS USED?
+site_path: '../neon4cast-catalog/catalog/sites' #IS THIS USED?
 site_table: neon4cast_field_site_metadata.csv #IS THIS USED?
 site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ' #MOVE TO CATALOG SECTION
 site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv' #HAVE A SINGLE SITE DESCRIPTION FILE AND MOVE UP
-target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing. #IS THIS USED?
+target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg' #MOVE TO CATALOG SECTION
 targets_path: '../neon4cast-catalog/catalog/targets/' #WHAT IS THIS
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci #COMBINE WITH THE ONE BELOW

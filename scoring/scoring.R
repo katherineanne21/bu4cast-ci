@@ -43,7 +43,7 @@ score_group <- function(i, groups, project = "neon4cast") {
 
 
   # if we want to clear connection manually we need to re-open fc.  Maybe not necessary
-  source("R/score_joined_table.R")
+  source("scoring/R/score_joined_table.R")
   con <- duckdbfs::cached_connection(tempfile())
   duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
                            key = Sys.getenv("EFI_NRP_KEY"),

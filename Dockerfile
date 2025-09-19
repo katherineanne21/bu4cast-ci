@@ -7,9 +7,6 @@ RUN sudo update-ca-certificates
 
 RUN apt-get -y install python3 python3-venv python3-pip python3-dev
 
-RUN R - "install.packages('devtools')"
-RUN R - "devtools::install(dependencies=TRUE, upgrade='never')"
-
 RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid minioclient fs glue
 
 RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet patchwork pak

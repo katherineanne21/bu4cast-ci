@@ -9,7 +9,7 @@ RUN apt-get -y install python3 python3-venv python3-pip python3-dev
 
 RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities contentid minioclient fs glue
 
-RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet patchwork pak
+RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet patchwork pak ggiraph
 
 RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib
 

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 
-name: gefs_osn
+name: drivers-stage1-2
 
 jobs:
   docker:

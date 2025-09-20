@@ -3,7 +3,7 @@ on:
     - cron: '0 23 * * *'
   workflow_dispatch:
 
-name: gefs_osn_stage3
+name: drivers-stage3
 
 jobs:
   docker:

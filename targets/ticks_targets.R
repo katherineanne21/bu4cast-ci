@@ -18,37 +18,32 @@ target_sites <- sites_df %>% pull(field_site_id)
 
 source("targets/R/resolve_taxonomy.R")
 
-# for(curr_year in 2015:year(Sys.Date())){
-#   print(curr_year)
-   pass <- TRUE
-   iter <- 0
-   while(pass & iter < 10){
-     iter <- iter + 1
+pass <- TRUE
+iter <- 0
+while(pass & iter < 10){
+  iter <- iter + 1
 
-    df <-  neonstore:::neon_data(product = "DP1.10093.001",
-                                 #start_date = paste0(curr_year, "-01-01"),
-                                 #end_date = paste0(curr_year, "-12-31"),
-                                 site = target_sites,
-                                 type="expanded")
+  df <-  neonstore:::neon_data(product = "DP1.10093.001",
+                               #start_date = paste0(curr_year, "-01-01"),
+                               #end_date = paste0(curr_year, "-12-31"),
+                               site = target_sites,
+                               type="expanded")
 
-    if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
-      full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
-    }else{
-      full_df_old <- NULL
-    }
-
-    full_df <- bind_rows(full_df_old, df) %>%
-      distinct()
-
-    print(nrow(full_df))
-    print(nrow(full_df_old))
-    pass <- nrow(full_df) != nrow(full_df_old)
-
-    write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
+  if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
+    full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
+  }else{
+    full_df_old <- NULL
   }
 
-#full_df <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
+  full_df <- bind_rows(full_df_old, df) %>%
+    distinct()
 
+  print(nrow(full_df))
+  print(nrow(full_df_old))
+  pass <- nrow(full_df) != nrow(full_df_old)
+
+  write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
+}
 
 fielddata_urls <- full_df |>
   dplyr::filter(grepl("tck_fielddata", name)) |>
@@ -122,7 +117,6 @@ tick_standard <- tick_long %>%
   filter(siteID %in% target_sites, # sites we want
          lifeStage == target_lifestage, # life stage we want
          scientificName %in% target_species,
-         #scientificName %in% target.species, # species we want
          grepl("Forest", nlcdClass)) %>%  # forest plots
   mutate(date = floor_date(collectDate, unit = "day"),
          date = ymd(date),
@@ -140,7 +134,6 @@ tick_standard <- tick_long %>%
 
 
 tick_targets <- tick_standard %>%
-  #filter(time < challenge.time) |>
   rename(site_id = siteID) |>
   mutate(variable = scientificName) |>
   mutate(variable = ifelse(variable == "Amblyomma americanum", "amblyomma_americanum", "ixodes_scapularis")) |>
@@ -152,13 +145,6 @@ ggplot(tick_targets, aes(x = time, y = observation, color = variable)) +
 
 tick_targets <- tick_targets |>
   rename(datetime = time)
-
-#s3 <- arrow::s3_bucket("neon4cast-targets/ticks",
-#                       endpoint_override = "data.ecoforecast.org",
-#                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-#                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-#
-#arrow::write_csv_arrow(tick_targets, sink = s3$path("ticks-targets.csv.gz"))
 
 tick_targets2 <- tick_targets |>
   mutate(datetime = lubridate::as_datetime(datetime),

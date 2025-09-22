@@ -10,24 +10,31 @@ library(DBI)
 con <- duckdbfs::cached_connection(tempfile())
 DBI::dbExecute(con, "SET THREADS=64;")
 
+
+
+config <- read_yaml("challenge_configuration.yaml")
+
+forecast_bundled_parquet_bucket <- paste0(config$forecasts_bucket, "/bundled-parquet/")
+scores_bundled_parquet_bucket <- paste0(config$scores_bucket, "/bundled-parquet/")
+scores_bucket_base <- str_split(config$scores_bucket, "/", simplify = TRUE)[1]
+
 #library(minioclient)
 
 #install_mc()
 #mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 #fs::dir_create("new_scores")
 
-project <- "neon4cast"
+project <- config$project_id
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)
 rescore <- FALSE
 obs_key_cols <- c("project_id", "site_id", "datetime", "duration", "variable")
 score_key_cols <- c(obs_key_cols, "model_id", "family", "reference_datetime")
 
 
-duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+duckdbfs::duckdb_secrets(endpoint = config$endpoint,
                          key = "",
                          secret = "",
-                         bucket = "bio230014-bucket01")
-
+                         bucket = scores_bucket_base)
 
 
 target_files <-
@@ -60,8 +67,8 @@ last_observed_date <- targets |> select(datetime) |> distinct() |>
 
 # Omit scoring of daily forecasts that have a horizon > 35
 forecasts <-
-  open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/",
-               s3_endpoint = "sdsc.osn.xsede.org",
+  open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
+               s3_endpoint = config$endpoint,
                anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
@@ -79,8 +86,8 @@ forecasts <-
 
 
 scores <-
-  open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/",
-               s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE) |>
+  open_dataset(paste0("s3://", scores_bundled_parquet_bucket),
+               s3_endpoint = config$endpoint, anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)

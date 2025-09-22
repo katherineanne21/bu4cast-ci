@@ -11,7 +11,9 @@ library(minioclient)
 #mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 #fs::dir_create("new_scores")
 
-project <- "neon4cast"
+config <- read_yaml("challenge_configuration.yaml")
+
+project <- config$project_id
 
 #print("Downloading bundled scores...")
 #bench::bench_time({
@@ -66,8 +68,8 @@ score_group <- function(i, groups, project = "neon4cast") {
   dur <- groups$duration[i]
   var <- groups$variable[i]
   model <- groups$model_id[i]
-  path <- glue::glue("s3://bio230014-bucket01/challenges",
-                     "/scores/bundled-parquet/",
+  path <- glue::glue("s3://",
+                     scores_bundled_parquet_bucket,
                      "project_id={project}/duration={dur}/",
                      "variable={var}/model_id={model}")
 
@@ -91,7 +93,7 @@ score_group <- function(i, groups, project = "neon4cast") {
     dplyr::distinct() |>
     dplyr::group_by(project_id, duration, variable, model_id) |>
     # duckdbfs::write_dataset("s3://efi-scores/tmp/bundled-parquet/")
-    duckdbfs::write_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/")
+    duckdbfs::write_dataset(paste0("s3://", scores_bundled_parquet_bucket))
 
 
   duckdbfs::close_connection(con)

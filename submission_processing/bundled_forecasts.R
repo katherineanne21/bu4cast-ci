@@ -8,19 +8,26 @@ library(glue)
 library(fs)
 library(future.apply)
 library(progressr)
+library(yaml)
 handlers(global = TRUE)
 handlers("cli")
 
+config <- read_yaml("challenge_configuration.yaml")
+
+forecast_parquet_bucket <- paste0(config$forecasts_bucket, "/parquet/project_id=", config$project_id, "/")
+forecast_bundled_parquet_bucket <- paste0(config$forecasts_bucket, "/bundled-parquet/")
+forecasts_bucket_base <- str_split(config$forecasts_bucket, "/", simplify = TRUE)[1]
+
 
 install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+mc_alias_set("osn", config$endpoint, Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 # mc_alias_set("nrp", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 
-duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
+duckdb_secrets(endpoint = config$endpoint , key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base)
 
 
 
-remote_path <- "osn/bio230014-bucket01/challenges/forecasts/parquet/project_id=neon4cast/"
+remote_path <- paste0("osn/", forecast_parquet_bucket)
 contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
 data_paths <- contents |> filter(!is_folder) |> pull(path)
 
@@ -34,8 +41,8 @@ model_paths <-
 print(model_paths)
 
 # bundled count at start
-count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-                      s3_endpoint = "sdsc.osn.xsede.org",
+count <- open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
+                      s3_endpoint = config$endpoint,
                       anonymous = TRUE) |>
   count()
 print(count)
@@ -45,7 +52,7 @@ bundle_me <- function(path) {
 
   print(path)
   con = duckdbfs::cached_connection(tempfile())
-  duckdb_secrets(endpoint = "sdsc.osn.xsede.org", key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = "bio230014-bucket01")
+  duckdb_secrets(endpoint = config$endpoint, key = Sys.getenv("OSN_KEY"), secret = Sys.getenv("OSN_SECRET"), bucket = forecasts_bucket_base)
   bundled_path <- path |> str_replace(fixed("forecasts/parquet"), "forecasts/bundled-parquet")
 
   open_dataset(path, conn = con) |>
@@ -119,16 +126,16 @@ bench::bench_time({
 
 
 # bundled count at end
-count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-                      s3_endpoint = "sdsc.osn.xsede.org",
+count <- open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
+                      s3_endpoint = config$endpoint,
                       anonymous = TRUE) |>
   count()
 print(count)
 
 
 
-most_recent <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet",
-             s3_endpoint = "sdsc.osn.xsede.org",
+most_recent <- open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
+             s3_endpoint = config$endpoint,
              anonymous = TRUE) |>
   group_by(model_id, variable) |>
   summarise(most_recent = max(reference_datetime)) |>

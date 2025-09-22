@@ -11,7 +11,7 @@ RUN install2.r devtools remotes reticulate neonstore RCurl neonUtilities content
 
 RUN install2.r renv rjags ISOweek RNetCDF fable fabletools forecast imputeTS duckdbfs gsheet patchwork pak ggiraph
 
-RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib
+RUN install2.r ncdf4 scoringRules tidybayes tidync udunits2 bench yaml here feasts future furrr jsonlite bsicons bslib neonUtilities
 
 RUN R -e "remotes::install_github('eco4cast/stac4cast')"
 RUN sleep 180

@@ -54,13 +54,28 @@ scores_sites <- scores_duck_df |>
   distinct(site_id) |>
   pull(site_id)
 
-scores_date_range <- scores_duck_df |>
-  filter(model_id == 'climatology') |> ## included to try and speed things up
-  summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
+
+scores_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+  filter(duration %in% c("P1D", "P1W")) |>
+  distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
+  group_by(variable, duration, model_id) |>
+  summarize(date = max(datetime, na.rm = TRUE),
+            reference_datetime = max(reference_datetime, na.rm = TRUE),
+            pub_datetime = max(pub_datetime, na.rm = TRUE)) |>
   collect()
 
-scores_min_date <-  scores_date_range$datetime_min
-scores_max_date <-  scores_date_range$datetime_max
+scores_model_var_min_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+  filter(duration %in% c("P1D", "P1W")) |>
+  distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
+  group_by(variable, duration, model_id) |>
+  summarize(date = min(datetime, na.rm = TRUE),
+            reference_datetime = min(reference_datetime, na.rm = TRUE),
+            pub_datetime = min(pub_datetime, na.rm = TRUE)) |>
+  collect()
+
+
+scores_min_date <-  min(scores_model_var_min_date_df$date)
+scores_max_date <-  max(scores_model_var_max_date_df$date)
 
 build_description <- paste0("The catalog contains scores for the ", config$challenge_long_name,". The scores are summaries of the forecasts (i.e., mean, median, confidence intervals), matched observations (if available), and scores (metrics of how well the model distribution compares to observations). You can access the scores at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the scores catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the scores for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
@@ -112,8 +127,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   group_var_values <- config$variable_groups[[i]]$variable
 
   # check data and skip if no data found
-  var_group_data_check <- scores_duck_df |>
+  var_group_data_check <- scores_model_var_max_date_df |>
     filter(variable %in% group_var_values) |>
+    ungroup() |>
     summarise(n = n()) |>
     pull(n)
 
@@ -149,7 +165,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   group_description <- paste0('All variables for the ',names(config$variable_groups[i]),' group.')
 
   ## find group sites
-  find_group_sites <- scores_duck_df |>
+  find_group_sites <- scores_sites |>
     filter(variable %in% var_values) |>
     distinct(site_id) |>
     pull(site_id)
@@ -189,11 +205,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         var_formal_name <- paste0(duration_value,'_',var_name_full[j])
 
         # check data and skip if no data found
-        var_data_check <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                        "/project_id=",config$project_id,
-                                                        "/duration=", duration_name,
-                                                        "/variable=", var_name,
-                                                        '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
+        var_data_check <- scores_model_var_max_date_df |>
+          filter(variable == var_name, duration == duration_name) |>
+          ungroup() |>
           summarise(n = n()) |>
           pull(n)
 
@@ -206,32 +220,30 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
             dir.create(file.path(catalog_config$scores_path,names(config$variable_groups)[i],var_formal_name))
           }
 
-        var_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                        "/project_id=",config$project_id,
-                                                        "/duration=", duration_name,
-                                                        "/variable=", var_name,
-                                                        '?endpoint_override=',config$endpoint), anonymous = TRUE)|>
-          summarize(across(all_of(c('datetime')), list(min = min, max = max))) #|>
-          collect()
+        var_max_date <- scores_model_var_max_date_df |>
+          filter(variable == var_name,
+                 model_id %in% var_models,
+                 duration == duration_name) |>
+          summarize(date = max(date, na.rm = TRUE)) |>
+          pull(date)
 
-        var_min_date <- var_date_range$datetime_min
-        var_max_date <- var_date_range$datetime_max
+        var_min_date <- scores_model_var_min_date_df |>
+          filter(variable == var_name,
+                 model_id %in% var_models,
+                 duration == duration_name) |>
+          summarize(date = min(date, na.rm = TRUE)) |>
+          pull(date)
 
-        var_models <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                    "/project_id=",config$project_id,
-                                                    "/duration=", duration_name,
-                                                    "/variable=", var_name,
-                                                    '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
+        var_models <- scores_model_var_max_date_df |>
+          filter(variable == var_name, duration == duration_name) |>
           distinct(model_id) |>
           filter(model_id %in% registered_model_id$model_id,
                  !grepl("example",model_id)) |>
           pull(model_id)
 
-        find_var_sites <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                        "/project_id=",config$project_id,
-                                                        "/duration=", duration_name,
-                                                        "/variable=", var_name,
-                                                        '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
+        find_var_sites <- scores_sites |>
+          filter(variable == var_name,
+                 duration == duration) |>
           distinct(site_id) |>
           pull(site_id)
 
@@ -296,38 +308,47 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
           print(m)
 
-          model_date_range <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_scores,
-                                                            "/project_id=",config$project_id,
-                                                            "/duration=", duration_name,
-                                                            "/variable=", var_name,
-                                                            "/model_id=", m,
-                                                            '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
-            summarize(across(all_of(c('datetime','reference_datetime','pub_datetime')), list(min = min, max = max))) |>
-            collect()
+          model_max_date <- scores_model_var_max_date_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            summarize(date = max(date)) |>
+            pull(date)
 
-          model_min_date <- model_date_range$datetime_min
-          model_max_date <- model_date_range$datetime_max
+          model_min_date <- scores_model_var_min_date_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            summarize(date = max(date)) |>
+            pull(date)
 
-          model_reference_date <- model_date_range$reference_datetime_max
-          model_pub_date <- model_date_range$pub_datetime_max
+          model_reference_date <- scores_model_var_max_date_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            summarize(date = max(reference_datetime)) |>
+            pull(date)
+
+          model_pub_date <- scores_model_var_max_date_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            summarize(date = max(pub_datetime)) |>
+            pull(date)
 
           if(is.na(model_pub_date)){
             model_pub_date <- model_reference_date
           }
 
-          model_var_duration_df <-  duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_scores,
-                                                                  "/project_id=",config$project_id,
-                                                                  "/duration=", duration_name,
-                                                                  "/variable=", var_name,
-                                                                  "/model_id=", m,
-                                                                  '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
-            distinct(variable,duration, project_id) |>
-            #pull() |>
+          model_var_duration_df <- scores_model_var_max_date_df|>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
+            distinct(variable,duration) |>
             mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
             mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
             mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-            mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name)) |>
-            collect()
+            mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
 
           model_var_full_name <- model_var_duration_df |>
             left_join((variable_gsheet |>
@@ -350,14 +371,11 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
           model_site_text <- paste(as.character(model_sites), sep="' '", collapse=", ")
 
-          model_vars <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_scores,
-                                                      "/project_id=",config$project_id,
-                                                      "/duration=", duration_name,
-                                                      "/variable=", var_name,
-                                                      "/model_id=", m,
-                                                      '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
+          model_vars <- scores_model_var_max_date_df |>
+            filter(model_id == m,
+                   variable == var_name,
+                   duration == duration_name) |>
             distinct(variable) |>
-            collect() |>
             left_join(model_var_full_name, by = 'variable')
 
           model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
@@ -431,23 +449,17 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
   } ## end variable loop
 
-  # group_date_range <- scores_duck_df |>
-  #   filter(variable %in% names(config$variable_groups[[i]]$group_vars)) |> ## filter by group
-  #   summarize(across(all_of(c('datetime')), list(min = min, max = max)))
-  #
-  # group_min_date <-  group_date_range |> pull(datetime_min)
-  # group_max_date <-  group_date_range |> pull(datetime_max)
+  group_max_date <- scores_model_var_max_date_df |>
+    filter(variable %in% var_values) |>
+    ungroup() |>
+    summarize(date = max(date)) |>
+    pull(date)
 
-  group_date_range <-  duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,
-                                                     "/project_id=",config$project_id,
-                                                     "/duration=", duration_name,
-                                                     '?endpoint_override=',config$endpoint), anonymous = TRUE) |>
-    filter(variable %in% var_values) |> ## filter by
-    summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
-    collect()
-
-  group_min_date <- group_date_range$datetime_min
-  group_max_date <- group_date_range$datetime_max
+  group_min_date <- scores_model_var_min_date_df |>
+    filter(variable %in% var_values) |>
+    ungroup() |>
+    summarize(date = min(date)) |>
+    pull(date)
 
   ## BUILD THE GROUP PAGES WITH UPDATED VAR/PUB INFORMATION
   stac4cast::build_group_variables(table_schema = scores_theme_df,

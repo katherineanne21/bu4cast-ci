@@ -1,17 +1,5 @@
----
-title: "S3_Bucket_ReadWrite"
-author: "Katherine Rein"
-date: "2025-09-19"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Set Up
 
-```{r}
 # Load Libraries
 library(arrow)
 library(readxl)
@@ -59,11 +47,8 @@ if (Sys.getenv("GITHUB_ACTIONS") == "true") {
                          scheme = "https")
 }
 
-```
-
 ## Write
 
-```{r}
 test_data = data.frame(
   id = 1:100,                        
   age = sample(18:80, 100, replace = TRUE),  
@@ -73,12 +58,8 @@ test_data = data.frame(
 
 arrow::write_csv_arrow(test_data, sink = s3_read$path("test/test_data2.csv"))
 arrow::write_csv_arrow(test_data, sink = s3_write$path("test/test_data2.csv"))
-```
 
 ## Read
 
-```{r}
 df_read <- arrow::read_csv_arrow(s3_read$path("test/test_data2.csv"))
 df_write <- arrow::read_csv_arrow(s3_write$path("test/test_data2.csv"))
-```
-

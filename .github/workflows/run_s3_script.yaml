@@ -1,0 +1,32 @@
+name: Run S3 Script
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # allows manual run
+
+jobs:
+  r-job:
+    runs-on: ubuntu-latest
+
+    env:
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+
+    steps:
+      # 1. Checkout repository
+      - uses: actions/checkout@v3
+
+      # 2. Set up R
+      - uses: r-lib/actions/setup-r@v2
+
+      # 3. Install dependencies
+      - name: Install R packages
+        run: |
+          R -e 'install.packages(c("arrow", "readxl", "tidyverse"), repos="https://cloud.r-project.org")'
+
+      # 4. Run your script
+      - name: Run S3 Script
+        run: |
+          Rscript S3_Bucket_ReadWrite.rmd

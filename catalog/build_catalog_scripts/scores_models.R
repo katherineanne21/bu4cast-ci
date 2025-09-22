@@ -294,7 +294,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                         doi_values = doi_citations)
 
 
-        scores_sites <- c()
+        #scores_sites <- c()
 
 
         ## loop over model ids and extract components if present in metadata table
@@ -380,8 +380,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
           model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
 
-          scores_sites <- append(scores_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
-                                                                           sites = model_sites))
+          #scores_sites <- append(scores_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
+          #                                                                 sites = model_sites))
+
           stac_id <- paste0(m,'_',var_name,'_',duration_name,'_scores')
 
           idx = which(registered_model_id$model_id == m)

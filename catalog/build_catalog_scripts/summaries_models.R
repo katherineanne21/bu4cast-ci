@@ -257,7 +257,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                        doi_values = var_doi)
 
 
-      forecast_sites <- c()
+      #forecast_sites <- c()
 
       ## LOOP OVER MODEL IDS AND CREATE JSONS
       for (m in var_models){
@@ -336,8 +336,9 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
         model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
 
-        forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
-                                                                             sites = model_sites))
+        #forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
+        #                                                                     sites = model_sites))
+
         stac_id <- paste0(m,'_',var_name,'_',duration_name,'_summaries')
 
         idx = which(registered_model_id$model_id == m)

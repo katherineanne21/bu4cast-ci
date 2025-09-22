@@ -335,7 +335,7 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
                                        citation_values = var_citations,
                                        doi_values = doi_citations)
 
-      forecast_sites <- c()
+      #forecast_sites <- c()
 
       ## LOOP OVER MODEL IDS AND CREATE JSONS
       for (m in var_models){
@@ -418,8 +418,8 @@ for (i in 1:length(config$variable_groups)){ ## organize variable groups
 
         model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
 
-        forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
-                                                                             sites = model_sites))
+        # forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
+        #                                                                      sites = model_sites))
 
         idx = which(registered_model_id$model_id == m)
 

@@ -38,7 +38,7 @@ summaries_sites <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/cha
                            "USGS-01427510","USGS-05553700","USGS-05586300","USGS-14211720")),
          !is.na(model_id))
 
-all_forecast_sites <- unique(summaries_sites$site_id)
+all_summaries_sites <- unique(summaries_sites$site_id)
 
 summaries_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-summaries/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
   filter(duration %in% c("P1D", "P1W")) |>
@@ -82,7 +82,7 @@ stac4cast::build_forecast_scores(table_schema = summaries_theme_df,
                                  link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                                  thumbnail_link = catalog_config$summaries_thumbnail,
                                  thumbnail_title = catalog_config$summaries_thumbnail_title,
-                                 group_sites = summaries_sites,
+                                 group_sites = all_summaries_sites,
                                  model_child = FALSE)
 
 ## CREATE MODELS
@@ -206,7 +206,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         summarize(date = min(date, na.rm = TRUE)) |>
         pull(date)
 
-      find_var_sites <- forecast_sites |>
+      find_var_sites <- summaries_sites |>
         filter(variable == var_name,
                duration == duration) |>
         distinct(site_id) |>

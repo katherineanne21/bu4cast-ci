@@ -54,6 +54,7 @@ scores_sites <- scores_duck_df |>
   distinct(site_id) |>
   pull(site_id)
 
+all_scores_sites <- unique(scores_sites$site_id)
 
 scores_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
   filter(duration %in% c("P1D", "P1W")) |>
@@ -101,7 +102,7 @@ stac4cast::build_forecast_scores(table_schema = scores_theme_df,
                       link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
                       thumbnail_link = catalog_config$scores_thumbnail,
                       thumbnail_title = catalog_config$scores_thumbnail_title,
-                      group_sites = scores_sites,
+                      group_sites = all_scores_sites,
                       model_child = FALSE)
 
 ## CREATE MODELS

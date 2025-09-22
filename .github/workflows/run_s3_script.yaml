@@ -29,4 +29,4 @@ jobs:
       # 4. Run your script
       - name: Run S3 Script
         run: |
-          Rscript S3_Bucket_ReadWrite.rmd
+          Rscript S3_Bucket_ReadWrite.R

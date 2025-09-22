@@ -15,15 +15,21 @@ OUR_ENDPOINT_OVERRIDE = 'https://minio-s3.apps.shift.nerc.mghpcc.org'
 if (Sys.getenv("GITHUB_ACTIONS") == "true") {
   # Set Up S3 Connection (Git Hub)
   # Keys saved in Settings -> Secrets + Variables -> Actions -> Repository secrets
-  s3_read <- arrow::s3_bucket(OUR_LINK_read,
-                         endpoint_override = OUR_ENDPOINT_OVERRIDE,
-                         access_key = Sys.getenv("OSN_KEY"),
-                         secret_key = Sys.getenv("OSN_SECRET"))
+  s3_read <- arrow::s3_bucket(
+    "",
+    endpoint_override = paste0(OUR_ENDPOINT_OVERRIDE, "/bu4cast-ci-read"),
+    access_key = Sys.getenv("OSN_KEY"),
+    secret_key = Sys.getenv("OSN_SECRET"),
+    scheme = "https"
+  )
   
-  s3_write <- arrow::s3_bucket(OUR_LINK_write,
-                         endpoint_override = OUR_ENDPOINT_OVERRIDE,
-                         access_key = Sys.getenv("OSN_KEY"),
-                         secret_key = Sys.getenv("OSN_SECRET"))
+  s3_write <- arrow::s3_bucket(
+    "",
+    endpoint_override = paste0(OUR_ENDPOINT_OVERRIDE, "/bu4cast-ci-write"),
+    access_key = Sys.getenv("OSN_KEY"),
+    secret_key = Sys.getenv("OSN_SECRET"),
+    scheme = "https"
+  )
   
 } else {
   # Read in Access Key and Secret Key (R Studio)

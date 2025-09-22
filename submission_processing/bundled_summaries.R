@@ -8,13 +8,21 @@ library(glue)
 library(fs)
 library(future.apply)
 library(progressr)
+library(yaml)
 handlers(global = TRUE)
 handlers("cli")
 
 
+config <- read_yaml("challenge_configuration.yaml")
+
+summaries_bundled_bucket <- paste0(config$forecasts_bucket, "/summaries/project_id=", config$project_id, "/")
+summaries_bundled_parquet_bucket <- paste0(config$forecasts_bucket, "/bundled-summaries/")
+forecasts_bucket_base <- str_split(config$forecasts_bucket, "/", simplify = TRUE)[1]
+
+
 # bundled count at start
-b <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
-                      s3_endpoint = "sdsc.osn.xsede.org",
+b <- open_dataset(paste0("s3://", summaries_bundled_parquet_bucket),
+                      s3_endpoint = config$endpoint,
                       anonymous = TRUE)
 
 b |> count() |> print()
@@ -22,15 +30,15 @@ b |> summarise(date = max(reference_datetime)) |> print()
 
 
 install_mc()
-mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+mc_alias_set("osn", config$endpoint, Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
-duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+duckdb_secrets(endpoint = config$endpoint,
                key = Sys.getenv("OSN_KEY"),
                secret = Sys.getenv("OSN_SECRET"),
-               bucket = "bio230014-bucket01")
+               bucket = forecasts_bucket_base)
 
 
-remote_path <- "osn/bio230014-bucket01/challenges/forecasts/summaries/project_id=neon4cast/"
+remote_path <- paste0("osn/", summaries_bundled_bucket)
 contents <- mc_ls(remote_path, recursive = TRUE, details = TRUE)
 data_paths <- contents |> filter(!is_folder) |> pull(path)
 
@@ -46,10 +54,10 @@ bundle_me <- function(path) {
 
   print(path)
   con = duckdbfs::cached_connection(tempfile())
-  duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+  duckdb_secrets(endpoint = config$endpoint,
                  key = Sys.getenv("OSN_KEY"),
                  secret = Sys.getenv("OSN_SECRET"),
-                 bucket = "bio230014-bucket01")
+                 bucket = forecasts_bucket_base)
 
 
   bundled_path <- path |>
@@ -103,8 +111,8 @@ bench::bench_time({
 
 
 # bundled count at end
-count <- open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-summaries",
-                      s3_endpoint = "sdsc.osn.xsede.org",
+count <- open_dataset(paste0("s3://", summaries_bundled_parquet_bucket),
+                      s3_endpoint = config$endpoint,
                       anonymous = TRUE) |>
   count()
 

@@ -22,10 +22,6 @@ jobs:
            fetch-depth: 0
            set-safe-directory: '*'
 
-      - name: install deps
-        shell: Rscript {0}
-        run: remotes::install_deps(".", dep=TRUE)
-
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.4.146
@@ -33,13 +29,6 @@ jobs:
       - name: Staging data
         shell: Rscript {0}
         run: source("dashboard/stage_data.R")
-
-      #- name: Cache scores
-      #  id: cache-scores
-      #  uses: actions/cache@v3
-      #  with:
-      #    path: cache
-      #    key: ${{ runner.os }}-cache
 
       - name: Render
         run: |

@@ -48,25 +48,25 @@ jobs:
         shell: Rscript {0}
         run: source("catalog/build_catalog_scripts/forecast_models.R")
 
-      # - name: Render summaries
-      #   shell: Rscript {0}
-      #   run: source("catalog/build_catalog_scripts/summaries_models.R")
-      #
-      # - name: Render scores
-      #   shell: Rscript {0}
-      #   run: source("catalog/build_catalog_scripts/scores_models.R")
-      #
-      # - name: Render noaa
-      #   shell: Rscript {0}
-      #   run: source("catalog/build_catalog_scripts/noaa_forecasts.R")
-      #
-      # - name: Render sites
-      #   shell: Rscript {0}
-      #   run: source("catalog/build_catalog_scripts/build_sites_page.R")
-      #
-      # - name: Render targets
-      #   shell: Rscript {0}
-      #   run: source("catalog/build_catalog_scripts/create_targets_page.R")
+      - name: Render summaries
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/summaries_models.R")
+
+      - name: Render scores
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/scores_models.R")
+
+      - name: Render noaa
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/noaa_forecasts.R")
+
+      - name: Render sites
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/build_sites_page.R")
+
+      - name: Render targets
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/create_targets_page.R")
 
 
       - name: Commit and Push

@@ -11,14 +11,13 @@ jobs:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
 
+    container: eco4cast/rocker-neon4cast:latest
+
     steps:
       # 1. Checkout repository
       - uses: actions/checkout@v3
 
-      # 2. Set up R
-      - uses: r-lib/actions/setup-r@v2
-          
-      # 3. Run your script
+      # 2. Run your script
       - name: Run S3 Script
         run: |
           Rscript S3_Bucket_ReadWrite.R

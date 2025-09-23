@@ -79,7 +79,7 @@ stac4cast::build_forecast_scores(table_schema = summaries_theme_df,
                                  theme_title = "Forecast Summaries",
                                  destination_path = catalog_config$summaries_path,
                                  aws_download_path = catalog_config$aws_download_path_summaries,
-                                 link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
+                                 link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                                  thumbnail_link = catalog_config$summaries_thumbnail,
                                  thumbnail_title = catalog_config$summaries_thumbnail_title,
                                  group_sites = all_summaries_sites,
@@ -99,10 +99,10 @@ registered_model_id <- gsheet_read |>
 
 ## BUILD VARIABLE GROUPS
 
-for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD FUNCTION CALLED AFTER ALL VARIABLES HAVE BEEN BUILT (AFTER SECOND LOOP)
-  print(names(config$variable_groups)[i])
+for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD FUNCTION CALLED AFTER ALL VARIABLES HAVE BEEN BUILT (AFTER SECOND LOOP)
+  print(names(config$target_groups)[i])
 
-  group_var_values <- config$variable_groups[[i]]$variable
+  group_var_values <- config$target_groups[[i]]$variable
 
   # check data and skip if no data found
   var_group_data_check <- summaries_model_var_max_date_df |>
@@ -117,24 +117,24 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   }
 
   ## REMOVE STALE OR UNUSED DIRECTORIES
-  current_var_path <- paste0(catalog_config$summaries_path,'/',names(config$variable_groups[i]))
+  current_var_path <- paste0(catalog_config$summaries_path,'/',names(config$target_groups[i]))
   current_var_dirs <- list.dirs(current_var_path, recursive = FALSE, full.names = TRUE)
   unlink(current_var_dirs, recursive = TRUE)
 
-  if (!dir.exists(file.path(catalog_config$summaries_path,names(config$variable_groups[i])))){
-    dir.create(file.path(catalog_config$summaries_path,names(config$variable_groups[i])))
+  if (!dir.exists(file.path(catalog_config$summaries_path,names(config$target_groups[i])))){
+    dir.create(file.path(catalog_config$summaries_path,names(config$target_groups[i])))
   }
 
   # match variable with full name in gsheet
   var_gsheet_arrange <- variable_gsheet |>
     arrange(duration)
 
-  var_values <- names(config$variable_groups[[i]]$group_vars)
+  var_values <- names(config$target_groups[[i]]$group_vars)
 
   var_name_full <- var_gsheet_arrange[which(var_gsheet_arrange$`"official" targets name` %in% var_values),1][[1]]
 
   ## CREATE VARIABLE GROUP JSONS
-  group_description <- paste0('All variables for the ',names(config$variable_groups[i]),' group.')
+  group_description <- paste0('All variables for the ',names(config$target_groups[i]),' group.')
 
   ## find group sites
   find_group_sites <- summaries_sites |>
@@ -149,17 +149,17 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
   ## create empty vector to track variable information
   variable_name_build <- c()
 
-  for(j in 1:length(config$variable_groups[[i]]$group_vars)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
+  for(j in 1:length(config$target_groups[[i]]$group_vars)){ # FOR EACH VARIABLE WITHIN A MODEL GROUP
 
-    var_name <- names(config$variable_groups[[i]]$group_vars[j])
+    var_name <- names(config$target_groups[[i]]$group_vars[j])
     print(var_name)
 
-    for (k in 1:length(config$variable_groups[[i]]$group_vars[[j]]$duration)){
-      duration_value <- config$variable_groups[[i]]$group_vars[[j]]$duration[k]
+    for (k in 1:length(config$target_groups[[i]]$group_vars[[j]]$duration)){
+      duration_value <- config$target_groups[[i]]$group_vars[[j]]$duration[k]
       print(duration_value)
 
       ## save original duration name for reference
-      duration_name <- config$variable_groups[[i]]$group_vars[[j]]$duration[k]
+      duration_name <- config$target_groups[[i]]$group_vars[[j]]$duration[k]
 
       ## create formal variable name
       duration_value[which(duration_value == 'P1D')] <- 'Daily'
@@ -181,8 +181,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
         next
       }
 
-      if (!dir.exists(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))){
-        dir.create(file.path(catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name))
+      if (!dir.exists(file.path(catalog_config$summaries_path,names(config$target_groups)[i],var_formal_name))){
+        dir.create(file.path(catalog_config$summaries_path,names(config$target_groups)[i],var_formal_name))
       }
 
       var_models <- summaries_model_var_max_date_df |>
@@ -223,8 +223,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       #var_path <- var_data$path[1]
 
       ## build lists for creating publication items
-      var_citations <- config$variable_groups[[i]]$group_vars[[j]]$var_citation
-      var_doi <- config$variable_groups[[i]]$group_vars[[j]]$var_doi
+      var_citations <- config$target_groups[[i]]$group_vars[[j]]$var_citation
+      var_doi <- config$target_groups[[i]]$group_vars[[j]]$var_doi
 
       #update group list of publication information
       citation_build <- append(citation_build, var_citations)
@@ -241,13 +241,13 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                        description_string = var_description,
                                        about_string = catalog_config$about_string,
                                        about_title = catalog_config$about_title,
-                                       dashboard_string = catalog_config$dashboard_url,
-                                       dashboard_title = catalog_config$dashboard_title,
+                                       dashboard_string = catalog_config$documentation_url,
+                                       catalog_title = catalog_config$catalog_title,
                                        theme_title = var_formal_name,
-                                       destination_path = file.path('.',catalog_config$summaries_path,names(config$variable_groups)[i],var_formal_name),
+                                       destination_path = file.path('.',catalog_config$summaries_path,names(config$target_groups)[i],var_formal_name),
                                        aws_download_path = catalog_config$aws_download_path_summaries,
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models),
-                                       thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
+                                       thumbnail_link = config$target_groups[[i]]$thumbnail_link,
                                        thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
                                        single_var_name = var_name,
@@ -263,8 +263,8 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
       for (m in var_models){
 
         # make model items directory
-        if (!dir.exists(paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))){
-          dir.create(paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"))
+        if (!dir.exists(paste0(catalog_config$summaries_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))){
+          dir.create(paste0(catalog_config$summaries_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))
         }
 
         print(m)
@@ -365,17 +365,17 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                     '.
                                     Summaries are the forecasts statistics of the raw forecasts (i.e., mean, median, confidence intervals)')
 
-        model_keywords <- c(list('Summaries',config$project_id, names(config$variable_groups)[i], m, var_name_full[j], var_name, duration_value, duration_name),
+        model_keywords <- c(list('Summaries',config$project_id, names(config$target_groups)[i], m, var_name_full[j], var_name, duration_value, duration_name),
                             as.list(model_sites))
 
         ## build radiantearth stac and raw json link
         stac_link <- paste0('https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/',
-                            names(config$variable_groups)[i],'/',
+                            names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')
 
         json_link <- paste0('https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/summaries/',
-                            names(config$variable_groups)[i],'/',
+                            names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')
 
@@ -393,7 +393,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                site_values = model_sites,
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,
-                               destination_path = paste0(catalog_config$summaries_path,'/',names(config$variable_groups)[i],'/',var_formal_name,"/models"),
+                               destination_path = paste0(catalog_config$summaries_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"),
                                aws_download_path = catalog_config$summaries_download_path, # NEEDS TO BE SCORES FOR PATH TO BE CORRECT
                                collection_name = 'summaries',
                                thumbnail_image_name = NULL,
@@ -428,18 +428,18 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
                                    table_description = summaries_description_create,
                                    start_date = group_min_date,
                                    end_date = group_max_date,
-                                   id_value = names(config$variable_groups)[i],
+                                   id_value = names(config$target_groups)[i],
                                    description_string = group_description,
                                    about_string = catalog_config$about_string,
                                    about_title = catalog_config$about_title,
-                                   dashboard_string = catalog_config$dashboard_url,
-                                   dashboard_title = catalog_config$dashboard_title,
-                                   theme_title = names(config$variable_groups[i]),
-                                   destination_path = file.path(catalog_config$summaries_path,names(config$variable_groups)[i]),
+                                   dashboard_string = catalog_config$documentation_url,
+                                   catalog_title = catalog_config$catalog_title,
+                                   theme_title = names(config$target_groups[i]),
+                                   destination_path = file.path(catalog_config$summaries_path,names(config$target_groups)[i]),
                                    aws_download_path = catalog_config$aws_download_path_summaries,
                                    group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
-                                   thumbnail_link = config$variable_groups[[i]]$thumbnail_link,
-                                   thumbnail_title = config$variable_groups[[i]]$thumbnail_title,
+                                   thumbnail_link = config$target_groups[[i]]$thumbnail_link,
+                                   thumbnail_title = config$target_groups[[i]]$thumbnail_title,
                                    group_var_vector = unique(var_values),
                                    group_duration_value = NULL,
                                    single_var_name = NULL,

@@ -71,7 +71,7 @@ stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
                                  theme_title = "NOAA-Forecasts",
                                  destination_path = catalog_config$noaa_path,
                                  aws_download_path = config$noaa_forecast_bucket,
-                                 link_items = stac4cast::generate_group_values(group_values = config$noaa_forecast_groups),
+                                 link_items = stac4cast::generate_group_values(group_values = config$noaa_forecasts$noaa_forecast_groups),
                                  thumbnail_link = catalog_config$noaa_thumbnail,
                                  thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  group_sites = find_noaa_sites$field_site_id,
@@ -80,33 +80,33 @@ stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
 
 ## BUILD VARIABLE GROUPS
 
-for (i in 1:length(config$noaa_forecast_groups)){ ## organize variable groups
-  print(config$noaa_forecast_groups[i])
+for (i in 1:length(config$noaa_forecasts$noaa_forecast_groups)){ ## organize variable groups
+  print(config$noaa_forecasts$noaa_forecast_groups[i])
 
 
-  if (!dir.exists(paste0(catalog_config$noaa_path,config$noaa_forecast_groups[i]))){
-    dir.create(paste0(catalog_config$noaa_path,config$noaa_forecast_groups[i]))
+  if (!dir.exists(paste0(catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))){
+    dir.create(paste0(catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))
   }
 
 
   ## CREATE NOAA GROUP JSONS
-  group_description <- paste0('This page includes information for NOAA forecasts ', config$noaa_forecast_groups[i])
+  group_description <- paste0('This page includes information for NOAA forecasts ', config$noaa_forecasts$noaa_forecast_groups[i])
 
   stac4cast::build_noaa_forecast(table_schema = noaa_theme_df,
                                  table_description = noaa_description_create,
                                  start_date = noaa_min_date,
                                  end_date = noaa_max_date,
-                                 id_value = config$noaa_forecast_groups[i],
+                                 id_value = config$noaa_forecasts$noaa_forecast_groups[i],
                                  description_string = build_description,
                                  about_string = catalog_config$about_string,
                                  about_title = catalog_config$about_title,
-                                 theme_title = config$noaa_forecast_groups[i],
-                                 destination_path = paste0(catalog_config$noaa_path, config$noaa_forecast_groups[i]),
+                                 theme_title = config$noaa_forecasts$noaa_forecast_groups[i],
+                                 destination_path = paste0(catalog_config$noaa_path, config$noaa_forecasts$noaa_forecast_groups[i]),
                                  aws_download_path = config$noaa_forecast_bucket,
                                  link_items = NULL,
                                  thumbnail_link = catalog_config$noaa_thumbnail,
                                  thumbnail_title = catalog_config$noaa_thumbnail_title,
                                  group_sites = find_noaa_sites$field_site_id,
-                                 path_item = config$noaa_forecast_group_paths[i])
+                                 path_item = config$noaa_forecasts$noaa_forecast_group_paths[i])
 
 }

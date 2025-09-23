@@ -7,7 +7,7 @@ sites <- read_csv("neon4cast_field_site_metadata.csv") |>
 
 #Figure 1
 
-all_results <- open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")
+all_results <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")
 
 df <- all_results |>
   filter(duration %in% c("P1D", "P1W")) |>
@@ -27,11 +27,11 @@ time_plot <- df |>
   labs(x = "Time", y = "# of submissions per month") +
   theme_bw()
 
-ggsave("submission_rate.png", time_plot, width = 3.5, height = 2.5)
+ggsave("manuscript/submission_rate.png", time_plot, width = 3.5, height = 2.5)
 
 # Figure 2
 
-all_results <- open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareGLM?endpoint_override=sdsc.osn.xsede.org")
+all_results <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/duration=P1D/variable=temperature/model_id=flareGLM?endpoint_override=sdsc.osn.xsede.org")
 
 df4 <- all_results |>
   filter(reference_datetime == as_datetime("2023-07-10 00:00:00")) |>
@@ -67,7 +67,7 @@ p2 <- df6 |>
 
 p3 <- p1 + p2 + plot_layout(axis_titles = "collect")
 
-ggsave("example.png", p3, width = 5.3, height = 3)
+ggsave("manuscript/example.png", p3, width = 5.3, height = 3)
 
 # Figure 3
 #Submissions
@@ -142,7 +142,7 @@ combined<- bind_rows(d1, d2, d3) |>
   theme(legend.position = "bottom") +
   theme(axis.text.x = element_text(size = 9)) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
-ggsave("counts.png",combined, width = 5.3, height = 6)
+ggsave("manuscript/counts.png",combined, width = 5.3, height = 6)
 
 #Total Rows of data
 
@@ -159,7 +159,7 @@ df_target <- df |>
   filter(site_id %in% sites) |>
   summarize(count = n())
 
-all_results <- open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")
+all_results <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")
 
 df_scores <- all_results |>
   filter(duration %in% c("P1D", "P1W"),
@@ -171,7 +171,7 @@ df_scores <- all_results |>
   collect()
 
 
-df_forecasts <- open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+df_forecasts <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
   filter(duration %in% c("P1D", "P1W"),
          reference_datetime >= as_datetime("2021-01-01 00:00:00"),
          reference_datetime < as_datetime("2025-02-01 00:00:00")) |>

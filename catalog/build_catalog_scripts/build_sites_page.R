@@ -99,7 +99,7 @@ stac4cast::build_sites(table_schema = site_df,
                        about_title = catalog_config$about_title,
                        theme_title = "Site Metadata",
                        destination_path = config$site_path,
-                       #link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
+                       #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                        link_items = NULL,
                        thumbnail_link = config$site_thumbnail,
                        thumbnail_title = config$site_thumbnail_title)

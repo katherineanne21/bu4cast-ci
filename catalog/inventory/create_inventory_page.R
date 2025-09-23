@@ -28,7 +28,7 @@ inventory_description_create <- data.frame(duration = 'sample duration code for 
 
 #inventory_theme_df <- arrow::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"), endpoint_override = config$endpoint, anonymous = TRUE) #|>
 
-interest_variables <- unlist(sapply(1:length(config$variable_groups), function(i) {config$variable_groups[[i]]$variable}))
+interest_variables <- unlist(sapply(1:length(config$target_groups), function(i) {config$target_groups[[i]]$variable}))
 
 inventory_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE))
 
@@ -74,7 +74,7 @@ stac4cast::build_inventory(table_schema = inventory_theme_df,
                            theme_title = "Inventory",
                            destination_path = catalog_config$inventory_path,
                            aws_download_path = config$inventory_bucket,
-                           #link_items = stac4cast::generate_group_values(group_values = names(config$variable_groups)),
+                           #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                            link_items = NULL,
                            thumbnail_link = catalog_config$inventory_thumbnail,
                            thumbnail_title = catalog_config$inventory_thumbnail_title,

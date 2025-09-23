@@ -6,6 +6,8 @@ library(duckdbfs)
 library(progress)
 library(bench)
 library(yaml)
+library(stringr)
+
 
 library(DBI)
 con <- duckdbfs::cached_connection(tempfile())

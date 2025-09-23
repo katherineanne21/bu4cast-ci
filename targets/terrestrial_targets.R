@@ -96,10 +96,12 @@ if(use_5day_data){
 
   fn_parquet_s3 <- s3_current_month$ls()
 
-  for(i in 1:nrow(files)){
-    destfile <- file.path(non_store_dir,"current_month",files$file_name[i])
-    if(!paste0(files$file_name[i],".parquet") %in% fn_parquet_s3){
-      download.file(files$url[i], destfile = destfile)
+  if(nrow(files) > 0){
+    for(i in 1:nrow(files)){
+      destfile <- file.path(non_store_dir,"current_month",files$file_name[i])
+      if(!paste0(files$file_name[i],".parquet") %in% fn_parquet_s3){
+        download.file(files$url[i], destfile = destfile)
+      }
     }
   }
 
@@ -147,9 +149,15 @@ if(use_5day_data){
     fn = fn)
   }
 
-  flux_data_curr <- arrow::open_dataset(s3_current_month) |>
-    select(timeBgn, timeEnd, data.fluxCo2.turb.flux, siteID, data.fluxH2o.turb.flux, qfqm.fluxCo2.turb.qfFinl) |>
-    collect()
+  fn_parquet_s3 <- s3_current_month$ls()
+
+  if(length(fn_parquet_s3) > 0){
+    flux_data_curr <- arrow::open_dataset(s3_current_month) |>
+      select(timeBgn, timeEnd, data.fluxCo2.turb.flux, siteID, data.fluxH2o.turb.flux, qfqm.fluxCo2.turb.qfFinl) |>
+      collect()
+  }else{
+    flux_data_curr <- NULL
+  }
 
   #Combined published and unpublished
 
@@ -209,38 +217,6 @@ flux_target_daily <- flux_target_30m %>%
   select(-count) |>
   mutate(observation = ifelse(variable == "nee", (observation * 12 / 1000000) * (60 * 60 * 24), observation))
 
-#flux_target_daily %>%
-#  filter(year(time) > 2021) %>%
-#  ggplot(aes(x = time, y = observation)) +
-#  geom_point() +
-#  facet_grid(variable~site_id, scale = "free")
-
-# Write 30 minute data
-
-#flux_target_30m <- flux_target_30m |>
-#  select(time, site_id, variable, observation, type) |>
-#  rename(datetime = time) |>
-#  mutate(datetime = lubridate::as_datetime(datetime),
-#         duration = "PT30M",
-#         project_id = "neon4cast") |>
-#  select(project_id, site_id, datetime, duration, variable, observation, type) |>
-#  arrange(variable, datetime) |>
-#  na.omit()
-
-
-#combined_30_min <- bind_rows(flux_target_30m, targets_30min) |>
-#  arrange(project_id, site_id, datetime, duration, variable, type) |>
-#  group_by(project_id, site_id, datetime, duration, variable) |>
-#  slice(1) |>
-#  ungroup()
-
-#s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M",
-#                       endpoint_override = "sdsc.osn.xsede.org",
-#                       access_key = Sys.getenv("OSN_KEY"),
-#                       secret_key = Sys.getenv("OSN_SECRET"))
-
-#arrow::write_csv_arrow(combined_30_min, sink = s3$path("terrestrial_30min-targets.csv.gz"))
-
 #Write daily data
 
 flux_target_daily <- flux_target_daily |>
@@ -265,15 +241,6 @@ combined_daily <- bind_rows(flux_target_daily, old_fluxes) |>
   distinct()
 
 write_csv(combined_daily, "terrestrial_daily-targets.csv.gz")
-
-#s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
-#endpoint_override = "sdsc.osn.xsede.org",
-#access_key = Sys.getenv("OSN_KEY"),
-#secret_key = Sys.getenv("OSN_SECRET"))
-
-
-#arrow::write_csv_arrow(combined_daily, sink = s3$path("terrestrial_daily-targets.csv.gz"))
-
 
 mc_cp("terrestrial_daily-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 

@@ -85,7 +85,7 @@ d1 <- d1 |>
   mutate(type = paste0("(a) Total forecast submssions: ", prettyNum(df1_sum$sum, big.mark = ",", scientific = FALSE)),
          tag = "(a)")
 
-print(paste0("Mean submissions per month: ", df2_sum / (12 * 4)))
+print(paste0("Mean submissions per month: ", df1_sum / (12 * 4)))
 
 #Forecast observation pairs
 d2 <- df |>
@@ -132,8 +132,8 @@ combined<- bind_rows(d1, d2, d3) |>
          variable = ifelse(variable == "abundance", "beetle\nabundance", variable),
          variable = ifelse(variable == "richness", "beetle\nrichness", variable),
          variable = ifelse(variable == "chla", "water\nchlorophyll-a", variable)) |>
-  mutate(type = factor(type, levels = c(paste0("(a) Total forecast submssions: ", prettyNum(df2_sum$sum, big.mark = ",", scientific = FALSE)),
-                                        paste0("(b) Total forecast-observation pairs: ", prettyNum(df1_sum$sum, big.mark = ",", scientific = FALSE)),
+  mutate(type = factor(type, levels = c(paste0("(a) Total forecast submssions: ", prettyNum(df1_sum$sum, big.mark = ",", scientific = FALSE)),
+                                        paste0("(b) Total forecast-observation pairs: ", prettyNum(df2_sum$sum, big.mark = ",", scientific = FALSE)),
                                         paste0("(c) Total unique models: ", prettyNum(df3_sum$sum, big.mark = ",", scientific = FALSE))))) |>
   ggplot() +
   geom_col(aes(x = variable, y = count, fill = `Forecast\nsubmission\nfrequency`)) +

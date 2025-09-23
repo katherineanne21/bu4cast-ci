@@ -12,6 +12,7 @@ library(yaml)
 #fs::dir_create("new_scores")
 
 config <- read_yaml("challenge_configuration.yaml")
+scores_bundled_parquet_bucket <- paste0(config$scores_bucket, "/bundled-parquet/")
 
 project <- config$project_id
 

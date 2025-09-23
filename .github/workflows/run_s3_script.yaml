@@ -1,9 +1,6 @@
 name: Run S3 Script
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:  # allows manual run
 
 jobs:

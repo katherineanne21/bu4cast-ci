@@ -269,28 +269,28 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
 
         print(m)
 
-        model_max_date <- forecast_model_var_max_date_df |>
+        model_max_date <- summaries_model_var_max_date_df |>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>
           summarize(date = max(date)) |>
           pull(date)
 
-        model_min_date <- forecast_model_var_min_date_df |>
+        model_min_date <- summaries_model_var_min_date_df |>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>
           summarize(date = max(date)) |>
           pull(date)
 
-        model_reference_date <- forecast_model_var_max_date_df |>
+        model_reference_date <- summaries_model_var_max_date_df |>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>
           summarize(date = max(reference_datetime)) |>
           pull(date)
 
-        model_pub_date <- forecast_model_var_max_date_df |>
+        model_pub_date <- summaries_model_var_max_date_df |>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>
@@ -302,7 +302,7 @@ for (i in 1:length(config$variable_groups)){ # LOOP OVER VARIABLE GROUPS -- BUIL
           model_pub_date <- model_reference_date
         }
 
-        model_var_duration_df <- forecast_model_var_max_date_df|>
+        model_var_duration_df <- summaries_model_var_max_date_df|>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>

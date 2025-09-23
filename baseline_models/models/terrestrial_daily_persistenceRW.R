@@ -2,7 +2,7 @@ library(tidyverse)
 library(tsibble)
 library(fable)
 
-source('R/fablePersistenceModelFunction.R')
+source('baseline_models/R/fablePersistenceModelFunction.R')
 # 1.Read in the targets data
 # We are not doing a peristence for le right now.
 targets <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/terrestrial_daily/terrestrial_daily-targets.csv.gz", guess_max = 1e6) %>%
@@ -21,11 +21,11 @@ site_var_combinations <- expand.grid(site = unique(targets$site_id),
   mutate(transformation = 'none') %>%
   mutate(boot_number = 200,
          h = 35,
-         bootstrap = T, 
+         bootstrap = T,
          verbose = T)
 
 # Runs the RW forecast for each combination of variable and site_id
-RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast) 
+RW_forecasts <- purrr::pmap_dfr(site_var_combinations, RW_daily_forecast)
 
 # convert the output into EFI standard
 RW_forecasts_EFI <- RW_forecasts %>%
@@ -37,10 +37,10 @@ RW_forecasts_EFI <- RW_forecasts %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
          model_id = "persistenceRW") %>%
-  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) 
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
 
-#RW_forecasts_EFI |> 
-#  filter(site_id %in% unique(RW_forecasts_EFI$site_id)[1:24]) |> 
+#RW_forecasts_EFI |>
+#  filter(site_id %in% unique(RW_forecasts_EFI$site_id)[1:24]) |>
 #  ggplot(aes(x = time, y = prediction, group = ensemble)) +
 #  geom_line() +
 #  facet_wrap(~site_id)

@@ -1,7 +1,7 @@
 library(tidyverse)
 library(tsibble)
 library(fable)
-source('R/fablePersistenceModelFunction.R')
+source('baseline_models/R/fablePersistenceModelFunction.R')
 
 # 1.Read in the targets data
 targets <- read_csv('https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz') %>%

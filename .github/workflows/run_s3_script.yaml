@@ -17,43 +17,8 @@ jobs:
 
       # 2. Set up R
       - uses: r-lib/actions/setup-r@v2
-
-      # 3. Debug: test S3 read/write/delete
-      - name: Test S3 read/write/delete
-        run: |
-          R -e '
-            library(arrow)
-            
-            # Connect
-            s3 <- s3_bucket(
-              "bu4cast-ci-read",   # change to write bucket if needed
-              endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
-              access_key = Sys.getenv("OSN_KEY"),
-              secret_key = Sys.getenv("OSN_SECRET"),
-              scheme = "https"
-            )
-            
-            print("✅ Connected to S3 bucket")
-            
-            # Test data
-            df <- data.frame(id = 1:5, val = letters[1:5])
-            test_path <- "test/gha_s3_check.csv"
-            
-            # Write
-            write_csv_arrow(df, sink = s3$path(test_path))
-            print(paste("✅ Wrote test file to", test_path))
-            
-            # Read
-            df2 <- read_csv_arrow(s3$path(test_path))
-            print("✅ Read file back:")
-            print(df2)
-            
-            # Delete (cleanup)
-            s3$delete_file(test_path)
-            print(paste("✅ Deleted test file from", test_path))
-          '
           
-      # 4. Run your script
+      # 3. Run your script
       - name: Run S3 Script
         run: |
           Rscript S3_Bucket_ReadWrite.R

@@ -13,8 +13,8 @@ minioclient::install_mc()
 
 minioclient::mc_alias_set("osn",
                           config$endpoint,
-                          Sys.getenv("OSN_KEY_NEON"),
-                          Sys.getenv("OSN_SECRET_NEON"))
+                          Sys.getenv("OSN_KEY"),
+                          Sys.getenv("OSN_SECRET"))
 
 googlesheets4::gs4_deauth()
 

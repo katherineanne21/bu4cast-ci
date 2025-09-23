@@ -66,7 +66,7 @@ Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")
 Sys.getenv("NEONSTORE_DB")
 
 #temporary aquatic repo during test of new workflow
-site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", show_col_types = FALSE)
+site_data <- readr::read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE)
 sites <- site_data |> dplyr::filter(aquatics == 1)
 
 message(paste0("Running Creating Aquatics Targets at ", Sys.time()))

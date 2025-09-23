@@ -12,7 +12,7 @@ mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN
 target_species <- c("Amblyomma americanum") # NEON species name
 target_lifestage <- "Nymph"
 
-sites_df <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |>
+sites_df <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
   dplyr::filter(ticks == 1)
 target_sites <- sites_df %>% pull(field_site_id)
 

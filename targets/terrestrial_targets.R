@@ -34,7 +34,7 @@ mc_mirror("osn/bio230014-bucket01/neonstore/db", neonstore::neon_db_dir())
 mc_mirror("osn/bio230014-bucket01/flux_staging/neonstore_temp", neonstore::neon_dir())
 
 
-sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv", show_col_types = FALSE) |>
+sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
   dplyr::filter(terrestrial == 1)
 
 site_names <- sites$field_site_id

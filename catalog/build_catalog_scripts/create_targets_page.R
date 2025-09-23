@@ -3,13 +3,8 @@ library(dplyr)
 library(gsheet)
 library(readr)
 
-#source('catalog/R/stac_functions.R')
 config <- yaml::read_yaml('challenge_configuration.yaml')
 catalog_config <- config$catalog_config
-
-# file.sources = list.files(c("../stac4cast/R"), full.names=TRUE,
-#                           ignore.case=TRUE)
-# sapply(file.sources,source,.GlobalEnv)
 
 ## CREATE table for column descriptions
 targets_description_create <- data.frame(project_id = 'unique project identifier',
@@ -20,19 +15,13 @@ targets_description_create <- data.frame(project_id = 'unique project identifier
                                          variable = 'observation variable',
                                          observation = 'observed value for variable')
 
-#inventory_theme_df <- arrow::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"), endpoint_override = config$endpoint, anonymous = TRUE) #|>
+target_objects <- c(config$target_groups$Aquatics$targets_file,
+                    config$target_groups$Terrestrial$targets_file,
+                    config$target_groups$Beetles$targets_file,
+                    config$target_groups$Phenology$targets_file,
+                    config$target_groups$Ticks$targets_file)
 
-target_url <- "https://amnh1.osn.mghpcc.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D/daily-insitu-targets.csv.gz"
-targets <- read_csv(target_url, show_col_types = FALSE)
-
-# inventory_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE))
-#
-# inventory_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-#                                             s3_endpoint = config$endpoint, anonymous=TRUE) |>
-#   collect()
-#
-# theme_models <- inventory_data_df |>
-#   distinct(model_id)
+targets <- read_csv(target_objects, show_col_types = FALSE)
 
 target_date_range <- targets |> dplyr::summarise(min(datetime),max(datetime))
 target_min_date <- as.Date(target_date_range$`min(datetime)`)

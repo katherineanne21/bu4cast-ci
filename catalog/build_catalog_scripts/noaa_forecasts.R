@@ -27,30 +27,12 @@ noaa_description_create <- data.frame(site_id = 'For forecasts that are not on a
 
 noaa_theme_df <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2/reference_datetime=2024-02-21/site_id=BARC"), endpoint_override = config$noaa_endpoint, anonymous = TRUE))
 
-#noaa_theme_dates <- arrow::open_dataset(arrow::s3_bucket(paste0(config$noaa_forecast_bucket,"/stage2"), endpoint_override = config$noaa_endpoint, anonymous = TRUE)) |>
-#  dplyr::summarise(min(datetime),max(datetime)) |>
-#  collect()
-#noaa_min_date <- noaa_theme_dates$`min(datetime)`
-#noaa_max_date <- noaa_theme_dates$`max(datetime)`
-
 noaa_min_date <- as.Date('2020-01-01')
 noaa_max_date <- Sys.Date()
 
 ## find group sites
-find_noaa_sites <- read_csv(config$site_table) |>
+find_noaa_sites <- read_csv(catalog_config$site_metadata_url) |>
   distinct(field_site_id)
-
-#filter(model_id == model_id, site_id = site_id, reference_datetime = reference_datetime)
-# NOTE IF NOT USING FILTER -- THE stac4cast::build_table_columns() NEEDS TO BE UPDATED
-#(USE strsplit(forecast_theme_df$ToString(), "\n") INSTEAD OF strsplit(forecast_theme_df[[1]]$ToString(), "\n"))
-
-## identify model ids from bucket -- used in generate model items function
-# noaa_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-#                                            s3_endpoint = config$endpoint, anonymous=TRUE) |>
-#   collect()
-
-# theme_models <- forecast_data_df |>
-#   distinct(model_id)
 
 
 build_description <- paste0("The catalog contains NOAA forecasts used for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a site or datetime, we also provide the code to access the data at the site_id and datetime level as an asset for each forecast")

@@ -1,5 +1,5 @@
 options("duckdbfs_use_nightly"=TRUE) #temporary duckdb issue: https://github.com/duckdb/duckdb-r/issues/600
- 
+
 install.packages('minioclient')
 
 Sys.setenv(AWS_ACCESS_KEY_ID=Sys.getenv("OSN_KEY"),
@@ -13,10 +13,11 @@ minioclient::install_mc()
 
 minioclient::mc_alias_set("osn",
                           config$endpoint,
-                          Sys.getenv("OSN_KEY"),
-                          Sys.getenv("OSN_SECRET"))
+                          Sys.getenv("OSN_KEY_NEON"),
+                          Sys.getenv("OSN_SECRET_NEON"))
 
 googlesheets4::gs4_deauth()
+
 registered_models <- googlesheets4::read_sheet(config$model_metadata_gsheet) |>
   dplyr::filter(`What forecasting challenge are you registering for?` == config$project_id,
                 !grepl("example",model_id))

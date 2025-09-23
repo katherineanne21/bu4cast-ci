@@ -15,7 +15,6 @@ archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_table: neon4cast_field_site_metadata.csv #IS THIS USED?
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 #TARGET CONFIGURATIONS
@@ -124,9 +123,6 @@ catalog_config:
   noaa_thumbnail_title: "NEON Image"
   site_path: 'neon4cast-catalog/catalog/sites'
   site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
-  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-summaries' #COMBINE WITH THE S3 INFO ABOVE
-  aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet' #COMBINE WITH THE S3 INFO ABOVE
-  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries' #COMBINE WITH THE S3 INFO ABOVE
   host_url: "www.ecoforecast.org"
   host_name: "Ecological Forecasting Initiative"
   bbox:

@@ -39,31 +39,8 @@ forecast_description_create <- data.frame(datetime = 'datetime of the forecasted
 print('FIND FORECAST TABLE SCHEMA')
 forecast_theme_df <- arrow::open_dataset(arrow::s3_bucket((config$forecasts_bucket), endpoint_override = config$endpoint, anonymous = TRUE)) #|>
 
-print('FIND INVENTORY BUCKET')
-# forecast_s3 <- arrow::s3_bucket(glue::glue("{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"),
-#                               endpoint_override = "sdsc.osn.xsede.org",
-#                               anonymous=TRUE)
-
-# forecast_s3 <- arrow::s3_bucket(glue::glue("{config$forecasts_bucket}/bundled-parquet/project_id={config$project_id}"),
-#                                 endpoint_override = "sdsc.osn.xsede.org",
-#                                 anonymous=TRUE)
-
-#print('OPEN INVENTORY BUCKET')
-# forecast_data_df <- arrow::open_dataset(forecast_s3) |>
-#   #filter(project_id == config$project_id) |>
-#   collect()
-
-#forecast_duck_df <- duckdbfs::open_dataset(paste0('s3://',catalog_config$aws_download_path_forecasts,'?endpoint_override=',config$endpoint), anonymous = TRUE)
-
-# theme_models <- forecast_duck_df |>
-#   distinct(model_id) |>
-#   pull(model_id)
-
 
 message('forecast sites...')
-# forecast_sites <- forecast_duck_df |>
-#   distinct(site_id) |>
-#   pull(site_id)
 
 site_metadata <- read_csv(catalog_config$site_metadata_url) |>
   distinct(field_site_id) |>
@@ -79,12 +56,8 @@ site_metadata <- read_csv(catalog_config$site_metadata_url) |>
 
 message('forecast dates...')
 
-# forecast_date_range <- forecast_duck_df |>
-#   filter(model_id == 'climatology') |> ## included to try and speed things up
-#   summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
-#   collect()
-
-forecast_sites <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+forecast_sites <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$summaries_bucket,"/bundled-summaries/project_id=",
+                                                config$project_id,"/?endpoint_override=",config$endpoint))   |>
   filter(duration %in% c("P1D", "P1W"),
          site_id %in% site_metadata,
          !is.na(model_id)) |>
@@ -93,7 +66,8 @@ forecast_sites <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/chal
 
 all_forecast_sites <- unique(forecast_sites$site_id)
 
-forecast_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-summaries/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+forecast_model_var_max_date_df <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$summaries_bucket,"/bundled-summaries/project_id=",
+                                                                config$project_id,"/?endpoint_override=",config$endpoint))   |>
   filter(duration %in% c("P1D", "P1W")) |>
   distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
   group_by(variable, duration, model_id) |>
@@ -102,7 +76,8 @@ forecast_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio2300
             pub_datetime = max(pub_datetime, na.rm = TRUE)) |>
   collect()
 
-forecast_model_var_min_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+forecast_model_var_min_date_df <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$scores_bucket,"/bundled-parquet/project_id=",
+                                                                config$project_id,"/?endpoint_override=",config$endpoint))   |>
   filter(duration %in% c("P1D", "P1W")) |>
   distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
   group_by(variable, duration, model_id) |>
@@ -114,28 +89,10 @@ forecast_model_var_min_date_df <- duckdbfs::open_dataset("s3://anonymous@bio2300
 forecast_min_date <-  min(forecast_model_var_min_date_df$date)
 forecast_max_date <-  max(forecast_model_var_max_date_df$date)
 
-
-# theme_models <- arrow::open_dataset(arrow::s3_bucket(paste0(config$forecasts_bucket,'/bundled-parquet'), endpoint_override = config$endpoint, anonymous = TRUE)) |>
-#   distinct(model_id) |>
-#   collect()
-
-# forecast_sites <- arrow::open_dataset(arrow::s3_bucket(paste0(config$forecasts_bucket,'/bundled-parquet'), endpoint_override = config$endpoint, anonymous = TRUE)) |>
-#   distinct(site_id) |>
-#   collect()
-
-# forecast_date_range <- arrow::open_dataset(arrow::s3_bucket(paste0(config$forecasts_bucket,'/bundled-parquet'), endpoint_override = config$endpoint, anonymous = TRUE)) |>
-#   summarize(across(all_of(c('datetime')), list(min = min, max = max))) |>
-#   collect()
-# forecast_min_date <- forecast_date_range$datetime_min
-# forecast_max_date <- forecast_date_range$datetime_max
-
-
 build_description <- paste0("Forecasts are the raw forecasts that includes all ensemble members or distribution parameters. Due to the size of the raw forecasts, we recommend accessing the scores (summaries of the forecasts) to analyze forecasts (unless you need the individual ensemble members). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a particular model (model_id), we also provide the code to access the data at the model_id level as an asset for each model.")
 
-#forecast_sites <- forecast_sites$site_id
-
-if (!file.exists(catalog_config$forecast_path)){
-  dir.create(catalog_config$forecast_path)
+if (!file.exists(paste0("../",catalog_config$forecast_path))){
+  dir.create(paste0("../",catalog_config$forecast_path))
 }
 
 stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
@@ -149,7 +106,7 @@ stac4cast::build_forecast_scores(table_schema = forecast_theme_df,
                       about_title = catalog_config$about_title,
                       theme_title = "Forecasts",
                       destination_path = catalog_config$forecast_path,
-                      aws_download_path = catalog_config$aws_download_path_forecasts,
+                      aws_download_path = paste0(config$forecasts_bucket,"/bundled-summaries"),
                       link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                       thumbnail_link = catalog_config$forecasts_thumbnail,
                       thumbnail_title = catalog_config$forecasts_thumbnail_title,
@@ -192,12 +149,12 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
   }
 
   ## REMOVE STALE OR UNUSED DIRECTORIES
-  current_var_path <- paste0(catalog_config$forecast_path,'/',names(config$target_groups[i]))
+  current_var_path <- paste0("../",catalog_config$forecast_path,'/',names(config$target_groups[i]))
   current_var_dirs <- list.dirs(current_var_path,recursive = FALSE, full.names = TRUE)
   unlink(current_var_dirs, recursive = TRUE)
 
-  if (!dir.exists(paste0(catalog_config$forecast_path,'/',names(config$target_groups[i])))){
-    dir.create(paste0(catalog_config$forecast_path,'/',names(config$target_groups[i])))
+  if (!dir.exists(paste0("../",catalog_config$forecast_path,'/',names(config$target_groups[i])))){
+    dir.create(paste0("../",catalog_config$forecast_path,'/',names(config$target_groups[i])))
   }
 
   # match variable with full name in gsheet
@@ -256,8 +213,8 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
         next
       }
 
-      if (!dir.exists(file.path(catalog_config$forecast_path,names(config$target_groups)[i],var_formal_name))){
-        dir.create(file.path(catalog_config$forecast_path,names(config$target_groups)[i],var_formal_name))
+      if (!dir.exists(file.path(paste0("../",catalog_config$forecast_path),names(config$target_groups)[i],var_formal_name))){
+        dir.create(file.path(paste0("../",catalog_config$forecast_path),names(config$target_groups)[i],var_formal_name))
       }
 
 
@@ -321,10 +278,10 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                        about_string = catalog_config$about_string,
                                        about_title = catalog_config$about_title,
                                        dashboard_string = catalog_config$documentation_url,
-                                       catalog_title = catalog_config$catalog_title,
+                                       dashboard_title = catalog_config$catalog_title,
                                        theme_title = var_formal_name,
                                        destination_path = file.path(catalog_config$forecast_path,names(config$target_groups)[i],var_formal_name),
-                                       aws_download_path = catalog_config$aws_download_path_forecasts,
+                                       aws_download_path = paste0(config$forecasts_bucket,"/bundled-summaries"),
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models),
                                        thumbnail_link = config$target_groups[[i]]$thumbnail_link,
                                        thumbnail_title = "Thumbnail Image",
@@ -335,8 +292,6 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                        citation_values = var_citations,
                                        doi_values = doi_citations)
 
-      #forecast_sites <- c()
-
       ## LOOP OVER MODEL IDS AND CREATE JSONS
       for (m in var_models){
 
@@ -346,8 +301,8 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
         }
 
         # make model items directory
-        if (!dir.exists(paste0(catalog_config$forecast_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))){
-          dir.create(paste0(catalog_config$forecast_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))
+        if (!dir.exists(paste0("../",catalog_config$forecast_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))){
+          dir.create(paste0("../",catalog_config$forecast_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"))
         }
 
         print(m)
@@ -428,7 +383,7 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
         if (is.null(registered_model_id$`Web link to model code`[idx]) |
             identical(registered_model_id$`Web link to model code`[idx], character(0)) |
             is.na(registered_model_id$`Web link to model code`[idx])){
-          model_code_link <- 'https://projects.ecoforecast.org/neon4cast-ci/'
+          model_code_link <- config$challenge_url
         } else{
           model_code_link <- registered_model_id$`Web link to model code`[idx]
         }
@@ -449,12 +404,16 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                             as.list(model_sites))
 
         ## build radiantearth stac and raw json link
-        stac_link <- paste0('https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/',
+        stac_link <- paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/",
+                            config$github_repo,
+                            "/main/catalog/forecasts/",
                             names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')
 
-        json_link <- paste0('https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/forecasts/',
+        json_link <- paste0('https://raw.githubusercontent.com/',
+                            config$github_repo,
+                            '/main/catalog/forecasts/',
                             names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')
@@ -475,7 +434,7 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,
                                destination_path = paste0(catalog_config$forecast_path,'/',names(config$target_groups)[i],'/',var_formal_name,"/models"),
-                               aws_download_path = catalog_config$aws_download_path_forecasts, # CHANGE THIS BUCKET NAME
+                               aws_download_path = paste0(config$forecasts_bucket,"/bundled-summaries"),
                                collection_name = 'forecasts',
                                thumbnail_image_name = NULL,
                                table_schema = forecast_theme_df,
@@ -513,10 +472,10 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                    about_string = catalog_config$about_string,
                                    about_title = catalog_config$about_title,
                                    dashboard_string = catalog_config$documentation_url,
-                                   catalog_title = catalog_config$catalog_title,
+                                   dashboard_title = catalog_config$catalog_title,
                                    theme_title = names(config$target_groups[i]),
                                    destination_path = file.path(catalog_config$forecast_path,names(config$target_groups)[i]),
-                                   aws_download_path = catalog_config$aws_download_path_scores,
+                                   aws_download_path = paste0(config$forecasts_bucket,"/bundled-summaries"),
                                    group_var_items = stac4cast::generate_group_variable_items(variables = variable_name_build),
                                    thumbnail_link = config$target_groups[[i]]$thumbnail_link,
                                    thumbnail_title = config$target_groups[[i]]$thumbnail_title,

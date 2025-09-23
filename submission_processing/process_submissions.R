@@ -16,7 +16,7 @@ install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-sites <- readr::read_csv(config$site_table,show_col_types = FALSE) |>
+sites <- readr::read_csv(catalog_config$site_metadata_url, show_col_types = FALSE) |>
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 

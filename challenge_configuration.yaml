@@ -15,12 +15,9 @@ archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_path: '../neon4cast-catalog/catalog/sites' #IS THIS USED?
 site_table: neon4cast_field_site_metadata.csv #IS THIS USED?
-site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ' #MOVE TO CATALOG SECTION
-site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv' #HAVE A SINGLE SITE DESCRIPTION FILE AND MOVE UP
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
-challenge_url: https://projects.ecoforecast.org/neon4cast-ci #COMBINE WITH THE ONE BELOW
+challenge_url: https://projects.ecoforecast.org/neon4cast-ci
 #TARGET CONFIGURATIONS
 target_groups:
   Aquatics:
@@ -116,11 +113,13 @@ catalog_config:
   summaries_path: 'neon4cast-catalog/catalog/summaries'
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
-  targets_path: 'neon4cast-catalog/catalog/targets/' #WHAT IS THIS
-  targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg' #MOVE TO CATALOG SECTION
+  targets_path: 'neon4cast-catalog/catalog/targets/'
+  targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
   noaa_path: 'neon4cast-catalog/catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
+  site_path: 'neon4cast-catalog/catalog/sites'
+  site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
   aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-summaries' #COMBINE WITH THE S3 INFO ABOVE
   aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet' #COMBINE WITH THE S3 INFO ABOVE
   aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries' #COMBINE WITH THE S3 INFO ABOVE

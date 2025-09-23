@@ -5,6 +5,7 @@ library(dplyr)
 library(duckdbfs)
 library(progress)
 library(bench)
+library(yaml)
 
 library(DBI)
 con <- duckdbfs::cached_connection(tempfile())
@@ -37,14 +38,13 @@ duckdbfs::duckdb_secrets(endpoint = config$endpoint,
                          bucket = scores_bucket_base)
 
 
-target_files <-
-  c("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
-)
+# Create vector of targets files
+num_target_groups <- length(config$target_groups)
+target_files <- NULL
+for(i in 1:num_target_groups){
+  target_files <- c(target_files, config$target_groups[[i]]$targets_file)
+}
+
 
 ### Access the targets, forecasts, and scores subsets
 targets <-

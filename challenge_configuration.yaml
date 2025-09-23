@@ -31,33 +31,37 @@ target_groups:
       oxygen:
         duration: "P1D"
         max_horizon: 35
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
       temperature:
         duration: 'P1D'
         max_horizon: 35
-        var_doi: "10.1002/ecs2.4686"
-        var_citation: "Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 https://doi.org/10.1002/ecs2.4686"
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
       chla:
         duration: "P1D"
         max_horizon: 35
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
   Terrestrial:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
-    variable: ['nee','le','nee','le']
-    duration: ['P1D','P1D','PT30M','PT30M']
-    max_horizon: [35, 35, 35, 35]
+    variable: ['nee','le']
+    duration: ['P1D','P1D']
+    max_horizon: [35, 35]
     thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
     thumbnail_title: 'NEON Field Tower'
     group_vars:
       nee:
-        duration: ["P1D", "PT30M"]
-        max_horizon: [35, 35]
+        duration: ["P1D"]
+        max_horizon: [35]
       le:
-        duration: ["P1D", "PT30M"]
-        max_horizon: [35, 35]
+        duration: ["P1D"]
+        max_horizon: [35]
   Phenology:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
-    max_horizon: [35, 35, 35, 35]
+    max_horizon: [35, 35]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
     thumbnail_title: 'Phenology Image'
     group_vars:

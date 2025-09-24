@@ -82,8 +82,8 @@ forecast_model_var_min_date_df <- duckdbfs::open_dataset(paste0("s3://anonymous@
   distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
   group_by(variable, duration, model_id) |>
   summarize(date = min(datetime, na.rm = TRUE),
-            reference_datetime = max(reference_datetime, na.rm = TRUE),
-            pub_datetime = max(pub_datetime, na.rm = TRUE)) |>
+            reference_datetime = min(reference_datetime, na.rm = TRUE),
+            pub_datetime = min(pub_datetime, na.rm = TRUE)) |>
   collect()
 
 forecast_min_date <-  min(forecast_model_var_min_date_df$date)

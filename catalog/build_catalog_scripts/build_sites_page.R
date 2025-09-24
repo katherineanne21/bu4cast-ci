@@ -63,21 +63,16 @@ site_description_create <- data.frame(field_domain_id = 'domain identifier',
                                       field_number_tower_levels = 'number of tower levels at site',
                                       neon_url = 'neon URL for site')
 
-#inventory_theme_df <- arrow::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog/forecasts/project_id={config$project_id}"), endpoint_override = config$endpoint, anonymous = TRUE) #|>
 
-target_url <- "https://renc.osn.xsede.org/bio230121-bucket01/vera4cast/targets/project_id=vera4cast/duration=P1D/daily-insitu-targets.csv.gz"
 site_df <- read_csv(catalog_config$site_metadata_url, show_col_types = FALSE)
 
-# inventory_theme_df <- arrow::open_dataset(arrow::s3_bucket(config$inventory_bucket, endpoint_override = config$endpoint, anonymous = TRUE))
-#
-# inventory_data_df <- duckdbfs::open_dataset(glue::glue("s3://{config$inventory_bucket}/catalog"),
-#                                             s3_endpoint = config$endpoint, anonymous=TRUE) |>
-#   collect()
-#
-# theme_models <- inventory_data_df |>
-#   distinct(model_id)
+target_objects <- c(config$target_groups$Aquatics$targets_file,
+                    config$target_groups$Terrestrial$targets_file,
+                    config$target_groups$Beetles$targets_file,
+                    config$target_groups$Phenology$targets_file,
+                    config$target_groups$Ticks$targets_file)
 
-targets <- read_csv(target_url)
+targets <- read_csv(target_objects, show_col_types = FALSE)
 
 target_date_range <- targets |> dplyr::summarise(min(datetime),max(datetime))
 target_min_date <- as.Date(target_date_range$`min(datetime)`)
@@ -85,8 +80,8 @@ target_max_date <- as.Date(target_date_range$`max(datetime)`)
 
 build_description <- paste0("The catalog contains site metadata for the ", config$challenge_long_name)
 
-if (!file.exists(config$site_path)){
-  dir.create(config$site_path)
+if (!file.exists(paste0("../",catalog_config$site_path))){
+  dir.create(paste0("../",catalog_config$site_path))
 }
 
 stac4cast::build_sites(table_schema = site_df,
@@ -98,7 +93,7 @@ stac4cast::build_sites(table_schema = site_df,
                        about_string = catalog_config$about_string,
                        about_title = catalog_config$about_title,
                        theme_title = "Site Metadata",
-                       destination_path = config$site_path,
+                       destination_path = catalog_config$site_path,
                        #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                        link_items = NULL,
                        thumbnail_link = config$site_thumbnail,

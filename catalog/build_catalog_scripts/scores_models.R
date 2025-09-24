@@ -207,9 +207,16 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
             next
           }
 
-        if (!dir.exists(file.path(psate0("../",catalog_config$scores_path),names(config$target_groups)[i],var_formal_name))){
-            dir.create(file.path(paset0("../",catalog_config$scores_path),names(config$target_groups)[i],var_formal_name))
-          }
+        if (!dir.exists(file.path(paste0("../",catalog_config$scores_path),names(config$target_groups)[i],var_formal_name))){
+            dir.create(file.path(paste0("../",catalog_config$scores_path),names(config$target_groups)[i],var_formal_name))
+        }
+
+        var_models <- scores_model_var_max_date_df |>
+          filter(variable == var_name, duration == duration_name) |>
+          distinct(model_id) |>
+          filter(model_id %in% registered_model_id$model_id,
+                 !grepl("example",model_id)) |>
+          pull(model_id)
 
         var_max_date <- scores_model_var_max_date_df |>
           filter(variable == var_name,
@@ -224,13 +231,6 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
                  duration == duration_name) |>
           summarize(date = min(date, na.rm = TRUE)) |>
           pull(date)
-
-        var_models <- scores_model_var_max_date_df |>
-          filter(variable == var_name, duration == duration_name) |>
-          distinct(model_id) |>
-          filter(model_id %in% registered_model_id$model_id,
-                 !grepl("example",model_id)) |>
-          pull(model_id)
 
         find_var_sites <- scores_sites |>
           filter(variable == var_name,

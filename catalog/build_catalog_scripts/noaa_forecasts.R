@@ -37,8 +37,8 @@ find_noaa_sites <- read_csv(catalog_config$site_metadata_url) |>
 
 build_description <- paste0("The catalog contains NOAA forecasts used for the ", config$challenge_long_name,". The forecasts are the raw forecasts that include all ensemble members (if a forecast represents uncertainty using an ensemble). You can access the forecasts at the top level of the dataset where all models, variables, and dates that forecasts were produced (reference_datetime) are available. The code to access the entire dataset is provided as an asset. Given the size of the forecast catalog, it can be time-consuming to access the data at the full dataset level. For quicker access to the forecasts for a site or datetime, we also provide the code to access the data at the site_id and datetime level as an asset for each forecast")
 
-if (!file.exists(catalog_config$noaa_path)){
-  dir.create(catalog_config$noaa_path)
+if (!file.exists(paste0('../',catalog_config$noaa_path))){
+  dir.create(paste0("../",catalog_config$noaa_path))
 }
 
 stac4cast::build_forecast_scores(table_schema = noaa_theme_df,
@@ -66,8 +66,8 @@ for (i in 1:length(config$noaa_forecasts$noaa_forecast_groups)){ ## organize var
   print(config$noaa_forecasts$noaa_forecast_groups[i])
 
 
-  if (!dir.exists(paste0(catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))){
-    dir.create(paste0(catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))
+  if (!dir.exists(paste0("../",catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))){
+    dir.create(paste0("../",catalog_config$noaa_path,config$noaa_forecasts$noaa_forecast_groups[i]))
   }
 
 

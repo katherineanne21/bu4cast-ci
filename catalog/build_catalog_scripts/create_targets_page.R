@@ -29,6 +29,9 @@ target_max_date <- as.Date(target_date_range$`max(datetime)`)
 
 build_description <- paste0("The targets are observations that can be used to evaluate and build forecasts.  We provide the code to access different targets as an asset.")
 
+if (!dir.exists(paste0("../",catalog_config$targets_path))){
+  dir.create(paste0("../",catalog_config$targets_path))
+}
 
 stac4cast::build_targets(table_schema = targets,
                          table_description = targets_description_create,
@@ -39,7 +42,7 @@ stac4cast::build_targets(table_schema = targets,
                          about_string = catalog_config$about_string,
                          about_title = catalog_config$about_title,
                          theme_title = "Targets",
-                         destination_path = config$targets_path,
+                         destination_path = catalog_config$targets_path,
                          #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                          link_items = NULL,
                          thumbnail_link = config$targets_thumbnail,

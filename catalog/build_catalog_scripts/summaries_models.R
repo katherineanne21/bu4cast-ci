@@ -44,7 +44,8 @@ summaries_sites <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$summar
 
 all_summaries_sites <- unique(summaries_sites$site_id)
 
-summaries_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/forecasts/bundled-summaries/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+summaries_model_var_max_date_df <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$summaries_bucket,"/bundled-summaries/project_id=",
+                                                                 config$project_id,"/?endpoint_override=",config$endpoint))   |>
   filter(duration %in% c("P1D", "P1W")) |>
   distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
   group_by(variable, duration, model_id) |>
@@ -53,7 +54,8 @@ summaries_model_var_max_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230
             pub_datetime = max(pub_datetime, na.rm = TRUE)) |>
   collect()
 
-summaries_model_var_min_date_df <- duckdbfs::open_dataset("s3://anonymous@bio230014-bucket01/challenges/scores/bundled-parquet/project_id=neon4cast/?endpoint_override=sdsc.osn.xsede.org")   |>
+summaries_model_var_min_date_df <- duckdbfs::open_dataset(paste0("s3://anonymous@",config$scores_bucket,"/bundled-parquet/project_id=",
+                                                                 config$project_id,"/?endpoint_override=",config$endpoint))   |>
   filter(duration %in% c("P1D", "P1W")) |>
   distinct(reference_datetime, model_id, variable, duration, datetime, pub_datetime) |>
   group_by(variable, duration, model_id) |>
@@ -314,7 +316,8 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
           mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
           mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
           mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-          mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
+          mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name)) |>
+          ungroup()
 
         model_var_full_name <- model_var_duration_df |>
           left_join((variable_gsheet |>
@@ -339,6 +342,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
           left_join(model_var_full_name, by = 'variable')
 
         model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
+        model_vars$project_id <- config$project_id
 
         #forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
         #                                                                     sites = model_sites))

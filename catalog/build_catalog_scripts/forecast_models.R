@@ -287,7 +287,7 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
                                        thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
                                        single_var_name = var_name,
-                                       group_duration_value = duration_value,
+                                       group_duration_value = duration_name,
                                        group_sites = find_var_sites,
                                        citation_values = var_citations,
                                        doi_values = doi_citations)
@@ -348,12 +348,14 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
           mutate(duration_name = ifelse(duration == 'P1D', 'Daily', duration)) |>
           mutate(duration_name = ifelse(duration == 'PT1H', 'Hourly', duration_name)) |>
           mutate(duration_name = ifelse(duration == 'PT30M', '30min', duration_name)) |>
-          mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name))
+          mutate(duration_name = ifelse(duration == 'P1W', 'Weekly', duration_name)) |>
+          ungroup()
 
         model_var_full_name <- model_var_duration_df |>
           left_join((variable_gsheet |>
                        select(variable = `"official" targets name`, full_name = `Variable name`) |>
-                       distinct(variable, .keep_all = TRUE)), by = c('variable'))
+                       distinct(variable, .keep_all = TRUE)), by = c('variable')) |>
+          select(variable, duration_name, full_name)
 
         model_sites <- forecast_sites |>
           filter(model_id == m,
@@ -372,6 +374,7 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
           left_join(model_var_full_name, by = 'variable')
 
         model_vars$var_duration_name <- paste0(model_vars$duration_name, " ", model_vars$full_name)
+        model_vars$project_id = config$project_id
 
         # forecast_sites <- append(forecast_sites,  stac4cast::get_site_coords(site_metadata = catalog_config$site_metadata_url,
         #                                                                      sites = model_sites))

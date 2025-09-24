@@ -96,7 +96,7 @@ stac4cast::build_sites(table_schema = site_df,
                        destination_path = catalog_config$site_path,
                        #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                        link_items = NULL,
-                       thumbnail_link = config$site_thumbnail,
+                       thumbnail_link = catalog_config$site_thumbnail,
                        thumbnail_title = config$site_thumbnail_title)
 
 message('sites generated...')

@@ -1,4 +1,4 @@
-National Ecological Observatory Network (NEON) Ecological Forecasting Challenge
+## National Ecological Observatory Network (NEON) Ecological Forecasting Challenge Cyberinfrastructure
 
 Authors: R. Q. Thomas and C. Boettiger
 
@@ -12,8 +12,8 @@ The following elements of a forecasting challenge workflow are included in this 
 4)  Evaluation (scoring) of submitted forecasts
 5)  Generation of Quarto dashboard
 6)  Generation of STAC catalog
-7)  Creation of Docker containers with supporting software
-8)  Download of weather drivers for forecasts
+7)  Download of weather drivers for forecasts
+8)  Creation of Docker containers with supporting software
 
 See <https://doi.org/10.1002/fee.2616> for more information on the structure of a forecasting challenge.
 

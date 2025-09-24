@@ -2,7 +2,7 @@ library(dplyr)
 library(duckdbfs)
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
-sites <- open_dataset(catalog_config$site_metadata_url) |>
+sites <- open_dataset(config$catalog_config$site_metadata_url) |>
   rename(site_id = field_site_id)
 
 message("P1D forecast summaries")

@@ -35,11 +35,6 @@ build_catalog <- function(){
       list(
         "rel"= "child",
         "type"= "application/json",
-        "title"= "Inventory",
-        "href" = 'inventory/collection.json'),
-      list(
-        "rel"= "child",
-        "type"= "application/json",
         "title"= "NOAA Forecasts",
         "href" = 'noaa_forecasts/collection.json'
       ),
@@ -69,7 +64,7 @@ build_catalog <- function(){
     )
   )
 
-  dest <- "../neon4cast-catalog/catalog"
+  dest <- paste0("../", config$catalog_config$catalog_path)
 
   if (!file.exists(dest)){
     dir.create(dest)

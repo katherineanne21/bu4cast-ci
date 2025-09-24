@@ -406,14 +406,14 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
         ## build radiantearth stac and raw json link
         stac_link <- paste0("https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/",
                             config$github_repo,
-                            "/main/catalog/forecasts/",
+                            "/main/forecasts/",
                             names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')
 
         json_link <- paste0('https://raw.githubusercontent.com/',
                             config$github_repo,
-                            '/main/catalog/forecasts/',
+                            '/main/forecasts/',
                             names(config$target_groups)[i],'/',
                             var_formal_name, '/models/',
                             m,'.json')

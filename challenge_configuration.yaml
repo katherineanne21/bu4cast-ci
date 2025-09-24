@@ -47,7 +47,7 @@ target_groups:
     variable: ['nee','le']
     duration: ['P1D','P1D']
     max_horizon: [35, 35]
-    thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
     thumbnail_title: 'NEON Field Tower'
     group_vars:
       nee:
@@ -105,23 +105,24 @@ noaa_forecasts:
   noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
 #CATALOG CONFIGURATIONS
 catalog_config:
+  catalog_path: 'neon4cast-catalog'
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
   scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/52760199990_d1a0f154fe_c.jpg"
   scores_thumbnail_title: "NEON Buoy Image"
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
-  forecast_path: 'neon4cast-catalog/catalog/forecasts'
-  scores_path: 'neon4cast-catalog/catalog/scores'
-  summaries_path: 'neon4cast-catalog/catalog/summaries'
+  forecast_path: 'neon4cast-catalog/forecasts'
+  scores_path: 'neon4cast-catalog/scores'
+  summaries_path: 'neon4cast-catalog/summaries'
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
-  targets_path: 'neon4cast-catalog/catalog/targets/'
+  targets_path: 'neon4cast-catalog/targets/'
   targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
-  noaa_path: 'neon4cast-catalog/catalog/noaa_forecasts/'
+  noaa_path: 'neon4cast-catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
-  site_path: 'neon4cast-catalog/catalog/sites'
+  site_path: 'neon4cast-catalog/sites'
   site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
   host_url: "www.ecoforecast.org"
   host_name: "Ecological Forecasting Initiative"

@@ -126,7 +126,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
   unlink(current_var_dirs, recursive = TRUE)
 
   if (!dir.exists(file.path(paste0("../",catalog_config$summaries_path),names(config$target_groups[i])))){
-    dir.create(file.path(paste0("../",catalog_config$summaries_path),catalog_config$summaries_path,names(config$target_groups[i])))
+    dir.create(file.path(paste0("../",catalog_config$summaries_path),names(config$target_groups[i])))
   }
 
   # match variable with full name in gsheet

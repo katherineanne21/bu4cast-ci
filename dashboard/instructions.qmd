@@ -50,7 +50,7 @@ We only evaluate forecasts for any weekly variables (e.g., beetles and ticks) th
 ## You can forecast at any of the NEON sites
 
 If you are just getting started, we recommend a set of [focal sites](targets.qmd#sec-starting-sites) for each of the five "themes."
-You are also welcome to submit forecasts to all  or a subset of NEON sites. More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
+You are also welcome to submit forecasts to all  or a subset of NEON sites. More information about NEON sites can be found in the [site metadata](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/sites/collection.json) and on NEON's [website](https://www.neonscience.org/field-sites/explore-field-sites)
 
 ## Forecast file format
 
@@ -186,8 +186,8 @@ neon4cast::submit(forecast_file = "theme_name-year-month-day-model_id.csv")
 
 ### Processing
 
-After submission, our servers will process uploaded files by converting them to a [parquet format](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/forecasts/collection.json) on our public s3 storage.
-A `pub_datetime` column will be added that denotes when a forecast was submitted.  [Summaries](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/catalog/summaries/collection.json) are generated of the forecasts provide descriptive statistics of the forecast.  
+After submission, our servers will process uploaded files by converting them to a [parquet format](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/forecasts/collection.json) on our public s3 storage.
+A `pub_datetime` column will be added that denotes when a forecast was submitted.  [Summaries](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/collection.json) are generated of the forecasts provide descriptive statistics of the forecast.  
 
 ### Evaluation
 

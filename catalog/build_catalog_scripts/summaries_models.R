@@ -250,14 +250,14 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
                                        dashboard_string = catalog_config$documentation_url,
                                        dashboard_title = catalog_config$catalog_title,
                                        theme_title = var_formal_name,
-                                       destination_path = file.path('.',catalog_config$summaries_path,names(config$target_groups)[i],var_formal_name),
+                                       destination_path = file.path(catalog_config$summaries_path,names(config$target_groups)[i],var_formal_name),
                                        aws_download_path = paste0(config$forecasts_bucket,"/bundled-summaries"),
                                        group_var_items = stac4cast::generate_variable_model_items(model_list = var_models),
                                        thumbnail_link = config$target_groups[[i]]$thumbnail_link,
                                        thumbnail_title = "Thumbnail Image",
                                        group_var_vector = NULL,
                                        single_var_name = var_name,
-                                       group_duration_value = duration_value,
+                                       group_duration_value = duration_name,
                                        group_sites = find_var_sites,
                                        citation_values = var_citations,
                                        doi_values = var_doi)
@@ -320,6 +320,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
           ungroup()
 
         model_var_full_name <- model_var_duration_df |>
+          ungroup() |>
           left_join((variable_gsheet |>
                        select(variable = `"official" targets name`, full_name = `Variable name`) |>
                        distinct(variable, .keep_all = TRUE)), by = c('variable'))
@@ -335,6 +336,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
         model_site_text <- paste(as.character(model_sites), sep="' '", collapse=", ")
 
         model_vars <- summaries_model_var_max_date_df |>
+          ungroup() |>
           filter(model_id == m,
                  variable == var_name,
                  duration == duration_name) |>
@@ -400,8 +402,8 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
                                pub_date = as.Date(model_pub_date),
                                forecast_date = model_reference_date,
                                var_values = model_vars$var_duration_name,
-                               duration_value = duration_name,
                                duration_names = model_var_duration_df$duration,
+                               duration_value = duration_name,
                                site_values = model_sites,
                                site_table = catalog_config$site_metadata_url,
                                model_documentation = registered_model_id,

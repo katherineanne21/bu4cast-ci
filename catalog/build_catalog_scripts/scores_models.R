@@ -361,6 +361,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
           model_site_text <- paste(as.character(model_sites), sep="' '", collapse=", ")
 
           model_vars <- scores_model_var_max_date_df |>
+            ungroup() |>
             filter(model_id == m,
                    variable == var_name,
                    duration == duration_name) |>

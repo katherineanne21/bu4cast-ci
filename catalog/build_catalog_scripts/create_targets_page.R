@@ -15,13 +15,13 @@ targets_description_create <- data.frame(project_id = 'unique project identifier
                                          variable = 'observation variable',
                                          observation = 'observed value for variable')
 
-target_objects <- c(config$target_groups$Aquatics$targets_file,
-                    config$target_groups$Terrestrial$targets_file,
-                    config$target_groups$Beetles$targets_file,
-                    config$target_groups$Phenology$targets_file,
-                    config$target_groups$Ticks$targets_file)
+num_target_groups <- length(config$target_groups)
+target_files <- NULL
+for(i in 1:num_target_groups){
+  target_files <- c(target_files, config$target_groups[[i]]$targets_file)
+}
 
-targets <- read_csv(target_objects, show_col_types = FALSE)
+targets <- read_csv(target_files, show_col_types = FALSE)
 
 target_date_range <- targets |> dplyr::summarise(min(datetime),max(datetime))
 target_min_date <- as.Date(target_date_range$`min(datetime)`)
@@ -45,5 +45,5 @@ stac4cast::build_targets(table_schema = targets,
                          destination_path = catalog_config$targets_path,
                          #link_items = stac4cast::generate_group_values(group_values = names(config$target_groups)),
                          link_items = NULL,
-                         thumbnail_link = config$targets_thumbnail,
-                         thumbnail_title = config$targets_thumbnail_title)
+                         thumbnail_link = catalog_config$targets_thumbnail,
+                         thumbnail_title = catalog_config$targets_thumbnail_title)

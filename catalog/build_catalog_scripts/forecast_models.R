@@ -322,7 +322,7 @@ for (i in 1:length(config$target_groups)){ ## organize variable groups
           pull(date)
 
         if (length(model_min_date) == 0){ ## add check for models that are missing from scores
-          model_min_date <- summaries_model_var_max_date_df |>
+          model_min_date <- forecast_model_var_max_date_df |>
             filter(model_id == m,
                    variable == var_name,
                    duration == duration_name) |>

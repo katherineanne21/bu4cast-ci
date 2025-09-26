@@ -59,7 +59,6 @@ filename = paste("challenges/targets/project_id=bu4cast/duration=", duration_typ
 # Change data if you changed the name of the cleaned data in the script
 arrow::write_csv_arrow(data, sink = s3_read$path(filename))
 
-
 ## Step 5: Clean Up and Health Check
 
 # Remove file from working directory

@@ -5,6 +5,32 @@
 # The target files should only contain the variable(s) you want the students to predict
 # If you have other data to help predict those variable(s), that will go in the driver files
 
+
+## Step 0: Reload data for appending
+# First you must decide if it will be easier (code wise and computationally) to either
+# download all of the data again each time or just append any new data
+# If you are appending the data, keep the following steps to read the old data from
+# the S3 bucket
+# Most of this code is identical to the writing data portion in Step 4
+# You only need to set up the connection and file name once, so feel free to delete
+# the duplicate lines
+
+# Set Up Connection
+s3_read <- arrow::s3_bucket('bu4cast-ci-read',
+                            endpoint_override = 'https://minio-s3.apps.shift.nerc.mghpcc.org',
+                            access_key = Sys.getenv("OSN_KEY"),
+                            secret_key = Sys.getenv("OSN_SECRET"),
+                            scheme = "https")
+
+# Create file name/folder
+duration_type = '' # Fill in string with duration type (i.e P1M, P1D, etc.)
+challenge_name = '' # Fill in string with name of challenge (i.e Disease, Urban, Coastal)
+filename = paste("challenges/targets/project_id=bu4cast/duration=", duration_type,
+                 "/", challenge_name, "-targets.csv.gz")
+
+# Read in old data
+old_data <- arrow::read_csv_arrow(s3_read$path(filename))
+
 ## Step 1: Download Data
 # If you need a key to access the data, create a secret key
 # Github Repo -> Settings -> Secrets and Variables -> Actions -> New Repository Secret
@@ -39,6 +65,7 @@ colnames(data) = c('project_id', 'site_id', 'datetime', 'duration', 'variable', 
 
 ## Step 3: Prep data for storage
 # Depending on your process for step 2, this may not be necessary
+# If appending to old data: append and sort
 
 
 ## Step 4: Write to S3 Bucket

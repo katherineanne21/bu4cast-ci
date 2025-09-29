@@ -1,3 +1,7 @@
+## This is a testing file to make sure reading and writing to S3 buckets works
+## This is helpful for ensuring syntax is correct across the whole repo
+## Not used in end product
+
 ## Set Up
 
 # Load Libraries

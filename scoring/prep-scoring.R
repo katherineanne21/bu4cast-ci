@@ -7,15 +7,17 @@ library(progress)
 library(bench)
 library(yaml)
 library(stringr)
-
+library(minioclient)
 
 library(DBI)
 con <- duckdbfs::cached_connection(tempfile())
 DBI::dbExecute(con, "SET THREADS=64;")
-mc_rm("osn/bio230121-bucket01/vera4cast/tmp/score_me", recursive = TRUE)
-mc_rm("osn/bio230121-bucket01/vera4cast/tmp/forecasts", recursive = TRUE)
-mc_rm("osn/bio230121-bucket01/vera4cast/tmp/targets", recursive = TRUE)
-mc_rm("osn/bio230121-bucket01/vera4cast/tmp/scores", recursive = TRUE)
+install_mc()
+mc_alias_set("osn", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
+mc_rm("osn/efi-scores/tmp/score_me", recursive = TRUE)
+mc_rm("osn/efi-scores/tmp/forecasts", recursive = TRUE)
+mc_rm("osn/efi-scorestmp/targets", recursive = TRUE)
+mc_rm("osn/efi-scores/tmp/scores", recursive = TRUE)
 
 
 

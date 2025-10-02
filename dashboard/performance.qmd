@@ -91,7 +91,7 @@ Forecasts submitted on `r max(lubridate::as_date(df_P1D$reference_datetime))`
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Terrestrial/Daily_Net_ecosystem_exchange/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == "nee",
@@ -106,7 +106,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Terrestrial/Daily_latent_heat_flux/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "le") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "le") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == "le",
@@ -120,11 +120,11 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Phenology/Daily_Green_chromatic_coordinate/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "gcc_90") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "gcc_90") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == "gcc_90",
-         model_id %in% best_models, 
+         #model_id %in% best_models, 
          site_id %in% phenology_focal_sites) |> 
   mutate(observation = as.numeric(NA)) |> 
   forecast_plots()
@@ -136,7 +136,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Phenology/Daily_Red_chromatic_coordinate/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "rcc_90") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "rcc_90") |> pull(model_id)
 
 
 df_P1D |> 
@@ -152,7 +152,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Aquatics/Daily_Water_temperature/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "temperature") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "temperature") |> pull(model_id)
 
 
 
@@ -169,7 +169,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Aquatics/Daily_Dissolved_oxygen/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "oxygen") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "oxygen") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == c("oxygen"),
@@ -184,7 +184,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Aquatics/Daily_Chlorophyll_a/collection.json)
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "chla") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "chla") |> pull(model_id)
 
 df_P1D |> 
   filter(variable == c("chla"),
@@ -200,7 +200,7 @@ df_P1D |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Beetles/Weekly_beetle_community_richness/collection.json)
 
 ```{r}
-best_models <- best_P1W_scores |> filter(variable == "richness") |> pull(model_id)
+#best_models <- best_P1W_scores |> filter(variable == "richness") |> pull(model_id)
 
 
 df_P1W |> 
@@ -216,7 +216,7 @@ df_P1W |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Beetles/Weekly_beetle_community_abundance/collection.json)
 
 ```{r}
-best_models <- best_P1W_scores |> filter(variable == "abundance") |> pull(model_id)
+#best_models <- best_P1W_scores |> filter(variable == "abundance") |> pull(model_id)
 
 df_P1W |> 
   filter(variable == c("abundance"),
@@ -232,7 +232,7 @@ df_P1W |>
 Forecast summaries are available [here](https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/eco4cast/neon4cast-catalog/main/summaries/Ticks/collection.json)
 
 ```{r}
-best_models <- best_P1W_scores |> filter(variable == "amblyomma_americanum") |> pull(model_id)
+#best_models <- best_P1W_scores |> filter(variable == "amblyomma_americanum") |> pull(model_id)
 
 df_P1W |> 
   filter(variable == c("amblyomma_americanum"),
@@ -252,7 +252,7 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 ### Terrestrial: net ecosystem exchange
 
 ```{r}
-best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
+#best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
 
 ex_P1D |> 
   filter(variable == "nee",

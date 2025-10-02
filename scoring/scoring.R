@@ -7,8 +7,8 @@ library(progress)
 library(bench)
 library(minioclient)
 library(yaml)
-#install_mc()
-#mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+install_mc()
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 #fs::dir_create("new_scores")
 
 config <- read_yaml("challenge_configuration.yaml")
@@ -34,7 +34,7 @@ duckdbfs::duckdb_secrets(endpoint = "s3-west.nrp-nautilus.io",
 #
 fc <- open_dataset("s3://efi-scores/tmp/score_me", conn=con) |>
   filter(!is.na(model_id))
-groups <- fc |> distinct(project_id, duration, variable, model_id) |> collect()
+groups <- fc |> distinct(project_id, duration, variable, model_id, family) |> collect()
 total <- nrow(groups)
 
 duckdbfs::close_connection(con)
@@ -74,10 +74,23 @@ score_group <- function(i, groups, project = "neon4cast") {
                      "project_id={project}/duration={dur}/",
                      "variable={var}/model_id={model}")
 
+  path2 <- glue::glue("osn/", scores_bundled_parquet_bucket,
+                      "project_id={project}/duration={dur}/",
+                      "variable={var}/model_id={model}")
+
 
   log <- glue::glue("Joining to existing scores of variable {var} for model {model}")
   message(log)
   #readr::write_lines(log, "new-scoring.log", append=TRUE)
+
+  file_exist <- length(mc_ls(path2))
+
+  if(file_exist > 0){
+
+  duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+                             key = Sys.getenv("OSN_KEY"),
+                             secret = Sys.getenv("OSN_SECRET"),
+                             bucket = scores_bundled_parquet_bucket)
 
   new_scores <- duckdbfs::as_dataset(new_scores, conn = con)
   bundled_scores <- duckdbfs::open_dataset(path, conn = con) |>
@@ -89,6 +102,7 @@ score_group <- function(i, groups, project = "neon4cast") {
                                   duration, model_id, project_id, variable)) |>
     dplyr::compute()
   new_scores <- dplyr::union_all(bundled_scores, new_scores)
+  }
 
   new_scores |>
     dplyr::distinct() |>
@@ -112,8 +126,10 @@ for (i in seq_along(row_number(groups))) {
   pb$tick()
   print(paste("Scoring model:", groups$model_id[i], "variable:", groups$variable[i]))
 
-  go <- purrr::safely( \() callr::r_safe(score_group, args = list(i = i, groups = groups)) )
-  go()
+  score_group(i, groups)
+
+  #go <- purrr::safely( \() callr::r_safe(score_group, args = list(i = i, groups = groups)) )
+  #go()
 }
 
 # check RAM use for: Scoring model: persistenceRW variable: nee

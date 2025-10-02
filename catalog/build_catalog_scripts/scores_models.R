@@ -255,7 +255,7 @@ for (i in 1:length(config$target_groups)){ # LOOP OVER VARIABLE GROUPS -- BUILD 
         citation_build <- append(citation_build, var_citations)
         citation_build <- unique(citation_build)
 
-        doi_build <- append(doi_build, var_doi)
+        doi_build <- append(doi_build, doi_citations)
         doi_build <- unique(doi_build)
 
         #variable_name_build <- append(variable_name_build, var_formal_name)

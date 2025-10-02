@@ -16,7 +16,7 @@ install_mc()
 mc_alias_set("osn", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
 mc_rm("osn/efi-scores/tmp/score_me", recursive = TRUE)
 mc_rm("osn/efi-scores/tmp/forecasts", recursive = TRUE)
-mc_rm("osn/efi-scorestmp/targets", recursive = TRUE)
+mc_rm("osn/efi-scores/tmp/targets", recursive = TRUE)
 mc_rm("osn/efi-scores/tmp/scores", recursive = TRUE)
 
 

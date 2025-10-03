@@ -36,8 +36,6 @@ forecast_plots <- function(df, ncol = NULL, show.legend = FALSE) {
 
 }
 
-
-
 by_model_id <- function(df, show.legend = FALSE) {
   leaderboard <-
     df |>
@@ -138,7 +136,7 @@ leaderboard_plots <- function(df,
                               horizon_units = "days",
                               show.legend=TRUE) {
 
-  df <- df |> filter(variable == var) |> filter(!is.na(observation))
+  df <- df
   df <- horizon_filter(df, horizon_cutoff, horizon_units)
   if(nrow(df)==0) return(NULL)
 

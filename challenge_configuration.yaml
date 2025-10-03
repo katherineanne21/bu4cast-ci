@@ -137,7 +137,7 @@ catalog_config:
   site_path: 'neon4cast-catalog/sites'
   site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
   site_thumbnail_title: "NEON Sites Image"
-  host_url: "www.ecoforecast.org"
+  host_url: "https://ecoforecast.org/"
   host_name: "Ecological Forecasting Initiative"
   bbox:
     max_lat: 71.2824

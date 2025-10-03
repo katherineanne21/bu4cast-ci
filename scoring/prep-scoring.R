@@ -14,11 +14,43 @@ con <- duckdbfs::cached_connection(tempfile())
 DBI::dbExecute(con, "SET THREADS=64;")
 install_mc()
 mc_alias_set("osn", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
-mc_rm("osn/efi-scores/tmp/score_me", recursive = TRUE)
-mc_rm("osn/efi-scores/tmp/forecasts", recursive = TRUE)
-mc_rm("osn/efi-scores/tmp/targets", recursive = TRUE)
-mc_rm("osn/efi-scores/tmp/scores", recursive = TRUE)
 
+remove_dir <- function(path) {
+  tryCatch(
+    {
+      minioclient::mc_rm(path, recursive = TRUE)
+      message('directory successfully removed...')
+    },
+    error = function(cond) {
+      message("The removal directory could not be found...")
+      message("Here's the original error message:")
+      message(conditionMessage(cond))
+      # Choose a return value in case of error
+      NA
+    },
+    warning = function(cond) {
+      message('Deleting the directory caused a warning...')
+      message("Here's the original warning message:")
+      message(conditionMessage(cond))
+      # Choose a return value in case of warning
+      NULL
+    },
+    finally = {
+      # NOTE:
+      # Here goes everything that should be executed at the end,
+      # regardless of success or error.
+      # If you want more than one expression to be executed, then you
+      # need to wrap them in curly brackets ({...}); otherwise you could
+      # just have written 'finally = <expression>'
+      message("Finished the delete portion...")
+    }
+  )
+}
+
+remove_dir("osn/efi-scores/tmp/score_me")
+remove_dir("osn/efi-scores/tmp/forecasts")
+remove_dir("osn/efi-scores/tmp/targets")
+remove_dir("osn/efi-scores/tmp/scores")
 
 
 config <- read_yaml("challenge_configuration.yaml")

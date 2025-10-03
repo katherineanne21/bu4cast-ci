@@ -45,9 +45,16 @@ s3_scores_P1D <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-par
 
 cutoff <- Sys.Date() - lubridate::days(30)
 
+#df <- s3_scores_P1D |>
+#  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
+#  group_by(variable, model_id) |>
+#  summarize(max = max(reference_datetime)) |>
+#  arrange(desc(max)) |>
+#  collect()
+
 s3_scores_P1D |>
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
-  filter(reference_datetime > cutoff) |>
+  #filter(reference_datetime > cutoff) |>
   inner_join(sites, by = "site_id") |>
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |>
@@ -73,7 +80,7 @@ s3_forecasts_all <- open_dataset(paste0("s3://", config$forecasts_bucket,"/bundl
 
 s3_forecasts_all |>
   select(model_id, variable,duration, reference_datetime) |>
-  distinct(model_id, variable, duration, reference_datetime) |>
+  distinct(model_id, variable, duration, reference_datetime, site_id) |>
   write_dataset("stats_all.parquet")
 
 

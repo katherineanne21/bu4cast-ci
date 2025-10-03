@@ -38,8 +38,11 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
 
 ```{r}
 
-s3_scores_P1D <- duckdbfs::open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
-s3_scores_P1W <- duckdbfs::open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+#s3_scores_P1D <- duckdbfs::open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+#s3_scores_P1W <- duckdbfs::open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1W/"), s3_endpoint = config$endpoint, anonymous = TRUE)
+
+scores_P1D <- arrow::open_dataset("../scores_P1D.parquet") |> collect()
+scores_P1W <- arrow::open_dataset("../scores_P1W.parquet") |> collect()
 
 df_P1D <- arrow::open_dataset("../forecasts_P1D.parquet") |> collect()
 df_P1W <- arrow::open_dataset("../forecasts_P1W.parquet") |> collect()
@@ -209,7 +212,7 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 #best_models <- best_P1D_scores |> filter(variable == "nee") |> pull(model_id)
 
 cut_off <- Sys.time() - days(30)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "nee",
          site_id %in% terrestrial_focal_sites,
          reference_datetime > cut_off) |> 
@@ -222,7 +225,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(30)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "le",
          site_id %in% terrestrial_focal_sites,
          reference_datetime > cut_off) |> 
@@ -234,7 +237,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(30)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "gcc_90",
          site_id %in% phenology_focal_sites,
          reference_datetime > cut_off) |> 
@@ -248,7 +251,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(30)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "rcc_90",
          site_id %in% phenology_focal_sites,
          reference_datetime > cut_off) |> 
@@ -261,7 +264,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(60)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "temperature",
          site_id %in% aquatics_focal_sites,
          reference_datetime > cut_off) |> 
@@ -274,7 +277,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(60)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "oxygen",
          site_id %in% aquatics_focal_sites,
          reference_datetime > cut_off) |> 
@@ -287,7 +290,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(60)
-s3_scores_P1D |> 
+scores_P1D |> 
     filter(variable == "chla",
          site_id %in% aquatics_focal_sites,
          reference_datetime > cut_off) |> 
@@ -300,7 +303,7 @@ s3_scores_P1D |>
 
 ```{r}
 cut_off <- Sys.time() - days(365)
-s3_scores_P1W |> 
+scores_P1W |> 
     filter(variable == "richness",
          site_id %in% beetles_focal_sites,
          reference_datetime > cut_off) |> 
@@ -313,7 +316,7 @@ s3_scores_P1W |>
 
 ```{r}
 cut_off <- Sys.time() - days(365)
-s3_scores_P1W |> 
+scores_P1W |> 
     filter(variable == "abundance",
          site_id %in% beetles_focal_sites,
          reference_datetime > cut_off) |> 
@@ -327,7 +330,7 @@ s3_scores_P1W |>
 
 ```{r}
 cut_off <- Sys.time() - days(365)
-s3_scores_P1W |> 
+scores_P1W |> 
     filter(variable == "amblyomma_americanum",
          site_id %in% ticks_focal_sites,
          reference_datetime > cut_off) |> 
@@ -354,7 +357,7 @@ Learn about the Continuous Ranked Probability Score [here](https://projects.ecof
 ### Terrestrial: Net Ecosystem Exchange
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "nee",
          !is.na(observation)) |> 
   select(model_id, crps, reference_datetime, datetime) |>
@@ -365,7 +368,7 @@ s3_scores_P1D |>
 ### Terrestrial: Latent Heat Flux
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "le",
          !is.na(observation)) |> 
   select(model_id, crps, reference_datetime, datetime) |>
@@ -375,7 +378,7 @@ s3_scores_P1D |>
 ### Phenology: Greenness
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "gcc_90",
          !is.na(observation)) |> 
   select(model_id, crps, reference_datetime, datetime) |>
@@ -387,7 +390,7 @@ s3_scores_P1D |>
 ### Phenology: Redness
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "rcc_90",
          !is.na(observation)) |> 
   select(model_id, crps, reference_datetime, datetime) |>
@@ -398,7 +401,7 @@ leaderboard_plots("rcc_90")
 ### Aquatics: Water temperature
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "temperature",
          !is.na(observation)) |> 
   select(model_id, crps, reference_datetime, datetime) |>
@@ -409,7 +412,7 @@ leaderboard_plots("temperature")
 ### Aquatics: Dissolved oxygen
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "oxygen",
          !is.na(observation),
          model_id != "BTW") |> 
@@ -421,7 +424,7 @@ leaderboard_plots("oxygen")
 ### Aquatics: Chlorophyll-a
 
 ```{r}
-s3_scores_P1D |> 
+scores_P1D |> 
   filter(variable == "chla",
          !is.na(observation),
          model_id != "air2waterSat",
@@ -439,7 +442,7 @@ leaderboard_plots("chla")
 ### Beetle community richness
 
 ```{r}
-s3_scores_P1W |> 
+scores_P1D |> 
   filter(variable == "richness",
          !is.na(observation)) |> 
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
@@ -450,7 +453,7 @@ leaderboard_plots("richness")
 ### Beetle community abundance
 
 ```{r}
-s3_scores_P1W |> 
+scores_P1W |> 
   filter(variable == "abundance",
          !is.na(observation),         
          model_id != "tg_arima",
@@ -466,7 +469,7 @@ leaderboard_plots("abundance")
 ### Ticks: Amblyomma americanum
 
 ```{r}
-s3_scores_P1W |> 
+scores_P1W |> 
   filter(variable == "amblyomma_americanum",
          !is.na(observation),
          model_id != "tg_arima",

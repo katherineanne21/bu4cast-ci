@@ -85,12 +85,12 @@ score_group <- function(i, groups, project = "neon4cast") {
 
   file_exist <- length(mc_ls(path2))
 
-  if(file_exist > 0){
-
   duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
-                             key = Sys.getenv("OSN_KEY"),
-                             secret = Sys.getenv("OSN_SECRET"),
-                             bucket = scores_bundled_parquet_bucket)
+                           key = Sys.getenv("OSN_KEY"),
+                           secret = Sys.getenv("OSN_SECRET"),
+                           bucket = scores_bundled_parquet_bucket)
+
+  if(file_exist > 0){
 
   new_scores <- duckdbfs::as_dataset(new_scores, conn = con)
   bundled_scores <- duckdbfs::open_dataset(path, conn = con) |>

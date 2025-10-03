@@ -26,6 +26,13 @@ jobs:
         with:
           version: 1.4.146
 
+
+      - name: cleanup disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h
+
+
       - name: Staging data
         shell: Rscript {0}
         run: source("dashboard/stage_data.R")

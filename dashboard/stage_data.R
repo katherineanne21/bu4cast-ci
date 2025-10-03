@@ -58,7 +58,7 @@ s3_scores_P1D |>
   inner_join(sites, by = "site_id") |>
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |>
-  select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, crps, quantile02.5, quantile97.5)
+  select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, crps, quantile02.5, quantile97.5) |>
   write_dataset("scores_P1D.parquet")
 
 message("P1W scores")

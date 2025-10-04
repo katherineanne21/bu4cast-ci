@@ -63,13 +63,6 @@ s3_scores_P1D |>
   select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, quantile02.5, quantile97.5) |>
   write_dataset("scores_P1D.parquet")
 
-mutate(horizon =
-         difftime(
-           lubridate::as_datetime(datetime),
-           lubridate::as_datetime(reference_datetime),
-           units = horizon_units)
-)
-
 
 s3_scores_P1D |>
   group_by(variable, model_id) |>

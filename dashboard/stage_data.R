@@ -43,8 +43,8 @@ message("P1D scores")
 
 s3_scores_P1D <- open_dataset(paste0("s3://", config$scores_bucket,"/bundled-parquet/project_id=",  config$project_id,"/duration=P1D/"), s3_endpoint = config$endpoint, anonymous = TRUE)
 
-cutoff <- Sys.Date() - lubridate::days(30)
-
+cutoff <- Sys.Date() - lubridate::days(60)
+cutoff2 <- Sys.Date() - lubridate::days(29)
 #df <- s3_scores_P1D |>
 #  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
 #  group_by(variable, model_id) |>
@@ -54,12 +54,42 @@ cutoff <- Sys.Date() - lubridate::days(30)
 
 s3_scores_P1D |>
   select(-project_id, -family, -sd, -duration, -pub_datetime) |>
-  #filter(reference_datetime > cutoff) |>
+  filter(reference_datetime > cutoff,
+         reference_datetime < cutoff2) |>
   inner_join(sites, by = "site_id") |>
   mutate(reference_datetime = lubridate::as_datetime(reference_datetime),
          datetime = lubridate::as_datetime(datetime)) |>
-  select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, crps, quantile02.5, quantile97.5) |>
+  select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, quantile02.5, quantile97.5) |>
   write_dataset("scores_P1D.parquet")
+
+mutate(horizon =
+         difftime(
+           lubridate::as_datetime(datetime),
+           lubridate::as_datetime(reference_datetime),
+           units = horizon_units)
+)
+
+
+s3_scores_P1D |>
+  group_by(variable, model_id) |>
+  summarise(crps = mean(crps, na.rm = TRUE)) |>
+  ungroup() |>
+  write_dataset("scores_P1D_by_model_id.parquet")
+
+s3_scores_P1D_by_model_reference |>
+    group_by(variable, model_id, reference_datetime) |>
+    summarise(crps = mean(crps, na.rm = TRUE)) |>
+  ungroup() |>
+                write_dataset("scores_P1D_by_reference.parquet")
+
+s3_scores_P1D_by_model_horizon |>
+  mutate(datetime = as.integer(lubridate::as_datetime(datetime)),
+         reference_datetime = as.integer(lubridate::as_datetime(reference_datetime)),
+         horizon = datetime - reference_datetime)|>
+  group_by(variable, model_id, horizon) |>
+  summarise(crps = mean(crps, na.rm = TRUE)) |>
+  ungroup() |>
+  write_dataset("scores_P1D_by_horizon.parquet")
 
 message("P1W scores")
 

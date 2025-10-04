@@ -77,8 +77,8 @@ s3_scores_P1D |>
   write_dataset("scores_P1D_by_reference.parquet")
 
 s3_scores_P1D |>
-  mutate(datetime = as.integer(lubridate::as_datetime(datetime)),
-         reference_datetime = as.integer(lubridate::as_datetime(reference_datetime)),
+  mutate(datetime = lubridate::as_datetime(datetime),
+         reference_datetime = lubridate::as_datetime(reference_datetime),
          horizon = datetime - reference_datetime)|>
   group_by(variable, model_id, horizon) |>
   summarise(crps = mean(crps, na.rm = TRUE)) |>

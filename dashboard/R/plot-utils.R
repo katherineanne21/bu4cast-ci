@@ -206,7 +206,7 @@ leaderboard_plot2 <- function(df_model_id,
       pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
       ggplot(aes(x = horizon, y= score,  col=model_id)) +
       geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
-                            show.legend = TRUE) +
+                            show.legend = FALSE) +
       facet_wrap(~metric, scales='free') +
       #scale_y_log10() +
       theme_bw()

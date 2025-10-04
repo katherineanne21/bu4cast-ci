@@ -46,6 +46,10 @@ scores_P1W <- arrow::open_dataset("../scores_P1W.parquet") |> collect()
 
 df_P1D <- arrow::open_dataset("../forecasts_P1D.parquet") |> collect()
 df_P1W <- arrow::open_dataset("../forecasts_P1W.parquet") |> collect()
+
+df_model_id <- arrow::open_dataset("../scores_P1D_by_model_id.parquet") |> collect()
+df_ref <- arrow::open_dataset("../scores_P1D_by_reference.parquet") |> collect()
+df_horizon <- arrow::open_dataset("../scores_P1D_by_horizon.parquet") |> collect()
 ```
 
 Forecasts submitted on `r max(lubridate::as_date(df_P1D$reference_datetime))`
@@ -214,8 +218,7 @@ Below are forecasts submitted 30 days ago and include the observations used to e
 cut_off <- Sys.time() - days(30)
 scores_P1D |> 
     filter(variable == "nee",
-         site_id %in% terrestrial_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% terrestrial_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -227,8 +230,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(30)
 scores_P1D |> 
     filter(variable == "le",
-         site_id %in% terrestrial_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% terrestrial_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -239,8 +241,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(30)
 scores_P1D |> 
     filter(variable == "gcc_90",
-         site_id %in% phenology_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% phenology_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -253,8 +254,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(30)
 scores_P1D |> 
     filter(variable == "rcc_90",
-         site_id %in% phenology_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% phenology_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -266,8 +266,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(60)
 scores_P1D |> 
     filter(variable == "temperature",
-         site_id %in% aquatics_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% aquatics_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -279,8 +278,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(60)
 scores_P1D |> 
     filter(variable == "oxygen",
-         site_id %in% aquatics_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% aquatics_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -292,8 +290,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(60)
 scores_P1D |> 
     filter(variable == "chla",
-         site_id %in% aquatics_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% aquatics_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -305,8 +302,7 @@ scores_P1D |>
 cut_off <- Sys.time() - days(365)
 scores_P1W |> 
     filter(variable == "richness",
-         site_id %in% beetles_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% beetles_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -318,8 +314,7 @@ scores_P1W |>
 cut_off <- Sys.time() - days(365)
 scores_P1W |> 
     filter(variable == "abundance",
-         site_id %in% beetles_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% beetles_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -332,8 +327,7 @@ scores_P1W |>
 cut_off <- Sys.time() - days(365)
 scores_P1W |> 
     filter(variable == "amblyomma_americanum",
-         site_id %in% ticks_focal_sites,
-         reference_datetime > cut_off) |> 
+         site_id %in% ticks_focal_sites) |> 
   slice_min(reference_datetime) |> 
   collect() |> 
   forecast_plots()
@@ -357,95 +351,115 @@ Learn about the Continuous Ranked Probability Score [here](https://projects.ecof
 ### Terrestrial: Net Ecosystem Exchange
 
 ```{r}
-scores_P1D |> 
-  filter(variable == "nee",
-         !is.na(observation)) |> 
-  select(model_id, crps, reference_datetime, datetime) |>
-  collect() |> 
-  leaderboard_plots("nee")
+
+leaderboard_plot2(df_model_id,df_ref,df_horizon,var = "nee") 
 ```
 
 ### Terrestrial: Latent Heat Flux
 
 ```{r}
-scores_P1D |> 
-  filter(variable == "le",
-         !is.na(observation)) |> 
-  select(model_id, crps, reference_datetime, datetime) |>
-  collect() |> 
-  leaderboard_plots("le")
+
+leaderboard_plot2(df_model_id,df_ref,df_horizon,var = "le") 
+
 ```
 ### Phenology: Greenness
 
 ```{r}
-scores_P1D |> 
-  filter(variable == "gcc_90",
-         !is.na(observation)) |> 
-  select(model_id, crps, reference_datetime, datetime) |>
-  collect() |> 
-  leaderboard_plots("gcc_90")
+
+leaderboard_plot2(df_model_id,df_ref,df_horizon,var = "gcc_90") 
+
 ```
 
 
 ### Phenology: Redness
 
 ```{r}
-scores_P1D |> 
-  filter(variable == "rcc_90",
-         !is.na(observation)) |> 
-  select(model_id, crps, reference_datetime, datetime) |>
-  collect() |> 
-leaderboard_plots("rcc_90")
+
+leaderboard_plot2(df_model_id,df_ref,df_horizon,var = "rcc_90") 
+
 ```
 
 ### Aquatics: Water temperature
 
 ```{r}
-scores_P1D |> 
+
+df_model_id_2 <- df_model_id |> 
+    filter(variable == "temperature",
+         model_id != "MAL_model_unc",
+         model_id != "neon4cast_example")  
+df_ref_2 <- df_ref |> 
+      filter(variable == "temperature",
+         model_id != "MAL_model_unc",
+         model_id != "neon4cast_example") 
+df_horizon_2 <- df_horizon |> 
   filter(variable == "temperature",
-         !is.na(observation)) |> 
-  select(model_id, crps, reference_datetime, datetime) |>
-  collect() |> 
-leaderboard_plots("temperature")
+         model_id != "MAL_model_unc",
+         model_id != "neon4cast_example")  
+
+leaderboard_plot2(df_model_id_2,df_ref_2,df_horizon_2,var = "temperature") 
+
 ```
 
 ### Aquatics: Dissolved oxygen
 
 ```{r}
-scores_P1D |> 
+
+df_model_id_2 <- df_model_id |> 
+    filter(variable == "oxygen",
+         model_id != "BTW") 
+df_ref_2 <- df_ref |> 
+      filter(variable == "oxygen",
+         model_id != "BTW") 
+df_horizon_2 <- df_horizon |> 
   filter(variable == "oxygen",
-         !is.na(observation),
-         model_id != "BTW") |> 
-  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
-  collect() |> 
-leaderboard_plots("oxygen")
+         model_id != "BTW") 
+
+leaderboard_plot2(df_model_id_2,df_ref_2,df_horizon_2,var = "oxygen") 
+
 ```
 
 ### Aquatics: Chlorophyll-a
 
 ```{r}
-scores_P1D |> 
+
+df_model_id_2 <- df_model_id |> 
   filter(variable == "chla",
-         !is.na(observation),
          model_id != "air2waterSat",
          model_id != "tg_arima",
          model_id != "procHinshelwoodSteele",
          model_id != "procEppleyNorbergMonod",
          model_id != "procHinshelwoodMonod",
          model_id != "procEppleyNorbergSteele",
-         model_id != "persistenceRW") |> 
-  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
-  collect() |> 
-leaderboard_plots("chla")
+         model_id != "persistenceRW") 
+df_ref_2 <- df_ref |> 
+  filter(variable == "chla",
+         model_id != "air2waterSat",
+         model_id != "tg_arima",
+         model_id != "procHinshelwoodSteele",
+         model_id != "procEppleyNorbergMonod",
+         model_id != "procHinshelwoodMonod",
+         model_id != "procEppleyNorbergSteele",
+         model_id != "persistenceRW") 
+df_horizon_2 <- df_horizon |> 
+  filter(variable == "chla",
+         model_id != "air2waterSat",
+         model_id != "tg_arima",
+         model_id != "procHinshelwoodSteele",
+         model_id != "procEppleyNorbergMonod",
+         model_id != "procHinshelwoodMonod",
+         model_id != "procEppleyNorbergSteele",
+         model_id != "persistenceRW") 
+
+leaderboard_plot2(df_model_id_2,df_ref_2,df_horizon_2,var = "chla") 
+
 ```
 
 ### Beetle community richness
 
 ```{r}
-scores_P1D |> 
+scores_P1W |> 
   filter(variable == "richness",
          !is.na(observation)) |> 
-  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
   collect() |> 
 leaderboard_plots("richness")
 ```
@@ -460,7 +474,6 @@ scores_P1W |>
          model_id != "tg_ets",
          #model_id != "tg_auto_adam",
          model_id != "tg_tbats") |> 
-  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
   collect() |> 
 leaderboard_plots("abundance")
 ```
@@ -475,7 +488,6 @@ scores_P1W |>
          model_id != "tg_arima",
          model_id != "tg_ets",
          model_id != "tg_auto_adam") |> 
-  select(-project_id, -family, -sd, -duration, -pub_datetime) |>
   collect() |> 
 leaderboard_plots("amblyomma_americanum")
 ```

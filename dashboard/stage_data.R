@@ -63,14 +63,30 @@ s3_scores_P1D |>
   select(variable, model_id, site_id, datetime, reference_datetime, observation, mean, quantile02.5, quantile97.5) |>
   write_dataset("scores_P1D.parquet")
 
+x <- Sys.time()
+x30 <-  Sys.time() - days(35)
 
 s3_scores_P1D |>
+  mutate(datetime = lubridate::as_datetime(datetime),
+         reference_datetime = lubridate::as_datetime(reference_datetime),
+         horizon = datetime - reference_datetime,
+         zero = x -x,
+         days35 = x - x30)|>
+  filter(horizon > zero,
+         horizon < days35) |>
   group_by(variable, model_id) |>
   summarise(crps = mean(crps, na.rm = TRUE)) |>
   ungroup() |>
   write_dataset("scores_P1D_by_model_id.parquet")
 
 s3_scores_P1D |>
+  mutate(datetime = lubridate::as_datetime(datetime),
+         reference_datetime = lubridate::as_datetime(reference_datetime),
+         horizon = datetime - reference_datetime,
+         zero = x -x,
+         days35 = x - x30)|>
+  filter(horizon > zero,
+         horizon <= days35) |>
   group_by(variable, model_id, reference_datetime) |>
   summarise(crps = mean(crps, na.rm = TRUE)) |>
   ungroup() |>
@@ -79,10 +95,17 @@ s3_scores_P1D |>
 s3_scores_P1D |>
   mutate(datetime = lubridate::as_datetime(datetime),
          reference_datetime = lubridate::as_datetime(reference_datetime),
-         horizon = datetime - reference_datetime)|>
+         horizon = datetime - reference_datetime,
+         zero = x -x,
+         days35 = x - x30)|>
+  filter(horizon > zero,
+         horizon < days35) |>
+  select(model_id, variable, crps, horizon) |>
   group_by(variable, model_id, horizon) |>
   summarise(crps = mean(crps, na.rm = TRUE)) |>
   ungroup() |>
+  collect() |>
+  mutate(horizon = as.numeric(horizon) / 86400) |>
   write_dataset("scores_P1D_by_horizon.parquet")
 
 message("P1W scores")

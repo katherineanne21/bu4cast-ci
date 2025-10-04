@@ -158,3 +158,70 @@ leaderboard_plots <- function(df,
   )
 
 }
+
+leaderboard_plot2 <- function(df_model_id,
+                              df_ref,
+                              df_horizon,
+                              var,
+                              show.legend=TRUE) {
+
+
+
+  board1 <- df_model_id |>
+    filter(variable == var) |>
+    filter(!is.nan(crps)) |>
+    mutate(model_id = factor(model_id)) |>
+    mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>
+    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
+    ggplot(aes(x = model_id, y= score,  fill=model_id)) +
+    geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
+                         show.legend = FALSE) +
+    coord_flip() +
+    facet_wrap(~metric, scales='free') +
+    theme_bw() +
+    theme(axis.text.y = element_blank()) # don't show model_id twice
+
+  board2 <- df_ref |>
+    filter(variable == var) |>
+    collect() |>
+    filter(!is.nan(crps)) |>
+    mutate(model_id = factor(model_id)) |>
+    mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>
+    pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
+    ggplot(aes(x = reference_datetime, y= score,  col=model_id)) +
+    geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
+                          show.legend = FALSE) +
+    scale_y_log10() +
+    facet_wrap(~metric, scales='free') +
+    guides(x =  guide_axis(angle = 45)) +
+    theme_bw()
+
+
+  board3 <- df_horizon |>
+      filter(variable == var) |>
+      collect() |>
+      filter(!is.nan(crps)) |>
+      mutate(model_id = factor(model_id)) |>
+      mutate(model_id = fct_rev(fct_reorder(model_id, crps))) |>  # sort by score
+      pivot_longer(cols = c(crps), names_to="metric", values_to="score") |>
+      ggplot(aes(x = horizon, y= score,  col=model_id)) +
+      geom_line_interactive(aes(tooltip = model_id, data_id = model_id),
+                            show.legend = TRUE) +
+      facet_wrap(~metric, scales='free') +
+      #scale_y_log10() +
+      theme_bw()
+
+  ggob <- board1 / board2 / board3 # patchwork stack
+
+  girafe(
+    ggobj = ggob,
+    width_svg = 8,
+    height_svg = 6,
+    options = list(
+      opts_hover_inv(css = "opacity:0.20;"),
+      opts_hover(css = "stroke-width:2;"),
+      opts_zoom(max = 4)
+    )
+  )
+
+}

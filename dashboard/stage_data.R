@@ -1,5 +1,6 @@
 library(dplyr)
 library(duckdbfs)
+library(lubridate)
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 sites <- open_dataset(config$catalog_config$site_metadata_url) |>

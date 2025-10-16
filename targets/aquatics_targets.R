@@ -607,10 +607,11 @@ columns_keep <- c('siteName', 'termName', 'startDate', 'Value', 'verticalIndex')
 
 
 # Generate a list of files to be read
-prt_avro_files <- paste0(avro_file_directory, '/',
-                         list.files(path = avro_file_directory,
-                                    pattern = '*20053',
-                                    recursive = T))
+prt_avro_files <- list.files(path = avro_file_directory,
+                             pattern = '*20053',
+                             recursive = T,full.names = TRUE)
+
+
 
 prt_parquet_files <- list.files(path = file.path(parquet_file_directory, "prt"))
 

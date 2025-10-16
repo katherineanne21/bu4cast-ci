@@ -58,8 +58,13 @@ dir.create(avro_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(parquet_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(EDI_file_directory, showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(avro_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(avro_file_directory, "tsd"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(avro_file_directory, "prt"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(avro_file_directory, "river_tsd"), showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(parquet_file_directory, "wq"), showWarnings = FALSE, recursive = TRUE)
 dir.create(file.path(parquet_file_directory, "tsd"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(parquet_file_directory, "prt"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(parquet_file_directory, "river_tsd"), showWarnings = FALSE, recursive = TRUE)
 
 #readRenviron("~/.Renviron") # compatible with littler
 Sys.setenv("NEONSTORE_HOME" = "~/data/neonstore")
@@ -440,10 +445,10 @@ columns_keep <- c('siteName', 'termName', 'startDate', 'Value', 'verticalIndex')
 thermistor_depths <- readr::read_csv('targets/supporting-data/thermistorDepths.csv', col_types = 'ccd')
 
 # Generate a list of files to be read
-tsd_avro_files <- paste0(avro_file_directory, '/',
-                         list.files(path = avro_file_directory,
+tsd_avro_files <- list.files(path = avro_file_directory,
                                     pattern = '*20264',
-                                    recursive = T))
+                                    recursive = T,
+                                    full.names = T)
 
 lake_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[1])],
                      tsd_avro_files[grepl(x = tsd_avro_files, pattern= lake_sites[2])],
@@ -773,10 +778,10 @@ download.neon.avro(months = cur_tsd_month,
                    path = file.path(avro_file_directory, "DP1.20264.001"))
 
 message("Generate a list of nonwadable_rivers avro files to be read")
-tsd_avro_files <- paste0(avro_file_directory, '/',
-                         list.files(path = avro_file_directory,
+tsd_avro_files <- list.files(path = avro_file_directory,
                                     pattern = '*20264',
-                                    recursive = T))
+                                    recursive = T,
+                                    full.names = T)
 
 river_avro_files <- c(tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[1])],
                       tsd_avro_files[grepl(x = tsd_avro_files, pattern= nonwadable_rivers[2])],

@@ -1,0 +1,21 @@
+name: Urban Targets Download
+
+on:
+  workflow_dispatch:
+
+jobs:
+  r-job:
+    runs-on: ubuntu-latest
+
+    env:
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+      EPA_EMAIL: ${{ secrets.EPA_EMAIL }}
+      EPA_KEY: ${{ secrets.EPA_KEY }}
+
+    container: eco4cast/rocker-neon4cast:latest
+
+    steps:
+      - name: Run Urban Targets Script
+        run: |
+          Rscript urban_targets.R

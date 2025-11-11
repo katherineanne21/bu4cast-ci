@@ -15,7 +15,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 
 # Create file name/folder
 challenge_name = 'urban'
-filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
+filename = paste("challenges/targets/project_id=bu4cast", challenge_name,
                  "-targets.csv.gz", sep = "")
 
 # Read in old data

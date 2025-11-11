@@ -87,11 +87,11 @@ for (i in seq_along(county_codes)){
     
     # Append and overwrite data in old_data
     updated_data = rbind(updated_data, temp_df1)
+
+    print(paste0('Processing ', last_year,' data'))
     
     # Set false to not flag
     FALSE
-
-    print(paste0('Processing ', last_year,' data'))
   }, error = function(e) {
     message(paste0('Error for ', last_year, ': ', e$message))
     
@@ -119,11 +119,11 @@ for (i in seq_along(county_codes)){
     
     # Append and overwrite data in old_data
     updated_data = rbind(updated_data, temp_df2)
+
+    print(paste0('Processing ', format(Sys.Date(), '%Y'),' data'))
     
     # Set false to not flag
     FALSE
-
-    print(paste0('Processing ', format(Sys.Date(), '%Y'),' data'))
   }, error = function(e) {
     message(paste0('Error for ', format(Sys.Date(), '%Y'), ': ', e$message))
     

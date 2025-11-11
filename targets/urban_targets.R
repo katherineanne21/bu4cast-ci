@@ -82,7 +82,7 @@ for (i in seq_along(county_codes)){
     # Set false to not flag
     FALSE
   }, error = function(e) {
-    message(paste0('Error for ', last_year, ' ', pol_name, ': ', e$message))
+    message(paste0('Error for ', last_year, ': ', e$message))
     
     # Set True for error flag
     TRUE
@@ -112,7 +112,7 @@ for (i in seq_along(county_codes)){
     # Set false to not flag
     FALSE
   }, error = function(e) {
-    message(paste0('Error for ', format(Sys.Date(), '%Y'), ' ', pol_name, ': ', e$message))
+    message(paste0('Error for ', format(Sys.Date(), '%Y'), ': ', e$message))
     
     # Set True for error flag
     TRUE

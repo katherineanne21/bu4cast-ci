@@ -16,6 +16,10 @@ jobs:
     container: eco4cast/rocker-neon4cast:latest
 
     steps:
+     # 1. Checkout repository
+      - uses: actions/checkout@v3
+
+      # 2. Run your script
       - name: Run Urban Targets Script
         run: |
           Rscript targets/urban_targets.R

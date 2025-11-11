@@ -203,7 +203,7 @@ df_recent = data[format(data$datetime, '%Y') %in% c(last_year, this_year), ]
 keys <- c("project_id", "site_id", "date_time", "duration", "variable")
 
 # Update data and metadata if any values have changed
-if (any(data != df_recent)){
+if (any(data != df_recent, na.rm = TRUE)){
   new_data <- new_data %>%
     anti_join(data, by = keys) %>%
     bind_rows(data)

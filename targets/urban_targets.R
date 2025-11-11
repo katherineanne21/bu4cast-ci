@@ -59,8 +59,8 @@ for (i in seq_along(county_codes)){
   # Download last year's data
   url = paste0(
     'https://aqs.epa.gov/data/api/sampleData/byCounty?',
-    'email=', email,
-    '&key=', key,
+    'email=', Sys.getenv("EPA_EMAIL"),
+    '&key=', Sys.getenv("EPA_KEY"),
     '&param=', paste(pollutant_codes, collapse = ','),
     '&bdate=', last_year, '0101',
     '&edate=', last_year, '1231',
@@ -89,8 +89,8 @@ for (i in seq_along(county_codes)){
   # Download this year's data
   url = paste0(
     'https://aqs.epa.gov/data/api/sampleData/byCounty?',
-    'email=', email,
-    '&key=', key,
+    'email=', Sys.getenv("EPA_EMAIL"),
+    '&key=', Sys.getenv("EPA_KEY"),
     '&param=', paste(pollutant_codes, collapse = ','),
     '&bdate=', format(Sys.Date(), '%Y'), '0101',
     '&edate=', today,

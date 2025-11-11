@@ -15,7 +15,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 # Create file name/folder
 challenge_name = 'urban'
 filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv.gz")
+                 "-targets.csv.gz", sep = "")
 
 # Read in old data
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
@@ -206,7 +206,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 # Create file name/folder
 challenge_name = 'urban'
 filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv.gz")
+                 "-targets.csv.gz", sep = "")
 
 # Write to S3 bucket
 # Change data if you changed the name of the cleaned data in the script

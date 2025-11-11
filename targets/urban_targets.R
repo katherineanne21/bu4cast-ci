@@ -2,6 +2,7 @@
 ## Created: 10/20/2025
 
 library(dplyr)
+library(arrow)
 
 ## Step 0: Reload data for appending
 
@@ -18,13 +19,16 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
                  "-targets.csv.gz", sep = "")
 
 # Read in old data
-is_gz <- tryCatch({
-  con <- gzfile(filename, "rb")
-  readBin(con, "raw", n = 2)  # try reading first 2 bytes
-  close(con)
-  TRUE
-}, error = function(e) FALSE)
+# Get the full path from your existing logic
+path <- s3_read$path(filename)
 
+# Open a raw input stream to just the first few bytes
+stream <- arrow::ReadableFile$create(path)
+header <- stream$Read(2)
+stream$Close()
+
+# gzip files always start with bytes 1f 8b
+is_gz <- identical(as.integer(header), c(0x1f, 0x8b))
 print(is_gz)
 
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))

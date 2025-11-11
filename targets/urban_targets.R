@@ -23,25 +23,9 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
-# Get the full path from your existing logic
-path <- s3_read$path(filename)
-print(path)
-
-# Open a raw input stream to just the first few bytes
-stream <- arrow::ReadableFile$create(path)
-header <- stream$Read(2)
-stream$Close()
-
-# gzip files always start with bytes 1f 8b
-is_gz <- identical(as.integer(header), c(0x1f, 0x8b))
-print(is_gz)
-
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
 
 ## Step 1: Download Data (last year and this year)
-# If you need a key to access the data, create a secret key
-# Github Repo -> Settings -> Secrets and Variables -> Actions -> New Repository Secret
-# Access the variable (i.e MY_VAR) in your script using Sys.getenv("MY_VAR")
 
 # Copy old data to new dataframe
 new_data = old_data

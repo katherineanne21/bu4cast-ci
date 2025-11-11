@@ -22,10 +22,10 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
 
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
-print(paste("s3 path:", s3_read$path(filename)))
 
 # Get the full path from your existing logic
 path <- s3_read$path(filename)
+print(path)
 
 # Open a raw input stream to just the first few bytes
 stream <- arrow::ReadableFile$create(path)

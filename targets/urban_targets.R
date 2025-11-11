@@ -197,7 +197,7 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 
 # Grab last year and this years data
 this_year = as.numeric(format(Sys.Date(), '%Y'))
-df_recent = df[format(df$date, '%Y') %in% c(last_year, this_year), ]
+df_recent = data[format(data$date, '%Y') %in% c(last_year, this_year), ]
 
 # Create a list of the primary keys columns
 keys <- c("project_id", "site_id", "date_time", "duration", "variable")

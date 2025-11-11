@@ -4,6 +4,9 @@
 library(dplyr)
 library(arrow)
 library(httr)
+library(jsonlite)
+library(lubridate)
+library(RCurl)
 
 ## Step 0: Reload data for appending
 

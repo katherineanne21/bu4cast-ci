@@ -18,4 +18,4 @@ jobs:
     steps:
       - name: Run Urban Targets Script
         run: |
-          Rscript urban_targets.R
+          Rscript targets/urban_targets.R

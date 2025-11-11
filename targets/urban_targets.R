@@ -24,6 +24,7 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
 
 # Read in old data
 
+# Write out file and challenge name for debugging
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
@@ -41,12 +42,16 @@ last_year = as.numeric(format(Sys.Date(), '%Y')) - 1
 today = format(Sys.Date(), '%Y%m%d')
 
 # Parameter codes
-pollutant_codes = list('88101', '81102', '44201', '42602')
-pollutant_names = list('PM2.5', 'PM10', 'O3', 'NO2')
+pollutant_codes = c('88101', '81102', '44201', '42602')
+pollutant_names = c('PM2.5', 'PM10', 'O3', 'NO2')
 
 # County Codes
-county_codes = list('025', '009', '021')
-county_names = list('Suffolk', 'Essex', 'Norfolk')
+county_codes = c('025', '009', '021')
+county_names = c('Suffolk', 'Essex', 'Norfolk')
+
+# Write out parameter codes for debugging
+print(paste0('Pollutant Codes: ', paste(pollutant_codes, collapse = ', ')))
+print(paste0('Pollutant Names: ', paste(pollutant_names, collapse = ', ')))
 
 # Create an empty df
 updated_data = data.frame()
@@ -85,6 +90,8 @@ for (i in seq_along(county_codes)){
     
     # Set false to not flag
     FALSE
+
+    print(paste0('Processing ', last_year,' data'))
   }, error = function(e) {
     message(paste0('Error for ', last_year, ': ', e$message))
     
@@ -115,6 +122,8 @@ for (i in seq_along(county_codes)){
     
     # Set false to not flag
     FALSE
+
+    print(paste0('Processing ', format(Sys.Date(), '%Y'),' data'))
   }, error = function(e) {
     message(paste0('Error for ', format(Sys.Date(), '%Y'), ': ', e$message))
     
@@ -126,6 +135,12 @@ for (i in seq_along(county_codes)){
 
   # Let sleep after each county to prevent high influx of requests
   Sys.sleep(10)
+}
+
+# Stop if no new data downloaded
+if (nrow(updated_data) == 0) {
+  message("No new data downloaded. Stopping script.")
+  stop("Exiting script because updated_data is empty.")
 }
 
 ## Step 2: Organize

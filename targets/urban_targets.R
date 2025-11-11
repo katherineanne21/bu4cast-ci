@@ -18,6 +18,15 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
                  "-targets.csv.gz", sep = "")
 
 # Read in old data
+is_gz <- tryCatch({
+  con <- gzfile(filename, "rb")
+  readBin(con, "raw", n = 2)  # try reading first 2 bytes
+  close(con)
+  TRUE
+}, error = function(e) FALSE)
+
+print(is_gz)
+
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
 
 ## Step 1: Download Data (last year and this year)

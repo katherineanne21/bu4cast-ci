@@ -19,6 +19,11 @@ filename = paste("challenges/targets/project_id=bu4cast", challenge_name,
                  "-targets.csv.gz", sep = "")
 
 # Read in old data
+
+print(paste("challenge_name:", challenge_name))
+print(paste("filename:", filename))
+print(paste("s3 path:", s3_read$path(filename)))
+
 # Get the full path from your existing logic
 path <- s3_read$path(filename)
 

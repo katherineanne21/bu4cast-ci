@@ -3,6 +3,7 @@
 
 library(dplyr)
 library(arrow)
+library(httr)
 
 ## Step 0: Reload data for appending
 

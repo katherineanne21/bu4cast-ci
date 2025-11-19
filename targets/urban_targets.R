@@ -228,7 +228,7 @@ metadata_file_filename = paste("challenges/targets/project_id=bu4cast/", challen
 arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
 
 tmp_file <- tempfile(fileext = ".txt")
-writeLines(metadata_text, con = tmp_file)
+writeLines(metadata_text, tmp_file)
 arrow::copy_files(tmp_file, s3_read$path(metadata_file_filename))
 
 ## Step 4: Clean Up and Health Check

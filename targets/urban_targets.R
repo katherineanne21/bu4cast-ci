@@ -216,7 +216,6 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
                             scheme = "https")
 
 # Write to S3 bucket
-# Change data if you changed the name of the cleaned data in the script
 arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
 
 # Write metadata to bucket
@@ -227,9 +226,24 @@ metadata_file_filename = paste("challenges/targets/project_id=bu4cast/", challen
 
 arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
 
+# Get txt file ready
 tmp_file <- tempfile(fileext = ".txt")
 writeLines(metadata_text, tmp_file)
-arrow::copy_files(tmp_file, s3_read$path(metadata_file_filename))
+
+# Change environment for txt file
+Sys.setenv(
+  AWS_ACCESS_KEY_ID     = Sys.getenv("OSN_KEY"),
+  AWS_SECRET_ACCESS_KEY = Sys.getenv("OSN_SECRET"),
+  AWS_DEFAULT_REGION    = "us-east-1"
+)
+
+put_object(
+  file      = tmp_file,
+  object    = metadata_file_filename,
+  bucket    = "bu4cast-ci-read",
+  use_https = TRUE,
+  base_url  = "https://minio-s3.apps.shift.nerc.mghpcc.org"
+)
 
 ## Step 4: Clean Up and Health Check
 

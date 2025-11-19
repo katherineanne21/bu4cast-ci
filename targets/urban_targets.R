@@ -7,6 +7,7 @@ library(httr)
 library(jsonlite)
 library(lubridate)
 library(RCurl)
+library(aws.s3)
 source("targets/target_helper_functions.R")
 
 ## Step 0: Reload data for appending

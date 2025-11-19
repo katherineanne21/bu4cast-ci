@@ -192,7 +192,7 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
 # Update data for the past two years
-primary_keys <- c("project_id", "site_id", "date_time", "duration", "variable")
+primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
 # Debugging
 cat("Primary keys:", paste(primary_keys, collapse = ", "), "\n")

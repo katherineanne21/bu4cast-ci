@@ -194,6 +194,11 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Update data for the past two years
 primary_keys <- c("project_id", "site_id", "date_time", "duration", "variable")
 
+# Debugging
+cat("Primary keys:", paste(primary_keys, collapse = ", "), "\n")
+cat("Old data columns:", paste(names(old_data), collapse = ", "), "\n")
+cat("Data columns:", paste(names(data), collapse = ", "), "\n")
+
 new_data <- old_data %>%
   anti_join(data, by = primary_keys) %>%
   bind_rows(data)

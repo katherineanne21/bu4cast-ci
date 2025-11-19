@@ -7,7 +7,7 @@ library(httr)
 library(jsonlite)
 library(lubridate)
 library(RCurl)
-source("target_helper_functions.R")
+source("targets/target_helper_functions.R")
 
 ## Step 0: Reload data for appending
 

@@ -18,52 +18,40 @@ urban_metadata_sites <- function(data) {
               site_long = paste(unique(longitude), collapse = ", "),
               
               # PM2.5 - Daily
-              PM2.5_P1D_StartDate = as.Date(ifelse(any(parameter == "PM2.5 - Daily"),
-                                                   min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE), NA)),
-              PM2.5_P1D_EndDate = as.Date(ifelse(any(parameter == "PM2.5 - Daily"),
+              PM2.5_P1D_Updated = as.Date(ifelse(any(parameter == "PM2.5 - Daily"),
                                                  max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE), NA)),
-              PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_EndDate), FALSE,
-                                        PM2.5_P1D_EndDate >= (Sys.Date() - 180)),
+              PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_Updated), FALSE,
+                                        PM2.5_P1D_Updated >= (Sys.Date() - 180)),
               
               # PM2.5 - Hourly
-              PM2.5_P1H_StartDate = as.Date(ifelse(any(parameter == "PM2.5 - Hourly"),
-                                                   min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE), NA)),
-              PM2.5_P1H_EndDate = as.Date(ifelse(any(parameter == "PM2.5 - Hourly"),
+              PM2.5_P1H_Updated = as.Date(ifelse(any(parameter == "PM2.5 - Hourly"),
                                                  max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE), NA)),
-              PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_EndDate), FALSE,
-                                        PM2.5_P1H_EndDate >= (Sys.Date() - 180)),
+              PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_Updated), FALSE,
+                                        PM2.5_P1H_Updated >= (Sys.Date() - 180)),
               
               # PM10 - Daily
-              PM10_P1D_StartDate = as.Date(ifelse(any(parameter == "PM10 - Daily"),
-                                                  min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE), NA)),
-              PM10_P1D_EndDate = as.Date(ifelse(any(parameter == "PM10 - Daily"),
+              PM10_P1D_Updated = as.Date(ifelse(any(parameter == "PM10 - Daily"),
                                                 max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE), NA)),
-              PM10_P1D_Active = ifelse(is.na(PM10_P1D_EndDate), FALSE,
-                                       PM10_P1D_EndDate >= (Sys.Date() - 180)),
+              PM10_P1D_Active = ifelse(is.na(PM10_P1D_Updated), FALSE,
+                                       PM10_P1D_Updated >= (Sys.Date() - 180)),
               
               # PM10 - Hourly
-              PM10_P1H_StartDate = as.Date(ifelse(any(parameter == "PM10 - Hourly"),
-                                                  min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE), NA)),
-              PM10_P1H_EndDate = as.Date(ifelse(any(parameter == "PM10 - Hourly"),
+              PM10_P1H_Updated = as.Date(ifelse(any(parameter == "PM10 - Hourly"),
                                                 max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE), NA)),
-              PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
-                                       PM10_P1H_EndDate >= (Sys.Date() - 180)),
+              PM10_P1H_Active = ifelse(is.na(PM10_P1H_Updated), FALSE,
+                                       PM10_P1H_Updated >= (Sys.Date() - 180)),
               
               # NO2 - Daily
-              NO2_P1D_StartDate = as.Date(ifelse(any(parameter == "NO2 - Daily"),
-                                                 min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE), NA)),
-              NO2_P1D_EndDate = as.Date(ifelse(any(parameter == "NO2 - Daily"),
+              NO2_P1D_Updated = as.Date(ifelse(any(parameter == "NO2 - Daily"),
                                                max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE), NA)),
-              NO2_P1D_Active = ifelse(is.na(NO2_P1D_EndDate), FALSE,
-                                      NO2_P1D_EndDate >= (Sys.Date() - 180)),
+              NO2_P1D_Active = ifelse(is.na(NO2_P1D_Updated), FALSE,
+                                      NO2_P1D_Updated >= (Sys.Date() - 180)),
               
               # NO2 - Hourly
-              NO2_P1H_StartDate = as.Date(ifelse(any(parameter == "NO2 - Hourly"),
-                                                 min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE), NA)),
-              NO2_P1H_EndDate = as.Date(ifelse(any(parameter == "NO2 - Hourly"),
+              NO2_P1H_Updated = as.Date(ifelse(any(parameter == "NO2 - Hourly"),
                                                max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE), NA)),
-              NO2_P1H_Active = ifelse(is.na(NO2_P1H_EndDate), FALSE,
-                                      NO2_P1H_EndDate >= (Sys.Date() - 180))
+              NO2_P1H_Active = ifelse(is.na(NO2_P1H_Updated), FALSE,
+                                      NO2_P1H_Updated >= (Sys.Date() - 180))
             )
   
   return(metadata_df)
@@ -73,8 +61,7 @@ urban_metadata_sites <- function(data) {
 urban_metadata_pollutant <- function(data) {
   metadata_df <- data %>%
     group_by(parameter) %>%
-    summarise(start_year = min(lubridate::year(date_local)),
-              units_of_measure = paste(unique(units_of_measure), collapse = ", "))
+    summarise(units_of_measure = paste(unique(units_of_measure), collapse = ", "))
   
   return(metadata_df)
 }
@@ -94,11 +81,11 @@ create_urban_metadata <- function(data) {
     "",
     "Here is the url to download a csv containing all current information about the",
     "sites that are currently being downloaded. This includes the site lat/long,",
-    "which pollutants are active, and the start/end date of each pollutant.",
+    "which pollutants are active, and the most recent data of each pollutant.",
     site_metadata_url,
     "",
-    "Below you will find the metadata for each pollutant. This contains the start",
-    "year and units for each pollutant at each time scale.",
+    "Below you will find the metadata for each pollutant. This contains the units",
+    "for each pollutant at each time scale.",
     "",
     paste(capture.output(write.table(pollutant_metadata, sep = "\t",
                                      row.names = FALSE, quote = FALSE)))

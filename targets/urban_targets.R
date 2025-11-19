@@ -234,8 +234,7 @@ writeLines(metadata_text, tmp_file)
 # Change environment for txt file
 Sys.setenv(
   AWS_ACCESS_KEY_ID     = Sys.getenv("OSN_KEY"),
-  AWS_SECRET_ACCESS_KEY = Sys.getenv("OSN_SECRET"),
-  AWS_DEFAULT_REGION    = "us-east-1"
+  AWS_SECRET_ACCESS_KEY = Sys.getenv("OSN_SECRET")
 )
 
 put_object(

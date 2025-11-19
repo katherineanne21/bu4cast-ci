@@ -7,6 +7,7 @@ library(httr)
 library(jsonlite)
 library(lubridate)
 library(RCurl)
+source("target_helper_functions.R")
 
 ## Step 0: Reload data for appending
 
@@ -31,9 +32,6 @@ print(paste("filename:", filename))
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
 
 ## Step 1: Download Data (last year and this year)
-
-# Copy old data to new dataframe
-new_data = old_data
 
 # Set variables for date, counties, and parameters
 
@@ -170,17 +168,16 @@ copy_updated_data <- copy_updated_data %>%
     TRUE ~ parameter
   ))
 
-metadata_df <- copy_updated_data %>%
-  group_by(parameter) %>%
-  summarise(start_year = min(lubridate::year(date_local)),
-            units_of_measure = paste(unique(units_of_measure), collapse = ", ")) 
-
-# Select data
 copy_updated_data$state_county_site = paste(copy_updated_data$state_code,
                                             copy_updated_data$county_code,
                                             copy_updated_data$site_number,
                                       sep = '-')
 
+# Create metadata
+site_metadata_df = urban_metadata_sites(copy_updated_data)
+metadata_text = create_urban_metadata(copy_updated_data)
+
+# Select data
 data = copy_updated_data[, c('state_county_site', 'date_local', 'sample_duration',
                        'parameter', 'sample_measurement')]
 
@@ -194,24 +191,12 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
+# Update data for the past two years
+primary_keys <- c("project_id", "site_id", "date_time", "duration", "variable")
 
-# Grab last year and this years data
-this_year = as.numeric(format(Sys.Date(), '%Y'))
-df_recent = data[format(data$datetime, '%Y') %in% c(last_year, this_year), ]
-
-# Create a list of the primary keys columns
-keys <- c("project_id", "site_id", "date_time", "duration", "variable")
-
-# Update data and metadata if any values have changed
-if (any(data != df_recent, na.rm = TRUE)){
-  new_data <- new_data %>%
-    anti_join(data, by = keys) %>%
-    bind_rows(data)
-  
-  metadata_df['last_updated'] = format(Sys.Date(), '%Y%m%d')
-} else{
-  new_data = old_data
-}
+new_data <- old_data %>%
+  anti_join(data, by = primary_keys) %>%
+  bind_rows(data)
 
 # Organize by date
 new_data = new_data[order(data$datetime), ]
@@ -228,6 +213,18 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 # Write to S3 bucket
 # Change data if you changed the name of the cleaned data in the script
 arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
+
+# Write metadata to bucket
+site_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
+                                        "-targets-metadata.csv", sep = "")
+metadata_file_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
+                             "-targets-metadata.txt", sep = "")
+
+arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
+
+tmp_file <- tempfile(fileext = ".txt")
+writeLines(metadata_text, con = tmp_file)
+arrow::copy_files(tmp_file, s3_read$path(metadata_file_filename))
 
 ## Step 4: Clean Up and Health Check
 

@@ -13,6 +13,12 @@ key <- 'goldmallard76'
 #params <- fromJSON(content(response, as = 'text'))
 #parameters = params$Data
 
+# Find site names
+#url <- paste0('https://aqs.epa.gov/data/api/list/sitesByCounty?email=', email ,'&key=', key, '&state=25&county=021')
+#response <- GET(url)
+#params <- fromJSON(content(response, as = 'text'))
+#parameters = params$Data
+
 # Parameter codes
 pollutant_codes = list('88101', '81102', '44201', '42602')
 pollutant_names = list('PM2.5', 'PM10', 'O3', 'NO2')
@@ -98,7 +104,7 @@ for (i in seq_along(county_codes)){
   Sys.sleep(30)
 }
 
-## Create metadata file
+## Organize data 
 copy_big_df <- big_df
 
 # Set date as datetime
@@ -124,18 +130,13 @@ copy_big_df <- copy_big_df %>%
     TRUE ~ parameter
   ))
 
-metadata_df <- copy_big_df %>%
-  group_by(parameter) %>%
-  summarise(start_year = min(lubridate::year(date_local)),
-            units_of_measure = paste(unique(units_of_measure), collapse = ", ")) 
-
-## Organize data 
-
 # Select data
 copy_big_df$state_county_site = paste(copy_big_df$state_code,
                                       copy_big_df$county_code,
                                       copy_big_df$site_number,
                                       sep = '-')
+
+# Select data
 
 data = copy_big_df[, c('state_county_site', 'date_local', 'sample_duration',
                        'parameter', 'sample_measurement')]
@@ -150,7 +151,7 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
-# Write to file
+# Write to files
 filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban_targets.csv.gz'
 write.csv(data, filename, row.names = FALSE)
 

@@ -6,10 +6,20 @@ library(readxl)
 
 # Prep Workspace ----------------------------------------------------------
 
+# Set Personal Folder (update to your own)
+personal_folder = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/'
+
 # Download credentials
-secret_keys = read_excel('/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/S3Bucket_Keys.xlsx', col_names = FALSE)
+
+# I currently am storing all of my secret keys in an excel file for this project
+# The README explains how to get the secret key and email for this EPA API
+
+secret_keys_filename = personal_folder + 'S3Bucket_Keys.xlsx'
+secret_keys = read_excel(secret_keys_filename, col_names = FALSE)
 email = secret_keys[[5,2]]
 key = secret_keys[[6,2]]
+
+# Testing to understand what the data looks like
 
 # Find codes for parameters
 #url <- paste0('https://aqs.epa.gov/data/api/list/parametersByClass?email=', email ,'&key=', key, '&pc=criteria')
@@ -188,6 +198,14 @@ metadata_df_latlong <- copy_big_df %>%
     PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
                              PM10_P1H_EndDate >= (Sys.Date() - 180)),
     
+    # O3
+    O3_StartDate = as.Date(ifelse(any(parameter == "O3"),
+                                        min(date_local[parameter == "O3"], na.rm = TRUE), NA)),
+    O3_EndDate = as.Date(ifelse(any(parameter == "O3"),
+                                      max(date_local[parameter == "O3"], na.rm = TRUE), NA)),
+    O3_Active = ifelse(is.na(O3_EndDate), FALSE,
+                       O3_EndDate >= (Sys.Date() - 180)),
+    
     # NO2 - Daily
     NO2_P1D_StartDate = as.Date(ifelse(any(parameter == "NO2 - Daily"),
                                        min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE), NA)),
@@ -231,13 +249,14 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Save Data ---------------------------------------------------------------
 
 # Write to files
-filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets.csv'
+filename = personal_folder + 'urban-targets.csv'
 write.csv(data, filename, row.names = FALSE)
 filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets-sites.csv'
 write.csv(metadata_df_latlong, filename, row.names = FALSE)
 filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets-units.csv'
 write.csv(metadata_df_units, filename, row.names = FALSE)
 
+# Go to README to understand how to upload to Minio Bucket
 
 # Visualize Data ----------------------------------------------------------
 
@@ -263,8 +282,7 @@ for (name in names(pollutant_list)) {
       legend.position = 'none'  
     )
   
-  plotname = paste0('/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/site_activity_', 
-                    name, '.png')
+  plotname = paste0(personal_folder, 'site_activity_', name, '.png')
   ggsave(plotname, width = 8, height = 5, dpi = 300)
 
 }

@@ -51,6 +51,14 @@ urban_metadata_sites <- function(combined_data) {
               PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
                                        PM10_P1H_EndDate >= (Sys.Date() - 180)),
               
+              # O3
+              O3_StartDate = as.Date(ifelse(any(variable == "O3"),
+                                            min(datetime[variable == "O3"], na.rm = TRUE), NA)),
+              O3_EndDate = as.Date(ifelse(any(variable == "O3"),
+                                          max(datetime[variable == "O3"], na.rm = TRUE), NA)),
+              O3_Active = ifelse(is.na(O3_EndDate), FALSE,
+                                 O3_EndDate >= (Sys.Date() - 180)),
+              
               # NO2 - Daily
               NO2_P1D_StartDate = as.Date(ifelse(any(variable == "NO2 - Daily"),
                                                  min(datetime[variable == "NO2 - Daily"], na.rm = TRUE), NA)),

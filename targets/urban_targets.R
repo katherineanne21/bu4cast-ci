@@ -10,7 +10,8 @@ library(RCurl)
 library(aws.s3)
 source("targets/target_helper_functions.R")
 
-## Step 0: Reload data for appending
+
+# Step 0: Reload data for appending ---------------------------------------
 
 # Set Up Connection
 s3_read <- arrow::s3_bucket('bu4cast-ci-read',
@@ -32,7 +33,8 @@ print(paste("filename:", filename))
 
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
 
-## Step 1: Download Data (last year and this year)
+
+# Step 1: Download Data (last year and this year) -------------------------
 
 # Set variables for date, counties, and parameters
 
@@ -142,7 +144,8 @@ if (nrow(updated_data) == 0) {
   stop("Exiting script because updated_data is empty.")
 }
 
-## Step 2: Organize
+
+# Step 2: Organize -----------------------------------------------------
 
 copy_updated_data = updated_data
 
@@ -174,10 +177,6 @@ copy_updated_data$state_county_site = paste(copy_updated_data$state_code,
                                             copy_updated_data$site_number,
                                       sep = '-')
 
-# Create metadata
-site_metadata_df = urban_metadata_sites(copy_updated_data)
-metadata_text = create_urban_metadata(copy_updated_data)
-
 # Select data
 data = copy_updated_data[, c('state_county_site', 'date_local', 'sample_duration',
                        'parameter', 'sample_measurement')]
@@ -195,11 +194,6 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Update data for the past two years
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
-# Debugging
-cat("Primary keys:", paste(primary_keys, collapse = ", "), "\n")
-cat("Old data columns:", paste(names(old_data), collapse = ", "), "\n")
-cat("Data columns:", paste(names(data), collapse = ", "), "\n")
-
 new_data <- old_data %>%
   anti_join(data, by = primary_keys) %>%
   bind_rows(data)
@@ -207,7 +201,11 @@ new_data <- old_data %>%
 # Organize by date
 new_data = new_data[order(data$datetime), ]
 
-## Step 3: Write to S3 Bucket
+# Create metadata
+site_metadata_df = urban_metadata_sites(new_data)
+pollutant_metadata_df = (copy_updated_data)
+
+# Step 3: Write to S3 Bucket ----------------------------------------------
 
 # Set Up S3 Connection
 s3_read <- arrow::s3_bucket('bu4cast-ci-read',
@@ -221,31 +219,13 @@ arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
 
 # Write metadata to bucket
 site_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                                        "-targets-metadata.csv", sep = "")
-metadata_file_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                             "-targets-metadata.txt", sep = "")
-
+                                        "_targets_sites.csv", sep = "")
+pollutant_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
+                                  "urban_targets_units.csv", sep = "")
 arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
+arrow::write_csv_arrow(pollutant_metadata_df, sink = s3_read$path(pollutant_metadata_df_filename))
 
-# Get txt file ready
-tmp_file <- tempfile(fileext = ".txt")
-writeLines(metadata_text, tmp_file)
-
-# Change environment for txt file
-Sys.setenv(
-  AWS_ACCESS_KEY_ID     = Sys.getenv("OSN_KEY"),
-  AWS_SECRET_ACCESS_KEY = Sys.getenv("OSN_SECRET")
-)
-
-put_object(
-  file      = tmp_file,
-  object    = metadata_file_filename,
-  bucket    = "bu4cast-ci-read",
-  use_https = TRUE,
-  base_url  = "https://minio-s3.apps.shift.nerc.mghpcc.org"
-)
-
-## Step 4: Clean Up and Health Check
+# Step 4: Clean Up and Health Check ---------------------------------------
 
 # Remove file from working directory
 csv_filename = paste(challenge_name, "-targets.csv.gz")

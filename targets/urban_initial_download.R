@@ -3,6 +3,9 @@ library(jsonlite)
 library(dplyr)
 library(ggplot2)
 
+
+# Prep Workspace ----------------------------------------------------------
+
 # Download credentials
 email <- 'krein21@bu.edu'
 key <- 'goldmallard76'
@@ -35,6 +38,9 @@ current_year = as.character(current_year)
 
 # Prep dataframe
 big_df = data.frame()
+
+
+# Download Data -----------------------------------------------------------
 
 # Loop through all years and pollutants and counties
 for (i in seq_along(county_codes)){
@@ -104,7 +110,9 @@ for (i in seq_along(county_codes)){
   Sys.sleep(30)
 }
 
-## Organize data 
+
+# Organize data -----------------------------------------------------------
+
 copy_big_df <- big_df
 
 # Set date as datetime
@@ -130,15 +138,82 @@ copy_big_df <- copy_big_df %>%
     TRUE ~ parameter
   ))
 
-# Select data
-copy_big_df$state_county_site = paste(copy_big_df$state_code,
+# Update site_id
+copy_big_df$site_id = paste(copy_big_df$state_code,
                                       copy_big_df$county_code,
                                       copy_big_df$site_number,
                                       sep = '-')
 
-# Select data
 
-data = copy_big_df[, c('state_county_site', 'date_local', 'sample_duration',
+# Metadata ----------------------------------------------------------------
+
+# Create metadata of each site
+metadata_df_latlong <- copy_big_df %>%
+  group_by(site_id) %>%
+  summarise(
+    # Site Location
+    site_lat = paste(unique(latitude), collapse = ", "),
+    site_long = paste(unique(longitude), collapse = ", "),
+    
+    # PM2.5 - Daily
+    PM2.5_P1D_StartDate = as.Date(ifelse(any(parameter == "PM2.5 - Daily"),
+                                         min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE), NA)),
+    PM2.5_P1D_EndDate = as.Date(ifelse(any(parameter == "PM2.5 - Daily"),
+                                       max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE), NA)),
+    PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_EndDate), FALSE,
+                              PM2.5_P1D_EndDate >= (Sys.Date() - 180)),
+    
+    # PM2.5 - Hourly
+    PM2.5_P1H_StartDate = as.Date(ifelse(any(parameter == "PM2.5 - Hourly"),
+                                         min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE), NA)),
+    PM2.5_P1H_EndDate = as.Date(ifelse(any(parameter == "PM2.5 - Hourly"),
+                                       max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE), NA)),
+    PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_EndDate), FALSE,
+                              PM2.5_P1H_EndDate >= (Sys.Date() - 180)),
+    
+    # PM10 - Daily
+    PM10_P1D_StartDate = as.Date(ifelse(any(parameter == "PM10 - Daily"),
+                                        min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE), NA)),
+    PM10_P1D_EndDate = as.Date(ifelse(any(parameter == "PM10 - Daily"),
+                                      max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE), NA)),
+    PM10_P1D_Active = ifelse(is.na(PM10_P1D_EndDate), FALSE,
+                             PM10_P1D_EndDate >= (Sys.Date() - 180)),
+    
+    # PM10 - Hourly
+    PM10_P1H_StartDate = as.Date(ifelse(any(parameter == "PM10 - Hourly"),
+                                        min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE), NA)),
+    PM10_P1H_EndDate = as.Date(ifelse(any(parameter == "PM10 - Hourly"),
+                                      max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE), NA)),
+    PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
+                             PM10_P1H_EndDate >= (Sys.Date() - 180)),
+    
+    # NO2 - Daily
+    NO2_P1D_StartDate = as.Date(ifelse(any(parameter == "NO2 - Daily"),
+                                       min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE), NA)),
+    NO2_P1D_EndDate = as.Date(ifelse(any(parameter == "NO2 - Daily"),
+                                     max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE), NA)),
+    NO2_P1D_Active = ifelse(is.na(NO2_P1D_EndDate), FALSE,
+                            NO2_P1D_EndDate >= (Sys.Date() - 180)),
+    
+    # NO2 - Hourly
+    NO2_P1H_StartDate = as.Date(ifelse(any(parameter == "NO2 - Hourly"),
+                                       min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE), NA)),
+    NO2_P1H_EndDate = as.Date(ifelse(any(parameter == "NO2 - Hourly"),
+                                     max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE), NA)),
+    NO2_P1H_Active = ifelse(is.na(NO2_P1H_EndDate), FALSE,
+                            NO2_P1H_EndDate >= (Sys.Date() - 180))
+  )
+
+# Create metadata for each pollutant
+metadata_df_units <- copy_big_df %>%
+  group_by(parameter) %>%
+  summarise(
+    start_year = min(lubridate::year(date_local)),
+    units_of_measure = paste(unique(units_of_measure), collapse = ", "))
+
+# Prep for Saving ---------------------------------------------------------
+
+data = copy_big_df[, c('site_id', 'date_local', 'sample_duration',
                        'parameter', 'sample_measurement')]
 
 # Rename columns
@@ -151,9 +226,19 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
+
+# Save Data ---------------------------------------------------------------
+
 # Write to files
 filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban_targets.csv.gz'
 write.csv(data, filename, row.names = FALSE)
+filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban_targets_sites.csv'
+write.csv(metadata_df_latlong, filename, row.names = FALSE)
+filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban_targets_units.csv'
+write.csv(metadata_df_units, filename, row.names = FALSE)
+
+
+# Visualize Data ----------------------------------------------------------
 
 ## Showcase data timelines per pollutant
 

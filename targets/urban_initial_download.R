@@ -231,7 +231,7 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Save Data ---------------------------------------------------------------
 
 # Write to files
-filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets.csv.gz'
+filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets.csv'
 write.csv(data, filename, row.names = FALSE)
 filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets-sites.csv'
 write.csv(metadata_df_latlong, filename, row.names = FALSE)

@@ -12,7 +12,7 @@
 urban_metadata_sites <- function(combined_data) {
   
   # Read in all site lat longs
-  s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban_targets_sites.csv'
+  s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
   old_metadata_df_sites = read.csv(s3_site_metadata_url)
   
   # Create an updated site metadata df
@@ -104,7 +104,7 @@ urban_metadata_sites <- function(combined_data) {
 urban_metadata_pollutant <- function(new_data){
   
   # Read in from S3 bucket the old pollutant metadata
-  s3_units_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban_targets_units.csv'
+  s3_units_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-units.csv'
   old_metadata_df_units = read.csv(s3_units_metadata_url)
   
   # Create new metadata df

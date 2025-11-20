@@ -124,7 +124,7 @@ urban_metadata_pollutant <- function(new_data){
   
   # Select parameter column
   metadata_df <- merged %>% 
-    select(parameter) %>% 
+    select(parameter, start_year) %>% 
     mutate(units_of_measure = NA_character_)
   
   # Cycle through each row and identify new comma seperated list of units

@@ -203,7 +203,7 @@ new_data = new_data[order(data$datetime), ]
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(new_data)
-pollutant_metadata_df = (copy_updated_data)
+pollutant_metadata_df = urban_metadata_pollutant(copy_updated_data)
 
 # Step 3: Write to S3 Bucket ----------------------------------------------
 

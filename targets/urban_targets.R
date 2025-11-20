@@ -221,7 +221,7 @@ arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
 site_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
                                         "_targets_sites.csv", sep = "")
 pollutant_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                                  "urban_targets_units.csv", sep = "")
+                                  "_targets_units.csv", sep = "")
 arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
 arrow::write_csv_arrow(pollutant_metadata_df, sink = s3_read$path(pollutant_metadata_df_filename))
 

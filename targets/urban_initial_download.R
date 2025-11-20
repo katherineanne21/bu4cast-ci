@@ -2,13 +2,14 @@ library(httr)
 library(jsonlite)
 library(dplyr)
 library(ggplot2)
-
+library(readxl)
 
 # Prep Workspace ----------------------------------------------------------
 
 # Download credentials
-email <- 'krein21@bu.edu'
-key <- 'goldmallard76'
+secret_keys = read_excel('/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/S3Bucket_Keys.xlsx', col_names = FALSE)
+email = secret_keys[[5,2]]
+key = secret_keys[[6,2]]
 
 # Find codes for parameters
 #url <- paste0('https://aqs.epa.gov/data/api/list/parametersByClass?email=', email ,'&key=', key, '&pc=criteria')

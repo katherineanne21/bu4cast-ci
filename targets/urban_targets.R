@@ -23,7 +23,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 # Create file name/folder
 challenge_name = 'urban'
 filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv.gz", sep = "")
+                 "-targets.csv", sep = "")
 
 # Read in old data
 
@@ -228,7 +228,7 @@ arrow::write_csv_arrow(pollutant_metadata_df, sink = s3_read$path(pollutant_meta
 # Step 4: Clean Up and Health Check ---------------------------------------
 
 # Remove file from working directory
-csv_filename = paste(challenge_name, "-targets.csv.gz")
+csv_filename = paste(challenge_name, "-targets.csv")
 unlink(csv_filename)
 
 # Health Check

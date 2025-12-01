@@ -14,7 +14,7 @@ personal_folder = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/'
 # I currently am storing all of my secret keys in an excel file for this project
 # The README explains how to get the secret key and email for this EPA API
 
-secret_keys_filename = personal_folder + 'S3Bucket_Keys.xlsx'
+secret_keys_filename = paste0(personal_folder, 'S3Bucket_Keys.xlsx')
 secret_keys = read_excel(secret_keys_filename, col_names = FALSE)
 email = secret_keys[[5,2]]
 key = secret_keys[[6,2]]
@@ -249,11 +249,11 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Save Data ---------------------------------------------------------------
 
 # Write to files
-filename = personal_folder + 'urban-targets.csv'
+filename = paste0(personal_folder, 'urban-targets.csv')
 write.csv(data, filename, row.names = FALSE)
-filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets-sites.csv'
+filename = paste0(personal_folder, 'urban-targets-sites.csv')
 write.csv(metadata_df_latlong, filename, row.names = FALSE)
-filename = '/Users/katherineanne/Desktop/BU Work/Dietze/Dietze_Work/urban-targets-units.csv'
+filename = paste0(personal_folder, 'urban-targets-units.csv')
 write.csv(metadata_df_units, filename, row.names = FALSE)
 
 # Go to README to understand how to upload to Minio Bucket

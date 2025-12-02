@@ -19,75 +19,75 @@ urban_metadata_sites <- function(combined_data) {
   new_metadata_df_sites <- combined_data %>%
     group_by(site_id) %>%
     summarise(
-          # PM2.5 - Daily
-          PM2.5_P1D_StartDate = ifelse(any(variable == "PM2.5 - Daily"),
-                                       min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE),
-                                       NA_Date_),
-          PM2.5_P1D_EndDate = ifelse(any(variable == "PM2.5 - Daily"),
-                                     max(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE),
-                                     NA_Date_),
-          PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_EndDate), FALSE,
-                                    PM2.5_P1D_EndDate >= (Sys.Date() - 180)),
-          
-          # PM2.5 - Hourly
-          PM2.5_P1H_StartDate = ifelse(any(variable == "PM2.5 - Hourly"),
-                                       min(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE),
-                                       NA_Date_),
-          PM2.5_P1H_EndDate = ifelse(any(variable == "PM2.5 - Hourly"),
-                                     max(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE),
-                                     NA_Date_),
-          PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_EndDate), FALSE,
-                                    PM2.5_P1H_EndDate >= (Sys.Date() - 180)),
-          
-          # PM10 - Daily
-          PM10_P1D_StartDate = ifelse(any(variable == "PM10 - Daily"),
-                                      min(datetime[variable == "PM10 - Daily"], na.rm = TRUE),
-                                      NA_Date_),
-          PM10_P1D_EndDate = ifelse(any(variable == "PM10 - Daily"),
-                                    max(datetime[variable == "PM10 - Daily"], na.rm = TRUE),
-                                    NA_Date_),
-          PM10_P1D_Active = ifelse(is.na(PM10_P1D_EndDate), FALSE,
-                                   PM10_P1D_EndDate >= (Sys.Date() - 180)),
-          
-          # PM10 - Hourly
-          PM10_P1H_StartDate = ifelse(any(variable == "PM10 - Hourly"),
-                                      min(datetime[variable == "PM10 - Hourly"], na.rm = TRUE),
-                                      NA_Date_),
-          PM10_P1H_EndDate = ifelse(any(variable == "PM10 - Hourly"),
-                                    max(datetime[variable == "PM10 - Hourly"], na.rm = TRUE),
-                                    NA_Date_),
-          PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
-                                   PM10_P1H_EndDate >= (Sys.Date() - 180)),
-          
-          # O3
-          O3_StartDate = ifelse(any(variable == "O3"),
-                                min(datetime[variable == "O3"], na.rm = TRUE),
-                                NA_Date_),
-          O3_EndDate = ifelse(any(variable == "O3"),
-                              max(datetime[variable == "O3"], na.rm = TRUE),
-                              NA_Date_),
-          O3_Active = ifelse(is.na(O3_EndDate), FALSE,
-                             O3_EndDate >= (Sys.Date() - 180)),
-          
-          # NO2 - Daily
-          NO2_P1D_StartDate = ifelse(any(variable == "NO2 - Daily"),
-                                     min(datetime[variable == "NO2 - Daily"], na.rm = TRUE),
-                                     NA_Date_),
-          NO2_P1D_EndDate = ifelse(any(variable == "NO2 - Daily"),
-                                   max(datetime[variable == "NO2 - Daily"], na.rm = TRUE),
-                                   NA_Date_),
-          NO2_P1D_Active = ifelse(is.na(NO2_P1D_EndDate), FALSE,
-                                  NO2_P1D_EndDate >= (Sys.Date() - 180)),
-          
-          # NO2 - Hourly
-          NO2_P1H_StartDate = ifelse(any(variable == "NO2 - Hourly"),
-                                     min(datetime[variable == "NO2 - Hourly"], na.rm = TRUE),
-                                     NA_Date_),
-          NO2_P1H_EndDate = ifelse(any(variable == "NO2 - Hourly"),
-                                   max(datetime[variable == "NO2 - Hourly"], na.rm = TRUE),
-                                   NA_Date_),
-          NO2_P1H_Active = ifelse(is.na(NO2_P1H_EndDate), FALSE,
-                                  NO2_P1H_EndDate >= (Sys.Date() - 180))
+      # PM2.5 - Daily
+      PM2.5_P1D_StartDate = as.Date(ifelse(any(variable == "PM2.5 - Daily"),
+                                           min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE), 
+                                           as.Date(NA))),
+      PM2.5_P1D_EndDate = as.Date(ifelse(any(variable == "PM2.5 - Daily"),
+                                         max(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE), 
+                                         as.Date(NA))),
+      PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_EndDate), FALSE,
+                                PM2.5_P1D_EndDate >= (Sys.Date() - 180)),
+      
+      # PM2.5 - Hourly
+      PM2.5_P1H_StartDate = as.Date(ifelse(any(variable == "PM2.5 - Hourly"),
+                                           min(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE), 
+                                           as.Date(NA))),
+      PM2.5_P1H_EndDate = as.Date(ifelse(any(variable == "PM2.5 - Hourly"),
+                                         max(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE), 
+                                         as.Date(NA))),
+      PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_EndDate), FALSE,
+                                PM2.5_P1H_EndDate >= (Sys.Date() - 180)),
+      
+      # PM10 - Daily
+      PM10_P1D_StartDate = as.Date(ifelse(any(variable == "PM10 - Daily"),
+                                          min(datetime[variable == "PM10 - Daily"], na.rm = TRUE), 
+                                          as.Date(NA))),
+      PM10_P1D_EndDate = as.Date(ifelse(any(variable == "PM10 - Daily"),
+                                        max(datetime[variable == "PM10 - Daily"], na.rm = TRUE), 
+                                        as.Date(NA))),
+      PM10_P1D_Active = ifelse(is.na(PM10_P1D_EndDate), FALSE,
+                               PM10_P1D_EndDate >= (Sys.Date() - 180)),
+      
+      # PM10 - Hourly
+      PM10_P1H_StartDate = as.Date(ifelse(any(variable == "PM10 - Hourly"),
+                                          min(datetime[variable == "PM10 - Hourly"], na.rm = TRUE), 
+                                          as.Date(NA))),
+      PM10_P1H_EndDate = as.Date(ifelse(any(variable == "PM10 - Hourly"),
+                                        max(datetime[variable == "PM10 - Hourly"], na.rm = TRUE), 
+                                        as.Date(NA))),
+      PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
+                               PM10_P1H_EndDate >= (Sys.Date() - 180)),
+      
+      # O3
+      O3_StartDate = as.Date(ifelse(any(variable == "O3"),
+                                    min(datetime[variable == "O3"], na.rm = TRUE), 
+                                    as.Date(NA))),
+      O3_EndDate = as.Date(ifelse(any(variable == "O3"),
+                                  max(datetime[variable == "O3"], na.rm = TRUE), 
+                                  as.Date(NA))),
+      O3_Active = ifelse(is.na(O3_EndDate), FALSE,
+                         O3_EndDate >= (Sys.Date() - 180)),
+      
+      # NO2 - Daily
+      NO2_P1D_StartDate = as.Date(ifelse(any(variable == "NO2 - Daily"),
+                                         min(datetime[variable == "NO2 - Daily"], na.rm = TRUE), 
+                                         as.Date(NA))),
+      NO2_P1D_EndDate = as.Date(ifelse(any(variable == "NO2 - Daily"),
+                                       max(datetime[variable == "NO2 - Daily"], na.rm = TRUE), 
+                                       as.Date(NA))),
+      NO2_P1D_Active = ifelse(is.na(NO2_P1D_EndDate), FALSE,
+                              NO2_P1D_EndDate >= (Sys.Date() - 180)),
+      
+      # NO2 - Hourly
+      NO2_P1H_StartDate = as.Date(ifelse(any(variable == "NO2 - Hourly"),
+                                         min(datetime[variable == "NO2 - Hourly"], na.rm = TRUE), 
+                                         as.Date(NA))),
+      NO2_P1H_EndDate = as.Date(ifelse(any(variable == "NO2 - Hourly"),
+                                       max(datetime[variable == "NO2 - Hourly"], na.rm = TRUE), 
+                                       as.Date(NA))),
+      NO2_P1H_Active = ifelse(is.na(NO2_P1H_EndDate), FALSE,
+                              NO2_P1H_EndDate >= (Sys.Date() - 180))
     )
   
   # Update the dates and active columns

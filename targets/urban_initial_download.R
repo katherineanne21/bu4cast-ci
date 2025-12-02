@@ -103,17 +103,65 @@ for (i in seq_along(county_codes)){
       # Set false to not flag
       FALSE
     }, error = function(e) {
-      message(paste0('Error for ', year, ' ', pol_name, ': ', e$message))
+      message(paste0('Error for ', year, ': ', e$message))
       
-      # Set True for error flag
-      TRUE
+      message('Retrying as two smaller requests...')
+      
+      temp_df <- data.frame()
+      
+      # First Half (Jan–Jun) 
+      url_1st = paste0(
+        'https://aqs.epa.gov/data/api/sampleData/byCounty?',
+        'email=', email,
+        '&key=', key,
+        '&param=', paste(pollutant_codes, collapse = ','),
+        '&bdate=', year, '0101',
+        '&edate=', year, '0630',
+        '&state=25',
+        '&county=', county_code
+      )
+      
+      # Second Half (Jul–Dec)
+      url_2nd = paste0(
+        'https://aqs.epa.gov/data/api/sampleData/byCounty?',
+        'email=', email,
+        '&key=', key,
+        '&param=', paste(pollutant_codes, collapse = ','),
+        '&bdate=', year, '0701',
+        '&edate=', year, '1231',
+        '&state=25',
+        '&county=', county_code
+      )
+      
+      tryCatch({
+        # First half
+        resp1 = GET(url_1st, timeout(300))
+        dat1  = fromJSON(content(resp1, 'text'))$Data
+        
+        # Second half
+        Sys.sleep(10)  # avoid rate limit
+        resp2 = GET(url_2nd, timeout(300))
+        dat2  = fromJSON(content(resp2, 'text'))$Data
+        
+        # Combine
+        temp_df <<- rbind(dat1, dat2)
+        big_df  <<- rbind(big_df, temp_df)
+        
+        FALSE  # success after fallback
+      }, error = function(e2) {
+        message(paste0('Fallback error for ', year, ': ', e2$message))
+        
+        TRUE  # still failed
+      })
     })
     if (flag) next
     
     if (length(temp_df) > 0){
+      
       print(paste0('Processing ', year, ' data...'))
+      
       # Sleep for 7 seconds to prevent more than 10 requests per minute
-      Sys.sleep(7)
+      Sys.sleep(15)
     }
   }
   
@@ -169,70 +217,70 @@ metadata_df_latlong <- copy_big_df %>%
     # PM2.5 - Daily
     PM2.5_P1D_StartDate = ifelse(any(parameter == "PM2.5 - Daily"),
                                  min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE),
-                                 NA_Date_),
+                                 as.Date(NA)),
     PM2.5_P1D_EndDate = ifelse(any(parameter == "PM2.5 - Daily"),
                                max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE),
-                               NA_Date_),
+                               as.Date(NA)),
     PM2.5_P1D_Active = ifelse(is.na(PM2.5_P1D_EndDate), FALSE,
                               PM2.5_P1D_EndDate >= (Sys.Date() - 180)),
     
     # PM2.5 - Hourly
     PM2.5_P1H_StartDate = ifelse(any(parameter == "PM2.5 - Hourly"),
                                  min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE),
-                                 NA_Date_),
+                                 as.Date(NA)),
     PM2.5_P1H_EndDate = ifelse(any(parameter == "PM2.5 - Hourly"),
                                max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE),
-                               NA_Date_),
+                               as.Date(NA)),
     PM2.5_P1H_Active = ifelse(is.na(PM2.5_P1H_EndDate), FALSE,
                               PM2.5_P1H_EndDate >= (Sys.Date() - 180)),
     
     # PM10 - Daily
     PM10_P1D_StartDate = ifelse(any(parameter == "PM10 - Daily"),
                                 min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE),
-                                NA_Date_),
+                                as.Date(NA)),
     PM10_P1D_EndDate = ifelse(any(parameter == "PM10 - Daily"),
                               max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE),
-                              NA_Date_),
+                              as.Date(NA)),
     PM10_P1D_Active = ifelse(is.na(PM10_P1D_EndDate), FALSE,
                              PM10_P1D_EndDate >= (Sys.Date() - 180)),
     
     # PM10 - Hourly
     PM10_P1H_StartDate = ifelse(any(parameter == "PM10 - Hourly"),
                                 min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE),
-                                NA_Date_),
+                                as.Date(NA)),
     PM10_P1H_EndDate = ifelse(any(parameter == "PM10 - Hourly"),
                               max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE),
-                              NA_Date_),
+                              as.Date(NA)),
     PM10_P1H_Active = ifelse(is.na(PM10_P1H_EndDate), FALSE,
                              PM10_P1H_EndDate >= (Sys.Date() - 180)),
     
     # O3
     O3_StartDate = ifelse(any(parameter == "O3"),
                           min(date_local[parameter == "O3"], na.rm = TRUE),
-                          NA_Date_),
+                          as.Date(NA)),
     O3_EndDate = ifelse(any(parameter == "O3"),
                         max(date_local[parameter == "O3"], na.rm = TRUE),
-                        NA_Date_),
+                        as.Date(NA)),
     O3_Active = ifelse(is.na(O3_EndDate), FALSE,
                        O3_EndDate >= (Sys.Date() - 180)),
     
     # NO2 - Daily
     NO2_P1D_StartDate = ifelse(any(parameter == "NO2 - Daily"),
                                min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE),
-                               NA_Date_),
+                               as.Date(NA)),
     NO2_P1D_EndDate = ifelse(any(parameter == "NO2 - Daily"),
                              max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE),
-                             NA_Date_),
+                             as.Date(NA)),
     NO2_P1D_Active = ifelse(is.na(NO2_P1D_EndDate), FALSE,
                             NO2_P1D_EndDate >= (Sys.Date() - 180)),
     
     # NO2 - Hourly
     NO2_P1H_StartDate = ifelse(any(parameter == "NO2 - Hourly"),
                                min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE),
-                               NA_Date_),
+                               as.Date(NA)),
     NO2_P1H_EndDate = ifelse(any(parameter == "NO2 - Hourly"),
                              max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE),
-                             NA_Date_),
+                             as.Date(NA)),
     NO2_P1H_Active = ifelse(is.na(NO2_P1H_EndDate), FALSE,
                             NO2_P1H_EndDate >= (Sys.Date() - 180))
   )

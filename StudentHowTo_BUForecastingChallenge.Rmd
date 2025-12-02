@@ -1,0 +1,161 @@
+---
+title: "Student How To Guide - BU Forecasting Challenge"
+author: "Katherine Rein"
+output: html_document
+---
+
+
+Welcome to the How To Guide for the BU Forecasting Challenge.
+Here you will see a framework for the basic aspects of the challenge.
+Each step will have an R and a Python code block -- which is which is labeled in {} brackets.
+
+## Setting Up the Environment
+
+```{r}
+library(readr)
+library(httr)
+```
+
+If you would like to use Python, then you have to have a Python environment set up.
+
+1. Go to https://www.anaconda.com/download and scroll down to Miniconda Installers.
+Download the correct installer for your computer. Complete the installation steps.
+
+2. Download the following yaml file: https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/dataclass_env.yaml
+
+3. Open a Terminal (macOS) or Anaconda Prompt (Windows) window.
+
+4. Run the following commands:
+
+conda env create -f dataclass_env.yml
+conda activate dataclass
+
+Now you can run the following code blocks:
+
+```{r}
+# Activate Python Environment
+library(reticulate)
+use_condaenv("dataclass", required = TRUE)
+```
+
+This will create an error but don't worry you didn't do anything wrong.
+
+```{python}
+# Import modules
+import pandas as pd
+import requests
+from datetime import date
+```
+
+
+## S3 Minio Buckets - Read
+
+First things first, you need to understand how and where the raw data is stored.
+All of the data for each challenge is stored in  a targets file in a
+place called an S3 Minio bucket. Minio is simply the kind of S3 bucket. S3 buckets
+are a storage system similar to how you might store files in Google Drive. Just like
+any other file storage system, there is a file path to the data. 
+
+We will test reading to the S3 Bucket with the urban targets data.
+
+```{r} 
+urban_url_read = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+
+test_read_urban = read.csv(urban_url_read)
+print(test_read_urban)
+```
+
+```{python}
+urban_url_read = "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv"
+
+test_read_urban = pd.read_csv(urban_url_read)
+print(test_read_urban)
+```
+
+
+## S3 Minio Buckets - Write
+
+After you have the forecast written and ready to go, you need to submit it. 
+
+```{r}
+## This is where you will actually upload it
+
+challenge_name_example = 'urban'
+team_name_example = 'KAIYA'
+urban_url_write = paste("https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/forecasts/project_id=bu4cast/", challenge_name_example, "/", team_name_example, "-submission.csv", sep = "")
+
+## This is where we are going to test that the upload works
+
+# Type your name and class (ie EE585)
+# DO NOT INCLUDE SPACES
+your_name = 'KatherineRein'
+your_class = 'EE585'
+today = Sys.Date()
+
+test_url = paste("https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/testing/r-", your_class, "-", your_name, "-", today, '.csv', sep = "")
+
+# Create test data
+test_data <- data.frame(
+  name = your_name,
+  class = your_class,
+  date = as.character(today)   # ensure string
+)
+
+# Convert to CSV bytes
+csv_raw <- charToRaw(
+  paste(
+    paste(names(test_data), collapse = ","),
+    paste(test_data, collapse = ","),
+    sep = "\n"
+  )
+)
+
+# Upload to Minio Bucket
+resp <- httr::PUT(
+  url = test_url,
+  body = csv_raw,
+  encode = "raw",
+  httr::add_headers(`Content-Type` = "text/csv")
+)
+
+# Print Response
+print(resp$status_code) # 200 means it worked!
+print(content(resp, "text"))
+
+```
+
+```{python}
+## This is where you will actually upload it
+
+challenge_name_example = 'urban'
+team_name_example = 'KAIYA'
+urban_url_write = f"https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/forecasts/project_id=bu4cast/{challenge_name_example}/{team_name_example}-submission.csv"
+
+## This is where we are going to test that the upload works
+
+# Type your name and class (ie EE585)
+# DO NOT INCLUDE SPACES
+your_name = 'KatherineRein'
+your_class = 'EE585'
+today = date.today()
+
+test_url = f'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/testing/python-{your_class}-{your_name}-{today}.csv'
+
+# Create test data
+test_data = pd.DataFrame({
+  'name': [your_name],
+  'class': [your_class],
+  'date': [today]
+})
+
+# Convert to CSV bytes
+csv_bytes = test_data.to_csv(index=False).encode("utf-8")
+
+# Upload to Minio Bucket
+resp = requests.put(test_url, data = csv_bytes)
+
+# Print Response
+print(resp.status_code, resp.text) # 200 means it worked!
+
+```
+

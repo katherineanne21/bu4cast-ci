@@ -352,7 +352,11 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
 
-  prt_avro <- read_avro_file(path) |>
+  df <- read_avro_file(path)
+
+  if(nrow(df) > 0){
+
+  prt_avro <- df |>
     #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
     #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
@@ -367,6 +371,10 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
     dplyr::mutate(Value = ifelse(is.na(doubleValue),
                                  intValue, doubleValue)) %>%
     dplyr::select(any_of(columns_keep))
+
+  }else{
+    prt_avro <- data.frame()
+  }
 
 
   prt_tibble <- prt_avro %>%

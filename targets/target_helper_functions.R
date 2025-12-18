@@ -9,6 +9,14 @@
   # PM2.5_P1D_StartDate
   # PM2.5_P1D_EndDate
 
+max_date <- function(a, b) {
+  as.Date(pmax(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
+min_date <- function(a, b) {
+  as.Date(pmin(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
 urban_metadata_sites <- function(combined_data) {
   
   # Read in all site lat longs
@@ -19,6 +27,10 @@ urban_metadata_sites <- function(combined_data) {
   new_metadata_df_sites <- combined_data %>%
     group_by(site_id) %>%
     summarise(
+      # Site Location
+      site_lat = paste(unique(latitude), collapse = ", "),
+      site_long = paste(unique(longitude), collapse = ", "),
+      
       # PM2.5 - Daily
       PM2.5_P1D_StartDate = if (any(variable == "PM2.5 - Daily")) {
         min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
@@ -139,34 +151,86 @@ urban_metadata_sites <- function(combined_data) {
       }
     )
   
-  
   # Update the dates and active columns
-  metadata_df <- full_join(
+  metadata_df_joined <- full_join(
     old_metadata_df_sites,
     new_metadata_df_sites,
     by = "site_id",
     suffix = c("_old", "_new")
   )
   
-  # Identify new columns that are not in the og dataset
-  new_cols = names(new_metadata_df_sites)[names(new_metadata_df_sites) != "site_id"]
-  
-  # Overwrite data when it changes
-  for (col in new_cols) {
-    old_col <- paste0(col, "_old")
-    new_col <- paste0(col, "_new")
-    
-    metadata_df[[col]] <- ifelse(
-      is.na(metadata_df[[new_col]]),
-      metadata_df[[old_col]],
-      metadata_df[[new_col]]
+  # Keep only the non null cells for each site and keep end date where there are both old and new
+  metadata_df <- metadata_df_joined %>%
+    transmute(
+      site_id,
+      
+      # Site Location
+      site_lat  = coalesce(site_lat_new, site_lat_old),
+      site_long = coalesce(site_long_new, site_long_old),
+      
+      # PM2.5 Daily
+      PM2.5_P1D_StartDate = min_date(PM2.5_P1D_StartDate_old,
+                                     PM2.5_P1D_StartDate_new),
+      
+      PM2.5_P1D_EndDate   = max_date(PM2.5_P1D_EndDate_old,
+                                     PM2.5_P1D_EndDate_new),
+      
+      PM2.5_P1D_Active = PM2.5_P1D_EndDate >= Sys.Date() - 180,
+      
+      # PM2.5 Hourly
+      PM2.5_P1H_StartDate = min_date(PM2.5_P1H_StartDate_old,
+                                     PM2.5_P1H_StartDate_new),
+      
+      PM2.5_P1H_EndDate   = max_date(PM2.5_P1H_EndDate_old,
+                                     PM2.5_P1H_EndDate_new),
+      
+      PM2.5_P1H_Active = PM2.5_P1H_EndDate >= Sys.Date() - 180,
+      
+      # PM10 Daily
+      PM10_P1D_StartDate = min_date(PM10_P1D_StartDate_old,
+                                    PM10_P1D_StartDate_new),
+      
+      PM10_P1D_EndDate   = max_date(PM10_P1D_EndDate_old,
+                                    PM10_P1D_EndDate_new),
+      
+      PM10_P1D_Active = PM10_P1D_EndDate >= Sys.Date() - 180,
+      
+      # PM10 Hourly
+      PM10_P1H_StartDate = min_date(PM10_P1H_StartDate_old,
+                                    PM10_P1H_StartDate_new),
+      
+      PM10_P1H_EndDate   = max_date(PM10_P1H_EndDate_old,
+                                    PM10_P1H_EndDate_new),
+      
+      PM10_P1H_Active = PM10_P1H_EndDate >= Sys.Date() - 180,
+      
+      # O3
+      O3_StartDate = min_date(O3_StartDate_old,
+                              O3_StartDate_new),
+      
+      O3_EndDate   = max_date(O3_EndDate_old,
+                              O3_EndDate_new),
+      
+      O3_Active = O3_EndDate >= Sys.Date() - 180,
+      
+      # NO2 Daily
+      NO2_P1D_StartDate = min_date(NO2_P1D_StartDate_old,
+                                   NO2_P1D_StartDate_new),
+      
+      NO2_P1D_EndDate   = max_date(NO2_P1D_EndDate_old,
+                                   NO2_P1D_EndDate_new),
+      
+      NO2_P1D_Active = NO2_P1D_EndDate >= Sys.Date() - 180,
+      
+      # NO2 Hourly 
+      NO2_P1H_StartDate = min_date(NO2_P1H_StartDate_old,
+                                   NO2_P1H_StartDate_new),
+      
+      NO2_P1H_EndDate   = max_date(NO2_P1H_EndDate_old,
+                                   NO2_P1H_EndDate_new),
+      
+      NO2_P1H_Active = NO2_P1H_EndDate >= Sys.Date() - 180
     )
-  }
-  
-  # Remove extra columns
-  metadata_df <- metadata_df %>%
-    select(site_id, all_of(new_cols), everything()) %>%
-    select(-ends_with("_old"), -ends_with("_new"))
   
   # Return updated df
   return(metadata_df)

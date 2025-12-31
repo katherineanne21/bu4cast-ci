@@ -83,10 +83,12 @@ bundle_me <- function(path) {
 #  stopifnot(previous_n - filtered_n == 0)
 
   ## no partition levels left so we must write to an explicit .parquet
-  bundled_dir <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
-  mc_bundled_path <- bundled_dir |> filter(!is_folder) |> pull(path)
-  stopifnot(length(mc_bundled_path) == 1)
-  bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
+  if(nrow(collect(head(old))) > 0) {
+    bundled_dir <- bundled_path |> str_replace(fixed("s3://"), "osn/") |> mc_ls(details = TRUE)
+    mc_bundled_path <- bundled_dir |> filter(!is_folder) |> pull(path)
+    stopifnot(length(mc_bundled_path) == 1)
+    bundled_path <- mc_bundled_path |> str_replace(fixed("osn/"), fixed("s3://"))
+  }
 
   ## once running consistently we can "append" with union_all instead of union
   # uses less RAM. since mc_rm / mc_mv removes anything we have already read

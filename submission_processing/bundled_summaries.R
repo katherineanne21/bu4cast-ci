@@ -65,13 +65,26 @@ bundle_me <- function(path) {
                 "forecasts/bundled-summaries")
 
   open_dataset(path, conn = con) |> write_dataset("tmp_new.parquet")
-  open_dataset(bundled_path, conn = con) |> write_dataset("tmp_old.parquet")
+
+
+ # Only if model has bundled entries!
+  old <- tryCatch({
+  open_dataset(bundled_path, conn = con) |>
+     write_dataset("tmp_old.parquet")
+  old <- open_dataset("tmp_old.parquet")
+  },
+  # no new data
+  error = function(e) NULL
+  )
 
   # these are both local, so we can stream back.
   new <- open_dataset("tmp_new.parquet")
-  old <- open_dataset("tmp_old.parquet")
 
-  union_all(old, new) |>
+  if(!is.null(old)) {
+    new <- union_all(old,new)
+  }
+
+  new |>
     write_dataset(paste0(bundled_path,"data_0.parquet"),
                   options = list("PER_THREAD_OUTPUT false"))
 

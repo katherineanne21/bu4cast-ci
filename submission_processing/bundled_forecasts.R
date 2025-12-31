@@ -69,8 +69,7 @@ bundle_me <- function(path) {
   old <- open_dataset("tmp_old.parquet")
   },
   # no new data
-  error = NULL,
-  finally = NULL
+  error = function(e) NULL
   )
 
   # these are both local, so we can stream back.

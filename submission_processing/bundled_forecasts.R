@@ -62,12 +62,19 @@ bundle_me <- function(path) {
     write_dataset("tmp_new.parquet")
 
   # special filters should not be needed on bundled copy
+  # Only if model has bundled entries!
+  old <- tryCatch({
   open_dataset(bundled_path, conn = con) |>
      write_dataset("tmp_old.parquet")
+  old <- open_dataset("tmp_old.parquet")
+    
+  }, 
+  # no new data
+  error = function(e) open_dataset("tmp_new.parquet") |> head(0)
+  )
 
   # these are both local, so we can stream back.
   new <- open_dataset("tmp_new.parquet")
-  old <- open_dataset("tmp_old.parquet")
 
 ## We can just "append", we no longer face duplicates:
 # by <- join_by(datetime, site_id, prediction, parameter, family, reference_datetime, pub_datetime, duration, model_id, project_id, variable)

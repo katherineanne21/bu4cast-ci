@@ -54,6 +54,7 @@ forecast <- targets  %>%
   mutate(reference_datetime = lubridate::as_date(min(datetime)) - lubridate::weeks(1),
          model_id = team_name) |>
   select(model_id, datetime, reference_datetime, site_id, ensemble, variable, prediction) |>
+  as_tibble() |>
   mutate(datetime = as_datetime(datetime),
          reference_datetime = as_datetime(reference_datetime),
          project_id = "neon4cast",

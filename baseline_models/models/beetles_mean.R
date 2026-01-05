@@ -5,7 +5,8 @@ library(tidyverse)
 
 
 ## Get the latest beetle target data.
-download.file("https://data.ecoforecast.org/neon4cast-targets/beetles/beetles-targets.csv.gz",
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
+download.file(url,
               "beetles-targets.csv.gz")
 targets <-  read_csv("beetles-targets.csv.gz")
 

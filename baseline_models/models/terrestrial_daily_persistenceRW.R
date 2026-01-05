@@ -5,7 +5,8 @@ library(fable)
 source('baseline_models/R/fablePersistenceModelFunction.R')
 # 1.Read in the targets data
 # We are not doing a peristence for le right now.
-targets <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/terrestrial_daily/terrestrial_daily-targets.csv.gz", guess_max = 1e6) %>%
+url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+targets <- readr::read_csv(url_P1D, guess_max = 1e6) %>%
   filter(variable == 'nee')
 
 # 2. Make the targets into a tsibble with explicit gaps

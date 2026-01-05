@@ -12,7 +12,9 @@ source("baselines/R/randomWalkNullModelFunction.R")
 generate_plots <- FALSE
 team_name <- "persistence"
 
-download.file("https://data.ecoforecast.org/neon4cast-targets/phenology/phenology-targets.csv.gz",
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
+
+download.file(url,
               "phenology-targets.csv.gz")
 
 phenoDat <- read_csv("phenology-targets.csv.gz")

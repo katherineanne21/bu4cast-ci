@@ -9,7 +9,8 @@ library(tidyverse)
 library(lubridate)
 
 # first load the target data set
-data <- read_csv("https://data.ecoforecast.org/neon4cast-targets/ticks/ticks-targets.csv.gz", guess_max = 1e6)
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
+data <- read_csv(url, guess_max = 1e6)
 sites <- data %>% 
   pull(site_id) %>% 
   unique()

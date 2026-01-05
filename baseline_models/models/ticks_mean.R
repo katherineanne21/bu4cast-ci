@@ -17,7 +17,8 @@ efi_statistic_format <- function(df){
 }
 
 ## Get the latest beetle target data.  
-download.file("https://data.ecoforecast.org/neon4cast-targets/ticks/ticks-targets.csv.gz",
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
+download.file(url,
               "ticks-targets.csv.gz")
 targets <-  read_csv("ticks-targets.csv.gz")
 

@@ -10,6 +10,7 @@ targets <- readr::read_csv(url, guess_max = 1e6) |>
 
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
+  mutate(datetime = as_date(datetime)) |>
   as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())
@@ -38,7 +39,13 @@ RW_forecasts_EFI <- RW_forecasts %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
          model_id = "persistenceRW") %>%
-  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) |>
+  as_tibble() |>
+  mutate(datetime = as_datetime(datetime),
+         reference_datetime = as_datetime(reference_datetime),
+         project_id = "neon4cast",
+         duration = "P1D")
+
 
 #RW_forecasts_EFI |>
 #  filter(variable == "gcc_90") |>

@@ -5,6 +5,7 @@ RW_daily_forecast <- function(site, var, h,
                               transformation = 'none', verbose = TRUE,...) {
   # Work out when the forecast should start
   forecast_starts <- targets %>%
+    mutate(datetime = as_date(datetime)) |>
     dplyr::filter(!is.na(observation) & site_id == site & variable == var) %>%
     # Start the day after the most recent non-NA value
     dplyr::summarise(start_date = max(datetime) + lubridate::days(1)) %>% # Date
@@ -25,6 +26,7 @@ RW_daily_forecast <- function(site, var, h,
 
   # filter the targets data set to the site_var pair
   targets_use <- targets %>%
+    mutate(datetime = as_date(datetime)) |>
     dplyr::filter(site_id == site,
                   variable == var) %>%
     tsibble::as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%

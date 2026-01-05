@@ -3,7 +3,9 @@ library(tsibble)
 library(fable)
 source('baseline_models/R/fablePersistenceModelFunction.R')
 # 1.Read in the targets data
-targets <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/phenology/phenology-targets.csv.gz", guess_max = 1e6) |>
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
+
+targets <- readr::read_csv(url, guess_max = 1e6) |>
   na.omit()
 
 # 2. Make the targets into a tsibble with explicit gaps

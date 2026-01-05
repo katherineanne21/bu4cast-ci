@@ -7,16 +7,16 @@ efi_statistic_format <- function(df){
   ## determine variable name
   var <- attributes(df)$dist
   ## Normal distribution: use distribution mean and variance
-  df %>% 
+  df %>%
     dplyr::mutate(sigma = sqrt( distributional::variance( .data[[var]] ) ) ) %>%
     dplyr::rename(mu = .mean) %>%
     dplyr::select(datetime, site_id, .model, mu, sigma) %>%
     tidyr::pivot_longer(c(mu, sigma), names_to = "parameter", values_to = var) %>%
-    pivot_longer(tidyselect::all_of(var), names_to="variable", values_to = "prediction") |> 
+    pivot_longer(tidyselect::all_of(var), names_to="variable", values_to = "prediction") |>
     mutate(family = "normal")
 }
 
-## Get the latest beetle target data.  
+## Get the latest beetle target data.
 url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
 download.file(url,
               "ticks-targets.csv.gz")
@@ -35,35 +35,41 @@ last_day <- tibble(site_id = site_list,
 
 
 
-targets <- targets |> 
-  filter(variable == "amblyomma_americanum") |> 
-  bind_rows(last_day) |> 
-  select(-variable) |> 
+targets <- targets |>
+  filter(variable == "amblyomma_americanum") |>
+  bind_rows(last_day) |>
+  select(-variable) |>
+  mutate(datetime = as_date(datetime)) |>
   as_tsibble(index = datetime, key = site_id)
 
 team_name <- "mean"
 
 ## a single mean per site... obviously silly
-forecast <- targets  %>% 
+forecast <- targets  %>%
   model(null = MEAN(log(observation + 1))) %>%
-  generate(times = 500, h = "1 year", bootstrap = TRUE) |> 
+  generate(times = 500, h = "1 year", bootstrap = TRUE) |>
   dplyr::rename(ensemble = .rep,
-                prediction = .sim) |> 
-  mutate(variable = "amblyomma_americanum") |> 
+                prediction = .sim) |>
+  mutate(variable = "amblyomma_americanum") |>
   mutate(reference_datetime = lubridate::as_date(min(datetime)) - lubridate::weeks(1),
-         model_id = team_name) |> 
-  select(model_id, datetime, reference_datetime, site_id, ensemble, variable, prediction)
+         model_id = team_name) |>
+  select(model_id, datetime, reference_datetime, site_id, ensemble, variable, prediction) |>
+  mutate(datetime = as_datetime(datetime),
+         reference_datetime = as_datetime(reference_datetime),
+         project_id = "neon4cast",
+         duration = "P1W")
+
 
 ## Create the metadata record, see metadata.Rmd
 theme_name <- "ticks"
-file_date <- forecast$reference_datetime[1]
+file_date <- as_date(forecast$reference_datetime[1])
 
 filename <- paste0(theme_name, "-", file_date, "-", team_name, ".csv.gz")
 
 ## Store the forecast products
 readr::write_csv(forecast, filename)
 
-neon4cast::submit(forecast_file = filename, 
+neon4cast::submit(forecast_file = filename,
                   ask = FALSE)
 
 

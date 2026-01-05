@@ -35,7 +35,6 @@ RW_forecasts_EFI <- RW_forecasts %>%
          prediction = .sim) %>%
   # For the EFI challenge we only want the forecast for future
   filter(datetime > Sys.Date()) %>%
-  mutate(datetime = as_datetime(datetime)) |>
   group_by(site_id, variable) %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",

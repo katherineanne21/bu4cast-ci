@@ -6,273 +6,82 @@ on:
 name: catalog
 
 jobs:
-  metadata_catalog:
+  build_catalog:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      EXTERNAL_GH_PAT: ${{ secrets.CATALOG_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
     container:
-      image: eco4cast/rocker-neon4cast:latest
+      #image: eco4cast/rocker-neon4cast:latest
+      image: rocker/ml-verse
       options: --memory 15120m
     steps:
       - run: git config --system --add safe.directory '*'
 
-      - uses: actions/checkout@v4
+      - name: checkout source repository
+        uses: actions/checkout@v4
         with:
            fetch-depth: 0
            set-safe-directory: '*'
 
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
+      - name: clone catalog destination repository
+        run: |
+          git clone --depth 1 https://github.com/eco4cast/neon4cast-catalog.git ../neon4cast-catalog
+
+      - name: Install
+        shell: Rscript {0}
+        run: |
+          install.packages('gsheet')
+          devtools::install_github('eco4cast/stac4cast')
 
       - name: Render metadata
         shell: Rscript {0}
         run: source("catalog/model_metadata.R")
 
-      - name: Render catalog
+      - name: Render catalog page
         shell: Rscript {0}
-        run: source("catalog/catalog.R")
+        run: source("catalog/build_catalog_scripts/catalog.R")
 
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  forecasts:
-    needs: metadata_catalog
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render
+      - name: Render forecasts
         shell: Rscript {0}
-        run: source('catalog/forecasts/forecast_models.R')
+        run: source("catalog/build_catalog_scripts/forecast_models.R")
 
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  scores:
-    needs: forecasts
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render
+      - name: Render summaries
         shell: Rscript {0}
-        run: source('catalog/scores/scores_models.R')
+        run: source("catalog/build_catalog_scripts/summaries_models.R")
 
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  inventory:
-    needs: scores
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render
+      - name: Render scores
         shell: Rscript {0}
-        run: source('catalog/inventory/create_inventory_page.R')
+        run: source("catalog/build_catalog_scripts/scores_models.R")
 
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  summaries:
-    needs: inventory
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render
+      - name: Render noaa
         shell: Rscript {0}
-        run: source('catalog/summaries/summaries_models.R')
-
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  noaa:
-    needs: summaries
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render
-        shell: Rscript {0}
-        run: source('catalog/noaa_forecasts/noaa_forecasts.R')
-
-      - name: Commit and Push
-        run: |
-          git pull
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
-
-  targets_sites:
-    needs: noaa
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      OSN_KEY: ${{ secrets.OSN_KEY }}
-      OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      # options: --memory 15120m
-    steps:
-      - run: git config --system --add safe.directory '*'
-
-      - uses: actions/checkout@v3
-        with:
-           fetch-depth: 0
-           set-safe-directory: '*'
-
-      # - name: install validator
-      #   run: |
-      #     pip install stac-validator
-
-      - name: Render targets
-        shell: Rscript {0}
-        run: source('catalog/targets/create_targets_page.R')
+        run: source("catalog/build_catalog_scripts/noaa_forecasts.R")
 
       - name: Render sites
         shell: Rscript {0}
-        run: source('catalog/sites/build_sites_page.R')
+        run: source("catalog/build_catalog_scripts/build_sites_page.R")
+
+      - name: Render targets
+        shell: Rscript {0}
+        run: source("catalog/build_catalog_scripts/create_targets_page.R")
+
 
       - name: Commit and Push
         run: |
-          git pull
+          cd ../neon4cast-catalog
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add catalog/* .
-          git commit -a -m "update catalog" || echo "nothing to commit"
-          git push https://${GITHUB_PAT}:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}
 
-  Healthcheck:
-    needs: [metadata_catalog, forecasts, scores, inventory, summaries, noaa, targets_sites]
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    container:
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 35g
-    steps:
+          git pull
+          git add * .
+          git commit -a -m "update catalog" || echo "nothing to commit"
+          git push https://${EXTERNAL_GH_PAT}:${EXTERNAL_GH_PAT}@github.com/eco4cast/neon4cast-catalog
+
       - name: Call Healthcheck
         run: |
           curl -m 10 --retry 5 https://hc-ping.com/22fcd257-7930-455c-948d-0f913743b0c3
+
+

@@ -1,44 +1,48 @@
 library(neonstore)
 library(tidyverse)
 library(ISOweek)
+library(minioclient)
+library(neonUtilities)
 source("targets/R/resolve_taxonomy.R")
 
-df <-  neonstore:::neon_data(product = "DP1.10022.001",
-                             #start_date = "2023-06-01",
-                             #end_date = "2023-08-01",
-                             type="expanded")
+install_mc()
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
-sorting_urls <- df |>
-  dplyr::filter(grepl("bet_sorting", name)) |>
-  pull(url)
-
-sorting <- duckdbfs::open_dataset(sorting_urls, format="csv") |>
+sorting <- datasetQuery(dpID="DP1.10022.001",
+                        package="basic",
+                        tabl="bet_sorting",
+                        release="current",
+                        include.provisional = TRUE,
+                        token=Sys.getenv("NEON_TOKEN")) |>
   select(collectDate, siteID, taxonID, individualCount, subsampleID,
          scientificName, morphospeciesID, taxonRank, sampleType,
          nativeStatusCode, sampleCondition) |>
   collect()
 
-para_urls <- df |>
-  dplyr::filter(grepl("bet_parataxonomistID", name)) |>
-  pull(url)
-
-para <- duckdbfs::open_dataset(para_urls, format="csv") |>
+para <- datasetQuery(dpID="DP1.10022.001",
+                     package="basic",
+                     tabl="bet_parataxonomistID",
+                     release="current",
+                     include.provisional = TRUE,
+                     token=Sys.getenv("NEON_TOKEN")) |>
   select(subsampleID, individualID, scientificName, taxonRank, taxonID, morphospeciesID) |>
   collect()
 
-expert_urls <- df |>
-  dplyr::filter(grepl("bet_expertTaxonomistIDProcessed", name)) |>
-  pull(url)
-
-expert <- duckdbfs::open_dataset(expert_urls, format="csv") |>
+expert <- datasetQuery(dpID="DP1.10022.001",
+                       package="basic",
+                       tabl="bet_expertTaxonomistIDProcessed",
+                       release="current",
+                       include.provisional = TRUE,
+                       token=Sys.getenv("NEON_TOKEN")) |>
   select(-uid, -namedLocation, -domainID, -siteID, -collectDate, -plotID, -setDate, -collectDate) |>
   collect()
 
-field_urls <- df |>
-  dplyr::filter(grepl("bet_fielddata", name)) |>
-  pull(url)
-
-field <- duckdbfs::open_dataset(field_urls, format="csv") |>
+field <- datasetQuery(dpID="DP1.10022.001",
+                      package="basic",
+                      tabl="bet_fielddata",
+                      release="current",
+                      include.provisional = TRUE,
+                      token=Sys.getenv("NEON_TOKEN")) |>
   select(collectDate, siteID, setDate) |>
   collect()
 
@@ -102,24 +106,22 @@ targets <- effort %>%
 targets <- targets |>
   rename(datetime = time)
 
-s3 <- arrow::s3_bucket("neon4cast-targets/beetles",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(targets, sink = s3$path("beetles-targets.csv.gz"))
-
 targets2 <- targets |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "P1W",
          project_id = "neon4cast") |>
   select(project_id, site_id, datetime, duration, variable, observation)
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W",
-                       endpoint_override = "sdsc.osn.xsede.org",
-                       access_key = Sys.getenv("OSN_KEY"),
-                       secret_key = Sys.getenv("OSN_SECRET"))
+write_csv(targets2, "beetles-targets.csv.gz")
 
-arrow::write_csv_arrow(targets2, sink = s3$path("beetles-targets.csv.gz"))
+mc_cp("beetles-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz")
+
+#mc_mirror(path.expand("~/beetles-data"), "osn/bio230014-bucket01/beetles-data/", overwrite = TRUE, remove = TRUE)
 
 RCurl::getURL("https://hc-ping.com/ed35da4e-01d3-4750-ae5a-ad2f5dfa6e99")
+
+targets2 |>
+  filter(site_id == "OSBS") |>
+  ggplot(aes(x = datetime, y = observation)) +
+  geom_point() +
+  facet_wrap(~variable)

@@ -1,7 +1,8 @@
-#renv::restore()
-
 library(tidyverse)
+library(minioclient)
 
+install_mc()
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 
 source("targets/R/downloadPhenoCam.R")
 source("targets/R/calculatePhenoCamUncertainty.R")
@@ -60,29 +61,16 @@ for(i in 1:nrow(sites)){
 
 allData2 <- left_join(combined, allData, by = c("time", "site_id", "variable"))
 
-allData2 <- allData2 |>
+allData2 |>
   select("time", "site_id", "variable", "observation") |>
-  rename(datetime = time)
-
-s3 <- arrow::s3_bucket("neon4cast-targets/phenology",
-                              endpoint_override = "data.ecoforecast.org",
-                              access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                              secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(allData2, sink = s3$path("phenology-targets.csv.gz"))
-
-allData3 <- allData2 |>
+  rename(datetime = time) |>
   mutate(datetime = lubridate::as_datetime(datetime),
          duration = "P1D",
          project_id = "neon4cast") |>
-  select(project_id, site_id, datetime, duration, variable, observation)
+  select(project_id, site_id, datetime, duration, variable, observation) |>
+  write_csv("phenology-targets.csv.gz")
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D",
-                              endpoint_override = "sdsc.osn.xsede.org",
-                              access_key = Sys.getenv("OSN_KEY"),
-                              secret_key = Sys.getenv("OSN_SECRET"))
-
-arrow::write_csv_arrow(allData3, sink = s3$path("phenology-targets.csv.gz"))
+mc_cp(from = "phenology-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/")
 
 unlink("phenology-targets.csv.gz")
 

@@ -1,51 +1,77 @@
 library(tidyverse) # for data wrangling and piping (dplyr probably ok)
 library(lubridate) # for finding year from dates
 library(neonstore)
+library(minioclient)
+library(neonUtilities)
+
+install_mc()
+mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+#mc_mirror("osn/bio230014-bucket01/ticks-data/",  path.expand("~/ticks-data/"))
 
 # select target species and life stage
 target_species <- c("Amblyomma americanum") # NEON species name
 target_lifestage <- "Nymph"
 
-sites_df <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |>
+sites_df <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv", show_col_types = FALSE) |>
   dplyr::filter(ticks == 1)
 target_sites <- sites_df %>% pull(field_site_id)
 
 
+source("targets/R/resolve_taxonomy.R")
 
-# get data from neon
-#product <- "DP1.10093.001"
-#neon_download(product = product,
-#              site = target.sites)
+# pass <- TRUE
+# iter <- 0
+# while(pass & iter < 10){
+#   iter <- iter + 1
+#
+#   df <-  neonstore:::neon_data(product = "DP1.10093.001",
+#                                #start_date = paste0(curr_year, "-01-01"),
+#                                #end_date = paste0(curr_year, "-12-31"),
+#                                site = target_sites,
+#                                type="expanded")
+#
+#   if(file.exists(path.expand("~/ticks-data/DP1.10093.001.csv"))){
+#     full_df_old <- read_csv(path.expand("~/ticks-data/DP1.10093.001.csv"), show_col_types = FALSE)
+#   }else{
+#     full_df_old <- NULL
+#   }
+#
+#   full_df <- bind_rows(full_df_old, df) %>%
+#     distinct()
+#
+#   print(nrow(full_df))
+#   print(nrow(full_df_old))
+#   pass <- nrow(full_df) != nrow(full_df_old)
+#
+#   write_csv(full_df, path.expand("~/ticks-data/DP1.10093.001.csv"))
+# }
 
 
-df <-  neonstore:::neon_data(product = "DP1.10093.001",
-                             #start_date = "2023-06-01",
-                             #end_date = "2023-08-01",
-                             site = target_sites,
-                             type="expanded")
-
-fielddata_urls <- df |>
-  dplyr::filter(grepl("tck_fielddata", name)) |>
-  pull(url)
-
-taxonomyProcessed_urls <- df |>
-  dplyr::filter(grepl("tck_taxonomyProcessed", name)) |>
-  pull(url)
-
-tick_field_raw <- duckdbfs::open_dataset(fielddata_urls, format="csv") |>
+tick_field_raw <- datasetQuery(dpID="DP1.10093.001",
+                        package="expanded",
+                        tabl="tck_fielddata",
+                        release="current",
+                        include.provisional = TRUE,
+                        token=Sys.getenv("NEON_TOKEN")) |>
   select(totalSampledArea, collectDate, namedLocation, nlcdClass, siteID) |>
   collect()
 
-tick_taxon_raw <- duckdbfs::open_dataset(taxonomyProcessed_urls, format="csv") |>
+tick_taxon_raw <- datasetQuery(dpID="DP1.10093.001",
+                               package="expanded",
+                               tabl="tck_taxonomyProcessed",
+                               release="current",
+                               include.provisional = TRUE,
+                               token=Sys.getenv("NEON_TOKEN")) |>
   select(sampleCondition, sexOrAge, collectDate, namedLocation,
          acceptedTaxonID, individualCount, scientificName, taxonRank) |>
   collect()
+
 
 # there are lots of reasons why sampling didn't occur (logistics, too wet, too cold, etc.)
 # so, keep records when sampling occurred
 tick_field <- tick_field_raw %>%
   filter(totalSampledArea > 0) %>%
-  mutate(collectDate = lubridate::fast_strptime(collectDate, "%Y-%m-%dT%H:%MZ"),
+  mutate(collectDate = lubridate::as_datetime(collectDate),
          time = floor_date(collectDate, unit = "day")) %>%
   unite(namedLocation, time, col = "occasionID", sep = "_")
 
@@ -55,7 +81,7 @@ tick_taxon_wide <- tick_taxon_raw %>%
   mutate(sexOrAge = if_else(sexOrAge == "Female" | sexOrAge == "Male",
                             "Adult",     # convert to Adult
                             sexOrAge),
-         collectDate = lubridate::fast_strptime(collectDate, "%Y-%m-%dT%H:%MZ"),
+         collectDate = lubridate::as_datetime(collectDate),
          time = floor_date(collectDate, unit = "day")) %>%
   unite(namedLocation, time, col = "occasionID", sep = "_") %>%
   pivot_wider(id_cols = occasionID, # make wide by species and life stage
@@ -66,8 +92,8 @@ tick_taxon_wide <- tick_taxon_raw %>%
               values_fill = 0)
 
 # join taxonomy and field data
-tick_joined <- left_join(tick_taxon_wide, tick_field, by = "occasionID") %>%
-  select(-NA_NA)
+tick_joined <- left_join(tick_taxon_wide, tick_field, by = "occasionID") |>
+  select(-any_of("NA_NA"))
 
 # all the species column names
 spp_cols <- tick_joined %>%
@@ -96,7 +122,6 @@ tick_standard <- tick_long %>%
   filter(siteID %in% target_sites, # sites we want
          lifeStage == target_lifestage, # life stage we want
          scientificName %in% target_species,
-         #scientificName %in% target.species, # species we want
          grepl("Forest", nlcdClass)) %>%  # forest plots
   mutate(date = floor_date(collectDate, unit = "day"),
          date = ymd(date),
@@ -114,25 +139,15 @@ tick_standard <- tick_long %>%
 
 
 tick_targets <- tick_standard %>%
-  #filter(time < challenge.time) |>
   rename(site_id = siteID) |>
   mutate(variable = scientificName) |>
   mutate(variable = ifelse(variable == "Amblyomma americanum", "amblyomma_americanum", "ixodes_scapularis")) |>
   select(time, site_id, variable, observation, iso_week)
 
-ggplot(tick_targets, aes(x = time, y = observation, color = variable)) +
-  geom_line() +
-  facet_wrap(~site_id, scale = "free")
+
 
 tick_targets <- tick_targets |>
   rename(datetime = time)
-
-s3 <- arrow::s3_bucket("neon4cast-targets/ticks",
-                       endpoint_override = "data.ecoforecast.org",
-                       access_key = Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                       secret_key = Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
-
-arrow::write_csv_arrow(tick_targets, sink = s3$path("ticks-targets.csv.gz"))
 
 tick_targets2 <- tick_targets |>
   mutate(datetime = lubridate::as_datetime(datetime),
@@ -140,12 +155,16 @@ tick_targets2 <- tick_targets |>
          project_id = "neon4cast") |>
   select(project_id, site_id, datetime, duration, variable, observation)
 
-s3 <- arrow::s3_bucket("bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W",
-                       endpoint_override = "sdsc.osn.xsede.org",
-                       access_key = Sys.getenv("OSN_KEY"),
-                       secret_key = Sys.getenv("OSN_SECRET"))
 
-arrow::write_csv_arrow(tick_targets2, sink = s3$path("ticks-targets.csv.gz"))
+ggplot(tick_targets2, aes(x = datetime, y = observation, color = variable)) +
+  geom_point() +
+  facet_wrap(~site_id, scale = "free")
+
+write_csv(tick_targets2, "ticks-targets.csv.gz")
+message("Writing targets to S3")
+mc_cp("ticks-targets.csv.gz", "osn/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/")
+#message("Writing data catalog to S3")
+#mc_mirror(path.expand("~/ticks-data"), "osn/bio230014-bucket01/ticks-data/", overwrite = TRUE, remove = TRUE)
 
 RCurl::getURL("https://hc-ping.com/09c7ab10-eb4e-40ef-a029-7a4addc3295b")
 

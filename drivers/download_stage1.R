@@ -1,6 +1,8 @@
 ## setup
 library(gdalcubes)
 library(gefs4cast)
+library(arrow)
+print(sessioninfo::package_info())
 
 gdalcubes::gdalcubes_options(parallel=2*parallel::detectCores())
 #gdalcubes::gdalcubes_options(parallel=TRUE)
@@ -28,9 +30,15 @@ bench::bench_time({ # thelio
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
   gefs_to_parquet(missing_dates,
-                  ensemble=c("geavg", "gespr"),
-                  path = s3,
-                  sites = sites)
+                   ensemble=c("geavg", "gespr"),
+                   path = s3,
+                   sites = sites)
+  #stats_parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1-stats'
+  #gefs_to_parquet(missing_dates,
+  #               path = stats_parquet_path,
+  #               ensemble=c("geavg", "gespr"),
+  #               sites = sites,
+  #               s3_endpoint = 'https://sdsc.osn.xsede.org')
 })
 
 message("GEFS v12 stage1")
@@ -38,5 +46,12 @@ bench::bench_time({ # cirrus ~ 6days for full set
   s3 <- gefs_s3_dir("stage1")
   have_dates <- gsub("reference_datetime=", "", s3$ls())
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
+
   gefs_to_parquet(missing_dates, path = s3, sites = sites)
+  
+  #parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1'
+  #gefs_to_parquet(missing_dates,
+  #                path = parquet_path,
+  #                sites = sites,
+  #                s3_endpoint = 'sdsc.osn.xsede.org')
 })

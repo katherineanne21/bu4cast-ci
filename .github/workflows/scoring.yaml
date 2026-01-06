@@ -9,23 +9,30 @@ name: scoring
 
 jobs:
   scoring:
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 35g
+      EFI_NRP_KEY: ${{ secrets.EFI_NRP_KEY }}
+      EFI_NRP_SECRET: ${{ secrets.EFI_NRP_SECRET }}
+    container:
+      image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
+      options: --user root
     steps:
+
+      - name: cleanup disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h
+
       - uses: actions/checkout@v4
 
-      - name: Install
-        shell: Rscript {0}
-        run: |
-          remotes::install_deps(".", dep=TRUE, upgrade=FALSE)
+      - name: install
+        run: R -e "install.packages(c('bench', 'duckdbfs', 'minioclient', 'callr')); remotes::install_github('eco4cast/score4cast')"
+
+      - name: scoring-prep
+        run: r scoring/prep-scoring.R
 
       - name: scoring
-        shell: Rscript {0}
-        run: |
-          source("scoring/new-scoring.R")
+        run: r scoring/scoring.R

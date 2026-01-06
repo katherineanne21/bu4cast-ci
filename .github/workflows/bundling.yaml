@@ -2,37 +2,35 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 name: bundling
 
 jobs:
   forecasts:
-    runs-on: efi-cirrus
+    runs-on: ubuntu-latest #efi-cirrus
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-    container: 
-      image: eco4cast/rocker-neon4cast:latest
-      options: --memory 45g
+    container:
+      image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
+      options: --user root
     steps:
       - uses: actions/checkout@v4
 
       - name: Install
         shell: Rscript {0}
         run: |
-          remotes::install_deps(".", dep=TRUE, upgrade=TRUE)
+          options(repos=list(CRAN="http://packagemanager.rstudio.com/all/__linux__/noble/latest"))
+          install.packages(c("future.apply", "progressr", "minioclient", "bench", "glue", "fs"))
+
 
       - name: Bundle forecasts
-        shell: Rscript {0}
-        run: |
-          source("scoring/bundled-forecasts.R")
-          
+        run: r submission_processing/bundled_forecasts.R
+
       - name: Bundle summaries
-        shell: Rscript {0}
-        run: |
-          source("scoring/bundled-summaries.R")
+        run: r submission_processing/bundled_summaries.R
 
 

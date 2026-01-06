@@ -5,7 +5,8 @@ library(tidyverse)
 
 
 ## Get the latest beetle target data.
-download.file("https://data.ecoforecast.org/neon4cast-targets/beetles/beetles-targets.csv.gz",
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
+download.file(url,
               "beetles-targets.csv.gz")
 targets <-  read_csv("beetles-targets.csv.gz")
 
@@ -30,6 +31,7 @@ targets_richness <- targets |>
   bind_rows(last_day_richness) |>
   rename(richness = observation) |>
   select(-variable) |>
+  mutate(datetime = as_date(datetime)) |>
   as_tsibble(index = datetime, key = site_id)
 
 targets_abundance <- targets |>
@@ -37,6 +39,7 @@ targets_abundance <- targets |>
   bind_rows(last_day_abundance) |>
   rename(abundance = observation) |>
   select(-variable) |>
+  mutate(datetime = as_date(datetime)) |>
   as_tsibble(index = datetime, key = site_id)
 
 ## a single mean per site... obviously silly
@@ -73,11 +76,16 @@ team_name <- "mean"
 forecast <- bind_rows(as_tibble(fc_richness), as_tibble(fc_abundance)) |>
   mutate(reference_datetime = lubridate::as_date(min(datetime)) - lubridate::weeks(1),
          model_id = team_name) |>
-  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) |>
+  mutate(datetime = as_datetime(datetime),
+         reference_datetime = as_datetime(reference_datetime),
+         project_id = "neon4cast",
+         duration = "P1W")
+
 
 ## Create the metadata record, see metadata.Rmd
 theme_name <- "beetles"
-file_date <- forecast$reference_datetime[1]
+file_date <- as_date(forecast$reference_datetime[1])
 
 filename <- paste0(theme_name, "-", file_date, "-", team_name, ".csv.gz")
 

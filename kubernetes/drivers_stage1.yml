@@ -49,7 +49,6 @@ spec:
               R -e "remotes::install_github('eco4cast/gefs4cast')"
               Rscript -e "source('drivers/download_stage1.R')"
               Rscript -e "source('drivers/generate_stage2.R')"
-              
           restartPolicy: OnFailure
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1

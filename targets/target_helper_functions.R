@@ -140,10 +140,13 @@ urban_metadata_sites <- function(combined_data) {
     )
   
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   
   # Update the dates and active columns
   metadata_df <- full_join(
 =======
+=======
+>>>>>>> Stashed changes
   # Merge old and new sites
   metadata_df_joined <- full_join(
 >>>>>>> Stashed changes
@@ -153,6 +156,7 @@ urban_metadata_sites <- function(combined_data) {
     suffix = c("_old", "_new")
   )
   
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   # Identify new columns that are not in the og dataset
   new_cols = names(new_metadata_df_sites)[names(new_metadata_df_sites) != "site_id"]
@@ -167,6 +171,8 @@ urban_metadata_sites <- function(combined_data) {
       metadata_df[[old_col]],
       metadata_df[[new_col]]
 =======
+=======
+>>>>>>> Stashed changes
   # Create new columns to store final data
   final_date_cols = c('PM2.5_P1D_StartDate', 'PM2.5_P1D_EndDate', 'PM2.5_P1D_Active',
                       'PM2.5_P1H_StartDate', 'PM2.5_P1H_EndDate', 'PM2.5_P1H_Active',
@@ -210,6 +216,9 @@ urban_metadata_sites <- function(combined_data) {
           
         )
       )
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     )
   }
@@ -217,6 +226,10 @@ urban_metadata_sites <- function(combined_data) {
   # Remove extra columns
   metadata_df <- metadata_df %>%
     select(site_id, all_of(new_cols), everything()) %>%
+    select(-ends_with("_old"), -ends_with("_new"))
+  
+  # Remove _old and _new
+  metadata_df_final <- metadata_df_final %>%
     select(-ends_with("_old"), -ends_with("_new"))
   
   # Remove _old and _new

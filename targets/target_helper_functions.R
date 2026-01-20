@@ -169,6 +169,10 @@ urban_metadata_sites <- function(combined_data) {
                       'O3_StartDate', 'O3_EndDate', 'O3_Active',
                       'NO2_P1D_StartDate', 'NO2_P1D_EndDate', 'NO2_P1D_Active',
                       'NO2_P1H_StartDate', 'NO2_P1H_EndDate', 'NO2_P1H_Active')
+
+  missing_cols <- setdiff(final_date_cols, names(metadata_df_joined))
+  metadata_df_joined[missing_cols] <- NA_character_
+
   
   # Identify all specific type columns
   start_date_cols = final_date_cols[grepl("StartDate$", final_date_cols)]

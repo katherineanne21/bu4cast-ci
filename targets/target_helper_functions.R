@@ -9,7 +9,17 @@
   # PM2.5_P1D_StartDate
   # PM2.5_P1D_EndDate
 
+max_date <- function(a, b) {
+  as.Date(pmax(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
+min_date <- function(a, b) {
+  as.Date(pmin(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
 urban_metadata_sites <- function(combined_data) {
+  
+  print(colnames(combined_data))
   
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
@@ -19,6 +29,10 @@ urban_metadata_sites <- function(combined_data) {
   new_metadata_df_sites <- combined_data %>%
     group_by(site_id) %>%
     summarise(
+      # Site Location
+      site_lat = paste(unique(latitude), collapse = ", "),
+      site_long = paste(unique(longitude), collapse = ", "),
+      
       # PM2.5 - Daily
       PM2.5_P1D_StartDate = if (any(variable == "PM2.5 - Daily")) {
         min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
@@ -139,40 +153,14 @@ urban_metadata_sites <- function(combined_data) {
       }
     )
   
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  
-  # Update the dates and active columns
-  metadata_df <- full_join(
-=======
-=======
->>>>>>> Stashed changes
   # Merge old and new sites
   metadata_df_joined <- full_join(
->>>>>>> Stashed changes
     old_metadata_df_sites,
     new_metadata_df_sites,
     by = "site_id",
     suffix = c("_old", "_new")
   )
   
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  # Identify new columns that are not in the og dataset
-  new_cols = names(new_metadata_df_sites)[names(new_metadata_df_sites) != "site_id"]
-  
-  # Overwrite data when it changes
-  for (col in new_cols) {
-    old_col <- paste0(col, "_old")
-    new_col <- paste0(col, "_new")
-    
-    metadata_df[[col]] <- ifelse(
-      is.na(metadata_df[[new_col]]),
-      metadata_df[[old_col]],
-      metadata_df[[new_col]]
-=======
-=======
->>>>>>> Stashed changes
   # Create new columns to store final data
   final_date_cols = c('PM2.5_P1D_StartDate', 'PM2.5_P1D_EndDate', 'PM2.5_P1D_Active',
                       'PM2.5_P1H_StartDate', 'PM2.5_P1H_EndDate', 'PM2.5_P1H_Active',
@@ -216,21 +204,7 @@ urban_metadata_sites <- function(combined_data) {
           
         )
       )
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     )
-  }
-  
-  # Remove extra columns
-  metadata_df <- metadata_df %>%
-    select(site_id, all_of(new_cols), everything()) %>%
-    select(-ends_with("_old"), -ends_with("_new"))
-  
-  # Remove _old and _new
-  metadata_df_final <- metadata_df_final %>%
-    select(-ends_with("_old"), -ends_with("_new"))
   
   # Remove _old and _new
   metadata_df_final <- metadata_df_final %>%

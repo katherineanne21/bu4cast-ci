@@ -34,122 +34,122 @@ urban_metadata_sites <- function(combined_data) {
       site_long = paste(unique(longitude), collapse = ", "),
       
       # PM2.5 - Daily
-      PM2.5_P1D_StartDate = if (any(variable == "PM2.5 - Daily")) {
-        min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_StartDate = if (any(parameter == "PM2.5 - Daily")) {
+        min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1D_EndDate = if (any(variable == "PM2.5 - Daily")) {
-        max(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_EndDate = if (any(parameter == "PM2.5 - Daily")) {
+        max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1D_Active = if (is.na(PM2.5_P1D_EndDate)) {
         FALSE
       } else {
-        PM2.5_P1D_EndDate >= Sys.Date() - 180
+        PM2.5_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # PM2.5 - Hourly
-      PM2.5_P1H_StartDate = if (any(variable == "PM2.5 - Hourly")) {
-        min(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_StartDate = if (any(parameter == "PM2.5 - Hourly")) {
+        min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1H_EndDate = if (any(variable == "PM2.5 - Hourly")) {
-        max(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_EndDate = if (any(parameter == "PM2.5 - Hourly")) {
+        max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1H_Active = if (is.na(PM2.5_P1H_EndDate)) {
         FALSE
       } else {
-        PM2.5_P1H_EndDate >= Sys.Date() - 180
+        PM2.5_P1H_EndDate >= (Sys.Date() - 180)
       },
       
       # PM10 - Daily
-      PM10_P1D_StartDate = if (any(variable == "PM10 - Daily")) {
-        min(datetime[variable == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_StartDate = if (any(parameter == "PM10 - Daily")) {
+        min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1D_EndDate = if (any(variable == "PM10 - Daily")) {
-        max(datetime[variable == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_EndDate = if (any(parameter == "PM10 - Daily")) {
+        max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1D_Active = if (is.na(PM10_P1D_EndDate)) {
         FALSE
       } else {
-        PM10_P1D_EndDate >= Sys.Date() - 180
+        PM10_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # PM10 - Hourly
-      PM10_P1H_StartDate = if (any(variable == "PM10 - Hourly")) {
-        min(datetime[variable == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_StartDate = if (any(parameter == "PM10 - Hourly")) {
+        min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1H_EndDate = if (any(variable == "PM10 - Hourly")) {
-        max(datetime[variable == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_EndDate = if (any(parameter == "PM10 - Hourly")) {
+        max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1H_Active = if (is.na(PM10_P1H_EndDate)) {
         FALSE
       } else {
-        PM10_P1H_EndDate >= Sys.Date() - 180
+        PM10_P1H_EndDate >= (Sys.Date() - 180)
       },
       
       # O3
-      O3_StartDate = if (any(variable == "O3")) {
-        min(datetime[variable == "O3"], na.rm = TRUE)
+      O3_StartDate = if (any(parameter == "O3")) {
+        min(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      O3_EndDate = if (any(variable == "O3")) {
-        max(datetime[variable == "O3"], na.rm = TRUE)
+      O3_EndDate = if (any(parameter == "O3")) {
+        max(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       O3_Active = if (is.na(O3_EndDate)) {
         FALSE
       } else {
-        O3_EndDate >= Sys.Date() - 180
+        O3_EndDate >= (Sys.Date() - 180)
       },
       
       # NO2 - Daily
-      NO2_P1D_StartDate = if (any(variable == "NO2 - Daily")) {
-        min(datetime[variable == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_StartDate = if (any(parameter == "NO2 - Daily")) {
+        min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1D_EndDate = if (any(variable == "NO2 - Daily")) {
-        max(datetime[variable == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_EndDate = if (any(parameter == "NO2 - Daily")) {
+        max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1D_Active = if (is.na(NO2_P1D_EndDate)) {
         FALSE
       } else {
-        NO2_P1D_EndDate >= Sys.Date() - 180
+        NO2_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # NO2 - Hourly
-      NO2_P1H_StartDate = if (any(variable == "NO2 - Hourly")) {
-        min(datetime[variable == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_StartDate = if (any(parameter == "NO2 - Hourly")) {
+        min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1H_EndDate = if (any(variable == "NO2 - Hourly")) {
-        max(datetime[variable == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_EndDate = if (any(parameter == "NO2 - Hourly")) {
+        max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1H_Active = if (is.na(NO2_P1H_EndDate)) {
         FALSE
       } else {
-        NO2_P1H_EndDate >= Sys.Date() - 180
+        NO2_P1H_EndDate >= (Sys.Date() - 180)
       }
     )
   

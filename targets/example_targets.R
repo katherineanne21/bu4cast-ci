@@ -27,7 +27,6 @@ challenge_name = '' # Fill in string with name of challenge (i.e Disease, Urban,
 filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
                  "-targets.csv", sep = "")
 
-
 # Read in old data
 old_data <- arrow::read_csv_arrow(s3_read$path(filename))
 

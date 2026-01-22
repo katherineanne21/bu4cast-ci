@@ -1,6 +1,5 @@
 library(neon4cast) #  remotes::install_github("eco4cast/neon4cast")
 
-
 library(readr)
 library(dplyr)
 library(arrow)
@@ -14,23 +13,34 @@ library(lubridate)
 
 install_mc()
 
+# Read in configurations
+
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 sites <- readr::read_csv(config$site_table,show_col_types = FALSE) |>
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 
-minioclient::mc_alias_set("s3_store",
-                          config$endpoint,
+# Set up minio connections
+
+OUR_LINK_read = 'bu4cast-ci-read'
+OUR_LINK_write = 'bu4cast-ci-write'
+OUR_ENDPOINT_OVERRIDE = 'https://minio-s3.apps.shift.nerc.mghpcc.org'
+
+minioclient::mc_alias_set(OUR_LINK_read,
+                          OUR_ENDPOINT_OVERRIDE,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-minioclient::mc_alias_set("submit",
-                          config$submissions_endpoint,
-                          Sys.getenv("AWS_ACCESS_KEY_SUBMISSIONS"),
-                          Sys.getenv("AWS_SECRET_ACCESS_KEY_SUBMISSIONS"))
+minioclient::mc_alias_set(OUR_LINK_write,
+                          OUR_ENDPOINT_OVERRIDE,
+                          Sys.getenv("OSN_KEY"),
+                          Sys.getenv("OSN_SECRET"))
+
 
 message(paste0("Starting Processing Submissions ", Sys.time()))
+
+# Create a local directory
 
 local_dir <- file.path(here::here(), "submissions")
 unlink(local_dir, recursive = TRUE)
@@ -38,21 +48,26 @@ fs::dir_create(local_dir)
 
 message("Downloading forecasts ...")
 
-minioclient::mc_mirror(from = paste0("submit/",config$submissions_bucket), to = local_dir)
+# Download write bucket to local directory 
 
-submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file")
-submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)]
-submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)]
+minioclient::mc_mirror(from = paste0(OUR_LINK_write, config$submissions_bucket), to = local_dir)
 
-submissions_filenames <- basename(submissions)
+submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir
+submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)] # filter out 2023 -> should we change this to 2024?
+submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)] # filter usgsrc4cast files out 
+
+submissions_filenames <- basename(submissions) # grab just the filename not full path
 
 if(length(submissions) > 0){
 
+  # Prevent AWS connections
+  
   Sys.unsetenv("AWS_DEFAULT_REGION")
   Sys.unsetenv("AWS_S3_ENDPOINT")
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
-
+  # Connect to DuckDB
+  
   duckdbfs::duckdb_secrets(
                          endpoint = config$endpoint,
                          key = Sys.getenv("OSN_KEY"),

@@ -1,0 +1,143 @@
+---
+title: "Student How To Guide - BU Forecasting Challenge"
+author: "Katherine Rein"
+output: html_document
+---
+
+
+Welcome to the How To Guide for the BU Forecasting Challenge.
+Here you will see a framework for the basic aspects of the challenge.
+Each step will have an R and a Python code block -- which is which is labeled in {} brackets.
+
+## Setting Up the Environment
+
+```{r}
+library(readr)
+library(httr)
+```
+
+If you would like to use Python, then you have to have a Python environment set up.
+
+1. Go to https://www.anaconda.com/download and scroll down to Miniconda Installers.
+Download the correct installer for your computer. Complete the installation steps.
+
+2. Download the following yaml file: https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/dataclass_env.yaml
+
+3. Open a Terminal (macOS) or Anaconda Prompt (Windows) window.
+
+4. Run the following commands:
+
+conda env create -f dataclass_env.yml
+conda activate dataclass
+
+Now you can run the following code blocks:
+
+```{r}
+# Activate Python Environment
+library(reticulate)
+use_condaenv("dataclass", required = TRUE)
+```
+
+This will create an error but don't worry you didn't do anything wrong.
+
+```{python}
+# Import modules
+import pandas as pd
+import requests
+import tempfile
+import numpy as np
+from io import StringIO
+```
+
+
+## S3 Minio Buckets - Read
+
+First things first, you need to understand how and where the raw data is stored.
+All of the data for each challenge is stored in a targets file in a
+place called an S3 Minio bucket. Minio is simply the kind of S3 bucket. S3 buckets
+are a storage system similar to how you might store files in Google Drive. Just like
+any other file storage system, there is a file path to the data. 
+
+We will test reading to the S3 Bucket with the urban targets data.
+
+```{r} 
+urban_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+test_read_urban = read.csv(urban_url)
+print(test_read_urban)
+```
+
+```{python}
+urban_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+test_read_urban = pd.read_csv(urban_url)
+print(test_read_urban)
+```
+
+
+## S3 Minio Buckets - Write
+
+After you have the read working from the S3 Buckets, we now need to practice
+writing to the S3 Bucket. We will practice this with a randomly generated csv file.
+You will be writing to a challenge named test so that you can make sure it works
+without actually submitting predictions. Make sure to change the variable team_name_example.
+
+```{r}
+# Randomly Generate Data
+test_data = data.frame(
+  id = 1:100,                        
+  age = sample(18:80, 100, replace = TRUE),  
+  height = rnorm(100, mean = 170, sd = 10),  
+  weight = rnorm(100, mean = 70, sd = 15)
+)
+
+# Create a temp CSV file
+test_file <- tempfile(fileext = ".csv")
+write.csv(test_data, test_file, row.names = FALSE)
+
+# Create filename
+challenge_name_example = 'test'
+team_name_example = 'KAIYA' ## FILL IN WITH YOUR OWN TEAM NAME EXAMPLE
+url <- paste0("https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/forecasts/project_id=bu4cast/", challenge_name_example, "/",team_name_example, "-submission.csv")
+
+# Write to bucket
+res <- PUT(url, body = upload_file(test_file))
+
+if (status_code(res) %in% c(200, 204)) {
+  message("CSV upload succeeded!")
+} else {
+  message("Failed. Status: ", status_code(res))
+}
+
+```
+
+```{python}
+# Randomly Generate Data
+test_data = pd.DataFrame({
+    'id': range(1, 101),
+    'age': np.random.randint(18, 81, 100),
+    'height': np.random.normal(170, 10, 100),
+    'weight': np.random.normal(70, 15, 100)
+})
+
+# Create a temp CSV file
+with tempfile.NamedTemporaryFile(mode = 'w', suffix = '.csv', delete = False) as f:
+    test_file = f.name
+    test_data.to_csv(f.name, index = False)
+
+# Create filename
+challenge_name_example = 'test'
+team_name_example = 'KAIYA' ## FILL IN WITH YOUR OWN TEAM NAME EXAMPLE
+url = f"https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-write/challenges/forecasts/project_id=bu4cast/{challenge_name_example}/{team_name_example}-submission.csv"
+
+# Write to bucket
+with open(test_file, 'rb') as f:
+    res = requests.put(url, data=f)
+
+if res.status_code in [200, 204]:
+    print("CSV upload succeeded!")
+else:
+    print(f"Failed. Status: {res.status_code}")
+    print(res.text)
+```
+
+
+

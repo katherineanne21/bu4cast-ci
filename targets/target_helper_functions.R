@@ -254,6 +254,14 @@ urban_metadata_sites <- function(combined_data) {
       )
     )
   
+  # Keep site_lat and site_long
+  metadata_df_final <- metadata_df_joined %>%
+    mutate(
+      site_lat = coalesce(site_lat_new, site_lat_old),
+      site_long = coalesce(site_long_new, site_long_old)
+    ) %>%
+    select(-site_lat_old, -site_lat_new, -site_long_old, -site_long_new)
+  
   # Remove _old and _new
   metadata_df_final <- metadata_df_final %>%
     select(-ends_with("_old"), -ends_with("_new"))

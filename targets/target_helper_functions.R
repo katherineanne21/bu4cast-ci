@@ -25,7 +25,7 @@ urban_metadata_sites <- function(combined_data) {
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
   
-  old_metadata_df_sites <- read_csv(
+  old_metadata_df_sites <- read.csv(
     s3_site_metadata_url,
     col_types = cols(
       # ID: Character

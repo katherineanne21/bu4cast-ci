@@ -9,6 +9,8 @@
   # PM2.5_P1D_StartDate
   # PM2.5_P1D_EndDate
 
+library(readr)
+
 max_date <- function(a, b) {
   as.Date(pmax(a, b, na.rm = TRUE), origin = "1970-01-01")
 }
@@ -25,7 +27,7 @@ urban_metadata_sites <- function(combined_data) {
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
   
-  old_metadata_df_sites <- read.csv(
+  old_metadata_df_sites <- read_csv(
     s3_site_metadata_url,
     col_types = cols(
       # ID: Character

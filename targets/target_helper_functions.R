@@ -19,6 +19,7 @@ min_date <- function(a, b) {
 
 urban_metadata_sites <- function(combined_data) {
   
+  print('target_helper_functions.R - urban_metadata_sites')
   print(colnames(combined_data))
   
   # Read in all site lat longs

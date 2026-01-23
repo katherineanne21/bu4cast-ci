@@ -9,7 +9,7 @@ library(lubridate)
 library(RCurl)
 library(aws.s3)
 source("targets/target_helper_functions.R")
-
+print('urban_targets.R')
 
 # Step 0: Reload data for appending ---------------------------------------
 
@@ -176,6 +176,8 @@ copy_updated_data$site_id = paste(copy_updated_data$state_code,
                                             copy_updated_data$county_code,
                                             copy_updated_data$site_number,
                                       sep = '-')
+
+print(colnames(copy_updated_data))
 
 # Select data
 data = copy_updated_data[, c('site_id', 'date_local', 'sample_duration',

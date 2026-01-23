@@ -258,6 +258,11 @@ urban_metadata_sites <- function(combined_data) {
   metadata_df_final <- metadata_df_final %>%
     select(-ends_with("_old"), -ends_with("_new"))
   
+  # Fix column order
+  id_cols <- c("site_id", "site_lat", "site_long")
+  final_cols <- c(new_cols, final_date_cols)
+  metadata_df_final <- metadata_df_final[, final_date_cols]
+  
   # Return updated df
   return(metadata_df_final)
               

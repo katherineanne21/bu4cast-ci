@@ -24,7 +24,47 @@ urban_metadata_sites <- function(combined_data) {
   
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
-  old_metadata_df_sites = read.csv(s3_site_metadata_url)
+  
+  old_metadata_df_sites <- read_csv(
+    s3_site_metadata_url,
+    col_types = cols(
+      # ID: Character
+      site_id = col_character(),
+      
+      # Location: Decimal
+      site_lat = col_double(),
+      site_long = col_double(),
+      
+      # Start/End Date: Date
+      PM2.5_P1D_StartDate = col_date(),
+      PM2.5_P1D_EndDate = col_date(),
+      PM2.5_P1H_StartDate = col_date(),
+      PM2.5_P1H_EndDate = col_date(),
+      PM10_P1D_StartDate = col_date(),
+      PM10_P1D_EndDate = col_date(),
+      PM10_P1H_StartDate = col_date(),
+      PM10_P1H_EndDate = col_date(),
+      O3_StartDate = col_date(),
+      O3_EndDate = col_date(),
+      NO2_P1D_StartDate = col_date(),
+      NO2_P1D_EndDate = col_date(),
+      NO2_P1H_StartDate = col_date(),
+      NO2_P1H_EndDate = col_date(),
+      
+      # Active: Logical
+      PM2.5_P1D_Active = col_logical(),
+      PM2.5_P1H_Active = col_logical(),
+      PM10_P1D_Active = col_logical(),
+      PM10_P1H_Active = col_logical(),
+      O3_Active = col_logical(),
+      NO2_P1D_Active = col_logical(),
+      NO2_P1H_Active = col_logical(),
+      
+      # Defaults
+      .default = col_character()
+    )
+  )
+  
   
   # Create an updated site metadata df
   new_metadata_df_sites <- combined_data %>%
@@ -180,10 +220,6 @@ urban_metadata_sites <- function(combined_data) {
   metadata_df_joined[start_date_cols] = as.Date(NA)
   metadata_df_joined[end_date_cols] = as.Date(NA)
   metadata_df_joined[active_cols] = NA
-  
-  str(metadata_df_joined %>% select(ends_with("_StartDate_old"), ends_with("_StartDate_new")))
-  str(metadata_df_joined %>% select(ends_with("_EndDate_old"), ends_with("_EndDate_new")))
-  str(metadata_df_joined %>% select(ends_with("Active_old"), ends_with("Active_new")))
   
   # Merge based on if it's new, old, or both
   metadata_df_final <- metadata_df_joined %>%

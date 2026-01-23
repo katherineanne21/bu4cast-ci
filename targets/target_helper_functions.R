@@ -181,6 +181,10 @@ urban_metadata_sites <- function(combined_data) {
   metadata_df_joined[end_date_cols] = as.Date(NA)
   metadata_df_joined[active_cols] = NA
   
+  str(metadata_df_joined %>% select(ends_with("_StartDate_old"), ends_with("_StartDate_new")))
+  str(metadata_df_joined %>% select(ends_with("_EndDate_old"), ends_with("_EndDate_new")))
+  str(metadata_df_joined %>% select(ends_with("Active_old"), ends_with("Active_new")))
+  
   # Merge based on if it's new, old, or both
   metadata_df_final <- metadata_df_joined %>%
     mutate(

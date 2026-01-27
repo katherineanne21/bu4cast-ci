@@ -21,8 +21,7 @@ min_date <- function(a, b) {
 
 urban_metadata_sites <- function(combined_data) {
   
-  print('target_helper_functions.R - urban_metadata_sites')
-  print(colnames(combined_data))
+  print(paste0("Running target_helper_functions.R - urban_metadata_sites at ", Sys.time()))
   
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'

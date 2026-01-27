@@ -223,6 +223,11 @@ urban_metadata_sites <- function(combined_data) {
   # Merge based on if it's new, old, or both
   metadata_df_final <- metadata_df_joined %>%
     mutate(
+      # Keep site_lat and site_long
+      site_lat = coalesce(site_lat_new, site_lat_old),
+      site_long = coalesce(site_long_new, site_long_old)
+    ) %>%
+    mutate(
       across(
         all_of(final_date_cols),
         ~ case_when(
@@ -247,21 +252,12 @@ urban_metadata_sites <- function(combined_data) {
           cur_column() %in% start_date_cols ~
             get(paste0(cur_column(), "_old"))
           
+          # Default
+          TRUE ~ get(paste0(cur_column(), "_new"))
         )
       )
-    )
-  
-  # Keep site_lat and site_long
-  metadata_df_final <- metadata_df_joined %>%
-    mutate(
-      site_lat = coalesce(site_lat_new, site_lat_old),
-      site_long = coalesce(site_long_new, site_long_old)
     ) %>%
-    select(-site_lat_old, -site_lat_new, -site_long_old, -site_long_new)
-  
-  # Remove _old and _new
-  metadata_df_final <- metadata_df_final %>%
-    select(-ends_with("_old"), -ends_with("_new"))
+    select(-ends_with("_old"), -ends_with("_new")) # Remove _old and _new
   
   # Fix column order
   id_cols <- c("site_id", "site_lat", "site_long")

@@ -250,7 +250,7 @@ urban_metadata_sites <- function(combined_data) {
             get(paste0(cur_column(), "_new")),
           
           cur_column() %in% start_date_cols ~
-            get(paste0(cur_column(), "_old"))
+            get(paste0(cur_column(), "_old")),
           
           # Default
           TRUE ~ get(paste0(cur_column(), "_new"))

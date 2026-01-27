@@ -30,12 +30,10 @@ urban_metadata_sites <- function(combined_data) {
   old_metadata_df_sites <- read_csv(
     s3_site_metadata_url,
     col_types = cols(
-      # ID: Character
+      # ID and Location: Character
       site_id = col_character(),
-      
-      # Location: Decimal
-      site_lat = col_double(),
-      site_long = col_double(),
+      site_lat = col_character(),
+      site_long = col_character(),
       
       # Start/End Date: Date
       PM2.5_P1D_StartDate = col_date(),

@@ -9,167 +9,263 @@
   # PM2.5_P1D_StartDate
   # PM2.5_P1D_EndDate
 
+library(readr)
+
+max_date <- function(a, b) {
+  as.Date(pmax(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
+min_date <- function(a, b) {
+  as.Date(pmin(a, b, na.rm = TRUE), origin = "1970-01-01")
+}
+
 urban_metadata_sites <- function(combined_data) {
+  
+  print(paste0("Running target_helper_functions.R - urban_metadata_sites at ", Sys.time()))
   
   # Read in all site lat longs
   s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
-  old_metadata_df_sites = read.csv(s3_site_metadata_url)
+  
+  old_metadata_df_sites <- read_csv(
+    s3_site_metadata_url,
+    col_types = cols(
+      # ID and Location: Character
+      site_id = col_character(),
+      site_lat = col_character(),
+      site_long = col_character(),
+      
+      # Start/End Date: Date
+      PM2.5_P1D_StartDate = col_date(),
+      PM2.5_P1D_EndDate = col_date(),
+      PM2.5_P1H_StartDate = col_date(),
+      PM2.5_P1H_EndDate = col_date(),
+      PM10_P1D_StartDate = col_date(),
+      PM10_P1D_EndDate = col_date(),
+      PM10_P1H_StartDate = col_date(),
+      PM10_P1H_EndDate = col_date(),
+      O3_StartDate = col_date(),
+      O3_EndDate = col_date(),
+      NO2_P1D_StartDate = col_date(),
+      NO2_P1D_EndDate = col_date(),
+      NO2_P1H_StartDate = col_date(),
+      NO2_P1H_EndDate = col_date(),
+      
+      # Active: Logical
+      PM2.5_P1D_Active = col_logical(),
+      PM2.5_P1H_Active = col_logical(),
+      PM10_P1D_Active = col_logical(),
+      PM10_P1H_Active = col_logical(),
+      O3_Active = col_logical(),
+      NO2_P1D_Active = col_logical(),
+      NO2_P1H_Active = col_logical(),
+      
+      # Defaults
+      .default = col_character()
+    )
+  )
+  
   
   # Create an updated site metadata df
   new_metadata_df_sites <- combined_data %>%
     group_by(site_id) %>%
     summarise(
+      # Site Location
+      site_lat = paste(unique(latitude), collapse = ", "),
+      site_long = paste(unique(longitude), collapse = ", "),
+      
       # PM2.5 - Daily
-      PM2.5_P1D_StartDate = if (any(variable == "PM2.5 - Daily")) {
-        min(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_StartDate = if (any(parameter == "PM2.5 - Daily")) {
+        min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1D_EndDate = if (any(variable == "PM2.5 - Daily")) {
-        max(datetime[variable == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_EndDate = if (any(parameter == "PM2.5 - Daily")) {
+        max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1D_Active = if (is.na(PM2.5_P1D_EndDate)) {
         FALSE
       } else {
-        PM2.5_P1D_EndDate >= Sys.Date() - 180
+        PM2.5_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # PM2.5 - Hourly
-      PM2.5_P1H_StartDate = if (any(variable == "PM2.5 - Hourly")) {
-        min(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_StartDate = if (any(parameter == "PM2.5 - Hourly")) {
+        min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1H_EndDate = if (any(variable == "PM2.5 - Hourly")) {
-        max(datetime[variable == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_EndDate = if (any(parameter == "PM2.5 - Hourly")) {
+        max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1H_Active = if (is.na(PM2.5_P1H_EndDate)) {
         FALSE
       } else {
-        PM2.5_P1H_EndDate >= Sys.Date() - 180
+        PM2.5_P1H_EndDate >= (Sys.Date() - 180)
       },
       
       # PM10 - Daily
-      PM10_P1D_StartDate = if (any(variable == "PM10 - Daily")) {
-        min(datetime[variable == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_StartDate = if (any(parameter == "PM10 - Daily")) {
+        min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1D_EndDate = if (any(variable == "PM10 - Daily")) {
-        max(datetime[variable == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_EndDate = if (any(parameter == "PM10 - Daily")) {
+        max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1D_Active = if (is.na(PM10_P1D_EndDate)) {
         FALSE
       } else {
-        PM10_P1D_EndDate >= Sys.Date() - 180
+        PM10_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # PM10 - Hourly
-      PM10_P1H_StartDate = if (any(variable == "PM10 - Hourly")) {
-        min(datetime[variable == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_StartDate = if (any(parameter == "PM10 - Hourly")) {
+        min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1H_EndDate = if (any(variable == "PM10 - Hourly")) {
-        max(datetime[variable == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_EndDate = if (any(parameter == "PM10 - Hourly")) {
+        max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1H_Active = if (is.na(PM10_P1H_EndDate)) {
         FALSE
       } else {
-        PM10_P1H_EndDate >= Sys.Date() - 180
+        PM10_P1H_EndDate >= (Sys.Date() - 180)
       },
       
       # O3
-      O3_StartDate = if (any(variable == "O3")) {
-        min(datetime[variable == "O3"], na.rm = TRUE)
+      O3_StartDate = if (any(parameter == "O3")) {
+        min(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      O3_EndDate = if (any(variable == "O3")) {
-        max(datetime[variable == "O3"], na.rm = TRUE)
+      O3_EndDate = if (any(parameter == "O3")) {
+        max(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       O3_Active = if (is.na(O3_EndDate)) {
         FALSE
       } else {
-        O3_EndDate >= Sys.Date() - 180
+        O3_EndDate >= (Sys.Date() - 180)
       },
       
       # NO2 - Daily
-      NO2_P1D_StartDate = if (any(variable == "NO2 - Daily")) {
-        min(datetime[variable == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_StartDate = if (any(parameter == "NO2 - Daily")) {
+        min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1D_EndDate = if (any(variable == "NO2 - Daily")) {
-        max(datetime[variable == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_EndDate = if (any(parameter == "NO2 - Daily")) {
+        max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1D_Active = if (is.na(NO2_P1D_EndDate)) {
         FALSE
       } else {
-        NO2_P1D_EndDate >= Sys.Date() - 180
+        NO2_P1D_EndDate >= (Sys.Date() - 180)
       },
       
       # NO2 - Hourly
-      NO2_P1H_StartDate = if (any(variable == "NO2 - Hourly")) {
-        min(datetime[variable == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_StartDate = if (any(parameter == "NO2 - Hourly")) {
+        min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1H_EndDate = if (any(variable == "NO2 - Hourly")) {
-        max(datetime[variable == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_EndDate = if (any(parameter == "NO2 - Hourly")) {
+        max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1H_Active = if (is.na(NO2_P1H_EndDate)) {
         FALSE
       } else {
-        NO2_P1H_EndDate >= Sys.Date() - 180
+        NO2_P1H_EndDate >= (Sys.Date() - 180)
       }
     )
   
-  
-  # Update the dates and active columns
-  metadata_df <- full_join(
+  # Merge old and new sites
+  metadata_df_joined <- full_join(
     old_metadata_df_sites,
     new_metadata_df_sites,
     by = "site_id",
     suffix = c("_old", "_new")
   )
   
-  # Identify new columns that are not in the og dataset
-  new_cols = names(new_metadata_df_sites)[names(new_metadata_df_sites) != "site_id"]
+  # Create new columns to store final data
+  final_date_cols = c('PM2.5_P1D_StartDate', 'PM2.5_P1D_EndDate', 'PM2.5_P1D_Active',
+                      'PM2.5_P1H_StartDate', 'PM2.5_P1H_EndDate', 'PM2.5_P1H_Active',
+                      'PM10_P1D_StartDate', 'PM10_P1D_EndDate', 'PM10_P1D_Active',
+                      'PM10_P1H_StartDate', 'PM10_P1H_EndDate', 'PM10_P1H_Active',
+                      'O3_StartDate', 'O3_EndDate', 'O3_Active',
+                      'NO2_P1D_StartDate', 'NO2_P1D_EndDate', 'NO2_P1D_Active',
+                      'NO2_P1H_StartDate', 'NO2_P1H_EndDate', 'NO2_P1H_Active')
   
-  # Overwrite data when it changes
-  for (col in new_cols) {
-    old_col <- paste0(col, "_old")
-    new_col <- paste0(col, "_new")
-    
-    metadata_df[[col]] <- ifelse(
-      is.na(metadata_df[[new_col]]),
-      metadata_df[[old_col]],
-      metadata_df[[new_col]]
-    )
-  }
+  # Identify all specific type columns
+  start_date_cols = final_date_cols[grepl("StartDate$", final_date_cols)]
+  end_date_cols = final_date_cols[grepl("EndDate$", final_date_cols)]
+  active_cols = final_date_cols[grepl("Active$", final_date_cols)]
+
+  # Create empty columns
+  metadata_df_joined[start_date_cols] = as.Date(NA)
+  metadata_df_joined[end_date_cols] = as.Date(NA)
+  metadata_df_joined[active_cols] = NA
   
-  # Remove extra columns
-  metadata_df <- metadata_df %>%
-    select(site_id, all_of(new_cols), everything()) %>%
-    select(-ends_with("_old"), -ends_with("_new"))
+  # Merge based on if it's new, old, or both
+  metadata_df_final <- metadata_df_joined %>%
+    mutate(
+      # Keep site_lat and site_long
+      site_lat = coalesce(site_lat_new, site_lat_old),
+      site_long = coalesce(site_long_new, site_long_old)
+    ) %>%
+    mutate(
+      across(
+        all_of(final_date_cols),
+        ~ case_when(
+          
+          # New only: use _new
+          is.na(get(paste0(cur_column(), "_old"))) &
+            !is.na(get(paste0(cur_column(), "_new"))) ~
+            get(paste0(cur_column(), "_new")),
+          
+          # Old only: use _old
+          !is.na(get(paste0(cur_column(), "_old"))) &
+            is.na(get(paste0(cur_column(), "_new"))) ~
+            get(paste0(cur_column(), "_old")),
+          
+          # Both: use _new End Date and Active, and _old Start Date
+          cur_column() %in% end_date_cols ~
+            get(paste0(cur_column(), "_new")),
+          
+          cur_column() %in% active_cols ~
+            get(paste0(cur_column(), "_new")),
+          
+          cur_column() %in% start_date_cols ~
+            get(paste0(cur_column(), "_old")),
+          
+          # Default
+          TRUE ~ get(paste0(cur_column(), "_new"))
+        )
+      )
+    ) %>%
+    select(-ends_with("_old"), -ends_with("_new")) # Remove _old and _new
+  
+  # Fix column order
+  id_cols <- c("site_id", "site_lat", "site_long")
+  final_cols <- c(id_cols, final_date_cols)
+  metadata_df_final <- metadata_df_final[, final_cols]
   
   # Return updated df
-  return(metadata_df)
+  return(metadata_df_final)
               
 }
 

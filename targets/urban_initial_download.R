@@ -3,6 +3,7 @@ library(jsonlite)
 library(dplyr)
 library(ggplot2)
 library(readxl)
+library(lubridate)
 
 # Prep Workspace ----------------------------------------------------------
 
@@ -175,7 +176,11 @@ for (i in seq_along(county_codes)){
 copy_big_df <- big_df
 
 # Set date as datetime
-copy_big_df$date_local = as.Date(copy_big_df$date_local)
+copy_big_df$datetime <- as.POSIXct(
+  paste(copy_big_df$date_local, copy_big_df$time_local),
+  format = "%Y-%m-%d %H:%M:%S",
+  tz = "America/New_York"
+)
 
 # Update duration colum to ISO 8601 format
 copy_big_df$sample_duration = gsub("1 HOUR", "PT1H", copy_big_df$sample_duration)

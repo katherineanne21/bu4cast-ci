@@ -150,7 +150,11 @@ if (nrow(updated_data) == 0) {
 copy_updated_data = updated_data
 
 # Set date as datetime
-copy_updated_data$date_local = as.Date(copy_updated_data$date_local)
+copy_updated_data$datetime <- as.POSIXct(
+  paste(copy_updated_data$date_local, copy_updated_data$time_local),
+  format = "%Y-%m-%d %H:%M:%S",
+  tz = "America/New_York"
+)
 
 # Update duration colum to ISO 8601 format
 copy_updated_data$sample_duration = gsub("1 HOUR", "PT1H", copy_updated_data$sample_duration)
@@ -234,4 +238,4 @@ unlink(csv_filename)
 # Health Check
 # Created at www.healthchecks.io
 # Currently set to bu4cast-ci-example
-RCurl::getURL("https://hc-ping.com/9836911f-f0e5-485b-91a0-f1d98f11dd7a")
+RCurl::getURL("https://hc-ping.com/79b757b6-fd76-4844-aa88-ee24344e0ab7")

@@ -13,6 +13,7 @@ jobs:
     env:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
+      MICRODATASUS_INSTALL: ${{ secrets.MICRODATASUS_INSTALL }}
 
     container: eco4cast/rocker-neon4cast:latest
 

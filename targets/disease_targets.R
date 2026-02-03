@@ -5,6 +5,8 @@ library(microdatasus)
 library(gitcreds)
 
 #fetch and process disease data from the information system for notifiable diseases
+install.packages("remotes")
+remotes::install_github("rfsaldanha/microdatasus")
 library(microdatasus)
 
 raw_lv <- fetch_datasus(

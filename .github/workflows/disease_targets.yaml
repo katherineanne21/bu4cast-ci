@@ -20,8 +20,17 @@ jobs:
     steps:
      # 1. Checkout repository
       - uses: actions/checkout@v3
+      
+    # 2. Load Microdatasus
+      - name: Install and load microdatasus
+        run: |
+          R -e "
+            install.packages('remotes')
+            remotes::install_github('rfsaldanha/microdatasus')
+            library(microdatasus)
+          "
 
-      # 2. Run your script
+      # 3. Run your script
       - name: Run Disease Targets Script
         run: |
           Rscript targets/disease_targets.R

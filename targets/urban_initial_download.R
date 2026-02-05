@@ -182,7 +182,7 @@ copy_big_df$datetime <- as.POSIXct(
   tz = "America/New_York"
 )
 
-# Update duration colum to ISO 8601 format
+# Update duration column to ISO 8601 format
 copy_big_df$sample_duration = gsub("1 HOUR", "PT1H", copy_big_df$sample_duration)
 copy_big_df$sample_duration = gsub("24 HOUR", "P1D", copy_big_df$sample_duration)
 
@@ -212,6 +212,8 @@ copy_big_df$site_id = paste(copy_big_df$state_code,
 # Metadata ----------------------------------------------------------------
 
 # Create metadata of each site
+copy_big_df$date_local <- as.Date(copy_big_df$date_local)
+
 metadata_df_latlong <- copy_big_df %>%
   group_by(site_id) %>%
   summarise(

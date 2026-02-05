@@ -200,10 +200,17 @@ primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
 new_data <- old_data %>%
   anti_join(data, by = primary_keys) %>%
-  bind_rows(data)
+  bind_rows(data) %>%
+  distinct(across(all_of(primary_keys)), .keep_all = TRUE)
 
 # Organize by date
 new_data = new_data[order(data$datetime), ]
+
+# Print Row Counts for QC
+cat("QC - Row Counts:\n")
+cat("  Old Data: ", nrow(old_data), "\n")
+cat("  New Downloaded Data:     ", nrow(data),     "\n")
+cat("  New Combined Data:     ", nrow(new_data),     "\n")
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(copy_updated_data)

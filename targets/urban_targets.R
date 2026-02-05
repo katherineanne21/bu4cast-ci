@@ -31,7 +31,19 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
-old_data <- arrow::read_csv_arrow(s3_read$path(filename))
+# Read in old data
+urban_data_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+old_data = read_csv(urban_data_url, 
+                          col_types = cols(project_id = col_character(),
+                                           site_id = col_character(),
+                                           datetime = col_date(),
+                                           duration = col_character(),
+                                           variable = col_character(),
+                                           observation = col_double()))
+
+old_data$datetime <- as.POSIXct(old_data$datetime,
+                                format = "%Y-%m-%d %H:%M:%S",
+                                tz = "America/New_York")
 
 
 # Step 1: Download Data (last year and this year) -------------------------

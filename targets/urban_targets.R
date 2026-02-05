@@ -218,6 +218,17 @@ new_data <- bind_rows(old_data, data) %>%
 # Organize by date
 new_data = new_data[order(data$datetime), ]
 
+n_unique_keys_merged <- bind_rows(old_data, data) %>%
+  distinct(across(all_of(primary_keys))) %>%
+  nrow()
+n_unique_keys <- old_data %>%
+  distinct(across(all_of(primary_keys))) %>%
+  nrow()
+
+cat("Number of unique rows in merged:", n_unique_keys_merged, "\n")
+cat("Number of unique rows in old_data:", n_unique_keys, "\n")
+
+
 # Print Row Counts for QC
 cat("QC - Row Counts:\n")
 cat("  Old Data: ", nrow(old_data), "\n")

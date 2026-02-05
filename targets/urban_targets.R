@@ -210,9 +210,9 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Update data for the past two years
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
-new_data <- old_data %>%
-  anti_join(data, by = primary_keys) %>%
-  bind_rows(data) %>%
+# Merge old_data and data to new_data
+# Remove duplicates (keeping the data version)
+new_data <- bind_rows(old_data, data) %>%
   distinct(across(all_of(primary_keys)), .keep_all = TRUE)
 
 # Organize by date

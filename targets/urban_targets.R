@@ -194,7 +194,7 @@ copy_updated_data$site_id = paste(copy_updated_data$state_code,
                                       sep = '-')
 
 # Select data
-data = copy_updated_data[, c('site_id', 'date_local', 'sample_duration',
+data = copy_updated_data[, c('site_id', 'datetime', 'sample_duration',
                        'parameter', 'sample_measurement')]
 
 # Rename columns

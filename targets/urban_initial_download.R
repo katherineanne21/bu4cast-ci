@@ -175,6 +175,9 @@ for (i in seq_along(county_codes)){
 
 copy_big_df <- big_df
 
+# Remove duplicates
+
+
 # Set date as datetime
 copy_big_df$datetime <- as.POSIXct(
   paste(copy_big_df$date_local, copy_big_df$time_local),
@@ -405,3 +408,21 @@ for (name in names(pollutant_list)) {
   ggsave(plotname, width = 8, height = 5, dpi = 300)
 
 }
+
+# Find best POC for each site
+
+poc_result <- copy_big_df %>%
+  mutate(date_local = as.POSIXct(date_local)) %>%
+  arrange(site_id, parameter, poc, date_local) %>%
+  group_by(site_id, parameter, poc) %>%
+  summarise(
+    start = min(date_local, na.rm = TRUE),
+    end   = max(date_local, na.rm = TRUE),
+    duration = difftime(end, start, units = "days")
+  ) %>%
+  group_by(site_id, parameter) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+filename = paste0(personal_folder, 'urban-duplicate-sensors.csv')
+write.csv(poc_result, filename, row.names = FALSE)

@@ -86,7 +86,7 @@ message("Getting list of data from NEON Portal")
 
 # for(y in 2016:year(Sys.Date())){
 #   print(y)
-pass <- TRUE
+pass <- FALSE
 iter <- 0
 while(pass & iter < 4){
   iter <- iter + 1
@@ -112,7 +112,7 @@ while(pass & iter < 4){
   write_csv(full_df, path.expand("~/data/aquatics_urls/DP1.20288.001.csv"))
 }
 
-#full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
+full_df <- read_csv(path.expand("~/data/aquatics_urls/DP1.20288.001.csv"), show_col_types = FALSE)
 
 urls <- full_df |>
   dplyr::filter(grepl("waq_instantaneous", name)) |>

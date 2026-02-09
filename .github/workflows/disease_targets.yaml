@@ -13,7 +13,7 @@ jobs:
     env:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-      MICRODATASUS_INSTALL_TEST: ${{ secrets.MICRODATASUS_INSTALL_TEST }}
+      GITHUB_PAT: ${{ secrets.MICRODATASUS_INSTALL_TEST }} # create as a token (expires every 365 days)
 
     container: eco4cast/rocker-neon4cast:latest
 

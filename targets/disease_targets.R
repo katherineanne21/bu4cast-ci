@@ -3,9 +3,9 @@ library(dplyr)
 library(arrow)
 library(microdatasus)
 library(gitcreds)
+library(lubridate)
 
 #fetch and process disease data from the information system for notifiable diseases
-GITHUB_PAT = Sys.getenv("MICRODATASUS_INSTALL") # create as a token (expires every 365 days)
 install.packages("remotes")
 remotes::install_github("rfsaldanha/microdatasus")
 library(microdatasus)

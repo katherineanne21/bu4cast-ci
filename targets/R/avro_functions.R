@@ -87,7 +87,7 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
-  wq_avro <- py_to_r(read_avro_file(path))
+  wq_avro <- tibble::as_tibble(py_to_r(read_avro_file(path)))
 
   if (nrow(wq_avro) >= 1) {
     wq_tibble <- wq_avro |>

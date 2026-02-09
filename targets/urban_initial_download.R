@@ -45,7 +45,7 @@ county_names = list('Suffolk', 'Essex', 'Norfolk')
 # Dates
 current_year = as.numeric(format(Sys.Date(), '%Y'))
 today = format(Sys.Date(), '%Y%m%d')
-years_list = as.character(1970:current_year)
+years_list = as.character(2010:current_year)
 current_year = as.character(current_year)
 
 # Prep dataframe
@@ -176,6 +176,29 @@ for (i in seq_along(county_codes)){
 copy_big_df <- big_df
 
 # Remove duplicates
+
+copy_big_df <- copy_big_df %>%
+  mutate(
+    date_local = as.POSIXct(date_local),
+    date_of_last_change = as.POSIXct(date_of_last_change)
+  ) %>%
+  # Most recently updated for datetime, variable, site_id, duration, and poc
+  group_by(datetime, variable, site_id, duration, poc) %>%
+  slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
+  ungroup() %>%
+  # Longer duration for datetime, variable, site_id, and duration
+  group_by(site_id, parameter, poc) %>%
+  mutate(
+    sensor_duration = as.numeric(difftime(
+      max(date_local, na.rm = TRUE),
+      min(date_local, na.rm = TRUE),
+      units = "days"
+    ))
+  ) %>%
+  ungroup() %>%
+  group_by(datetime, variable, site_id, duration) %>%
+  slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
+  ungroup()
 
 
 # Set date as datetime

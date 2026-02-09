@@ -161,6 +161,31 @@ if (nrow(updated_data) == 0) {
 
 copy_updated_data = updated_data
 
+# Remove duplicates
+
+copy_updated_data <- copy_updated_data %>%
+  mutate(
+    date_local = as.POSIXct(date_local),
+    date_of_last_change = as.POSIXct(date_of_last_change)
+  ) %>%
+  # Most recently updated for datetime, variable, site_id, duration, and poc
+  group_by(datetime, variable, site_id, duration, poc) %>%
+  slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
+  ungroup() %>%
+  # Longer duration for datetime, variable, site_id, and duration
+  group_by(site_id, parameter, poc) %>%
+  mutate(
+    sensor_duration = as.numeric(difftime(
+      max(date_local, na.rm = TRUE),
+      min(date_local, na.rm = TRUE),
+      units = "days"
+    ))
+  ) %>%
+  ungroup() %>%
+  group_by(datetime, variable, site_id, duration) %>%
+  slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
 # Set date as datetime
 copy_updated_data$datetime <- as.POSIXct(
   paste(copy_updated_data$date_local, copy_updated_data$time_local),

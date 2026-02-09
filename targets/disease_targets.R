@@ -4,6 +4,7 @@ library(arrow)
 library(microdatasus)
 library(gitcreds)
 library(lubridate)
+library(stringr)
 
 #fetch and process disease data from the information system for notifiable diseases
 install.packages("remotes")
@@ -40,15 +41,28 @@ lv <- lv %>%
     onset_month = floor_date(onset_date, "month")
   )
 
-#selecting final variables and processing case count per municipality
+#selecting final variables and processing case count per municipality and
+#formatting to include 'project_id', 'site_id', 'datetime', 'duration', 'variable', 'observation'
 lv_monthly_mun <- lv %>%
   mutate(
     date = floor_date(onset_month, "month")
   ) %>%
   filter(!is.na(date), !is.na(ID_MN_RESI)) %>%
   count(ID_MN_RESI, date, name = "vl_cases") %>%
-  rename(property_id = ID_MN_RESI)%>%
-  arrange(property_id, date)
+  rename(property_id = ID_MN_RESI) %>%
+  transmute(
+    project_id  = "bu4cast",                 # <- set to whatever project label you want
+    site_id     = as.character(property_id),  # <- NEON-like "site"
+    datetime    = as.POSIXct(date, tz = "UTC"),
+    duration    = "P1M",                      # <- ISO-8601 style "1 month" duration
+    variable    = "vl_cases",
+    observation = vl_cases
+  ) %>%
+  arrange(project_id, site_id, datetime, duration, variable)
+
+#check and enforce one observation per site per month: 
+lv_final_clean <- lv_monthly_mun %>%
+  distinct(site_id, datetime, variable, .keep_all = TRUE)
 
 #writing final csv (leave out if needed)
 # write.csv(lv_monthly_mun, "vl_monthly.csv")
@@ -64,8 +78,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 challenge_name = 'tropical_disease'
 filename = paste("challenges/targets/project_id=bu4cast/",challenge_name,
                  "-targets.csv",sep="")
-arrow::write_csv_arrow(data,sink=s3_read$path(filename))
-
+arrow::write_csv_arrow(lv_final_clean,sink=s3_read$path(filename))
 
 # Remove file from working directory
 csv_filename = paste(challenge_name, "-targets.csv.gz")

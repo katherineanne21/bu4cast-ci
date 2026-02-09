@@ -75,7 +75,7 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
                             scheme = "https")
 
 #create file name/folder
-challenge_name = 'tropical_disease'
+challenge_name = 'tropical-disease'
 filename = paste("challenges/targets/project_id=bu4cast/",challenge_name,
                  "-targets.csv",sep="")
 arrow::write_csv_arrow(lv_final_clean,sink=s3_read$path(filename))

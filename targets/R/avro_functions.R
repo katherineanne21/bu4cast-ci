@@ -89,6 +89,8 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 
   wq_avro <- py_to_r(read_avro_file(path))
 
+  print(wq_avro)
+
   if (nrow(wq_avro) >= 1) {
     wq_tibble <- wq_avro |>
       #wq_avro <- sparkavro::spark_read_avro(sc,

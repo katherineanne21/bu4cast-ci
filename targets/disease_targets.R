@@ -3,6 +3,7 @@ library(dplyr)
 library(arrow)
 library(microdatasus)
 library(gitcreds)
+library(lubridate)
 
 #fetch and process disease data from the information system for notifiable diseases
 install.packages("remotes")

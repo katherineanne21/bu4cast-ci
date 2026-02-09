@@ -1,3 +1,6 @@
+install.packages("remotes")
+remotes::install_github("rstudio/reticulate")
+
 library(neonstore)
 library(tidyverse)
 library(lubridate)

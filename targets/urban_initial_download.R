@@ -375,7 +375,7 @@ metadata_df_units <- copy_big_df %>%
 
 # Prep for Saving ---------------------------------------------------------
 
-data = copy_big_df[, c('site_id', 'date_local', 'sample_duration',
+data = copy_big_df[, c('site_id', 'datetime', 'sample_duration',
                        'parameter', 'sample_measurement')]
 
 # Rename columns

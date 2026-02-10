@@ -1,10 +1,10 @@
 ## National Ecological Observatory Network (NEON) Ecological Forecasting Challenge Cyberinfrastructure
 
-Authors: R. Q. Thomas and C. Boettiger
+Thomas, R.Q. and C. Boettiger. (2025). Cyberinfrastructure to Support Ecological Forecasting Challenges. ESS Open Archive. http://doi.org/10.22541/essoar.175917344.44115142/v1
 
 # ![A schematic illustrating the main tasks in the ecological forecasting challenge cyberinfrastructure. The numbers refer to the sections in the Thomas and Boettiger (2025) that describe the task.](manuscript/neon4cast-CI.png)
 
-The following elements of a forecasting challenge workflow are included in this repo. The GitHub Actions are the tool for automating the tasks.
+The following elements of a forecasting challenge workflow are included in this repo. GitHub Actions are used to automate tasks.
 
 1)  Generation of targets
 2)  Processing of submissions
@@ -15,6 +15,6 @@ The following elements of a forecasting challenge workflow are included in this 
 7)  Download of weather drivers for forecasts
 8)  Creation of Docker containers with supporting software
 
-See <https://doi.org/10.1002/fee.2616> for more information on the structure of a forecasting challenge.
+See <[https://doi.org/10.1002/fee.2616](http://doi.org/10.22541/essoar.175917344.44115142/v1)> for more information on the structure of a forecasting challenge.
 
-Supported by the U.S. National Science Foundation grants (DEB-1926388 and OAC-2209866)
+Supported by the U.S. National Science Foundation grants (DEB-1926388, OAC-2209866, DEB-2327030, and OAC-2311124)

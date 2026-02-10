@@ -11,6 +11,8 @@ install.packages("ncdf4")
 install.packages("jsonlite")
 install.packages("RCurl")
 install.packages("tidyr")
+install.packages("getPass")
+
 
 library(rerddap)
 library(arrow)
@@ -23,6 +25,8 @@ library(ncdf4)
 library(jsonlite)
 library(RCurl)
 library(tidyr)
+library(getPass)
+
 
 # Source NASA download function (Author: Dongchen Zhang)
 source("targets/R/NASA_DAAC_download.R")

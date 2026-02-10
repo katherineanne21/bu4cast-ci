@@ -3,6 +3,7 @@
 ## Author: Cami Webb, cwebb16@bu.edu
 ## Created: 02-01-2025
 
+install.packages("rerddap")
 library(rerddap)
 library(arrow)
 library(dplyr)

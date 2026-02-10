@@ -5,6 +5,7 @@
 
 install.packages("rerddap")
 install.packages("foreach")
+install.packages("doParallel")
 
 library(rerddap)
 library(arrow)

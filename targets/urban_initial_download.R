@@ -176,13 +176,13 @@ for (i in seq_along(county_codes)){
 
 copy_big_df <- big_df
 
-
 # Set date as datetime
 copy_big_df$datetime <- as.POSIXct(
-  paste(copy_big_df$date_local, copy_big_df$time_local),
+  paste(copy_big_df$date_gmt, copy_big_df$time_gmt),
   format = "%Y-%m-%d %H:%M",
-  tz = "America/New_York"
+  tz = "GMT"
 )
+copy_big_df$datetime <- format(copy_big_df$datetime, format = "%Y-%m-%d %H:%M")
 
 # Update duration column to ISO 8601 format
 copy_big_df$sample_duration = gsub("1 HOUR", "PT1H", copy_big_df$sample_duration)
@@ -214,25 +214,25 @@ copy_big_df$site_id = paste(copy_big_df$state_code,
 
 copy_big_df <- copy_big_df %>%
   mutate(
-    date_local = as.POSIXct(date_local),
+    date_gmt = as.POSIXct(date_gmt),
     date_of_last_change = as.POSIXct(date_of_last_change)
   ) %>%
   drop_na(sample_measurement) %>% # remove NA's
   # Most recently updated for datetime, variable, site_id, duration, and poc
-  group_by(date_local, parameter, site_id, sample_duration, poc) %>%
+  group_by(date_gmt, parameter, site_id, sample_duration, poc) %>%
   slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
   ungroup() %>%
   # Longer duration for datetime, variable, site_id, and duration
   group_by(site_id, parameter, poc) %>%
   mutate(
     sensor_duration = as.numeric(difftime(
-      max(date_local, na.rm = TRUE),
-      min(date_local, na.rm = TRUE),
+      max(date_gmt, na.rm = TRUE),
+      min(date_gmt, na.rm = TRUE),
       units = "days"
     ))
   ) %>%
   ungroup() %>%
-  group_by(date_local, parameter, site_id, sample_duration) %>%
+  group_by(date_gmt, parameter, site_id, sample_duration) %>%
   slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
   ungroup()
 
@@ -247,12 +247,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM2.5 - Daily
     PM2.5_P1D_StartDate = if (any(parameter == "PM2.5 - Daily")) {
-      min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+      min(date_gmt[parameter == "PM2.5 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM2.5_P1D_EndDate = if (any(parameter == "PM2.5 - Daily")) {
-      max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+      max(date_gmt[parameter == "PM2.5 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -264,12 +264,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM2.5 - Hourly
     PM2.5_P1H_StartDate = if (any(parameter == "PM2.5 - Hourly")) {
-      min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+      min(date_gmt[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM2.5_P1H_EndDate = if (any(parameter == "PM2.5 - Hourly")) {
-      max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+      max(date_gmt[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -281,12 +281,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM10 - Daily
     PM10_P1D_StartDate = if (any(parameter == "PM10 - Daily")) {
-      min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
+      min(date_gmt[parameter == "PM10 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM10_P1D_EndDate = if (any(parameter == "PM10 - Daily")) {
-      max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
+      max(date_gmt[parameter == "PM10 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -298,12 +298,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM10 - Hourly
     PM10_P1H_StartDate = if (any(parameter == "PM10 - Hourly")) {
-      min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
+      min(date_gmt[parameter == "PM10 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM10_P1H_EndDate = if (any(parameter == "PM10 - Hourly")) {
-      max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
+      max(date_gmt[parameter == "PM10 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -315,12 +315,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # O3
     O3_StartDate = if (any(parameter == "O3")) {
-      min(date_local[parameter == "O3"], na.rm = TRUE)
+      min(date_gmt[parameter == "O3"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     O3_EndDate = if (any(parameter == "O3")) {
-      max(date_local[parameter == "O3"], na.rm = TRUE)
+      max(date_gmt[parameter == "O3"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -332,12 +332,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # NO2 - Daily
     NO2_P1D_StartDate = if (any(parameter == "NO2 - Daily")) {
-      min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
+      min(date_gmt[parameter == "NO2 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     NO2_P1D_EndDate = if (any(parameter == "NO2 - Daily")) {
-      max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
+      max(date_gmt[parameter == "NO2 - Daily"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -349,12 +349,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # NO2 - Hourly
     NO2_P1H_StartDate = if (any(parameter == "NO2 - Hourly")) {
-      min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
+      min(date_gmt[parameter == "NO2 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     NO2_P1H_EndDate = if (any(parameter == "NO2 - Hourly")) {
-      max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
+      max(date_gmt[parameter == "NO2 - Hourly"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -370,7 +370,7 @@ metadata_df_latlong <- copy_big_df %>%
 metadata_df_units <- copy_big_df %>%
   group_by(parameter) %>%
   summarise(
-    start_year = min(lubridate::year(date_local)),
+    start_year = min(lubridate::year(date_gmt)),
     units_of_measure = paste(unique(units_of_measure), collapse = ", "))
 
 # Prep for Saving ---------------------------------------------------------
@@ -405,14 +405,14 @@ write.csv(metadata_df_units, filename, row.names = FALSE)
 
 ## Showcase data timelines per pollutant
 
-pollutant_list <- split(data, data$variable)
+pollutant_list <- split(copy_big_df, copy_big_df$parameter)
 
 for (name in names(pollutant_list)) {
   pol_df <- pollutant_list[[name]]
   
   df_range <- pol_df %>%
     group_by(site_id) %>%
-    summarise(start = min(datetime), end = max(datetime))
+    summarise(start = min(date_gmt), end = max(date_gmt))
   
   ggplot(df_range, aes(y = site_id)) +
     geom_segment(aes(x = start, xend = end, yend = site_id), linewidth = 1) +
@@ -433,12 +433,12 @@ for (name in names(pollutant_list)) {
 # Find best POC for each site
 
 poc_result <- copy_big_df %>%
-  mutate(date_local = as.POSIXct(date_local)) %>%
-  arrange(site_id, parameter, poc, date_local) %>%
+  mutate(date_gmt = as.POSIXct(date_gmt)) %>%
+  arrange(site_id, parameter, poc, date_gmt) %>%
   group_by(site_id, parameter, poc) %>%
   summarise(
-    start = min(date_local, na.rm = TRUE),
-    end   = max(date_local, na.rm = TRUE),
+    start = min(date_gmt, na.rm = TRUE),
+    end   = max(date_gmt, na.rm = TRUE),
     duration = difftime(end, start, units = "days")
   ) %>%
   group_by(site_id, parameter) %>%

@@ -164,10 +164,11 @@ copy_updated_data = updated_data
 
 # Set date as datetime
 copy_updated_data$datetime <- as.POSIXct(
-  paste(copy_updated_data$date_local, copy_updated_data$time_local),
+  paste(copy_updated_data$date_gmt, copy_updated_data$time_gmt),
   format = "%Y-%m-%d %H:%M",
-  tz = "America/New_York"
+  tz = "GMT"
 )
+copy_updated_data$datetime <- format(copy_updated_data$datetime, format = "%Y-%m-%d %H:%M")
 
 # Update duration colum to ISO 8601 format
 copy_updated_data$sample_duration = gsub("1 HOUR", "PT1H", copy_updated_data$sample_duration)
@@ -198,25 +199,25 @@ copy_updated_data$site_id = paste(copy_updated_data$state_code,
 
 copy_updated_data <- copy_updated_data %>%
   mutate(
-    date_local = as.POSIXct(date_local),
+    date_gmt = as.POSIXct(date_gmt),
     date_of_last_change = as.POSIXct(date_of_last_change)
   ) %>%
   drop_na(sample_measurement) %>% # remove NA's
   # Most recently updated for datetime, variable, site_id, duration, and poc
-  group_by(date_local, parameter, site_id, sample_duration, poc) %>%
+  group_by(date_gmt, parameter, site_id, sample_duration, poc) %>%
   slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
   ungroup() %>%
   # Longer duration for datetime, variable, site_id, and duration
   group_by(site_id, parameter, poc) %>%
   mutate(
     sensor_duration = as.numeric(difftime(
-      max(date_local, na.rm = TRUE),
-      min(date_local, na.rm = TRUE),
+      max(date_gmt, na.rm = TRUE),
+      min(date_gmt, na.rm = TRUE),
       units = "days"
     ))
   ) %>%
   ungroup() %>%
-  group_by(date_local, parameter, site_id, sample_duration) %>%
+  group_by(date_gmt, parameter, site_id, sample_duration) %>%
   slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
   ungroup()
 

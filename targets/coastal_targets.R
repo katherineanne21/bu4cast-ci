@@ -4,6 +4,8 @@
 ## Created: 02-01-2025
 
 install.packages("rerddap")
+install.packages("foreach")
+
 library(rerddap)
 library(arrow)
 library(dplyr)

@@ -43,8 +43,10 @@ old_data = read_csv(urban_data_url,
                                            observation = col_double()))
 
 old_data$datetime <- as.POSIXct(old_data$datetime,
-                                format = "%Y-%m-%d %H:%M:%S",
-                                tz = "America/New_York")
+                                format = "%Y-%m-%d %H:%M",
+                                tz = "GMT"
+                                )
+old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
 
 
 # Step 1: Download Data (last year and this year) -------------------------

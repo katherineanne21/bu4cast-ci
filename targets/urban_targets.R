@@ -2,6 +2,7 @@
 ## Created: 10/20/2025
 
 library(dplyr)
+library(tidyr)
 library(arrow)
 library(httr)
 library(jsonlite)
@@ -195,11 +196,12 @@ copy_updated_data$site_id = paste(copy_updated_data$state_code,
 
 # Remove duplicates
 
-copy_big_df <- copy_big_df %>%
+copy_updated_data <- copy_updated_data %>%
   mutate(
     date_local = as.POSIXct(date_local),
     date_of_last_change = as.POSIXct(date_of_last_change)
   ) %>%
+  drop_na(sample_measurement) %>% # remove NA's
   # Most recently updated for datetime, variable, site_id, duration, and poc
   group_by(date_local, parameter, site_id, sample_duration, poc) %>%
   slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  

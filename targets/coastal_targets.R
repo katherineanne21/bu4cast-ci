@@ -6,6 +6,11 @@
 install.packages("rerddap")
 install.packages("foreach")
 install.packages("doParallel")
+install.packages("doSNOW")
+install.packages("ncdf4")
+install.packages("jsonlite")
+install.packages("RCurl")
+install.packages("tidyr")
 
 library(rerddap)
 library(arrow)

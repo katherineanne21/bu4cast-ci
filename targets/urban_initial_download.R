@@ -180,7 +180,7 @@ copy_big_df <- big_df
 # Set date as datetime
 copy_big_df$datetime <- as.POSIXct(
   paste(copy_big_df$date_local, copy_big_df$time_local),
-  format = "%Y-%m-%d %H:%M:%S",
+  format = "%Y-%m-%d %H:%M",
   tz = "America/New_York"
 )
 

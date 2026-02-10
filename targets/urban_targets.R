@@ -165,7 +165,7 @@ copy_updated_data = updated_data
 # Set date as datetime
 copy_updated_data$datetime <- as.POSIXct(
   paste(copy_updated_data$date_local, copy_updated_data$time_local),
-  format = "%Y-%m-%d %H:%M:%S",
+  format = "%Y-%m-%d %H:%M",
   tz = "America/New_York"
 )
 

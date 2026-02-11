@@ -42,6 +42,8 @@ old_data = read_csv(urban_data_url,
                                            variable = col_character(),
                                            observation = col_double()))
 
+cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
+
 old_data$datetime <- as.POSIXct(old_data$datetime,
                                 format = "%Y-%m-%d %H:%M",
                                 tz = "GMT"

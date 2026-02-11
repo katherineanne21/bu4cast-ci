@@ -18,23 +18,13 @@ jobs:
     container: eco4cast/rocker-neon4cast:latest
 
     steps:
-      # Checkout repo
       - uses: actions/checkout@v4
 
-      # Cache renv packages
-      - name: Cache renv
-        uses: actions/cache@v4
-        with:
-          path: renv/library
-          key: renv-${{ hashFiles('renv.lock') }}
-          restore-keys: renv-
-
-      # Restore R packages
-      - name: Restore renv
+      - name: Install R packages
         run: |
-          Rscript -e 'renv::restore()'
+          Rscript -e 'options(repos=c(CRAN="https://cloud.r-project.org"))'
+          Rscript -e 'pkgs <- c("rerddap","foreach","doParallel","doSNOW","ncdf4","jsonlite","RCurl","tidyr","getPass","Kendall","arrow","dplyr","lubridate"); need <- pkgs[!pkgs %in% rownames(installed.packages())]; if(length(need)) install.packages(need, Ncpus = 2)'
 
-      # Run coastal targets script
       - name: Run Coastal Targets Script
         run: |
           Rscript targets/coastal_targets.R

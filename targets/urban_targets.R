@@ -257,7 +257,7 @@ new_data <- bind_rows(old_data, data) %>%
   distinct(across(all_of(primary_keys)), .keep_all = TRUE)
 
 # Organize by date
-new_data = new_data[order(data$datetime), ]
+new_data = new_data[order(new_data$datetime), ]
 
 n_unique_keys_merged <- bind_rows(old_data, data) %>%
   distinct(across(all_of(primary_keys))) %>%

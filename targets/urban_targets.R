@@ -255,6 +255,22 @@ primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 old_data$datetime <- as.POSIXct(old_data$datetime, tz = "GMT")
 data$datetime <- as.POSIXct(data$datetime, tz = "GMT")
 
+# 1. Check attributes
+attributes(old_data$datetime)
+attributes(data$datetime)
+
+# 2. Test if they compare equal
+sample_row <- data[1, primary_keys]
+any_match <- old_data %>%
+  filter(project_id == sample_row$project_id,
+         site_id == sample_row$site_id, 
+         duration == sample_row$duration,
+         variable == sample_row$variable,
+         datetime == sample_row$datetime) %>%
+  nrow()
+
+print(paste("Exact matches found:", any_match))
+
 # Merge old_data and data to new_data
 # Remove duplicates (keeping the data version)
 new_data <- bind_rows(old_data, data) %>%

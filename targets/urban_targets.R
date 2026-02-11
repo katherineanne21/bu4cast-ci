@@ -260,6 +260,12 @@ n_unique_keys <- old_data %>%
   distinct(across(all_of(primary_keys))) %>%
   nrow()
 
+print('Updated Data Types:')
+str(data)
+
+print('Old Data Types:')
+str(old_data)
+
 cat("Number of unique rows in merged:", n_unique_keys_merged, "\n")
 cat("Number of unique rows in old_data:", n_unique_keys, "\n")
 

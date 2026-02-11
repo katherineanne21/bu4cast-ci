@@ -43,11 +43,9 @@ old_data = read_csv(urban_data_url,
                                            observation = col_double()))
 
 cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
+old_data$datetime <- trimws(old_data$datetime)
+old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT")
 
-old_data$datetime <- as.POSIXct(old_data$datetime,
-                                format = "%Y-%m-%d %H:%M",
-                                tz = "GMT"
-                                )
 #old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
 
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")

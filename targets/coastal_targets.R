@@ -3,17 +3,6 @@
 ## Author: Cami Webb, cwebb16@bu.edu
 ## Created: 02-01-2025
 
-install.packages("rerddap")
-install.packages("foreach")
-install.packages("doParallel")
-install.packages("doSNOW")
-install.packages("ncdf4")
-install.packages("jsonlite")
-install.packages("RCurl")
-install.packages("tidyr")
-install.packages("getPass")
-
-
 library(rerddap)
 library(arrow)
 library(dplyr)

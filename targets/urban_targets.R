@@ -276,7 +276,7 @@ any_match <- old_data %>%
          site_id == sample_row$site_id, 
          duration == sample_row$duration,
          variable == sample_row$variable,
-         datetime == sample_row$datetime) %>%
+         datetime == sample_row$datetime_str) %>%
   nrow()
 
 print(paste("Exact matches found:", any_match))

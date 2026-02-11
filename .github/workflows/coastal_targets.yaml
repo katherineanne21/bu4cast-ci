@@ -2,9 +2,8 @@ name: Coastal Targets Download
 
 on:
   workflow_dispatch:
-  
   schedule:
-    - cron: '0 12 * * *'  # runs at 12:00 UTC every day (~7 AM ET in standard time)
+    - cron: '0 12 * * *'
 
 jobs:
   r-job:
@@ -13,16 +12,16 @@ jobs:
     env:
       OSN_KEY: ${{ secrets.OSN_KEY }}
       OSN_SECRET: ${{ secrets.OSN_SECRET }}
-      EPA_EMAIL: ${{ secrets.EPA_EMAIL }}
-      EPA_KEY: ${{ secrets.EPA_KEY }}
 
     container: eco4cast/rocker-neon4cast:latest
 
     steps:
-     # 1. Checkout repository
       - uses: actions/checkout@v3
 
-      # 2. Run your script
+      - name: Install R packages
+        run: |
+          Rscript -e "install.packages(c('rerddap','foreach','doParallel','doSNOW','ncdf4','jsonlite','RCurl','tidyr','getPass','Kendall'), repos='https://cloud.r-project.org')"
+
       - name: Run Coastal Targets Script
         run: |
           Rscript targets/coastal_targets.R

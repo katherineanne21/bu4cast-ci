@@ -45,9 +45,8 @@ old_data = read_csv(urban_data_url,
 cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
 head(old_data$datetime, 20)
 #old_data$datetime <- trimws(old_data$datetime)
-old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT")
-
-#old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
+old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT") #want
+#old_data$datetime <- as.POSIXct(old_data$datetime, format = "%m/%d/%y %H:%M", tz = "GMT") #current
 
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 n_unique_keys <- old_data %>%
@@ -183,7 +182,6 @@ copy_updated_data$datetime <- as.POSIXct(
   format = "%Y-%m-%d %H:%M",
   tz = "GMT"
 )
-copy_updated_data$datetime <- format(copy_updated_data$datetime, format = "%Y-%m-%d %H:%M")
 
 # Update duration colum to ISO 8601 format
 copy_updated_data$sample_duration = gsub("1 HOUR", "PT1H", copy_updated_data$sample_duration)
@@ -250,9 +248,6 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
-# Ensure datetime column is the same
-old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
-
 # Create primary keys
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
@@ -288,7 +283,7 @@ cat("  New Downloaded Data:     ", nrow(data),     "\n")
 cat("  New Combined Data:     ", nrow(new_data),     "\n")
 
 # Force datetime column as string
-new_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
+new_data$datetime <- format(new_data$datetime, format = "%Y-%m-%d %H:%M")
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(copy_updated_data)

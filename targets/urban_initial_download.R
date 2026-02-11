@@ -182,7 +182,6 @@ copy_big_df$datetime <- as.POSIXct(
   format = "%Y-%m-%d %H:%M",
   tz = "GMT"
 )
-copy_big_df$datetime <- format(copy_big_df$datetime, format = "%Y-%m-%d %H:%M")
 
 # Update duration column to ISO 8601 format
 copy_big_df$sample_duration = gsub("1 HOUR", "PT1H", copy_big_df$sample_duration)
@@ -388,6 +387,8 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
+# Format datetime
+data$datetime <- format(data$datetime, format = "%Y-%m-%d %H:%M")
 
 # Save Data ---------------------------------------------------------------
 

@@ -14,8 +14,6 @@ library(ncdf4)
 library(jsonlite)
 library(RCurl)
 library(tidyr)
-library(getPass)
-
 
 # Source NASA download function (Author: Dongchen Zhang)
 source("targets/R/NASA_DAAC_download.R")
@@ -58,6 +56,47 @@ old_data <- tryCatch(
   }
 )
 
+
+# Incremental date windows
+
+# Default full history 
+start_date_buoy  <- as.Date("2006-01-01")
+start_date_modis <- as.Date("2006-01-01")
+
+end_date <- as.Date(Sys.Date() - 1)  # yesterday
+
+if (!is.null(old_data) && nrow(old_data) > 0) {
+  
+  old_data$datetime_date <- as.Date(substr(old_data$datetime, 1, 10))
+  
+  # Buoy rows are UNH_buoy_*
+  old_buoy  <- old_data[grepl("^UNH_buoy_", old_data$site_id), , drop = FALSE]
+  # MODIS rows are MODIS_*
+  old_modis <- old_data[grepl("^MODIS_", old_data$site_id), , drop = FALSE]
+  
+  if (nrow(old_buoy) > 0) {
+    last_buoy_date <- max(old_buoy$datetime_date, na.rm = TRUE)
+    if (is.finite(last_buoy_date)) start_date_buoy <- last_buoy_date + 1
+  }
+  
+  if (nrow(old_modis) > 0) {
+    last_modis_date <- max(old_modis$datetime_date, na.rm = TRUE)
+    if (is.finite(last_modis_date)) start_date_modis <- last_modis_date + 1
+  }
+}
+
+# If already up-to-date, skip downloads
+if (start_date_buoy > end_date)  message("Buoy already up-to-date; no buoy download needed.")
+if (start_date_modis > end_date) message("MODIS already up-to-date; no MODIS download needed.")
+
+# Convert to character for your existing functions
+start_date_buoy_chr  <- as.character(start_date_buoy)
+start_date_modis_chr <- as.character(start_date_modis)
+end_date_chr         <- as.character(end_date)
+
+message("Buoy window:  ", start_date_buoy_chr,  " -> ", end_date_chr)
+message("MODIS window: ", start_date_modis_chr, " -> ", end_date_chr)
+
 ## Download buoy data
 
 message("Downloading buoy data from ERDDAP...")
@@ -85,7 +124,11 @@ get_buoy_data <- function(start_date, end_date) {
 }
 
 # Download data
-buoy_data <- get_buoy_data(start_date, end_date)
+if (start_date_buoy <= end_date) {
+  buoy_data <- get_buoy_data(start_date_buoy_chr, end_date_chr)
+} else {
+  buoy_data <- data.frame()
+}
 
 # Filter out bad coordinates (was getting longitudes of 10^20+)
 buoy_data$latitude <- as.numeric(buoy_data$latitude)
@@ -130,8 +173,7 @@ rm(buoy_daily)
 message("Downloading MODIS-Aqua Level-2 Chlorophyll-a data...")
 
 # Calculate bounding box for 5x5 pixels at 1km
-# 1km * 5 pixels = 5km -> ~0.04 degrees per km
-box_size_deg <- (1 * 5 * 0.04) / 2  
+box_size_deg <- (1 * 5 * 0.04) / 2
 
 ul_lat <- buoy_lat + box_size_deg
 lr_lat <- buoy_lat - box_size_deg
@@ -145,47 +187,52 @@ modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
 modis_dir <- file.path(tempdir(), "modis")
 dir.create(modis_dir, showWarnings = FALSE, recursive = TRUE)
 
-# Get all URLs to know total count (for progress bar later)
-all_urls <- NASA_DAAC_download(
-  ul_lat = ul_lat,
-  ul_lon = ul_lon,
-  lr_lat = lr_lat,
-  lr_lon = lr_lon,
-  from = start_date,
-  to = end_date,
-  doi = modis_doi,
-  just_path = TRUE
-)
-
-total_files <- length(all_urls)
-message(paste("Found", total_files, "files to download"))
-
-# Define # of cores for parallel processing
-ncore <- min(16, parallel::detectCores() - 1, total_files)
-
-# Download with progress bar!
-message("Starting MODIS chlor-a downloads...")
-modis_files <- NASA_DAAC_download(
-  ul_lat = ul_lat,
-  ul_lon = ul_lon,
-  lr_lat = lr_lat,
-  lr_lon = lr_lon,
-  from = start_date,
-  to = end_date,
-  doi = modis_doi,
-  outdir = modis_dir,
-  credential_path = "~/.netrc",
-  ncore = ncore,
-  just_path = FALSE # downloads
-)
-
-# Check if download returned NA (all files already exist)
-if(length(modis_files) == 1 && is.na(modis_files)) {
-  modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
+if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
+  message("MODIS already up-to-date; skipping MODIS download.")
+  modis_files <- character(0)
 } else {
-  message(paste("Successfully downloaded", length(modis_files), "files"))
+  
+  # Get all URLs to know total count
+  all_urls <- NASA_DAAC_download(
+    ul_lat = ul_lat,
+    ul_lon = ul_lon,
+    lr_lat = lr_lat,
+    lr_lon = lr_lon,
+    from = start_date_modis_chr,
+    to   = end_date_chr,
+    doi  = modis_doi,
+    just_path = TRUE
+  )
+  
+  total_files <- length(all_urls)
+  message(paste("Found", total_files, "files to download (incremental window)"))
+  
+  # cores (make sure it's at least 1)
+  ncore <- max(1, min(16, parallel::detectCores() - 1, total_files))
+  
+  # Download
+  message("Starting MODIS chlor-a downloads...")
+  modis_files <- NASA_DAAC_download(
+    ul_lat = ul_lat,
+    ul_lon = ul_lon,
+    lr_lat = lr_lat,
+    lr_lon = lr_lon,
+    from = start_date_modis_chr,
+    to   = end_date_chr,
+    doi = modis_doi,
+    outdir = modis_dir,
+    credential_path = "~/.netrc",
+    ncore = ncore,
+    just_path = FALSE
+  )
+  
+  # If download returned NA (all files already exist)
+  if (length(modis_files) == 1 && is.na(modis_files)) {
+    modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
+  } else {
+    message(paste("Successfully downloaded", length(modis_files), "files"))
+  }
 }
-
 
 ## Process MODIS data
 

@@ -248,20 +248,22 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
-# Create primary keys
-primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
-
 # Switch to dataframes
 old_data <- as.data.frame(old_data)
 data <- as.data.frame(data)
 
 # Clean date type
-old_data$datetime <- as.POSIXct(old_data$datetime, tz = "GMT")
-data$datetime <- as.POSIXct(data$datetime, tz = "GMT")
+old_data <- old_data %>%
+  mutate(datetime_str = format(datetime, "%Y-%m-%d %H:%M:%S"))
+data <- data %>%
+  mutate(datetime_str = format(datetime, "%Y-%m-%d %H:%M:%S"))
 
 # Round observations
 old_data$observation <- round(old_data$observation, 6)
 data$observation <- round(data$observation, 6)
+
+# Create primary keys
+primary_keys <- c("project_id", "site_id", "datetime_str", "duration", "variable")
 
 # 1. Check attributes
 attributes(old_data$datetime)
@@ -312,6 +314,10 @@ cat("  New Combined Data:     ", nrow(new_data),     "\n")
 
 # Force datetime column as string
 new_data$datetime <- format(new_data$datetime, format = "%Y-%m-%d %H:%M")
+
+# Select columns
+new_data = new_data[, c('project_id', 'site_id', 'datetime', 'duration', 
+                        'variable','observation')]
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(copy_updated_data)

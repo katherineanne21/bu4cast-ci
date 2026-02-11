@@ -54,6 +54,12 @@ n_unique_keys <- old_data %>%
   nrow()
 cat("Number of unique rows in old_data:", n_unique_keys, "\n")
 cat("Number of rows in old_data: ", nrow(old_data), "\n")
+unique_keys <- old_data %>%
+  distinct(across(all_of(primary_keys)))
+print('Unique Keys')
+print(unique_keys)
+cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
+
 
 # Step 1: Download Data (last year and this year) -------------------------
 

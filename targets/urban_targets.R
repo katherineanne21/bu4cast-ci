@@ -37,7 +37,7 @@ urban_data_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/ch
 old_data = read_csv(urban_data_url, 
                           col_types = cols(project_id = col_character(),
                                            site_id = col_character(),
-                                           datetime = col_date(),
+                                           datetime = col_character(),
                                            duration = col_character(),
                                            variable = col_character(),
                                            observation = col_double()))

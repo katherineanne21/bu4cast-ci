@@ -251,6 +251,10 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Create primary keys
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
+# Clean date type
+old_data$datetime <- as.POSIXct(old_data$datetime, tz = "GMT")
+data$datetime <- as.POSIXct(data$datetime, tz = "GMT")
+
 # Merge old_data and data to new_data
 # Remove duplicates (keeping the data version)
 new_data <- bind_rows(old_data, data) %>%

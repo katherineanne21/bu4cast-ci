@@ -251,9 +251,16 @@ data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
 # Create primary keys
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
+# Switch old_data to dataframe
+old_data <- as.data.frame(old_data)
+
 # Clean date type
 old_data$datetime <- as.POSIXct(old_data$datetime, tz = "GMT")
 data$datetime <- as.POSIXct(data$datetime, tz = "GMT")
+
+# Round observations
+old_data$observation <- round(old_data$observation, 6)
+data$observation <- round(data$observation, 6)
 
 # 1. Check attributes
 attributes(old_data$datetime)

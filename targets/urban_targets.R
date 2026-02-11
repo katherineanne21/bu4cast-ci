@@ -46,7 +46,7 @@ old_data$datetime <- as.POSIXct(old_data$datetime,
                                 format = "%Y-%m-%d %H:%M",
                                 tz = "GMT"
                                 )
-old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
+#old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
 
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 n_unique_keys <- old_data %>%
@@ -242,7 +242,10 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
-# Update data for the past two years
+# Ensure datetime column is the same
+old_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
+
+# Create primary keys
 primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
 
 # Merge old_data and data to new_data
@@ -275,6 +278,9 @@ cat("QC - Row Counts:\n")
 cat("  Old Data: ", nrow(old_data), "\n")
 cat("  New Downloaded Data:     ", nrow(data),     "\n")
 cat("  New Combined Data:     ", nrow(new_data),     "\n")
+
+# Force datetime column as string
+new_data$datetime <- format(old_data$datetime, format = "%Y-%m-%d %H:%M")
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(copy_updated_data)

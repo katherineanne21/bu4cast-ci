@@ -37,10 +37,3 @@ jobs:
       - name: Run Coastal Targets Script
         run: |
           Rscript targets/coastal_targets.R
-
-      - name: Upload MODIS files (debug)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: modis-files
-          path: modis_debug/

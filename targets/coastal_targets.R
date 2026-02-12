@@ -184,7 +184,7 @@ lr_lon <- buoy_lon + box_size_deg
 modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
 
 # Set up temp download directory
-modis_dir <- "~/Downloads/modis_l2_oc"
+modis_dir <- file.path(Sys.getenv("GITHUB_WORKSPACE"), "modis_debug")
 dir.create(modis_dir, recursive = TRUE, showWarnings = FALSE)
 
 if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
@@ -233,24 +233,6 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
     message(paste("Successfully downloaded", length(modis_files), "files"))
   }
 }
-
-
-
-
-
-
-
-# ---- STOP AFTER DOWNLOAD (debug) ----
-message("MODIS download complete. Files saved at: ", modis_dir)
-print(modis_files)
-
-
-
-
-
-
-
-
 
 ## Process MODIS data
 

@@ -262,7 +262,16 @@ data <- data %>%
 old_data$observation <- round(old_data$observation, 6)
 data$observation <- round(data$observation, 6)
 
-# Create primary keys
+# Create primary key
+old_data$key <- paste(old_data$project_id, old_data$site_id, 
+                      old_data$datetime_str, old_data$duration, 
+                      old_data$variable, sep = "|")
+
+data$key <- paste(data$project_id, data$site_id, 
+                  data$datetime_str, data$duration, 
+                  data$variable, sep = "|")
+
+
 primary_keys <- c("project_id", "site_id", "datetime_str", "duration", "variable")
 
 # 1. Check attributes
@@ -270,21 +279,24 @@ attributes(old_data$datetime)
 attributes(data$datetime)
 
 # 2. Test if they compare equal
-sample_row <- data[1, primary_keys]
-any_match <- old_data %>%
-  filter(project_id == sample_row$project_id,
-         site_id == sample_row$site_id, 
-         duration == sample_row$duration,
-         variable == sample_row$variable,
-         datetime == sample_row$datetime_str) %>%
-  nrow()
+matches <- data$key %in% old_data$key
+print(paste("Rows in data matching old_data:", sum(matches)))
 
-print(paste("Exact matches found:", any_match))
+# Debugging
+str(old_data$datetime)
+str(data$datetime)
+head(old_data$datetime_str)
+head(data$datetime_str)
+setdiff(unique(old_data$duration), unique(data$duration))
+setdiff(unique(old_data$variable), unique(data$variable))
+length(intersect(old_data$key, data$key))
 
 # Merge old_data and data to new_data
 # Remove duplicates (keeping the data version)
-new_data <- bind_rows(old_data, data) %>%
-  distinct(across(all_of(primary_keys)), .keep_all = TRUE)
+new_data <- bind_rows(data, old_data) %>%
+  distinct(key, .keep_all = TRUE) %>%
+  select(-key)
+
 
 # Organize by date
 new_data = new_data[order(new_data$datetime), ]

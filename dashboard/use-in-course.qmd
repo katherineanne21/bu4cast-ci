@@ -59,6 +59,7 @@ scores |>
 - Utah State University
 - University of Utah
 - University of Notre Dame
+- Augsburg University
 
 ## List of short-courses
 

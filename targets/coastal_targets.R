@@ -43,6 +43,8 @@ buoy_lon <- -70.5475341233827
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
+  access_key = Sys.getenv("OSN_KEY"),
+  secret_key = Sys.getenv("OSN_SECRET"),
   scheme = "https"
 )
 

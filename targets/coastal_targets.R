@@ -40,6 +40,11 @@ buoy_lat <- 43.022942490079
 buoy_lon <- -70.5475341233827  
 
 # Read old data
+Sys.setenv(
+  OSN_KEY = "84erZCYP4-87cVRQ",
+  OSN_SECRET = "K3et80GjvZxSw7ZehcYiRr-BMgjsTN-l"
+)
+
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",

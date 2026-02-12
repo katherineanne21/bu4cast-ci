@@ -184,8 +184,8 @@ lr_lon <- buoy_lon + box_size_deg
 modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
 
 # Set up temp download directory
-modis_dir <- file.path(tempdir(), "modis")
-dir.create(modis_dir, showWarnings = FALSE, recursive = TRUE)
+modis_dir <- "~/Downloads/modis_l2_oc"
+dir.create(modis_dir, recursive = TRUE, showWarnings = FALSE)
 
 if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   message("MODIS already up-to-date; skipping MODIS download.")
@@ -243,15 +243,6 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 # ---- STOP AFTER DOWNLOAD (debug) ----
 message("MODIS download complete. Files saved at: ", modis_dir)
 print(modis_files)
-
-# If you want to keep them (don’t let tempdir get cleaned later), copy them somewhere persistent:
-local_save_dir <- "~/Downloads/modis_l2_oc"
-dir.create(local_save_dir, recursive = TRUE, showWarnings = FALSE)
-
-file.copy(modis_files, to = local_save_dir, overwrite = TRUE)
-message("Copied MODIS files to: ", normalizePath(local_save_dir))
-
-stop("Stopping after MODIS download (before processing) on purpose.")
 
 
 

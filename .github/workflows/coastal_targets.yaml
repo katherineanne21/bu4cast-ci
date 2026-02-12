@@ -25,6 +25,15 @@ jobs:
           Rscript -e 'options(repos=c(CRAN="https://cloud.r-project.org"))'
           Rscript -e 'pkgs <- c("rerddap","foreach","doParallel","doSNOW","ncdf4","jsonlite","RCurl","tidyr","getPass","Kendall","arrow","dplyr","lubridate"); need <- pkgs[!pkgs %in% rownames(installed.packages())]; if(length(need)) install.packages(need, Ncpus = 2)'
 
+      - name: Write NASA Earthdata .netrc
+        run: |
+          cat > ~/.netrc <<'EOF'
+          machine urs.earthdata.nasa.gov
+            login ${{ secrets.EARTHDATA_USERNAME }}
+            password ${{ secrets.EARTHDATA_PASSWORD }}
+          EOF
+          chmod 600 ~/.netrc
+    
       - name: Run Coastal Targets Script
         run: |
           Rscript targets/coastal_targets.R

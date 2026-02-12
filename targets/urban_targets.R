@@ -42,23 +42,22 @@ old_data = read_csv(urban_data_url,
                                            variable = col_character(),
                                            observation = col_double()))
 
-cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
-head(old_data$datetime, 20)
-#old_data$datetime <- trimws(old_data$datetime)
-old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT") #want
-#old_data$datetime <- as.POSIXct(old_data$datetime, format = "%m/%d/%y %H:%M", tz = "GMT") #current
+# cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
+# head(old_data$datetime, 20)
+# old_data$datetime <- trimws(old_data$datetime)
+old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT") 
 
-primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
-n_unique_keys <- old_data %>%
-  distinct(across(all_of(primary_keys))) %>%
-  nrow()
-cat("Number of unique rows in old_data:", n_unique_keys, "\n")
-cat("Number of rows in old_data: ", nrow(old_data), "\n")
-unique_keys <- old_data %>%
-  distinct(across(all_of(primary_keys)))
-print('Unique Keys')
-print(unique_keys)
-cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
+# primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
+# n_unique_keys <- old_data %>%
+#   distinct(across(all_of(primary_keys))) %>%
+#   nrow()
+# cat("Number of unique rows in old_data:", n_unique_keys, "\n")
+# cat("Number of rows in old_data: ", nrow(old_data), "\n")
+# unique_keys <- old_data %>%
+#   distinct(across(all_of(primary_keys)))
+# print('Unique Keys')
+# print(unique_keys)
+# cat("Number of NAs in old_data datetime: ", sum(is.na(old_data$datetime)), "\n")
 
 
 # Step 1: Download Data (last year and this year) -------------------------
@@ -272,24 +271,24 @@ data$key <- paste(data$project_id, data$site_id,
                   data$variable, sep = "|")
 
 
-primary_keys <- c("project_id", "site_id", "datetime_str", "duration", "variable")
+# primary_keys <- c("project_id", "site_id", "datetime_str", "duration", "variable")
 
-# 1. Check attributes
-attributes(old_data$datetime)
-attributes(data$datetime)
-
-# 2. Test if they compare equal
-matches <- data$key %in% old_data$key
-print(paste("Rows in data matching old_data:", sum(matches)))
-
-# Debugging
-str(old_data$datetime)
-str(data$datetime)
-head(old_data$datetime_str)
-head(data$datetime_str)
-setdiff(unique(old_data$duration), unique(data$duration))
-setdiff(unique(old_data$variable), unique(data$variable))
-length(intersect(old_data$key, data$key))
+# # 1. Check attributes
+# attributes(old_data$datetime)
+# attributes(data$datetime)
+# 
+# # 2. Test if they compare equal
+# matches <- data$key %in% old_data$key
+# print(paste("Rows in data matching old_data:", sum(matches)))
+# 
+# # Debugging
+# str(old_data$datetime)
+# str(data$datetime)
+# head(old_data$datetime_str)
+# head(data$datetime_str)
+# setdiff(unique(old_data$duration), unique(data$duration))
+# setdiff(unique(old_data$variable), unique(data$variable))
+# length(intersect(old_data$key, data$key))
 
 # Merge old_data and data to new_data
 # Remove duplicates (keeping the data version)
@@ -301,22 +300,21 @@ new_data <- bind_rows(data, old_data) %>%
 # Organize by date
 new_data = new_data[order(new_data$datetime), ]
 
-n_unique_keys_merged <- bind_rows(old_data, data) %>%
-  distinct(across(all_of(primary_keys))) %>%
-  nrow()
-n_unique_keys <- old_data %>%
-  distinct(across(all_of(primary_keys))) %>%
-  nrow()
-
-print('Updated Data Types:')
-str(data)
-
-print('Old Data Types:')
-str(old_data)
-
-cat("Number of unique rows in merged:", n_unique_keys_merged, "\n")
-cat("Number of unique rows in old_data:", n_unique_keys, "\n")
-
+# n_unique_keys_merged <- bind_rows(old_data, data) %>%
+#   distinct(across(all_of(primary_keys))) %>%
+#   nrow()
+# n_unique_keys <- old_data %>%
+#   distinct(across(all_of(primary_keys))) %>%
+#   nrow()
+# 
+# print('Updated Data Types:')
+# str(data)
+# 
+# print('Old Data Types:')
+# str(old_data)
+# 
+# cat("Number of unique rows in merged:", n_unique_keys_merged, "\n")
+# cat("Number of unique rows in old_data:", n_unique_keys, "\n")
 
 # Print Row Counts for QC
 cat("QC - Row Counts:\n")
@@ -363,5 +361,5 @@ unlink(csv_filename)
 
 # Health Check
 # Created at www.healthchecks.io
-# Currently set to bu4cast-ci-example
+# Currently set to urban-targets
 RCurl::getURL("https://hc-ping.com/79b757b6-fd76-4844-aa88-ee24344e0ab7")

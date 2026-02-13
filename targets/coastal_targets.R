@@ -238,21 +238,6 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 
 message("Processing MODIS 5x5 pixel boxes...")
 
-f <- modis_files[1]
-message("File: ", f)
-message("Size: ", file.info(f)$size)
-
-# If netcdf tools are available, this is the cleanest:
-system(paste("ncdump -k", shQuote(f)))   # prints format like "netCDF-4" or "HDF5"
-
-# Also try:
-tryCatch({
-  nc <- ncdf4::nc_open(f)
-  message("Opened. format: ", nc$format)
-  ncdf4::nc_close(nc)
-}, error = function(e) {
-  message("nc_open failed: ", e$message)
-})
 
 process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   
@@ -301,10 +286,12 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) return(NULL)
   
   # get date from filename
-  m <- regmatches(basename(ncfile), regexpr("\\.\\d{8}T\\d{6}", basename(ncfile)))
+  m <- regmatches(basename(ncfile), regexpr("\\.(\\d{8})T\\d{6}", basename(ncfile)))
   if (length(m) == 0) return(NULL)
-  file_date <- as.Date(substr(m, 2, 9), format = "%Y%m%d")
   
+  yyyymmdd <- sub("^\\.", "", sub("T.*$", "", m))  # "20251201"
+  file_date <- as.Date(yyyymmdd, format = "%Y%m%d")
+    
   data.frame(
     date = file_date,
     chlorophyll_mean = mean(chl_vals),

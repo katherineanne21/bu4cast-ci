@@ -57,7 +57,7 @@ old_data <- tryCatch(
 )
 
 
-# Incremental date windows
+# Date windows
 
 # Default full history 
 start_date_buoy  <- as.Date("2006-01-01")
@@ -184,8 +184,8 @@ lr_lon <- buoy_lon + box_size_deg
 modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
 
 # Set up temp download directory
-modis_dir <- file.path(Sys.getenv("GITHUB_WORKSPACE"), "modis_debug")
-dir.create(modis_dir, recursive = TRUE, showWarnings = FALSE)
+modis_dir <- file.path(tempdir(), "modis")
+dir.create(modis_dir, showWarnings = FALSE, recursive = TRUE)
 
 if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   message("MODIS already up-to-date; skipping MODIS download.")

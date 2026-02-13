@@ -110,6 +110,7 @@ get_buoy_data <- function(start_date, end_date) {
   buoy$datetime <- as.POSIXct(buoy$time, format = "%Y-%m-%dT%H:%M:%SZ", tz = "GMT")
   buoy$date <- as.Date(buoy$datetime)
   
+  # Convert to numeric
   buoy$chlorophyll <- as.numeric(buoy$chlorophyll)
   buoy$temperature <- as.numeric(buoy$temperature)
   buoy$turbidity <- as.numeric(buoy$turbidity)

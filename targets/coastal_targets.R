@@ -126,42 +126,55 @@ if (start_date_buoy <= end_date) {
   buoy_data <- data.frame()
 }
 
-# Filter out bad coordinates (was getting longitudes of 10^20+)
-buoy_data$latitude <- as.numeric(buoy_data$latitude)
-buoy_data$longitude <- as.numeric(buoy_data$longitude)
+# Safeguard if there's no new buoy data
+if (nrow(buoy_data) == 0) {
+  message("No new buoy rows returned; skipping buoy processing.")
+  buoy_has_data <- FALSE
+} else {
+  buoy_has_data <- TRUE
+if (buoy_has_data) {
 
-buoy_data_clean <- buoy_data %>%
-  filter(longitude > -180 & longitude < 180) %>%
-  filter(latitude > -90 & latitude < 90) %>%
-  filter(!is.na(latitude) & !is.na(longitude))
+  # Filter out bad coordinates (was getting longitudes of 10^20+)
+  buoy_data$latitude <- as.numeric(buoy_data$latitude)
+  buoy_data$longitude <- as.numeric(buoy_data$longitude)
 
-# Calculate buoy location for MODIS download
-buoy_lat <- mean(buoy_data_clean$latitude, na.rm = TRUE)
-buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
+  buoy_data_clean <- buoy_data %>%
+    filter(longitude > -180 & longitude < 180) %>%
+    filter(latitude > -90 & latitude < 90) %>%
+    filter(!is.na(latitude) & !is.na(longitude))
 
-# Use cleaned data 
-buoy_data <- buoy_data_clean
-rm(buoy_data_clean)
+  # If cleaning removed everything, treat as no buoy data
+  if (nrow(buoy_data_clean) == 0) {
+    message("Buoy returned rows but none had valid coords; skipping buoy processing.")
+    buoy_has_data <- FALSE
+  } else {
 
-buoy_daily <- buoy_data %>%
-  mutate(date = as.Date(datetime)) %>%
-  group_by(date) %>%
-  summarise(
-    latitude    = mean(latitude, na.rm = TRUE),
-    longitude   = mean(longitude, na.rm = TRUE),
-    chlorophyll = mean(chlorophyll, na.rm = TRUE),
-    temperature = mean(temperature, na.rm = TRUE),
-    turbidity   = mean(turbidity, na.rm = TRUE),
-    wspd        = mean(wspd, na.rm = TRUE),
-    wdir        = mean(wdir, na.rm = TRUE),
-    airtemp     = mean(airtemp, na.rm = TRUE),
-    airpress    = mean(airpress, na.rm = TRUE),
-    oxygen      = mean(oxygen, na.rm = TRUE),
-    n_obs       = n(),
-    .groups = "drop"
-  )
+    # Calculate buoy location for MODIS download
+    buoy_lat <- mean(buoy_data_clean$latitude, na.rm = TRUE)
+    buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
 
-buoy_data <- buoy_daily
+    buoy_daily <- buoy_data_clean %>%
+      mutate(date = as.Date(datetime)) %>%
+      group_by(date) %>%
+      summarise(
+        latitude    = mean(latitude, na.rm = TRUE),
+        longitude   = mean(longitude, na.rm = TRUE),
+        chlorophyll = mean(chlorophyll, na.rm = TRUE),
+        temperature = mean(temperature, na.rm = TRUE),
+        turbidity   = mean(turbidity, na.rm = TRUE),
+        wspd        = mean(wspd, na.rm = TRUE),
+        wdir        = mean(wdir, na.rm = TRUE),
+        airtemp     = mean(airtemp, na.rm = TRUE),
+        airpress    = mean(airpress, na.rm = TRUE),
+        oxygen      = mean(oxygen, na.rm = TRUE),
+        n_obs       = n(),
+        .groups = "drop"
+      )
+
+    buoy_data <- buoy_daily
+  }
+}
+  
 rm(buoy_daily)
 
 ## Download MODIS Aqua data
@@ -426,10 +439,21 @@ if (k == 0) {
   ) %>%
   to_standard_long(site_prefix = "MODIS")
 
+if (!buoy_has_data) {
+  buoy_formatted <- tibble::tibble(
+    project_id  = character(),
+    site_id     = character(),
+    datetime    = character(),
+    duration    = character(),
+    variable    = character(),
+    observation = numeric()
+  )
+} else {
   buoy_formatted <- buoy_data %>%
-  dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
-  to_standard_long(site_prefix = "UNH_buoy")
-
+    dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
+    to_standard_long(site_prefix = "UNH_buoy")
+}
+  
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)
 

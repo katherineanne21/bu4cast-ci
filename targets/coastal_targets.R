@@ -376,6 +376,35 @@ modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
 
 message("Formatting to standard format...")
 
+# Always return something even if empty
+empty_targets <- function() {
+  tibble::tibble(
+    project_id  = character(),
+    site_id     = character(),
+    datetime    = character(),
+    duration    = character(),
+    variable    = character(),
+    observation = numeric()
+  )
+}
+
+to_standard_long <- function(df, site_prefix, duration = "P1D") {
+  df %>%
+    tidyr::pivot_longer(
+      cols = -date,
+      names_to = "variable",
+      values_to = "observation"
+    ) %>%
+    dplyr::mutate(
+      project_id = project_id,
+      site_id    = paste0(site_prefix, "_", variable),
+      datetime   = as.character(date),
+      duration   = duration
+    ) %>%
+    dplyr::select(project_id, site_id, datetime, duration, variable, observation) %>%
+    dplyr::filter(!is.na(observation))
+}
+
 # Collapse multiple MODIS granules per day 
 if (k == 0) {
 
@@ -408,49 +437,44 @@ if (k == 0) {
                 ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
 
 # Format both datasets
-  to_standard_long <- function(df, site_prefix, duration = "P1D") {
-  df %>%
-    tidyr::pivot_longer(
-      cols = -date,
-      names_to = "variable",
-      values_to = "observation"
-    ) %>%
-    dplyr::mutate(
-      project_id = project_id,
-      site_id    = paste0(site_prefix, "_", variable),
-      datetime   = as.character(date),
-      duration   = duration
-    ) %>%
-    dplyr::select(project_id, site_id, datetime, duration, variable, observation) %>%
-    dplyr::filter(!is.na(observation))
-}
 
-  modis_formatted <- modis_daily %>%
-  dplyr::transmute(
-    date,
-    chlorophyll = chlorophyll_mean,
-    kd_490      = kd490_mean,
-    poc         = poc_mean,
-    pic         = pic_mean
-  ) %>%
-  to_standard_long(site_prefix = "MODIS")
-
-if (!buoy_has_data) {
-  buoy_formatted <- tibble::tibble(
-    project_id  = character(),
-    site_id     = character(),
-    datetime    = character(),
-    duration    = character(),
-    variable    = character(),
-    observation = numeric()
-  )
+# Buoy formatted or empty
+if (!exists("buoy_has_data") || !isTRUE(buoy_has_data)) {
+  message("No new buoy observations; buoy_formatted will be empty.")
+  buoy_formatted <- empty_targets()
 } else {
   buoy_formatted <- buoy_data %>%
     dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
     to_standard_long(site_prefix = "UNH_buoy")
 }
-  }
-  
+
+# MODIS formatted or empty
+if (!exists("k") || is.na(k) || k == 0) {
+  message("No usable MODIS observations; modis_formatted will be empty.")
+  modis_formatted <- empty_targets()
+} else {
+  modis_daily <- modis_data %>%
+    dplyr::group_by(date) %>%
+    dplyr::summarise(
+      chlorophyll_mean = mean(chlorophyll_mean, na.rm = TRUE),
+      kd490_mean       = mean(kd490_mean, na.rm = TRUE),
+      poc_mean         = mean(poc_mean, na.rm = TRUE),
+      pic_mean         = mean(pic_mean, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(across(everything(), ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
+
+  modis_formatted <- modis_daily %>%
+    dplyr::transmute(
+      date,
+      chlorophyll = chlorophyll_mean,
+      kd_490      = kd490_mean,
+      poc         = poc_mean,
+      pic         = pic_mean
+    ) %>%
+    to_standard_long(site_prefix = "MODIS")
+}
+ 
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)
 
@@ -501,14 +525,19 @@ message(paste0("Rows in old data: ", ifelse(is.null(old_data), 0, nrow(old_data)
 message(paste0("Rows of new data: ", nrow(data)))
 message(paste0("Rows in appended data: ", nrow(new_data)))
 
-message("Writing updated targets back to S3...")
-arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
+if (nrow(all_targets) == 0) {
+  message("No new buoy or MODIS observations today; skipping write + health check")
+} else {
 
-message("Pinging health check...")
-tryCatch(
-  RCurl::getURL("https://hc-ping.com/af0bdaf6-3ec8-434b-bafd-d8fecc0508af"),
-  error = function(e) message("Health check ping failed: ", e$message)
-)
+  message("Writing updated targets back to S3...")
+  arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
+
+  message("Pinging health check...")
+  tryCatch(
+    RCurl::getURL("https://hc-ping.com/af0bdaf6-3ec8-434b-bafd-d8fecc0508af"),
+    error = function(e) message("Health check ping failed: ", e$message)
+  )
+}
 
 if (exists("modis_files")) {
   suppressWarnings(try(unlink(modis_files), silent = TRUE))

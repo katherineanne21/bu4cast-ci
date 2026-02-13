@@ -373,7 +373,6 @@ modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
   
 
 ## Format
-
 message("Formatting to standard format...")
 
 # Always return something even if empty
@@ -405,39 +404,6 @@ to_standard_long <- function(df, site_prefix, duration = "P1D") {
     dplyr::filter(!is.na(observation))
 }
 
-# Collapse multiple MODIS granules per day 
-if (k == 0) {
-
-  message("No usable MODIS observations; skipping MODIS formatting.")
-
-  modis_formatted <- tibble::tibble(
-    project_id  = character(),
-    site_id     = character(),
-    datetime    = character(),
-    duration    = character(),
-    variable    = character(),
-    observation = numeric()
-  )
-
-} else {
-
-  # If multiple files per day, average them to a single daily value per variable
-  modis_daily <- modis_data %>%
-  group_by(date) %>%
-  summarise(
-    chlorophyll_mean = mean(chlorophyll_mean, na.rm = TRUE),
-    kd490_mean       = mean(kd490_mean, na.rm = TRUE),
-    poc_mean         = mean(poc_mean, na.rm = TRUE),
-    pic_mean         = mean(pic_mean, na.rm = TRUE),
-    l2_flags = dplyr::first(l2_flags),
-    file     = dplyr::first(file),
-    .groups  = "drop"
-  ) %>%
-  mutate(across(c(chlorophyll_mean, kd490_mean, poc_mean, pic_mean),
-                ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
-
-# Format both datasets
-
 # Buoy formatted or empty
 if (!exists("buoy_has_data") || !isTRUE(buoy_has_data)) {
   message("No new buoy observations; buoy_formatted will be empty.")
@@ -453,28 +419,24 @@ if (!exists("k") || is.na(k) || k == 0) {
   message("No usable MODIS observations; modis_formatted will be empty.")
   modis_formatted <- empty_targets()
 } else {
+
+  # collapse multiple granules per day
   modis_daily <- modis_data %>%
     dplyr::group_by(date) %>%
     dplyr::summarise(
-      chlorophyll_mean = mean(chlorophyll_mean, na.rm = TRUE),
-      kd490_mean       = mean(kd490_mean, na.rm = TRUE),
-      poc_mean         = mean(poc_mean, na.rm = TRUE),
-      pic_mean         = mean(pic_mean, na.rm = TRUE),
+      chlorophyll = mean(chlorophyll_mean, na.rm = TRUE),
+      kd_490      = mean(kd490_mean,       na.rm = TRUE),
+      poc         = mean(poc_mean,         na.rm = TRUE),
+      pic         = mean(pic_mean,         na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    dplyr::mutate(across(everything(), ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
+    dplyr::mutate(across(c(chlorophyll, kd_490, poc, pic),
+                         ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
 
   modis_formatted <- modis_daily %>%
-    dplyr::transmute(
-      date,
-      chlorophyll = chlorophyll_mean,
-      kd_490      = kd490_mean,
-      poc         = poc_mean,
-      pic         = pic_mean
-    ) %>%
     to_standard_long(site_prefix = "MODIS")
 }
- 
+
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)
 

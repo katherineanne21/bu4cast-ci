@@ -282,15 +282,16 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   poc_vals  <- poc_vals[is.finite(poc_vals)]
   pic_vals  <- pic_vals[is.finite(pic_vals)]
 
-  # DELETE message and {
+    # if all empty, skip
   if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) {
-  message("process_modis(): no finite values in 5x5 window for ", basename(ncfile))
-  return(NULL)
-}
+    message("process_modis(): no finite values in 5x5 window for ", basename(ncfile))
+    return(NULL)
+  }
 
   # get date from filename
-  m <- regmatches(basename(ncfile), regexpr("\\.(\\d{8})T\\d{6}", basename(ncfile)))
+  m <- regmatches(basename(ncfile), regexpr("\\.\\d{8}T\\d{6}", basename(ncfile)))
   if (length(m) == 0) return(NULL)
+  file_date <- as.Date(substr(m, 2, 9), format = "%Y%m%d")
   
   yyyymmdd <- sub("^\\.", "", sub("T.*$", "", m))  # "20251201"
   file_date <- as.Date(yyyymmdd, format = "%Y%m%d")
@@ -367,27 +368,51 @@ out <- out[seq_len(k)]
 
 # make df for modis data
 modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
+  
 
-  #DELETE
+## Format
 
+message("Formatting to standard format...")
+
+# collapse multiple MODIS granules per day 
 if (k == 0) {
+
   message("No usable MODIS observations produced; skipping MODIS formatting this run.")
+
   modis_formatted <- tibble::tibble(
-    project_id = character(),
-    site_id = character(),
-    datetime = character(),
-    duration = character(),
-    variable = character(),
+    project_id  = character(),
+    site_id     = character(),
+    datetime    = character(),
+    duration    = character(),
+    variable    = character(),
     observation = numeric()
   )
+
 } else {
-  modis_formatted <- modis_data %>%
-    select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean, l2_flags) %>%
+
+  # if multiple files per day, average them to a single daily value per variable
+  modis_daily <- modis_data %>%
+  group_by(date) %>%
+  summarise(
+    chlorophyll_mean = mean(chlorophyll_mean, na.rm = TRUE),
+    kd490_mean       = mean(kd490_mean, na.rm = TRUE),
+    poc_mean         = mean(poc_mean, na.rm = TRUE),
+    pic_mean         = mean(pic_mean, na.rm = TRUE),
+    l2_flags = dplyr::first(l2_flags),
+    file     = dplyr::first(file),
+    .groups  = "drop"
+  ) %>%
+  mutate(across(c(chlorophyll_mean, kd490_mean, poc_mean, pic_mean),
+                ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
+
+  # convert to standard long format
+  modis_formatted <- modis_daily %>%
+    select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean) %>%
     rename(
       chlorophyll = chlorophyll_mean,
-      kd_490 = kd490_mean,
-      poc = poc_mean,
-      pic = pic_mean
+      kd_490      = kd490_mean,
+      poc         = poc_mean,
+      pic         = pic_mean
     ) %>%
     tidyr::pivot_longer(
       cols = c(chlorophyll, kd_490, poc, pic),
@@ -396,18 +421,13 @@ if (k == 0) {
     ) %>%
     mutate(
       project_id = project_id,
-      site_id = paste0("MODIS_", variable),
-      datetime = as.character(date),
-      duration = "P1D"
+      site_id    = paste0("MODIS_", variable),
+      datetime   = as.character(date),
+      duration   = "P1D"
     ) %>%
-    select(project_id, site_id, datetime, duration, variable, observation)
+    select(project_id, site_id, datetime, duration, variable, observation) %>%
+    filter(!is.na(observation))
 }
-
-#DELETE^^
-
-## Format
-
-message("Formatting to standard format...")
 
 format_to_standard <- function(data, site_id_prefix, data_source) {
   
@@ -422,20 +442,7 @@ format_to_standard <- function(data, site_id_prefix, data_source) {
       )
     duration <- "P1D"  # daily 
     
-  } else if (data_source == "modis") {
-    long_data <- data %>%
-      select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean) %>%
-      rename(chlorophyll = chlorophyll_mean,
-             kd_490 = kd490_mean,
-             poc = poc_mean,
-             pic = pic_mean) %>%
-      tidyr::pivot_longer(
-        cols = c(chlorophyll, kd_490, poc, pic),
-        names_to = "variable",
-        values_to = "observation"
-      )
-    duration <- "P1D"
-  }
+  } 
   
   # Add standard columns
   long_data <- long_data %>%
@@ -451,36 +458,12 @@ format_to_standard <- function(data, site_id_prefix, data_source) {
   return(long_data)
 }
 
-# Format both datasets
+# Format buoy data
 buoy_formatted <- format_to_standard(
   buoy_data,
   site_id_prefix = "UNH_buoy",
   data_source = "buoy"
 )
-
-modis_formatted <- modis_data %>%
-  select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean, l2_flags) %>%
-  rename(
-    chlorophyll = chlorophyll_mean,
-    kd_490 = kd490_mean,
-    poc = poc_mean,
-    pic = pic_mean
-  ) %>%
-  tidyr::pivot_longer(
-    cols = c(chlorophyll, kd_490, poc, pic),
-    names_to = "variable",
-    values_to = "observation"
-  ) %>%
-  mutate(
-    project_id = project_id,
-    site_id = paste0("MODIS_", variable),
-    datetime = as.character(date),
-    duration = "P1D"
-  ) %>%
-  select(
-    project_id, site_id, datetime, duration,
-    variable, observation
-  )
 
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)

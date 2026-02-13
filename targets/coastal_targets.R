@@ -66,7 +66,7 @@ end_date <- as.Date(Sys.Date() - 1)  # yesterday
 
 if (!is.null(old_data) && nrow(old_data) > 0) {
   
-  old_data$datetime_date <- as.Date(substr(old_data$datetime, 1, 10))
+  datetime_date <- as.Date(substr(old_data$datetime, 1, 10))
   
   # Buoy rows are UNH_buoy_*
   old_buoy  <- old_data[grepl("^UNH_buoy_", old_data$site_id), , drop = FALSE]
@@ -74,12 +74,12 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
   old_modis <- old_data[grepl("^MODIS_", old_data$site_id), , drop = FALSE]
   
   if (nrow(old_buoy) > 0) {
-    last_buoy_date <- max(old_buoy$datetime_date, na.rm = TRUE)
+    last_buoy_date <- max(old_buoy$datetime, na.rm = TRUE)
     if (is.finite(last_buoy_date)) start_date_buoy <- last_buoy_date + 1
   }
   
   if (nrow(old_modis) > 0) {
-    last_modis_date <- max(old_modis$datetime_date, na.rm = TRUE)
+    last_modis_date <- max(old_modis$datetime, na.rm = TRUE)
     if (is.finite(last_modis_date)) start_date_modis <- last_modis_date + 1
   }
 }

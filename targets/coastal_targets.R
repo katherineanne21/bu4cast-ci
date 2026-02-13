@@ -449,6 +449,7 @@ if (!buoy_has_data) {
     dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
     to_standard_long(site_prefix = "UNH_buoy")
 }
+  }
   
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)

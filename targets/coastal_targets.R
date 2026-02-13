@@ -238,6 +238,22 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 
 message("Processing MODIS 5x5 pixel boxes...")
 
+f <- modis_files[1]
+message("File: ", f)
+message("Size: ", file.info(f)$size)
+
+# If netcdf tools are available, this is the cleanest:
+system(paste("ncdump -k", shQuote(f)))   # prints format like "netCDF-4" or "HDF5"
+
+# Also try:
+tryCatch({
+  nc <- ncdf4::nc_open(f)
+  message("Opened. format: ", nc$format)
+  ncdf4::nc_close(nc)
+}, error = function(e) {
+  message("nc_open failed: ", e$message)
+})
+
 process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   
   nc <- nc_open(ncfile)

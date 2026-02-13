@@ -27,7 +27,6 @@ project_id <- "bu4cast"
 filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
                  "-targets.csv", sep = "")
 
-# Write out file and challenge name for debugging
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
@@ -39,7 +38,7 @@ end_date <- as.character(Sys.Date() - 1)  # Yesterday
 buoy_lat <- 43.022942490079 
 buoy_lon <- -70.5475341233827  
 
-# Read old data
+# Read old data already in s3 bucket
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
@@ -59,7 +58,7 @@ old_data <- tryCatch(
 
 # Date windows
 
-# Default full history 
+# Full history from 2006
 start_date_buoy  <- as.Date("2006-01-01")
 start_date_modis <- as.Date("2006-01-01")
 
@@ -89,13 +88,10 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
 if (start_date_buoy > end_date)  message("Buoy already up-to-date; no buoy download needed.")
 if (start_date_modis > end_date) message("MODIS already up-to-date; no MODIS download needed.")
 
-# Convert to character for your existing functions
+# Convert to character to be safe
 start_date_buoy_chr  <- as.character(start_date_buoy)
 start_date_modis_chr <- as.character(start_date_modis)
 end_date_chr         <- as.character(end_date)
-
-message("Buoy window:  ", start_date_buoy_chr,  " -> ", end_date_chr)
-message("MODIS window: ", start_date_modis_chr, " -> ", end_date_chr)
 
 ## Download buoy data
 
@@ -114,7 +110,6 @@ get_buoy_data <- function(start_date, end_date) {
   buoy$datetime <- as.POSIXct(buoy$time, format = "%Y-%m-%dT%H:%M:%SZ", tz = "GMT")
   buoy$date <- as.Date(buoy$datetime)
   
-  # Convert to numeric
   buoy$chlorophyll <- as.numeric(buoy$chlorophyll)
   buoy$temperature <- as.numeric(buoy$temperature)
   buoy$turbidity <- as.numeric(buoy$turbidity)
@@ -168,9 +163,9 @@ buoy_daily <- buoy_data %>%
 buoy_data <- buoy_daily
 rm(buoy_daily)
 
-## Download MODIS_Aqua data
+## Download MODIS Aqua data
 
-message("Downloading MODIS-Aqua Level-2 Chlorophyll-a data...")
+message("Downloading MODIS-Aqua Level 2 OC data...")
 
 # Calculate bounding box for 5x5 pixels at 1km
 box_size_deg <- (1 * 5 * 0.04) / 2
@@ -180,7 +175,7 @@ lr_lat <- buoy_lat - box_size_deg
 ul_lon <- buoy_lon - box_size_deg
 lr_lon <- buoy_lon + box_size_deg
 
-# DOI for Level-2 Ocean Color
+# DOI for Level 2 OC
 modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
 
 # Set up temp download directory
@@ -205,13 +200,13 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   )
   
   total_files <- length(all_urls)
-  message(paste("Found", total_files, "files to download (incremental window)"))
+  message(paste("Found", total_files, "new files to download"))
   
   # cores (make sure it's at least 1)
   ncore <- max(1, min(16, parallel::detectCores() - 1, total_files))
   
   # Download
-  message("Starting MODIS chlor-a downloads...")
+  message("Starting MODIS Aqua downloads...")
   modis_files <- NASA_DAAC_download(
     ul_lat = ul_lat,
     ul_lon = ul_lon,
@@ -252,13 +247,13 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   lon <- ncvar_get(nc, "navigation_data/longitude")
   lat <- ncvar_get(nc, "navigation_data/latitude")
   
-  # get rid of negative/fill value
+  # Get rid of negative/fill values
   chl[chl < 0] <- NA
   kd[kd < 0] <- NA
   poc[poc < 0] <- NA
   pic[pic < 0] <- NA
   
-  # calculate center of 5x5 box
+  # Calculate center of 5x5 box
   d2 <- (lon - buoy_lon)^2 + (lat - buoy_lat)^2 # compute distance to buoy for each pixel
   idx <- which.min(d2) # index of closest pixel
   ij  <- arrayInd(idx, dim(chl))  # convert to row+column
@@ -288,14 +283,11 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
     return(NULL)
   }
 
-  # get date from filename
+  # Get date from filename
   m <- regmatches(basename(ncfile), regexpr("\\.\\d{8}T\\d{6}", basename(ncfile)))
   if (length(m) == 0) return(NULL)
   file_date <- as.Date(substr(m, 2, 9), format = "%Y%m%d")
-  
-  yyyymmdd <- sub("^\\.", "", sub("T.*$", "", m))  # "20251201"
-  file_date <- as.Date(yyyymmdd, format = "%Y%m%d")
-    
+ 
   data.frame(
     date = file_date,
     chlorophyll_mean = mean(chl_vals),
@@ -320,7 +312,7 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   )
 }
 
-# check which dates exist already
+# Check which dates exist already
 existing_dates <- as.Date(character(0))
 if (exists("old_data") && !is.null(old_data)) {
   old_df <- as.data.frame(old_data)
@@ -331,7 +323,7 @@ if (exists("old_data") && !is.null(old_data)) {
   }
 }
 
-# only process new files/dates
+# Only process new files/dates
 file_dates <- vapply(modis_files, function(fp) {
   m <- regmatches(basename(fp), regexpr("\\.\\d{8}T\\d{6}", basename(fp)))
   if (length(m) == 0) return(NA_character_)
@@ -363,10 +355,10 @@ for (i in seq_along(to_process)) {
   if (i %% 50 == 0) gc()
 }
 
-# trim unused list slots
+# Trim 
 out <- out[seq_len(k)]
 
-# make df for modis data
+# Make df for MODIS data
 modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
   
 
@@ -374,10 +366,10 @@ modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
 
 message("Formatting to standard format...")
 
-# collapse multiple MODIS granules per day 
+# Collapse multiple MODIS granules per day 
 if (k == 0) {
 
-  message("No usable MODIS observations produced; skipping MODIS formatting this run.")
+  message("No usable MODIS observations; skipping MODIS formatting.")
 
   modis_formatted <- tibble::tibble(
     project_id  = character(),
@@ -390,7 +382,7 @@ if (k == 0) {
 
 } else {
 
-  # if multiple files per day, average them to a single daily value per variable
+  # If multiple files per day, average them to a single daily value per variable
   modis_daily <- modis_data %>%
   group_by(date) %>%
   summarise(
@@ -405,65 +397,37 @@ if (k == 0) {
   mutate(across(c(chlorophyll_mean, kd490_mean, poc_mean, pic_mean),
                 ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
 
-  # convert to standard long format
-  modis_formatted <- modis_daily %>%
-    select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean) %>%
-    rename(
-      chlorophyll = chlorophyll_mean,
-      kd_490      = kd490_mean,
-      poc         = poc_mean,
-      pic         = pic_mean
-    ) %>%
+# Format both datasets
+  to_standard_long <- function(df, site_prefix, duration = "P1D") {
+  df %>%
     tidyr::pivot_longer(
-      cols = c(chlorophyll, kd_490, poc, pic),
+      cols = -date,
       names_to = "variable",
       values_to = "observation"
     ) %>%
-    mutate(
+    dplyr::mutate(
       project_id = project_id,
-      site_id    = paste0("MODIS_", variable),
+      site_id    = paste0(site_prefix, "_", variable),
       datetime   = as.character(date),
-      duration   = "P1D"
+      duration   = duration
     ) %>%
-    select(project_id, site_id, datetime, duration, variable, observation) %>%
-    filter(!is.na(observation))
+    dplyr::select(project_id, site_id, datetime, duration, variable, observation) %>%
+    dplyr::filter(!is.na(observation))
 }
 
-format_to_standard <- function(data, site_id_prefix, data_source) {
-  
-  # Reshape to long format 
-  if(data_source == "buoy") {
-    long_data <- data %>%
-      select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
-      tidyr::pivot_longer(
-        cols = c(chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress),
-        names_to = "variable",
-        values_to = "observation"
-      )
-    duration <- "P1D"  # daily 
-    
-  } 
-  
-  # Add standard columns
-  long_data <- long_data %>%
-    mutate(
-      project_id = project_id,
-      site_id = paste0(site_id_prefix, "_", variable),
-      datetime = as.character(date),
-      duration = duration
-    ) %>%
-    select(project_id, site_id, datetime, duration, variable, observation) %>%
-    filter(!is.na(observation))  # Remove NAs
-  
-  return(long_data)
-}
+  modis_formatted <- modis_daily %>%
+  dplyr::transmute(
+    date,
+    chlorophyll = chlorophyll_mean,
+    kd_490      = kd490_mean,
+    poc         = poc_mean,
+    pic         = pic_mean
+  ) %>%
+  to_standard_long(site_prefix = "MODIS")
 
-# Format buoy data
-buoy_formatted <- format_to_standard(
-  buoy_data,
-  site_id_prefix = "UNH_buoy",
-  data_source = "buoy"
-)
+  buoy_formatted <- buoy_data %>%
+  dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
+  to_standard_long(site_prefix = "UNH_buoy")
 
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted)
@@ -499,7 +463,7 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
     ) %>%
     distinct(across(all_of(primary_keys)), .keep_all = TRUE)
   
-  # keep old rows that are not being replaced, then add today's rows
+  # Keep old rows that are not being replaced, then add today's rows
   new_data <- old_data %>%
     anti_join(data, by = primary_keys) %>%
     bind_rows(data)
@@ -511,9 +475,9 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
 new_data <- new_data %>%
   arrange(site_id, datetime, variable)
 
-message(paste0("Rows in old_data: ", ifelse(is.null(old_data), 0, nrow(old_data))))
-message(paste0("Rows in data (this run): ", nrow(data)))
-message(paste0("Rows in new_data (after merge): ", nrow(new_data)))
+message(paste0("Rows in old data: ", ifelse(is.null(old_data), 0, nrow(old_data))))
+message(paste0("Rows of new data: ", nrow(data)))
+message(paste0("Rows in appended data: ", nrow(new_data)))
 
 message("Writing updated targets back to S3...")
 arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
@@ -528,4 +492,4 @@ if (exists("modis_files")) {
   suppressWarnings(try(unlink(modis_files), silent = TRUE))
 }
 
-message("Coastal targets script complete.")
+message("Coastal targets script complete!")

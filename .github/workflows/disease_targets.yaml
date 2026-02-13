@@ -1,0 +1,36 @@
+name: Disease Targets Download
+
+on:
+  workflow_dispatch:
+  
+  schedule:
+  - cron: '0 4 * * 0'  # 11 PM EST Sundays = 4 AM UTC Sundays
+
+jobs:
+  r-job:
+    runs-on: ubuntu-latest
+
+    env:
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+      GITHUB_PAT: ${{ secrets.MICRODATASUS_INSTALL_TEST }} # create as a token (expires every 365 days)
+
+    container: eco4cast/rocker-neon4cast:latest
+
+    steps:
+     # 1. Checkout repository
+      - uses: actions/checkout@v3
+      
+    # 2. Load Microdatasus
+      - name: Install and load microdatasus
+        run: |
+          R -e "
+            install.packages('remotes')
+            remotes::install_github('rfsaldanha/microdatasus')
+            library(microdatasus)
+          "
+
+      # 3. Run your script
+      - name: Run Disease Targets Script
+        run: |
+          Rscript targets/disease_targets.R

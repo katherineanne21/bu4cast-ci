@@ -66,6 +66,8 @@ urban_metadata_sites <- function(combined_data) {
   
   
   # Create an updated site metadata df
+  combined_data$date_local <- as.Date(combined_data$date_local)
+  
   new_metadata_df_sites <- combined_data %>%
     group_by(site_id) %>%
     summarise(

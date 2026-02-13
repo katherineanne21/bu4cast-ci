@@ -58,16 +58,24 @@ place called an S3 Minio bucket. Minio is simply the kind of S3 bucket. S3 bucke
 are a storage system similar to how you might store files in Google Drive. Just like
 any other file storage system, there is a file path to the data. 
 
-We will test reading to the S3 Bucket with the urban targets data.
+We will test reading to the S3 Bucket with the urban targets data, but I have
+included the urls for all 3.
 
-```{r} 
-urban_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+```{r}
+base_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/'
+urban_url = paste(base_url, 'urban-targets.csv', sep = "")
+disease_url = paste(base_url, 'tropical-disease-targets.csv', sep = "")
+coastal_url = paste(base_url, 'coastal-targets.csv', sep = "")
+
 test_read_urban = read.csv(urban_url)
 print(test_read_urban)
 ```
 
 ```{python}
-urban_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+base_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/'
+urban_url = base_url + 'urban-targets.csv'
+disease_url = base_url + 'tropical-disease-targets.csv'
+coastal_url = base_url + 'coastal-targets.csv'
 test_read_urban = pd.read_csv(urban_url)
 print(test_read_urban)
 ```

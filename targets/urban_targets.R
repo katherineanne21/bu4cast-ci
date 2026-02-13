@@ -2,6 +2,7 @@
 ## Created: 10/20/2025
 
 library(dplyr)
+library(tidyr)
 library(arrow)
 library(httr)
 library(jsonlite)
@@ -31,8 +32,17 @@ filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
-old_data <- arrow::read_csv_arrow(s3_read$path(filename))
+# Read in old data
+urban_data_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+old_data = read_csv(urban_data_url, 
+                          col_types = cols(project_id = col_character(),
+                                           site_id = col_character(),
+                                           datetime = col_character(),
+                                           duration = col_character(),
+                                           variable = col_character(),
+                                           observation = col_double()))
 
+old_data$datetime <- as.POSIXct(old_data$datetime, format = "%Y-%m-%d %H:%M", tz = "GMT") 
 
 # Step 1: Download Data (last year and this year) -------------------------
 
@@ -150,7 +160,11 @@ if (nrow(updated_data) == 0) {
 copy_updated_data = updated_data
 
 # Set date as datetime
-copy_updated_data$date_local = as.Date(copy_updated_data$date_local)
+copy_updated_data$datetime <- as.POSIXct(
+  paste(copy_updated_data$date_gmt, copy_updated_data$time_gmt),
+  format = "%Y-%m-%d %H:%M",
+  tz = "GMT"
+)
 
 # Update duration colum to ISO 8601 format
 copy_updated_data$sample_duration = gsub("1 HOUR", "PT1H", copy_updated_data$sample_duration)
@@ -177,8 +191,33 @@ copy_updated_data$site_id = paste(copy_updated_data$state_code,
                                             copy_updated_data$site_number,
                                       sep = '-')
 
+# Remove duplicates
+copy_updated_data <- copy_updated_data %>%
+  mutate(
+    date_gmt = as.POSIXct(date_gmt),
+    date_of_last_change = as.POSIXct(date_of_last_change)
+  ) %>%
+  drop_na(sample_measurement) %>% # remove NA's
+  # Most recently updated for datetime, variable, site_id, duration, and poc
+  group_by(date_gmt, parameter, site_id, sample_duration, poc) %>%
+  slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
+  ungroup() %>%
+  # Longer duration for datetime, variable, site_id, and duration
+  group_by(site_id, parameter, poc) %>%
+  mutate(
+    sensor_duration = as.numeric(difftime(
+      max(date_gmt, na.rm = TRUE),
+      min(date_gmt, na.rm = TRUE),
+      units = "days"
+    ))
+  ) %>%
+  ungroup() %>%
+  group_by(date_gmt, parameter, site_id, sample_duration) %>%
+  slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
 # Select data
-data = copy_updated_data[, c('site_id', 'date_local', 'sample_duration',
+data = copy_updated_data[, c('site_id', 'datetime', 'sample_duration',
                        'parameter', 'sample_measurement')]
 
 # Rename columns
@@ -191,15 +230,51 @@ data$project_id = 'bu4cast'
 data = data[, c('project_id', 'site_id', 'datetime', 'duration', 'variable',
                 'observation')]
 
-# Update data for the past two years
-primary_keys <- c("project_id", "site_id", "datetime", "duration", "variable")
+# Switch to dataframes
+old_data <- as.data.frame(old_data)
+data <- as.data.frame(data)
 
-new_data <- old_data %>%
-  anti_join(data, by = primary_keys) %>%
-  bind_rows(data)
+# Clean date type
+old_data <- old_data %>%
+  mutate(datetime_str = format(datetime, "%Y-%m-%d %H:%M:%S"))
+data <- data %>%
+  mutate(datetime_str = format(datetime, "%Y-%m-%d %H:%M:%S"))
+
+# Round observations
+old_data$observation <- round(old_data$observation, 6)
+data$observation <- round(data$observation, 6)
+
+# Create primary key
+old_data$key <- paste(old_data$project_id, old_data$site_id, 
+                      old_data$datetime_str, old_data$duration, 
+                      old_data$variable, sep = "|")
+
+data$key <- paste(data$project_id, data$site_id, 
+                  data$datetime_str, data$duration, 
+                  data$variable, sep = "|")
+
+# Merge old_data and data to new_data
+# Remove duplicates (keeping the data version)
+new_data <- bind_rows(data, old_data) %>%
+  distinct(key, .keep_all = TRUE) %>%
+  select(-key)
+
 
 # Organize by date
-new_data = new_data[order(data$datetime), ]
+new_data = new_data[order(new_data$datetime), ]
+
+# Print Row Counts for QC
+cat("QC - Row Counts:\n")
+cat("  Old Data: ", nrow(old_data), "\n")
+cat("  New Downloaded Data:     ", nrow(data),     "\n")
+cat("  New Combined Data:     ", nrow(new_data),     "\n")
+
+# Force datetime column as string
+new_data$datetime <- format(new_data$datetime, format = "%Y-%m-%d %H:%M")
+
+# Select columns
+new_data = new_data[, c('project_id', 'site_id', 'datetime', 'duration', 
+                        'variable','observation')]
 
 # Create metadata
 site_metadata_df = urban_metadata_sites(copy_updated_data)
@@ -233,5 +308,5 @@ unlink(csv_filename)
 
 # Health Check
 # Created at www.healthchecks.io
-# Currently set to bu4cast-ci-example
-RCurl::getURL("https://hc-ping.com/9836911f-f0e5-485b-91a0-f1d98f11dd7a")
+# Currently set to urban-targets
+RCurl::getURL("https://hc-ping.com/79b757b6-fd76-4844-aa88-ee24344e0ab7")

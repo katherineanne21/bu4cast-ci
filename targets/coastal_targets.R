@@ -127,23 +127,20 @@ if (start_date_buoy <= end_date) {
 }
 
 # Safeguard if there's no new buoy data
-if (nrow(buoy_data) == 0) {
+buoy_has_data <- nrow(buoy_data) > 0
+if (!buoy_has_data) {
   message("No new buoy rows returned; skipping buoy processing.")
-  buoy_has_data <- FALSE
 } else {
-  buoy_has_data <- TRUE
-if (buoy_has_data) {
 
   # Filter out bad coordinates (was getting longitudes of 10^20+)
-  buoy_data$latitude <- as.numeric(buoy_data$latitude)
+  buoy_data$latitude  <- as.numeric(buoy_data$latitude)
   buoy_data$longitude <- as.numeric(buoy_data$longitude)
 
   buoy_data_clean <- buoy_data %>%
-    filter(longitude > -180 & longitude < 180) %>%
-    filter(latitude > -90 & latitude < 90) %>%
-    filter(!is.na(latitude) & !is.na(longitude))
+    dplyr::filter(longitude > -180 & longitude < 180) %>%
+    dplyr::filter(latitude > -90 & latitude < 90) %>%
+    dplyr::filter(!is.na(latitude) & !is.na(longitude))
 
-  # If cleaning removed everything, treat as no buoy data
   if (nrow(buoy_data_clean) == 0) {
     message("Buoy returned rows but none had valid coords; skipping buoy processing.")
     buoy_has_data <- FALSE
@@ -154,9 +151,9 @@ if (buoy_has_data) {
     buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
 
     buoy_daily <- buoy_data_clean %>%
-      mutate(date = as.Date(datetime)) %>%
-      group_by(date) %>%
-      summarise(
+      dplyr::mutate(date = as.Date(datetime)) %>%
+      dplyr::group_by(date) %>%
+      dplyr::summarise(
         latitude    = mean(latitude, na.rm = TRUE),
         longitude   = mean(longitude, na.rm = TRUE),
         chlorophyll = mean(chlorophyll, na.rm = TRUE),
@@ -172,10 +169,9 @@ if (buoy_has_data) {
       )
 
     buoy_data <- buoy_daily
+    rm(buoy_daily)
   }
 }
-  
-rm(buoy_daily)
 
 ## Download MODIS Aqua data
 

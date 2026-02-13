@@ -281,10 +281,13 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   kd_vals  <- kd_vals[is.finite(kd_vals)]
   poc_vals  <- poc_vals[is.finite(poc_vals)]
   pic_vals  <- pic_vals[is.finite(pic_vals)]
-  
-  # if all empty, skip
-  if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) return(NULL)
-  
+
+  # DELETE message and {
+  if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) {
+  message("process_modis(): no finite values in 5x5 window for ", basename(ncfile))
+  return(NULL)
+}
+
   # get date from filename
   m <- regmatches(basename(ncfile), regexpr("\\.(\\d{8})T\\d{6}", basename(ncfile)))
   if (length(m) == 0) return(NULL)
@@ -364,6 +367,43 @@ out <- out[seq_len(k)]
 
 # make df for modis data
 modis_data <- if (k == 0) data.frame() else do.call(rbind, out[seq_len(k)])
+
+  #DELETE
+
+if (k == 0) {
+  message("No usable MODIS observations produced; skipping MODIS formatting this run.")
+  modis_formatted <- tibble::tibble(
+    project_id = character(),
+    site_id = character(),
+    datetime = character(),
+    duration = character(),
+    variable = character(),
+    observation = numeric()
+  )
+} else {
+  modis_formatted <- modis_data %>%
+    select(date, chlorophyll_mean, kd490_mean, poc_mean, pic_mean, l2_flags) %>%
+    rename(
+      chlorophyll = chlorophyll_mean,
+      kd_490 = kd490_mean,
+      poc = poc_mean,
+      pic = pic_mean
+    ) %>%
+    tidyr::pivot_longer(
+      cols = c(chlorophyll, kd_490, poc, pic),
+      names_to = "variable",
+      values_to = "observation"
+    ) %>%
+    mutate(
+      project_id = project_id,
+      site_id = paste0("MODIS_", variable),
+      datetime = as.character(date),
+      duration = "P1D"
+    ) %>%
+    select(project_id, site_id, datetime, duration, variable, observation)
+}
+
+#DELETE^^
 
 ## Format
 

@@ -87,9 +87,9 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
   message(paste0('reading file ', path))
   profiling_sites <- c('CRAM', 'LIRO', 'BARC', 'TOOK')
 
-  wq_avro <- read_avro_file(path)
+  wq_avro <- tibble::as_tibble(py_to_r(read_avro_file(path)))
 
-  if (nrow(wq_avro) != 0) {
+  if (nrow(wq_avro) >= 1) {
     wq_tibble <- wq_avro |>
       #wq_avro <- sparkavro::spark_read_avro(sc,
       #                                    name = "name",
@@ -184,7 +184,7 @@ read.avro.wq <- function(sc, name = 'name', path, columns_keep, dir ) {
 read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delete_files) {
   message(paste0('reading file ', path))
 
-  tsd_avro <- read_avro_file(path) |>
+  tsd_avro <- py_to_r(read_avro_file(path)) |>
     #tsd_avro <- sparkavro::spark_read_avro(sc,
     #                                       name = "name",
     #                                       path = path,
@@ -268,7 +268,7 @@ read.avro.tsd <- function(sc, name = 'name', path, thermistor_depths, dir, delet
 read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, columns_keep, dir, delete_files) {
   message(paste0('reading file ', path))
 
-  tsd_avro <- read_avro_file(path) |>
+  tsd_avro <- py_to_r(read_avro_file(path)) |>
     #tsd_avro <- sparkavro::spark_read_avro(sc,
     #                                       name = "name",
     #                                       path = path,
@@ -352,7 +352,11 @@ read.avro.tsd.profile <- function(sc, name = 'name', path, thermistor_depths, co
 read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
   message(paste0('reading file ', path))
 
-  prt_avro <- read_avro_file(path) |>
+  df <- py_to_r(read_avro_file(path))
+
+  if(nrow(df) > 0){
+
+  prt_avro <- df |>
     #prt_avro <- sparkavro::spark_read_avro(sc, name = 'name',
     #                                       path = path) |>
     dplyr::filter(termName %in% prt_vars) %>%
@@ -367,6 +371,10 @@ read.avro.prt <- function(sc, name = 'name', path, columns_keep, dir) {
     dplyr::mutate(Value = ifelse(is.na(doubleValue),
                                  intValue, doubleValue)) %>%
     dplyr::select(any_of(columns_keep))
+
+  }else{
+    prt_avro <- data.frame()
+  }
 
 
   prt_tibble <- prt_avro %>%

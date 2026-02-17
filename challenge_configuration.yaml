@@ -1,5 +1,7 @@
 challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: neon4cast
+github_repo: eco4cast/neon4cast-ci
+#S3 bucket information
 endpoint: sdsc.osn.xsede.org
 noaa_endpoint: sdsc.osn.xsede.org
 submissions_endpoint: s3-west.nrp-nautilus.io
@@ -7,40 +9,18 @@ scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: bio230014-bucket01/challenges/forecasts
 summaries_bucket: bio230014-bucket01/challenges/forecasts
 submissions_bucket: submissions
-inventory_bucket: bio230014-bucket01/challenges/inventory
 noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
-prov_bucket: bio230014-bucket01/challenges/prov
 targets_bucket: bio230014-bucket01/challenges/targets
 archive_bucket: bio230014-bucket01/challenges/archive
 model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
 example_model_id: example
-site_path: '../neon4cast-catalog/catalog/sites'
-site_table: neon4cast_field_site_metadata.csv
-site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
-site_thumbnail_title: "NEON Sites Map"
-site_table_link: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'
 target_metadata_gsheet: https://docs.google.com/spreadsheets/d/10YTX9ae_C1rFdLgEDkUcCRCpUkVYv06leY01BtD1BgM/edit?usp=sharing
-targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
-targets_thumbnail_title: 'Test Image'
-targets_path: '../neon4cast-catalog/catalog/targets/'
 challenge_url: https://projects.ecoforecast.org/neon4cast-ci
-github_repo: eco4cast/neon4cast-ci
+#TARGET CONFIGURATIONS
 target_groups:
   Aquatics:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
-  Terrestrial:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
-  Beetles:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
-  Phenology:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
-  Ticks:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
-noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
-noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
-variable_groups:
-  Aquatics:
     variable: ['oxygen','temperature','chla']
     max_horizon: [35, 35, 35]
     duration: ['P1D','P1D','P1D']
@@ -50,31 +30,41 @@ variable_groups:
       oxygen:
         duration: "P1D"
         max_horizon: 35
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
       temperature:
         duration: 'P1D'
         max_horizon: 35
-        var_doi: "10.1002/ecs2.4686"
-        var_citation: "Dietze, M., R.Q. Thomas, J. Peters, C. Boettiger, A. Shiklomanov, and J. Ashander. 2023. A community convention for ecological forecasting: output files and metadata v1.0. Ecosphere 14: e4686 https://doi.org/10.1002/ecs2.4686"
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
       chla:
         duration: "P1D"
         max_horizon: 35
+        var_doi: "10.1002/eap.70004"
+        var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
   Terrestrial:
-    variable: ['nee','le','nee','le']
-    duration: ['P1D','P1D','PT30M','PT30M']
-    max_horizon: [35, 35, 35, 35]
-    thumbnail_link: 'https://projects.ecoforecast.org/neon4cast-catalog/img/BONA_Twr.jpg'
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+    variable: ['nee','le']
+    duration: ['P1D','P1D']
+    max_horizon: [35, 35]
+    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
     thumbnail_title: 'NEON Field Tower'
     group_vars:
       nee:
-        duration: ["P1D", "PT30M"]
-        max_horizon: [35, 35]
+        duration: ["P1D"]
+        max_horizon: [35]
+        var_doi: "None"
+        var_citation: "None"
       le:
-        duration: ["P1D", "PT30M"]
-        max_horizon: [35, 35]
+        duration: ["P1D"]
+        max_horizon: [35]
+        var_doi: "None"
+        var_citation: "None"
   Phenology:
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
     variable: ['gcc_90','rcc_90']
     duration: ['P1D','P1D']
-    max_horizon: [35, 35, 35, 35]
+    max_horizon: [35, 35]
     thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/max_1300x1300/public/image-content-images/_BFP8455.jpg'
     thumbnail_title: 'Phenology Image'
     group_vars:
@@ -89,7 +79,10 @@ variable_groups:
         Agricultural and Forest Meteorology, Volume 345, 2024'
       rcc_90:
         duration: 'P1D'
+        var_doi: "None"
+        var_citation: "None"
   Beetles:
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz"
     variable: ['abundance', 'richness']
     duration: ['P1W','P1W']
     max_horizon: [730, 730]
@@ -99,10 +92,15 @@ variable_groups:
       abundance:
         duration: "P1W"
         max_horizon: 730
+        var_doi: "None"
+        var_citation: "None"
       richness:
         duration: 'P1W'
         max_horizon: 730
+        var_doi: "None"
+        var_citation: "None"
   Ticks:
+    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz"
     variable: ['amblyomma_americanum']
     duration: ['P1W']
     max_horizon: [730]
@@ -112,39 +110,44 @@ variable_groups:
       amblyomma_americanum:
         duration: "P1W"
         max_horizon: 730
+        var_doi: "None"
+        var_citation: "None"
+noaa_forecasts:
+  noaa_forecast_groups: ['Pseudo','Stage1-stats','Stage1','Stage2','Stage3']
+  noaa_forecast_group_paths: ['pseudo','stage1-stats','stage1','stage2','stage3']
+#CATALOG CONFIGURATIONS
 catalog_config:
+  catalog_path: 'neon4cast-catalog'
   about_string: 'https://projects.ecoforecast.org/neon4cast-docs/'
   about_title: 'NEON Ecological Forecasting Challenge Documentation'
   scores_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/52760199990_d1a0f154fe_c.jpg"
   scores_thumbnail_title: "NEON Buoy Image"
   forecasts_thumbnail: "https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/51629805865_0ef01ffbbc_c.jpg"
   forecasts_thumbnail_title: "NEON Buoy Image"
-  forecast_path: '../neon4cast-catalog/catalog/forecasts'
-  scores_path: '../neon4cast-catalog/catalog/scores'
-  summaries_path: '../neon4cast-catalog/catalog/summaries'
+  forecast_path: 'neon4cast-catalog/forecasts'
+  scores_path: 'neon4cast-catalog/scores'
+  summaries_path: 'neon4cast-catalog/summaries'
   summaries_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_desert.jpg'
   summaries_thumbnail_title: "NEON Image"
-  inventory_path: 'catalog/inventory'
-  inventory_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_forest.jpg'
-  inventory_thumbnail_title: "NEON Image"
-  noaa_path: '../neon4cast-catalog/catalog/noaa_forecasts/'
+  targets_path: 'neon4cast-catalog/targets/'
+  targets_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_stream.jpg'
+  noaa_path: 'neon4cast-catalog/noaa_forecasts/'
   noaa_thumbnail: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/catalog/thumbnail_plots/neon_wetland.jpg'
   noaa_thumbnail_title: "NEON Image"
-  aws_download_path_forecasts: 'bio230014-bucket01/challenges/forecasts/bundled-parquet'
-  aws_download_path_scores: 'bio230014-bucket01/challenges/scores/bundled-parquet'
-  aws_download_path_summaries: 'bio230014-bucket01/challenges/forecasts/bundled-summaries'
-  host_url: "www.neon4cast.org"
-  host_name: "Ecoforecast Challenge"
+  site_path: 'neon4cast-catalog/sites'
+  site_thumbnail: 'https://www.neonscience.org/sites/default/files/styles/max_2600x2600/public/2021-04/2021_04_graphic_Domain_Map_no-Titles-png.png?itok=7MsHPigZ'
+  site_thumbnail_title: "NEON Sites Image"
+  host_url: "https://ecoforecast.org/"
+  host_name: "Ecological Forecasting Initiative"
   bbox:
     max_lat: 71.2824
     min_lat: 17.9696
     max_lon: -66.7987
     min_lon: -156.6194
   site_type: 'MultiPoint'
-  base_image_path: 'https://data.ecoforecast.org/neon4cast-catalog'
   citation_doi_link: "https://doi.org/10.1002/fee.2616"
   citation_doi: "10.1002/fee.2616"
   citation_text: "Thomas, R.Q., C. Boettiger, C.C. Carey, M.C. Dietze, L.R. Johnson, M.A. Kenney, J.S. Mclachlan, J.A. Peters, E.R. Sokol, J.F. Weltzin, A. Willson, W.M. Woelmer, and Challenge Contributors. 2023. The NEON Ecological Forecasting Challenge. Frontiers in Ecology and Environment 21: 112-113."
-  dashboard_url: "https://projects.ecoforecast.org/neon4cast-docs/"
-  dashboard_title: "NEON Forecast Challenge Dashboard"
+  documentation_url: "https://projects.ecoforecast.org/neon4cast-docs/"
+  catalog_title: "NEON Ecological Forecasting Challenge"
   site_metadata_url: 'https://raw.githubusercontent.com/eco4cast/neon4cast-ci/main/neon4cast_field_site_metadata.csv'

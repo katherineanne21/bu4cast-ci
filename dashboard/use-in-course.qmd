@@ -59,17 +59,20 @@ scores |>
 - Utah State University
 - University of Utah
 - University of Notre Dame
+- Augsburg University
+- University of Florida
 
 ## List of short-courses
 
-- Near-term Ecological Forecasting Initiative Short Course 
-- Forecasting for Decision-Making: An Epidemiological & Ecological Perspective
-- Fluxcourse
+- Near-term Ecological Forecasting Initiative Short Course (Boston, MA)
+- Near-term Ecological Forecasting Short Coursea (Cape Town, South Africa)
+- Forecasting for Decision-Making: An Epidemiological & Ecological Perspective (Toronto, Canada)
+- Fluxcourse (Colorado, USA)
 
 ## List of workshops
 
-- Ecological Society of America (2023, 2024)
+- Ecological Society of America (2023, 2024, 2025)
 - Association for the Advancement of Limnology and Oceanography (2024)
 - Ecological Forecasting Initiative Meeting (2024, 2025)
 - Global Lakes Ecological Observatory Network (2023)
-- Aquatic Ecosystem MOdeling Network—Junior (AEMON-J) Hacking Limnology Workshop (2023
+- Aquatic Ecosystem MOdeling Network—Junior (AEMON-J) Hacking Limnology Workshop (2023)

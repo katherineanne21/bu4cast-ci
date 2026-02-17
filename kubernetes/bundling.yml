@@ -1,19 +1,17 @@
-# gefs-osn-cronjob.yaml
-
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: gefs-osn-cronjob
+  name: bundling-cronjob
   namespace: eco4cast
 spec:
-  schedule: "0 5 * * *"
+  schedule: "0 */6 * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: gefs-osn-container
-            image: eco4cast/rocker-neon4cast:latest
+          - name: bundling-container
+            image: ghcr.io/boettiger-lab/k8s@sha256:fd02edfb4318afe022f8a732a99d93df7127dadb2bb4e208e36a86f96c2f45c6
             securityContext:
               runAsUser: 0
             resources:
@@ -46,11 +44,10 @@ spec:
               mkdir -p /app
               git clone https://$GITHUB_PAT@github.com/eco4cast/neon4cast-ci.git /app
               cd /app
-              # Packages should already be in the image, but we can ensure arrow is the right version
-              Rscript -e "remotes::install_version('arrow', version = '20.0.0')"
-              Rscript -e "source('drivers/download_stage1.R')"
-              Rscript -e "source('drivers/generate_stage2.R')"
-              # Healthcheck ping
+              Rscript -e 'options(repos=list(CRAN="http://packagemanager.rstudio.com/all/__linux__/noble/latest")); install.packages(c("future.apply", "progressr", "minioclient", "bench", "glue", "fs"))'
+              Rscript submission_processing/bundled_forecasts.R
+              Rscript submission_processing/bundled_summaries.R
+              # Ping healthchecks.io (using the same ID from other workflows as a placeholder)
               curl -m 10 --retry 5 https://hc-ping.com/fc148462-2f07-4cd3-a11d-823982db0270
           restartPolicy: OnFailure
   successfulJobsHistoryLimit: 3

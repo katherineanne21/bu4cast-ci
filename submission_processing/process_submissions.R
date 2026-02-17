@@ -17,7 +17,7 @@ install_mc()
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-sites <- readr::read_csv(config$site_table,show_col_types = FALSE) |>
+sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types = FALSE) |>
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 
@@ -77,26 +77,6 @@ if(length(submissions) > 0){
                          endpoint_override = config$endpoint,
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
-
-  #s3_scores <- arrow::s3_bucket(file.path(config$scores_bucket,"parquet"),
-  #                              endpoint_override = config$endpoint,
-  #                              access_key = Sys.getenv("OSN_KEY"),
-  #                              secret_key = Sys.getenv("OSN_SECRET"))
-
-
-  #s3_inventory <- arrow::s3_bucket(dirname(config$inventory_bucket),
-  #                                 endpoint_override = config$endpoint,
-  #                                 access_key = Sys.getenv("OSN_KEY"),
-  #                                 secret_key = Sys.getenv("OSN_SECRET"))
-
-  #s3_inventory$CreateDir(paste0("inventory/catalog/forecasts/project_id=", config$project_id))
-
-  #s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket,"/catalog/forecasts/project_id=", config$project_id),
-  #                                 endpoint_override = config$endpoint,
-  #                                 access_key = Sys.getenv("OSN_KEY"),
-  #                                 secret_key = Sys.getenv("OSN_SECRET"))
-
-  #inventory_df <- arrow::open_dataset(s3_inventory) |> dplyr::collect()
 
   time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
@@ -200,37 +180,6 @@ if(length(submissions) > 0){
                                                 "reference_date"),
                                  options = list("PER_THREAD_OUTPUT false"))
 
-        #print("updating inventory")
-
-
-        #bucket <- config$forecasts_bucket
-        #curr_inventory <- fc |>
-        #  mutate(reference_date = lubridate::as_date(reference_datetime),
-        #         date = lubridate::as_date(datetime),
-        #         pub_date = lubridate::as_date(pub_datetime)) |>
-        #  distinct(duration, model_id, site_id, reference_date, variable, date, project_id, pub_date) |>
-        #  mutate(path = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}"),
-        #         path_full = glue::glue("{bucket}/parquet/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
-        #         path_summaries = glue::glue("{bucket}/summaries/project_id={project_id}/duration={duration}/variable={variable}/model_id={model_id}/reference_date={reference_date}/part-0.parquet"),
-        #         endpoint =config$endpoint)
-
-        #print("updating inventory2")
-
-        #curr_inventory <- dplyr::left_join(curr_inventory, sites, by = "site_id")
-
-        #print("updating inventory3")
-        #print(object.size(inventory_df), units = "GB")
-
-        #inventory_df <- dplyr::bind_rows(inventory_df, curr_inventory)
-
-        #print("updating inventory4")
-
-        #print(object.size(inventory_df), units = "GB")
-
-        #arrow::write_dataset(inventory_df, path = s3_inventory)
-
-        #print("updating inventory5")
-
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
@@ -261,18 +210,6 @@ if(length(submissions) > 0){
       }
     }
   }
-
-  #message("writing inventory")
-
-  #arrow::write_dataset(inventory_df, path = s3_inventory)
-
-  #s3_inventory <- arrow::s3_bucket(paste0(config$inventory_bucket),
-  #                                 endpoint_override = config$endpoint,
-  #                                 access_key = Sys.getenv("OSN_KEY"),
-  #                                 secret_key = Sys.getenv("OSN_SECRET"))
-
-  #inventory_df |> dplyr::distinct(model_id, project_id) |>
-  #  arrow::write_csv_arrow(s3_inventory$path("model_id/model_id-project_id-inventory.csv"))
 
 }
 

@@ -1,14 +1,16 @@
 library(tidyverse)
 library(tsibble)
 library(fable)
-source('R/fablePersistenceModelFunction.R')
+source('baseline_models/R/fablePersistenceModelFunction.R')
 
 # 1.Read in the targets data
-targets <- read_csv('https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz') %>%
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz"
+targets <- read_csv(url) %>%
   mutate(observation = ifelse(observation == 0 & variable == "chla", 0.00001, observation))
 
 # 2. Make the targets into a tsibble with explicit gaps
 targets_ts <- targets %>%
+  mutate(datetime = as_date(datetime)) |>
   as_tsibble(key = c('variable', 'site_id'), index = 'datetime') %>%
   # add NA values up to today (index)
   fill_gaps(.end = Sys.Date())
@@ -33,11 +35,18 @@ RW_forecasts_EFI <- RW_forecasts %>%
          prediction = .sim) %>%
   # For the EFI challenge we only want the forecast for future
   filter(datetime > Sys.Date()) %>%
+  mutate(datetime = as_datetime(datetime)) |>
   group_by(site_id, variable) %>%
   mutate(reference_datetime = min(datetime) - lubridate::days(1),
          family = "ensemble",
          model_id = "persistenceRW") %>%
-  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction)
+  select(model_id, datetime, reference_datetime, site_id, family, parameter, variable, prediction) |>
+  as_tibble() |>
+  mutate(datetime = as_datetime(datetime),
+         reference_datetime = as_datetime(reference_datetime),
+         project_id = "neon4cast",
+         duration = "P1D")
+
 
 #RW_forecasts_EFI |>
 #  filter(variable == "chla") |>

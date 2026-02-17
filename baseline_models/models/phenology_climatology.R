@@ -3,10 +3,9 @@ library(lubridate)
 
 message(paste0("Running null model ", Sys.time()))
 
-download_url <- paste0("https://data.ecoforecast.org/neon4cast-targets/",
-                       "phenology", "/", "phenology-targets.csv.gz")
+url <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
 
-target <- read_csv(download_url)
+target <- read_csv(url)
 
 target_clim <- target %>%  
   mutate(doy = yday(datetime)) %>% 

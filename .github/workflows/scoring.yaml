@@ -35,4 +35,4 @@ jobs:
         run: r scoring/prep-scoring.R
 
       - name: scoring
-        run: r scoring/new-scoring.R
+        run: r scoring/scoring.R

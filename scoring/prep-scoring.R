@@ -5,10 +5,59 @@ library(dplyr)
 library(duckdbfs)
 library(progress)
 library(bench)
+library(yaml)
+library(stringr)
+library(minioclient)
 
 library(DBI)
 con <- duckdbfs::cached_connection(tempfile())
 DBI::dbExecute(con, "SET THREADS=64;")
+install_mc()
+mc_alias_set("osn", "s3-west.nrp-nautilus.io", Sys.getenv("EFI_NRP_KEY"), Sys.getenv("EFI_NRP_SECRET"))
+
+remove_dir <- function(path) {
+  tryCatch(
+    {
+      minioclient::mc_rm(path, recursive = TRUE)
+      message('directory successfully removed...')
+    },
+    error = function(cond) {
+      message("The removal directory could not be found...")
+      message("Here's the original error message:")
+      message(conditionMessage(cond))
+      # Choose a return value in case of error
+      NA
+    },
+    warning = function(cond) {
+      message('Deleting the directory caused a warning...')
+      message("Here's the original warning message:")
+      message(conditionMessage(cond))
+      # Choose a return value in case of warning
+      NULL
+    },
+    finally = {
+      # NOTE:
+      # Here goes everything that should be executed at the end,
+      # regardless of success or error.
+      # If you want more than one expression to be executed, then you
+      # need to wrap them in curly brackets ({...}); otherwise you could
+      # just have written 'finally = <expression>'
+      message("Finished the delete portion...")
+    }
+  )
+}
+
+remove_dir("osn/efi-scores/tmp/score_me")
+remove_dir("osn/efi-scores/tmp/forecasts")
+remove_dir("osn/efi-scores/tmp/targets")
+remove_dir("osn/efi-scores/tmp/scores")
+
+
+config <- read_yaml("challenge_configuration.yaml")
+
+forecast_bundled_parquet_bucket <- paste0(config$forecasts_bucket, "/bundled-parquet/")
+scores_bundled_parquet_bucket <- paste0(config$scores_bucket, "/bundled-parquet/")
+scores_bucket_base <- str_split(config$scores_bucket, "/", simplify = TRUE)[1]
 
 #library(minioclient)
 
@@ -16,28 +65,26 @@ DBI::dbExecute(con, "SET THREADS=64;")
 #mc_alias_set("osn", "sdsc.osn.xsede.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 #fs::dir_create("new_scores")
 
-project <- "neon4cast"
+project <- config$project_id
 cut_off_date <- Sys.Date() - lubridate::dmonths(6)
 rescore <- FALSE
 obs_key_cols <- c("project_id", "site_id", "datetime", "duration", "variable")
 score_key_cols <- c(obs_key_cols, "model_id", "family", "reference_datetime")
 
 
-duckdbfs::duckdb_secrets(endpoint = "sdsc.osn.xsede.org",
+duckdbfs::duckdb_secrets(endpoint = config$endpoint,
                          key = "",
                          secret = "",
-                         bucket = "bio230014-bucket01")
+                         bucket = scores_bucket_base)
 
 
+# Create vector of targets files
+num_target_groups <- length(config$target_groups)
+target_files <- NULL
+for(i in 1:num_target_groups){
+  target_files <- c(target_files, config$target_groups[[i]]$targets_file)
+}
 
-target_files <-
-  c("https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/aquatics-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/beetles-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1W/ticks-targets.csv.gz",
-  "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=PT30M/terrestrial_30min-targets.csv.gz"
-)
 
 ### Access the targets, forecasts, and scores subsets
 targets <-
@@ -60,8 +107,8 @@ last_observed_date <- targets |> select(datetime) |> distinct() |>
 
 # Omit scoring of daily forecasts that have a horizon > 35
 forecasts <-
-  open_dataset("s3://bio230014-bucket01/challenges/forecasts/bundled-parquet/",
-               s3_endpoint = "sdsc.osn.xsede.org",
+  open_dataset(paste0("s3://", forecast_bundled_parquet_bucket),
+               s3_endpoint = config$endpoint,
                anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
@@ -79,8 +126,8 @@ forecasts <-
 
 
 scores <-
-  open_dataset("s3://bio230014-bucket01/challenges/scores/bundled-parquet/",
-               s3_endpoint = "sdsc.osn.xsede.org", anonymous=TRUE) |>
+  open_dataset(paste0("s3://", scores_bundled_parquet_bucket),
+               s3_endpoint = config$endpoint, anonymous=TRUE) |>
   filter(project_id == {project},
          datetime > {cut_off_date},
          !is.na(observation)

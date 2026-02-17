@@ -41,8 +41,10 @@ team_list <- list(list(individualName = list(givenName = "Quinn", surName = "Tho
 #'Team name code
 team_name <- "persistence"
 
+url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+
 #'Download target file from the server
-download.file("https://data.ecoforecast.org/neon4cast-targets/terrestrial_daily/terrestrial_daily-targets.csv.gz",
+download.file(url_P1D,
               "terrestrial_daily-targets.csv.gz")
 
 #'Read in target file.  The guess_max is specified because there could be a lot of

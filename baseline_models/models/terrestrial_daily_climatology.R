@@ -38,7 +38,10 @@ team_name <- "climatology"
 
 #'Read in target file.  The guess_max is specified because there could be a lot of
 #'NA values at the beginning of the file
-targets <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/terrestrial_daily/terrestrial_daily-targets.csv.gz", guess_max = 10000)
+
+url_P1D <- "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
+
+targets <- readr::read_csv(url_P1D, guess_max = 10000)
 
 sites <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |> 
   dplyr::filter(terrestrial == 1)

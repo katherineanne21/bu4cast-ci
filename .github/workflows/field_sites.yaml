@@ -1,0 +1,21 @@
+name: Update Field Sites
+
+on:
+  workflow_dispatch:
+
+jobs:
+  r-job:
+    runs-on: ubuntu-latest
+    env:
+      OSN_KEY: ${{ secrets.OSN_KEY }}
+      OSN_SECRET: ${{ secrets.OSN_SECRET }}
+    container: eco4cast/rocker-neon4cast:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install R packages
+        run: |
+          Rscript -e 'options(repos=c(CRAN="https://cloud.r-project.org"))'
+          Rscript -e 'pkgs <- c("arrow","dplyr"); need <- pkgs[!pkgs %in% rownames(installed.packages())]; if(length(need)) install.packages(need, Ncpus = 2)'
+      - name: Run field sites update
+        run: |
+          Rscript drivers/field_sites.R

@@ -3,7 +3,7 @@ library(arrow)
 library(dplyr)
 print(sessioninfo::package_info())
 
-# Read sites from bu4cast bucket
+# Read bucket for sites and driver storage
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
@@ -20,12 +20,7 @@ site_list <- arrow::read_csv_arrow(
 
 message("Sites loaded: ", nrow(site_list))
 
-s3_stage2 <- arrow::s3_bucket(
-  "bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage2",
-  endpoint_override = "sdsc.osn.xsede.org",
-  access_key  = Sys.getenv("OSN_KEY"),
-  secret_key  = Sys.getenv("OSN_SECRET")
-)
+s3_stage2 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage2")
 
 have_dates    <- dplyr::tibble(reference_datetime = gsub("reference_datetime=", "", s3_stage2$ls()))
 curr_date     <- Sys.Date()
@@ -37,13 +32,12 @@ if (length(missing_dates) > 0) {
   for (i in seq_along(missing_dates)) {
     print(missing_dates[i])
 
-    s3 <- arrow::s3_bucket(
-      paste0("bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1/reference_datetime=", missing_dates[i]),
-      endpoint_override = "https://sdsc.osn.xsede.org",
-      anonymous = TRUE
+    # Read stage1 from bu4cast bucket
+    s3_stage1 <- s3_read$path(
+      paste0("challenges/targets/project_id=bu4cast/drivers/stage1/reference_datetime=", missing_dates[i])
     )
 
-    site_df <- arrow::open_dataset(s3) %>%
+    site_df <- arrow::open_dataset(s3_stage1) %>%
       dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) %>%
       dplyr::filter(site_id %in% site_list$site_id) %>%
       dplyr::collect() %>%

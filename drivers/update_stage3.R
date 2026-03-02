@@ -3,7 +3,7 @@ library(dplyr)
 source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
 print(sessioninfo::package_info())
 
-# Read sites from bu4cast bucket
+# Read bucket for sites and driver storage
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
@@ -23,27 +23,16 @@ message("Sites loaded: ", length(site_list))
 purrr::map(site_list, function(curr_site_id) {
   print(curr_site_id)
 
-  s3 <- arrow::s3_bucket(
-    "bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage3",
-    endpoint_override = "sdsc.osn.xsede.org",
-    access_key = Sys.getenv("OSN_KEY"),
-    secret_key = Sys.getenv("OSN_SECRET")
-  )
+  s3_stage3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage3")
+  s3_pseudo  <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/pseudo")
 
-  stage3_df <- arrow::open_dataset(s3) %>%
+  stage3_df <- arrow::open_dataset(s3_stage3) %>%
     dplyr::filter(site_id == curr_site_id) %>%
     dplyr::collect()
 
   max_date <- stage3_df %>%
     dplyr::summarise(max = as.character(lubridate::as_date(max(datetime)))) %>%
     dplyr::pull(max)
-
-  s3_pseudo <- arrow::s3_bucket(
-    "bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/pseudo",
-    endpoint_override = "sdsc.osn.xsede.org",
-    access_key = Sys.getenv("OSN_KEY"),
-    secret_key = Sys.getenv("OSN_SECRET")
-  )
 
   cut_off <- as.character(lubridate::as_date(max_date) - lubridate::days(3))
 
@@ -70,6 +59,6 @@ purrr::map(site_list, function(curr_site_id) {
       dplyr::filter(datetime < min(df2$datetime)) %>%
       dplyr::bind_rows(df2) %>%
       dplyr::arrange(variable, datetime, parameter) %>%
-      arrow::write_dataset(path = s3, partitioning = "site_id")
+      arrow::write_dataset(path = s3_stage3, partitioning = "site_id")
   }
 })

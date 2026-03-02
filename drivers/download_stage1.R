@@ -6,7 +6,7 @@ library(dplyr)
 print(sessioninfo::package_info())
 gdalcubes::gdalcubes_options(parallel = 2 * parallel::detectCores())
 
-# Read bucket for sites and write destination for drivers
+# Read bucket for sites and driver storage
 s3_read <- arrow::s3_bucket(
   "bu4cast-ci-read",
   endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
@@ -34,7 +34,10 @@ dates_pseudo <- seq(as.Date("2020-09-24"), Sys.Date(),     by = 1)
 message("GEFS v12 stage1-stats")
 bench::bench_time({
   s3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage1-stats")
-  have_dates    <- gsub("reference_datetime=", "", s3$ls())
+  have_dates <- tryCatch(
+    gsub("reference_datetime=", "", s3$ls()),
+    error = function(e) character(0)
+  )
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
   gefs_to_parquet(missing_dates,
                   ensemble = c("geavg", "gespr"),
@@ -45,7 +48,10 @@ bench::bench_time({
 message("GEFS v12 stage1")
 bench::bench_time({
   s3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage1")
-  have_dates    <- gsub("reference_datetime=", "", s3$ls())
+  have_dates <- tryCatch(
+    gsub("reference_datetime=", "", s3$ls()),
+    error = function(e) character(0)
+  )
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
   gefs_to_parquet(missing_dates, path = s3, sites = sites)
 })

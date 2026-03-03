@@ -31,8 +31,8 @@ Sys.setenv("GEFS_VERSION" = "v12")
 #dates        <- seq(as.Date("2020-09-24"), Sys.Date() - 1, by = 1)
 #dates_pseudo <- seq(as.Date("2020-09-24"), Sys.Date(),     by = 1)
 
-dates        <- seq(as.Date("2020-09-24"), as.Date("2021-09-24") - 1, by = 1)
-dates_pseudo <- seq(as.Date("2020-09-24"), as.Date("2021-09-24"),     by = 1)
+dates        <- seq(as.Date("2020-09-24"), as.Date("2021-01-01") - 1, by = 1)
+dates_pseudo <- seq(as.Date("2020-09-24"), as.Date("2021-01-01"),     by = 1)
 
 message("GEFS v12 stage1-stats")
 bench::bench_time({

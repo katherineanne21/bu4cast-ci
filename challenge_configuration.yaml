@@ -27,7 +27,11 @@ target_groups:
   Urban:
     target_name: "urban"
     targets_filepath: "challenges/project_id=bu4cast/targets/urban-targets.csv"
+    site_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-sites.csv"
+    units_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-units.csv"
     targets_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/targets/urban-targets.csv"
+    targets_sites_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-sites.csv"
+    targets_units_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-units.csv"
     variable: ['PM2.5_P1H','PM2.5_P1D','PM10_P1H','PM10_P1D','NO2_P1H','NO2_P1D','O3']
     #max_horizon: [35, 35, 35]
     duration: ['PT1H','P1D','PT1H','P1D','PT1H','P1D','PT1H']

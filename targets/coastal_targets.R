@@ -28,8 +28,7 @@ challenge_name <- "coastal"
 project_id <- "bu4cast"
 
 # Create file name/folder
-filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv", sep = "")
+filename = paste0("challenges/project_id=bu4cast/targets/", challenge_name, "-targets.csv")
 
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
@@ -55,6 +54,8 @@ old_data <- tryCatch(
   }
 )
 
+buoy_site_id <- "1"
+
 # Full history from 2006
 start_date_buoy  <- as.Date("2006-01-01")
 start_date_modis <- as.Date("2006-01-01")
@@ -64,9 +65,9 @@ end_date <- as.Date(Sys.Date() - 1)  # yesterday
 
 if (!is.null(old_data) && nrow(old_data) > 0) {
 
-  old_buoy  <- old_data[old_data$site_id == "UNH_buoy", , drop = FALSE]
-  old_modis <- old_data[old_data$site_id == "MODIS",   , drop = FALSE]
-  old_cci   <- old_data[old_data$site_id == "CCI",     , drop = FALSE]
+  old_buoy  <- old_data[old_data$variable == "chlora_buoy",  , drop = FALSE]
+  old_modis <- old_data[old_data$variable == "chlora_modis", , drop = FALSE]
+  old_cci   <- old_data[old_data$variable == "chlora_cci",   , drop = FALSE]
 
   if (nrow(old_buoy) > 0) {
     last_buoy_date <- max(as.Date(substr(old_buoy$datetime, 1, 10)), na.rm = TRUE)
@@ -155,7 +156,7 @@ if (!buoy_has_data) {
     # Calculate buoy location for CCI download
     buoy_lat <- mean(buoy_data_clean$latitude, na.rm = TRUE)
     buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
-
+    
     buoy_daily <- buoy_data_clean %>%
       dplyr::mutate(date = as.Date(datetime)) %>%
       dplyr::group_by(date) %>%
@@ -334,11 +335,11 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
 existing_dates <- as.Date(character(0))
 if (exists("old_data") && !is.null(old_data)) {
   old_df <- as.data.frame(old_data)
-  old_modis <- old_df[old_df$site_id == "MODIS", , drop = FALSE]
-  if (nrow(old_modis) > 0) {
-    existing_dates <- unique(as.Date(substr(old_modis$datetime, 1, 10)))
-    existing_dates <- existing_dates[!is.na(existing_dates)]
-  }
+  old_modis <- old_df[old_df$variable == "chlora_modis", , drop = FALSE]
+if (nrow(old_modis) > 0) {
+  existing_dates <- unique(as.Date(substr(old_modis$datetime, 1, 10)))
+  existing_dates <- existing_dates[!is.na(existing_dates)]
+}
 }
 
 # Only process new files/dates
@@ -398,7 +399,7 @@ start_date_occci <- as.Date(start_date_cci)
 end_date_occci   <- as.Date(end_date)
 
 if (!is.null(old_data) && nrow(old_data) > 0) {
-  old_occci <- old_data[old_data$site_id == "CCI", , drop = FALSE]
+  old_occci <- old_data[old_data$variable == "chlora_cci", , drop = FALSE]
   if (nrow(old_occci) > 0) {
     last_occci_date <- max(as.Date(substr(old_occci$datetime, 1, 10)), na.rm = TRUE)
     if (is.finite(last_occci_date)) start_date_occci <- last_occci_date + 1
@@ -429,7 +430,7 @@ if (start_date_occci > end_date_occci) {
   existing_occci_dates <- as.Date(character(0))
 
   if (!is.null(old_data) && nrow(old_data) > 0) {
-    old_occci <- old_data[old_data$site_id == "CCI", , drop = FALSE]
+    old_occci <- old_data[old_data$variable == "chlora_cci", , drop = FALSE]
     if (nrow(old_occci) > 0) {
       existing_occci_dates <- unique(as.Date(substr(old_occci$datetime, 1, 10)))
       existing_occci_dates <- existing_occci_dates[!is.na(existing_occci_dates)]
@@ -613,20 +614,16 @@ empty_targets <- function() {
   )
 }
 
-to_standard_long <- function(df, site_prefix, duration = "P1D") {
+to_standard_chlora <- function(df, site_id, mode, duration = "P1D") {
   df %>%
-    tidyr::pivot_longer(
-      cols = -date,
-      names_to = "variable",
-      values_to = "observation"
+    dplyr::transmute(
+      project_id  = project_id,
+      site_id     = as.character(site_id),
+      datetime    = as.character(date),
+      duration    = duration,
+      variable    = paste0("chlora_", mode),
+      observation = as.numeric(chlorophyll)
     ) %>%
-    dplyr::mutate(
-      project_id = project_id,
-      site_id    = paste0(site_prefix),
-      datetime   = as.character(date),
-      duration   = duration
-    ) %>%
-    dplyr::select(project_id, site_id, datetime, duration, variable, observation) %>%
     dplyr::filter(!is.na(observation))
 }
 
@@ -636,8 +633,8 @@ if (!exists("buoy_has_data") || !isTRUE(buoy_has_data)) {
   buoy_formatted <- empty_targets()
 } else {
   buoy_formatted <- buoy_data %>%
-    dplyr::select(date, chlorophyll, temperature, turbidity, oxygen, wspd, wdir, airtemp, airpress) %>%
-    to_standard_long(site_prefix = "UNH_buoy")
+    dplyr::select(date, chlorophyll) %>%
+    to_standard_chlora(site_id = buoy_site_id, mode = "buoy")
 }
 
 # MODIS formatted or empty
@@ -660,7 +657,8 @@ if (!exists("modis_data") || is.null(modis_data) || nrow(modis_data) == 0) {
                          ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
 
   modis_formatted <- modis_daily %>%
-    to_standard_long(site_prefix = "MODIS")
+  dplyr::transmute(date = date, chlorophyll = chlorophyll) %>%
+  to_standard_chlora(site_id = buoy_site_id, mode = "modis")
 }
 
 # CCI formatted or empty
@@ -679,7 +677,7 @@ if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
     )
 
   cci_formatted <- cci_daily %>%
-    to_standard_long(site_prefix = "CCI")
+  to_standard_chlora(site_id = buoy_site_id, mode = "cci")
 }
 
 # Combine
@@ -733,7 +731,7 @@ message(paste0("Rows of new data: ", nrow(data)))
 message(paste0("Rows in appended data: ", nrow(new_data)))
 
 if (nrow(all_targets) == 0) {
-  message("No new buoy or CCI observations today; skipping write")
+  message("No new targets today; skipping write")
 } else {
 
   message("Writing updated targets back to S3...")

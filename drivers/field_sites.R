@@ -14,19 +14,20 @@ s3_read <- arrow::s3_bucket(
 
 # Read each sites file from bucket
 coastal_sites <- tryCatch(
-  arrow::read_csv_arrow(s3_read$path("challenges/targets/project_id=bu4cast/coastal-targets-sites.csv")) %>%
+  arrow::read_csv_arrow(s3_read$path("challenges/project_id=bu4cast/metadata/coastal-targets-sites.csv")) %>%
     as.data.frame(),
   error = function(e) { message("Could not read coastal sites: ", e$message); NULL }
 )
 
 urban_sites <- tryCatch(
-  arrow::read_csv_arrow(s3_read$path("challenges/targets/project_id=bu4cast/urban-targets-sites.csv")) %>%
-    as.data.frame(),
+  arrow::read_csv_arrow(s3_read$path("challenges/project_id=bu4cast/metadata/urban-targets-sites.csv")) %>%
+    as.data.frame() %>%
+    dplyr::select(field_site_id, latitude, longitude),
   error = function(e) { message("Could not read urban sites: ", e$message); NULL }
 )
 
 disease_sites <- tryCatch(
-  arrow::read_csv_arrow(s3_read$path("challenges/targets/project_id=bu4cast/disease-targets-sites.csv")) %>%
+  arrow::read_csv_arrow(s3_read$path("challenges/project_id=bu4cast/metadata/disease-targets-sites.csv")) %>%
     as.data.frame(),
   error = function(e) { message("Could not read disease sites: ", e$message); NULL }
 )
@@ -51,7 +52,7 @@ message("Total sites: ", nrow(all_sites))
 # Upload combined file back to bucket
 arrow::write_csv_arrow(
   all_sites,
-  sink = s3_read$path("challenges/targets/project_id=bu4cast/field_sites.csv")
+  sink = s3_read$path("challenges/project_id=bu4cast/metadata/field_sites.csv")
 )
 
 message("field_sites.csv upload complete.")

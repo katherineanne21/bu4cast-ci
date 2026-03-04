@@ -16,7 +16,7 @@ print(paste0("Running urban_targets.R at ", Sys.time()))
 
 # Get Configurations
 config <- yaml::read_yaml("challenge_configuration.yaml")
-challenge_name = config$target_groups$Urban$challenge_name
+challenge_name = config$target_groups$Urban$target_name
 filename = config$target_groups$Urban$targets_filepath
 read_bucket = config$s3_bucket_read
 endpoint = config$endpoint

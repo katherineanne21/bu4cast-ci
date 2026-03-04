@@ -22,18 +22,13 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
   rename(site_id = field_site_id)
 
 # Set up minio connections
-
-OUR_LINK_read = 'bu4cast-ci-read'
-OUR_LINK_write = 'bu4cast-ci-write'
-OUR_ENDPOINT_OVERRIDE = 'https://minio-s3.apps.shift.nerc.mghpcc.org'
-
-minioclient::mc_alias_set(OUR_LINK_read,
-                          OUR_ENDPOINT_OVERRIDE,
+minioclient::mc_alias_set(config$s3_bucket_read,
+                          config$endpoint,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-minioclient::mc_alias_set(OUR_LINK_write,
-                          OUR_ENDPOINT_OVERRIDE,
+minioclient::mc_alias_set(config$s3_bucket_write,
+                          config$endpoint,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
@@ -50,7 +45,7 @@ message("Downloading forecasts ...")
 
 # Download write bucket to local directory 
 
-minioclient::mc_mirror(from = paste0(OUR_LINK_write, config$submissions_bucket), to = local_dir)
+minioclient::mc_mirror(from = paste0(config$endpoint, "/", config$s3_bucket_write, "/", config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir
 submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)] # filter out 2023 -> should we change this to 2024?

@@ -16,7 +16,7 @@ s3_read <- arrow::s3_bucket(
 )
 
 sites <- arrow::read_csv_arrow(
-  s3_read$path("challenges/targets/project_id=bu4cast/field_sites.csv")
+  s3_read$path("challenges/project_id=bu4cast/metadata/field_sites.csv")
 ) %>%
   as.data.frame() %>%
   transmute(
@@ -36,7 +36,7 @@ dates_pseudo <- seq(as.Date("2020-09-24"), as.Date("2021-01-01"),     by = 1)
 
 message("GEFS v12 stage1-stats")
 bench::bench_time({
-  s3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage1-stats")
+  s3 <- s3_read$path("challenges/project_id=bu4cast/drivers/stage1-stats")
   have_dates <- tryCatch(
     gsub("reference_datetime=", "", s3$ls()),
     error = function(e) character(0)
@@ -50,7 +50,7 @@ bench::bench_time({
 
 message("GEFS v12 stage1")
 bench::bench_time({
-  s3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/stage1")
+  s3 <- s3_read$path("challenges/project_id=bu4cast/drivers/stage1")
   have_dates <- tryCatch(
     gsub("reference_datetime=", "", s3$ls()),
     error = function(e) character(0)

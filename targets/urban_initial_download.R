@@ -213,12 +213,12 @@ copy_big_df$site_id = paste(copy_big_df$state_code,
 
 copy_big_df <- copy_big_df %>%
   mutate(
-    date_gmt = as.POSIXct(date_gmt),
-    date_of_last_change = as.POSIXct(date_of_last_change)
+    date_gmt = as.POSIXct(date_gmt, tz = "GMT"),
+    date_of_last_change = as.POSIXct(date_of_last_change, tz = "GMT")
   ) %>%
   drop_na(sample_measurement) %>% # remove NA's
   # Most recently updated for datetime, variable, site_id, duration, and poc
-  group_by(date_gmt, parameter, site_id, sample_duration, poc) %>%
+  group_by(datetime, parameter, site_id, sample_duration, poc) %>%
   slice_max(date_of_last_change, n = 1, with_ties = FALSE) %>%  
   ungroup() %>%
   # Longer duration for datetime, variable, site_id, and duration
@@ -231,7 +231,7 @@ copy_big_df <- copy_big_df %>%
     ))
   ) %>%
   ungroup() %>%
-  group_by(date_gmt, parameter, site_id, sample_duration) %>%
+  group_by(datetime, parameter, site_id, sample_duration) %>%
   slice_max(sensor_duration, n = 1, with_ties = FALSE) %>%
   ungroup()
 

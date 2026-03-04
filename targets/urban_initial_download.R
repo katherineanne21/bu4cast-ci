@@ -194,12 +194,12 @@ copy_big_df$parameter = gsub("Ozone", 'O3', copy_big_df$parameter)
 copy_big_df$parameter = gsub("Nitrogen dioxide \\(NO2\\)", "NO2", copy_big_df$parameter)
 copy_big_df <- copy_big_df %>%
   mutate(parameter = case_when(
-    parameter == "PM2.5" & sample_duration == "PT1H" ~ "PM2.5 - Hourly",
-    parameter == "PM2.5" & sample_duration != "PT1H" ~ "PM2.5 - Daily",
-    parameter == "PM10"  & sample_duration == "PT1H" ~ "PM10 - Hourly",
-    parameter == "PM10"  & sample_duration != "PT1H" ~ "PM10 - Daily",
-    parameter == "NO2"   & sample_duration == "PT1H" ~ "NO2 - Hourly",
-    parameter == "NO2"   & sample_duration != "PT1H" ~ "NO2 - Daily",
+    parameter == "PM2.5" & sample_duration == "PT1H" ~ "PM2.5_P1H",
+    parameter == "PM2.5" & sample_duration != "PT1H" ~ "PM2.5_P1D",
+    parameter == "PM10"  & sample_duration == "PT1H" ~ "PM10_P1H",
+    parameter == "PM10"  & sample_duration != "PT1H" ~ "PM10_P1D",
+    parameter == "NO2"   & sample_duration == "PT1H" ~ "NO2_P1H",
+    parameter == "NO2"   & sample_duration != "PT1H" ~ "NO2_P1D",
     TRUE ~ parameter
   ))
 
@@ -241,17 +241,17 @@ metadata_df_latlong <- copy_big_df %>%
   group_by(site_id) %>%
   summarise(
     # Site Location
-    site_lat = paste(unique(latitude), collapse = ", "),
-    site_long = paste(unique(longitude), collapse = ", "),
+    latitude = paste(unique(latitude), collapse = ", "),
+    longitude = paste(unique(longitude), collapse = ", "),
     
     # PM2.5 - Daily
-    PM2.5_P1D_StartDate = if (any(parameter == "PM2.5 - Daily")) {
-      min(date_gmt[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+    PM2.5_P1D_StartDate = if (any(parameter == "PM2.5_P1D")) {
+      min(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    PM2.5_P1D_EndDate = if (any(parameter == "PM2.5 - Daily")) {
-      max(date_gmt[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+    PM2.5_P1D_EndDate = if (any(parameter == "PM2.5_P1D")) {
+      max(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -262,13 +262,13 @@ metadata_df_latlong <- copy_big_df %>%
     },
     
     # PM2.5 - Hourly
-    PM2.5_P1H_StartDate = if (any(parameter == "PM2.5 - Hourly")) {
-      min(date_gmt[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+    PM2.5_P1H_StartDate = if (any(parameter == "PM2.5_P1H")) {
+      min(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    PM2.5_P1H_EndDate = if (any(parameter == "PM2.5 - Hourly")) {
-      max(date_gmt[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+    PM2.5_P1H_EndDate = if (any(parameter == "PM2.5_P1H")) {
+      max(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -279,13 +279,13 @@ metadata_df_latlong <- copy_big_df %>%
     },
     
     # PM10 - Daily
-    PM10_P1D_StartDate = if (any(parameter == "PM10 - Daily")) {
-      min(date_gmt[parameter == "PM10 - Daily"], na.rm = TRUE)
+    PM10_P1D_StartDate = if (any(parameter == "PM10_P1D")) {
+      min(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    PM10_P1D_EndDate = if (any(parameter == "PM10 - Daily")) {
-      max(date_gmt[parameter == "PM10 - Daily"], na.rm = TRUE)
+    PM10_P1D_EndDate = if (any(parameter == "PM10_P1D")) {
+      max(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -296,13 +296,13 @@ metadata_df_latlong <- copy_big_df %>%
     },
     
     # PM10 - Hourly
-    PM10_P1H_StartDate = if (any(parameter == "PM10 - Hourly")) {
-      min(date_gmt[parameter == "PM10 - Hourly"], na.rm = TRUE)
+    PM10_P1H_StartDate = if (any(parameter == "PM10_P1H")) {
+      min(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    PM10_P1H_EndDate = if (any(parameter == "PM10 - Hourly")) {
-      max(date_gmt[parameter == "PM10 - Hourly"], na.rm = TRUE)
+    PM10_P1H_EndDate = if (any(parameter == "PM10_P1H")) {
+      max(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -330,13 +330,13 @@ metadata_df_latlong <- copy_big_df %>%
     },
     
     # NO2 - Daily
-    NO2_P1D_StartDate = if (any(parameter == "NO2 - Daily")) {
-      min(date_gmt[parameter == "NO2 - Daily"], na.rm = TRUE)
+    NO2_P1D_StartDate = if (any(parameter == "NO2_P1D")) {
+      min(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    NO2_P1D_EndDate = if (any(parameter == "NO2 - Daily")) {
-      max(date_gmt[parameter == "NO2 - Daily"], na.rm = TRUE)
+    NO2_P1D_EndDate = if (any(parameter == "NO2_P1D")) {
+      max(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -347,13 +347,13 @@ metadata_df_latlong <- copy_big_df %>%
     },
     
     # NO2 - Hourly
-    NO2_P1H_StartDate = if (any(parameter == "NO2 - Hourly")) {
-      min(date_gmt[parameter == "NO2 - Hourly"], na.rm = TRUE)
+    NO2_P1H_StartDate = if (any(parameter == "NO2_P1H")) {
+      min(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
-    NO2_P1H_EndDate = if (any(parameter == "NO2 - Hourly")) {
-      max(date_gmt[parameter == "NO2 - Hourly"], na.rm = TRUE)
+    NO2_P1H_EndDate = if (any(parameter == "NO2_P1H")) {
+      max(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -362,8 +362,8 @@ metadata_df_latlong <- copy_big_df %>%
     } else {
       NO2_P1H_EndDate >= (Sys.Date() - 180)
     }
-  )
-
+  ) %>% 
+  rename(field_site_id = site_id) # Rename site_id to field_site_id
 
 # Create metadata for each pollutant
 metadata_df_units <- copy_big_df %>%

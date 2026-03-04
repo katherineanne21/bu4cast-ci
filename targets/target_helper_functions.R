@@ -24,8 +24,9 @@ urban_metadata_sites <- function(combined_data) {
   print(paste0("Running target_helper_functions.R - urban_metadata_sites at ", Sys.time()))
   
   # Read in all site lat longs
-  s3_site_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-sites.csv'
-  
+  config <- yaml::read_yaml("challenge_configuration.yaml")
+  s3_site_metadata_url = config$target_groups$Urban$targets_sites_weblink
+
   old_metadata_df_sites <- read_csv(
     s3_site_metadata_url,
     col_types = cols(
@@ -72,17 +73,17 @@ urban_metadata_sites <- function(combined_data) {
     group_by(site_id) %>%
     summarise(
       # Site Location
-      site_lat = paste(unique(latitude), collapse = ", "),
-      site_long = paste(unique(longitude), collapse = ", "),
+      latitude = paste(unique(latitude), collapse = ", "),
+      longitude = paste(unique(longitude), collapse = ", "),
       
       # PM2.5 - Daily
-      PM2.5_P1D_StartDate = if (any(parameter == "PM2.5 - Daily")) {
-        min(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_StartDate = if (any(parameter == "PM2.5_P1D")) {
+        min(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1D_EndDate = if (any(parameter == "PM2.5 - Daily")) {
-        max(date_local[parameter == "PM2.5 - Daily"], na.rm = TRUE)
+      PM2.5_P1D_EndDate = if (any(parameter == "PM2.5_P1D")) {
+        max(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -93,13 +94,13 @@ urban_metadata_sites <- function(combined_data) {
       },
       
       # PM2.5 - Hourly
-      PM2.5_P1H_StartDate = if (any(parameter == "PM2.5 - Hourly")) {
-        min(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_StartDate = if (any(parameter == "PM2.5_P1H")) {
+        min(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM2.5_P1H_EndDate = if (any(parameter == "PM2.5 - Hourly")) {
-        max(date_local[parameter == "PM2.5 - Hourly"], na.rm = TRUE)
+      PM2.5_P1H_EndDate = if (any(parameter == "PM2.5_P1H")) {
+        max(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -110,13 +111,13 @@ urban_metadata_sites <- function(combined_data) {
       },
       
       # PM10 - Daily
-      PM10_P1D_StartDate = if (any(parameter == "PM10 - Daily")) {
-        min(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_StartDate = if (any(parameter == "PM10_P1D")) {
+        min(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1D_EndDate = if (any(parameter == "PM10 - Daily")) {
-        max(date_local[parameter == "PM10 - Daily"], na.rm = TRUE)
+      PM10_P1D_EndDate = if (any(parameter == "PM10_P1D")) {
+        max(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -127,13 +128,13 @@ urban_metadata_sites <- function(combined_data) {
       },
       
       # PM10 - Hourly
-      PM10_P1H_StartDate = if (any(parameter == "PM10 - Hourly")) {
-        min(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_StartDate = if (any(parameter == "PM10_P1H")) {
+        min(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      PM10_P1H_EndDate = if (any(parameter == "PM10 - Hourly")) {
-        max(date_local[parameter == "PM10 - Hourly"], na.rm = TRUE)
+      PM10_P1H_EndDate = if (any(parameter == "PM10_P1H")) {
+        max(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -145,12 +146,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # O3
       O3_StartDate = if (any(parameter == "O3")) {
-        min(date_local[parameter == "O3"], na.rm = TRUE)
+        min(date_gmt[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       O3_EndDate = if (any(parameter == "O3")) {
-        max(date_local[parameter == "O3"], na.rm = TRUE)
+        max(date_gmt[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -161,13 +162,13 @@ urban_metadata_sites <- function(combined_data) {
       },
       
       # NO2 - Daily
-      NO2_P1D_StartDate = if (any(parameter == "NO2 - Daily")) {
-        min(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_StartDate = if (any(parameter == "NO2_P1D")) {
+        min(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1D_EndDate = if (any(parameter == "NO2 - Daily")) {
-        max(date_local[parameter == "NO2 - Daily"], na.rm = TRUE)
+      NO2_P1D_EndDate = if (any(parameter == "NO2_P1D")) {
+        max(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -178,13 +179,13 @@ urban_metadata_sites <- function(combined_data) {
       },
       
       # NO2 - Hourly
-      NO2_P1H_StartDate = if (any(parameter == "NO2 - Hourly")) {
-        min(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_StartDate = if (any(parameter == "NO2_P1H")) {
+        min(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
-      NO2_P1H_EndDate = if (any(parameter == "NO2 - Hourly")) {
-        max(date_local[parameter == "NO2 - Hourly"], na.rm = TRUE)
+      NO2_P1H_EndDate = if (any(parameter == "NO2_P1H")) {
+        max(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -193,13 +194,14 @@ urban_metadata_sites <- function(combined_data) {
       } else {
         NO2_P1H_EndDate >= (Sys.Date() - 180)
       }
-    )
+    ) %>% 
+    rename(field_site_id = site_id) # Rename site_id to field_site_id
   
   # Merge old and new sites
   metadata_df_joined <- full_join(
     old_metadata_df_sites,
     new_metadata_df_sites,
-    by = "site_id",
+    by = "field_site_id",
     suffix = c("_old", "_new")
   )
   
@@ -262,7 +264,7 @@ urban_metadata_sites <- function(combined_data) {
     select(-ends_with("_old"), -ends_with("_new")) # Remove _old and _new
   
   # Fix column order
-  id_cols <- c("site_id", "site_lat", "site_long")
+  id_cols <- c("field_site_id", "latitude", "longitude")
   final_cols <- c(id_cols, final_date_cols)
   metadata_df_final <- metadata_df_final[, final_cols]
   
@@ -274,7 +276,8 @@ urban_metadata_sites <- function(combined_data) {
 urban_metadata_pollutant <- function(new_data){
   
   # Read in from S3 bucket the old pollutant metadata
-  s3_units_metadata_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets-units.csv'
+  config <- yaml::read_yaml("challenge_configuration.yaml")
+  s3_units_metadata_url = config$target_groups$Urban$targets_units_weblink
   old_metadata_df_units = read.csv(s3_units_metadata_url)
   
   # Create new metadata df

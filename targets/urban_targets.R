@@ -14,17 +14,19 @@ print(paste0("Running urban_targets.R at ", Sys.time()))
 
 # Step 0: Reload data for appending ---------------------------------------
 
+# Get Configurations
+config <- yaml::read_yaml("challenge_configuration.yaml")
+challenge_name = config$target_groups$Urban$challenge_name
+filename = config$target_groups$Urban$targets_filepath
+read_bucket = config$s3_bucket_read
+endpoint = config$endpoint
+
 # Set Up Connection
-s3_read <- arrow::s3_bucket('bu4cast-ci-read',
-                            endpoint_override = 'https://minio-s3.apps.shift.nerc.mghpcc.org',
+s3_read <- arrow::s3_bucket(read_bucket,
+                            endpoint_override = endpoint,
                             access_key = Sys.getenv("OSN_KEY"),
                             secret_key = Sys.getenv("OSN_SECRET"),
                             scheme = "https")
-
-# Create file name/folder
-challenge_name = 'urban'
-filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv", sep = "")
 
 # Read in old data
 
@@ -33,7 +35,7 @@ print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
 # Read in old data
-urban_data_url = 'https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/targets/project_id=bu4cast/urban-targets.csv'
+urban_data_url = config$target_groups$Urban$targets_weblink
 old_data = read_csv(urban_data_url, 
                           col_types = cols(project_id = col_character(),
                                            site_id = col_character(),
@@ -177,12 +179,12 @@ copy_updated_data$parameter = gsub("Ozone", 'O3', copy_updated_data$parameter)
 copy_updated_data$parameter = gsub("Nitrogen dioxide \\(NO2\\)", "NO2", copy_updated_data$parameter)
 copy_updated_data <- copy_updated_data %>%
   mutate(parameter = case_when(
-    parameter == "PM2.5" & sample_duration == "PT1H" ~ "PM2.5 - Hourly",
-    parameter == "PM2.5" & sample_duration != "PT1H" ~ "PM2.5 - Daily",
-    parameter == "PM10"  & sample_duration == "PT1H" ~ "PM10 - Hourly",
-    parameter == "PM10"  & sample_duration != "PT1H" ~ "PM10 - Daily",
-    parameter == "NO2"   & sample_duration == "PT1H" ~ "NO2 - Hourly",
-    parameter == "NO2"   & sample_duration != "PT1H" ~ "NO2 - Daily",
+    parameter == "PM2.5" & sample_duration == "PT1H" ~ "PM2.5_P1H",
+    parameter == "PM2.5" & sample_duration != "PT1H" ~ "PM2.5_P1D",
+    parameter == "PM10"  & sample_duration == "PT1H" ~ "PM10_P1H",
+    parameter == "PM10"  & sample_duration != "PT1H" ~ "PM10_P1D",
+    parameter == "NO2"   & sample_duration == "PT1H" ~ "NO2_P1H",
+    parameter == "NO2"   & sample_duration != "PT1H" ~ "NO2_P1D",
     TRUE ~ parameter
   ))
 
@@ -293,10 +295,9 @@ s3_read <- arrow::s3_bucket('bu4cast-ci-read',
 arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
 
 # Write metadata to bucket
-site_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                                        "-targets-sites.csv", sep = "")
-pollutant_metadata_df_filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                                  "-targets-units.csv", sep = "")
+site_metadata_df_filename = config$target_groups$Urban$site_metadata_filepath
+pollutant_metadata_df_filename = config$target_groups$Urban$units_metadata_filepath
+
 arrow::write_csv_arrow(site_metadata_df, sink = s3_read$path(site_metadata_df_filename))
 arrow::write_csv_arrow(pollutant_metadata_df, sink = s3_read$path(pollutant_metadata_df_filename))
 

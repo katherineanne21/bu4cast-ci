@@ -16,7 +16,7 @@ s3_read <- arrow::s3_bucket(
 )
 
 sites <- arrow::read_csv_arrow(
-  s3_read$path("challenges/targets/project_id=bu4cast/field_sites.csv")
+  s3_read$path("challenges/project_id=bu4cast/metadata/field_sites.csv")
 ) %>%
   as.data.frame() %>%
   transmute(
@@ -32,7 +32,7 @@ dates        <- seq(as.Date("2020-09-24"), as.Date("2021-01-01") - 1, by = 1)
 dates_pseudo <- seq(as.Date("2020-09-24"), as.Date("2021-01-01"),     by = 1)
 
 message("GEFS v12 pseudo")
-s3 <- s3_read$path("challenges/targets/project_id=bu4cast/drivers/pseudo")
+s3 <- s3_read$path("challenges/project_id=bu4cast/drivers/pseudo")
 have_dates    <- gsub("reference_datetime=", "", s3$ls())
 missing_dates <- dates_pseudo[!(as.character(dates_pseudo) %in% have_dates)]
 gefs4cast:::gefs_pseudo_measures(missing_dates, path = s3, sites = sites)

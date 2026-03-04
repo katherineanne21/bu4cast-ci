@@ -32,8 +32,8 @@ urban_metadata_sites <- function(combined_data) {
     col_types = cols(
       # ID and Location: Character
       site_id = col_character(),
-      site_lat = col_character(),
-      site_long = col_character(),
+      latitude = col_character(),
+      longitude = col_character(),
       
       # Start/End Date: Date
       PM2.5_P1D_StartDate = col_date(),
@@ -227,9 +227,9 @@ urban_metadata_sites <- function(combined_data) {
   # Merge based on if it's new, old, or both
   metadata_df_final <- metadata_df_joined %>%
     mutate(
-      # Keep site_lat and site_long
-      site_lat = coalesce(site_lat_new, site_lat_old),
-      site_long = coalesce(site_long_new, site_long_old)
+      # Keep lat and long
+      latitude = coalesce(latitude_new, latitude_old),
+      longitude = coalesce(longitude_new, longitude_old)
     ) %>%
     mutate(
       across(

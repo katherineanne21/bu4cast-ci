@@ -28,8 +28,7 @@ challenge_name <- "coastal"
 project_id <- "bu4cast"
 
 # Create file name/folder
-filename = paste("challenges/targets/project_id=bu4cast/", challenge_name,
-                 "-targets.csv", sep = "")
+filename = paste0("challenges/project_id=bu4cast/targets/", challenge_name, "-targets.csv")
 
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))

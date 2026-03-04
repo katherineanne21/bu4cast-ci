@@ -31,7 +31,7 @@ urban_metadata_sites <- function(combined_data) {
     s3_site_metadata_url,
     col_types = cols(
       # ID and Location: Character
-      site_id = col_character(),
+      field_site_id = col_character(),
       latitude = col_character(),
       longitude = col_character(),
       

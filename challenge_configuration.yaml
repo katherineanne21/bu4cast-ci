@@ -16,6 +16,7 @@ targets_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/targets'
 target_metadata_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/metadata'
 student_resources_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/students'
 drivers_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/drivers'
+gefs_start_date: "2020-09-24"
 #archive_bucket: bio230014-bucket01/challenges/archive
 #model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 #model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing

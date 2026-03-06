@@ -1,30 +1,30 @@
 library(arrow)
 library(dplyr)
+library(yaml)
 source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
-print(sessioninfo::package_info())
 
-# Read bucket for sites and driver storage
-s3_read <- arrow::s3_bucket(
-  "bu4cast-ci-read",
-  endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
+config <- yaml::read_yaml("challenge_configuration.yaml")
+
+# Read bucket
+s3 <- arrow::s3_bucket(
+  config$s3_bucket_read,
+  endpoint_override = config$endpoint,
   access_key = Sys.getenv("OSN_KEY"),
   secret_key = Sys.getenv("OSN_SECRET"),
   scheme = "https"
 )
 
 site_list <- arrow::read_csv_arrow(
-  s3_read$path("challenges/project_id=bu4cast/metadata/field_sites.csv")
+  s3$path(paste0(config$target_metadata_bucket, "/field_sites.csv"))
 ) %>%
   as.data.frame() %>%
   dplyr::pull(field_site_id)
-
 message("Sites loaded: ", length(site_list))
 
 purrr::map(site_list, function(curr_site_id) {
   print(curr_site_id)
-
-  s3_stage3 <- s3_read$path("challenges/project_id=bu4cast/drivers/stage3")
-  s3_pseudo  <- s3_read$path("challenges/project_id=bu4cast/drivers/pseudo")
+  s3_stage3 <- s3$path(paste0(config$drivers_bucket, "/stage3"))
+  s3_pseudo  <- s3$path(paste0(config$drivers_bucket, "/pseudo"))
 
   stage3_df <- arrow::open_dataset(s3_stage3) %>%
     dplyr::filter(site_id == curr_site_id) %>%

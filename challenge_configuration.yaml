@@ -76,16 +76,12 @@ target_groups:
     target_name: "coastal"
     targets_filepath: "challenges/project_id=bu4cast/targets/coastal-targets.csv"
     site_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/coastal-targets-sites.csv"
-    units_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/coastal-targets-units.csv"
     targets_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/targets/coastal-targets.csv"
     targets_sites_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/coastal-targets-sites.csv"
-    targets_units_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/coastal-targets-units.csv"
     variable: ['chlora_buoy', 'chlora_modis', 'chlora_cci']
     duration: ['P1D', 'P1D', 'P1D']
     buoy_lat: 43.022942490079
     buoy_lon: -70.5475341233827
-    thumbnail_link: 'https://neracoos.org/wp-content/uploads/2021/03/buoy-photo.jpg'
-    thumbnail_title: 'NERACOOS Buoy'
     group_vars:
       chlora_buoy:
         duration: "P1D"

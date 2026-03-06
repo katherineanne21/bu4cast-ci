@@ -31,7 +31,7 @@ message("Sites loaded: ", nrow(sites))
 
 Sys.setenv("GEFS_VERSION" = "v12")
 
-dates_pseudo <- seq(as.Date("2020-09-24"), Sys.Date(), by = 1)
+dates_pseudo <- seq(as.Date(config$gefs_start_date), Sys.Date(), by = 1)
 
 message("GEFS v12 pseudo")
 s3_path    <- s3$path(paste0(config$drivers_bucket, "/pseudo"))

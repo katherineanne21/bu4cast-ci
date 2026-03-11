@@ -55,12 +55,14 @@ if (length(missing_dates) > 0) {
       )
     
     message("site_df columns: ", paste(names(site_df), collapse = ", "))
-message("NA longitude: ", sum(is.na(site_df$longitude)))
-message("NA latitude: ", sum(is.na(site_df$latitude)))
-message("unique site_ids: ", paste(unique(site_df$site_id), collapse = ", "))
-message("horizon class: ", class(site_df$horizon))
-message("NA horizon: ", sum(is.na(site_df$horizon)))
-message("horizon sample: ", paste(head(site_df$horizon), collapse = ", "))
+    message("NA longitude: ", sum(is.na(site_df$longitude)))
+    message("NA latitude: ", sum(is.na(site_df$latitude)))
+    message("unique site_ids: ", paste(unique(site_df$site_id), collapse = ", "))
+    message("horizon class: ", class(site_df$horizon))
+    message("NA horizon: ", sum(is.na(site_df$horizon)))
+    message("horizon sample: ", paste(head(site_df$horizon), collapse = ", "))
+    message("horizon range: ", min(as.numeric(site_df$horizon)), " to ", max(as.numeric(site_df$horizon)), " seconds")
+    message("horizon range hours: ", min(as.numeric(site_df$horizon))/3600, " to ", max(as.numeric(site_df$horizon))/3600, " hours")
 
     
     hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%

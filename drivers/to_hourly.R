@@ -60,10 +60,22 @@ fluxes <- df |>
 if(use_solar_geom){
   
   fluxes <- fluxes |>
-      dplyr::left_join(
-        site_coords %>% dplyr::select(site_id, latitude, longitude),
-        by = "site_id"
-      ) |>
+    dplyr::left_join(
+      site_coords %>% dplyr::select(site_id, latitude, longitude),
+      by = "site_id"
+    ) |>
+    dplyr::mutate(hour = lubridate::hour(datetime),
+                  date = lubridate::as_date(datetime),
+                  doy = lubridate::yday(datetime) + hour/24,
+                  longitude = ifelse(longitude < 0, 360 + longitude, longitude),
+                  rpot = downscale_solar_geom(doy, longitude, latitude)) |>
+    dplyr::group_by(site_id, family, ensemble, date, variable) |>
+    dplyr::mutate(avg.rpot = mean(rpot, na.rm = TRUE),
+                  avg.SW = mean(prediction, na.rm = TRUE)) |>
+    dplyr::ungroup() |>
+    dplyr::mutate(prediction = ifelse(variable == "DSWRF" & avg.rpot > 0.0, rpot * (avg.SW/avg.rpot), prediction)) |>
+    dplyr::select(any_of(var_order))
+}
 
 hourly_df <- dplyr::bind_rows(states, fluxes) |>
   dplyr::arrange(site_id, family, ensemble, datetime) |>

@@ -43,12 +43,19 @@ if (length(missing_dates) > 0) {
     s3_stage1 <- s3$path(
       paste0(drivers_path, "/stage1/reference_datetime=", missing_dates[i])
     )
-
+    
     site_df <- arrow::open_dataset(s3_stage1) %>%
       dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) %>%
       dplyr::filter(site_id %in% site_list$site_id) %>%
       dplyr::collect() %>%
-      dplyr::mutate(reference_datetime = missing_dates[i])
+      dplyr::mutate(reference_datetime = missing_dates[i]) %>%
+      dplyr::left_join(
+        site_list %>% dplyr::select(site_id, latitude, longitude),
+        by = "site_id"
+      )
+    
+    n_na <- sum(is.na(site_df$longitude) | is.na(site_df$latitude))
+    if (n_na > 0) warning("NA lat/lon for ", n_na, " rows after join -- check site_list")
 
     hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%
       dplyr::mutate(

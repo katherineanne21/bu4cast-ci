@@ -18,8 +18,11 @@ s3 <- arrow::s3_bucket(
   scheme = "https"
 )
 
+metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target_metadata_bucket)
+drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
+
 sites <- arrow::read_csv_arrow(
-  s3$path(paste0(config$target_metadata_bucket, "/field_sites.csv"))
+  s3$path(paste0(metadata_path, "/field_sites.csv"))
 ) %>%
   as.data.frame() %>%
   transmute(
@@ -27,14 +30,12 @@ sites <- arrow::read_csv_arrow(
     latitude  = as.numeric(latitude),
     longitude = as.numeric(longitude)
   )
-message("Sites loaded: ", nrow(sites))
-
 Sys.setenv("GEFS_VERSION" = "v12")
 
 dates_pseudo <- seq(as.Date(config$gefs_start_date), Sys.Date(), by = 1)
 
 message("GEFS v12 pseudo")
-s3_path    <- s3$path(paste0(config$drivers_bucket, "/pseudo"))
+s3_path    <- s3$path(paste0(drivers_path, "/pseudo"))
 have_dates <- tryCatch(
   gsub("reference_datetime=", "", s3_path$ls()),
   error = function(e) character(0)

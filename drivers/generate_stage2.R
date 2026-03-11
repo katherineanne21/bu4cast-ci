@@ -54,9 +54,11 @@ if (length(missing_dates) > 0) {
         by = "site_id"
       )
     
-    n_na <- sum(is.na(site_df$longitude) | is.na(site_df$latitude))
-    if (n_na > 0) warning("NA lat/lon for ", n_na, " rows after join -- check site_list")
-
+    message("site_df columns: ", paste(names(site_df), collapse = ", "))
+    message("NA longitude: ", sum(is.na(site_df$longitude)))
+    message("NA latitude: ", sum(is.na(site_df$latitude)))
+    message("unique site_ids: ", paste(unique(site_df$site_id), collapse = ", "))
+    
     hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%
       dplyr::mutate(
         ensemble           = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5)),

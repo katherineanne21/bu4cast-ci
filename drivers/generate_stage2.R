@@ -53,11 +53,13 @@ if (length(missing_dates) > 0) {
         site_list %>% dplyr::select(site_id, latitude, longitude),
         by = "site_id"
       )
-
-    message("Inf longitude: ", sum(is.infinite(site_df$longitude)))
-    message("NaN longitude: ", sum(is.nan(site_df$longitude)))
-    message("longitude range: ", min(site_df$longitude), " to ", max(site_df$longitude))
     
+    site_df <- site_df %>%
+      dplyr::mutate(horizon = as.numeric(horizon, units = "hours"))
+    
+    message("longitude type: ", typeof(site_df$longitude))
+    message("longitude class: ", class(site_df$longitude))
+            
     hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%
       dplyr::mutate(
         ensemble           = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5)),

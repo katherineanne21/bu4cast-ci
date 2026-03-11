@@ -32,7 +32,7 @@ have_dates <- dplyr::tibble(
   )
 )
 curr_date     <- Sys.Date()
-last_week     <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(14), curr_date - lubridate::days(1), by = "1 day")))
+last_week <- dplyr::tibble(reference_datetime = as.character(seq(as.Date(config$gefs_start_date), curr_date - lubridate::days(1), by = "1 day")))
 missing_dates <- dplyr::anti_join(last_week, have_dates, by = "reference_datetime") %>%
   dplyr::pull(reference_datetime)
 

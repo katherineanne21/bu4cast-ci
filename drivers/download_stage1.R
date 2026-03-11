@@ -15,6 +15,8 @@ s3 <- arrow::s3_bucket(
 metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target_metadata_bucket)
 drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
+message("drivers_path: ", drivers_path)
+
 sites <- arrow::read_csv_arrow(
   s3$path(paste0(metadata_path, "/field_sites.csv"))
 ) %>%

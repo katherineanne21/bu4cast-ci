@@ -25,7 +25,12 @@ message("Sites loaded: ", nrow(site_list))
 
 s3_stage2 <- s3$path(paste0(drivers_path, "/stage2"))
 
-have_dates    <- dplyr::tibble(reference_datetime = gsub("reference_datetime=", "", s3_stage2$ls()))
+have_dates <- dplyr::tibble(
+  reference_datetime = tryCatch(
+    gsub("reference_datetime=", "", s3_stage2$ls()),
+    error = function(e) character(0)
+  )
+)
 curr_date     <- Sys.Date()
 last_week     <- dplyr::tibble(reference_datetime = as.character(seq(curr_date - lubridate::days(14), curr_date - lubridate::days(1), by = "1 day")))
 missing_dates <- dplyr::anti_join(last_week, have_dates, by = "reference_datetime") %>%

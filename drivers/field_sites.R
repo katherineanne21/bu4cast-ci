@@ -1,4 +1,5 @@
 ## reads site_id, latitude, and longitude for each project from the s3 bucket and uploads a combined df of all sites across all projects
+# needs to be run anytime we add new sites
 library(arrow)
 library(dplyr)
 library(yaml)

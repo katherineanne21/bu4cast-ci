@@ -26,7 +26,6 @@ site_coords <- arrow::read_csv_arrow(
 
 site_list <- site_coords$site_id
 
-# mirror pseudo from bu4cast bucket to local
 mc_alias_set("osn", "minio-s3.apps.shift.nerc.mghpcc.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
 mc_mirror("osn/bu4cast-ci-read/challenges/project_id=bu4cast/drivers/pseudo", "pseudo")
 
@@ -41,7 +40,7 @@ s3_stage3 <- s3_stage3$path(paste0(drivers_path, "/stage3"))
 
 future::plan("future::multisession", workers = 8)
 furrr::future_walk(site_list, function(curr_site_id) {
-  source("drivers/to_hourly.R")  # source inside worker so functions are available
+  source("drivers/to_hourly.R") 
   
   df <- arrow::open_dataset("pseudo") |>
     dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) |>

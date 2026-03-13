@@ -1,3 +1,5 @@
+# adapted from https://raw.githubusercontent.com/eco4cast/neon4cast/ci_upgrade/R/to_hourly.R - this version uses OUR sites using coordinates from metadata/field_sites.csv instead of the NEON-specific sites
+
 to_hourly <- function(df,
                       use_solar_geom = TRUE,
                       psuedo = FALSE){
@@ -58,7 +60,17 @@ fluxes <- df |>
   dplyr::ungroup()
 
 if(use_solar_geom){
-  
+
+  # original version: 
+#    site_list <- readr::read_csv(paste0("https://github.com/eco4cast/",
+#                                      "neon4cast-noaa-download/",
+#                                      "raw/master/noaa_download_site_list.csv"),
+#                               show_col_types = FALSE) |>
+#    dplyr::select(-site_name)
+#  
+#  fluxes <- fluxes |>
+#    dplyr::left_join(site_list, by = "site_id") |>
+    
   fluxes <- fluxes |>
     dplyr::left_join(
       site_coords %>% dplyr::select(site_id, latitude, longitude),

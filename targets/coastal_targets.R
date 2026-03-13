@@ -245,7 +245,7 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 }
 
 message(paste("Successfully downloaded", length(modis_files), "files"))
- }
+  }
 
 ## Process MODIS data
 
@@ -535,7 +535,7 @@ progress_msg("CCI download", 0, total_days)
     for (ii in seq_along(days)) {
   progress_msg("CCI download", ii, total_days)
   res <- tryCatch(extract_day_5x5(days[ii], occci_vars_wanted),
-                      error = function(e) { message("extract failed: ", e$message); NULL })
+                  error = function(e) { message("extract failed: ", e$message); NULL })
   if (!is.null(res)) {
     kk <- kk + 1L
     out_list[[kk]] <- res

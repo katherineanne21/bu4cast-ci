@@ -7,7 +7,7 @@ library(yaml)
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-gdalcubes::gdalcubes_options(parallel = 2 * parallel::detectCores())
+gdalcubes::gdalcubes_options(parallel = parallel::detectCores())
 
 # Read bucket
 s3 <- arrow::s3_bucket(

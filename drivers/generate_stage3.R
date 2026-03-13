@@ -43,6 +43,9 @@ future::plan("future::multisession", workers = 8)
 # have to pass config to workers
 furrr::future_walk(site_list, function(curr_site_id) {
   source("drivers/to_hourly.R")
+  library(arrow)
+  library(dplyr)
+  library(yaml)
   
   config        <- yaml::read_yaml("challenge_configuration.yaml")
   metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target_metadata_bucket)

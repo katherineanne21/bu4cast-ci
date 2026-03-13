@@ -8,11 +8,7 @@ endpoint: 'https://minio-s3.apps.shift.nerc.mghpcc.org'
 noaa_endpoint: sdsc.osn.xsede.org
 #submissions_endpoint: s3-west.nrp-nautilus.io
 #scores_bucket: bio230014-bucket01/challenges/scores
-<<<<<<< latest
-forecasts_bucket: 'challenges/project_id=bu4cast/forecasts/'
-=======
 forecasts_bucket: 'challenges/project_id=bu4cast/forecasts'
->>>>>>> main
 #summaries_bucket: bio230014-bucket01/challenges/forecasts
 #submissions_bucket: submissions
 #noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
@@ -20,10 +16,7 @@ targets_bucket: 'challenges/project_id=bu4cast/targets'
 target_metadata_bucket: 'challenges/project_id=bu4cast/metadata'
 student_resources_bucket: 'challenges/project_id=bu4cast/students'
 drivers_bucket: 'challenges/project_id=bu4cast/drivers'
-<<<<<<< latest
 gefs_start_date: "2026-02-09"
-=======
->>>>>>> main
 #archive_bucket: bio230014-bucket01/challenges/archive
 #model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 #model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing

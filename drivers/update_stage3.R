@@ -1,11 +1,9 @@
 library(arrow)
 library(dplyr)
 library(yaml)
-source("https://raw.githubusercontent.com/eco4cast/neon4cast/main/R/to_hourly.R")
-
+source("drivers/to_hourly.R")
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-# Read bucket
 s3 <- arrow::s3_bucket(
   config$s3_bucket_read,
   endpoint_override = config$endpoint,
@@ -14,17 +12,22 @@ s3 <- arrow::s3_bucket(
   scheme = "https"
 )
 
-site_list <- arrow::read_csv_arrow(
-  s3$path(paste0(config$target_metadata_bucket, "/field_sites.csv"))
+metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target_metadata_bucket)
+drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
+
+site_coords <- arrow::read_csv_arrow(
+  s3$path(paste0(metadata_path, "/field_sites.csv"))
 ) %>%
   as.data.frame() %>%
-  dplyr::pull(field_site_id)
+  dplyr::rename(site_id = field_site_id)
+
+site_list <- site_coords$site_id
 message("Sites loaded: ", length(site_list))
 
 purrr::map(site_list, function(curr_site_id) {
   print(curr_site_id)
-  s3_stage3 <- s3$path(paste0(config$drivers_bucket, "/stage3"))
-  s3_pseudo  <- s3$path(paste0(config$drivers_bucket, "/pseudo"))
+  s3_stage3 <- s3$path(paste0(drivers_path, "/stage3"))
+  s3_pseudo  <- s3$path(paste0(drivers_path, "/pseudo"))
 
   stage3_df <- arrow::open_dataset(s3_stage3) %>%
     dplyr::filter(site_id == curr_site_id) %>%

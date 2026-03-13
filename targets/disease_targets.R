@@ -6,6 +6,12 @@ library(gitcreds)
 library(lubridate)
 library(stringr)
 
+config <- yaml::read_yaml("challenge_configuration.yaml")
+challenge_name = config$target_groups$TropicalDisease$target_name
+filename = config$target_groups$TropicalDisease$targets_filepath
+read_bucket = config$s3_bucket_read
+endpoint = config$endpoint
+
 #fetch and process disease data from the information system for notifiable diseases
 install.packages("remotes")
 remotes::install_github("rfsaldanha/microdatasus")
@@ -68,20 +74,17 @@ lv_final_clean <- lv_monthly_mun %>%
 # write.csv(lv_monthly_mun, "vl_monthly.csv")
 
 #set up connection
-s3_read <- arrow::s3_bucket('bu4cast-ci-read',
-                            endpoint_override = 'https://minio-s3.apps.shift.nerc.mghpcc.org',
+s3_read <- arrow::s3_bucket(read_bucket,
+                            endpoint_override = endpoint,
                             access_key = Sys.getenv("OSN_KEY"),
                             secret_key = Sys.getenv("OSN_SECRET"),
                             scheme = "https")
 
 #create file name/folder
-challenge_name = 'tropical-disease'
-filename = paste("challenges/targets/project_id=bu4cast/",challenge_name,
-                 "-targets.csv",sep="")
 arrow::write_csv_arrow(lv_final_clean,sink=s3_read$path(filename))
 
 # Remove file from working directory
-csv_filename = paste(challenge_name, "-targets.csv.gz")
+csv_filename = paste(challenge_name, "-targets.csv")
 unlink(csv_filename)
 
 # Health Check

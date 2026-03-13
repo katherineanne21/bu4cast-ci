@@ -2,7 +2,7 @@ name: Drivers Stage 3
 
 on:
   schedule:
-    - cron: '0 15 * * *' # runs at 10am EST
+    - cron: '0 17 * * *' # runs at 12pm EST
   workflow_dispatch:
 
 jobs:

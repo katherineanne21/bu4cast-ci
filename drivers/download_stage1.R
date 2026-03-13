@@ -1,57 +1,53 @@
-## setup
 library(gdalcubes)
 library(gefs4cast)
 library(arrow)
-print(sessioninfo::package_info())
+library(dplyr)
+library(yaml)
+config <- yaml::read_yaml("challenge_configuration.yaml")
+gdalcubes::gdalcubes_options(parallel = parallel::detectCores())
+s3 <- arrow::s3_bucket(
+  config$s3_bucket_read,
+  endpoint_override = config$endpoint,
+  access_key = Sys.getenv("OSN_KEY"),
+  secret_key = Sys.getenv("OSN_SECRET"),
+  scheme = "https"
+)
+metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target_metadata_bucket)
+drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
-gdalcubes::gdalcubes_options(parallel=2*parallel::detectCores())
-#gdalcubes::gdalcubes_options(parallel=TRUE)
-
-sites <-
-  dplyr::bind_rows(
-    readr::read_csv(paste0("https://github.com/eco4cast/",
-                           "neon4cast-noaa-download/",
-                           "raw/master/noaa_download_site_list.csv"),
-                    col_select = c("site_id", "latitude", "longitude"))#,
-    #readr::read_csv(paste0("https://github.com/eco4cast/neon4cast-targets/",
-    #                       "raw/main/tern_field_site_metadata.csv"),
-    #                col_select = c("site_id", "latitude", "longitude"))
+sites <- arrow::read_csv_arrow(
+  s3$path(paste0(metadata_path, "/field_sites.csv"))
+) %>%
+  as.data.frame() %>%
+  transmute(
+    site_id   = as.character(field_site_id),
+    latitude  = as.numeric(latitude),
+    longitude = as.numeric(longitude)
   )
-
-
-
-Sys.setenv("GEFS_VERSION"="v12")
-dates <- seq(as.Date("2020-09-24"), Sys.Date()-1, by=1)
-dates_pseudo <- seq(as.Date("2020-09-24"), Sys.Date(), by=1)
-
+message("Sites loaded: ", nrow(sites))
+Sys.setenv("GEFS_VERSION" = "v12")
+dates        <- seq(as.Date(config$gefs_start_date), Sys.Date() - 1, by = 1)
+dates_pseudo <- seq(as.Date(config$gefs_start_date), Sys.Date(),     by = 1)
 message("GEFS v12 stage1-stats")
-bench::bench_time({ # thelio
-  s3 <- gefs_s3_dir("stage1-stats")
-  have_dates <- gsub("reference_datetime=", "", s3$ls())
+bench::bench_time({
+  s3_path <- s3$path(paste0(drivers_path, "/stage1-stats"))
+  have_dates <- tryCatch(
+    gsub("reference_datetime=", "", s3_path$ls()),
+    error = function(e) character(0)
+  )
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
   gefs_to_parquet(missing_dates,
-                   ensemble=c("geavg", "gespr"),
-                   path = s3,
-                   sites = sites)
-  #stats_parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1-stats'
-  #gefs_to_parquet(missing_dates,
-  #               path = stats_parquet_path,
-  #               ensemble=c("geavg", "gespr"),
-  #               sites = sites,
-  #               s3_endpoint = 'https://sdsc.osn.xsede.org')
+                  ensemble = c("geavg", "gespr"),
+                  path     = s3_path,
+                  sites    = sites)
 })
-
 message("GEFS v12 stage1")
-bench::bench_time({ # cirrus ~ 6days for full set
-  s3 <- gefs_s3_dir("stage1")
-  have_dates <- gsub("reference_datetime=", "", s3$ls())
+bench::bench_time({
+  s3_path <- s3$path(paste0(drivers_path, "/stage1"))
+  have_dates <- tryCatch(
+    gsub("reference_datetime=", "", s3_path$ls()),
+    error = function(e) character(0)
+  )
   missing_dates <- dates[!(as.character(dates) %in% have_dates)]
-
-  gefs_to_parquet(missing_dates, path = s3, sites = sites)
-  
-  #parquet_path <- 'bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12/stage1'
-  #gefs_to_parquet(missing_dates,
-  #                path = parquet_path,
-  #                sites = sites,
-  #                s3_endpoint = 'sdsc.osn.xsede.org')
+  gefs_to_parquet(missing_dates, path = s3_path, sites = sites)
 })

@@ -2,15 +2,15 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   schedule:
-#    - cron: '0 5 * * *'
+    - cron: '0 12 * * *' # runs at 7am EST
   workflow_dispatch:
 
 
-name: drivers-stage1-2
+name: Drivers Stage 1 & 2
 
 jobs:
   docker:
-    runs-on: ubuntu-latest #[self-hosted]
+    runs-on: ubuntu-latest 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -36,5 +36,6 @@ jobs:
 
       - name: Healthcheck
         run: |
-          curl -m 10 --retry 5 https://hc-ping.com/fc148462-2f07-4cd3-a11d-823982db0270
+          apt-get install -y curl
+          curl -m 10 --retry 5 https://hc-ping.com/d7a40551-9b1f-4875-a5e3-72bdabb631eb
 

@@ -1,13 +1,13 @@
+name: Drivers Stage 3
+
 on:
   schedule:
-#    - cron: '0 23 * * *'
+    - cron: '0 17 * * *' # runs at 12pm EST
   workflow_dispatch:
-
-name: drivers-stage3
 
 jobs:
   docker:
-    runs-on: arc-runner-eco4cast
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       OSN_KEY: ${{ secrets.OSN_KEY }}
@@ -23,11 +23,17 @@ jobs:
         run: |
           source("drivers/download_psuedo.R")
 
-      - name: Update Stage3
+      - name: Generate Stage 3
+        shell: Rscript {0}
+        run: |
+          source("drivers/generate_stage3.R")
+
+      - name: Update Stage 3
         shell: Rscript {0}
         run: |
           source("drivers/update_stage3.R")
 
       - name: Healthcheck
         run: |
-          curl -m 10 --retry 5 https://hc-ping.com/cfa6fee0-6608-46f4-9cca-4e83445788fe
+          apt-get install -y curl
+          curl -m 10 --retry 5 https://hc-ping.com/49d4676e-7379-4699-ad40-f5d58df0ad95

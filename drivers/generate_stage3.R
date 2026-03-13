@@ -42,6 +42,26 @@ furrr::future_walk(site_list, function(curr_site_id) {
   config       <- yaml::read_yaml("challenge_configuration.yaml")
   drivers_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
+  s3_w <- arrow::s3_bucket(
+    config$s3_bucket_read,
+    endpoint_override = config$endpoint,
+    access_key = Sys.getenv("OSN_KEY"),
+    secret_key = Sys.getenv("OSN_SECRET"),
+    scheme = "https"
+  )
+
+  # skip if stage3 already exists for this site
+  existing <- tryCatch(
+    arrow::open_dataset(s3_w$path(paste0(drivers_path, "/stage3"))) %>%
+      dplyr::filter(site_id == curr_site_id) %>%
+      dplyr::collect(),
+    error = function(e) data.frame()
+  )
+  if (nrow(existing) > 0) {
+    message("Skipping ", curr_site_id, " - stage3 already exists")
+    return(NULL)
+  }
+
   df <- arrow::open_dataset("pseudo") |>
     dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) |>
     dplyr::filter(site_id == curr_site_id) |>
@@ -51,14 +71,6 @@ furrr::future_walk(site_list, function(curr_site_id) {
                   datetime     = ifelse(datetime != new_datetime, new_datetime, datetime),
                   datetime     = lubridate::as_datetime(datetime)) |>
     dplyr::select(-date, -new_datetime)
-
-  s3_w <- arrow::s3_bucket(
-    config$s3_bucket_read,
-    endpoint_override = config$endpoint,
-    access_key = Sys.getenv("OSN_KEY"),
-    secret_key = Sys.getenv("OSN_SECRET"),
-    scheme = "https"
-  )
 
   print(curr_site_id)
   df |>

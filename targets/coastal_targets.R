@@ -142,7 +142,7 @@ if (!buoy_has_data) {
 
   buoy_data_clean <- buoy_data %>%
     dplyr::filter(longitude > -180 & longitude < 180) %>%
-    dplyr::filter(latitude  > -90 & latitude < 90) %>%
+    dplyr::filter(latitude > -90 & latitude < 90) %>%
     dplyr::filter(!is.na(latitude) & !is.na(longitude))
 
   if (nrow(buoy_data_clean) == 0) {
@@ -203,9 +203,9 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 
   # Get all URLs to know total count
   all_urls <- NASA_DAAC_download(
-    ul_lat = ul_lat, 
+    ul_lat = ul_lat,
     ul_lon = ul_lon,
-    lr_lat = lr_lat, 
+    lr_lat = lr_lat,
     lr_lon = lr_lon,
     from = start_date_modis_chr,
     to   = end_date_chr,
@@ -224,9 +224,9 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   # Download
   message("Starting MODIS Aqua downloads...")
   modis_files <- NASA_DAAC_download(
-    ul_lat = ul_lat, 
+    ul_lat = ul_lat,
     ul_lon = ul_lon,
-    lr_lat = lr_lat, 
+    lr_lat = lr_lat,
     lr_lon = lr_lon,
     from = start_date_modis_chr,
     to   = end_date_chr,
@@ -240,12 +240,12 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   progress_msg("MODIS download", length(modis_files), total_files)
 
   # If download returned NA (all files already exist)
-  if (length(modis_files) == 1 && is.na(modis_files)) {
-    modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
+ if (length(modis_files) == 1 && is.na(modis_files)) {
+  modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
 }
 
 message(paste("Successfully downloaded", length(modis_files), "files"))
-}
+ }
 
 ## Process MODIS data
 
@@ -273,7 +273,7 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   # Calculate center of 5x5 box
   d2 <- (lon - buoy_lon)^2 + (lat - buoy_lat)^2 # compute distance to buoy for each pixel
   idx <- which.min(d2) # index of closest pixel
-  ij  <- arrayInd(idx, dim(chl)) # convert to row+column
+  ij  <- arrayInd(idx, dim(chl))  # convert to row+column
   r0 <- ij[1]; c0 <- ij[2] # center of 5x5 box
 
   # 5x5 window bounds (centered on pixel closest to buoy)
@@ -441,7 +441,7 @@ if (start_date_occci > end_date_occci) {
           if (length(days) > 0) paste0(" (", min(days), " to ", max(days), ")") else "")
 total_days <- length(days)
 progress_msg("CCI download", 0, total_days)
-
+          
   if (length(days) == 0) {
     message("No new OC-CCI dates to process; skipping.")
     cci_data <- data.frame()
@@ -533,15 +533,15 @@ progress_msg("CCI download", 0, total_days)
     kk <- 0L
 
     for (ii in seq_along(days)) {
-      progress_msg("CCI download", ii, total_days)
-      res <- tryCatch(extract_day_5x5(days[ii], occci_vars_wanted),
+  progress_msg("CCI download", ii, total_days)
+  res <- tryCatch(extract_day_5x5(days[ii], occci_vars_wanted),
                       error = function(e) { message("extract failed: ", e$message); NULL })
-      if (!is.null(res)) {
-        kk <- kk + 1L
-        out_list[[kk]] <- res
-      }
-    }
-    progress_msg("CCI download", total_days, total_days)
+  if (!is.null(res)) {
+    kk <- kk + 1L
+    out_list[[kk]] <- res
+  }
+}
+  progress_msg("CCI download", total_days, total_days)
 
     occci_df <- if (kk == 0L) data.frame() else do.call(rbind, out_list[seq_len(kk)])
     if (nrow(occci_df) > 0) {
@@ -552,7 +552,7 @@ progress_msg("CCI download", 0, total_days)
     # Match downstream formatting
     if (nrow(occci_df) == 0) {
       cci_data <- data.frame()
-      k_cci    <- 0L
+      k_cci <- 0L
     } else {
       cci_data <- occci_df %>%
         dplyr::transmute(
@@ -567,7 +567,7 @@ progress_msg("CCI download", 0, total_days)
     message("OC-CCI rows processed: ", k_cci)
 
     if (exists("cci_data") && nrow(cci_data) > 0) {
-      valid_n  <- cci_data %>%
+      valid_n <- cci_data %>%
         dplyr::filter(
           !is.na(chlorophyll_mean),
           chlorophyll_n > 0
@@ -638,8 +638,8 @@ if (!exists("modis_data") || is.null(modis_data) || nrow(modis_data) == 0) {
                          ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
 
   modis_formatted <- modis_daily %>%
-    dplyr::transmute(date = date, chlorophyll = chlorophyll) %>%
-    to_standard_chlora(site_id = buoy_site_id, mode = "modis")
+  dplyr::transmute(date = date, chlorophyll = chlorophyll) %>%
+  to_standard_chlora(site_id = buoy_site_id, mode = "modis")
 }
 
 # CCI formatted or empty

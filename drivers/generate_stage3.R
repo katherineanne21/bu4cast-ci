@@ -4,6 +4,9 @@ library(dplyr)
 library(yaml)
 source("drivers/to_hourly.R")
 
+minioclient::install_mc()
+mc_alias_set("osn", "minio-s3.apps.shift.nerc.mghpcc.org", Sys.getenv("OSN_KEY"), Sys.getenv("OSN_SECRET"))
+
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
 s3 <- arrow::s3_bucket(

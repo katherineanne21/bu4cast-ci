@@ -214,6 +214,7 @@ copy_big_df$site_id = paste(copy_big_df$state_code,
 copy_big_df <- copy_big_df %>%
   mutate(
     date_gmt = as.POSIXct(date_gmt, tz = "GMT"),
+    date_local = as.Date(date_local),
     date_of_last_change = as.POSIXct(date_of_last_change, tz = "GMT")
   ) %>%
   drop_na(sample_measurement) %>% # remove NA's
@@ -246,12 +247,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM2.5 - Daily
     PM2.5_P1D_StartDate = if (any(parameter == "PM2.5_P1D")) {
-      min(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
+      min(date_local[parameter == "PM2.5_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM2.5_P1D_EndDate = if (any(parameter == "PM2.5_P1D")) {
-      max(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
+      max(date_local[parameter == "PM2.5_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -263,12 +264,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM2.5 - Hourly
     PM2.5_P1H_StartDate = if (any(parameter == "PM2.5_P1H")) {
-      min(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
+      min(date_local[parameter == "PM2.5_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM2.5_P1H_EndDate = if (any(parameter == "PM2.5_P1H")) {
-      max(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
+      max(date_local[parameter == "PM2.5_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -280,12 +281,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM10 - Daily
     PM10_P1D_StartDate = if (any(parameter == "PM10_P1D")) {
-      min(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
+      min(date_local[parameter == "PM10_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM10_P1D_EndDate = if (any(parameter == "PM10_P1D")) {
-      max(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
+      max(date_local[parameter == "PM10_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -297,12 +298,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # PM10 - Hourly
     PM10_P1H_StartDate = if (any(parameter == "PM10_P1H")) {
-      min(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
+      min(date_local[parameter == "PM10_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     PM10_P1H_EndDate = if (any(parameter == "PM10_P1H")) {
-      max(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
+      max(date_local[parameter == "PM10_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -314,12 +315,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # O3
     O3_StartDate = if (any(parameter == "O3")) {
-      min(date_gmt[parameter == "O3"], na.rm = TRUE)
+      min(date_local[parameter == "O3"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     O3_EndDate = if (any(parameter == "O3")) {
-      max(date_gmt[parameter == "O3"], na.rm = TRUE)
+      max(date_local[parameter == "O3"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -331,12 +332,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # NO2 - Daily
     NO2_P1D_StartDate = if (any(parameter == "NO2_P1D")) {
-      min(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
+      min(date_local[parameter == "NO2_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     NO2_P1D_EndDate = if (any(parameter == "NO2_P1D")) {
-      max(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
+      max(date_local[parameter == "NO2_P1D"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -348,12 +349,12 @@ metadata_df_latlong <- copy_big_df %>%
     
     # NO2 - Hourly
     NO2_P1H_StartDate = if (any(parameter == "NO2_P1H")) {
-      min(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
+      min(date_local[parameter == "NO2_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
     NO2_P1H_EndDate = if (any(parameter == "NO2_P1H")) {
-      max(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
+      max(date_local[parameter == "NO2_P1H"], na.rm = TRUE)
     } else {
       as.Date(NA)
     },
@@ -369,7 +370,7 @@ metadata_df_latlong <- copy_big_df %>%
 metadata_df_units <- copy_big_df %>%
   group_by(parameter) %>%
   summarise(
-    start_year = min(lubridate::year(date_gmt)),
+    start_year = min(lubridate::year(date_local)),
     units_of_measure = paste(unique(units_of_measure), collapse = ", "))
 
 # Prep for Saving ---------------------------------------------------------

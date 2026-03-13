@@ -1,21 +1,21 @@
 #challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: bu4cast
-#github_repo: eco4cast/neon4cast-ci
+github_repo: eco4cast/neon4cast-ci/bu4cast-ci
 #S3 bucket information
 s3_bucket_read: 'bu4cast-ci-read'
 s3_bucket_write: 'bu4cast-ci-write'
 endpoint: 'https://minio-s3.apps.shift.nerc.mghpcc.org'
-#noaa_endpoint: sdsc.osn.xsede.org
+noaa_endpoint: sdsc.osn.xsede.org
 #submissions_endpoint: s3-west.nrp-nautilus.io
 #scores_bucket: bio230014-bucket01/challenges/scores
-forecasts_bucket: 'bu4cast-ci-write/challenges/project_id=bu4cast/forecasts/'
+forecasts_bucket: 'challenges/project_id=bu4cast/forecasts'
 #summaries_bucket: bio230014-bucket01/challenges/forecasts
 #submissions_bucket: submissions
 #noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
-targets_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/targets'
-target_metadata_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/metadata'
-student_resources_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/students'
-drivers_bucket: 'bu4cast-ci-read/challenges/project_id=bu4cast/drivers'
+targets_bucket: 'challenges/project_id=bu4cast/targets'
+target_metadata_bucket: 'challenges/project_id=bu4cast/metadata'
+student_resources_bucket: 'challenges/project_id=bu4cast/students'
+drivers_bucket: 'challenges/project_id=bu4cast/drivers'
 #archive_bucket: bio230014-bucket01/challenges/archive
 #model_metadata_bucket: bio230014-bucket01/challenges/metadata/model_id
 #model_metadata_gsheet: https://docs.google.com/spreadsheets/d/1f177dpaxLzc4UuQ4_SJV9JWIbQPlilVnEztyvZE6aSU/edit?usp=sharing
@@ -27,8 +27,8 @@ target_groups:
   Urban:
     target_name: "urban"
     targets_filepath: "challenges/project_id=bu4cast/targets/urban-targets.csv"
-    site_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-sites.csv"
-    units_metadata_filepath: "bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-units.csv"
+    site_metadata_filepath: "challenges/project_id=bu4cast/metadata/urban-targets-sites.csv"
+    units_metadata_filepath: "challenges/project_id=bu4cast/metadata/urban-targets-units.csv"
     targets_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/targets/urban-targets.csv"
     targets_sites_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-sites.csv"
     targets_units_weblink: "https://minio-s3.apps.shift.nerc.mghpcc.org/bu4cast-ci-read/challenges/project_id=bu4cast/metadata/urban-targets-units.csv"
@@ -54,23 +54,24 @@ target_groups:
         #var_doi: "10.1002/eap.70004"
         #var_citation: "Olsson, F., C.C. Carey, C. Boettiger, G. Harrison, R. Ladwig, M.F. Lapeyrolerie, A.S.L. Lewis, M.E. Lofton, F. Motealegre-Mora, J.S. Rebaey, C.J. Robbins. X. Yang, and R.Q. Thomas. 2025. What can we learn from 100,000 freshwater forecasts? A synthesis from the NEON Ecological Forecasting Challenge. Ecological Applications 35:e70004 https://doi.org/10.1002/eap.70004"
   TropicalDisease:
-    targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/terrestrial_daily-targets.csv.gz"
-    variable: ['nee','le']
-    duration: ['P1D','P1D']
-    max_horizon: [35, 35]
-    thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
-    thumbnail_title: 'NEON Field Tower'
-    group_vars:
-      nee:
-        duration: ["P1D"]
-        max_horizon: [35]
-        var_doi: "None"
-        var_citation: "None"
-      le:
-        duration: ["P1D"]
-        max_horizon: [35]
-        var_doi: "None"
-        var_citation: "None"
+    target_name: "tropical-disease"
+    targets_filepath: "challenges/project_id=bu4cast/targets/tropical-disease-targets.csv"
+    #variable: ['nee','le']
+    #duration: ['P1D','P1D']
+    #max_horizon: [35, 35]
+    #thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
+    #thumbnail_title: 'NEON Field Tower'
+    #group_vars:
+      #nee:
+        #duration: ["P1D"]
+        #max_horizon: [35]
+        #var_doi: "None"
+        #var_citation: "None"
+      #le:
+        #duration: ["P1D"]
+        #max_horizon: [35]
+        #var_doi: "None"
+        #var_citation: "None"
   Coastal:
     targets_file: "https://sdsc.osn.xsede.org/bio230014-bucket01/challenges/targets/project_id=neon4cast/duration=P1D/phenology-targets.csv.gz"
     variable: ['gcc_90','rcc_90']

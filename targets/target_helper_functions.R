@@ -70,6 +70,7 @@ urban_metadata_sites <- function(combined_data) {
   combined_data$date_local <- as.Date(combined_data$date_local)
   
   new_metadata_df_sites <- combined_data %>%
+    mutate(date_local = as.Date(date_local)) %>%
     group_by(site_id) %>%
     summarise(
       # Site Location
@@ -78,12 +79,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # PM2.5 - Daily
       PM2.5_P1D_StartDate = if (any(parameter == "PM2.5_P1D")) {
-        min(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
+        min(date_local[parameter == "PM2.5_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1D_EndDate = if (any(parameter == "PM2.5_P1D")) {
-        max(date_gmt[parameter == "PM2.5_P1D"], na.rm = TRUE)
+        max(date_local[parameter == "PM2.5_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -95,12 +96,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # PM2.5 - Hourly
       PM2.5_P1H_StartDate = if (any(parameter == "PM2.5_P1H")) {
-        min(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
+        min(date_local[parameter == "PM2.5_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM2.5_P1H_EndDate = if (any(parameter == "PM2.5_P1H")) {
-        max(date_gmt[parameter == "PM2.5_P1H"], na.rm = TRUE)
+        max(date_local[parameter == "PM2.5_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -112,12 +113,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # PM10 - Daily
       PM10_P1D_StartDate = if (any(parameter == "PM10_P1D")) {
-        min(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
+        min(date_local[parameter == "PM10_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1D_EndDate = if (any(parameter == "PM10_P1D")) {
-        max(date_gmt[parameter == "PM10_P1D"], na.rm = TRUE)
+        max(date_local[parameter == "PM10_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -129,12 +130,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # PM10 - Hourly
       PM10_P1H_StartDate = if (any(parameter == "PM10_P1H")) {
-        min(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
+        min(date_local[parameter == "PM10_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       PM10_P1H_EndDate = if (any(parameter == "PM10_P1H")) {
-        max(date_gmt[parameter == "PM10_P1H"], na.rm = TRUE)
+        max(date_local[parameter == "PM10_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -146,12 +147,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # O3
       O3_StartDate = if (any(parameter == "O3")) {
-        min(date_gmt[parameter == "O3"], na.rm = TRUE)
+        min(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       O3_EndDate = if (any(parameter == "O3")) {
-        max(date_gmt[parameter == "O3"], na.rm = TRUE)
+        max(date_local[parameter == "O3"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -163,12 +164,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # NO2 - Daily
       NO2_P1D_StartDate = if (any(parameter == "NO2_P1D")) {
-        min(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
+        min(date_local[parameter == "NO2_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1D_EndDate = if (any(parameter == "NO2_P1D")) {
-        max(date_gmt[parameter == "NO2_P1D"], na.rm = TRUE)
+        max(date_local[parameter == "NO2_P1D"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
@@ -180,12 +181,12 @@ urban_metadata_sites <- function(combined_data) {
       
       # NO2 - Hourly
       NO2_P1H_StartDate = if (any(parameter == "NO2_P1H")) {
-        min(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
+        min(date_local[parameter == "NO2_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },
       NO2_P1H_EndDate = if (any(parameter == "NO2_P1H")) {
-        max(date_gmt[parameter == "NO2_P1H"], na.rm = TRUE)
+        max(date_local[parameter == "NO2_P1H"], na.rm = TRUE)
       } else {
         as.Date(NA)
       },

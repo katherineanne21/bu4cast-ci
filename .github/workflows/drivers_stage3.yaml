@@ -23,6 +23,11 @@ jobs:
         run: |
           source("drivers/download_psuedo.R")
 
+      - name: Generate Stage3
+        shell: Rscript {0}
+        run: |
+          source("drivers/generate_stage3.R")
+
       - name: Update Stage3
         shell: Rscript {0}
         run: |

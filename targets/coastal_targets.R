@@ -115,8 +115,8 @@ get_buoy_data <- function(start_date, end_date) {
   # Convert to numeric
   buoy$chlorophyll <- as.numeric(buoy$chlorophyll)
   buoy$temperature <- as.numeric(buoy$temperature)
-  buoy$turbidity   <- as.numeric(buoy$turbidity)
-  buoy$oxygen      <- as.numeric(buoy$oxygen)
+  buoy$turbidity <- as.numeric(buoy$turbidity)
+  buoy$oxygen <- as.numeric(buoy$oxygen)
 
   return(buoy)
 }
@@ -142,7 +142,7 @@ if (!buoy_has_data) {
 
   buoy_data_clean <- buoy_data %>%
     dplyr::filter(longitude > -180 & longitude < 180) %>%
-    dplyr::filter(latitude  >  -90 & latitude  <  90) %>%
+    dplyr::filter(latitude  > -90 & latitude < 90) %>%
     dplyr::filter(!is.na(latitude) & !is.na(longitude))
 
   if (nrow(buoy_data_clean) == 0) {
@@ -151,23 +151,23 @@ if (!buoy_has_data) {
   } else {
 
     # Calculate buoy location for CCI download
-    buoy_lat <- mean(buoy_data_clean$latitude,  na.rm = TRUE)
+    buoy_lat <- mean(buoy_data_clean$latitude, na.rm = TRUE)
     buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
 
     buoy_daily <- buoy_data_clean %>%
       dplyr::mutate(date = as.Date(datetime)) %>%
       dplyr::group_by(date) %>%
       dplyr::summarise(
-        latitude    = mean(latitude,    na.rm = TRUE),
-        longitude   = mean(longitude,   na.rm = TRUE),
+        latitude    = mean(latitude, na.rm = TRUE),
+        longitude   = mean(longitude, na.rm = TRUE),
         chlorophyll = mean(chlorophyll, na.rm = TRUE),
         temperature = mean(temperature, na.rm = TRUE),
-        turbidity   = mean(turbidity,   na.rm = TRUE),
-        wspd        = mean(wspd,        na.rm = TRUE),
-        wdir        = mean(wdir,        na.rm = TRUE),
-        airtemp     = mean(airtemp,     na.rm = TRUE),
-        airpress    = mean(airpress,    na.rm = TRUE),
-        oxygen      = mean(oxygen,      na.rm = TRUE),
+        turbidity   = mean(turbidity, na.rm = TRUE),
+        wspd        = mean(wspd, na.rm = TRUE),
+        wdir        = mean(wdir, na.rm = TRUE),
+        airtemp     = mean(airtemp, na.rm = TRUE),
+        airpress    = mean(airpress, na.rm = TRUE),
+        oxygen      = mean(oxygen, na.rm = TRUE),
         n_obs       = n(),
         .groups = "drop"
       )
@@ -203,8 +203,10 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
 
   # Get all URLs to know total count
   all_urls <- NASA_DAAC_download(
-    ul_lat = ul_lat, ul_lon = ul_lon,
-    lr_lat = lr_lat, lr_lon = lr_lon,
+    ul_lat = ul_lat, 
+    ul_lon = ul_lon,
+    lr_lat = lr_lat, 
+    lr_lon = lr_lon,
     from = start_date_modis_chr,
     to   = end_date_chr,
     doi  = modis_doi,
@@ -214,7 +216,7 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   total_files <- length(all_urls)
   message(paste("Found", total_files, "new files to download"))
 
-  # cores
+  # cores 
   ncore <- max(1, min(1, parallel::detectCores() - 1, total_files))
 
   progress_msg("MODIS download", 0, total_files)
@@ -222,15 +224,17 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   # Download
   message("Starting MODIS Aqua downloads...")
   modis_files <- NASA_DAAC_download(
-    ul_lat = ul_lat, ul_lon = ul_lon,
-    lr_lat = lr_lat, lr_lon = lr_lon,
+    ul_lat = ul_lat, 
+    ul_lon = ul_lon,
+    lr_lat = lr_lat, 
+    lr_lon = lr_lon,
     from = start_date_modis_chr,
     to   = end_date_chr,
-    doi  = modis_doi,
-    outdir          = modis_dir,
+    doi = modis_doi,
+    outdir = modis_dir,
     credential_path = "~/.netrc",
-    ncore           = ncore,
-    just_path       = FALSE
+    ncore = ncore,
+    just_path = FALSE
   )
 
   progress_msg("MODIS download", length(modis_files), total_files)
@@ -238,9 +242,9 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   # If download returned NA (all files already exist)
   if (length(modis_files) == 1 && is.na(modis_files)) {
     modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
-  }
+}
 
-  message(paste("Successfully downloaded", length(modis_files), "files"))
+message(paste("Successfully downloaded", length(modis_files), "files"))
 }
 
 ## Process MODIS data
@@ -262,33 +266,33 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
 
   # Get rid of negative/fill values
   chl[chl < 0] <- NA
-  kd[kd  < 0] <- NA
+  kd[kd < 0] <- NA
   poc[poc < 0] <- NA
   pic[pic < 0] <- NA
 
   # Calculate center of 5x5 box
-  d2  <- (lon - buoy_lon)^2 + (lat - buoy_lat)^2 # compute distance to buoy for each pixel
-  idx <- which.min(d2)                             # index of closest pixel
-  ij  <- arrayInd(idx, dim(chl))                  # convert to row+column
-  r0 <- ij[1]; c0 <- ij[2]                        # center of 5x5 box
+  d2 <- (lon - buoy_lon)^2 + (lat - buoy_lat)^2 # compute distance to buoy for each pixel
+  idx <- which.min(d2) # index of closest pixel
+  ij  <- arrayInd(idx, dim(chl)) # convert to row+column
+  r0 <- ij[1]; c0 <- ij[2] # center of 5x5 box
 
   # 5x5 window bounds (centered on pixel closest to buoy)
   r1 <- max(1, r0 - 2); r2 <- min(nrow(chl), r0 + 2)
   c1 <- max(1, c0 - 2); c2 <- min(ncol(chl), c0 + 2)
 
-  l2_flags      <- l2f[r1:r2, c1:c2]                          # matrix of flags in box
+  l2_flags <- l2f[r1:r2, c1:c2] # matrix of flags in box
   l2_flags_json <- jsonlite::toJSON(l2_flags, auto_unbox = TRUE)
 
   # 5x5 windows
   chl_vals <- as.vector(chl[r1:r2, c1:c2])
   kd_vals  <- as.vector(kd[r1:r2,  c1:c2])
-  poc_vals <- as.vector(poc[r1:r2, c1:c2])
-  pic_vals <- as.vector(pic[r1:r2, c1:c2])
+  poc_vals  <- as.vector(poc[r1:r2,  c1:c2])
+  pic_vals  <- as.vector(pic[r1:r2,  c1:c2])
 
   chl_vals <- chl_vals[is.finite(chl_vals)]
   kd_vals  <- kd_vals[is.finite(kd_vals)]
-  poc_vals <- poc_vals[is.finite(poc_vals)]
-  pic_vals <- pic_vals[is.finite(pic_vals)]
+  poc_vals  <- poc_vals[is.finite(poc_vals)]
+  pic_vals  <- pic_vals[is.finite(pic_vals)]
 
   # if all empty, skip
   if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) {
@@ -301,25 +305,25 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
   file_date <- as.Date(substr(m, 2, 9), format = "%Y%m%d")
 
   data.frame(
-    date             = file_date,
+    date = file_date,
     chlorophyll_mean = mean(chl_vals),
     chlorophyll_sd   = if (length(chl_vals) > 1) sd(chl_vals) else NA_real_,
     chlorophyll_n    = length(chl_vals),
 
-    kd490_mean = if (length(kd_vals)  > 0) mean(kd_vals)  else NA_real_,
-    kd490_sd   = if (length(kd_vals)  > 1) sd(kd_vals)    else NA_real_,
+    kd490_mean = if (length(kd_vals) > 0) mean(kd_vals) else NA_real_,
+    kd490_sd   = if (length(kd_vals) > 1) sd(kd_vals) else NA_real_,
     kd490_n    = length(kd_vals),
 
     poc_mean = if (length(poc_vals) > 0) mean(poc_vals) else NA_real_,
-    poc_sd   = if (length(poc_vals) > 1) sd(poc_vals)   else NA_real_,
+    poc_sd   = if (length(poc_vals) > 1) sd(poc_vals) else NA_real_,
     poc_n    = length(poc_vals),
 
     pic_mean = if (length(pic_vals) > 0) mean(pic_vals) else NA_real_,
-    pic_sd   = if (length(pic_vals) > 1) sd(pic_vals)   else NA_real_,
+    pic_sd   = if (length(pic_vals) > 1) sd(pic_vals) else NA_real_,
     pic_n    = length(pic_vals),
 
-    l2_flags = l2_flags_json,  # flags
-    file     = basename(ncfile),
+    l2_flags = l2_flags_json,   # flags
+    file = basename(ncfile),
     stringsAsFactors = FALSE
   )
 }
@@ -327,12 +331,12 @@ process_modis <- function(ncfile, buoy_lon, buoy_lat) {
 # Check which dates exist already
 existing_dates <- as.Date(character(0))
 if (exists("old_data") && !is.null(old_data)) {
-  old_df    <- as.data.frame(old_data)
+  old_df <- as.data.frame(old_data)
   old_modis <- old_df[old_df$variable == "chlora_modis", , drop = FALSE]
-  if (nrow(old_modis) > 0) {
-    existing_dates <- unique(as.Date(substr(old_modis$datetime, 1, 10)))
-    existing_dates <- existing_dates[!is.na(existing_dates)]
-  }
+if (nrow(old_modis) > 0) {
+  existing_dates <- unique(as.Date(substr(old_modis$datetime, 1, 10)))
+  existing_dates <- existing_dates[!is.na(existing_dates)]
+}
 }
 
 # Only process new files/dates
@@ -347,7 +351,7 @@ to_process <- modis_files[is.na(file_dates) | !(file_dates %in% existing_dates)]
 message("MODIS files: ", length(modis_files), " | to process: ", length(to_process))
 
 # loop to process
-out    <- vector("list", length(to_process))
+out <- vector("list", length(to_process))
 k_modis <- 0L
 
 for (i in seq_along(to_process)) {
@@ -402,7 +406,7 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
 if (start_date_occci > end_date_occci) {
   message("No new CCI data; skipping CCI processing.")
   cci_data <- data.frame()
-  k_cci    <- 0L
+  k_cci <- 0L
 } else {
 
   # Here I'm using a larger download box than 5x5 just to center the 5x5 better (later I slice the 5x5 exactly)
@@ -431,17 +435,17 @@ if (start_date_occci > end_date_occci) {
   }
 
   days_all <- seq.Date(start_date_occci, end_date_occci, by = "day")
-  days     <- days_all[!(days_all %in% existing_occci_dates)]
+  days <- days_all[!(days_all %in% existing_occci_dates)]
 
   message("OC-CCI new dates to process: ", length(days),
           if (length(days) > 0) paste0(" (", min(days), " to ", max(days), ")") else "")
-  total_days <- length(days)
-  progress_msg("CCI download", 0, total_days)
+total_days <- length(days)
+progress_msg("CCI download", 0, total_days)
 
   if (length(days) == 0) {
     message("No new OC-CCI dates to process; skipping.")
     cci_data <- data.frame()
-    k_cci    <- 0L
+    k_cci <- 0L
   } else {
 
     # Trim 1km 5x5 pixel box centered around closest pixel to buoy
@@ -516,7 +520,7 @@ if (start_date_occci > end_date_occci) {
         vals <- vals[is.finite(vals)]
 
         out[[paste0(v, "_mean")]] <- if (length(vals) > 0) mean(vals) else NA_real_
-        out[[paste0(v, "_sd")]]   <- if (length(vals) > 1) sd(vals)   else NA_real_
+        out[[paste0(v, "_sd")]]   <- if (length(vals) > 1) sd(vals) else NA_real_
         out[[paste0(v, "_n")]]    <- length(vals)  # = 25 if all pixels are valid
       }
 
@@ -526,7 +530,7 @@ if (start_date_occci > end_date_occci) {
     message("OC-CCI rows to process: ", length(days))
 
     out_list <- vector("list", length(days))
-    kk       <- 0L
+    kk <- 0L
 
     for (ii in seq_along(days)) {
       progress_msg("CCI download", ii, total_days)
@@ -542,7 +546,7 @@ if (start_date_occci > end_date_occci) {
     occci_df <- if (kk == 0L) data.frame() else do.call(rbind, out_list[seq_len(kk)])
     if (nrow(occci_df) > 0) {
       occci_df$date <- as.Date(occci_df$date)
-      occci_df      <- occci_df %>% dplyr::arrange(date)
+      occci_df <- occci_df %>% dplyr::arrange(date)
     }
 
     # Match downstream formatting
@@ -552,7 +556,7 @@ if (start_date_occci > end_date_occci) {
     } else {
       cci_data <- occci_df %>%
         dplyr::transmute(
-          date             = date,
+          date = date,
           chlorophyll_mean = if ("chlor_a_mean" %in% names(.)) chlor_a_mean else NA_real_,
           chlorophyll_sd   = if ("chlor_a_sd"   %in% names(.)) chlor_a_sd   else NA_real_,
           chlorophyll_n    = if ("chlor_a_n"    %in% names(.)) chlor_a_n    else NA_real_
@@ -564,7 +568,10 @@ if (start_date_occci > end_date_occci) {
 
     if (exists("cci_data") && nrow(cci_data) > 0) {
       valid_n  <- cci_data %>%
-        dplyr::filter(!is.na(chlorophyll_mean), chlorophyll_n > 0) %>%
+        dplyr::filter(
+          !is.na(chlorophyll_mean),
+          chlorophyll_n > 0
+        ) %>%
         dplyr::pull(chlorophyll_n)
       # Just to monitor
       message("Mean n = ",   mean(valid_n,   na.rm = TRUE))
@@ -643,13 +650,15 @@ if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
 
   cci_daily <- cci_data %>%
     dplyr::transmute(
-      date        = as.Date(date),
+      date = as.Date(date),
       chlorophyll = as.numeric(chlorophyll_mean)
     ) %>%
-    dplyr::mutate(chlorophyll = dplyr::if_else(is.nan(chlorophyll), NA_real_, chlorophyll))
+    dplyr::mutate(
+      chlorophyll = dplyr::if_else(is.nan(chlorophyll), NA_real_, chlorophyll)
+    )
 
   cci_formatted <- cci_daily %>%
-    to_standard_chlora(site_id = buoy_site_id, mode = "cci")
+  to_standard_chlora(site_id = buoy_site_id, mode = "cci")
 }
 
 # Combine
@@ -698,8 +707,8 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
 new_data <- new_data %>%
   arrange(site_id, datetime, variable)
 
-message(paste0("Rows in old data: ",     ifelse(is.null(old_data), 0, nrow(old_data))))
-message(paste0("Rows of new data: ",     nrow(data)))
+message(paste0("Rows in old data: ", ifelse(is.null(old_data), 0, nrow(old_data))))
+message(paste0("Rows of new data: ", nrow(data)))
 message(paste0("Rows in appended data: ", nrow(new_data)))
 
 if (nrow(all_targets) == 0) {

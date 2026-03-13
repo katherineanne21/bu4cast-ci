@@ -1,11 +1,11 @@
 #challenge_long_name: NEON Ecological Forecasting Challenge
 project_id: bu4cast
-#github_repo: eco4cast/neon4cast-ci
+github_repo: eco4cast/neon4cast-ci/bu4cast-ci
 #S3 bucket information
 s3_bucket_read: 'bu4cast-ci-read'
 s3_bucket_write: 'bu4cast-ci-write'
 endpoint: 'https://minio-s3.apps.shift.nerc.mghpcc.org'
-#noaa_endpoint: sdsc.osn.xsede.org
+noaa_endpoint: sdsc.osn.xsede.org
 #submissions_endpoint: s3-west.nrp-nautilus.io
 #scores_bucket: bio230014-bucket01/challenges/scores
 forecasts_bucket: 'challenges/project_id=bu4cast/forecasts'

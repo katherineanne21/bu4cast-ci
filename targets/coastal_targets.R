@@ -14,6 +14,7 @@ library(ncdf4)
 library(jsonlite)
 library(RCurl)
 library(tidyr)
+library(yaml)
 
 progress_msg <- function(label, i, n) {
   message(sprintf("[%s] %d / %d", label, i, n))
@@ -22,32 +23,31 @@ progress_msg <- function(label, i, n) {
 # Source NASA download function (Author: Dongchen Zhang)
 source("targets/R/NASA_DAAC_download.R")
 
+config <- yaml::read_yaml("challenge_configuration.yaml")
+
 ## Configuration
 
-challenge_name <- "coastal"
-project_id <- "bu4cast"
-
-# Create file name/folder
-filename = paste0("challenges/project_id=bu4cast/targets/", challenge_name, "-targets.csv")
+challenge_name <- config$target_groups$Coastal$target_name
+project_id     <- config$project_id
+filename       <- config$target_groups$Coastal$targets_filepath
 
 print(paste("challenge_name:", challenge_name))
 print(paste("filename:", filename))
 
 # Buoy location (previously calculated mean lat/lon of buoy, need for CCI box)
-buoy_lat <- 43.022942490079
-buoy_lon <- -70.5475341233827
+buoy_lat <- config$target_groups$Coastal$buoy_lat
+buoy_lon <- config$target_groups$Coastal$buoy_lon
 
-# Read old data already in s3 bucket
-s3_read <- arrow::s3_bucket(
-  "bu4cast-ci-read",
-  endpoint_override = "https://minio-s3.apps.shift.nerc.mghpcc.org",
+s3 <- arrow::s3_bucket(
+  config$s3_bucket_read,
+  endpoint_override = config$endpoint,
   access_key = Sys.getenv("OSN_KEY"),
   secret_key = Sys.getenv("OSN_SECRET"),
   scheme = "https"
 )
 
 old_data <- tryCatch(
-  arrow::read_csv_arrow(s3_read$path(filename)) %>% as.data.frame(),
+  arrow::read_csv_arrow(s3$path(filename)) %>% as.data.frame(),
   error = function(e) {
     message("No existing targets file found. Creating a new one.")
     NULL
@@ -124,11 +124,8 @@ get_buoy_data <- function(start_date, end_date) {
 # Download data
 if (start_date_buoy <= end_date) {
   progress_msg("BUOY download", 0, 1)
-  
   buoy_data <- get_buoy_data(start_date_buoy_chr, end_date_chr)
-
   progress_msg("BUOY download", 1, 1)
-  
 } else {
   buoy_data <- data.frame()
 }
@@ -156,7 +153,7 @@ if (!buoy_has_data) {
     # Calculate buoy location for CCI download
     buoy_lat <- mean(buoy_data_clean$latitude, na.rm = TRUE)
     buoy_lon <- mean(buoy_data_clean$longitude, na.rm = TRUE)
-    
+
     buoy_daily <- buoy_data_clean %>%
       dplyr::mutate(date = as.Date(datetime)) %>%
       dplyr::group_by(date) %>%
@@ -239,7 +236,7 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
     ncore = ncore,
     just_path = FALSE
   )
-  
+
   progress_msg("MODIS download", length(modis_files), total_files)
 
   # If download returned NA (all files already exist)
@@ -468,11 +465,8 @@ progress_msg("CCI download", 0, total_days)
       ok <- tryCatch({
         suppressWarnings(utils::download.file(url, destfile = tmp, mode = "wb", quiet = TRUE))
         TRUE
-      }, warning = function(w) {
-        FALSE
-      }, error = function(e) {
-        FALSE
-      })
+      }, warning = function(w) FALSE,
+         error   = function(e) FALSE)
 
       if (!ok || !file.exists(tmp) || file.info(tmp)$size == 0) {
         if (file.exists(tmp)) unlink(tmp)
@@ -483,10 +477,7 @@ progress_msg("CCI download", 0, total_days)
         message("nc_open failed for ", as.character(day), ": ", e$message)
         NULL
       })
-      if (is.null(nc)) {
-        unlink(tmp)
-        return(NULL)
-      }
+      if (is.null(nc)) { unlink(tmp); return(NULL) }
       on.exit({
         try(ncdf4::nc_close(nc), silent = TRUE)
         unlink(tmp)
@@ -511,9 +502,7 @@ progress_msg("CCI download", 0, total_days)
         if (is.null(arr)) next
 
         # Drop time dim if present
-        if (length(dim(arr)) == 3) {
-          arr <- arr[,,1, drop = TRUE]
-        }
+        if (length(dim(arr)) == 3) arr <- arr[,,1, drop = TRUE]
 
         d <- dim(arr)
         if (is.null(d) || length(d) != 2) next
@@ -545,17 +534,15 @@ progress_msg("CCI download", 0, total_days)
 
     for (ii in seq_along(days)) {
   progress_msg("CCI download", ii, total_days)
-
   res <- tryCatch(extract_day_5x5(days[ii], occci_vars_wanted),
                   error = function(e) { message("extract failed: ", e$message); NULL })
-
   if (!is.null(res)) {
     kk <- kk + 1L
     out_list[[kk]] <- res
   }
 }
   progress_msg("CCI download", total_days, total_days)
-                        
+
     occci_df <- if (kk == 0L) data.frame() else do.call(rbind, out_list[seq_len(kk)])
     if (nrow(occci_df) > 0) {
       occci_df$date <- as.Date(occci_df$date)
@@ -570,12 +557,10 @@ progress_msg("CCI download", 0, total_days)
       cci_data <- occci_df %>%
         dplyr::transmute(
           date = date,
-
           chlorophyll_mean = if ("chlor_a_mean" %in% names(.)) chlor_a_mean else NA_real_,
           chlorophyll_sd   = if ("chlor_a_sd"   %in% names(.)) chlor_a_sd   else NA_real_,
           chlorophyll_n    = if ("chlor_a_n"    %in% names(.)) chlor_a_n    else NA_real_
         )
-
       k_cci <- nrow(cci_data)
     }
 
@@ -588,13 +573,9 @@ progress_msg("CCI download", 0, total_days)
           chlorophyll_n > 0
         ) %>%
         dplyr::pull(chlorophyll_n)
-
-      mean_n   <- mean(valid_n, na.rm = TRUE)
-      median_n <- median(valid_n, na.rm = TRUE)
-
       # Just to monitor
-      message("Mean n = ", mean_n)
-      message("Median n = ", median_n)
+      message("Mean n = ",   mean(valid_n,   na.rm = TRUE))
+      message("Median n = ", median(valid_n, na.rm = TRUE))
     }
   }
 }
@@ -733,10 +714,8 @@ message(paste0("Rows in appended data: ", nrow(new_data)))
 if (nrow(all_targets) == 0) {
   message("No new targets today; skipping write")
 } else {
-
   message("Writing updated targets back to S3...")
-  arrow::write_csv_arrow(new_data, sink = s3_read$path(filename))
-
+  arrow::write_csv_arrow(new_data, sink = s3$path(filename))
 }
 
 if (exists("modis_files")) {

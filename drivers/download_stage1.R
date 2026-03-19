@@ -4,7 +4,7 @@ library(arrow)
 library(dplyr)
 library(yaml)
 config <- yaml::read_yaml("challenge_configuration.yaml")
-gdalcubes::gdalcubes_options(parallel = parallel::detectCores())
+gdalcubes::gdalcubes_options(parallel = 4)
 s3 <- arrow::s3_bucket(
   config$s3_bucket_read,
   endpoint_override = config$endpoint,
@@ -32,10 +32,17 @@ message("GEFS v12 stage1-stats")
 bench::bench_time({
   s3_path <- s3$path(paste0(drivers_path, "/stage1-stats"))
   have_dates <- tryCatch(
-    gsub("reference_datetime=", "", s3_path$ls()),
-    error = function(e) character(0)
-  )
-  missing_dates <- dates[!(as.character(dates) %in% have_dates)]
+      gsub("reference_datetime=", "", s3_path$ls()),
+      error = function(e) character(0)
+    )
+    missing_dates <- purrr::keep(as.character(dates), function(d) {
+      if (!(d %in% have_dates)) return(TRUE)
+      have_sites <- tryCatch(
+        gsub("site_id=", "", s3_path$path(paste0("reference_datetime=", d))$ls()),
+        error = function(e) character(0)
+      )
+      !all(as.character(sites$site_id) %in% have_sites)
+    })
   gefs_to_parquet(missing_dates,
                   ensemble = c("geavg", "gespr"),
                   path     = s3_path,
@@ -44,10 +51,17 @@ bench::bench_time({
 message("GEFS v12 stage1")
 bench::bench_time({
   s3_path <- s3$path(paste0(drivers_path, "/stage1"))
-  have_dates <- tryCatch(
+have_dates <- tryCatch(
     gsub("reference_datetime=", "", s3_path$ls()),
     error = function(e) character(0)
   )
-  missing_dates <- dates[!(as.character(dates) %in% have_dates)]
+  missing_dates <- purrr::keep(as.character(dates), function(d) {
+    if (!(d %in% have_dates)) return(TRUE)
+    have_sites <- tryCatch(
+      gsub("site_id=", "", s3_path$path(paste0("reference_datetime=", d))$ls()),
+      error = function(e) character(0)
+    )
+    !all(as.character(sites$site_id) %in% have_sites)
+  })
   gefs_to_parquet(missing_dates, path = s3_path, sites = sites)
 })

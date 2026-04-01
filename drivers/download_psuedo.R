@@ -40,7 +40,7 @@ have_dates <- tryCatch(
     gsub("reference_datetime=", "", s3_path$ls()),
     error = function(e) character(0)
   )
-  missing_dates <- purrr::keep(as.character(dates), function(d) {
+  missing_dates <- purrr::keep(as.character(dates_pseudo), function(d) {
     if (!(d %in% have_dates)) return(TRUE)
     have_sites <- tryCatch(
       gsub("site_id=", "", s3_path$path(paste0("reference_datetime=", d))$ls()),

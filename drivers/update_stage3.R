@@ -62,6 +62,20 @@ purrr::map(site_list, function(curr_site_id) {
       dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) %>%
       dplyr::rename(parameter = ensemble)
 
+    # aggregate disease sites (6-digit numeric site_id) to monthly
+    is_disease <- nchar(as.character(curr_site_id)) == 6 & !grepl("-", curr_site_id)
+    if (is_disease) {
+      df2 <- df2 %>%
+        dplyr::mutate(month = lubridate::floor_date(datetime, "month")) %>%
+        dplyr::group_by(site_id, parameter, variable, month) %>%
+        dplyr::summarise(
+          prediction = mean(prediction, na.rm = TRUE),
+          datetime   = min(datetime),
+          .groups    = "drop"
+        ) %>%
+        dplyr::select(-month)
+    }
+    
     stage3_df %>%
       dplyr::filter(datetime < min(df2$datetime)) %>%
       dplyr::bind_rows(df2) %>%

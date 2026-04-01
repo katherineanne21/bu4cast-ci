@@ -92,9 +92,7 @@ if (length(missing_dates) > 0) {
             ) %>%
             dplyr::group_by(site_id, ensemble, variable, reference_datetime, month) %>%
             dplyr::summarise(
-              prediction = ifelse(variable[1] == "APCP",
-                                  sum(prediction, na.rm = TRUE),
-                                  mean(prediction, na.rm = TRUE)),
+              prediction = mean(prediction, na.rm = TRUE),
               datetime   = min(datetime),
               .groups    = "drop"
             ) %>%

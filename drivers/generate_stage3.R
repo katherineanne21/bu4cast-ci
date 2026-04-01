@@ -90,9 +90,7 @@ furrr::future_walk(site_list, function(curr_site_id) {
           dplyr::mutate(month = lubridate::floor_date(datetime, "month")) %>%
           dplyr::group_by(site_id, parameter, variable, month) %>%
           dplyr::summarise(
-            prediction = ifelse(variable[1] == "precipitation_flux",
-                                sum(prediction, na.rm = TRUE),
-                                mean(prediction, na.rm = TRUE)),
+            prediction = mean(prediction, na.rm = TRUE),
             datetime   = min(datetime),
             .groups    = "drop"
           ) %>%

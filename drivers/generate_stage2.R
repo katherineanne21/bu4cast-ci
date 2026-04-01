@@ -80,28 +80,21 @@ if (length(missing_dates) > 0) {
     }
 
     # disease sites are aggregated to weekly (sum for precipitation, mean for everything else)
-    if (nrow(site_coords_disease) > 0) {
-      disease_df <- arrow::open_dataset(s3_stage1) %>%
-        dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) %>%
-        dplyr::filter(site_id %in% site_coords_disease$site_id) %>%
-        dplyr::collect() %>%
-        dplyr::mutate(
-          reference_datetime = lubridate::as_date(missing_dates[i]),
-          datetime           = lubridate::as_datetime(datetime),
-          days_from_ref      = as.numeric(difftime(lubridate::as_date(datetime),
-                                                    reference_datetime, units = "days")),
-          week               = floor(days_from_ref / 7),
-          ensemble           = as.numeric(stringr::str_sub(as.character(ensemble), start = 4, end = 5))
-        ) %>%
-        dplyr::group_by(site_id, ensemble, variable, reference_datetime, week) %>%
-        dplyr::summarise(
-          prediction = ifelse(variable[1] == "APCP",
-                              sum(prediction, na.rm = TRUE),
-                              mean(prediction, na.rm = TRUE)),
-          datetime   = min(datetime),  # first datetime of the week
-          .groups    = "drop"
-        ) %>%
-        dplyr::select(-week) %>%
+    dplyr::mutate(
+              reference_datetime = lubridate::as_date(missing_dates[i]),
+              datetime           = lubridate::as_datetime(datetime),
+              month              = lubridate::floor_date(lubridate::as_date(datetime), "month"),
+              ensemble           = as.numeric(stringr::str_sub(as.character(ensemble), start = 4, end = 5))
+            ) %>%
+            dplyr::group_by(site_id, ensemble, variable, reference_datetime, month) %>%
+            dplyr::summarise(
+              prediction = ifelse(variable[1] == "APCP",
+                                  sum(prediction, na.rm = TRUE),
+                                  mean(prediction, na.rm = TRUE)),
+              datetime   = min(datetime),
+              .groups    = "drop"
+            ) %>%
+            dplyr::select(-month) %>%
         dplyr::rename(parameter = ensemble)
 
       arrow::write_dataset(disease_df, path = s3_stage2,

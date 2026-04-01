@@ -83,7 +83,7 @@ if (length(missing_dates) > 0) {
                            partitioning = c("reference_datetime", "site_id"))
     }
 
-    # disease sites are aggregated to weekly (sum for precipitation, mean for everything else)
+    # disease sites are aggregated to monthly (sum for precipitation, mean for everything else)
     dplyr::mutate(
               reference_datetime = lubridate::as_date(missing_dates[i]),
               datetime           = lubridate::as_datetime(datetime),

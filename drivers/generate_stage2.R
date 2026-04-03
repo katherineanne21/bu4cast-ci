@@ -16,54 +16,94 @@ metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target
 drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
 site_coords <- arrow::read_csv_arrow(
-  s3$path(paste0(metadata_path, "/field_sites.csv"))
+  s3$path(config$field_sites_path)
 ) %>%
   as.data.frame() %>%
-  dplyr::rename(site_id = field_site_id)
+  transmute(
+    site_id   = as.character(field_site_id),
+    latitude  = as.numeric(latitude),
+    longitude = as.numeric(longitude)
+  )
 
 message("Sites loaded: ", nrow(site_coords))
 
+# split sites by type (disease site ids have 6 digits)
+site_coords_standard <- site_coords %>% dplyr::filter(nchar(site_id) != 6)
+site_coords_disease  <- site_coords %>% dplyr::filter(nchar(site_id) == 6)
+
 s3_stage2 <- s3$path(paste0(drivers_path, "/stage2"))
 
-have_dates <- dplyr::tibble(
-  reference_datetime = tryCatch(
-    gsub("reference_datetime=", "", s3_stage2$ls()),
+have_dates <- tryCatch(
+  gsub("reference_datetime=", "", s3_stage2$ls()),
+  error = function(e) character(0)
+)
+
+curr_date <- Sys.Date()
+dates     <- as.character(seq(as.Date(config$gefs_start_date), curr_date - lubridate::days(1), by = "1 day"))
+
+missing_dates <- purrr::keep(dates, function(d) {
+  if (!(d %in% have_dates)) return(TRUE)
+  have_sites <- tryCatch(
+    gsub("site_id=", "", s3_stage2$path(paste0("reference_datetime=", d))$ls()),
     error = function(e) character(0)
   )
-)
-curr_date     <- Sys.Date()
-last_week <- dplyr::tibble(reference_datetime = as.character(seq(as.Date(config$gefs_start_date), curr_date - lubridate::days(1), by = "1 day")))
-missing_dates <- dplyr::anti_join(last_week, have_dates, by = "reference_datetime") %>%
-  dplyr::pull(reference_datetime)
+  !all(as.character(site_coords$site_id) %in% have_sites)
+})
+
+message("Missing or incomplete dates: ", length(missing_dates))
 
 if (length(missing_dates) > 0) {
   for (i in seq_along(missing_dates)) {
     print(missing_dates[i])
-
     s3_stage1 <- s3$path(
       paste0(drivers_path, "/stage1/reference_datetime=", missing_dates[i])
     )
-    
-    site_df <- arrow::open_dataset(s3_stage1) %>%
-      dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) %>%
-      dplyr::filter(site_id %in% site_coords$site_id) %>%
-      dplyr::collect() %>%
-      dplyr::mutate(reference_datetime = missing_dates[i]) %>%
-      dplyr::left_join(
-        site_coords %>% dplyr::select(site_id, latitude, longitude),
-        by = "site_id"
-      )
-    
-    site_df <- site_df %>%
-      dplyr::mutate(horizon = as.numeric(horizon, units = "hours"))
-          
-    hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%
-      dplyr::mutate(
-        ensemble           = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5)),
-        reference_datetime = lubridate::as_date(reference_datetime)
-      ) %>%
-      dplyr::rename(parameter = ensemble)
 
-    arrow::write_dataset(hourly_df, path = s3_stage2, partitioning = c("reference_datetime", "site_id"))
-  }
-}
+    # coastal + urban downscaled to hourly 
+    if (nrow(site_coords_standard) > 0) {
+      site_df <- arrow::open_dataset(s3_stage1) %>%
+        dplyr::filter(variable %in% c("PRES", "TMP", "RH", "UGRD", "VGRD", "APCP", "DSWRF", "DLWRF")) %>%
+        dplyr::filter(site_id %in% site_coords_standard$site_id) %>%
+        dplyr::collect() %>%
+        dplyr::mutate(reference_datetime = missing_dates[i]) %>%
+        dplyr::left_join(
+          site_coords_standard %>% dplyr::select(site_id, latitude, longitude),
+          by = "site_id"
+        ) %>%
+        dplyr::mutate(horizon = as.numeric(horizon, units = "hours"))
+
+      hourly_df <- to_hourly(site_df, use_solar_geom = TRUE, psuedo = FALSE) %>%
+        dplyr::mutate(
+          ensemble           = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5)),
+          reference_datetime = lubridate::as_date(reference_datetime)
+        ) %>%
+        dplyr::rename(parameter = ensemble)
+
+      arrow::write_dataset(hourly_df, path = s3_stage2,
+                           partitioning = c("reference_datetime", "site_id"))
+    }
+
+    # disease sites are aggregated to monthly 
+    if (nrow(site_coords_disease) > 0) {
+      disease_df <- arrow::open_dataset(s3_stage1) %>%
+        dplyr::filter(site_id %in% site_coords_disease$site_id) %>%
+        dplyr::mutate(
+          reference_datetime = lubridate::as_date(missing_dates[i]),
+          datetime           = lubridate::as_datetime(datetime),
+          month              = lubridate::floor_date(lubridate::as_date(datetime), "month"),
+          ensemble           = as.numeric(stringr::str_sub(as.character(ensemble), start = 4, end = 5))
+        ) %>%
+        dplyr::group_by(site_id, ensemble, variable, reference_datetime, month) %>%
+        dplyr::summarise(
+          prediction = mean(prediction, na.rm = TRUE),
+          datetime   = min(datetime),
+          .groups    = "drop"
+        ) %>%
+        dplyr::select(-month) %>%
+        dplyr::rename(parameter = ensemble)
+      
+      arrow::write_dataset(disease_df, path = s3_stage2,
+                           partitioning = c("reference_datetime", "site_id"))
+        }
+      }
+    }

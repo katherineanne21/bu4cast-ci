@@ -7,7 +7,7 @@ library(yaml)
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
-gdalcubes::gdalcubes_options(parallel = parallel::detectCores())
+gdalcubes::gdalcubes_options(parallel = 4)
 
 # Read bucket
 s3 <- arrow::s3_bucket(
@@ -22,7 +22,7 @@ metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target
 drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
 sites <- arrow::read_csv_arrow(
-  s3$path(paste0(metadata_path, "/field_sites.csv"))
+  s3$path(config$field_sites_path)
 ) %>%
   as.data.frame() %>%
   transmute(
@@ -30,6 +30,7 @@ sites <- arrow::read_csv_arrow(
     latitude  = as.numeric(latitude),
     longitude = as.numeric(longitude)
   )
+
 Sys.setenv("GEFS_VERSION" = "v12")
 
 dates_pseudo <- seq(as.Date(config$gefs_start_date), Sys.Date(), by = 1)

@@ -21,10 +21,14 @@ metadata_path <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$target
 drivers_path  <- gsub(paste0("^", config$s3_bucket_read, "/"), "", config$drivers_bucket)
 
 site_coords <- arrow::read_csv_arrow(
-  s3$path(paste0(metadata_path, "/field_sites.csv"))
+  s3$path(config$field_sites_path)
 ) %>%
   as.data.frame() %>%
-  dplyr::rename(site_id = field_site_id)
+  transmute(
+    site_id   = as.character(field_site_id),
+    latitude  = as.numeric(latitude),
+    longitude = as.numeric(longitude)
+  )
 
 site_list <- site_coords$site_id
 message("Sites loaded: ", length(site_list))
@@ -72,12 +76,29 @@ furrr::future_walk(site_list, function(curr_site_id) {
                   datetime     = lubridate::as_datetime(datetime)) |>
     dplyr::select(-date, -new_datetime)
 
-  print(curr_site_id)
-  df |>
-    to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
-    dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) |>
-    dplyr::rename(parameter = ensemble) |>
-    arrow::write_dataset(path = s3_w$path(paste0(drivers_path, "/stage3")),
-                         partitioning = "site_id")
-},
-.options = furrr::furrr_options(globals = "site_coords"))
+    print(curr_site_id)
+    
+      hourly_df <- df |>
+        to_hourly(use_solar_geom = TRUE, psuedo = TRUE) |>
+        dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) |>
+        dplyr::rename(parameter = ensemble)
+    
+      # aggregate disease sites (6-digit numeric site_id) to monthly
+      is_disease <- nchar(as.character(curr_site_id)) == 6 & !grepl("-", curr_site_id)
+      if (is_disease) {
+        hourly_df <- hourly_df %>%
+          dplyr::mutate(month = lubridate::floor_date(datetime, "month")) %>%
+          dplyr::group_by(site_id, parameter, variable, month) %>%
+          dplyr::summarise(
+            prediction = mean(prediction, na.rm = TRUE),
+            datetime   = min(datetime),
+            .groups    = "drop"
+          ) %>%
+          dplyr::select(-month)
+      }
+    
+      arrow::write_dataset(hourly_df,
+                           path         = s3_w$path(paste0(drivers_path, "/stage3")),
+                           partitioning = "site_id")
+    },
+    .options = furrr::furrr_options(globals = "site_coords"))

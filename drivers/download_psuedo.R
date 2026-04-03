@@ -38,15 +38,8 @@ dates_pseudo <- seq(as.Date(config$gefs_start_date), Sys.Date(), by = 1)
 message("GEFS v12 pseudo")
 s3_path    <- s3$path(paste0(drivers_path, "/pseudo"))
 have_dates <- tryCatch(
-    gsub("reference_datetime=", "", s3_path$ls()),
-    error = function(e) character(0)
-  )
-  missing_dates <- purrr::keep(as.character(dates_pseudo), function(d) {
-    if (!(d %in% have_dates)) return(TRUE)
-    have_sites <- tryCatch(
-      gsub("site_id=", "", s3_path$path(paste0("reference_datetime=", d))$ls()),
-      error = function(e) character(0)
-    )
-    !all(as.character(sites$site_id) %in% have_sites)
-  })
+  gsub("reference_datetime=", "", s3_path$ls()),
+  error = function(e) character(0)
+)
+missing_dates <- dates_pseudo[!(as.character(dates_pseudo) %in% have_dates)]
 gefs4cast:::gefs_pseudo_measures(missing_dates, path = s3_path, sites = sites)

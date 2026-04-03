@@ -86,23 +86,24 @@ if (length(missing_dates) > 0) {
     # disease sites are aggregated to monthly 
     if (nrow(site_coords_disease) > 0) {
       disease_df <- arrow::open_dataset(s3_stage1) %>%
+        dplyr::filter(site_id %in% site_coords_disease$site_id) %>%
         dplyr::mutate(
-                  reference_datetime = lubridate::as_date(missing_dates[i]),
-                  datetime           = lubridate::as_datetime(datetime),
-                  month              = lubridate::floor_date(lubridate::as_date(datetime), "month"),
-                  ensemble           = as.numeric(stringr::str_sub(as.character(ensemble), start = 4, end = 5))
-                ) %>%
-                dplyr::group_by(site_id, ensemble, variable, reference_datetime, month) %>%
-                dplyr::summarise(
-                  prediction = mean(prediction, na.rm = TRUE),
-                  datetime   = min(datetime),
-                  .groups    = "drop"
-                ) %>%
-                dplyr::select(-month) %>%
-            dplyr::rename(parameter = ensemble)
-    
-          arrow::write_dataset(disease_df, path = s3_stage2,
-                               partitioning = c("reference_datetime", "site_id"))
+          reference_datetime = lubridate::as_date(missing_dates[i]),
+          datetime           = lubridate::as_datetime(datetime),
+          month              = lubridate::floor_date(lubridate::as_date(datetime), "month"),
+          ensemble           = as.numeric(stringr::str_sub(as.character(ensemble), start = 4, end = 5))
+        ) %>%
+        dplyr::group_by(site_id, ensemble, variable, reference_datetime, month) %>%
+        dplyr::summarise(
+          prediction = mean(prediction, na.rm = TRUE),
+          datetime   = min(datetime),
+          .groups    = "drop"
+        ) %>%
+        dplyr::select(-month) %>%
+        dplyr::rename(parameter = ensemble)
+      
+      arrow::write_dataset(disease_df, path = s3_stage2,
+                           partitioning = c("reference_datetime", "site_id"))
         }
       }
     }

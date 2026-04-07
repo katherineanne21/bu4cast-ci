@@ -580,6 +580,71 @@ progress_msg("CCI download", 0, total_days)
   }
 }
 
+## Calculate correction factors dynamically 
+message("Calculating dynamic correction factors...")
+
+if (!is.null(old_data) && nrow(old_data) > 0) {
+  
+  correction_factor <- old_data %>%
+    dplyr::filter(variable %in% c("chlora_buoy", "chlora_cci")) %>%
+    dplyr::mutate(date = as.Date(substr(datetime, 1, 10))) %>%
+    dplyr::select(variable, date, observation) %>%
+    dplyr::filter(!is.na(observation), observation > 0) %>%
+    tidyr::pivot_wider(
+      names_from  = variable,
+      values_from = observation,
+      values_fn   = list(observation = mean)
+    ) %>%
+    dplyr::filter(!is.na(chlora_buoy), !is.na(chlora_cci)) %>%
+    dplyr::mutate(
+      ratio = chlora_cci / chlora_buoy,
+      month = lubridate::month(date)
+    ) %>%
+    dplyr::group_by(month) %>%
+    dplyr::summarise(
+      median_ratio = median(ratio, na.rm = TRUE),
+      .groups = "drop"
+    )
+  
+  message("Correction factors calculated for ", nrow(correction_factor), " months")
+
+} else {
+  message("No existing data to calculate correction factors from; skipping corrections.")
+  correction_factor <- NULL
+}
+
+## Calculate exclude dates dynamically (high turbidity dates)
+if (!is.null(old_data) && nrow(old_data) > 0 && !is.null(correction_factor)) {
+  
+  exclude_dates <- old_data %>%
+    dplyr::filter(variable %in% c("chlora_buoy", "chlora_cci")) %>%
+    dplyr::mutate(date = as.Date(substr(datetime, 1, 10))) %>%
+    dplyr::select(variable, date, observation) %>%
+    dplyr::filter(!is.na(observation), observation > 0) %>%
+    tidyr::pivot_wider(
+      names_from  = variable,
+      values_from = observation,
+      values_fn   = list(observation = mean)
+    ) %>%
+    dplyr::filter(!is.na(chlora_buoy), !is.na(chlora_cci)) %>%
+    dplyr::mutate(
+      month = lubridate::month(date)
+    ) %>%
+    dplyr::left_join(correction_factor, by = "month") %>%
+    dplyr::mutate(
+      chlora_cci_corrected = chlora_cci / median_ratio,
+      ratio = chlora_cci_corrected / chlora_buoy
+    ) %>%
+    dplyr::filter(ratio > 5 | ratio < 1/5 | chlora_buoy <= 0.001) %>%
+    dplyr::pull(date) %>%
+    unique()
+  
+  message("Exclude dates calculated: ", length(exclude_dates))
+
+} else {
+  exclude_dates <- as.Date(character(0))
+}
+          
 ## Format
 message("Formatting to standard format...")
 
@@ -615,6 +680,7 @@ if (!exists("buoy_has_data") || !isTRUE(buoy_has_data)) {
 } else {
   buoy_formatted <- buoy_data %>%
     dplyr::select(date, chlorophyll) %>%
+    dplyr::filter(chlorophyll > 0.001) %>%
     to_standard_chlora(site_id = buoy_site_id, mode = "buoy")
 }
 
@@ -650,17 +716,36 @@ if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
 
   cci_daily <- cci_data %>%
     dplyr::transmute(
-      date = as.Date(date),
+      date        = as.Date(date),
       chlorophyll = as.numeric(chlorophyll_mean)
     ) %>%
     dplyr::mutate(
       chlorophyll = dplyr::if_else(is.nan(chlorophyll), NA_real_, chlorophyll)
     )
 
-  cci_formatted <- cci_daily %>%
-  to_standard_chlora(site_id = buoy_site_id, mode = "cci")
-}
+  # apply monthly correction factor if available
+  if (!is.null(correction_factor)) {
+    cci_daily <- cci_daily %>%
+      dplyr::mutate(month = lubridate::month(date)) %>%
+      dplyr::left_join(correction_factor, by = "month") %>%
+      dplyr::mutate(
+        chlorophyll = dplyr::if_else(
+          !is.na(median_ratio) & median_ratio > 0,
+          chlorophyll / median_ratio,
+          chlorophyll
+        )
+      ) %>%
+      dplyr::select(-month, -median_ratio)
+  }
 
+  # filter exclude dates and minimum buoy chlorophyll
+  cci_daily <- cci_daily %>%
+    dplyr::filter(!date %in% exclude_dates)
+
+  cci_formatted <- cci_daily %>%
+    to_standard_chlora(site_id = buoy_site_id, mode = "cci")
+}
+          
 # Combine
 all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted, cci_formatted)
 

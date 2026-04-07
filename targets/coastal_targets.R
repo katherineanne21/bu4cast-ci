@@ -217,7 +217,7 @@ if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
   message(paste("Found", total_files, "new files to download"))
 
   # cores 
-  ncore <- max(1, min(1, parallel::detectCores() - 1, total_files))
+  ncore <- max(4, min(1, parallel::detectCores() - 1, total_files))
 
   progress_msg("MODIS download", 0, total_files)
 
@@ -580,12 +580,12 @@ progress_msg("CCI download", 0, total_days)
   }
 }
 
-## Calculate correction factors dynamically 
+## Calculate correction factors dynamically from existing paired data
 message("Calculating dynamic correction factors...")
 
 if (!is.null(old_data) && nrow(old_data) > 0) {
-  
-  correction_factor <- old_data %>%
+
+  paired_hist <- old_data %>%
     dplyr::filter(variable %in% c("chlora_buoy", "chlora_cci")) %>%
     dplyr::mutate(date = as.Date(substr(datetime, 1, 10))) %>%
     dplyr::select(variable, date, observation) %>%
@@ -595,27 +595,17 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
       values_from = observation,
       values_fn   = list(observation = mean)
     ) %>%
-    dplyr::filter(!is.na(chlora_buoy), !is.na(chlora_cci)) %>%
+    dplyr::filter(
+      !is.na(chlora_buoy), !is.na(chlora_cci),
+      chlora_buoy > 0.001
+    ) %>%
     dplyr::mutate(
       ratio = chlora_cci / chlora_buoy,
       month = lubridate::month(date)
     ) %>%
-    dplyr::group_by(month) %>%
-    dplyr::summarise(
-      median_ratio = median(ratio, na.rm = TRUE),
-      .groups = "drop"
-    )
-  
-  message("Correction factors calculated for ", nrow(correction_factor), " months")
+    dplyr::filter(ratio <= 5 & ratio >= 1/5)  # threshold on raw ratio first
 
-} else {
-  message("No existing data to calculate correction factors from; skipping corrections.")
-  correction_factor <- NULL
-}
-
-## Calculate exclude dates dynamically (high turbidity dates)
-if (!is.null(old_data) && nrow(old_data) > 0 && !is.null(correction_factor)) {
-  
+  # calculate exclude dates as dates that failed the raw threshold
   exclude_dates <- old_data %>%
     dplyr::filter(variable %in% c("chlora_buoy", "chlora_cci")) %>%
     dplyr::mutate(date = as.Date(substr(datetime, 1, 10))) %>%
@@ -628,21 +618,24 @@ if (!is.null(old_data) && nrow(old_data) > 0 && !is.null(correction_factor)) {
     ) %>%
     dplyr::filter(!is.na(chlora_buoy), !is.na(chlora_cci)) %>%
     dplyr::mutate(
-      month = lubridate::month(date)
-    ) %>%
-    dplyr::left_join(correction_factor, by = "month") %>%
-    dplyr::mutate(
-      chlora_cci_corrected = chlora_cci / median_ratio,
-      ratio = chlora_cci_corrected / chlora_buoy
+      ratio = chlora_cci / chlora_buoy
     ) %>%
     dplyr::filter(ratio > 5 | ratio < 1/5 | chlora_buoy <= 0.001) %>%
     dplyr::pull(date) %>%
     unique()
-  
+
   message("Exclude dates calculated: ", length(exclude_dates))
 
+  correction_factor <- paired_hist %>%
+    dplyr::group_by(month) %>%
+    dplyr::summarise(
+      median_ratio = median(ratio, na.rm = TRUE),
+      .groups = "drop"
+    )
+  
 } else {
-  exclude_dates <- as.Date(character(0))
+  correction_factor <- NULL
+  exclude_dates     <- as.Date(character(0))
 }
           
 ## Format

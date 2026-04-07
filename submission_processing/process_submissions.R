@@ -21,6 +21,8 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 
+config$endpoint <- sub("^\\[([^]]+)\\]\\([^)]+\\)$", "\\1", config$endpoint)
+
 print(config)
 print(config$endpoint)
 cat("Raw endpoint:", config$endpoint, "\n")

@@ -45,7 +45,8 @@ message("Downloading forecasts ...")
 
 # Download write bucket to local directory 
 
-minioclient::mc_mirror(from = paste(config$endpoint, config$s3_bucket_write, config$submissions_bucket, sep = "/"), to = local_dir)
+minioclient::mc_mirror(from = paste0(config$s3_bucket_write,
+                                     config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir
 submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)] # filter usgsrc4cast files out 

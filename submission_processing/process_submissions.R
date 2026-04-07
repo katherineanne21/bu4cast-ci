@@ -21,22 +21,14 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 
-read_bucket = config$s3_bucket_read
-write_bucket = config$s3_bucket_write
-endpoint = config$submissions_endpoint
-
-print(read_bucket)
-print(write_bucket)
-print(endpoint)
-
 # Set up minio connections
-minioclient::mc_alias_set(read_bucket,
-                          endpoint,
+minioclient::mc_alias_set(config$s3_bucket_read,
+                          config$submissions_endpoint,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
-minioclient::mc_alias_set(write_bucket,
-                          endpoint,
+minioclient::mc_alias_set(config$s3_bucket_write,
+                          config$submissions_endpoint,
                           Sys.getenv("OSN_KEY"),
                           Sys.getenv("OSN_SECRET"))
 
@@ -53,7 +45,7 @@ message("Downloading forecasts ...")
 
 # Download write bucket to local directory 
 
-minioclient::mc_mirror(from = paste(endpoint, write_bucket, config$submissions_bucket, sep = "/"), to = local_dir)
+minioclient::mc_mirror(from = paste(config$endpoint, config$s3_bucket_write, config$submissions_bucket, sep = "/"), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir
 submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)] # filter usgsrc4cast files out 

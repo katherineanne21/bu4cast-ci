@@ -23,7 +23,7 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
 
 read_bucket = config$s3_bucket_read
 write_bucket = config$s3_bucket_write
-endpoint = config$endpoint
+endpoint = config$submissions_endpoint
 
 print(read_bucket)
 print(read_bucket)

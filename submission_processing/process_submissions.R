@@ -48,7 +48,6 @@ message("Downloading forecasts ...")
 minioclient::mc_mirror(from = paste0(config$endpoint, "/", config$s3_bucket_write, "/", config$submissions_bucket), to = local_dir)
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir
-submissions <- submissions[stringr::str_detect(submissions, "2023", negate = TRUE)] # filter out 2023 -> should we change this to 2024?
 submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)] # filter usgsrc4cast files out 
 
 submissions_filenames <- basename(submissions) # grab just the filename not full path
@@ -61,43 +60,49 @@ if(length(submissions) > 0){
   Sys.unsetenv("AWS_S3_ENDPOINT")
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
-  # Connect to DuckDB
+  # Connect to DuckDB - helps write to S3 bucket
   
   duckdbfs::duckdb_secrets(
                          endpoint = config$endpoint,
                          key = Sys.getenv("OSN_KEY"),
                          secret = Sys.getenv("OSN_SECRET"))
 
-  s3 <- arrow::s3_bucket(config$forecasts_bucket,
+  s3_read <- arrow::s3_bucket(config$s3_bucket_read,
                          endpoint_override = config$endpoint,
                          access_key = Sys.getenv("OSN_KEY"),
                          secret_key = Sys.getenv("OSN_SECRET"))
 
   time_stamp <- format(Sys.time(), format = "%Y%m%d%H%M%S")
 
+  # Process each submission
+  
   for(i in 1:length(submissions)){
 
-    curr_submission <- basename(submissions[i])
-    theme <-  stringr::str_split(curr_submission, "-")[[1]][1]
-    file_name_model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5]
-    file_name_reference_datetime <- lubridate::as_datetime(paste0(stringr::str_split(curr_submission, "-")[[1]][2:4], collapse = "-"))
-    submission_dir <- dirname(submissions[i])
+    curr_submission <- basename(submissions[i]) # grab submission name
+    theme <-  stringr::str_split(curr_submission, "-")[[1]][1] # grab category
+    file_name_model_id <-  stringr::str_split(tools::file_path_sans_ext(tools::file_path_sans_ext(curr_submission)), "-")[[1]][5] # Grab model_id
+    file_name_reference_datetime <- lubridate::as_datetime(paste0(stringr::str_split(curr_submission, "-")[[1]][2:4], collapse = "-")) # Grab date of submission
+    submission_dir <- dirname(submissions[i]) # grab submission directory
     print(curr_submission)
 
     # not_tg <- stringr::str_detect(curr_submission, "tg", negate = TRUE)
     not_tg <- TRUE
-    recent_date <- file_name_reference_datetime > lubridate::as_date("2023-12-31") #(Sys.Date() - lubridate::days(30))
 
-    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & recent_date & !is.na(file_name_reference_datetime)){
+    # Only read in correctly formatted filenames
+    if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & !is.na(file_name_reference_datetime)){
 
+      # Check format of file itself (eco4cast)
       valid <- forecast_output_validator(file.path(local_dir, curr_submission))
 
       if(valid){
-
+        
+        # Pull out forecast
         fc <- read4cast::read_forecast(submissions[i])
 
+        # Get current datetime
         pub_datetime <- strftime(Sys.time(), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
 
+        # Clean duration
         if(!"duration" %in% names(fc)){
           if(theme == "terrestrial_30min"){
             fc <- fc |> dplyr::mutate(duration = "PT30M")
@@ -117,39 +122,45 @@ if(length(submissions) > 0){
         fc <- fc |>
           mutate(duration = ifelse(duration == "PT30", "PT30M", duration))
 
-        # FILTER HORIZONS LONGER THAN ALLOWED
-
+        # Filter out horizons that are too long
+        # Could include in config if possible
         fc <- fc |>
           mutate(horizon = as.integer(as.POSIXct(datetime) - as.POSIXct(reference_datetime))/ (60*60*24),
-                 max_horizon = ifelse(variable %in% c("amblyomma_americanum", "richness", "abundance"), 720, 35)) |>
+                 max_horizon = 35) |>
           filter(horizon <= max_horizon) |>
           select(-horizon, -max_horizon)
 
+        # Switch ensemble to sample
         fc <- fc |>
           mutate(family = ifelse(family == "ensemble", "sample", family))
 
+        # If needed, add/fill model id column
         if(!("model_id" %in% colnames(fc))){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }else if(fc$model_id[1] == "null"){
           fc <- fc |> mutate(model_id = file_name_model_id)
         }
 
+        # If needed, add reference_datetime
         if(!("reference_datetime" %in% colnames(fc))){
           fc <- fc |> mutate(reference_datetime = file_name_reference_datetime)
         }
 
+        # Set column types and project id
         fc <- fc |>
           dplyr::mutate(pub_datetime = lubridate::as_datetime(pub_datetime),
                         datetime = lubridate::as_datetime(datetime),
                         reference_datetime = lubridate::as_datetime(reference_datetime),
                         reference_date = lubridate::as_date(reference_datetime),
                         parameter = as.character(parameter),
-                        project_id = "neon4cast") |>
+                        project_id = config$project_id) |>
           dplyr::filter(datetime >= reference_datetime)
 
         print(head(fc))
-        s3$CreateDir(paste0("parquet/"))
-
+        
+        # Add in a parquet for the read bucket
+        s3_read$CreateDir(paste0("parquet/"))
+##
         ## arrow write has gone nuts... let's update
         fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
                                       format = 'parquet',
@@ -161,7 +172,7 @@ if(length(submissions) > 0){
                                       options = list("PER_THREAD_OUTPUT false"))
         print("creating summaries")
 
-        s3$CreateDir(paste0("summaries"))
+        s3_read$CreateDir(paste0("summaries"))
         fc |>
           dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
                                                                                 "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>

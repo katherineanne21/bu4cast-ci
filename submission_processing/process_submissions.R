@@ -21,6 +21,10 @@ sites <- readr::read_csv(config$catalog_config$site_metadata_url, show_col_types
   select(field_site_id, latitude, longitude) |>
   rename(site_id = field_site_id)
 
+print(config)
+print(config$endpoint)
+cat("Raw endpoint:", config$endpoint, "\n")
+
 # Set up minio connections
 minioclient::mc_alias_set(config$s3_bucket_read,
                           config$endpoint,

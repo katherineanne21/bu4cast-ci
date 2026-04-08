@@ -54,8 +54,8 @@ old_data <- tryCatch(
 buoy_site_id <- "1"
 
 # Full history from 2006
-start_date_buoy  <- as.Date("2006-01-01")
-start_date_cci   <- as.Date("2006-01-01")
+start_date_buoy  <- as.Date("2025-12-01")
+start_date_cci   <- as.Date("2025-12-01")
 
 end_date <- as.Date(Sys.Date() - 1)  # yesterday
 

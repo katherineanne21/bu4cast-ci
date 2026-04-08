@@ -83,20 +83,6 @@ furrr::future_walk(site_list, function(curr_site_id) {
         dplyr::mutate(ensemble = as.numeric(stringr::str_sub(ensemble, start = 4, end = 5))) |>
         dplyr::rename(parameter = ensemble)
     
-      # aggregate disease sites (6-digit numeric site_id) to monthly
-      is_disease <- nchar(as.character(curr_site_id)) == 6 & !grepl("-", curr_site_id)
-      if (is_disease) {
-        hourly_df <- hourly_df %>%
-          dplyr::mutate(month = lubridate::floor_date(datetime, "month")) %>%
-          dplyr::group_by(site_id, parameter, variable, month) %>%
-          dplyr::summarise(
-            prediction = mean(prediction, na.rm = TRUE),
-            datetime   = min(datetime),
-            .groups    = "drop"
-          ) %>%
-          dplyr::select(-month)
-      }
-    
       arrow::write_dataset(hourly_df,
                            path         = s3_w$path(paste0(drivers_path, "/stage3")),
                            partitioning = "site_id")

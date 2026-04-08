@@ -1,5 +1,5 @@
 ## Coastal Targets Script for BU FRP Coastal
-## Downloads buoy, MODIS, and CCI data, formats to standard, writes to S3
+## Downloads buoy and CCI chlorophyll-a data, formats to standard, writes to S3
 ## Author: Cami Webb, cwebb16@bu.edu
 ## Created: 02-18-2025
 
@@ -19,9 +19,6 @@ library(yaml)
 progress_msg <- function(label, i, n) {
   message(sprintf("[%s] %d / %d", label, i, n))
 }
-
-# Source NASA download function (Author: Dongchen Zhang)
-source("targets/R/NASA_DAAC_download.R")
 
 config <- yaml::read_yaml("challenge_configuration.yaml")
 
@@ -58,7 +55,6 @@ buoy_site_id <- "1"
 
 # Full history from 2006
 start_date_buoy  <- as.Date("2006-01-01")
-start_date_modis <- as.Date("2006-01-01")
 start_date_cci   <- as.Date("2006-01-01")
 
 end_date <- as.Date(Sys.Date() - 1)  # yesterday
@@ -66,17 +62,11 @@ end_date <- as.Date(Sys.Date() - 1)  # yesterday
 if (!is.null(old_data) && nrow(old_data) > 0) {
 
   old_buoy  <- old_data[old_data$variable == "chlora_buoy",  , drop = FALSE]
-  old_modis <- old_data[old_data$variable == "chlora_modis", , drop = FALSE]
   old_cci   <- old_data[old_data$variable == "chlora_cci",   , drop = FALSE]
 
   if (nrow(old_buoy) > 0) {
     last_buoy_date <- max(as.Date(substr(old_buoy$datetime, 1, 10)), na.rm = TRUE)
     if (is.finite(last_buoy_date)) start_date_buoy <- last_buoy_date + 1
-  }
-
-  if (nrow(old_modis) > 0) {
-    last_modis_date <- max(as.Date(substr(old_modis$datetime, 1, 10)), na.rm = TRUE)
-    if (is.finite(last_modis_date)) start_date_modis <- last_modis_date + 1
   }
 
   if (nrow(old_cci) > 0) {
@@ -87,12 +77,10 @@ if (!is.null(old_data) && nrow(old_data) > 0) {
 
 # If already up-to-date, skip downloads
 if (start_date_buoy  > end_date) message("Buoy already up-to-date; no buoy download needed.")
-if (start_date_modis > end_date) message("MODIS already up-to-date; no MODIS download needed.")
 if (start_date_cci   > end_date) message("CCI already up-to-date; no CCI download needed.")
 
 # Convert to character to be safe
 start_date_buoy_chr  <- as.character(start_date_buoy)
-start_date_modis_chr <- as.character(start_date_modis)
 end_date_chr         <- as.character(end_date)
 
 ## Download buoy data
@@ -176,206 +164,6 @@ if (!buoy_has_data) {
     rm(buoy_daily)
   }
 }
-
-## Download MODIS Aqua data
-
-message("Downloading MODIS-Aqua Level 2 OC data...")
-
-# Calculate bounding box for 5x5 pixels at 1km
-box_size_deg <- (1 * 5 * 0.04) / 2
-
-ul_lat <- buoy_lat + box_size_deg
-lr_lat <- buoy_lat - box_size_deg
-ul_lon <- buoy_lon - box_size_deg
-lr_lon <- buoy_lon + box_size_deg
-
-# DOI for Level 2 OC
-modis_doi <- "10.5067/AQUA/MODIS/L2/OC/2022.0"
-
-# Set up temp download directory
-modis_dir <- file.path(tempdir(), "modis")
-dir.create(modis_dir, showWarnings = FALSE, recursive = TRUE)
-
-if (as.Date(start_date_modis_chr) > as.Date(end_date_chr)) {
-  message("MODIS already up-to-date; skipping MODIS download.")
-  modis_files <- character(0)
-} else {
-
-  # Get all URLs to know total count
-  all_urls <- NASA_DAAC_download(
-    ul_lat = ul_lat,
-    ul_lon = ul_lon,
-    lr_lat = lr_lat,
-    lr_lon = lr_lon,
-    from = start_date_modis_chr,
-    to   = end_date_chr,
-    doi  = modis_doi,
-    just_path = TRUE
-  )
-
-  total_files <- length(all_urls)
-  message(paste("Found", total_files, "new files to download"))
-
-  # cores 
-  ncore <- max(4, min(1, parallel::detectCores() - 1, total_files))
-
-  progress_msg("MODIS download", 0, total_files)
-
-  # Download
-  message("Starting MODIS Aqua downloads...")
-  modis_files <- NASA_DAAC_download(
-    ul_lat = ul_lat,
-    ul_lon = ul_lon,
-    lr_lat = lr_lat,
-    lr_lon = lr_lon,
-    from = start_date_modis_chr,
-    to   = end_date_chr,
-    doi = modis_doi,
-    outdir = modis_dir,
-    credential_path = "~/.netrc",
-    ncore = ncore,
-    just_path = FALSE
-  )
-
-  progress_msg("MODIS download", length(modis_files), total_files)
-
-  # If download returned NA (all files already exist)
- if (length(modis_files) == 1 && is.na(modis_files)) {
-  modis_files <- list.files(modis_dir, pattern = "\\.nc$", full.names = TRUE)
-}
-
-message(paste("Successfully downloaded", length(modis_files), "files"))
-  }
-
-## Process MODIS data
-
-message("Processing MODIS 5x5 pixel boxes...")
-
-process_modis <- function(ncfile, buoy_lon, buoy_lat) {
-
-  nc <- nc_open(ncfile)
-  on.exit(nc_close(nc), add = TRUE)
-
-  chl <- ncvar_get(nc, "geophysical_data/chlor_a")
-  kd  <- ncvar_get(nc, "geophysical_data/Kd_490")
-  l2f <- ncvar_get(nc, "geophysical_data/l2_flags")
-  poc <- ncvar_get(nc, "geophysical_data/poc")
-  pic <- ncvar_get(nc, "geophysical_data/pic")
-  lon <- ncvar_get(nc, "navigation_data/longitude")
-  lat <- ncvar_get(nc, "navigation_data/latitude")
-
-  # Get rid of negative/fill values
-  chl[chl < 0] <- NA
-  kd[kd < 0] <- NA
-  poc[poc < 0] <- NA
-  pic[pic < 0] <- NA
-
-  # Calculate center of 5x5 box
-  d2 <- (lon - buoy_lon)^2 + (lat - buoy_lat)^2 # compute distance to buoy for each pixel
-  idx <- which.min(d2) # index of closest pixel
-  ij  <- arrayInd(idx, dim(chl))  # convert to row+column
-  r0 <- ij[1]; c0 <- ij[2] # center of 5x5 box
-
-  # 5x5 window bounds (centered on pixel closest to buoy)
-  r1 <- max(1, r0 - 2); r2 <- min(nrow(chl), r0 + 2)
-  c1 <- max(1, c0 - 2); c2 <- min(ncol(chl), c0 + 2)
-
-  l2_flags <- l2f[r1:r2, c1:c2] # matrix of flags in box
-  l2_flags_json <- jsonlite::toJSON(l2_flags, auto_unbox = TRUE)
-
-  # 5x5 windows
-  chl_vals <- as.vector(chl[r1:r2, c1:c2])
-  kd_vals  <- as.vector(kd[r1:r2,  c1:c2])
-  poc_vals  <- as.vector(poc[r1:r2,  c1:c2])
-  pic_vals  <- as.vector(pic[r1:r2,  c1:c2])
-
-  chl_vals <- chl_vals[is.finite(chl_vals)]
-  kd_vals  <- kd_vals[is.finite(kd_vals)]
-  poc_vals  <- poc_vals[is.finite(poc_vals)]
-  pic_vals  <- pic_vals[is.finite(pic_vals)]
-
-  # if all empty, skip
-  if (length(chl_vals) == 0 && length(kd_vals) == 0 && length(poc_vals) == 0 && length(pic_vals) == 0) {
-    return(NULL)
-  }
-
-  # Get date from filename
-  m <- regmatches(basename(ncfile), regexpr("\\.\\d{8}T\\d{6}", basename(ncfile)))
-  if (length(m) == 0) return(NULL)
-  file_date <- as.Date(substr(m, 2, 9), format = "%Y%m%d")
-
-  data.frame(
-    date = file_date,
-    chlorophyll_mean = mean(chl_vals),
-    chlorophyll_sd   = if (length(chl_vals) > 1) sd(chl_vals) else NA_real_,
-    chlorophyll_n    = length(chl_vals),
-
-    kd490_mean = if (length(kd_vals) > 0) mean(kd_vals) else NA_real_,
-    kd490_sd   = if (length(kd_vals) > 1) sd(kd_vals) else NA_real_,
-    kd490_n    = length(kd_vals),
-
-    poc_mean = if (length(poc_vals) > 0) mean(poc_vals) else NA_real_,
-    poc_sd   = if (length(poc_vals) > 1) sd(poc_vals) else NA_real_,
-    poc_n    = length(poc_vals),
-
-    pic_mean = if (length(pic_vals) > 0) mean(pic_vals) else NA_real_,
-    pic_sd   = if (length(pic_vals) > 1) sd(pic_vals) else NA_real_,
-    pic_n    = length(pic_vals),
-
-    l2_flags = l2_flags_json,   # flags
-    file = basename(ncfile),
-    stringsAsFactors = FALSE
-  )
-}
-
-# Check which dates exist already
-existing_dates <- as.Date(character(0))
-if (exists("old_data") && !is.null(old_data)) {
-  old_df <- as.data.frame(old_data)
-  old_modis <- old_df[old_df$variable == "chlora_modis", , drop = FALSE]
-if (nrow(old_modis) > 0) {
-  existing_dates <- unique(as.Date(substr(old_modis$datetime, 1, 10)))
-  existing_dates <- existing_dates[!is.na(existing_dates)]
-}
-}
-
-# Only process new files/dates
-file_dates <- vapply(modis_files, function(fp) {
-  m <- regmatches(basename(fp), regexpr("\\.\\d{8}T\\d{6}", basename(fp)))
-  if (length(m) == 0) return(NA_character_)
-  as.character(as.Date(substr(m, 2, 9), format = "%Y%m%d"))
-}, character(1))
-file_dates <- as.Date(file_dates)
-
-to_process <- modis_files[is.na(file_dates) | !(file_dates %in% existing_dates)]
-message("MODIS files: ", length(modis_files), " | to process: ", length(to_process))
-
-# loop to process
-out <- vector("list", length(to_process))
-k_modis <- 0L
-
-for (i in seq_along(to_process)) {
-  res <- tryCatch(
-    process_modis(to_process[i], buoy_lon, buoy_lat),
-    error = function(e) {
-      message("MODIS failed: ", basename(to_process[i]), " :: ", e$message)
-      NULL
-    }
-  )
-
-  if (!is.null(res)) {
-    k_modis <- k_modis + 1L
-    out[[k_modis]] <- res
-  }
-
-  if (i %% 50 == 0) gc()
-}
-
-# Trim
-out <- out[seq_len(k_modis)]
-
-# Make df for MODIS data
-modis_data <- if (k_modis == 0) data.frame() else do.call(rbind, out[seq_len(k_modis)])
 
 ## Download OC_CCI data (https://rsg.pml.ac.uk/thredds/catalog-cci.html -> CCI_ALL-v6.0-1km-DAILY)
 
@@ -677,30 +465,6 @@ if (!exists("buoy_has_data") || !isTRUE(buoy_has_data)) {
     to_standard_chlora(site_id = buoy_site_id, mode = "buoy")
 }
 
-# MODIS formatted or empty
-if (!exists("modis_data") || is.null(modis_data) || nrow(modis_data) == 0) {
-  message("No usable MODIS observations; modis_formatted will be empty.")
-  modis_formatted <- empty_targets()
-} else {
-
-  # collapse multiple granules per day
-  modis_daily <- modis_data %>%
-    dplyr::group_by(date) %>%
-    dplyr::summarise(
-      chlorophyll = mean(chlorophyll_mean, na.rm = TRUE),
-      kd_490      = mean(kd490_mean,       na.rm = TRUE),
-      poc         = mean(poc_mean,         na.rm = TRUE),
-      pic         = mean(pic_mean,         na.rm = TRUE),
-      .groups = "drop"
-    ) %>%
-    dplyr::mutate(across(c(chlorophyll, kd_490, poc, pic),
-                         ~ dplyr::if_else(is.nan(.x), NA_real_, .x)))
-
-  modis_formatted <- modis_daily %>%
-  dplyr::transmute(date = date, chlorophyll = chlorophyll) %>%
-  to_standard_chlora(site_id = buoy_site_id, mode = "modis")
-}
-
 # CCI formatted or empty
 if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
   message("No usable, new CCI observations; cci_formatted will be empty.")
@@ -740,7 +504,7 @@ if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
 }
           
 # Combine
-all_targets <- dplyr::bind_rows(buoy_formatted, modis_formatted, cci_formatted)
+all_targets <- dplyr::bind_rows(buoy_formatted, cci_formatted)
 
 ## Append to existing data
 
@@ -796,9 +560,6 @@ if (nrow(all_targets) == 0) {
   arrow::write_csv_arrow(new_data, sink = s3$path(filename))
 }
 
-if (exists("modis_files")) {
-  suppressWarnings(try(unlink(modis_files), silent = TRUE))
-}
 
 message("Pinging health check...")
 tryCatch(

@@ -74,6 +74,8 @@ if(length(submissions) > 0){
   )
   "
   
+  conn <- dbConnect(duckdb())
+  
   DBI::dbExecute(
     conn,
     sql,

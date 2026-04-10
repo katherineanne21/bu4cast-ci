@@ -10,6 +10,8 @@ library(tools)
 library(fs)
 library(stringr)
 library(lubridate)
+library(duckdb)
+library(DBI)
 
 install_mc()
 

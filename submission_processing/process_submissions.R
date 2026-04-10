@@ -64,6 +64,8 @@ if(length(submissions) > 0){
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
   # Connect to DuckDB - helps write to S3 bucket
+  key_id   <- Sys.getenv("AWS_ACCESS_KEY_ID", "")
+  secret   <- Sys.getenv("AWS_SECRET_ACCESS_KEY", "")
   
   sql <- sprintf("
   CREATE OR REPLACE SECRET s3_minio_osn (

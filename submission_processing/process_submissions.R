@@ -64,8 +64,8 @@ if(length(submissions) > 0){
   Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
   # Connect to DuckDB - helps write to S3 bucket
-  key_id   <- Sys.getenv("AWS_ACCESS_KEY_ID", "")
-  secret   <- Sys.getenv("AWS_SECRET_ACCESS_KEY", "")
+  key_id   <- Sys.getenv("OSN_KEY", "")
+  secret   <- Sys.getenv("OSN_SECRET", "")
   
   conn <- dbConnect(duckdb())
   DBI::dbExecute(conn, "INSTALL httpfs;")
@@ -182,7 +182,7 @@ if(length(submissions) > 0){
         
         # Add in a parquet for the read bucket
         s3_read$CreateDir(paste0("parquet/"))
-##
+
         ## arrow write has gone nuts... let's update
         fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
                                       format = 'parquet',

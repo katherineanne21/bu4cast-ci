@@ -66,7 +66,8 @@ if(length(submissions) > 0){
   duckdbfs::duckdb_secrets(
                          endpoint = config$endpoint,
                          key = Sys.getenv("OSN_KEY"),
-                         secret = Sys.getenv("OSN_SECRET"))
+                         secret = Sys.getenv("OSN_SECRET"),
+                         secret_name = config$duckdb_secret_name)
 
   s3_read <- arrow::s3_bucket(config$s3_bucket_read,
                          endpoint_override = config$endpoint,

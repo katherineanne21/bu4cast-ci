@@ -67,6 +67,10 @@ if(length(submissions) > 0){
   key_id   <- Sys.getenv("AWS_ACCESS_KEY_ID", "")
   secret   <- Sys.getenv("AWS_SECRET_ACCESS_KEY", "")
   
+  conn <- dbConnect(duckdb())
+  DBI::dbExecute(conn, "INSTALL httpfs;")
+  DBI::dbExecute(conn, "LOAD httpfs;")
+  
   sql <- sprintf("
   CREATE OR REPLACE SECRET s3_minio_osn (
     TYPE S3,
@@ -78,7 +82,6 @@ if(length(submissions) > 0){
   )
 ", key_id, secret)
   
-  conn <- dbConnect(duckdb())
   DBI::dbExecute(conn, sql)
   
   # duckdbfs::duckdb_secrets(

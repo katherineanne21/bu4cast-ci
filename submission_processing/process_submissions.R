@@ -65,27 +65,19 @@ if(length(submissions) > 0){
 
   # Connect to DuckDB - helps write to S3 bucket
   
-  sql <- "
+  sql <- sprintf("
   CREATE OR REPLACE SECRET s3_minio_osn (
     TYPE S3,
-    KEY_ID $key,
-    SECRET $secret,
+    KEY_ID '%s',
+    SECRET '%s',
     ENDPOINT 'https://minio-s3.apps.shift.nerc.mghpcc.org',
     REGION 'us-east-1',
     USE_SSL TRUE
   )
-  "
+", key_id, secret)
   
   conn <- dbConnect(duckdb())
-  
-  DBI::dbExecute(
-    conn,
-    sql,
-    params = list(
-      key    = Sys.getenv("AWS_ACCESS_KEY_ID", ""),
-      secret = Sys.getenv("AWS_SECRET_ACCESS_KEY", "")
-    )
-  )
+  DBI::dbExecute(conn, sql)
   
   # duckdbfs::duckdb_secrets(
   #                        endpoint = config$endpoint,

@@ -91,7 +91,8 @@ cci_corrected <- raw_data %>%
       observation
     )
   ) %>%
-  dplyr::select(-month, -median_ratio, -date)
+  dplyr::select(-month, -median_ratio, -date) %>%
+  dplyr::mutate(variable = "chlora_cci_corrected")
 
 corrected_data <- dplyr::bind_rows(buoy_data, cci_corrected) %>%
   dplyr::arrange(site_id, datetime, variable)

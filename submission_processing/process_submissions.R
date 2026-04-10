@@ -63,11 +63,30 @@ if(length(submissions) > 0){
 
   # Connect to DuckDB - helps write to S3 bucket
   
-  duckdbfs::duckdb_secrets(
-                         endpoint = config$endpoint,
-                         key = Sys.getenv("OSN_KEY"),
-                         secret = Sys.getenv("OSN_SECRET"),
-                         secret_name = config$duckdb_secret_name)
+  sql <- "
+  CREATE OR REPLACE SECRET s3_minio_osn (
+    TYPE S3,
+    KEY_ID $key,
+    SECRET $secret,
+    ENDPOINT 'https://minio-s3.apps.shift.nerc.mghpcc.org',
+    REGION 'us-east-1',
+    USE_SSL TRUE
+  )
+  "
+  
+  DBI::dbExecute(
+    conn,
+    sql,
+    params = list(
+      key    = Sys.getenv("AWS_ACCESS_KEY_ID", ""),
+      secret = Sys.getenv("AWS_SECRET_ACCESS_KEY", "")
+    )
+  )
+  
+  # duckdbfs::duckdb_secrets(
+  #                        endpoint = config$endpoint,
+  #                        key = Sys.getenv("OSN_KEY"),
+  #                        secret = Sys.getenv("OSN_SECRET"))
 
   s3_read <- arrow::s3_bucket(config$s3_bucket_read,
                          endpoint_override = config$endpoint,

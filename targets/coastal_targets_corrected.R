@@ -104,7 +104,7 @@ arrow::write_csv_arrow(corrected_data, sink = s3$path(corr_filename))
 
 message("Pinging health check...")
 tryCatch(
-  RCurl::getURL(config$target_groups$Coastal$health_check_url_c)
+  RCurl::getURL(config$target_groups$Coastal$health_check_url_c),
   error = function(e) message("Health check ping failed: ", e$message)
 )
 

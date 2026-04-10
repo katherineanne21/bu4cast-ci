@@ -1,4 +1,4 @@
-name: Coastal Targets Corrected
+name: Coastal Target Correction
 
 on:
   workflow_dispatch:

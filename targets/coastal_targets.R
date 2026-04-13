@@ -111,12 +111,16 @@ get_buoy_data <- function(start_date, end_date) {
 
 # Download data
 if (start_date_buoy <= end_date) {
-  progress_msg("BUOY download", 0, 1)
-  buoy_data <- get_buoy_data(start_date_buoy_chr, end_date_chr)
-  progress_msg("BUOY download", 1, 1)
+  buoy_data <- tryCatch({
+    get_buoy_data(start_date_buoy_chr, end_date_chr)
+  }, error = function(e) {
+    message("Buoy download failed (may be offline): ", conditionMessage(e))
+    data.frame()
+  })
 } else {
   buoy_data <- data.frame()
 }
+
 
 # Safeguard if there's no new buoy data
 buoy_has_data <- nrow(buoy_data) > 0
@@ -227,6 +231,7 @@ if (start_date_occci > end_date_occci) {
 
   message("OC-CCI new dates to process: ", length(days),
           if (length(days) > 0) paste0(" (", min(days), " to ", max(days), ")") else "")
+            
 total_days <- length(days)
 progress_msg("CCI download", 0, total_days)
           
@@ -421,10 +426,6 @@ if (!exists("k_cci") || is.na(k_cci) || k_cci == 0) {
     dplyr::mutate(
       chlorophyll = dplyr::if_else(is.nan(chlorophyll), NA_real_, chlorophyll)
     )
-
-  # filter exclude dates and minimum buoy chlorophyll
-  cci_daily <- cci_daily %>%
-    dplyr::filter(!date %in% exclude_dates)
 
   cci_formatted <- cci_daily %>%
     to_standard_chlora(site_id = buoy_site_id, mode = "cci")

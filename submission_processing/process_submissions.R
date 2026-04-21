@@ -50,7 +50,7 @@ print("Submissions Bucket")
 print(paste0(config$s3_bucket_write, "/", config$submissions_bucket, "/"))
 
 minioclient::mc_cp(
-  from = paste0(config$s3_bucket_write, "/", config$submissions_bucket, "/"),
+  from = "bu4cast-ci-write/bu4cast-ci-write/challenges/project_id=bu4cast/submissions/",
   to   = local_dir,
   recursive = TRUE
 )

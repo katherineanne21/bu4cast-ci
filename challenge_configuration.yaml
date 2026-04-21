@@ -12,6 +12,7 @@ duckdb_secret_name: "s3_minio_osn"
 forecasts_bucket: 'challenges/project_id=bu4cast/forecasts'
 #summaries_bucket: bio230014-bucket01/challenges/forecasts
 submissions_bucket: challenges/project_id=bu4cast/submissions
+submissions_write_bucket: bu4cast-ci-write/bu4cast-ci-write/challenges/project_id=bu4cast/submissions/
 #noaa_forecast_bucket: bio230014-bucket01/neon4cast-drivers/noaa/gefs-v12
 targets_bucket: 'challenges/project_id=bu4cast/targets'
 target_metadata_bucket: 'challenges/project_id=bu4cast/metadata'

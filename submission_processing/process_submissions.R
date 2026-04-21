@@ -115,6 +115,7 @@ if(length(submissions) > 0){
     # not_tg <- stringr::str_detect(curr_submission, "tg", negate = TRUE)
     not_tg <- TRUE
 
+    print(file_name_reference_datetime)
     # Only read in correctly formatted filenames
     if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & !is.na(file_name_reference_datetime)){
 

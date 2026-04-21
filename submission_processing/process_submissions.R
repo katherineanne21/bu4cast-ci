@@ -123,6 +123,8 @@ if(length(submissions) > 0){
     # Only read in correctly formatted filenames
     if((tools::file_ext(curr_submission) %in% c("gz", "csv", "nc")) & not_tg & !is.na(file_name_reference_datetime)){
 
+      print('Filename format correct')
+      
       # Check format of file itself (eco4cast)
       valid <- forecast_output_validator(file.path(local_dir, curr_submission))
       

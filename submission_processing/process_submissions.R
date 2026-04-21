@@ -57,7 +57,6 @@ print('Submissions')
 print(submissions)
 
 submissions <- submissions[stringr::str_detect(submissions, "usgsrc4cast", negate = TRUE)] # filter usgsrc4cast files out 
-submissions <- submissions[stringr::str_detect(submissions, config$submissions_bucket)] # grab just submissions
 submissions_filenames <- basename(submissions) # grab just the filename not full path
 
 print('Filenames')

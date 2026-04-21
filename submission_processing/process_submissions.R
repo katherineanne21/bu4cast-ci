@@ -47,7 +47,7 @@ message("Downloading forecasts ...")
 
 # Download write bucket to local directory
 print("Submissions Bucket")
-print(str(config$submissions_bucket))
+print(config$submissions_bucket)
 
 minioclient::mc_cp(
   from = paste0(config$s3_bucket_write, str(config$submissions_bucket)),

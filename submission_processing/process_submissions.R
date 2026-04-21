@@ -46,11 +46,8 @@ fs::dir_create(local_dir)
 message("Downloading forecasts ...")
 
 # Download write bucket to local directory
-print("Submissions Bucket")
-print(paste0(config$s3_bucket_write, "/", config$submissions_bucket, "/"))
-
 minioclient::mc_cp(
-  from = "bu4cast-ci-write/bu4cast-ci-write/challenges/project_id=bu4cast/submissions/",
+  from = config$submissions_write_bucket,
   to   = local_dir,
   recursive = TRUE
 )
@@ -105,6 +102,8 @@ if(length(submissions) > 0){
   # Process each submission
   
   for(i in 1:length(submissions)){
+    
+    print(submissions[i])
 
     curr_submission <- basename(submissions[i]) # grab submission name
     theme <-  stringr::str_split(curr_submission, "-")[[1]][1] # grab category
@@ -121,7 +120,9 @@ if(length(submissions) > 0){
 
       # Check format of file itself (eco4cast)
       valid <- forecast_output_validator(file.path(local_dir, curr_submission))
-
+      
+      print(paste0("Is the submission valid:", valid))
+      
       if(valid){
         
         # Pull out forecast

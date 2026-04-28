@@ -12,6 +12,8 @@ library(stringr)
 library(lubridate)
 library(duckdb)
 library(DBI)
+source("forecast_output_validator.R")
+
 
 install_mc()
 
@@ -126,7 +128,7 @@ if(length(submissions) > 0){
       print('Filename format correct')
       
       # Check format of file itself (eco4cast)
-      valid <- forecast_output_validator(file.path(local_dir, curr_submission))
+      valid <- forecast_output_validator_bu4cast(file.path(local_dir, curr_submission))
       
       print(paste0("Is the submission valid:", valid))
       

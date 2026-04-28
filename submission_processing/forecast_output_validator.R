@@ -54,6 +54,7 @@ forecast_output_validator_bu4cast <- function(forecast_file){
     }
     
     # Check Variable Duration Combinations
+    unique_variables <- unique(out$variable)
     
     if(lexists(out, c("duration"))){
       

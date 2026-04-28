@@ -27,6 +27,8 @@ forecast_output_validator_bu4cast <- function(forecast_file){
     # if file is csv zip file
     out <- readr::read_csv(file_in, guess_max = 1e6, show_col_types = FALSE)
     
+    print(colnames(out))
+    
     if(lexists(out, c("model_id"))){
       usethis::ui_done("file has model_id column")
       if(length(unique(out$model_id)) == 1){
@@ -53,36 +55,42 @@ forecast_output_validator_bu4cast <- function(forecast_file){
     
     # Check Variable Duration Combinations
     
-    out_check <- out %>%
-      group_by(variable) %>% # find all unique variable names
-      summarise(
-        duration = first(duration),
-        n_duration = n_distinct(duration),
-        .groups = "drop" # Find all durations but only keep the first
-      ) %>%
-      left_join(
-        allowed_combinations,
-        by = c("variable", "duration"),
-        suffix = c("_out", "_allowed")
-      ) %>%
-      mutate( # ensure that this row exists in allowed_combo and there's only one duration
-        valid_variable_duration = !is.na(max_horizon) & n_duration == 1 
-      )
-    
-    for(i in 1:length(out_check)){
+    if(lexists(out, c("duration"))){
       
-      unique_out_variable = out_check[i, ]
+      out_check <- out %>%
+        group_by(variable) %>% # find all unique variable names
+        summarise(
+          duration = first(duration),
+          n_duration = n_distinct(duration),
+          .groups = "drop" # Find all durations but only keep the first
+        ) %>%
+        left_join(
+          allowed_combinations,
+          by = c("variable", "duration"),
+          suffix = c("_out", "_allowed")
+        ) %>%
+        mutate( # ensure that this row exists in allowed_combo and there's only one duration
+          valid_variable_duration = !is.na(max_horizon) & n_duration == 1 
+        )
       
-      if (unique_out_variable$valid_variable_duration) {
-        usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
-                                unique_out_variable$duration_out,
-                                " is a valid variable name duration combo"))
+      for(i in 1:length(out_check)){
+        
+        unique_out_variable = out_check[i, ]
+        
+        if (unique_out_variable$valid_variable_duration) {
+          usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
+                                  unique_out_variable$duration_out,
+                                  " is a valid variable name duration combo"))
+        }
+        else {
+          usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
+                                  unique_out_variable$duration_out,
+                                  " is NOT a valid variable name duration combo"))
+        }
       }
-      else {
-        usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
-                                unique_out_variable$duration_out,
-                                " is NOT a valid variable name duration combo"))
-      }
+      
+    }else{
+      usethis::ui_warn("file missing duration column (values for the column: daily = P1D, 30min = PT30M, Weekly = P1W, Hourly = PT1H)")
     }
     
     ######## PARAMETER FAMILY CHECK #############
@@ -140,20 +148,6 @@ forecast_output_validator_bu4cast <- function(forecast_file){
     }else{
       usethis::ui_warn("file missing datetime column")
       valid <- FALSE
-    }
-    
-    if(lexists(out, c("duration"))){
-      
-      duration_correct <- unique(out$duration) %in% c("P1D", "PT30M", "P1W", "PT1H")
-      
-      if(!all(duration_correct)){
-        usethis::ui_warn("Incorrect value for duration column (values for the column: daily = P1D, 30min = PT30M, Weekly = P1W, Hourly = PT1H)")
-        
-      }else{
-        usethis::ui_done("file has correct duration column")
-      }
-    }else{
-      usethis::ui_warn("file missing duration column (values for the column: daily = P1D, 30min = PT30M, Weekly = P1W, Hourly = PT1H)")
     }
     
     if(lexists(out, c("project_id"))){

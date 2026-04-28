@@ -86,7 +86,8 @@ target_groups:
     health_check_url: "https://hc-ping.com/af0bdaf6-3ec8-434b-bafd-d8fecc0508af"
     health_check_url_c: "https://hc-ping.com/323ad66e-b20d-4b41-b2f5-06df0bac6085"
     variable: ['chlora_buoy', 'chlora_cci']
-    duration: ['P1D', 'P1D', 'P1D']
+    duration: ['P1D', 'P1D']
+    max_horizon: [35, 35]
     buoy_lat: 43.022942490079
     buoy_lon: -70.5475341233827
     group_vars:

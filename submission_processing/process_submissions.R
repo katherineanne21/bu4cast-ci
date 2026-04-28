@@ -12,7 +12,7 @@ library(stringr)
 library(lubridate)
 library(duckdb)
 library(DBI)
-source("forecast_output_validator.R")
+source("submission_processing/forecast_output_validator.R")
 
 
 install_mc()

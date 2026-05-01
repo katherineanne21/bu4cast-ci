@@ -200,7 +200,14 @@ if(length(submissions) > 0){
         s3_read$CreateDir(paste0("parquet/"))
 
         ## arrow write has gone nuts... let's update
-        fc |> duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/parquet"),
+        # Using duckdbfs
+        duckdbfs::duckdb_s3_config(
+          s3_endpoint = config$submissions_endpoint,
+          s3_use_ssl = TRUE,
+          s3_url_style = "path"
+        )
+        
+        fc |> duckdbfs::write_dataset(paste0(config$processed_sub_bucket),
                                       format = 'parquet',
                                       partitioning = c("project_id",
                                                     "duration",
@@ -210,34 +217,34 @@ if(length(submissions) > 0){
                                       options = list("PER_THREAD_OUTPUT false"))
         print("creating summaries")
 
-        s3_read$CreateDir(paste0("summaries"))
-        fc |>
-          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
-                                                                                "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
-          score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
-          dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
-          duckdbfs::write_dataset(paste0("s3://", config$forecasts_bucket, "/summaries"), format = 'parquet',
-                               partitioning = c("project_id",
-                                                "duration",
-                                                "variable",
-                                                "model_id",
-                                                "reference_date"),
-                                 options = list("PER_THREAD_OUTPUT false"))
-
-        submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
-        fs::file_copy(submissions[i], submission_timestamp)
-        raw_bucket_object <- paste0("s3_store/",config$forecasts_bucket,"/raw/",basename(submission_timestamp))
-
-        minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
-
-        if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
-          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
-        }
-
-        print("finishing submission processing")
-
-        rm(fc)
-        gc()
+        # s3_read$CreateDir(paste0("summaries"))
+        # fc |>
+        #   dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
+        #                                                                         "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
+        #   score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
+        #   dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
+        #   duckdbfs::write_dataset(paste0(config$processed_sub_bucket), format = 'parquet',
+        #                        partitioning = c("project_id",
+        #                                         "duration",
+        #                                         "variable",
+        #                                         "model_id",
+        #                                         "reference_date"),
+        #                          options = list("PER_THREAD_OUTPUT false"))
+        # 
+        # submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
+        # fs::file_copy(submissions[i], submission_timestamp)
+        # raw_bucket_object <- paste0(config$processed_sub_bucket,"/raw/",basename(submission_timestamp))
+        # 
+        # minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
+        # 
+        # if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
+        #   minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+        # }
+        # 
+        # print("finishing submission processing")
+        # 
+        # rm(fc)
+        # gc()
 
       } else {
 

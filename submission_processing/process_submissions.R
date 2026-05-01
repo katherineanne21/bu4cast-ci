@@ -231,6 +231,8 @@ if(length(submissions) > 0){
                                                 "reference_date"),
                                  options = list("PER_THREAD_OUTPUT false"))
 
+        print('sumbission parquet filled')
+        
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
         raw_bucket_object <- paste0(config$processed_sub_bucket,"/raw/",basename(submission_timestamp))

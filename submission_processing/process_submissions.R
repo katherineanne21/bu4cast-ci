@@ -235,7 +235,7 @@ if(length(submissions) > 0){
         
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
-        raw_submissions_object <- file.path(config$raw_submissions_bucket, basename(submission_timestamp))
+        raw_submissions_object <- file.path(config$raw_submissions_bucket, curr_submission)
         #raw_bucket_object <- paste0(config$raw_submissions_bucket, basename(submission_timestamp))
 
         minioclient::mc_cp(submission_timestamp, raw_submissions_object)

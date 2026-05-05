@@ -3,9 +3,8 @@
 #' @param forecast_file forecast csv or csv.gz file
 #' @export
 
-forecast_output_validator_bu4cast <- function(forecast_file){
+forecast_output_validator_bu4cast <- function(forecast_file, config){
   
-  config <- yaml::read_yaml("challenge_configuration.yaml")
   allowed_combinations <- NULL
   for(i in 1:length(config$target_groups)){
     

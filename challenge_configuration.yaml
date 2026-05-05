@@ -62,9 +62,9 @@ target_groups:
   TropicalDisease:
     target_name: "tropical-disease"
     targets_filepath: "challenges/project_id=bu4cast/targets/tropical-disease-targets.csv"
-    #variable: ['nee','le']
-    #duration: ['P1D','P1D']
-    #max_horizon: [35, 35]
+    variable: ['nee','le'] # update
+    duration: ['P1D','P1D'] # update
+    max_horizon: [35, 35] # update
     #thumbnail_link: 'https://www.neonscience.org/sites/default/files/styles/640x384/public/2020-10/48540914326_749b0c2627_o.jpg'
     #thumbnail_title: 'NEON Field Tower'
     #group_vars:

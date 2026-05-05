@@ -235,12 +235,22 @@ if(length(submissions) > 0){
         
         submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         fs::file_copy(submissions[i], submission_timestamp)
-        raw_bucket_object <- paste0(config$processed_sub_bucket,"/raw/",basename(submission_timestamp))
+        #raw_submissions_object <- file.path(config$raw_submissions_bucket, basename(submission_timestamp))
+        raw_bucket_object <- paste0(config$raw_submissions_bucket, basename(submission_timestamp))
 
-        minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
+        minioclient::mc_cp(submission_timestamp, raw_submissions_object)
+        #minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
 
-        if(length(minioclient::mc_ls(raw_bucket_object)) > 0){
-          minioclient::mc_rm(file.path("submit",config$submissions_bucket,curr_submission))
+        submission_object = file.path(
+          "bu4cast-ci-write",
+          "challenges",
+          "project_id=bu4cast",
+          "submissions",
+          basename(submissions[i])
+        )
+        
+        if (length(minioclient::mc_ls(submission_object)) > 0) {
+          minioclient::mc_rm(submission_object)
         }
 
         print("finishing submission processing")

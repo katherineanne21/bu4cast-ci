@@ -240,23 +240,12 @@ if(length(submissions) > 0){
         print(raw_submissions_object)
         #raw_bucket_object <- paste0(config$raw_submissions_bucket, basename(submission_timestamp))
 
-        print(paste0(config$submissions_write_bucket, curr_submission))
+        
         minioclient::mc_cp(paste0(config$submissions_write_bucket, curr_submission),
                            raw_submissions_object)
         #minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))
-
-        submission_object = file.path(
-          "bu4cast-ci-write",
-          "challenges",
-          "project_id=bu4cast",
-          "submissions",
-          basename(submissions[i])
-        )
+        minioclient::mc_rm(paste0(config$submissions_write_bucket, curr_submission))
         
-        if (length(minioclient::mc_ls(submission_object)) > 0) {
-          minioclient::mc_rm(submission_object)
-        }
-
         print("finishing submission processing")
 
         rm(fc)

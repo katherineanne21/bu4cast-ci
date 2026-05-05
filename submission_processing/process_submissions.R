@@ -240,6 +240,7 @@ if(length(submissions) > 0){
         print(raw_submissions_object)
         #raw_bucket_object <- paste0(config$raw_submissions_bucket, basename(submission_timestamp))
 
+        print(paste0(config$submissions_write_bucket, curr_submission))
         minioclient::mc_cp(paste0(config$submissions_write_bucket, curr_submission),
                            raw_submissions_object)
         #minioclient::mc_cp(submission_timestamp, paste0(dirname(raw_bucket_object),"/", basename(submission_timestamp)))

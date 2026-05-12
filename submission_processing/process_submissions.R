@@ -225,7 +225,7 @@ if(length(submissions) > 0){
                                                     "model_id",
                                                     "reference_date"),
                                       options = list("PER_THREAD_OUTPUT false"))
-        print("creating summaries")
+        print("checking duplicates")
         
         duplicate_rows <- fc |>
           add_count(site_id, datetime, reference_datetime, family, duration, 
@@ -236,6 +236,8 @@ if(length(submissions) > 0){
 
         print(duplicate_rows)
 
+        print("creating summaries")
+        
         s3_read$CreateDir(paste0("summaries"))
         fc |>
           dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",

@@ -48,10 +48,20 @@ fs::dir_create(local_dir)
 message("Downloading forecasts ...")
 
 # Download write bucket to local directory
-minioclient::mc_cp(
-  from = config$submissions_write_bucket,
-  to   = local_dir,
-  recursive = TRUE
+# Safety net for no submissions
+tryCatch(
+  {
+    minioclient::mc_cp(
+      from = config$submissions_write_bucket,
+      to   = local_dir,
+      recursive = TRUE
+    )
+    message("Data Read In From S3")
+  },
+  error = function(e) {
+    message("Reading Data Failed: ", conditionMessage(e))
+    stop(e)
+  }
 )
 
 submissions <- fs::dir_ls(local_dir, recurse = TRUE, type = "file") # lists all files in local_dir

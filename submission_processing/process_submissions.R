@@ -226,6 +226,15 @@ if(length(submissions) > 0){
                                                     "reference_date"),
                                       options = list("PER_THREAD_OUTPUT false"))
         print("creating summaries")
+        
+        duplicate_rows <- fc |>
+          add_count(site_id, datetime, reference_datetime, family, duration, 
+                    model_id, parameter, pub_datetime, reference_date, 
+                    variable, project_id) |>
+          filter(n > 1) |>
+          arrange(site_id, datetime, reference_datetime, model_id, variable)
+
+        print(duplicate_rows)
 
         s3_read$CreateDir(paste0("summaries"))
         fc |>

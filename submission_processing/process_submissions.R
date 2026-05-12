@@ -60,7 +60,7 @@ tryCatch(
   },
   error = function(e) {
     message("Reading Data Failed: ", conditionMessage(e))
-    stop(e)
+    quit(status = 0)
   }
 )
 

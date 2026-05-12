@@ -55,7 +55,7 @@ forecast_output_validator_bu4cast <- function(forecast_file, config){
     # Check Variable Duration Combinations
     unique_variables <- unique(out$variable)
     
-    if(lexists(out, c("duration"))){
+    if("duration" %in% names(out)){
       
       out_check <- out %>%
         group_by(variable) %>% # find all unique variable names
@@ -73,18 +73,18 @@ forecast_output_validator_bu4cast <- function(forecast_file, config){
           valid_variable_duration = !is.na(max_horizon) & n_duration == 1 
         )
       
-      for(i in 1:length(out_check)){
+      for(i in seq_len(nrow(out_check))){
         
         unique_out_variable = out_check[i, ]
         
-        if (unique_out_variable$valid_variable_duration) {
-          usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
-                                  unique_out_variable$duration_out,
+        if (isTRUE(unique_out_variable$valid_variable_duration)) {
+          usethis::ui_done(paste0(unique_out_variable$variable, " / ",
+                                  unique_out_variable$duration,
                                   " is a valid variable name duration combo"))
         }
         else {
-          usethis::ui_done(paste0(unique_out_variable$variable_out, " / ",
-                                  unique_out_variable$duration_out,
+          usethis::ui_done(paste0(unique_out_variable$variable, " / ",
+                                  unique_out_variable$duration,
                                   " is NOT a valid variable name duration combo"))
         }
       }

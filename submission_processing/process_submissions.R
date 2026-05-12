@@ -217,7 +217,7 @@ if(length(submissions) > 0){
           s3_url_style = "path"
         )
         
-        fc |> duckdbfs::write_dataset(paste0(config$processed_sub_bucket),
+        fc |> duckdbfs::write_dataset(paste0(config$sub_parquet_bucket),
                                       format = 'parquet',
                                       partitioning = c("project_id",
                                                     "duration",

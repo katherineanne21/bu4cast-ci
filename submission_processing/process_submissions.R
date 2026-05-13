@@ -217,42 +217,42 @@ if(length(submissions) > 0){
           s3_url_style = "path"
         )
         
+        print("creating summaries")
+        
+        success <- tryCatch({
+          s3_read$CreateDir(paste0("summaries"))
+          fc |>
+            dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
+                                                                                  "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
+            score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
+            dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
+            duckdbfs::write_dataset(paste0(config$processed_sub_bucket), format = 'parquet',
+                                 partitioning = c("project_id",
+                                                  "duration",
+                                                  "variable",
+                                                  "model_id",
+                                                  "reference_date"),
+                                   options = list("PER_THREAD_OUTPUT false"))
+          TRUE  # success
+        }, error = function(e) {
+          cat("ERROR processing forecast:", conditionMessage(e), "\n")
+          cat("Skipping entire iteration...\n\n")
+          FALSE  # failure
+        })
+        
+        # Skip to next file
+        if (!success) next
+
+        print('filling sumbission parquet')
+        
         fc |> duckdbfs::write_dataset(paste0(config$sub_parquet_bucket),
                                       format = 'parquet',
                                       partitioning = c("project_id",
-                                                    "duration",
-                                                    "variable",
-                                                    "model_id",
-                                                    "reference_date"),
+                                                       "duration",
+                                                       "variable",
+                                                       "model_id",
+                                                       "reference_date"),
                                       options = list("PER_THREAD_OUTPUT false"))
-        print("checking duplicates")
-        
-        duplicate_rows <- fc |>
-          add_count(site_id, datetime, reference_datetime, family, duration, 
-                    model_id, parameter, pub_datetime, reference_date, 
-                    variable, project_id) |>
-          filter(n > 1) |>
-          arrange(site_id, datetime, reference_datetime, model_id, variable)
-
-        print(duplicate_rows)
-
-        print("creating summaries")
-        
-        s3_read$CreateDir(paste0("summaries"))
-        fc |>
-          dplyr::summarise(prediction = mean(prediction), .by = dplyr::any_of(c("site_id", "datetime", "reference_datetime", "family", "duration", "model_id",
-                                                                                "parameter", "pub_datetime", "reference_date", "variable", "project_id"))) |>
-          score4cast::summarize_forecast(extra_groups = c("duration", "project_id")) |>
-          dplyr::mutate(reference_date = lubridate::as_date(reference_datetime)) |>
-          duckdbfs::write_dataset(paste0(config$processed_sub_bucket), format = 'parquet',
-                               partitioning = c("project_id",
-                                                "duration",
-                                                "variable",
-                                                "model_id",
-                                                "reference_date"),
-                                 options = list("PER_THREAD_OUTPUT false"))
-
-        print('sumbission parquet filled')
         
         #submission_timestamp <- paste0(submission_dir,"/T", time_stamp, "_", basename(submissions[i]))
         #fs::file_copy(submissions[i], submission_timestamp)
